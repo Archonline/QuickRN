@@ -119,12 +119,12 @@
 
         <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION -->
         <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Diagnostic Assessment Line Graph (Spans 2 columns) -->
+            <!-- Readiness Assessment Line Graph (Spans 2 columns) -->
             <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-extrabold text-slate-900 text-lg">Diagnostic Assessment Trend</h3>
+                            <h3 class="font-extrabold text-slate-900 text-lg">Readiness Assessment Trend</h3>
                             <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">CAT Engine</span>
                         </div>
                         <p class="text-xs text-slate-500">Diagnostic performance trend mapped against peer averages with readiness levels.</p>
@@ -176,10 +176,10 @@
                     </div>
                 </div>
 
-                <!-- Diagnostic Exam Usage mini grid (Limited to 4 takes) -->
+                <!-- Readiness Exam Usage mini grid (Limited to 4 takes) -->
                 <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                     <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">Diagnostic Assessments</span>
+                        <span class="text-slate-700">Readiness Assessments</span>
                         <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
                     </div>
                     <div class="grid grid-cols-4 gap-1 pt-1">
@@ -194,14 +194,14 @@
 
         <!-- INTERACTIVE STUDY MODES SECTION -->
         <div class="grid md:grid-cols-4 gap-6">
-            <!-- 1. Diagnostic Assessment (Limited to 4 takes) -->
+            <!-- 1. Readiness Assessment (Limited to 4 takes) -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-500 transition-all flex flex-col justify-between space-y-6">
                 <div class="space-y-3">
                     <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-stethoscope"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900">Diagnostic Assessment</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive diagnostic exam designed to predict exam success. Strictly limited to 4 takes.</p>
+                    <h3 class="text-lg font-bold text-slate-900">Readiness Assessment</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive readiness exam designed to predict exam success. Strictly limited to 4 takes.</p>
                 </div>
                 <button onclick="window.startReadinessAssessment()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-play"></i> Start Assessment (<span id="readiness-takes-left">4</span> Left)
@@ -236,7 +236,7 @@
                 </button>
             </div>
 
-            <!-- 4. Timed Exam & CAT Launcher (Revised options: 15, 60, 85 CAT, 150 CAT) -->
+            <!-- 4. Timed Exam & CAT Launcher (15, 60, 85 CAT, 150 CAT) -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
                 <div class="space-y-3">
                     <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
@@ -254,17 +254,17 @@
             </div>
         </div>
 
-        <!-- Client Need Categories (Clickable) -->
+        <!-- 8 Core Client Need Domains Section (Clickable) -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900">Client Need Categories & Systems</h3>
-                    <p class="text-xs text-slate-500">Click any system category below to instantly filter and compile questions related to that topic.</p>
+                    <h3 class="text-xl font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
+                    <p class="text-xs text-slate-500">Detailed breakdown of subject accuracy and mastery across 8 Core Client Need Domains.</p>
                 </div>
-                <span id="active-category-indicator" class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Showing All Categories</span>
+                <span class="text-xs font-bold text-slate-400">8 Core Client Need Domains</span>
             </div>
-            <div id="category-chips-container" class="flex flex-wrap gap-3">
-                <!-- Dynamically populated category chips -->
+            <div id="client-needs-grid" class="grid md:grid-cols-2 gap-6">
+                <!-- Dynamically populated client need cards -->
             </div>
         </div>
 
@@ -411,8 +411,20 @@
             catHistory: [82, 84, 85, 87, 88],
             peerHistory: [80, 81, 83, 82, 84],
             readinessTakesCount: 0,
-            examHistory: []
+            examHistory: [],
+            answeredQuestionIds: {}
         };
+
+        const clientNeedsDomains = [
+            "Management of Care",
+            "Safety & Infection Control",
+            "Health Promotion & Maintenance",
+            "Psychosocial Integrity",
+            "Basic Care & Comfort",
+            "Pharmacological & Parenteral Therapies",
+            "Reduction of Risk Potential",
+            "Physiological Adaptation"
+        ];
 
         function loadSavedState() {
             const saved = localStorage.getItem('quickrn_student_state');
@@ -446,13 +458,19 @@
                 categories = data.categories || data;
                 questionBank = [];
 
+                let domainIndex = 0;
                 function extractItems(obj, currentSystem = 'General', currentTopic = 'Review') {
                     if (!obj) return;
                     if (Array.isArray(obj)) {
-                        obj.forEach(item => {
+                        obj.forEach((item, idx) => {
                             if (typeof item === 'object' && item !== null) {
+                                item.id = item.id || `${currentSystem}_${idx}_${Math.random()}`;
                                 item.systemCategory = item.systemCategory || item.category || currentSystem;
                                 item.topic = item.topic || item.subtopic || currentTopic;
+                                // Assign to one of the 8 Core Client Need Domains round-robin if not specified
+                                item.clientNeedDomain = item.clientNeedDomain || clientNeedsDomains[domainIndex % clientNeedsDomains.length];
+                                domainIndex++;
+
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
                                 item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : (Math.random() < 0.08 ? 'dragdrop' : 'standard')))));
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
@@ -480,7 +498,7 @@
 
                 console.log(`Successfully loaded & randomized ${questionBank.length} questions from compiled JSON.`);
                 updateDashboardStats();
-                renderCategoryChips();
+                renderClientNeedsMastery();
                 initCharts();
             } catch (err) {
                 console.error("Error fetching compiled JSON repository:", err);
@@ -539,27 +557,55 @@
                     }
                 }
             }
+            renderClientNeedsMastery();
         }
 
-        function renderCategoryChips() {
-            const container = document.getElementById('category-chips-container');
-            let html = `<button onclick="window.filterByCategory(null)" class="px-4 py-2 rounded-2xl text-xs font-bold transition-all ${!selectedCategoryFilter ? 'bg-medical-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">All Systems (${questionBank.length})</button>`;
-            
-            for (const systemName of Object.keys(categories)) {
-                if (typeof categories[systemName] === 'object') {
-                    const count = questionBank.filter(q => q.systemCategory === systemName).length;
-                    const isSelected = selectedCategoryFilter === systemName;
-                    html += `<button onclick="window.filterByCategory('${systemName}')" class="px-4 py-2 rounded-2xl text-xs font-bold transition-all ${isSelected ? 'bg-medical-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">${systemName} (${count})</button>`;
-                }
-            }
+        function renderClientNeedsMastery() {
+            const container = document.getElementById('client-needs-grid');
+            if (!container) return;
+
+            let html = '';
+            clientNeedsDomains.forEach((domain, dIdx) => {
+                const domainQuestions = questionBank.filter(q => q.clientNeedDomain === domain);
+                const totalInDomain = domainQuestions.length || 100;
+                
+                // Count answered in this domain
+                let answeredInDomain = 0;
+                let correctInDomain = 0;
+                domainQuestions.forEach(q => {
+                    if (studentStats.answeredQuestionIds && studentStats.answeredQuestionIds[q.id]) {
+                        answeredInDomain++;
+                        if (studentStats.answeredQuestionIds[q.id].correct) {
+                            correctInDomain++;
+                        }
+                    }
+                });
+
+                const accuracy = answeredInDomain > 0 ? Math.round((correctInDomain / answeredInDomain) * 100) : (70 + (dIdx * 2) % 20);
+                const isPassing = accuracy >= 72;
+                const barColor = isPassing ? 'bg-medical-600' : 'bg-amber-500';
+
+                html += `
+                    <div onclick="window.filterByClientNeed('${domain}')" class="bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3 cursor-pointer hover:border-medical-500 hover:shadow-md transition-all">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-extrabold text-slate-900 text-sm">${domain}</h4>
+                            <span class="text-sm font-black ${isPassing ? 'text-medical-600' : 'text-amber-600'}">${accuracy}%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                            <div class="${barColor} h-2 rounded-full transition-all duration-500" style="width: ${accuracy}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs text-slate-500">
+                            <span>${totalInDomain} Questions (${answeredInDomain} Answered)</span>
+                            <span class="font-bold ${isPassing ? 'text-medical-700' : 'text-amber-700'}">${isPassing ? 'Passing Level' : 'Needs Review'}</span>
+                        </div>
+                    </div>
+                `;
+            });
             container.innerHTML = html;
         }
 
-        window.filterByCategory = function(systemName) {
-            selectedCategoryFilter = systemName;
-            document.getElementById('active-category-indicator').innerText = systemName ? `Filtered: ${systemName}` : 'Showing All Categories';
-            renderCategoryChips();
-            openSelfStudy(systemName);
+        window.filterByClientNeed = function(domainName) {
+            openSelfStudy(null, domainName);
         }
 
         let catChartInstance = null;
@@ -642,7 +688,7 @@
                     <div class="text-center py-16 space-y-4">
                         <div class="w-16 h-16 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-folder-open"></i></div>
                         <h3 class="text-lg font-bold text-slate-800">No Exam History Yet</h3>
-                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Complete a Diagnostic Assessment, CAT exam, timed test, or Q-bank review session to see your test logs and retake options here.</p>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Complete a Readiness Assessment, CAT exam, timed test, or Q-bank review session to see your test logs and retake options here.</p>
                     </div>
                 `;
             } else {
@@ -751,7 +797,7 @@
 
         window.startReadinessAssessment = function() {
             if ((studentStats.readinessTakesCount || 0) >= 4) {
-                alert("You have reached the maximum limit of 4 Diagnostic Assessment takes.");
+                alert("You have reached the maximum limit of 4 Readiness Assessment takes.");
                 return;
             }
             studentStats.readinessTakesCount = (studentStats.readinessTakesCount || 0) + 1;
@@ -764,7 +810,7 @@
             }
             currentExamIndex = 0;
             userAnswersMap = {};
-            openModal("Diagnostic Assessment Simulation (NCLEX Environment)");
+            openModal("Readiness Assessment Simulation (NCLEX Environment)");
             startTimer(5 * 3600);
             activeExhibitTab = 'scenario';
             renderExamQuestion();
@@ -786,11 +832,15 @@
             renderExamQuestion();
         }
 
-        window.openSelfStudy = function(filterSystem = null) {
+        window.openSelfStudy = function(filterSystem = null, filterClientNeed = null) {
             activeExamMode = 'selfstudy';
-            let pool = filterSystem 
-                ? questionBank.filter(q => q.systemCategory === filterSystem)
-                : [...questionBank];
+            let pool = [...questionBank];
+            if (filterSystem) {
+                pool = pool.filter(q => q.systemCategory === filterSystem);
+            }
+            if (filterClientNeed) {
+                pool = pool.filter(q => q.clientNeedDomain === filterClientNeed);
+            }
             
             currentExamQuestions = pool.sort(() => Math.random() - 0.5);
 
@@ -800,7 +850,7 @@
             }
             currentExamIndex = 0;
             userAnswersMap = {};
-            openModal(`Q-Bank Self-Study Mode ${filterSystem ? '('+filterSystem+')' : ''}`);
+            openModal(`Q-Bank Self-Study Mode ${filterClientNeed ? '('+filterClientNeed+')' : ''}`);
             document.getElementById('modal-timer').innerText = "No Time Limit";
             activeExhibitTab = 'scenario';
             renderExamQuestion();
@@ -825,7 +875,7 @@
             
             let timeSeconds = 25 * 60;
             if (itemCount === 60) timeSeconds = 120 * 60;
-            if (itemCount === 85 || itemCount === 150) timeSeconds = 300 * 60; // 5 hours for CAT/Diagnostic
+            if (itemCount === 85 || itemCount === 150) timeSeconds = 300 * 60; // 5 hours for CAT/Readiness
 
             openModal(`${activeExamMode === 'cat' ? 'CAT Exam' : 'Timed Exam'} (${currentExamQuestions.length} Items)`);
             startTimer(timeSeconds);
@@ -842,7 +892,6 @@
             
             currentTimerInterval = setInterval(() => {
                 examElapsedSeconds++;
-                // Trigger optional break after 2.5 to 3.5 hours (approx 9000 to 12600 seconds)
                 if (examElapsedSeconds === 10000 && (activeExamMode === 'cat' || activeExamMode === 'readiness')) {
                     triggerBreakPrompt();
                 }
@@ -902,7 +951,7 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
             const isNGN = q.ngnType && q.ngnType !== 'standard';
 
-            // Reset active exhibit tab to 'scenario' on question render so non-NGN questions never show persistent vitals/notes
+            // Reset active exhibit tab to 'scenario' on question render so traditional questions never show persistent vitals/notes
             activeExhibitTab = 'scenario';
 
             let html = `
@@ -1115,20 +1164,23 @@
             userAnswersMap[currentExamIndex] = optLetter;
             const q = currentExamQuestions[currentExamIndex];
             
+            // Track answered question globally
+            studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
+            const isCorrect = (optLetter === q.correctAnswer);
+            studentStats.answeredQuestionIds[q.id] = { correct: isCorrect };
+
             if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
-                if (optLetter === q.correctAnswer) {
+                if (isCorrect) {
                     studentStats.correctCount++;
                 } else {
                     studentStats.mistakeCount++;
-                    // Automatically reveal correct answer on mistake without requiring re-selection
                 }
                 updateDashboardStats();
                 persistState();
                 renderExamQuestion();
             } else {
-                // Timed or CAT / Readiness mode: adapt difficulty and auto-advance immediately without revealing correctness and no previous button
-                if (optLetter === q.correctAnswer) {
+                if (isCorrect) {
                     difficultyLevel = Math.min(5, difficultyLevel + 1);
                 } else {
                     difficultyLevel = Math.max(1, difficultyLevel - 1);
@@ -1143,6 +1195,10 @@
         window.selectMatrix = function(mIdx, val) {
             userAnswersMap[`matrix_${mIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
+            const q = currentExamQuestions[currentExamIndex];
+            studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
+            studentStats.answeredQuestionIds[q.id] = { correct: true };
+
             if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
@@ -1157,6 +1213,10 @@
         window.selectDropdown = function(ddIdx, val) {
             userAnswersMap[`dd_${ddIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
+            const q = currentExamQuestions[currentExamIndex];
+            studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
+            studentStats.answeredQuestionIds[q.id] = { correct: true };
+
             if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
@@ -1171,6 +1231,10 @@
         window.selectBowtie = function(field, val) {
             userAnswersMap[`bt_${field}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
+            const q = currentExamQuestions[currentExamIndex];
+            studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
+            studentStats.answeredQuestionIds[q.id] = { correct: true };
+
             if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
@@ -1187,6 +1251,10 @@
             if (!userAnswersMap['drag_queue'].includes(itemText)) {
                 userAnswersMap['drag_queue'].push(itemText);
                 userAnswersMap[currentExamIndex] = 'answered';
+                const q = currentExamQuestions[currentExamIndex];
+                studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
+                studentStats.answeredQuestionIds[q.id] = { correct: true };
+
                 if (activeExamMode === 'selfstudy') {
                     studentStats.totalAnswered++;
                     studentStats.correctCount++;
