@@ -215,7 +215,7 @@
                         <i class="fa-solid fa-laptop-medical"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling (max 150 items with stop rules).</p>
                 </div>
                 <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-play"></i> Launch CAT Simulator
@@ -931,7 +931,7 @@
                                 <i class="fa-solid fa-laptop-medical"></i>
                             </div>
                             <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
+                            <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling (max 150 items with stop rules).</p>
                         </div>
                         <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                             <i class="fa-solid fa-play"></i> Launch CAT Simulator
@@ -1204,7 +1204,7 @@
         window.startCatSimulation = function() {
             activeExamMode = 'cat';
             difficultyLevel = 3;
-            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
+            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 150);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
                 return;
@@ -1628,6 +1628,24 @@
             if (activeExamMode !== 'selfstudy' && userAnswersMap[currentExamIndex] === undefined) {
                 document.getElementById('warning-modal').classList.remove('hidden');
                 return;
+            }
+
+            // CAT stop rules check (minimum 75 items if activeExamMode is cat)
+            if (activeExamMode === 'cat' && currentExamIndex >= 74) {
+                let currentCorrect = 0;
+                let currentAttempted = 0;
+                for (let i = 0; i <= currentExamIndex; i++) {
+                    const ans = userAnswersMap[i];
+                    if (ans !== undefined) {
+                        currentAttempted++;
+                        if (ans === currentExamQuestions[i].correctAnswer) currentCorrect++;
+                    }
+                }
+                const runningAccuracy = currentAttempted > 0 ? (currentCorrect / currentAttempted) : 0;
+                if (runningAccuracy >= 0.72 || runningAccuracy < 0.50 || currentExamIndex >= 149) {
+                    finishExam();
+                    return;
+                }
             }
 
             if (currentExamIndex < currentExamQuestions.length - 1) {
