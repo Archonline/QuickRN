@@ -326,6 +326,20 @@
         </div>
     </div>
 
+    <!-- WARNING MODAL FOR MANDATORY SELECTION -->
+    <div id="warning-modal" class="fixed inset-0 z-[70] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center">
+            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl mx-auto">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 class="font-bold text-slate-900 text-base">Selection Required</h3>
+                <p class="text-xs text-slate-600">Please choose an answer option before proceeding to the next item.</p>
+            </div>
+            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-medical-600 text-white rounded-xl text-xs font-bold hover:bg-medical-700 transition-colors">OK</button>
+        </div>
+    </div>
+
     <!-- EXAM HISTORY & RETAKE MODAL -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
         <div class="bg-slate-50 rounded-3xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
@@ -342,19 +356,6 @@
             </div>
             <div id="history-modal-body" class="p-6 overflow-y-auto space-y-6 flex-grow">
                 <!-- Populated dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- REPORT ERROR MODAL -->
-    <div id="report-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
-            <h3 class="text-lg font-bold text-slate-900"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i>Report Question Error</h3>
-            <p class="text-xs text-slate-600">Please describe why this question or rationale needs review:</p>
-            <textarea id="report-reason" rows="3" class="w-full p-3 rounded-xl border border-slate-200 text-sm outline-none focus:border-medical-500" placeholder="Describe the error or ambiguity..."></textarea>
-            <div class="flex justify-end gap-2">
-                <button onclick="document.getElementById('report-modal').classList.add('hidden')" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold">Cancel</button>
-                <button onclick="window.submitReport()" class="px-4 py-2 bg-medical-600 text-white rounded-xl text-xs font-bold hover:bg-medical-700">Submit Report</button>
             </div>
         </div>
     </div>
@@ -437,9 +438,7 @@
         }
 
         function persistState() {
-            const state = {
-                studentStats
-            };
+            const state = { studentStats };
             localStorage.setItem('quickrn_student_state', JSON.stringify(state));
             renderFavorites();
         }
@@ -451,7 +450,6 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                
                 categories = data.categories || data;
                 questionBank = [];
 
@@ -944,7 +942,7 @@
             
             currentTimerInterval = setInterval(() => {
                 examElapsedSeconds++;
-                if (examElapsedSeconds === 10000 && (activeExamMode === 'cat' || activeExamMode === 'readiness')) {
+                if (examElapsedSeconds === 10000 && (activeExamMode === 'cat' || activeExamMode === 'readiness' || activeExamMode === 'timed')) {
                     triggerBreakPrompt();
                 }
 
@@ -1001,8 +999,11 @@
             const q = currentExamQuestions[currentExamIndex];
             const isAnswered = userAnswersMap[currentExamIndex] !== undefined;
             const selectedOpt = userAnswersMap[currentExamIndex];
-            const isNGN = q.ngnType && q.ngnType !== 'standard';
+            
+            // Check if question is genuinely NGN type
+            const isNGN = q.ngnType && q.ngnType !== 'standard' && (q.ngnType === 'matrix' || q.ngnType === 'dropdown' || q.ngnType === 'bowtie' || q.ngnType === 'dragdrop');
 
+            // Reset exhibit tab to scenario for each new question
             activeExhibitTab = 'scenario';
 
             let html = `
@@ -1014,7 +1015,7 @@
             if (activeExamMode === 'selfstudy') {
                 html += `<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>`;
             } else {
-                html += `<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">NCLEX Secure Environment (Difficulty: Level ${difficultyLevel})</span>`;
+                html += `<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">NCLEX Secure Environment</span>`;
             }
 
             html += `</div>`;
@@ -1076,9 +1077,6 @@
                                 <div class="flex items-center gap-2">
                                     <button onclick="window.toggleFavoriteCurrent()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shadow-sm">
                                         <i class="fa-solid fa-bookmark"></i> Save for Review
-                                    </button>
-                                    <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
-                                        <i class="fa-solid fa-flag"></i> Report
                                     </button>
                                 </div>
                             </div>
@@ -1295,6 +1293,12 @@
         }
 
         window.nextQuestion = function() {
+            // Check mandatory selection for timed/readiness/cat exams
+            if (activeExamMode !== 'selfstudy' && userAnswersMap[currentExamIndex] === undefined) {
+                document.getElementById('warning-modal').classList.remove('hidden');
+                return;
+            }
+
             if (currentExamIndex < currentExamQuestions.length - 1) {
                 currentExamIndex++;
                 activeExhibitTab = 'scenario';
@@ -1405,17 +1409,6 @@
                 </div>
             `;
             body.innerHTML = html;
-        }
-
-        window.openReportModal = function() {
-            document.getElementById('report-reason').value = '';
-            document.getElementById('report-modal').classList.remove('hidden');
-        }
-
-        window.submitReport = function() {
-            const reason = document.getElementById('report-reason').value;
-            if (!reason.trim()) return;
-            document.getElementById('report-modal').classList.add('hidden');
         }
 
         window.onload = function() {
