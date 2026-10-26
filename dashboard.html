@@ -752,9 +752,16 @@
                 <div class="space-y-6 max-w-7xl mx-auto w-full animate-fadeIn">
                     <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200 shadow-sm">
                         <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentExamIndex + 1} of ${currentExamQuestions.length}</span>
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>
-                    </div>
             `;
+            
+            // Only show topic/system breadcrumb header in Self Study mode
+            if (activeExamMode === 'selfstudy') {
+                html += `<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>`;
+            } else {
+                html += `<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Secure Exam Mode</span>`;
+            }
+
+            html += `</div>`;
 
             if (isNGN) {
                 html += `
@@ -804,7 +811,7 @@
 
                 html += `</div>`;
             } else {
-                // Non-NGN standard question without extra vitals/labs or notes
+                // Non-NGN standard question: omit exhibits entirely, render question text full width
                 html += `
                     <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -936,7 +943,7 @@
                 `;
             }
 
-            // Navigation Controls: True NCLEX standard has NO previous button
+            // Navigation Controls: NCLEX standard has NO previous button
             html += `
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100">
                         <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Item Environment</span>
@@ -966,10 +973,10 @@
                 persistState();
                 renderExamQuestion();
             } else {
-                // CAT & Timed exams: Automatically advance without revealing correctness
+                // CAT & Timed exams: Automatically advance immediately without showing correctness
                 setTimeout(() => {
                     window.nextQuestion();
-                }, 200);
+                }, 150);
             }
         }
 
@@ -982,6 +989,8 @@
                 updateDashboardStats();
                 persistState();
                 renderExamQuestion();
+            } else {
+                setTimeout(() => { window.nextQuestion(); }, 150);
             }
         }
 
@@ -994,6 +1003,8 @@
                 updateDashboardStats();
                 persistState();
                 renderExamQuestion();
+            } else {
+                setTimeout(() => { window.nextQuestion(); }, 150);
             }
         }
 
@@ -1006,6 +1017,8 @@
                 updateDashboardStats();
                 persistState();
                 renderExamQuestion();
+            } else {
+                setTimeout(() => { window.nextQuestion(); }, 150);
             }
         }
 
