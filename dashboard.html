@@ -231,9 +231,14 @@
                     <h3 class="text-lg font-bold text-slate-900">Q-Bank Self-Study</h3>
                     <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and Next button.</p>
                 </div>
-                <button onclick="window.openSelfStudy()" class="w-full py-3.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
-                    <i class="fa-solid fa-book"></i> Open Self-Study Q-Bank
-                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="window.openSelfStudy()" class="py-2.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
+                        <i class="fa-solid fa-book"></i> All Q-Bank
+                    </button>
+                    <button onclick="window.openSelfStudyNGN()" class="py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
+                        <i class="fa-solid fa-laptop-code"></i> NGN Only
+                    </button>
+                </div>
             </div>
 
             <!-- 4. Timed Exam & CAT Launcher (15, 60, 85 CAT, 150 CAT) -->
@@ -485,7 +490,7 @@
                                 domainIndex++;
 
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
-                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : (Math.random() < 0.08 ? 'dragdrop' : 'standard')))));
+                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.15 ? 'matrix' : (Math.random() < 0.1 ? 'dropdown' : (Math.random() < 0.08 ? 'dragdrop' : 'standard'))));
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
                                 item.correctAnswer = item.correctAnswer || item.answer || item.correct || "A";
                                 item.rationale = item.rationale || item.explanation || item.studyNote || "Review evidence-based guidelines for this condition.";
@@ -946,9 +951,14 @@
                             <h3 class="text-lg font-bold text-slate-900">Q-Bank Self-Study</h3>
                             <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and Next button.</p>
                         </div>
-                        <button onclick="window.openSelfStudy()" class="w-full py-3.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
-                            <i class="fa-solid fa-book"></i> Open Self-Study Q-Bank
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="window.openSelfStudy()" class="py-2.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
+                                <i class="fa-solid fa-book"></i> All Q-Bank
+                            </button>
+                            <button onclick="window.openSelfStudyNGN()" class="py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
+                                <i class="fa-solid fa-laptop-code"></i> NGN Only
+                            </button>
+                        </div>
                     </div>
 
                     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
@@ -1236,6 +1246,26 @@
             currentExamIndex = 0;
             userAnswersMap = {};
             openModal(`Q-Bank Self-Study Mode ${filterClientNeed ? '('+filterClientNeed+')' : ''}`);
+            document.getElementById('modal-timer').innerText = "No Time Limit";
+            activeExhibitTab = 'scenario';
+            renderExamQuestion();
+        }
+
+        window.openSelfStudyNGN = function() {
+            activeExamMode = 'selfstudy';
+            let pool = questionBank.filter(q => q.ngnType && q.ngnType !== 'standard');
+            if (pool.length === 0) {
+                pool = [...questionBank];
+            }
+            currentExamQuestions = pool.sort(() => Math.random() - 0.5);
+
+            if (currentExamQuestions.length === 0) {
+                alert("No NGN questions found.");
+                return;
+            }
+            currentExamIndex = 0;
+            userAnswersMap = {};
+            openModal("Q-Bank Self-Study Mode (NGN Case Studies Only)");
             document.getElementById('modal-timer').innerText = "No Time Limit";
             activeExhibitTab = 'scenario';
             renderExamQuestion();
