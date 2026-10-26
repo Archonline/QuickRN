@@ -34,7 +34,7 @@
     <!-- NAVIGATION BAR -->
     <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.showDashboardView()">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white shadow-md">
                     <i class="fa-solid fa-stethoscope text-lg"></i>
                 </div>
@@ -45,9 +45,9 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <span id="user-email-badge" class="text-xs font-bold text-slate-700 hidden sm:inline">
-                    <i class="fa-solid fa-user-nurse text-medical-600 mr-1"></i> Loading...
-                </span>
+                <button onclick="window.showProfileView()" id="user-email-badge" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors text-xs font-bold text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-user-nurse text-medical-600"></i> <span id="badge-name-text">Loading...</span>
+                </button>
                 <button onclick="window.handleSignOut()" class="px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">
                     Sign Out
                 </button>
@@ -56,7 +56,7 @@
     </header>
 
     <!-- MAIN DASHBOARD CONTENT -->
-    <main class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 flex-grow w-full">
+    <main id="main-content-area" class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 flex-grow w-full">
         
         <!-- 1. Passing Probability Banner -->
         <div id="passing-probability-banner" class="bg-gradient-to-r from-slate-900 via-slate-800 to-medical-900 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-700">
@@ -340,6 +340,23 @@
         </div>
     </div>
 
+    <!-- RESET WARNING MODAL FOR PROFILE PAGE -->
+    <div id="reset-warning-modal" class="fixed inset-0 z-[80] bg-slate-900/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl text-center">
+            <div class="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="font-extrabold text-slate-900 text-lg">Reset All Progress & Analytics?</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Warning: This action will permanently erase all your test history, answered questions, study streaks, and saved favorites. All progress will be lost and cannot be recovered.</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="document.getElementById('reset-warning-modal').classList.add('hidden')" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs transition-colors">Cancel</button>
+                <button onclick="window.confirmResetAllData()" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-md text-xs transition-colors">Yes, Reset Everything</button>
+            </div>
+        </div>
+    </div>
+
     <!-- EXAM HISTORY & RETAKE MODAL -->
     <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
         <div class="bg-slate-50 rounded-3xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
@@ -384,8 +401,10 @@
                     window.location.href = "index.html";
                 }
             } else {
-                document.getElementById('user-email-badge').innerHTML = `<i class="fa-solid fa-user-nurse text-medical-600 mr-1"></i> ${user.displayName || user.email}`;
-                document.getElementById('welcome-title').innerText = `Welcome back, ${user.displayName || 'Future RN'}!`;
+                const displayName = user.displayName || user.email || 'Future RN';
+                document.getElementById('badge-name-text').innerText = displayName;
+                document.getElementById('welcome-title').innerText = `Welcome back, ${displayName}!`;
+                window.currentUserObject = user;
             }
         });
 
@@ -500,46 +519,74 @@
         }
 
         function updateDashboardStats() {
-            document.getElementById('stat-tests-taken').innerText = studentStats.testsTaken;
-            document.getElementById('stat-total-answered').innerText = studentStats.totalAnswered;
-            
             const totalAvail = questionBank.length || 5400;
-            document.getElementById('stat-total-available-tracker').innerText = `/ ${totalAvail} Available`;
-            const progressPercent = Math.min(100, Math.round((studentStats.totalAnswered / totalAvail) * 100));
-            document.getElementById('stat-progress-bar').style.width = progressPercent + '%';
+            const answeredCount = Object.keys(studentStats.answeredQuestionIds || {}).length;
+            
+            const testsTakenEl = document.getElementById('stat-tests-taken');
+            if (testsTakenEl) testsTakenEl.innerText = studentStats.testsTaken;
+
+            const totalAnsEl = document.getElementById('stat-total-answered');
+            if (totalAnsEl) totalAnsEl.innerText = answeredCount;
+            
+            const trackerEl = document.getElementById('stat-total-available-tracker');
+            if (trackerEl) trackerEl.innerText = `/ ${totalAvail} Available`;
+
+            const progressPercent = Math.min(100, Math.round((answeredCount / totalAvail) * 100));
+            const progressBarEl = document.getElementById('stat-progress-bar');
+            if (progressBarEl) progressBarEl.style.width = progressPercent + '%';
 
             const accuracy = studentStats.totalAnswered > 0 
                 ? Math.round((studentStats.correctCount / studentStats.totalAnswered) * 100) 
                 : 0;
-            document.getElementById('stat-overall-accuracy').innerText = accuracy + '%';
-            document.getElementById('passing-prob-display').innerText = studentStats.passingProbability + '%';
+            
+            const accEl = document.getElementById('stat-overall-accuracy');
+            if (accEl) accEl.innerText = accuracy + '%';
 
-            document.getElementById('target-score-val').innerText = accuracy + '%';
-            document.getElementById('target-score-bar').style.width = Math.min(100, accuracy) + '%';
+            const probEl = document.getElementById('passing-prob-display');
+            if (probEl) probEl.innerText = studentStats.passingProbability + '%';
+
+            const targetValEl = document.getElementById('target-score-val');
+            if (targetValEl) targetValEl.innerText = accuracy + '%';
+            
+            const targetBarEl = document.getElementById('target-score-bar');
+            if (targetBarEl) targetBarEl.style.width = Math.min(100, accuracy) + '%';
+            
             const scoreStatus = document.getElementById('target-score-status');
-            if (accuracy >= 61) {
-                scoreStatus.innerText = "Target Met!";
-                scoreStatus.className = "font-bold text-emerald-600";
-            } else {
-                scoreStatus.innerText = "In Progress";
-                scoreStatus.className = "font-bold text-slate-400";
+            if (scoreStatus) {
+                if (accuracy >= 61) {
+                    scoreStatus.innerText = "Target Met!";
+                    scoreStatus.className = "font-bold text-emerald-600";
+                } else {
+                    scoreStatus.innerText = "In Progress";
+                    scoreStatus.className = "font-bold text-slate-400";
+                }
             }
 
-            const qbankPercent = Math.min(100, Math.round((studentStats.totalAnswered / totalAvail) * 100));
-            document.getElementById('target-qbank-val').innerText = qbankPercent + '%';
-            document.getElementById('target-qbank-bar').style.width = qbankPercent + '%';
+            const qbankPercent = Math.min(100, Math.round((answeredCount / totalAvail) * 100));
+            const qbankValEl = document.getElementById('target-qbank-val');
+            if (qbankValEl) qbankValEl.innerText = qbankPercent + '%';
+            
+            const qbankBarEl = document.getElementById('target-qbank-bar');
+            if (qbankBarEl) qbankBarEl.style.width = qbankPercent + '%';
+            
             const qbankStatus = document.getElementById('target-qbank-status');
-            if (qbankPercent >= 85) {
-                qbankStatus.innerText = "Target Met!";
-                qbankStatus.className = "font-bold text-emerald-600";
-            } else {
-                qbankStatus.innerText = "In Progress";
-                qbankStatus.className = "font-bold text-slate-400";
+            if (qbankStatus) {
+                if (qbankPercent >= 85) {
+                    qbankStatus.innerText = "Target Met!";
+                    qbankStatus.className = "font-bold text-emerald-600";
+                } else {
+                    qbankStatus.innerText = "In Progress";
+                    qbankStatus.className = "font-bold text-slate-400";
+                }
             }
 
             const catCount = Math.min(4, (studentStats.readinessTakesCount || 0));
-            document.getElementById('target-cat-count').innerText = `${catCount} / 4`;
-            document.getElementById('readiness-takes-left').innerText = Math.max(0, 4 - catCount);
+            const targetCatCountEl = document.getElementById('target-cat-count');
+            if (targetCatCountEl) targetCatCountEl.innerText = `${catCount} / 4`;
+            
+            const takesLeftEl = document.getElementById('readiness-takes-left');
+            if (takesLeftEl) takesLeftEl.innerText = Math.max(0, 4 - catCount);
+
             for (let i = 1; i <= 4; i++) {
                 const badge = document.getElementById(`cat-badge-${i}`);
                 if (badge) {
@@ -603,6 +650,8 @@
         function renderFavorites() {
             const container = document.getElementById('favorites-container');
             const badge = document.getElementById('favorite-count-badge');
+            if (!container || !badge) return;
+
             const favs = studentStats.favorites || [];
             badge.innerText = `${favs.length} / 20 Saved Items`;
 
@@ -661,7 +710,9 @@
         let catChartInstance = null;
 
         function initCharts() {
-            const ctx1 = document.getElementById('catTrendChart').getContext('2d');
+            const canvasEl = document.getElementById('catTrendChart');
+            if (!canvasEl) return;
+            const ctx1 = canvasEl.getContext('2d');
             const catScores = studentStats.catHistory.length > 0 ? studentStats.catHistory : [82, 84, 85, 87, 88, 89];
             const labels = catScores.map((_, idx) => `${idx + 1}`);
 
@@ -727,6 +778,289 @@
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             if (breakTimerInterval) clearInterval(breakTimerInterval);
             fetchQuestionRepository();
+        }
+
+        window.showDashboardView = function() {
+            const container = document.getElementById('main-content-area');
+            container.innerHTML = `
+                <!-- 1. Passing Probability Banner -->
+                <div id="passing-probability-banner" class="bg-gradient-to-r from-slate-900 via-slate-800 to-medical-900 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-700">
+                    <div class="space-y-2">
+                        <span class="px-3 py-1 rounded-full bg-medical-500/20 text-medical-400 border border-medical-500/30 text-xs font-bold uppercase tracking-wider">Readiness Engine</span>
+                        <h2 id="welcome-title" class="text-2xl sm:text-3xl font-extrabold">Welcome back, Future RN!</h2>
+                        <p class="text-slate-300 text-sm max-w-xl">Your predicted exam success probability updates in real-time as you complete diagnostic simulations and Q-bank items.</p>
+                    </div>
+                    <div class="flex items-center gap-6 bg-white/15 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
+                        <div class="text-right">
+                            <span class="text-xs text-slate-300 block uppercase tracking-wider font-semibold">Success Probability</span>
+                            <span id="passing-prob-display" class="text-4xl font-black text-medical-400">0%</span>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-medical-500/20 flex items-center justify-center text-medical-400 text-2xl">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Stats Grid -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div onclick="window.openTestHistoryModal()" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2 cursor-pointer hover:border-medical-500 hover:shadow-md transition-all group">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span class="text-xs font-bold uppercase tracking-wider group-hover:text-medical-600 transition-colors">Tests Taken <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
+                            <i class="fa-solid fa-laptop-medical text-medical-600 text-lg"></i>
+                        </div>
+                        <div id="stat-tests-taken" class="text-3xl font-extrabold text-slate-900">0</div>
+                        <p class="text-xs text-medical-600 font-semibold">Click to view exam history & retake</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span class="text-xs font-bold uppercase tracking-wider">Questions Answered</span>
+                            <i class="fa-solid fa-check-double text-clinical-600 text-lg"></i>
+                        </div>
+                        <div class="flex items-baseline gap-2">
+                            <div id="stat-total-answered" class="text-3xl font-extrabold text-slate-900">0</div>
+                            <span id="stat-total-available-tracker" class="text-xs font-bold text-slate-400">/ 0 Available</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
+                            <div id="stat-progress-bar" class="bg-clinical-600 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span class="text-xs font-bold uppercase tracking-wider">Overall Accuracy</span>
+                            <i class="fa-solid fa-percent text-amber-500 text-lg"></i>
+                        </div>
+                        <div id="stat-overall-accuracy" class="text-3xl font-extrabold text-slate-900">0%</div>
+                        <p class="text-xs text-slate-500">Correct answers ratio</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <span class="text-xs font-bold uppercase tracking-wider">Study Streak</span>
+                            <i class="fa-solid fa-fire text-rose-500 text-lg"></i>
+                        </div>
+                        <div class="text-3xl font-extrabold text-slate-900"><span id="stat-streak-days">1</span> Days</div>
+                        <p class="text-xs text-rose-600 font-semibold">Active Reviewer</p>
+                    </div>
+                </div>
+
+                <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION -->
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-extrabold text-slate-900 text-lg">CAT Performance Trend</h3>
+                                    <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">Adaptive Engine</span>
+                                </div>
+                                <p class="text-xs text-slate-500">Computerized Adaptive Testing score tracking mapped against peer averages.</p>
+                            </div>
+                            <div class="flex items-center gap-4 text-xs font-bold">
+                                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Your Score</div>
+                                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sky-500 inline-block"></span> Peer Score</div>
+                            </div>
+                        </div>
+                        <div class="h-72 relative">
+                            <canvas id="catTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
+                        <div>
+                            <h3 class="font-extrabold text-slate-900 text-lg mb-1">Pass Targets & Usage</h3>
+                            <p class="text-xs text-slate-500">Readiness benchmarks & exam utilization.</p>
+                        </div>
+                        <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-slate-700">Your Score Accuracy</span>
+                                <span id="target-score-val" class="text-medical-600 font-extrabold">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div id="target-score-bar" class="bg-medical-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Target: 61%+</span>
+                                <span id="target-score-status" class="font-bold text-slate-400">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-slate-700">Qbank Utilization</span>
+                                <span id="target-qbank-val" class="text-clinical-600 font-extrabold">0%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                                <div id="target-qbank-bar" class="bg-clinical-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-500">
+                                <span>Target: 85%+</span>
+                                <span id="target-qbank-status" class="font-bold text-slate-400">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-slate-700">Readiness Assessments</span>
+                                <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-1 pt-1">
+                                <div id="cat-badge-1" class="h-2 rounded-full bg-slate-200"></div>
+                                <div id="cat-badge-2" class="h-2 rounded-full bg-slate-200"></div>
+                                <div id="cat-badge-3" class="h-2 rounded-full bg-slate-200"></div>
+                                <div id="cat-badge-4" class="h-2 rounded-full bg-slate-200"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE STUDY MODES SECTION -->
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-500 transition-all flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-stethoscope"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">Readiness Assessment</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Adaptive diagnostic exam designed to predict exam success. Strictly limited to 4 takes.</p>
+                        </div>
+                        <button onclick="window.startReadinessAssessment()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-play"></i> Start Assessment (<span id="readiness-takes-left">4</span> Left)
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-medical-500 transition-all flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-medical-100 text-medical-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-laptop-medical"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
+                        </div>
+                        <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-play"></i> Launch CAT Simulator
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-clinical-500 transition-all flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-clinical-50 text-clinical-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-book-open-reader"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">Q-Bank Self-Study</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and Next button.</p>
+                        </div>
+                        <button onclick="window.openSelfStudy()" class="w-full py-3.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
+                            <i class="fa-solid fa-book"></i> Open Self-Study Q-Bank
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
+                        <div class="space-y-3">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-stopwatch"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900">Timed Exam & CAT Launcher</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">Choose precise item counts (15, 60, 85 CAT, or 150 CAT) to test endurance and adaptive algorithms.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="window.startTimedExam(15)" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">15 Items</button>
+                            <button onclick="window.startTimedExam(60)" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">60 Items</button>
+                            <button onclick="window.startTimedExam(85)" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">85 CAT</button>
+                            <button onclick="window.startTimedExam(150)" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">150 CAT</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 Core Client Need Domains Section (Clickable) -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
+                            <p class="text-xs text-slate-500">Detailed breakdown of subject accuracy and mastery for review across 8 Core Client Need Domains.</p>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400">8 Core Client Need Domains</span>
+                    </div>
+                    <div id="client-needs-grid" class="grid md:grid-cols-2 gap-6"></div>
+                </div>
+
+                <!-- Saved & Favorite Questions Hub (Max 20 items) -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-bookmark text-amber-500 mr-2"></i>Saved & Favorite Questions for Review</h3>
+                            <p class="text-xs text-slate-500">Review questions you bookmarked during self-study or timed exam sessions (Maximum 20 items).</p>
+                        </div>
+                        <span id="favorite-count-badge" class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">0 / 20 Saved Items</span>
+                    </div>
+                    <div id="favorites-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                        <div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>
+                    </div>
+                </div>
+            `;
+            updateDashboardStats();
+            renderFavorites();
+            initCharts();
+        }
+
+        window.showProfileView = function() {
+            const container = document.getElementById('main-content-area');
+            const userObj = window.currentUserObject || {};
+            const email = userObj.email || 'student@quickrn.com';
+            const name = userObj.displayName || email.split('@')[0] || 'Future RN Student';
+
+            container.innerHTML = `
+                <div class="max-w-4xl mx-auto space-y-8 py-6 animate-fadeIn">
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white text-4xl shadow-md">
+                            <i class="fa-solid fa-user-nurse"></i>
+                        </div>
+                        <div class="space-y-1 text-center md:text-left">
+                            <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl uppercase tracking-wider">Verified Candidate</span>
+                            <h2 class="text-2xl font-extrabold text-slate-900">${name}</h2>
+                            <p class="text-xs text-slate-500"><i class="fa-solid fa-envelope mr-1 text-medical-600"></i> ${email}</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                        <h3 class="text-lg font-extrabold text-slate-900 border-b border-slate-100 pb-4"><i class="fa-solid fa-gear text-slate-400 mr-2"></i>Account & Data Management</h3>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-200">
+                            <div class="space-y-1">
+                                <h4 class="font-bold text-slate-900 text-sm">Reset All Tests & Analytics</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">Clear all your test history, answered questions, accuracy metrics, and saved favorites. This action cannot be undone.</p>
+                            </div>
+                            <button onclick="window.promptResetAllData()" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl shadow-md text-xs transition-colors flex items-center gap-2 whitespace-nowrap">
+                                <i class="fa-solid fa-triangle-exclamation"></i> Reset All Analytics
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <button onclick="window.showDashboardView()" class="px-8 py-3 bg-slate-900 text-white font-extrabold rounded-2xl shadow-lg hover:bg-slate-800 transition-all text-xs">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Return to Dashboard
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.promptResetAllData = function() {
+            document.getElementById('reset-warning-modal').classList.remove('hidden');
+        }
+
+        window.confirmResetAllData = function() {
+            document.getElementById('reset-warning-modal').classList.add('hidden');
+            studentStats = {
+                testsTaken: 0,
+                totalAnswered: 0,
+                correctCount: 0,
+                mistakeCount: 0,
+                passingProbability: 0,
+                catHistory: [82],
+                peerHistory: [80],
+                readinessTakesCount: 0,
+                examHistory: [],
+                answeredQuestionIds: {},
+                favorites: []
+            };
+            persistState();
+            window.showDashboardView();
+            alert("All exam history, progress, and analytics have been successfully reset.");
         }
 
         window.openTestHistoryModal = function() {
@@ -1000,10 +1334,7 @@
             const isAnswered = userAnswersMap[currentExamIndex] !== undefined;
             const selectedOpt = userAnswersMap[currentExamIndex];
             
-            // Check if question is genuinely NGN type
             const isNGN = q.ngnType && q.ngnType !== 'standard' && (q.ngnType === 'matrix' || q.ngnType === 'dropdown' || q.ngnType === 'bowtie' || q.ngnType === 'dragdrop');
-
-            // Reset exhibit tab to scenario for each new question
             activeExhibitTab = 'scenario';
 
             let html = `
@@ -1293,7 +1624,6 @@
         }
 
         window.nextQuestion = function() {
-            // Check mandatory selection for timed/readiness/cat exams
             if (activeExamMode !== 'selfstudy' && userAnswersMap[currentExamIndex] === undefined) {
                 document.getElementById('warning-modal').classList.remove('hidden');
                 return;
