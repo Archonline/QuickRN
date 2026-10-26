@@ -333,36 +333,45 @@
                 }
                 const data = await response.json();
                 
-                // Robust hierarchical parsing for compiled study guide JSON structures
                 categories = data.categories || data;
                 questionBank = [];
 
-                for (const [systemKey, systemVal] of Object.entries(categories)) {
-                    if (typeof systemVal === 'object' && systemVal !== null) {
-                        for (const [topicKey, topicVal] of Object.entries(systemVal)) {
-                            if (Array.isArray(topicVal)) {
-                                topicVal.forEach(item => {
-                                    item.systemCategory = systemKey;
-                                    item.topic = topicKey;
-                                    questionBank.push(item);
-                                });
-                            } else if (typeof topicVal === 'object' && topicVal !== null) {
-                                // Handle deeper nested structures if any
-                                for (const [subTopic, subItems] of Object.entries(topicVal)) {
-                                    if (Array.isArray(subItems)) {
-                                        subItems.forEach(item => {
-                                            item.systemCategory = systemKey;
-                                            item.topic = subTopic;
-                                            questionBank.push(item);
-                                        });
-                                    }
-                                }
+                // Deep recursive crawler to extract questions from any JSON structure
+                function extractItems(obj, currentSystem = 'General', currentTopic = 'Review') {
+                    if (!obj) return;
+                    if (Array.isArray(obj)) {
+                        obj.forEach(item => {
+                            if (typeof item === 'object' && item !== null) {
+                                item.systemCategory = item.systemCategory || item.category || currentSystem;
+                                item.topic = item.topic || item.subtopic || currentTopic;
+                                // Handle different question text keys
+                                item.questionText = item.questionText || item.question || item.prompt || item.item || "Review clinical scenario.";
+                                // Handle options
+                                item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
+                                // Handle correct answer
+                                item.correctAnswer = item.correctAnswer || item.answer || item.correct || "A";
+                                questionBank.push(item);
                             }
+                        });
+                    } else if (typeof obj === 'object') {
+                        for (const [key, val] of Object.entries(obj)) {
+                            let sys = currentSystem;
+                            let top = currentTopic;
+                            if (key.length < 35 && !Array.isArray(val)) {
+                                if (currentSystem === 'General') sys = key;
+                                else top = key;
+                            }
+                            extractItems(val, sys, top);
                         }
                     }
                 }
 
-                console.log(`Successfully loaded ${questionBank.length} questions from compiled JSON.`);
+                extractItems(categories);
+                
+                // Shuffle/randomize question bank for thorough review
+                questionBank.sort(() => Math.random() - 0.5);
+
+                console.log(`Successfully loaded & randomized ${questionBank.length} questions from compiled JSON.`);
                 document.getElementById('stat-total-answered').innerText = studentStats.totalAnswered;
                 updateDashboardStats();
                 renderCategoryChips();
@@ -388,9 +397,11 @@
             let html = `<button onclick="window.filterByCategory(null)" class="px-4 py-2 rounded-2xl text-xs font-bold transition-all ${!selectedCategoryFilter ? 'bg-medical-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">All Systems (${questionBank.length})</button>`;
             
             for (const systemName of Object.keys(categories)) {
-                const count = questionBank.filter(q => q.systemCategory === systemName).length;
-                const isSelected = selectedCategoryFilter === systemName;
-                html += `<button onclick="window.filterByCategory('${systemName}')" class="px-4 py-2 rounded-2xl text-xs font-bold transition-all ${isSelected ? 'bg-medical-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">${systemName} (${count})</button>`;
+                if (typeof categories[systemName] === 'object') {
+                    const count = questionBank.filter(q => q.systemCategory === systemName).length;
+                    const isSelected = selectedCategoryFilter === systemName;
+                    html += `<button onclick="window.filterByCategory('${systemName}')" class="px-4 py-2 rounded-2xl text-xs font-bold transition-all ${isSelected ? 'bg-medical-600 text-white shadow-md' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'}">${systemName} (${count})</button>`;
+                }
             }
             container.innerHTML = html;
         }
@@ -440,7 +451,7 @@
             });
 
             const ctx2 = document.getElementById('masteryBreakdownChart').getContext('2d');
-            const systemNames = Object.keys(categories);
+            const systemNames = Object.keys(categories).filter(k => typeof categories[k] === 'object');
             const correctData = systemNames.map(sys => questionBank.filter(q => q.systemCategory === sys).length);
             const mistakeData = systemNames.map(sys => Math.floor(questionBank.filter(q => q.systemCategory === sys).length * 0.2));
 
@@ -491,7 +502,7 @@
 
         window.startCatSimulation = function() {
             activeExamMode = 'cat';
-            currentExamQuestions = [...questionBank].sort(() => 0.5 - Math.random());
+            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
                 return;
@@ -509,6 +520,9 @@
                 ? questionBank.filter(q => q.systemCategory === filterSystem)
                 : [...questionBank];
             
+            // Randomize order for thorough review
+            currentExamQuestions.sort(() => Math.random() - 0.5);
+
             if (currentExamQuestions.length === 0) {
                 alert("No questions found for this category.");
                 return;
@@ -522,7 +536,7 @@
 
         window.startTimedExam = function(itemCount) {
             activeExamMode = 'timed';
-            let pool = [...questionBank].sort(() => 0.5 - Math.random());
+            let pool = [...questionBank].sort(() => Math.random() - 0.5);
             currentExamQuestions = pool.slice(0, Math.min(itemCount, pool.length));
             
             if (currentExamQuestions.length === 0) {
@@ -586,10 +600,10 @@
                                 <span class="text-medical-600 font-extrabold px-2 py-0.5 bg-medical-50 rounded-lg">NGN Split Window</span>
                             </div>
                             <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                                ${q.question}
+                                ${q.questionText || q.question || 'Review clinical scenario.'}
                             </div>
                             <div class="text-xs text-slate-600 bg-medical-50/60 p-4 rounded-2xl border border-medical-100">
-                                <strong>Clinical Pearl:</strong> ${q.studyNote || 'Evaluate client status using priority nursing frameworks.'}
+                                <strong>Clinical Pearl:</strong> ${q.studyNote || q.rationale || 'Evaluate client status using priority nursing frameworks.'}
                             </div>
                         </div>
 
@@ -633,12 +647,11 @@
                     <div class="mt-6 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale</span>
-                            <!-- Smaller Report Error Button -->
                             <button onclick="window.openReportModal('${q.id || 'q'}')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-bold transition-colors flex items-center gap-1">
                                 <i class="fa-solid fa-flag"></i> Report Error
                             </button>
                         </div>
-                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || 'Review evidence-based guidelines for this condition.'}</p>
+                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || q.studyNote || 'Review evidence-based guidelines for this condition.'}</p>
                         <div class="text-xs text-slate-500 pt-2 border-t border-slate-200">
                             <strong>Learning Objective:</strong> ${q.learningObjective || 'Prioritize nursing interventions accurately.'}
                         </div>
@@ -652,17 +665,6 @@
                                     <i class="fa-solid fa-arrow-left mr-1"></i> Previous
                                 </button>
                                 <div class="flex gap-3">
-            `;
-
-            if (activeExamMode === 'selfstudy') {
-                html += `
-                                    <button onclick="window.nextQuestion()" class="px-6 py-3 bg-clinical-600 hover:bg-clinical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
-                                        <i class="fa-solid fa-forward"></i> Next
-                                    </button>
-                `;
-            }
-
-            html += `
                                     <button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
                                         ${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Question <i class="fa-solid fa-arrow-right ml-1"></i>'}
                                     </button>
