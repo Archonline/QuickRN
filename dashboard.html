@@ -23,7 +23,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Chart.js for graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style> body { font-family: 'Inter', sans-serif; } </style>
+    <style> 
+        body { font-family: 'Inter', sans-serif; } 
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
 
@@ -113,7 +117,7 @@
             </div>
         </div>
 
-        <!-- 2 & 3. GRAPHS SECTION -->
+        <!-- GRAPHS SECTION -->
         <div class="grid lg:grid-cols-2 gap-8">
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-4">
@@ -187,7 +191,7 @@
             </div>
         </div>
 
-        <!-- 8. NCLEX Client Need Categories (Clickable) -->
+        <!-- NCLEX Client Need Categories (Clickable) -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -201,7 +205,7 @@
             </div>
         </div>
 
-        <!-- 9. Note-Taking Area for Review Later -->
+        <!-- Note-Taking Area for Review Later -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
                 <div>
@@ -293,7 +297,7 @@
         }
     </script>
 
-    <!-- CORE DASHBOARD & JSON REPOSITORY PARSING SCRIPT WITH FULL NGN & RANDOMIZATION SUPPORT -->
+    <!-- CORE DASHBOARD & JSON REPOSITORY PARSING SCRIPT -->
     <script>
         let questionBank = [];
         let categories = {};
@@ -304,7 +308,8 @@
             correctCount: 0,
             mistakeCount: 0,
             passingProbability: 0,
-            catHistory: [0, 0, 0, 0, 0]
+            catHistory: [0, 0, 0, 0, 0],
+            examHistory: []
         };
 
         function loadSavedState() {
@@ -348,13 +353,13 @@
                                 item.systemCategory = item.systemCategory || item.category || currentSystem;
                                 item.topic = item.topic || item.subtopic || currentTopic;
                                 
-                                // Question text normalization
+                                // Question text normalization (handling questionText, question, prompt, etc.)
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
                                 
                                 // NGN Type detection & emulation mapping
-                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.15 ? 'matrix' : 'standard'));
+                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : 'standard'))));
                                 
-                                // Options / Choices normalization
+                                // Options normalization
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
                                 
                                 // Correct Answer normalization
@@ -371,7 +376,7 @@
                         for (const [key, val] of Object.entries(obj)) {
                             let sys = currentSystem;
                             let top = currentTopic;
-                            if (key.length < 45 && !Array.isArray(val)) {
+                            if (key.length < 50 && !Array.isArray(val)) {
                                 if (currentSystem === 'General') sys = key;
                                 else top = key;
                             }
@@ -386,7 +391,6 @@
                 questionBank.sort(() => Math.random() - 0.5);
 
                 console.log(`Successfully loaded & randomized ${questionBank.length} questions from compiled JSON.`);
-                document.getElementById('stat-total-answered').innerText = studentStats.totalAnswered;
                 updateDashboardStats();
                 renderCategoryChips();
                 initCharts();
@@ -540,7 +544,6 @@
                 ? questionBank.filter(q => q.systemCategory === filterSystem)
                 : [...questionBank];
             
-            // Thoroughly randomize questions so every topic & category is covered
             currentExamQuestions = pool.sort(() => Math.random() - 0.5);
 
             if (currentExamQuestions.length === 0) {
@@ -612,7 +615,7 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
 
             let html = `
-                <div class="space-y-6 max-w-7xl mx-auto w-full">
+                <div class="space-y-6 max-w-7xl mx-auto w-full animate-fadeIn">
                     <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200 shadow-sm">
                         <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentExamIndex + 1} of ${currentExamQuestions.length}</span>
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>
@@ -646,10 +649,10 @@
                     <div class="space-y-3 animate-fadeIn">
                         <span class="text-xs font-bold text-slate-700 uppercase">Recent Vital Signs & Laboratory Results</span>
                         <div class="grid grid-cols-2 gap-3 text-slate-700">
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.bp || '128/82 mmHg'}</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.hr || '88 bpm (Regular)'}</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.temp || '37.2°C (99.0°F)'}</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.spo2 || '96% on room air'}</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">128/82 mmHg</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">88 bpm (Regular)</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">37.2°C (99.0°F)</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">96% on room air</span></div>
                         </div>
                     </div>
                 `;
@@ -657,7 +660,7 @@
                 html += `
                     <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
                         <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-clipboard-user text-medical-600 mr-1"></i> Nurse's Notes Summary</span>
-                        <p class="text-xs text-slate-700 leading-relaxed">${q.nursesNotes || "Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified."}</p>
+                        <p class="text-xs text-slate-700 leading-relaxed">Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified.</p>
                     </div>
                 `;
             }
@@ -703,7 +706,7 @@
                         <div class="space-y-3">
                             <label class="text-xs text-slate-700 block font-medium">Complete the sentence by selecting the appropriate choices:</label>
                             <select onchange="window.selectDropdown(0, this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
-                                <option value="">-- Select Dropdown Option 1 --</option>
+                                <option value="">-- Select Dropdown Option --</option>
                                 ${q.options.map(opt => `<option value="${opt}" ${userAnswersMap['dd_0'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
                             </select>
                         </div>
@@ -714,7 +717,7 @@
                     <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                         <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-diagram-project text-medical-600 mr-1"></i> NGN Bow-Tie Item</span>
                         <div class="space-y-3">
-                            <label class="text-xs text-slate-700 block font-medium">Select condition to manage:</label>
+                            <label class="text-xs text-slate-700 block font-medium">Select primary condition to manage:</label>
                             <select onchange="window.selectBowtie('condition', this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
                                 <option value="">-- Choose Condition --</option>
                                 ${q.options.slice(0, 3).map(opt => `<option value="${opt}" ${userAnswersMap['bt_condition'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
@@ -766,15 +769,6 @@
                         </div>
                     </div>
                 `;
-            } else if (isAnswered && activeExamMode !== 'selfstudy') {
-                html += `
-                    <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale</span>
-                        </div>
-                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || "Review evidence-based guidelines for this condition."}</p>
-                    </div>
-                `;
             }
 
             html += `
@@ -799,45 +793,53 @@
 
         window.selectOption = function(optIndex, optLetter) {
             userAnswersMap[currentExamIndex] = optLetter;
-            studentStats.totalAnswered++;
-            const q = currentExamQuestions[currentExamIndex];
-            if (optLetter === q.correctAnswer) {
-                studentStats.correctCount++;
-            } else {
-                studentStats.mistakeCount++;
+            if (activeExamMode !== 'timed') {
+                studentStats.totalAnswered++;
+                const q = currentExamQuestions[currentExamIndex];
+                if (optLetter === q.correctAnswer) {
+                    studentStats.correctCount++;
+                } else {
+                    studentStats.mistakeCount++;
+                }
+                updateDashboardStats();
+                persistState();
             }
-            updateDashboardStats();
-            persistState();
             renderExamQuestion();
         }
 
         window.selectMatrix = function(mIdx, val) {
             userAnswersMap[`matrix_${mIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            studentStats.totalAnswered++;
-            studentStats.correctCount++;
-            updateDashboardStats();
-            persistState();
+            if (activeExamMode !== 'timed') {
+                studentStats.totalAnswered++;
+                studentStats.correctCount++;
+                updateDashboardStats();
+                persistState();
+            }
             renderExamQuestion();
         }
 
         window.selectDropdown = function(ddIdx, val) {
             userAnswersMap[`dd_${ddIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            studentStats.totalAnswered++;
-            studentStats.correctCount++;
-            updateDashboardStats();
-            persistState();
+            if (activeExamMode !== 'timed') {
+                studentStats.totalAnswered++;
+                studentStats.correctCount++;
+                updateDashboardStats();
+                persistState();
+            }
             renderExamQuestion();
         }
 
         window.selectBowtie = function(field, val) {
             userAnswersMap[`bt_${field}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            studentStats.totalAnswered++;
-            studentStats.correctCount++;
-            updateDashboardStats();
-            persistState();
+            if (activeExamMode !== 'timed') {
+                studentStats.totalAnswered++;
+                studentStats.correctCount++;
+                updateDashboardStats();
+                persistState();
+            }
             renderExamQuestion();
         }
 
@@ -863,12 +865,27 @@
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             
             let correct = 0;
+            let attempted = 0;
+            
             currentExamQuestions.forEach((q, idx) => {
-                if (userAnswersMap[idx] === q.correctAnswer || userAnswersMap[idx] !== undefined) correct++;
+                const ans = userAnswersMap[idx];
+                if (ans !== undefined) {
+                    attempted++;
+                    if (activeExamMode === 'timed') {
+                        studentStats.totalAnswered++;
+                        if (ans === q.correctAnswer) {
+                            correct++;
+                            studentStats.correctCount++;
+                        } else {
+                            studentStats.mistakeCount++;
+                        }
+                    } else {
+                        if (ans === q.correctAnswer) correct++;
+                    }
+                }
             });
-            const scorePercent = currentExamQuestions.length > 0 
-                ? Math.round((correct / currentExamQuestions.length) * 100) 
-                : 0;
+
+            const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
             studentStats.testsTaken++;
             studentStats.catHistory.shift();
@@ -876,35 +893,85 @@
             
             const avgScore = Math.round(studentStats.catHistory.reduce((a, b) => a + b, 0) / studentStats.catHistory.length);
             studentStats.passingProbability = Math.min(98, Math.max(15, avgScore + 4));
+
+            // Store exam results for review later
+            const examRecord = {
+                date: new Date().toLocaleString(),
+                mode: activeExamMode,
+                total: currentExamQuestions.length,
+                attempted,
+                scorePercent,
+                questions: currentExamQuestions,
+                userAnswers: { ...userAnswersMap }
+            };
+            studentStats.examHistory = studentStats.examHistory || [];
+            studentStats.examHistory.unshift(examRecord);
+
             updateDashboardStats();
             persistState();
 
             const body = document.getElementById('modal-body');
-            body.innerHTML = `
-                <div class="text-center space-y-6 py-12 max-w-xl mx-auto">
-                    <div class="w-24 h-24 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center text-5xl mx-auto shadow-inner">
-                        <i class="fa-solid fa-award"></i>
+            let html = `
+                <div class="space-y-6 max-w-4xl mx-auto py-6 animate-fadeIn">
+                    <div class="text-center space-y-3">
+                        <div class="w-20 h-20 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center text-4xl mx-auto shadow-inner">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-slate-900">Exam Simulation Completed!</h3>
+                        <p class="text-slate-600 text-xs">Performance evaluated against NCLEX readiness standards.</p>
                     </div>
-                    <div class="space-y-2">
-                        <h3 class="text-3xl font-extrabold text-slate-900">Exam Simulation Completed!</h3>
-                        <p class="text-slate-600 text-sm">Your performance has been evaluated against NCLEX readiness standards.</p>
-                    </div>
-                    <div class="flex justify-center gap-8 py-6 bg-white rounded-3xl border border-slate-200 shadow-sm">
+
+                    <div class="flex justify-center gap-8 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
                         <div>
-                            <span class="text-xs text-slate-400 block font-bold uppercase">Score</span>
-                            <span class="text-4xl font-black text-medical-600">${scorePercent}%</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase">Score</span>
+                            <span class="text-3xl font-black text-medical-600">${scorePercent}%</span>
                         </div>
                         <div class="border-l border-slate-200"></div>
                         <div>
-                            <span class="text-xs text-slate-400 block font-bold uppercase">Passing Probability</span>
-                            <span class="text-4xl font-black text-clinical-600">${studentStats.passingProbability}%</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase">Passing Probability</span>
+                            <span class="text-3xl font-black text-clinical-600">${studentStats.passingProbability}%</span>
                         </div>
                     </div>
-                    <button onclick="window.closeModal()" class="px-8 py-4 bg-slate-900 text-white font-extrabold rounded-2xl shadow-lg hover:bg-slate-800 transition-all text-sm">
-                        Return to Dashboard
-                    </button>
+
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-900 text-sm">Comprehensive Question & Rationale Review:</h4>
+                        <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-2">
+            `;
+
+            currentExamQuestions.forEach((q, qIdx) => {
+                const userAns = userAnswersMap[qIdx];
+                const isCorrect = userAns === q.correctAnswer;
+                html += `
+                    <div class="bg-white p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-200 bg-rose-50/20'} space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-700">Question ${qIdx + 1}: ${q.systemCategory || 'General'}</span>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${isCorrect ? 'Correct' : (userAns !== undefined ? 'Incorrect' : 'Skipped')}</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-900">${q.questionText}</p>
+                        <div class="text-xs text-slate-600 space-y-1">
+                            <div><strong>Your Answer:</strong> ${userAns !== undefined ? userAns : 'None (Skipped)'}</div>
+                            <div><strong>Correct Answer:</strong> ${q.correctAnswer}</div>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <div><strong>Rationale:</strong> ${q.rationale}</div>
+                            <div class="text-medical-800 font-semibold"><strong>Clinical Pearl:</strong> ${q.clinicalPearl}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <button onclick="window.closeModal()" class="px-8 py-3 bg-slate-900 text-white font-extrabold rounded-2xl shadow-lg hover:bg-slate-800 transition-all text-xs">
+                            Return to Dashboard
+                        </button>
+                    </div>
                 </div>
             `;
+            body.innerHTML = html;
         }
 
         window.openReportModal = function() {
