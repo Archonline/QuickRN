@@ -268,14 +268,14 @@
             </div>
         </div>
 
-        <!-- Saved & Favorite Questions Hub -->
+        <!-- Saved & Favorite Questions Hub (Max 20 items) -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-bookmark text-amber-500 mr-2"></i>Saved & Favorite Questions for Review</h3>
-                    <p class="text-xs text-slate-500">Review questions you bookmarked during self-study or timed exam sessions.</p>
+                    <p class="text-xs text-slate-500">Review questions you bookmarked during self-study or timed exam sessions (Maximum 20 items).</p>
                 </div>
-                <span id="favorite-count-badge" class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">0 Saved Items</span>
+                <span id="favorite-count-badge" class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">0 / 20 Saved Items</span>
             </div>
             <div id="favorites-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
                 <div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>
@@ -589,7 +589,7 @@
                             <div class="${barColor} h-2 rounded-full transition-all duration-500" style="width: ${accuracy}%"></div>
                         </div>
                         <div class="flex items-center justify-between text-xs text-slate-500">
-                            <span>${totalInDomain} Questions (${answeredInDomain} Answered)</span>
+                            <span>${totalInDomain} Questions</span>
                             <span class="font-bold ${isPassing ? 'text-medical-700' : 'text-amber-700'}">${isPassing ? 'Passing Level' : 'Needs Review'}</span>
                         </div>
                     </div>
@@ -606,7 +606,7 @@
             const container = document.getElementById('favorites-container');
             const badge = document.getElementById('favorite-count-badge');
             const favs = studentStats.favorites || [];
-            badge.innerText = `${favs.length} Saved Items`;
+            badge.innerText = `${favs.length} / 20 Saved Items`;
 
             if (favs.length === 0) {
                 container.innerHTML = `<div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>`;
@@ -644,6 +644,10 @@
                 studentStats.favorites.splice(existsIdx, 1);
                 alert("Question removed from saved reviews.");
             } else {
+                if (studentStats.favorites.length >= 20) {
+                    alert("Maximum limit of 20 saved questions reached. Please remove an item before saving a new one.");
+                    return;
+                }
                 studentStats.favorites.push(q);
                 alert("Question saved for review successfully!");
             }
@@ -1070,7 +1074,7 @@
                             <div class="flex items-center justify-between">
                                 <h4 class="font-bold text-slate-900 text-sm">${isNGN ? 'Complete NGN item below:' : 'Select the best response:'}</h4>
                                 <div class="flex items-center gap-2">
-                                    <button onclick="window.toggleFavoriteCurrent()" class="px-2 py-0.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
+                                    <button onclick="window.toggleFavoriteCurrent()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shadow-sm">
                                         <i class="fa-solid fa-bookmark"></i> Save for Review
                                     </button>
                                     <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
