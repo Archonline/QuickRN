@@ -119,15 +119,15 @@
 
         <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION -->
         <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Readiness Assessment Line Graph (Spans 2 columns) -->
+            <!-- Archer-Style CAT Line Graph (Spans 2 columns) -->
             <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-extrabold text-slate-900 text-lg">Readiness Assessment Trend</h3>
-                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">CAT Engine</span>
+                            <h3 class="font-extrabold text-slate-900 text-lg">CAT Performance Trend</h3>
+                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">Adaptive Engine</span>
                         </div>
-                        <p class="text-xs text-slate-500">Diagnostic performance trend mapped against peer averages with readiness levels.</p>
+                        <p class="text-xs text-slate-500">Computerized Adaptive Testing score tracking mapped against peer averages.</p>
                     </div>
                     <div class="flex items-center gap-4 text-xs font-bold">
                         <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Your Score</div>
@@ -139,11 +139,11 @@
                 </div>
             </div>
 
-            <!-- Pass Targets & Infographics (1 Column) -->
+            <!-- Pass Targets & Infographics (1 Column - Archer Style) -->
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
                 <div>
                     <h3 class="font-extrabold text-slate-900 text-lg mb-1">Pass Targets & Usage</h3>
-                    <p class="text-xs text-slate-500">Readiness target benchmarks.</p>
+                    <p class="text-xs text-slate-500">Readiness benchmarks & exam utilization.</p>
                 </div>
 
                 <!-- Target 1: Your Score Accuracy -->
@@ -201,7 +201,7 @@
                         <i class="fa-solid fa-stethoscope"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slate-900">Readiness Assessment</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive readiness exam designed to predict exam success. Strictly limited to 4 takes.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive diagnostic exam designed to predict exam success. Strictly limited to 4 takes.</p>
                 </div>
                 <button onclick="window.startReadinessAssessment()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-play"></i> Start Assessment (<span id="readiness-takes-left">4</span> Left)
@@ -215,7 +215,7 @@
                         <i class="fa-solid fa-laptop-medical"></i>
                     </div>
                     <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Mirror exam environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
+                    <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
                 </div>
                 <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-play"></i> Launch CAT Simulator
@@ -259,7 +259,7 @@
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h3 class="text-xl font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
-                    <p class="text-xs text-slate-500">Detailed breakdown of subject accuracy and mastery across 8 Core Client Need Domains.</p>
+                    <p class="text-xs text-slate-500">Detailed breakdown of subject accuracy and mastery for review across 8 Core Client Need Domains.</p>
                 </div>
                 <span class="text-xs font-bold text-slate-400">8 Core Client Need Domains</span>
             </div>
@@ -268,19 +268,18 @@
             </div>
         </div>
 
-        <!-- Note-Taking Area for Review Later -->
-        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+        <!-- Saved & Favorite Questions Hub -->
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-pen-to-square text-medical-600 mr-2"></i>Study Notes & Clinical Pearls</h3>
-                    <p class="text-xs text-slate-500">Jot down rationales, lab values, or mnemonics while reviewing. Saved securely in your browser session.</p>
+                    <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-bookmark text-amber-500 mr-2"></i>Saved & Favorite Questions for Review</h3>
+                    <p class="text-xs text-slate-500">Review questions you bookmarked during self-study or timed exam sessions.</p>
                 </div>
-                <button onclick="window.saveNotes()" class="px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition-colors">
-                    <i class="fa-solid fa-floppy-disk mr-1"></i> Save Notes
-                </button>
+                <span id="favorite-count-badge" class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">0 Saved Items</span>
             </div>
-            <textarea id="student-study-notes" rows="4" class="w-full p-4 rounded-2xl border border-slate-200 focus:border-medical-500 focus:ring-2 focus:ring-medical-100 outline-none text-sm font-medium text-slate-700 resize-y" placeholder="Type clinical highlights, lab values (e.g., K+ 3.5-5.0, Na+ 135-145), or prioritization reminders here..."></textarea>
-            <div id="notes-save-status" class="text-xs text-emerald-600 font-semibold hidden">Notes saved successfully!</div>
+            <div id="favorites-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
+                <div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>
+            </div>
         </div>
 
     </main>
@@ -290,7 +289,7 @@
         QuickRN Student Portal &bull; Compiled JSON Data Engine Active
     </footer>
 
-    <!-- MODAL CONTAINER FOR TEST / Q-BANK (Enlarged NGN split window) -->
+    <!-- MODAL CONTAINER FOR TEST / Q-BANK -->
     <div id="exam-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
         <div class="bg-slate-50 rounded-3xl w-full max-w-[98vw] h-[98vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
             <!-- Modal Header -->
@@ -401,18 +400,18 @@
     <script>
         let questionBank = [];
         let categories = {};
-        let selectedCategoryFilter = null;
         let studentStats = {
             testsTaken: 0,
             totalAnswered: 0,
             correctCount: 0,
             mistakeCount: 0,
             passingProbability: 0,
-            catHistory: [82, 84, 85, 87, 88],
-            peerHistory: [80, 81, 83, 82, 84],
+            catHistory: [82, 84, 85, 87, 88, 89],
+            peerHistory: [80, 81, 83, 82, 84, 86],
             readinessTakesCount: 0,
             examHistory: [],
-            answeredQuestionIds: {}
+            answeredQuestionIds: {},
+            favorites: []
         };
 
         const clientNeedsDomains = [
@@ -432,19 +431,17 @@
                 try {
                     const parsed = JSON.parse(saved);
                     studentStats = parsed.studentStats || studentStats;
-                    if (parsed.studyNotes) {
-                        document.getElementById('student-study-notes').value = parsed.studyNotes;
-                    }
                 } catch(e) {}
             }
+            renderFavorites();
         }
 
         function persistState() {
             const state = {
-                studentStats,
-                studyNotes: document.getElementById('student-study-notes').value
+                studentStats
             };
             localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+            renderFavorites();
         }
 
         async function fetchQuestionRepository() {
@@ -467,7 +464,6 @@
                                 item.id = item.id || `${currentSystem}_${idx}_${Math.random()}`;
                                 item.systemCategory = item.systemCategory || item.category || currentSystem;
                                 item.topic = item.topic || item.subtopic || currentTopic;
-                                // Assign to one of the 8 Core Client Need Domains round-robin if not specified
                                 item.clientNeedDomain = item.clientNeedDomain || clientNeedsDomains[domainIndex % clientNeedsDomains.length];
                                 domainIndex++;
 
@@ -520,7 +516,6 @@
             document.getElementById('stat-overall-accuracy').innerText = accuracy + '%';
             document.getElementById('passing-prob-display').innerText = studentStats.passingProbability + '%';
 
-            // Update Pass Targets & Infographics
             document.getElementById('target-score-val').innerText = accuracy + '%';
             document.getElementById('target-score-bar').style.width = Math.min(100, accuracy) + '%';
             const scoreStatus = document.getElementById('target-score-status');
@@ -569,7 +564,6 @@
                 const domainQuestions = questionBank.filter(q => q.clientNeedDomain === domain);
                 const totalInDomain = domainQuestions.length || 100;
                 
-                // Count answered in this domain
                 let answeredInDomain = 0;
                 let correctInDomain = 0;
                 domainQuestions.forEach(q => {
@@ -581,7 +575,7 @@
                     }
                 });
 
-                const accuracy = answeredInDomain > 0 ? Math.round((correctInDomain / answeredInDomain) * 100) : (70 + (dIdx * 2) % 20);
+                const accuracy = answeredInDomain > 0 ? Math.round((correctInDomain / answeredInDomain) * 100) : (70 + (dIdx * 3) % 20);
                 const isPassing = accuracy >= 72;
                 const barColor = isPassing ? 'bg-medical-600' : 'bg-amber-500';
 
@@ -608,11 +602,65 @@
             openSelfStudy(null, domainName);
         }
 
+        function renderFavorites() {
+            const container = document.getElementById('favorites-container');
+            const badge = document.getElementById('favorite-count-badge');
+            const favs = studentStats.favorites || [];
+            badge.innerText = `${favs.length} Saved Items`;
+
+            if (favs.length === 0) {
+                container.innerHTML = `<div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>`;
+                return;
+            }
+
+            let html = '';
+            favs.forEach((q, fIdx) => {
+                html += `
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 relative group">
+                        <button onclick="window.removeFavorite('${q.id}')" class="absolute top-4 right-4 text-rose-500 hover:text-rose-700 text-xs font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-trash"></i> Remove
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">${q.systemCategory || 'General'}</span>
+                            <span class="text-xs text-slate-400">&bull; ${q.clientNeedDomain || 'Client Needs'}</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-900 pr-16">${q.questionText}</p>
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <div><strong>Correct Answer:</strong> ${q.correctAnswer}</div>
+                            <div><strong>Rationale:</strong> ${q.rationale}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        window.toggleFavoriteCurrent = function() {
+            const q = currentExamQuestions[currentExamIndex];
+            if (!q) return;
+            studentStats.favorites = studentStats.favorites || [];
+            const existsIdx = studentStats.favorites.findIndex(item => item.id === q.id);
+            if (existsIdx >= 0) {
+                studentStats.favorites.splice(existsIdx, 1);
+                alert("Question removed from saved reviews.");
+            } else {
+                studentStats.favorites.push(q);
+                alert("Question saved for review successfully!");
+            }
+            persistState();
+            renderExamQuestion();
+        }
+
+        window.removeFavorite = function(qId) {
+            studentStats.favorites = (studentStats.favorites || []).filter(item => item.id !== qId);
+            persistState();
+        }
+
         let catChartInstance = null;
 
         function initCharts() {
             const ctx1 = document.getElementById('catTrendChart').getContext('2d');
-            const catScores = studentStats.catHistory.length > 0 ? studentStats.catHistory : [82, 84, 85, 87, 88];
+            const catScores = studentStats.catHistory.length > 0 ? studentStats.catHistory : [82, 84, 85, 87, 88, 89];
             const labels = catScores.map((_, idx) => `${idx + 1}`);
 
             catChartInstance = new Chart(ctx1, {
@@ -665,7 +713,7 @@
         let currentTimerInterval = null;
         let breakTimerInterval = null;
         let activeExhibitTab = 'scenario';
-        let difficultyLevel = 3; // CAT difficulty scale 1 to 5
+        let difficultyLevel = 3;
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -875,7 +923,7 @@
             
             let timeSeconds = 25 * 60;
             if (itemCount === 60) timeSeconds = 120 * 60;
-            if (itemCount === 85 || itemCount === 150) timeSeconds = 300 * 60; // 5 hours for CAT/Readiness
+            if (itemCount === 85 || itemCount === 150) timeSeconds = 300 * 60;
 
             openModal(`${activeExamMode === 'cat' ? 'CAT Exam' : 'Timed Exam'} (${currentExamQuestions.length} Items)`);
             startTimer(timeSeconds);
@@ -912,7 +960,7 @@
         function triggerBreakPrompt() {
             const breakModal = document.getElementById('break-modal');
             breakModal.classList.remove('hidden');
-            let breakTimeLeft = 3600; // 1 hour break
+            let breakTimeLeft = 3600;
             const breakDisplay = document.getElementById('break-timer-display');
             if (breakTimerInterval) clearInterval(breakTimerInterval);
 
@@ -951,7 +999,6 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
             const isNGN = q.ngnType && q.ngnType !== 'standard';
 
-            // Reset active exhibit tab to 'scenario' on question render so traditional questions never show persistent vitals/notes
             activeExhibitTab = 'scenario';
 
             let html = `
@@ -971,7 +1018,6 @@
             if (isNGN) {
                 html += `
                     <div class="grid lg:grid-cols-2 gap-8 items-start">
-                        <!-- Left: NGN Exhibit Tabs & Clinical Record -->
                         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                                 <div class="flex gap-2">
@@ -988,10 +1034,6 @@
                         <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200 animate-fadeIn">
                             ${q.questionText || "Clinical scenario details loading..."}
                         </div>
-                        <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                            <span class="text-xs font-bold text-emerald-800 uppercase block mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Clinical Context</span>
-                            <p class="text-xs text-slate-700">Analyze client findings carefully. Use clinical judgment to prioritize nursing actions and monitor parameters.</p>
-                        </div>
                     `;
                 } else if (activeExhibitTab === 'vitals') {
                     html += `
@@ -1000,8 +1042,6 @@
                             <div class="grid grid-cols-2 gap-3 text-slate-700">
                                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">128/82 mmHg</span></div>
                                 <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">88 bpm (Regular)</span></div>
-                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">37.2°C (99.0°F)</span></div>
-                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">96% on room air</span></div>
                             </div>
                         </div>
                     `;
@@ -1009,7 +1049,7 @@
                     html += `
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
                             <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-clipboard-user text-medical-600 mr-1"></i> Nurse's Notes Summary</span>
-                            <p class="text-xs text-slate-700 leading-relaxed">Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified.</p>
+                            <p class="text-xs text-slate-700 leading-relaxed">Client alert and oriented x 3. Respirations unlabored. IV patent in left forearm infusing Normal Saline at 75 mL/hr.</p>
                         </div>
                     `;
                 }
@@ -1026,13 +1066,17 @@
             }
 
             html += `
-                        <!-- Right: Interactive Options / NGN Widgets -->
                         <div class="space-y-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <h4 class="font-bold text-slate-900 text-sm">${isNGN ? 'Complete NGN item below:' : 'Select the best response:'}</h4>
-                                <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
-                                    <i class="fa-solid fa-flag"></i> Report
-                                </button>
+                                <div class="flex items-center gap-2">
+                                    <button onclick="window.toggleFavoriteCurrent()" class="px-2 py-0.5 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
+                                        <i class="fa-solid fa-bookmark"></i> Save for Review
+                                    </button>
+                                    <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
+                                        <i class="fa-solid fa-flag"></i> Report
+                                    </button>
+                                </div>
                             </div>
             `;
 
@@ -1040,7 +1084,6 @@
                 html += `
                     <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                         <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-table-cells text-medical-600 mr-1"></i> NGN Matrix Grid Item</span>
-                        <p class="text-xs text-slate-600">For each clinical action, click to indicate whether the action is <strong>Indicated</strong>, <strong>Nonessential</strong>, or <strong>Contraindicated</strong>.</p>
                         <div class="space-y-3">
                 `;
                 q.options.slice(0, 3).forEach((optText, mIdx) => {
@@ -1060,27 +1103,11 @@
             } else if (q.ngnType === 'dropdown') {
                 html += `
                     <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-list-dropdown text-medical-600 mr-1"></i> NGN Cloze (Drop-Down) Item</span>
-                        <div class="space-y-3">
-                            <label class="text-xs text-slate-700 block font-medium">Complete the sentence by selecting the appropriate choices:</label>
-                            <select onchange="window.selectDropdown(0, this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
-                                <option value="">-- Select Dropdown Option --</option>
-                                ${q.options.map(opt => `<option value="${opt}" ${userAnswersMap['dd_0'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
-                            </select>
-                        </div>
-                    </div>
-                `;
-            } else if (q.ngnType === 'bowtie') {
-                html += `
-                    <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-diagram-project text-medical-600 mr-1"></i> NGN Bow-Tie Item</span>
-                        <div class="space-y-3">
-                            <label class="text-xs text-slate-700 block font-medium">Select primary condition to manage:</label>
-                            <select onchange="window.selectBowtie('condition', this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
-                                <option value="">-- Choose Condition --</option>
-                                ${q.options.slice(0, 3).map(opt => `<option value="${opt}" ${userAnswersMap['bt_condition'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
-                            </select>
-                        </div>
+                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-list-dropdown text-medical-600 mr-1"></i> NGN Cloze Dropdown</span>
+                        <select onchange="window.selectDropdown(0, this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
+                            <option value="">-- Select Option --</option>
+                            ${q.options.map(opt => `<option value="${opt}" ${userAnswersMap['dd_0'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                        </select>
                     </div>
                 `;
             } else if (q.ngnType === 'dragdrop') {
@@ -1088,16 +1115,12 @@
                 html += `
                     <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
                         <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-hand-pointer text-medical-600 mr-1"></i> NGN Drag & Drop Prioritization</span>
-                        <p class="text-xs text-slate-600">Click actions in order of priority to place them in the management queue:</p>
                         <div id="drop-target" class="p-4 bg-white rounded-xl border-2 border-dashed border-slate-300 min-h-[70px] flex flex-wrap gap-2 items-center">
                             ${currentQueue.length === 0 ? '<span class="text-xs text-slate-400 italic">Click options below to sequence in priority order...</span>' : ''}
-                            ${currentQueue.map((item, dIdx) => `<span class="px-3 py-1.5 bg-medical-100 text-medical-800 rounded-lg text-xs font-bold flex items-center gap-2">${dIdx+1}. ${item} <button onclick="window.removeDrag(${dIdx})" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-xmark"></i></button></span>`).join('')}
+                            ${currentQueue.map((item, dIdx) => `<span class="px-3 py-1.5 bg-medical-100 text-medical-800 rounded-lg text-xs font-bold flex items-center gap-2">${dIdx+1}. ${item} <button onclick="window.removeDrag(${dIdx})" class="text-rose-600"><i class="fa-solid fa-xmark"></i></button></span>`).join('')}
                         </div>
-                        <div class="space-y-2 pt-2">
-                            <span class="text-[10px] text-slate-500 uppercase font-bold">Available Actions:</span>
-                            <div class="flex flex-wrap gap-2">
-                                ${q.options.map((opt) => `<button onclick="window.addDrag('${opt.replace(/'/g, "\\'")}')" class="px-3 py-2 bg-white border border-slate-200 hover:border-medical-500 rounded-xl text-xs font-semibold text-slate-700 shadow-sm transition-all">${opt}</button>`).join('')}
-                            </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            ${q.options.map((opt) => `<button onclick="window.addDrag('${opt.replace(/'/g, "\\'")}')" class="px-3 py-2 bg-white border border-slate-200 hover:border-medical-500 rounded-xl text-xs font-semibold text-slate-700 shadow-sm">${opt}</button>`).join('')}
                         </div>
                     </div>
                 `;
@@ -1138,9 +1161,9 @@
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale & Clinical Pearl</span>
                         </div>
-                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || "Review evidence-based guidelines for this condition."}</p>
+                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
                         <div class="text-xs text-medical-800 pt-2 border-t border-slate-200 font-semibold bg-medical-50/60 p-3 rounded-xl">
-                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <strong>Clinical Pearl:</strong> ${q.clinicalPearl || "Prioritize nursing interventions accurately based on client assessment."}
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <strong>Clinical Pearl:</strong> ${q.clinicalPearl}
                         </div>
                     </div>
                 `;
@@ -1150,7 +1173,9 @@
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100">
                         <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Testing Rules Active &bull; No Previous Button</span>
                         <div class="flex gap-3">
-                            ${activeExamMode === 'selfstudy' ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">Next Question <i class="fa-solid fa-arrow-right ml-1"></i></button>` : `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}</button>`}
+                            <button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
+                                ${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -1164,7 +1189,6 @@
             userAnswersMap[currentExamIndex] = optLetter;
             const q = currentExamQuestions[currentExamIndex];
             
-            // Track answered question globally
             studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
             const isCorrect = (optLetter === q.correctAnswer);
             studentStats.answeredQuestionIds[q.id] = { correct: isCorrect };
@@ -1180,12 +1204,16 @@
                 persistState();
                 renderExamQuestion();
             } else {
+                studentStats.totalAnswered++;
                 if (isCorrect) {
+                    studentStats.correctCount++;
                     difficultyLevel = Math.min(5, difficultyLevel + 1);
                 } else {
+                    studentStats.mistakeCount++;
                     difficultyLevel = Math.max(1, difficultyLevel - 1);
                 }
-
+                updateDashboardStats();
+                persistState();
                 setTimeout(() => {
                     window.nextQuestion();
                 }, 150);
@@ -1206,6 +1234,10 @@
                 persistState();
                 renderExamQuestion();
             } else {
+                studentStats.totalAnswered++;
+                studentStats.correctCount++;
+                updateDashboardStats();
+                persistState();
                 setTimeout(() => { window.nextQuestion(); }, 150);
             }
         }
@@ -1224,24 +1256,10 @@
                 persistState();
                 renderExamQuestion();
             } else {
-                setTimeout(() => { window.nextQuestion(); }, 150);
-            }
-        }
-
-        window.selectBowtie = function(field, val) {
-            userAnswersMap[`bt_${field}`] = val;
-            userAnswersMap[currentExamIndex] = 'answered';
-            const q = currentExamQuestions[currentExamIndex];
-            studentStats.answeredQuestionIds = studentStats.answeredQuestionIds || {};
-            studentStats.answeredQuestionIds[q.id] = { correct: true };
-
-            if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
                 persistState();
-                renderExamQuestion();
-            } else {
                 setTimeout(() => { window.nextQuestion(); }, 150);
             }
         }
@@ -1293,17 +1311,7 @@
                 const ans = userAnswersMap[idx];
                 if (ans !== undefined && ans !== null && ans !== '') {
                     attempted++;
-                    if (activeExamMode === 'timed' || activeExamMode === 'cat' || activeExamMode === 'readiness') {
-                        studentStats.totalAnswered++;
-                        if (ans === q.correctAnswer) {
-                            correct++;
-                            studentStats.correctCount++;
-                        } else {
-                            studentStats.mistakeCount++;
-                        }
-                    } else {
-                        if (ans === q.correctAnswer) correct++;
-                    }
+                    if (ans === q.correctAnswer) correct++;
                 }
             });
 
@@ -1404,15 +1412,6 @@
             const reason = document.getElementById('report-reason').value;
             if (!reason.trim()) return;
             document.getElementById('report-modal').classList.add('hidden');
-        }
-
-        window.saveNotes = function() {
-            persistState();
-            const statusEl = document.getElementById('notes-save-status');
-            statusEl.classList.remove('hidden');
-            setTimeout(() => {
-                statusEl.classList.add('hidden');
-            }, 3000);
         }
 
         window.onload = function() {
