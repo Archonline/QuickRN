@@ -78,13 +78,13 @@
 
         <!-- Dashboard Stats Grid -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
+            <div onclick="window.openTestHistoryModal()" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2 cursor-pointer hover:border-medical-500 hover:shadow-md transition-all group">
                 <div class="flex items-center justify-between text-slate-400">
-                    <span class="text-xs font-bold uppercase tracking-wider">Tests Taken</span>
+                    <span class="text-xs font-bold uppercase tracking-wider group-hover:text-medical-600 transition-colors">Tests Taken <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
                     <i class="fa-solid fa-laptop-medical text-medical-600 text-lg"></i>
                 </div>
                 <div id="stat-tests-taken" class="text-3xl font-extrabold text-slate-900">0</div>
-                <p class="text-xs text-medical-600 font-semibold">CAT & Exam simulations</p>
+                <p class="text-xs text-medical-600 font-semibold">Click to view exam history & retake</p>
             </div>
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
                 <div class="flex items-center justify-between text-slate-400">
@@ -243,6 +243,26 @@
             <!-- Modal Body (Spacious & Clean NGN split layout) -->
             <div id="modal-body" class="p-4 sm:p-8 overflow-y-auto space-y-6 flex-grow">
                 <!-- Dynamic Content Rendered Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- EXAM HISTORY & RETAKE MODAL -->
+    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-slate-50 rounded-3xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
+            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-medical-500/20 text-medical-400 flex items-center justify-center">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <span class="font-extrabold text-base tracking-wide text-white">Exam History & Performance Logs</span>
+                </div>
+                <button onclick="document.getElementById('history-modal').classList.add('hidden')" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="history-modal-body" class="p-6 overflow-y-auto space-y-6 flex-grow">
+                <!-- Populated dynamically -->
             </div>
         </div>
     </div>
@@ -505,6 +525,7 @@
         let activeExamMode = ''; 
         let currentTimerInterval = null;
         let activeExhibitTab = 'scenario';
+        let currentExamTimerSeconds = 0;
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -515,6 +536,124 @@
             document.getElementById('exam-modal').classList.add('hidden');
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             fetchQuestionRepository();
+        }
+
+        window.openTestHistoryModal = function() {
+            const modalBody = document.getElementById('history-modal-body');
+            const history = studentStats.examHistory || [];
+            
+            if (history.length === 0) {
+                modalBody.innerHTML = `
+                    <div class="text-center py-16 space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-folder-open"></i></div>
+                        <h3 class="text-lg font-bold text-slate-800">No Exam History Yet</h3>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Complete a CAT exam, timed test, or Q-bank review session to see your test logs and retake options here.</p>
+                    </div>
+                `;
+            } else {
+                let html = `<div class="space-y-4"><h3 class="font-extrabold text-slate-900 text-sm">Previous Exam Logs (${history.length}):</h3><div class="space-y-3">`;
+                history.forEach((record, hIdx) => {
+                    html += `
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-1 bg-medical-50 text-medical-700 text-xs font-bold uppercase rounded-lg">${record.mode.toUpperCase()}</span>
+                                    <span class="text-xs text-slate-400 font-medium">${record.date}</span>
+                                </div>
+                                <div class="text-base font-extrabold text-slate-900">${record.attempted} of ${record.total} Questions Answered &bull; Score: <span class="text-medical-600">${record.scorePercent}%</span></div>
+                            </div>
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <button onclick="window.viewExamRecord(${hIdx})" class="flex-1 sm:flex-none px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5">
+                                    <i class="fa-solid fa-eye"></i> View Summary
+                                </button>
+                                <button onclick="window.retakeExamRecord(${hIdx})" class="flex-1 sm:flex-none px-4 py-2.5 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-rotate-right"></i> Retake Test
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div></div>`;
+                modalBody.innerHTML = html;
+            }
+            document.getElementById('history-modal').classList.remove('hidden');
+        }
+
+        window.viewExamRecord = function(hIdx) {
+            const record = (studentStats.examHistory || [])[hIdx];
+            if (!record) return;
+            document.getElementById('history-modal').classList.add('hidden');
+            
+            currentExamQuestions = record.questions;
+            currentExamIndex = 0;
+            userAnswersMap = record.userAnswers || {};
+            activeExamMode = record.mode;
+            
+            const body = document.getElementById('modal-body');
+            openModal(`Review Past Exam (${record.date})`);
+            document.getElementById('modal-timer').innerText = `Score: ${record.scorePercent}%`;
+            
+            let html = `
+                <div class="space-y-6 max-w-4xl mx-auto py-6 animate-fadeIn">
+                    <div class="flex items-center justify-between bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-900">Exam Summary Review</h3>
+                            <p class="text-xs text-slate-500">Mode: ${record.mode.toUpperCase()} &bull; Date: ${record.date}</p>
+                        </div>
+                        <button onclick="window.retakeExamRecord(${hIdx})" class="px-4 py-2.5 bg-medical-600 text-white text-xs font-bold rounded-xl hover:bg-medical-700 shadow-md transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-rotate-right"></i> Retake Exact Test
+                        </button>
+                    </div>
+                    <div class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+            `;
+
+            currentExamQuestions.forEach((q, qIdx) => {
+                const userAns = userAnswersMap[qIdx];
+                const isCorrect = userAns === q.correctAnswer;
+                html += `
+                    <div class="bg-white p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-200 bg-rose-50/20'} space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-700">Question ${qIdx + 1}: ${q.systemCategory || 'General'}</span>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${isCorrect ? 'Correct' : (userAns !== undefined ? 'Incorrect' : 'Skipped')}</span>
+                        </div>
+                        <p class="text-xs font-semibold text-slate-900">${q.questionText}</p>
+                        <div class="text-xs text-slate-600 space-y-1">
+                            <div><strong>Your Answer:</strong> ${userAns !== undefined ? userAns : 'None (Skipped)'}</div>
+                            <div><strong>Correct Answer:</strong> ${q.correctAnswer}</div>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
+                            <div><strong>Rationale:</strong> ${q.rationale}</div>
+                            <div class="text-medical-800 font-semibold"><strong>Clinical Pearl:</strong> ${q.clinicalPearl}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div></div>`;
+            body.innerHTML = html;
+        }
+
+        window.retakeExamRecord = function(hIdx) {
+            const record = (studentStats.examHistory || [])[hIdx];
+            if (!record) return;
+            document.getElementById('history-modal').classList.add('hidden');
+            
+            currentExamQuestions = [...record.questions];
+            currentExamIndex = 0;
+            userAnswersMap = {};
+            activeExamMode = record.mode;
+            
+            let timeSecs = 3 * 3600;
+            if (record.mode === 'cat') timeSecs = 5 * 3600;
+            else if (record.mode === 'timed') timeSecs = Math.round(record.questions.length * 100);
+            
+            openModal(`Retake: ${record.mode.toUpperCase()} Exam (${currentExamQuestions.length} Items)`);
+            if (record.mode === 'selfstudy') {
+                document.getElementById('modal-timer').innerText = "No Time Limit";
+            } else {
+                startTimer(timeSecs);
+            }
+            renderExamQuestion();
         }
 
         window.startCatSimulation = function() {
@@ -575,6 +714,7 @@
         function startTimer(seconds) {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             let timeLeft = seconds;
+            currentExamTimerSeconds = seconds;
             const timerEl = document.getElementById('modal-timer');
             
             currentTimerInterval = setInterval(() => {
@@ -664,7 +804,7 @@
 
                 html += `</div>`;
             } else {
-                // Non-NGN standard question without split window or extra empty placeholders
+                // Non-NGN standard question without extra vitals/labs or notes
                 html += `
                     <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -796,12 +936,14 @@
                 `;
             }
 
-            // Navigation Controls: True NCLEX has NO PREVIOUS button; timed/CAT auto-advance on selection
+            // Navigation Controls: True NCLEX standard has NO previous button
             html += `
-                    <div class="flex items-center justify-end pt-6 border-t border-slate-100">
-                        <button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
-                            ${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next <i class="fa-solid fa-arrow-right ml-1"></i>'}
-                        </button>
+                    <div class="flex items-center justify-between pt-6 border-t border-slate-100">
+                        <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Item Environment</span>
+                        <div class="flex gap-3">
+                            ${activeExamMode === 'selfstudy' && isAnswered ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">Next Question <i class="fa-solid fa-arrow-right ml-1"></i></button>` : ''}
+                            ${activeExamMode !== 'selfstudy' ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}</button>` : ''}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -812,7 +954,7 @@
 
         window.selectOption = function(optIndex, optLetter) {
             userAnswersMap[currentExamIndex] = optLetter;
-            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+            if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 const q = currentExamQuestions[currentExamIndex];
                 if (optLetter === q.correctAnswer) {
@@ -824,17 +966,17 @@
                 persistState();
                 renderExamQuestion();
             } else {
-                // In timed / CAT mode, automatically advance to the next question without showing correctness
+                // CAT & Timed exams: Automatically advance without revealing correctness
                 setTimeout(() => {
                     window.nextQuestion();
-                }, 250);
+                }, 200);
             }
         }
 
         window.selectMatrix = function(mIdx, val) {
             userAnswersMap[`matrix_${mIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+            if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
@@ -846,7 +988,7 @@
         window.selectDropdown = function(ddIdx, val) {
             userAnswersMap[`dd_${ddIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+            if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
@@ -858,7 +1000,7 @@
         window.selectBowtie = function(field, val) {
             userAnswersMap[`bt_${field}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+            if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
@@ -872,7 +1014,7 @@
             if (!userAnswersMap['drag_queue'].includes(itemText)) {
                 userAnswersMap['drag_queue'].push(itemText);
                 userAnswersMap[currentExamIndex] = 'answered';
-                if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+                if (activeExamMode === 'selfstudy') {
                     studentStats.totalAnswered++;
                     studentStats.correctCount++;
                     updateDashboardStats();
@@ -932,7 +1074,7 @@
             const avgScore = Math.round(studentStats.catHistory.reduce((a, b) => a + b, 0) / studentStats.catHistory.length);
             studentStats.passingProbability = Math.min(98, Math.max(15, avgScore + 4));
 
-            // Store exam results for review later
+            // Store exam record in history
             const examRecord = {
                 date: new Date().toLocaleString(),
                 mode: activeExamMode,
