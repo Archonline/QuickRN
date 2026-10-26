@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | QuickRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        medical: { 50: '#f0fdf4', 600: '#059669', 700: '#047857' },
+                        clinical: { 600: '#0284c7' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Inter', sans-serif; } </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+    <header class="bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white shadow-md">
+                    <i class="fa-solid fa-stethoscope text-lg"></i>
+                </div>
+                <span class="text-xl font-extrabold">Quick<span class="text-medical-600">RN</span></span>
+            </div>
+            <button onclick="window.location.href='dashboard.html'" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold">Back to Dashboard</button>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex items-center gap-6">
+            <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white text-4xl shadow-md">
+                <i class="fa-solid fa-user-nurse"></i>
+            </div>
+            <div>
+                <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl uppercase">Verified Candidate</span>
+                <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Future RN Candidate</h2>
+                <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-envelope mr-1 text-medical-600"></i> student@quickrn.com</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+            <h3 class="text-lg font-extrabold text-slate-900 border-b border-slate-100 pb-4"><i class="fa-solid fa-gear text-slate-400 mr-2"></i>Account & Data Management</h3>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-200">
+                <div>
+                    <h4 class="font-bold text-slate-900 text-sm">Reset All Tests & Analytics</h4>
+                    <p class="text-xs text-slate-600 mt-1">Clear all test history, answered questions, readiness takes, and saved favorites. This action cannot be undone.</p>
+                </div>
+                <button onclick="document.getElementById('reset-warning-modal').classList.remove('hidden')" class="px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl text-xs whitespace-nowrap shadow-md">
+                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> Reset All Analytics
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- RESET WARNING MODAL -->
+    <div id="reset-warning-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl text-center">
+            <div class="w-16 h-16 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-lg font-extrabold text-slate-900">Reset All Progress & Analytics?</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">Warning: This action will permanently erase all test history, readiness takes count back to 4, and analytics.</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="document.getElementById('reset-warning-modal').classList.add('hidden')" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl text-xs">Cancel</button>
+                <button onclick="confirmReset()" class="flex-1 py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-2xl text-xs shadow-md">Yes, Reset Everything</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">QuickRN Student Portal</footer>
+
+    <script>
+        function confirmReset() {
+            localStorage.removeItem('quickrn_student_state');
+            localStorage.removeItem('quickrn_readiness_takes');
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
