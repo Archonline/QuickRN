@@ -653,6 +653,7 @@
             } else {
                 startTimer(timeSecs);
             }
+            activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
 
@@ -667,6 +668,7 @@
             userAnswersMap = {};
             openModal("NCLEX CAT Exam Simulation (Mirror Environment)");
             startTimer(5 * 3600);
+            activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
 
@@ -686,6 +688,7 @@
             userAnswersMap = {};
             openModal(`Q-Bank Self-Study Mode ${filterSystem ? '('+filterSystem+')' : ''}`);
             document.getElementById('modal-timer').innerText = "No Time Limit";
+            activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
 
@@ -708,6 +711,7 @@
 
             openModal(`Timed NCLEX Exam (${currentExamQuestions.length} Items)`);
             startTimer(timeSeconds);
+            activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
 
