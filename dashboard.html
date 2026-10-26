@@ -344,7 +344,6 @@
                 categories = data.categories || data;
                 questionBank = [];
 
-                // Deep recursive crawler to extract all questions and NGN items
                 function extractItems(obj, currentSystem = 'General', currentTopic = 'Review') {
                     if (!obj) return;
                     if (Array.isArray(obj)) {
@@ -353,19 +352,13 @@
                                 item.systemCategory = item.systemCategory || item.category || currentSystem;
                                 item.topic = item.topic || item.subtopic || currentTopic;
                                 
-                                // Question text normalization (handling questionText, question, prompt, etc.)
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
                                 
-                                // NGN Type detection & emulation mapping
-                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : 'standard'))));
+                                // NGN Type detection
+                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : (Math.random() < 0.08 ? 'dragdrop' : 'standard')))));
                                 
-                                // Options normalization
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
-                                
-                                // Correct Answer normalization
                                 item.correctAnswer = item.correctAnswer || item.answer || item.correct || "A";
-                                
-                                // Rationale & Clinical Pearl normalization
                                 item.rationale = item.rationale || item.explanation || item.studyNote || "Review evidence-based guidelines for this condition.";
                                 item.clinicalPearl = item.clinicalPearl || item.pearl || item.learningObjective || "Prioritize nursing interventions accurately based on client assessment.";
                                 
@@ -387,7 +380,7 @@
 
                 extractItems(categories);
                 
-                // Shuffle / randomize question bank thoroughly for every session
+                // Shuffle repository thoroughly
                 questionBank.sort(() => Math.random() - 0.5);
 
                 console.log(`Successfully loaded & randomized ${questionBank.length} questions from compiled JSON.`);
@@ -613,6 +606,7 @@
             const q = currentExamQuestions[currentExamIndex];
             const isAnswered = userAnswersMap[currentExamIndex] !== undefined;
             const selectedOpt = userAnswersMap[currentExamIndex];
+            const isNGN = q.ngnType && q.ngnType !== 'standard';
 
             let html = `
                 <div class="space-y-6 max-w-7xl mx-auto w-full animate-fadeIn">
@@ -620,7 +614,10 @@
                         <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentExamIndex + 1} of ${currentExamQuestions.length}</span>
                         <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>
                     </div>
+            `;
 
+            if (isNGN) {
+                html += `
                     <div class="grid lg:grid-cols-2 gap-8 items-start">
                         <!-- Left: NGN Exhibit Tabs & Clinical Record -->
                         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
@@ -630,48 +627,58 @@
                                     <button onclick="window.setExhibitTab('vitals')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${activeExhibitTab === 'vitals' ? 'bg-medical-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">Vitals & Labs</button>
                                     <button onclick="window.setExhibitTab('notes')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${activeExhibitTab === 'notes' ? 'bg-medical-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">Nurse's Notes</button>
                                 </div>
-                                <span class="text-[10px] text-medical-600 font-extrabold px-2 py-0.5 bg-medical-50 rounded-lg">NGN Exhibit</span>
+                                <span class="text-[10px] text-medical-600 font-extrabold px-2 py-0.5 bg-medical-50 rounded-lg">NGN Split Window</span>
                             </div>
-            `;
+                `;
 
-            if (activeExhibitTab === 'scenario') {
-                html += `
-                    <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200 animate-fadeIn">
-                        ${q.questionText || "Clinical scenario details loading..."}
-                    </div>
-                    <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                        <span class="text-xs font-bold text-emerald-800 uppercase block mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Clinical Context</span>
-                        <p class="text-xs text-slate-700">Analyze client findings carefully. Use clinical judgment to prioritize nursing actions and monitor parameters.</p>
-                    </div>
-                `;
-            } else if (activeExhibitTab === 'vitals') {
-                html += `
-                    <div class="space-y-3 animate-fadeIn">
-                        <span class="text-xs font-bold text-slate-700 uppercase">Recent Vital Signs & Laboratory Results</span>
-                        <div class="grid grid-cols-2 gap-3 text-slate-700">
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">128/82 mmHg</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">88 bpm (Regular)</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">37.2°C (99.0°F)</span></div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">96% on room air</span></div>
+                if (activeExhibitTab === 'scenario') {
+                    html += `
+                        <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200 animate-fadeIn">
+                            ${q.questionText || "Clinical scenario details loading..."}
                         </div>
-                    </div>
-                `;
-            } else if (activeExhibitTab === 'notes') {
+                        <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                            <span class="text-xs font-bold text-emerald-800 uppercase block mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Clinical Context</span>
+                            <p class="text-xs text-slate-700">Analyze client findings carefully. Use clinical judgment to prioritize nursing actions and monitor parameters.</p>
+                        </div>
+                    `;
+                } else if (activeExhibitTab === 'vitals') {
+                    html += `
+                        <div class="space-y-3 animate-fadeIn">
+                            <span class="text-xs font-bold text-slate-700 uppercase">Recent Vital Signs & Laboratory Results</span>
+                            <div class="grid grid-cols-2 gap-3 text-slate-700">
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">128/82 mmHg</span></div>
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">88 bpm (Regular)</span></div>
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">37.2°C (99.0°F)</span></div>
+                                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">96% on room air</span></div>
+                            </div>
+                        </div>
+                    `;
+                } else if (activeExhibitTab === 'notes') {
+                    html += `
+                        <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
+                            <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-clipboard-user text-medical-600 mr-1"></i> Nurse's Notes Summary</span>
+                            <p class="text-xs text-slate-700 leading-relaxed">Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified.</p>
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+            } else {
+                // Non-NGN standard question without split window or extra empty placeholders
                 html += `
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
-                        <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-clipboard-user text-medical-600 mr-1"></i> Nurse's Notes Summary</span>
-                        <p class="text-xs text-slate-700 leading-relaxed">Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified.</p>
+                    <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                            ${q.questionText || "Clinical question details loading..."}
+                        </div>
                     </div>
                 `;
             }
 
             html += `
-                        </div>
-
                         <!-- Right: Interactive Options / NGN Widgets -->
                         <div class="space-y-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between">
-                                <h4 class="font-bold text-slate-900 text-sm">Select the best response or complete NGN items below:</h4>
+                                <h4 class="font-bold text-slate-900 text-sm">${isNGN ? 'Complete NGN item below:' : 'Select the best response:'}</h4>
                                 <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
                                     <i class="fa-solid fa-flag"></i> Report
                                 </button>
@@ -725,6 +732,24 @@
                         </div>
                     </div>
                 `;
+            } else if (q.ngnType === 'dragdrop') {
+                const currentQueue = userAnswersMap['drag_queue'] || [];
+                html += `
+                    <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-hand-pointer text-medical-600 mr-1"></i> NGN Drag & Drop Prioritization</span>
+                        <p class="text-xs text-slate-600">Click actions in order of priority to place them in the management queue:</p>
+                        <div id="drop-target" class="p-4 bg-white rounded-xl border-2 border-dashed border-slate-300 min-h-[70px] flex flex-wrap gap-2 items-center">
+                            ${currentQueue.length === 0 ? '<span class="text-xs text-slate-400 italic">Click options below to sequence in priority order...</span>' : ''}
+                            ${currentQueue.map((item, dIdx) => `<span class="px-3 py-1.5 bg-medical-100 text-medical-800 rounded-lg text-xs font-bold flex items-center gap-2">${dIdx+1}. ${item} <button onclick="window.removeDrag(${dIdx})" class="text-rose-600 hover:text-rose-800"><i class="fa-solid fa-xmark"></i></button></span>`).join('')}
+                        </div>
+                        <div class="space-y-2 pt-2">
+                            <span class="text-[10px] text-slate-500 uppercase font-bold">Available Actions:</span>
+                            <div class="flex flex-wrap gap-2">
+                                ${q.options.map((opt) => `<button onclick="window.addDrag('${opt.replace(/'/g, "\\'")}')" class="px-3 py-2 bg-white border border-slate-200 hover:border-medical-500 rounded-xl text-xs font-semibold text-slate-700 shadow-sm transition-all">${opt}</button>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
             } else {
                 html += `<div class="space-y-3">`;
                 if (Array.isArray(q.options)) {
@@ -734,7 +759,7 @@
                         const isCorrect = optLetter === q.correctAnswer;
                         let optStyle = "bg-slate-50 border-slate-200 hover:border-medical-500 text-slate-700";
                         
-                        if (isAnswered) {
+                        if (activeExamMode === 'selfstudy' && isAnswered) {
                             if (isCorrect) {
                                 optStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-sm";
                             } else if (isSelected && !isCorrect) {
@@ -747,8 +772,8 @@
                         html += `
                             <button onclick="window.selectOption(${idx}, '${optLetter}')" class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${optStyle}">
                                 <span class="text-sm"><strong>${optLetter}.</strong> ${opt}</span>
-                                ${isAnswered && isCorrect ? '<i class="fa-solid fa-check text-emerald-600 text-base"></i>' : ''}
-                                ${isAnswered && isSelected && !isCorrect ? '<i class="fa-solid fa-xmark text-rose-600 text-base"></i>' : ''}
+                                ${activeExamMode === 'selfstudy' && isAnswered && isCorrect ? '<i class="fa-solid fa-check text-emerald-600 text-base"></i>' : ''}
+                                ${activeExamMode === 'selfstudy' && isAnswered && isSelected && !isCorrect ? '<i class="fa-solid fa-xmark text-rose-600 text-base"></i>' : ''}
                             </button>
                         `;
                     });
@@ -771,21 +796,15 @@
                 `;
             }
 
+            // Navigation Controls: True NCLEX has NO PREVIOUS button; timed/CAT auto-advance on selection
             html += `
-                            <!-- Navigation Controls -->
-                            <div class="flex items-center justify-between pt-6 border-t border-slate-100">
-                                <button onclick="window.prevQuestion()" ${currentExamIndex === 0 ? 'disabled opacity-50' : ''} class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition-colors flex items-center gap-1">
-                                    <i class="fa-solid fa-arrow-left"></i> Previous
-                                </button>
-                                <div class="flex gap-3">
-                                    <button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
-                                        ${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next <i class="fa-solid fa-arrow-right ml-1"></i>'}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex items-center justify-end pt-6 border-t border-slate-100">
+                        <button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">
+                            ${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next <i class="fa-solid fa-arrow-right ml-1"></i>'}
+                        </button>
                     </div>
                 </div>
+            </div>
             `;
 
             body.innerHTML = html;
@@ -793,7 +812,7 @@
 
         window.selectOption = function(optIndex, optLetter) {
             userAnswersMap[currentExamIndex] = optLetter;
-            if (activeExamMode !== 'timed') {
+            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
                 studentStats.totalAnswered++;
                 const q = currentExamQuestions[currentExamIndex];
                 if (optLetter === q.correctAnswer) {
@@ -803,43 +822,70 @@
                 }
                 updateDashboardStats();
                 persistState();
+                renderExamQuestion();
+            } else {
+                // In timed / CAT mode, automatically advance to the next question without showing correctness
+                setTimeout(() => {
+                    window.nextQuestion();
+                }, 250);
             }
-            renderExamQuestion();
         }
 
         window.selectMatrix = function(mIdx, val) {
             userAnswersMap[`matrix_${mIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed') {
+            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
                 persistState();
+                renderExamQuestion();
             }
-            renderExamQuestion();
         }
 
         window.selectDropdown = function(ddIdx, val) {
             userAnswersMap[`dd_${ddIdx}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed') {
+            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
                 persistState();
+                renderExamQuestion();
             }
-            renderExamQuestion();
         }
 
         window.selectBowtie = function(field, val) {
             userAnswersMap[`bt_${field}`] = val;
             userAnswersMap[currentExamIndex] = 'answered';
-            if (activeExamMode !== 'timed') {
+            if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
                 studentStats.totalAnswered++;
                 studentStats.correctCount++;
                 updateDashboardStats();
                 persistState();
+                renderExamQuestion();
             }
+        }
+
+        window.addDrag = function(itemText) {
+            userAnswersMap['drag_queue'] = userAnswersMap['drag_queue'] || [];
+            if (!userAnswersMap['drag_queue'].includes(itemText)) {
+                userAnswersMap['drag_queue'].push(itemText);
+                userAnswersMap[currentExamIndex] = 'answered';
+                if (activeExamMode !== 'timed' && activeExamMode !== 'cat') {
+                    studentStats.totalAnswered++;
+                    studentStats.correctCount++;
+                    updateDashboardStats();
+                    persistState();
+                    renderExamQuestion();
+                } else {
+                    renderExamQuestion();
+                }
+            }
+        }
+
+        window.removeDrag = function(dIdx) {
+            userAnswersMap['drag_queue'].splice(dIdx, 1);
             renderExamQuestion();
         }
 
@@ -853,14 +899,6 @@
             }
         }
 
-        window.prevQuestion = function() {
-            if (currentExamIndex > 0) {
-                currentExamIndex--;
-                activeExhibitTab = 'scenario';
-                renderExamQuestion();
-            }
-        }
-
         function finishExam() {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             
@@ -869,9 +907,9 @@
             
             currentExamQuestions.forEach((q, idx) => {
                 const ans = userAnswersMap[idx];
-                if (ans !== undefined) {
+                if (ans !== undefined && ans !== null && ans !== '') {
                     attempted++;
-                    if (activeExamMode === 'timed') {
+                    if (activeExamMode === 'timed' || activeExamMode === 'cat') {
                         studentStats.totalAnswered++;
                         if (ans === q.correctAnswer) {
                             correct++;
