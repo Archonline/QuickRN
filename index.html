@@ -36,6 +36,94 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+
+    <!-- FIREBASE SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // TODO: Replace these placeholders with your actual Firebase project configuration credentials
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // Global Authentication Functions exposed to window
+        window.handleGoogleLogin = async function() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                alert(`Successfully signed in with Gmail: ${user.email}`);
+                closeModal('signin');
+                closeModal('register');
+                updateAuthUI(user);
+            } catch (error) {
+                console.error("Google Auth Error:", error.message);
+                alert("Google Sign-In failed: " + error.message);
+            }
+        };
+
+        window.handleEmailSignIn = async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('signin-email').value;
+            const pass = document.getElementById('signin-pass').value;
+            try {
+                const result = await signInWithEmailAndPassword(auth, email, pass);
+                alert(`Welcome back, ${result.user.email}!`);
+                closeModal('signin');
+                updateAuthUI(result.user);
+            } catch (error) {
+                alert("Sign In Error: " + error.message);
+            }
+        };
+
+        window.handleEmailRegister = async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            try {
+                const result = await createUserWithEmailAndPassword(auth, email, pass);
+                alert(`Account created successfully for ${result.user.email}!`);
+                closeModal('register');
+                updateAuthUI(result.user);
+            } catch (error) {
+                alert("Registration Error: " + error.message);
+            }
+        };
+
+        // Monitor Auth State Changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                updateAuthUI(user);
+            }
+        });
+
+        function updateAuthUI(user) {
+            const authButtonsContainer = document.getElementById('auth-buttons-container');
+            if (authButtonsContainer) {
+                authButtonsContainer.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold text-slate-700 hidden sm:inline"><i class="fa-solid fa-user-nurse text-medical-600 mr-1"></i> ${user.displayName || user.email}</span>
+                        <button onclick="window.handleSignOut()" class="px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">Sign Out</button>
+                    </div>
+                `;
+            }
+        }
+
+        window.handleSignOut = async function() {
+            await auth.signOut();
+            window.location.reload();
+        }
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-500 selection:text-white">
 
@@ -61,7 +149,7 @@
             </nav>
 
             <!-- Auth Buttons -->
-            <div class="flex items-center gap-3">
+            <div id="auth-buttons-container" class="flex items-center gap-3">
                 <button onclick="openModal('signin')" class="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-medical-600 transition-colors">
                     Sign In
                 </button>
@@ -290,7 +378,7 @@
             </div>
             <div class="p-6 space-y-5">
                 <!-- Gmail SSO Option -->
-                <button onclick="simulateGoogleAuth()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
+                <button onclick="window.handleGoogleLogin()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -306,14 +394,14 @@
                     <div class="flex-grow border-t border-slate-200"></div>
                 </div>
 
-                <form onsubmit="handleAuthSubmit(event, 'Sign In Successful!')" class="space-y-4">
+                <form onsubmit="window.handleEmailSignIn(event)" class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Email Address</label>
-                        <input type="email" required placeholder="nurse.sarah@hospital.org" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
+                        <input type="email" id="signin-email" required placeholder="nurse.sarah@hospital.org" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
                     </div>
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Password</label>
-                        <input type="password" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
+                        <input type="password" id="signin-pass" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
                     </div>
                     <button type="submit" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
                         Sign In
@@ -339,127 +427,8 @@
             </div>
             <div class="p-6 space-y-5">
                 <!-- Gmail SSO Option -->
-                <button onclick="simulateGoogleAuth()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
+                <button onclick="window.handleGoogleLogin()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                    </svg>
-                    Sign Up with Google (Gmail)
-                </button>
-
-                <div class="relative flex py-2 items-center">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-4 text-xs text-slate-400 uppercase font-semibold">Or email registration</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
-                </div>
-
-                <form onsubmit="handleAuthSubmit(event, 'Account Created Successfully!')" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Full Name</label>
-                        <input type="text" required placeholder="Sarah Jenkins, RN" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Email Address</label>
-                        <input type="email" required placeholder="nurse.sarah@hospital.org" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Password</label>
-                        <input type="password" required placeholder="Create strong password" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
-                    </div>
-                    <button type="submit" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
-                        Create Account
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-xl bg-medical-600 text-white flex items-center justify-center font-bold">
-                    <i class="fa-solid fa-stethoscope text-sm"></i>
-                </div>
-                <span class="text-white font-bold tracking-tight text-lg">Quick<span class="text-medical-500">RN</span></span>
-            </div>
-            <p class="text-xs text-slate-500 text-center">
-                &copy; 2026 QuickRN. Educational NCLEX-RN preparation platform. All rights reserved.
-            </p>
-            <div class="flex items-center gap-6 text-xs font-medium">
-                <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
-                <a href="#" class="hover:text-white transition-colors">Support</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- INTERACTIVE JAVASCRIPT -->
-    <script>
-        // Modal Management
-        function openModal(type) {
-            if(type === 'signin') {
-                document.getElementById('signin-modal').classList.remove('hidden');
-            } else if(type === 'register') {
-                document.getElementById('register-modal').classList.remove('hidden');
-            }
-        }
-
-        function closeModal(type) {
-            if(type === 'signin') {
-                document.getElementById('signin-modal').classList.add('hidden');
-            } else if(type === 'register') {
-                document.getElementById('register-modal').classList.add('hidden');
-            }
-        }
-
-        function simulateGoogleAuth() {
-            alert('Authenticating securely with Google Gmail OAuth...');
-            closeModal('signin');
-            closeModal('register');
-        }
-
-        function handleAuthSubmit(event, message) {
-            event.preventDefault();
-            alert(message);
-            closeModal('signin');
-            closeModal('register');
-        }
-
-        // Quiz Simulator Logic
-        function submitAnswer() {
-            const checkboxes = document.querySelectorAll('input[name="ngn-opt"]:checked');
-            if(checkboxes.length === 0) {
-                alert('Please select at least one clinical intervention.');
-                return;
-            }
-
-            const feedbackBox = document.getElementById('feedback-box');
-            const rationaleText = document.getElementById('rationale-text');
-            const submitBtn = document.getElementById('submit-btn');
-
-            feedbackBox.classList.remove('hidden');
-            rationaleText.innerHTML = "<strong>Correct Actions: A, B, and D.</strong> In clients with COPD experiencing acute exacerbation, low-flow oxygen (88-92%) prevents suppression of hypoxic respiratory drive. High-Fowler position reduces diaphragmatic pressure and eases ventilation. Pursed-lip breathing prolongs exhalation and prevents small airway collapse. 100% non-rebreather mask (C) is contraindicated as it can precipitate acute hypercapnic respiratory failure in chronic retainers.";
-            
-            submitBtn.innerText = "Completed ✓";
-            submitBtn.classList.remove('bg-medical-600', 'hover:bg-medical-700');
-            submitBtn.classList.add('bg-slate-800', 'cursor-default');
-            submitBtn.disabled = true;
-        }
-
-        function resetQuiz() {
-            const checkboxes = document.querySelectorAll('input[name="ngn-opt"]');
-            checkboxes.forEach(cb => cb.checked = false);
-            
-            document.getElementById('feedback-box').classList.add('hidden');
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.innerText = "Submit Answer";
-            submitBtn.classList.add('bg-medical-600', 'hover:bg-medical-700');
-            submitBtn.classList.remove('bg-slate-800', 'cursor-default');
-            submitBtn.disabled = false;
-        }
-    </script>
-</body>
-</html>
+                        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-
