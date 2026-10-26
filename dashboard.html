@@ -61,13 +61,13 @@
         <!-- 1. Passing Probability Banner -->
         <div id="passing-probability-banner" class="bg-gradient-to-r from-slate-900 via-slate-800 to-medical-900 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-700">
             <div class="space-y-2">
-                <span class="px-3 py-1 rounded-full bg-medical-500/20 text-medical-400 border border-medical-500/30 text-xs font-bold uppercase tracking-wider">NCLEX Readiness Engine</span>
+                <span class="px-3 py-1 rounded-full bg-medical-500/20 text-medical-400 border border-medical-500/30 text-xs font-bold uppercase tracking-wider">Readiness Engine</span>
                 <h2 id="welcome-title" class="text-2xl sm:text-3xl font-extrabold">Welcome back, Future RN!</h2>
-                <p class="text-slate-300 text-sm max-w-xl">Your predicted passing probability updates in real-time as you complete CAT tests and practice question banks.</p>
+                <p class="text-slate-300 text-sm max-w-xl">Your predicted exam success probability updates in real-time as you complete diagnostic simulations and Q-bank items.</p>
             </div>
             <div class="flex items-center gap-6 bg-white/15 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
                 <div class="text-right">
-                    <span class="text-xs text-slate-300 block uppercase tracking-wider font-semibold">Passing Probability</span>
+                    <span class="text-xs text-slate-300 block uppercase tracking-wider font-semibold">Success Probability</span>
                     <span id="passing-prob-display" class="text-4xl font-black text-medical-400">0%</span>
                 </div>
                 <div class="w-12 h-12 rounded-full bg-medical-500/20 flex items-center justify-center text-medical-400 text-2xl">
@@ -119,15 +119,15 @@
 
         <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION -->
         <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Archer-Style CAT Readiness Assessment Line Graph (Spans 2 columns) -->
+            <!-- Diagnostic Assessment Line Graph (Spans 2 columns) -->
             <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                     <div>
                         <div class="flex items-center gap-2">
-                            <h3 class="font-extrabold text-slate-900 text-lg">CAT Readiness Assessment</h3>
-                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">CAT Mode</span>
+                            <h3 class="font-extrabold text-slate-900 text-lg">Diagnostic Assessment Trend</h3>
+                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">CAT Engine</span>
                         </div>
-                        <p class="text-xs text-slate-500">Your CAT exam performance trend mapped against peer averages.</p>
+                        <p class="text-xs text-slate-500">Diagnostic performance trend mapped against peer averages with readiness levels.</p>
                     </div>
                     <div class="flex items-center gap-4 text-xs font-bold">
                         <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Your Score</div>
@@ -143,7 +143,7 @@
             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
                 <div>
                     <h3 class="font-extrabold text-slate-900 text-lg mb-1">Pass Targets & Usage</h3>
-                    <p class="text-xs text-slate-500">NCLEX readiness target benchmarks.</p>
+                    <p class="text-xs text-slate-500">Readiness target benchmarks.</p>
                 </div>
 
                 <!-- Target 1: Your Score Accuracy -->
@@ -176,10 +176,10 @@
                     </div>
                 </div>
 
-                <!-- Readiness Exam Usage mini grid -->
+                <!-- Diagnostic Exam Usage mini grid (Limited to 4 takes) -->
                 <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                     <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">CAT Exams Completed</span>
+                        <span class="text-slate-700">Diagnostic Exams</span>
                         <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
                     </div>
                     <div class="grid grid-cols-4 gap-1 pt-1">
@@ -193,55 +193,72 @@
         </div>
 
         <!-- INTERACTIVE STUDY MODES SECTION -->
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-medical-500 transition-all flex flex-col justify-between space-y-6">
+        <div class="grid md:grid-cols-4 gap-6">
+            <!-- 1. Diagnostic Assessment (Limited to 4 takes) -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-500 transition-all flex flex-col justify-between space-y-6">
+                <div class="space-y-3">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">Diagnostic Assessment</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive diagnostic exam designed to predict exam success. Strictly limited to 4 takes.</p>
+                </div>
+                <button onclick="window.startReadinessAssessment()" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-solid fa-play"></i> Start Assessment (<span id="readiness-takes-left">4</span> Left)
+                </button>
+            </div>
+
+            <!-- 2. CAT Adaptive Exam -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-medical-500 transition-all flex flex-col justify-between space-y-6">
                 <div class="space-y-3">
                     <div class="w-12 h-12 rounded-2xl bg-medical-100 text-medical-600 flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-laptop-medical"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900">CAT Adaptive Exam</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Mirror NCLEX exam environment with 5-hour limit, split window for NGN test items, and dynamic item pulling from your full JSON repository.</p>
+                    <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Mirror exam environment with 5-hour limit, split window for NGN test items, and dynamic item pulling.</p>
                 </div>
-                <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                <button onclick="window.startCatSimulation()" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-play"></i> Launch CAT Simulator
                 </button>
             </div>
 
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-clinical-500 transition-all flex flex-col justify-between space-y-6">
+            <!-- 3. Q-Bank Self-Study -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-clinical-500 transition-all flex flex-col justify-between space-y-6">
                 <div class="space-y-3">
                     <div class="w-12 h-12 rounded-2xl bg-clinical-50 text-clinical-600 flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-book-open-reader"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900">Q-Bank Self-Study</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and next navigation.</p>
+                    <h3 class="text-lg font-bold text-slate-900">Q-Bank Self-Study</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and Next button.</p>
                 </div>
-                <button onclick="window.openSelfStudy()" class="w-full py-3.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-sm">
+                <button onclick="window.openSelfStudy()" class="w-full py-3.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
                     <i class="fa-solid fa-book"></i> Open Self-Study Q-Bank
                 </button>
             </div>
 
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
+            <!-- 4. Timed Exam & CAT Launcher (Revised options: 15, 60, 85 CAT, 150 CAT) -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
                 <div class="space-y-3">
                     <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
                         <i class="fa-solid fa-stopwatch"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900">Timed Exam Launcher</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Choose precise item counts (15, 60, 85, or 150 questions) from your complete JSON library to test endurance.</p>
+                    <h3 class="text-lg font-bold text-slate-900">Timed Exam & CAT Launcher</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Choose precise item counts (15, 60, 85 CAT, or 150 CAT) to test endurance and adaptive algorithms.</p>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="window.startTimedExam(15)" class="py-2.5 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">15 Items</button>
-                    <button onclick="window.startTimedExam(60)" class="py-2.5 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">60 Items</button>
-                    <button onclick="window.startTimedExam(85)" class="py-2.5 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">85 Items</button>
-                    <button onclick="window.startTimedExam(150)" class="py-2.5 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">150 Items</button>
+                    <button onclick="window.startTimedExam(15)" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">15 Items</button>
+                    <button onclick="window.startTimedExam(60)" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">60 Items</button>
+                    <button onclick="window.startTimedExam(85)" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">85 CAT</button>
+                    <button onclick="window.startTimedExam(150)" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">150 CAT</button>
                 </div>
             </div>
         </div>
 
-        <!-- NCLEX Client Need Categories (Clickable) -->
+        <!-- Client Need Categories (Clickable) -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900">NCLEX Client Need Categories & Systems</h3>
+                    <h3 class="text-xl font-bold text-slate-900">Client Need Categories & Systems</h3>
                     <p class="text-xs text-slate-500">Click any system category below to instantly filter and compile questions related to that topic.</p>
                 </div>
                 <span id="active-category-indicator" class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Showing All Categories</span>
@@ -270,23 +287,23 @@
 
     <!-- FOOTER -->
     <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400">
-        QuickRN Next Generation NCLEX Student Portal &bull; Compiled JSON Data Engine Active
+        QuickRN Student Portal &bull; Compiled JSON Data Engine Active
     </footer>
 
-    <!-- MODAL CONTAINER FOR TEST / Q-BANK (Enlarged NCLEX style split-window) -->
+    <!-- MODAL CONTAINER FOR TEST / Q-BANK (Enlarged NGN split window) -->
     <div id="exam-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
         <div class="bg-slate-50 rounded-3xl w-full max-w-[98vw] h-[98vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
-            <!-- Modal Header (NCLEX style top bar) -->
+            <!-- Modal Header -->
             <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
                 <div class="flex items-center gap-4">
-                    <span id="modal-title" class="font-extrabold text-base tracking-wide text-white">NCLEX Examination Simulator</span>
+                    <span id="modal-title" class="font-extrabold text-base tracking-wide text-white">Examination Simulator</span>
                     <span id="modal-timer" class="px-3 py-1 bg-slate-800 rounded-xl text-xs font-mono font-bold text-medical-400 border border-slate-700">05:00:00</span>
                 </div>
                 <button onclick="window.closeModal()" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <!-- Modal Body (Spacious & Clean NGN split layout) -->
+            <!-- Modal Body -->
             <div id="modal-body" class="p-4 sm:p-8 overflow-y-auto space-y-6 flex-grow">
                 <!-- Dynamic Content Rendered Here -->
             </div>
@@ -374,8 +391,9 @@
             correctCount: 0,
             mistakeCount: 0,
             passingProbability: 0,
-            catHistory: [82, 84, 85, 87, 88], // default rich sample CAT scores
-            peerHistory: [80, 81, 83, 82, 84], // peer comparison scores
+            catHistory: [82, 84, 85, 87, 88],
+            peerHistory: [80, 81, 83, 82, 84],
+            readinessTakesCount: 0,
             examHistory: []
         };
 
@@ -418,17 +436,12 @@
                             if (typeof item === 'object' && item !== null) {
                                 item.systemCategory = item.systemCategory || item.category || currentSystem;
                                 item.topic = item.topic || item.subtopic || currentTopic;
-                                
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
-                                
-                                // NGN Type detection
                                 item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.12 ? 'matrix' : (Math.random() < 0.08 ? 'dropdown' : (Math.random() < 0.05 ? 'bowtie' : (Math.random() < 0.08 ? 'dragdrop' : 'standard')))));
-                                
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
                                 item.correctAnswer = item.correctAnswer || item.answer || item.correct || "A";
                                 item.rationale = item.rationale || item.explanation || item.studyNote || "Review evidence-based guidelines for this condition.";
                                 item.clinicalPearl = item.clinicalPearl || item.pearl || item.learningObjective || "Prioritize nursing interventions accurately based on client assessment.";
-                                
                                 questionBank.push(item);
                             }
                         });
@@ -446,8 +459,6 @@
                 }
 
                 extractItems(categories);
-                
-                // Shuffle repository thoroughly
                 questionBank.sort(() => Math.random() - 0.5);
 
                 console.log(`Successfully loaded & randomized ${questionBank.length} questions from compiled JSON.`);
@@ -498,8 +509,9 @@
                 qbankStatus.className = "font-bold text-slate-400";
             }
 
-            const catCount = Math.min(4, (studentStats.catHistory || []).length);
+            const catCount = Math.min(4, (studentStats.readinessTakesCount || 0));
             document.getElementById('target-cat-count').innerText = `${catCount} / 4`;
+            document.getElementById('readiness-takes-left').innerText = Math.max(0, 4 - catCount);
             for (let i = 1; i <= 4; i++) {
                 const badge = document.getElementById(`cat-badge-${i}`);
                 if (badge) {
@@ -537,7 +549,8 @@
 
         function initCharts() {
             const ctx1 = document.getElementById('catTrendChart').getContext('2d');
-            const labels = studentStats.catHistory.map((_, idx) => `CAT ${idx + 1}`);
+            const catScores = studentStats.catHistory.length > 0 ? studentStats.catHistory : [82, 84, 85, 87, 88];
+            const labels = catScores.map((_, idx) => `${idx + 1}`);
 
             catChartInstance = new Chart(ctx1, {
                 type: 'line',
@@ -546,7 +559,7 @@
                     datasets: [
                         {
                             label: 'Your Score',
-                            data: studentStats.catHistory,
+                            data: catScores,
                             borderColor: '#10b981',
                             backgroundColor: 'rgba(16, 185, 129, 0.08)',
                             fill: true,
@@ -588,7 +601,6 @@
         let activeExamMode = ''; 
         let currentTimerInterval = null;
         let activeExhibitTab = 'scenario';
-        let currentExamTimerSeconds = 0;
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -610,7 +622,7 @@
                     <div class="text-center py-16 space-y-4">
                         <div class="w-16 h-16 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-folder-open"></i></div>
                         <h3 class="text-lg font-bold text-slate-800">No Exam History Yet</h3>
-                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Complete a CAT exam, timed test, or Q-bank review session to see your test logs and retake options here.</p>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">Complete a Diagnostic Assessment, CAT exam, timed test, or Q-bank review session to see your test logs and retake options here.</p>
                     </div>
                 `;
             } else {
@@ -706,10 +718,7 @@
             userAnswersMap = {};
             activeExamMode = record.mode;
             
-            let timeSecs = 3 * 3600;
-            if (record.mode === 'cat') timeSecs = 5 * 3600;
-            else if (record.mode === 'timed') timeSecs = Math.round(record.questions.length * 100);
-            
+            let timeSecs = record.timeSeconds || (3 * 3600);
             openModal(`Retake: ${record.mode.toUpperCase()} Exam (${currentExamQuestions.length} Items)`);
             if (record.mode === 'selfstudy') {
                 document.getElementById('modal-timer').innerText = "No Time Limit";
@@ -720,17 +729,37 @@
             renderExamQuestion();
         }
 
-        window.startCatSimulation = function() {
-            activeExamMode = 'cat';
-            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5);
+        window.startReadinessAssessment = function() {
+            if ((studentStats.readinessTakesCount || 0) >= 4) {
+                alert("You have reached the maximum limit of 4 Diagnostic Assessment takes.");
+                return;
+            }
+            studentStats.readinessTakesCount = (studentStats.readinessTakesCount || 0) + 1;
+            activeExamMode = 'readiness';
+            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
                 return;
             }
             currentExamIndex = 0;
             userAnswersMap = {};
-            openModal("NCLEX CAT Exam Simulation (Mirror Environment)");
-            startTimer(5 * 3600);
+            openModal("Diagnostic Assessment Simulation");
+            startTimer(3 * 3600);
+            activeExhibitTab = 'scenario';
+            renderExamQuestion();
+        }
+
+        window.startCatSimulation = function() {
+            activeExamMode = 'cat';
+            currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
+            if (currentExamQuestions.length === 0) {
+                alert("Question bank is still loading. Please wait a moment and try again.");
+                return;
+            }
+            currentExamIndex = 0;
+            userAnswersMap = {};
+            openModal("CAT Exam Simulation");
+            startTimer(3 * 3600);
             activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
@@ -756,7 +785,11 @@
         }
 
         window.startTimedExam = function(itemCount) {
-            activeExamMode = 'timed';
+            if (itemCount === 85 || itemCount === 150) {
+                activeExamMode = 'cat';
+            } else {
+                activeExamMode = 'timed';
+            }
             let pool = [...questionBank].sort(() => Math.random() - 0.5);
             currentExamQuestions = pool.slice(0, Math.min(itemCount, pool.length));
             
@@ -772,7 +805,7 @@
             if (itemCount === 85) timeSeconds = 180 * 60;
             if (itemCount === 150) timeSeconds = 300 * 60;
 
-            openModal(`Timed NCLEX Exam (${currentExamQuestions.length} Items)`);
+            openModal(`${activeExamMode === 'cat' ? 'CAT Exam' : 'Timed Exam'} (${currentExamQuestions.length} Items)`);
             startTimer(timeSeconds);
             activeExhibitTab = 'scenario';
             renderExamQuestion();
@@ -781,7 +814,6 @@
         function startTimer(seconds) {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             let timeLeft = seconds;
-            currentExamTimerSeconds = seconds;
             const timerEl = document.getElementById('modal-timer');
             
             currentTimerInterval = setInterval(() => {
@@ -815,10 +847,8 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
             const isNGN = q.ngnType && q.ngnType !== 'standard';
 
-            // Reset exhibit tab to scenario when loading non-NGN questions
-            if (!isNGN) {
-                activeExhibitTab = 'scenario';
-            }
+            // Reset active exhibit tab to 'scenario' on question render for traditional vs NGN
+            activeExhibitTab = 'scenario';
 
             let html = `
                 <div class="space-y-6 max-w-7xl mx-auto w-full animate-fadeIn">
@@ -826,7 +856,6 @@
                         <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentExamIndex + 1} of ${currentExamQuestions.length}</span>
             `;
             
-            // Only show topic/system breadcrumb header in Self Study mode
             if (activeExamMode === 'selfstudy') {
                 html += `<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>`;
             } else {
@@ -883,7 +912,6 @@
 
                 html += `</div>`;
             } else {
-                // Non-NGN traditional question: omit exhibits entirely
                 html += `
                     <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -1000,7 +1028,6 @@
                 html += `</div>`;
             }
 
-            // In self-study mode, show rationale & clinical pearl combined in ONE box after answering
             if (activeExamMode === 'selfstudy' && isAnswered) {
                 html += `
                     <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
@@ -1015,13 +1042,11 @@
                 `;
             }
 
-            // Navigation Controls: NO previous button
             html += `
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100">
-                        <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Item Environment</span>
+                        <span class="text-[11px] text-slate-400 font-medium">Secure Exam Item Environment</span>
                         <div class="flex gap-3">
-                            ${activeExamMode === 'selfstudy' && isAnswered ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">Next Question <i class="fa-solid fa-arrow-right ml-1"></i></button>` : ''}
-                            ${activeExamMode !== 'selfstudy' ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}</button>` : ''}
+                            ${activeExamMode === 'selfstudy' ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">Next Question <i class="fa-solid fa-arrow-right ml-1"></i></button>` : `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}</button>`}
                         </div>
                     </div>
                 </div>
@@ -1045,7 +1070,7 @@
                 persistState();
                 renderExamQuestion();
             } else {
-                // CAT & Timed exams: Automatically advance immediately without showing correctness
+                // Timed or CAT mode: auto-advance immediately without showing correctness and no previous button
                 setTimeout(() => {
                     window.nextQuestion();
                 }, 150);
@@ -1136,7 +1161,7 @@
                 const ans = userAnswersMap[idx];
                 if (ans !== undefined && ans !== null && ans !== '') {
                     attempted++;
-                    if (activeExamMode === 'timed' || activeExamMode === 'cat') {
+                    if (activeExamMode === 'timed' || activeExamMode === 'cat' || activeExamMode === 'readiness') {
                         studentStats.totalAnswered++;
                         if (ans === q.correctAnswer) {
                             correct++;
@@ -1159,7 +1184,6 @@
             const avgScore = Math.round(studentStats.catHistory.reduce((a, b) => a + b, 0) / studentStats.catHistory.length);
             studentStats.passingProbability = Math.min(98, Math.max(15, avgScore + 4));
 
-            // Store exam record in history
             const examRecord = {
                 date: new Date().toLocaleString(),
                 mode: activeExamMode,
@@ -1167,7 +1191,8 @@
                 attempted,
                 scorePercent,
                 questions: currentExamQuestions,
-                userAnswers: { ...userAnswersMap }
+                userAnswers: { ...userAnswersMap },
+                timeSeconds: 3 * 3600
             };
             studentStats.examHistory = studentStats.examHistory || [];
             studentStats.examHistory.unshift(examRecord);
@@ -1183,7 +1208,7 @@
                             <i class="fa-solid fa-award"></i>
                         </div>
                         <h3 class="text-2xl font-extrabold text-slate-900">Exam Simulation Completed!</h3>
-                        <p class="text-slate-600 text-xs">Performance evaluated against NCLEX readiness standards.</p>
+                        <p class="text-slate-600 text-xs">Performance evaluated against readiness standards.</p>
                     </div>
 
                     <div class="flex justify-center gap-8 py-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
@@ -1193,7 +1218,7 @@
                         </div>
                         <div class="border-l border-slate-200"></div>
                         <div>
-                            <span class="text-[10px] text-slate-400 block font-bold uppercase">Passing Probability</span>
+                            <span class="text-[10px] text-slate-400 block font-bold uppercase">Success Probability</span>
                             <span class="text-3xl font-black text-clinical-600">${studentStats.passingProbability}%</span>
                         </div>
                     </div>
