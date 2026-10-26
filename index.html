@@ -60,7 +60,7 @@
                 <a href="#faq" class="hover:text-medical-600 transition-colors">FAQ</a>
             </nav>
 
-            <!-- Auth Buttons (Sign In Only) -->
+            <!-- Auth Buttons -->
             <div class="flex items-center gap-3">
                 <button onclick="openModal('signin')" class="px-5 py-2.5 text-sm font-semibold text-white bg-medical-600 hover:bg-medical-700 rounded-xl shadow-md shadow-medical-600/20 transition-all hover:shadow-lg hover:-translate-y-0.5">
                     Sign In
@@ -256,9 +256,9 @@
         </div>
     </section>
 
-    <!-- AUTHENTICATION MODAL (Unified Sign In / Register) -->
+    <!-- AUTHENTICATION MODAL -->
     <div id="signin-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden">
-        <div class="bg-white w-full max-w-md mx-4 rounded-3xl shadow-2xl overflow-hidden border border-slate-100 animate-in fade-in zoom-in duration-200">
+        <div class="bg-white w-full max-w-md mx-4 rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
             <div class="px-6 py-6 border-b border-slate-100 flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <div class="w-8 h-8 rounded-lg bg-medical-600 text-white flex items-center justify-center font-bold">
@@ -271,8 +271,8 @@
                 </button>
             </div>
             <div class="p-6 space-y-5">
-                <!-- Google Gmail SSO Button -->
-                <button onclick="window.handleGoogleLogin()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
+                <!-- Google Gmail Redirect Button (Prevents popup cancellation error) -->
+                <button id="google-btn" onclick="window.handleGoogleLogin()" class="w-full py-3 px-4 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-xl flex items-center justify-center gap-3 shadow-sm transition-all">
                     <svg class="w-5 h-5" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -297,7 +297,7 @@
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Password</label>
                         <input type="password" id="auth-pass" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-medical-500">
                     </div>
-                    <button type="submit" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
+                    <button type="submit" id="submit-auth-btn" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl shadow-md transition-all text-sm">
                         Sign In / Register
                     </button>
                 </form>
@@ -325,11 +325,11 @@
         </div>
     </footer>
 
-    <!-- FIREBASE & APP INITIALIZATION SCRIPT -->
+    <!-- FIREBASE AUTH & REDIRECT SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAP4zFj2e_M4h70eLZ0340SNKD6VgLDvsw",
@@ -346,30 +346,52 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
+        // Handle Google Redirect Login (Fixes popup blocked / cancelled errors)
         window.handleGoogleLogin = async function() {
+            const btn = document.getElementById('google-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Connecting to Google...`;
             try {
-                await signInWithPopup(auth, googleProvider);
-                window.location.href = "dashboard.html";
+                await signInWithRedirect(auth, googleProvider);
             } catch (error) {
                 alert("Google Sign-In failed: " + error.message);
+                btn.disabled = false;
+                btn.innerHTML = `Continue with Google (Gmail)`;
             }
         };
 
+        // Check if user just returned from Google Redirect
+        getRedirectResult(auth)
+            .then((result) => {
+                if (result && result.user) {
+                    window.location.href = "dashboard.html";
+                }
+            }).catch((error) => {
+                console.error("Redirect login error:", error);
+            });
+
+        // Email / Password Auth with Safeguard against double clicks
         window.handleEmailAuth = async function(event) {
             event.preventDefault();
+            const btn = document.getElementById('submit-auth-btn');
+            if (btn.disabled) return; // Prevent double submission spam
+
+            btn.disabled = true;
+            btn.innerText = "Processing...";
+
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-pass').value;
             try {
-                // Try signing in first
                 await signInWithEmailAndPassword(auth, email, pass);
                 window.location.href = "dashboard.html";
             } catch (signinError) {
                 try {
-                    // If account doesn't exist, automatically create it
                     await createUserWithEmailAndPassword(auth, email, pass);
                     window.location.href = "dashboard.html";
                 } catch (signupError) {
                     alert("Authentication Error: " + signupError.message);
+                    btn.disabled = false;
+                    btn.innerText = "Sign In / Register";
                 }
             }
         };
