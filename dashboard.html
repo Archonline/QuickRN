@@ -179,7 +179,7 @@
                 <!-- Diagnostic Exam Usage mini grid (Limited to 4 takes) -->
                 <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                     <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">Diagnostic Exams</span>
+                        <span class="text-slate-700">Diagnostic Assessments</span>
                         <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
                     </div>
                     <div class="grid grid-cols-4 gap-1 pt-1">
@@ -306,6 +306,23 @@
             <!-- Modal Body -->
             <div id="modal-body" class="p-4 sm:p-8 overflow-y-auto space-y-6 flex-grow">
                 <!-- Dynamic Content Rendered Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BREAK PROMPT MODAL FOR DIAGNOSTIC/CAT EXAMS -->
+    <div id="break-modal" class="fixed inset-0 z-[60] bg-slate-900/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 space-y-6 shadow-2xl text-center">
+            <div class="w-16 h-16 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <div class="space-y-2">
+                <h3 class="text-xl font-extrabold text-slate-900">Optional Examination Break</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">You have reached the recommended testing checkpoint (approx. 2.5 hours elapsed). You may take an optional break of up to 1 hour to stretch, rest, and refocus.</p>
+            </div>
+            <div class="text-2xl font-mono font-bold text-amber-600" id="break-timer-display">60:00</div>
+            <div class="flex gap-3 pt-2">
+                <button onclick="window.resumeFromBreak()" class="flex-1 py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md text-xs transition-colors">Resume Examination</button>
             </div>
         </div>
     </div>
@@ -600,7 +617,9 @@
         let userAnswersMap = {};
         let activeExamMode = ''; 
         let currentTimerInterval = null;
+        let breakTimerInterval = null;
         let activeExhibitTab = 'scenario';
+        let difficultyLevel = 3; // CAT difficulty scale 1 to 5
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -610,6 +629,7 @@
         window.closeModal = function() {
             document.getElementById('exam-modal').classList.add('hidden');
             if (currentTimerInterval) clearInterval(currentTimerInterval);
+            if (breakTimerInterval) clearInterval(breakTimerInterval);
             fetchQuestionRepository();
         }
 
@@ -697,8 +717,7 @@
                             <div><strong>Correct Answer:</strong> ${q.correctAnswer}</div>
                         </div>
                         <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
-                            <div><strong>Rationale:</strong> ${q.rationale}</div>
-                            <div class="text-medical-800 font-semibold"><strong>Clinical Pearl:</strong> ${q.clinicalPearl}</div>
+                            <div><strong>Rationale & Clinical Pearl:</strong> ${q.rationale} &bull; ${q.clinicalPearl}</div>
                         </div>
                     </div>
                 `;
@@ -717,8 +736,9 @@
             currentExamIndex = 0;
             userAnswersMap = {};
             activeExamMode = record.mode;
+            difficultyLevel = 3;
             
-            let timeSecs = record.timeSeconds || (3 * 3600);
+            let timeSecs = record.timeSeconds || (5 * 3600);
             openModal(`Retake: ${record.mode.toUpperCase()} Exam (${currentExamQuestions.length} Items)`);
             if (record.mode === 'selfstudy') {
                 document.getElementById('modal-timer').innerText = "No Time Limit";
@@ -736,6 +756,7 @@
             }
             studentStats.readinessTakesCount = (studentStats.readinessTakesCount || 0) + 1;
             activeExamMode = 'readiness';
+            difficultyLevel = 3;
             currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
@@ -743,14 +764,15 @@
             }
             currentExamIndex = 0;
             userAnswersMap = {};
-            openModal("Diagnostic Assessment Simulation");
-            startTimer(3 * 3600);
+            openModal("Diagnostic Assessment Simulation (NCLEX Environment)");
+            startTimer(5 * 3600);
             activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
 
         window.startCatSimulation = function() {
             activeExamMode = 'cat';
+            difficultyLevel = 3;
             currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
@@ -758,8 +780,8 @@
             }
             currentExamIndex = 0;
             userAnswersMap = {};
-            openModal("CAT Exam Simulation");
-            startTimer(3 * 3600);
+            openModal("CAT Exam Simulation (NCLEX Environment)");
+            startTimer(5 * 3600);
             activeExhibitTab = 'scenario';
             renderExamQuestion();
         }
@@ -790,6 +812,7 @@
             } else {
                 activeExamMode = 'timed';
             }
+            difficultyLevel = 3;
             let pool = [...questionBank].sort(() => Math.random() - 0.5);
             currentExamQuestions = pool.slice(0, Math.min(itemCount, pool.length));
             
@@ -802,8 +825,7 @@
             
             let timeSeconds = 25 * 60;
             if (itemCount === 60) timeSeconds = 120 * 60;
-            if (itemCount === 85) timeSeconds = 180 * 60;
-            if (itemCount === 150) timeSeconds = 300 * 60;
+            if (itemCount === 85 || itemCount === 150) timeSeconds = 300 * 60; // 5 hours for CAT/Diagnostic
 
             openModal(`${activeExamMode === 'cat' ? 'CAT Exam' : 'Timed Exam'} (${currentExamQuestions.length} Items)`);
             startTimer(timeSeconds);
@@ -811,12 +833,20 @@
             renderExamQuestion();
         }
 
+        let examElapsedSeconds = 0;
         function startTimer(seconds) {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             let timeLeft = seconds;
+            examElapsedSeconds = 0;
             const timerEl = document.getElementById('modal-timer');
             
             currentTimerInterval = setInterval(() => {
+                examElapsedSeconds++;
+                // Trigger optional break after 2.5 to 3.5 hours (approx 9000 to 12600 seconds)
+                if (examElapsedSeconds === 10000 && (activeExamMode === 'cat' || activeExamMode === 'readiness')) {
+                    triggerBreakPrompt();
+                }
+
                 if (timeLeft <= 0) {
                     clearInterval(currentTimerInterval);
                     finishExam();
@@ -828,6 +858,31 @@
                 const secs = (timeLeft % 60).toString().padStart(2, '0');
                 timerEl.innerText = `${hrs}:${mins}:${secs}`;
             }, 1000);
+        }
+
+        function triggerBreakPrompt() {
+            const breakModal = document.getElementById('break-modal');
+            breakModal.classList.remove('hidden');
+            let breakTimeLeft = 3600; // 1 hour break
+            const breakDisplay = document.getElementById('break-timer-display');
+            if (breakTimerInterval) clearInterval(breakTimerInterval);
+
+            breakTimerInterval = setInterval(() => {
+                if (breakTimeLeft <= 0) {
+                    clearInterval(breakTimerInterval);
+                    breakModal.classList.add('hidden');
+                    return;
+                }
+                breakTimeLeft--;
+                const bm = Math.floor(breakTimeLeft / 60).toString().padStart(2, '0');
+                const bs = (breakTimeLeft % 60).toString().padStart(2, '0');
+                breakDisplay.innerText = `${bm}:${bs}`;
+            }, 1000);
+        }
+
+        window.resumeFromBreak = function() {
+            if (breakTimerInterval) clearInterval(breakTimerInterval);
+            document.getElementById('break-modal').classList.add('hidden');
         }
 
         window.setExhibitTab = function(tabName) {
@@ -847,7 +902,7 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
             const isNGN = q.ngnType && q.ngnType !== 'standard';
 
-            // Reset active exhibit tab to 'scenario' on question render for traditional vs NGN
+            // Reset active exhibit tab to 'scenario' on question render so non-NGN questions never show persistent vitals/notes
             activeExhibitTab = 'scenario';
 
             let html = `
@@ -859,7 +914,7 @@
             if (activeExamMode === 'selfstudy') {
                 html += `<span class="text-xs font-bold text-slate-500 uppercase tracking-wider">${q.systemCategory || 'General'} &bull; ${q.topic || 'Clinical Review'}</span>`;
             } else {
-                html += `<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Secure Exam Mode</span>`;
+                html += `<span class="text-xs font-bold text-slate-400 uppercase tracking-wider">NCLEX Secure Environment (Difficulty: Level ${difficultyLevel})</span>`;
             }
 
             html += `</div>`;
@@ -1044,7 +1099,7 @@
 
             html += `
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100">
-                        <span class="text-[11px] text-slate-400 font-medium">Secure Exam Item Environment</span>
+                        <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Testing Rules Active &bull; No Previous Button</span>
                         <div class="flex gap-3">
                             ${activeExamMode === 'selfstudy' ? `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">Next Question <i class="fa-solid fa-arrow-right ml-1"></i></button>` : `<button onclick="window.nextQuestion()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-colors flex items-center gap-2">${currentExamIndex === currentExamQuestions.length - 1 ? 'Finish Exam' : 'Next Item <i class="fa-solid fa-arrow-right ml-1"></i>'}</button>`}
                         </div>
@@ -1058,19 +1113,27 @@
 
         window.selectOption = function(optIndex, optLetter) {
             userAnswersMap[currentExamIndex] = optLetter;
+            const q = currentExamQuestions[currentExamIndex];
+            
             if (activeExamMode === 'selfstudy') {
                 studentStats.totalAnswered++;
-                const q = currentExamQuestions[currentExamIndex];
                 if (optLetter === q.correctAnswer) {
                     studentStats.correctCount++;
                 } else {
                     studentStats.mistakeCount++;
+                    // Automatically reveal correct answer on mistake without requiring re-selection
                 }
                 updateDashboardStats();
                 persistState();
                 renderExamQuestion();
             } else {
-                // Timed or CAT mode: auto-advance immediately without showing correctness and no previous button
+                // Timed or CAT / Readiness mode: adapt difficulty and auto-advance immediately without revealing correctness and no previous button
+                if (optLetter === q.correctAnswer) {
+                    difficultyLevel = Math.min(5, difficultyLevel + 1);
+                } else {
+                    difficultyLevel = Math.max(1, difficultyLevel - 1);
+                }
+
                 setTimeout(() => {
                     window.nextQuestion();
                 }, 150);
@@ -1153,6 +1216,7 @@
 
         function finishExam() {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
+            if (breakTimerInterval) clearInterval(breakTimerInterval);
             
             let correct = 0;
             let attempted = 0;
@@ -1192,7 +1256,7 @@
                 scorePercent,
                 questions: currentExamQuestions,
                 userAnswers: { ...userAnswersMap },
-                timeSeconds: 3 * 3600
+                timeSeconds: 5 * 3600
             };
             studentStats.examHistory = studentStats.examHistory || [];
             studentStats.examHistory.unshift(examRecord);
@@ -1224,7 +1288,7 @@
                     </div>
 
                     <div class="space-y-4">
-                        <h4 class="font-bold text-slate-900 text-sm">Comprehensive Question & Rationale Review:</h4>
+                        <h4 class="font-bold text-slate-900 text-sm">Comprehensive Question, Choices & Rationale Review:</h4>
                         <div class="space-y-4 max-h-[50vh] overflow-y-auto pr-2">
             `;
 
@@ -1243,8 +1307,7 @@
                             <div><strong>Correct Answer:</strong> ${q.correctAnswer}</div>
                         </div>
                         <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs text-slate-700 space-y-1">
-                            <div><strong>Rationale:</strong> ${q.rationale}</div>
-                            <div class="text-medical-800 font-semibold"><strong>Clinical Pearl:</strong> ${q.clinicalPearl}</div>
+                            <div><strong>Rationale & Clinical Pearl:</strong> ${q.rationale} &bull; ${q.clinicalPearl}</div>
                         </div>
                     </div>
                 `;
