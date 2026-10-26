@@ -773,6 +773,7 @@
         let breakTimerInterval = null;
         let activeExhibitTab = 'scenario';
         let difficultyLevel = 3;
+        let examCompleted = false;
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -780,6 +781,9 @@
         }
 
         window.closeModal = function() {
+            if (!examCompleted && (activeExamMode === 'readiness')) {
+                // If closed before completion, do NOT increment/deduct readiness credit
+            }
             document.getElementById('exam-modal').classList.add('hidden');
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             if (breakTimerInterval) clearInterval(breakTimerInterval);
@@ -1178,6 +1182,7 @@
             userAnswersMap = {};
             activeExamMode = record.mode;
             difficultyLevel = 3;
+            examCompleted = false;
             
             let timeSecs = record.timeSeconds || (5 * 3600);
             openModal(`Retake: ${record.mode.toUpperCase()} Exam (${currentExamQuestions.length} Items)`);
@@ -1195,9 +1200,9 @@
                 alert("You have reached the maximum limit of 4 Readiness Assessment takes.");
                 return;
             }
-            studentStats.readinessTakesCount = (studentStats.readinessTakesCount || 0) + 1;
             activeExamMode = 'readiness';
             difficultyLevel = 3;
+            examCompleted = false;
             currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 85);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
@@ -1214,6 +1219,7 @@
         window.startCatSimulation = function() {
             activeExamMode = 'cat';
             difficultyLevel = 3;
+            examCompleted = false;
             currentExamQuestions = [...questionBank].sort(() => Math.random() - 0.5).slice(0, 150);
             if (currentExamQuestions.length === 0) {
                 alert("Question bank is still loading. Please wait a moment and try again.");
@@ -1229,6 +1235,7 @@
 
         window.openSelfStudy = function(filterSystem = null, filterClientNeed = null) {
             activeExamMode = 'selfstudy';
+            examCompleted = false;
             let pool = [...questionBank];
             if (filterSystem) {
                 pool = pool.filter(q => q.systemCategory === filterSystem);
@@ -1253,6 +1260,7 @@
 
         window.openSelfStudyNGN = function() {
             activeExamMode = 'selfstudy';
+            examCompleted = false;
             let pool = questionBank.filter(q => q.ngnType && q.ngnType !== 'standard');
             if (pool.length === 0) {
                 pool = [...questionBank];
@@ -1278,6 +1286,7 @@
                 activeExamMode = 'timed';
             }
             difficultyLevel = 3;
+            examCompleted = false;
             let pool = [...questionBank].sort(() => Math.random() - 0.5);
             currentExamQuestions = pool.slice(0, Math.min(itemCount, pool.length));
             
@@ -1436,11 +1445,6 @@
                         <div class="space-y-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <h4 class="font-bold text-slate-900 text-sm">${isNGN ? 'Complete NGN item below:' : 'Select the best response:'}</h4>
-                                <div class="flex items-center gap-2">
-                                    <button onclick="window.toggleFavoriteCurrent()" class="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shadow-sm">
-                                        <i class="fa-solid fa-bookmark"></i> Save for Review
-                                    </button>
-                                </div>
                             </div>
             `;
 
@@ -1656,12 +1660,15 @@
 
         window.nextQuestion = function() {
             if (activeExamMode !== 'selfstudy' && userAnswersMap[currentExamIndex] === undefined) {
-                document.getElementById('warning-modal').classList.remove('hidden');
+                document.getElementById('warning-modal').classList.add('hidden');
+                setTimeout(() => {
+                    document.getElementById('warning-modal').classList.remove('hidden');
+                }, 50);
                 return;
             }
 
-            // CAT stop rules check (minimum 75 items if activeExamMode is cat)
-            if (activeExamMode === 'cat' && currentExamIndex >= 74) {
+            // CAT stop rules check (minimum 75 items if activeExamMode is cat or readiness)
+            if ((activeExamMode === 'cat' || activeExamMode === 'readiness') && currentExamIndex >= 74) {
                 let currentCorrect = 0;
                 let currentAttempted = 0;
                 for (let i = 0; i <= currentExamIndex; i++) {
@@ -1672,7 +1679,7 @@
                     }
                 }
                 const runningAccuracy = currentAttempted > 0 ? (currentCorrect / currentAttempted) : 0;
-                if (runningAccuracy >= 0.72 || runningAccuracy < 0.50 || currentExamIndex >= 149) {
+                if (runningAccuracy >= 0.72 || runningAccuracy < 0.50 || currentExamIndex >= currentExamQuestions.length - 1) {
                     finishExam();
                     return;
                 }
@@ -1690,6 +1697,13 @@
         function finishExam() {
             if (currentTimerInterval) clearInterval(currentTimerInterval);
             if (breakTimerInterval) clearInterval(breakTimerInterval);
+            
+            examCompleted = true;
+
+            // If Readiness Assessment, increment takes count upon successful completion
+            if (activeExamMode === 'readiness') {
+                studentStats.readinessTakesCount = (studentStats.readinessTakesCount || 0) + 1;
+            }
             
             let correct = 0;
             let attempted = 0;
