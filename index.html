@@ -36,94 +36,88 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
+<!-- FIREBASE SDKs -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    <!-- FIREBASE SDKs -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY_HERE", // Replace with your Web API Key from Project Settings
+        authDomain: "quickrnapp.firebaseapp.com",
+        projectId: "quickrnapp",
+        storageBucket: "quickrnapp.firebasestorage.app",
+        messagingSenderId: "222653066147",
+        appId: "YOUR_APP_ID_HERE" // Replace with your Web App ID
+    };
 
-        // TODO: Replace these placeholders with your actual Firebase project configuration credentials
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        // Global Authentication Functions exposed to window
-        window.handleGoogleLogin = async function() {
-            try {
-                const result = await signInWithPopup(auth, googleProvider);
-                const user = result.user;
-                alert(`Successfully signed in with Gmail: ${user.email}`);
-                closeModal('signin');
-                closeModal('register');
-                updateAuthUI(user);
-            } catch (error) {
-                console.error("Google Auth Error:", error.message);
-                alert("Google Sign-In failed: " + error.message);
-            }
-        };
-
-        window.handleEmailSignIn = async function(event) {
-            event.preventDefault();
-            const email = document.getElementById('signin-email').value;
-            const pass = document.getElementById('signin-pass').value;
-            try {
-                const result = await signInWithEmailAndPassword(auth, email, pass);
-                alert(`Welcome back, ${result.user.email}!`);
-                closeModal('signin');
-                updateAuthUI(result.user);
-            } catch (error) {
-                alert("Sign In Error: " + error.message);
-            }
-        };
-
-        window.handleEmailRegister = async function(event) {
-            event.preventDefault();
-            const email = document.getElementById('reg-email').value;
-            const pass = document.getElementById('reg-pass').value;
-            try {
-                const result = await createUserWithEmailAndPassword(auth, email, pass);
-                alert(`Account created successfully for ${result.user.email}!`);
-                closeModal('register');
-                updateAuthUI(result.user);
-            } catch (error) {
-                alert("Registration Error: " + error.message);
-            }
-        };
-
-        // Monitor Auth State Changes
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                updateAuthUI(user);
-            }
-        });
-
-        function updateAuthUI(user) {
-            const authButtonsContainer = document.getElementById('auth-buttons-container');
-            if (authButtonsContainer) {
-                authButtonsContainer.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs font-bold text-slate-700 hidden sm:inline"><i class="fa-solid fa-user-nurse text-medical-600 mr-1"></i> ${user.displayName || user.email}</span>
-                        <button onclick="window.handleSignOut()" class="px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">Sign Out</button>
-                    </div>
-                `;
-            }
+    window.handleGoogleLogin = async function() {
+        try {
+            const result = await signInWithPopup(auth, googleProvider);
+            alert(`Signed in successfully with Gmail: ${result.user.email}`);
+            closeModal('signin');
+            closeModal('register');
+            updateAuthUI(result.user);
+        } catch (error) {
+            console.error("Google Auth Error:", error.message);
+            alert("Google Sign-In failed: " + error.message);
         }
+    };
 
-        window.handleSignOut = async function() {
-            await auth.signOut();
-            window.location.reload();
+    window.handleEmailSignIn = async function(event) {
+        event.preventDefault();
+        const email = document.getElementById('signin-email').value;
+        const pass = document.getElementById('signin-pass').value;
+        try {
+            const result = await signInWithEmailAndPassword(auth, email, pass);
+            alert(`Welcome back, ${result.user.email}!`);
+            closeModal('signin');
+            updateAuthUI(result.user);
+        } catch (error) {
+            alert("Sign In Error: " + error.message);
         }
-    </script>
+    };
+
+    window.handleEmailRegister = async function(event) {
+        event.preventDefault();
+        const email = document.getElementById('reg-email').value;
+        const pass = document.getElementById('reg-pass').value;
+        try {
+            const result = await createUserWithEmailAndPassword(auth, email, pass);
+            alert(`Account created successfully for ${result.user.email}!`);
+            closeModal('register');
+            updateAuthUI(result.user);
+        } catch (error) {
+            alert("Registration Error: " + error.message);
+        }
+    };
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            updateAuthUI(user);
+        }
+    });
+
+    function updateAuthUI(user) {
+        const authButtonsContainer = document.getElementById('auth-buttons-container');
+        if (authButtonsContainer) {
+            authButtonsContainer.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <span class="text-xs font-bold text-slate-700 hidden sm:inline"><i class="fa-solid fa-user-nurse text-medical-600 mr-1"></i> ${user.displayName || user.email}</span>
+                    <button onclick="window.handleSignOut()" class="px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">Sign Out</button>
+                </div>
+            `;
+        }
+    }
+
+    window.handleSignOut = async function() {
+        await auth.signOut();
+        window.location.reload();
+    }
+</script>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-500 selection:text-white">
 
