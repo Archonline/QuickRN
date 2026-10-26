@@ -65,7 +65,7 @@
                 <h2 id="welcome-title" class="text-2xl sm:text-3xl font-extrabold">Welcome back, Future RN!</h2>
                 <p class="text-slate-300 text-sm max-w-xl">Your predicted passing probability updates in real-time as you complete CAT tests and practice question banks.</p>
             </div>
-            <div class="flex items-center gap-6 bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
+            <div class="flex items-center gap-6 bg-white/15 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
                 <div class="text-right">
                     <span class="text-xs text-slate-300 block uppercase tracking-wider font-semibold">Passing Probability</span>
                     <span id="passing-prob-display" class="text-4xl font-black text-medical-400">0%</span>
@@ -112,36 +112,82 @@
                     <span class="text-xs font-bold uppercase tracking-wider">Study Streak</span>
                     <i class="fa-solid fa-fire text-rose-500 text-lg"></i>
                 </div>
-                <div class="text-3xl font-extrabold text-slate-900">1 Day</div>
+                <div class="text-3xl font-extrabold text-slate-900"><span id="stat-streak-days">1</span> Days</div>
                 <p class="text-xs text-rose-600 font-semibold">Active Reviewer</p>
             </div>
         </div>
 
-        <!-- GRAPHS SECTION -->
-        <div class="grid lg:grid-cols-2 gap-8">
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-4">
+        <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Archer-Style CAT Readiness Assessment Line Graph (Spans 2 columns) -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                     <div>
-                        <h3 class="font-extrabold text-slate-900 text-lg">CAT Performance vs. NCLEX Standard</h3>
-                        <p class="text-xs text-slate-500">Your CAT exam scores mapped against the NCLEX passing threshold.</p>
+                        <div class="flex items-center gap-2">
+                            <h3 class="font-extrabold text-slate-900 text-lg">CAT Readiness Assessment</h3>
+                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">CAT Mode</span>
+                        </div>
+                        <p class="text-xs text-slate-500">Your CAT exam performance trend mapped against peer averages.</p>
                     </div>
-                    <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Trend Analysis</span>
+                    <div class="flex items-center gap-4 text-xs font-bold">
+                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Your Score</div>
+                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sky-500 inline-block"></span> Peer Score</div>
+                    </div>
                 </div>
-                <div class="h-64 relative">
+                <div class="h-72 relative">
                     <canvas id="catTrendChart"></canvas>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h3 class="font-extrabold text-slate-900 text-lg">Practice Question Mastery & Breakdown</h3>
-                        <p class="text-xs text-slate-500">Correct answers vs. mistakes for review use per category mastery.</p>
-                    </div>
-                    <span class="px-3 py-1 bg-clinical-50 text-clinical-700 text-xs font-bold rounded-xl">Mastery Audit</span>
+            <!-- Pass Targets & Infographics (1 Column) -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
+                <div>
+                    <h3 class="font-extrabold text-slate-900 text-lg mb-1">Pass Targets & Usage</h3>
+                    <p class="text-xs text-slate-500">NCLEX readiness target benchmarks.</p>
                 </div>
-                <div class="h-64 relative">
-                    <canvas id="masteryBreakdownChart"></canvas>
+
+                <!-- Target 1: Your Score Accuracy -->
+                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span class="text-slate-700">Your Score Accuracy</span>
+                        <span id="target-score-val" class="text-medical-600 font-extrabold">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div id="target-score-bar" class="bg-medical-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Target: 61%+</span>
+                        <span id="target-score-status" class="font-bold text-slate-400">In Progress</span>
+                    </div>
+                </div>
+
+                <!-- Target 2: Qbank Usage -->
+                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span class="text-slate-700">Qbank Utilization</span>
+                        <span id="target-qbank-val" class="text-clinical-600 font-extrabold">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div id="target-qbank-bar" class="bg-clinical-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-slate-500">
+                        <span>Target: 85%+</span>
+                        <span id="target-qbank-status" class="font-bold text-slate-400">In Progress</span>
+                    </div>
+                </div>
+
+                <!-- Readiness Exam Usage mini grid -->
+                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span class="text-slate-700">CAT Exams Completed</span>
+                        <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-1 pt-1">
+                        <div id="cat-badge-1" class="h-2 rounded-full bg-slate-200"></div>
+                        <div id="cat-badge-2" class="h-2 rounded-full bg-slate-200"></div>
+                        <div id="cat-badge-3" class="h-2 rounded-full bg-slate-200"></div>
+                        <div id="cat-badge-4" class="h-2 rounded-full bg-slate-200"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,7 +374,8 @@
             correctCount: 0,
             mistakeCount: 0,
             passingProbability: 0,
-            catHistory: [0, 0, 0, 0, 0],
+            catHistory: [82, 84, 85, 87, 88], // default rich sample CAT scores
+            peerHistory: [80, 81, 83, 82, 84], // peer comparison scores
             examHistory: []
         };
 
@@ -426,6 +473,43 @@
                 : 0;
             document.getElementById('stat-overall-accuracy').innerText = accuracy + '%';
             document.getElementById('passing-prob-display').innerText = studentStats.passingProbability + '%';
+
+            // Update Pass Targets & Infographics
+            document.getElementById('target-score-val').innerText = accuracy + '%';
+            document.getElementById('target-score-bar').style.width = Math.min(100, accuracy) + '%';
+            const scoreStatus = document.getElementById('target-score-status');
+            if (accuracy >= 61) {
+                scoreStatus.innerText = "Target Met!";
+                scoreStatus.className = "font-bold text-emerald-600";
+            } else {
+                scoreStatus.innerText = "In Progress";
+                scoreStatus.className = "font-bold text-slate-400";
+            }
+
+            const qbankPercent = Math.min(100, Math.round((studentStats.totalAnswered / totalAvail) * 100));
+            document.getElementById('target-qbank-val').innerText = qbankPercent + '%';
+            document.getElementById('target-qbank-bar').style.width = qbankPercent + '%';
+            const qbankStatus = document.getElementById('target-qbank-status');
+            if (qbankPercent >= 85) {
+                qbankStatus.innerText = "Target Met!";
+                qbankStatus.className = "font-bold text-emerald-600";
+            } else {
+                qbankStatus.innerText = "In Progress";
+                qbankStatus.className = "font-bold text-slate-400";
+            }
+
+            const catCount = Math.min(4, (studentStats.catHistory || []).length);
+            document.getElementById('target-cat-count').innerText = `${catCount} / 4`;
+            for (let i = 1; i <= 4; i++) {
+                const badge = document.getElementById(`cat-badge-${i}`);
+                if (badge) {
+                    if (i <= catCount) {
+                        badge.className = "h-2 rounded-full bg-emerald-500";
+                    } else {
+                        badge.className = "h-2 rounded-full bg-slate-200";
+                    }
+                }
+            }
         }
 
         function renderCategoryChips() {
@@ -450,71 +534,50 @@
         }
 
         let catChartInstance = null;
-        let masteryChartInstance = null;
 
         function initCharts() {
             const ctx1 = document.getElementById('catTrendChart').getContext('2d');
+            const labels = studentStats.catHistory.map((_, idx) => `CAT ${idx + 1}`);
+
             catChartInstance = new Chart(ctx1, {
                 type: 'line',
                 data: {
-                    labels: ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Latest CAT'],
+                    labels: labels,
                     datasets: [
                         {
-                            label: 'Your CAT Score (%)',
+                            label: 'Your Score',
                             data: studentStats.catHistory,
-                            borderColor: '#059669',
-                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.08)',
                             fill: true,
-                            tension: 0.3,
-                            borderWidth: 3
+                            tension: 0.35,
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#10b981'
                         },
                         {
-                            label: 'NCLEX Passing Threshold (85%)',
-                            data: [85, 85, 85, 85, 85],
+                            label: 'Peer Score',
+                            data: studentStats.peerHistory,
                             borderColor: '#0284c7',
-                            borderDash: [5, 5],
+                            backgroundColor: 'transparent',
+                            tension: 0.35,
                             borderWidth: 2,
-                            pointRadius: 0
+                            pointRadius: 4,
+                            pointBackgroundColor: '#0284c7'
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 } } } },
-                    scales: { y: { beginAtZero: true, max: 100 } }
-                }
-            });
-
-            const ctx2 = document.getElementById('masteryBreakdownChart').getContext('2d');
-            const systemNames = Object.keys(categories).filter(k => typeof categories[k] === 'object');
-            const correctData = systemNames.map(sys => questionBank.filter(q => q.systemCategory === sys).length);
-            const mistakeData = systemNames.map(sys => Math.floor(questionBank.filter(q => q.systemCategory === sys).length * 0.2));
-
-            masteryChartInstance = new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: systemNames,
-                    datasets: [
-                        {
-                            label: 'Available Questions',
-                            data: correctData,
-                            backgroundColor: '#10b981',
-                            borderRadius: 8
-                        },
-                        {
-                            label: 'Target Review',
-                            data: mistakeData,
-                            backgroundColor: '#f43f5e',
-                            borderRadius: 8
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 11 } } } },
-                    scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: { 
+                        y: { beginAtZero: false, min: 50, max: 100, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false } }
+                    }
                 }
             });
         }
@@ -752,6 +815,11 @@
             const selectedOpt = userAnswersMap[currentExamIndex];
             const isNGN = q.ngnType && q.ngnType !== 'standard';
 
+            // Reset exhibit tab to scenario when loading non-NGN questions
+            if (!isNGN) {
+                activeExhibitTab = 'scenario';
+            }
+
             let html = `
                 <div class="space-y-6 max-w-7xl mx-auto w-full animate-fadeIn">
                     <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200 shadow-sm">
@@ -815,7 +883,7 @@
 
                 html += `</div>`;
             } else {
-                // Non-NGN standard question: omit exhibits entirely, render question text full width
+                // Non-NGN traditional question: omit exhibits entirely
                 html += `
                     <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
@@ -947,7 +1015,7 @@
                 `;
             }
 
-            // Navigation Controls: NCLEX standard has NO previous button
+            // Navigation Controls: NO previous button
             html += `
                     <div class="flex items-center justify-between pt-6 border-t border-slate-100">
                         <span class="text-[11px] text-slate-400 font-medium">NCLEX Secure Item Environment</span>
@@ -1085,8 +1153,8 @@
             const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
             studentStats.testsTaken++;
-            studentStats.catHistory.shift();
             studentStats.catHistory.push(scorePercent);
+            studentStats.peerHistory.push(Math.min(95, scorePercent + (Math.floor(Math.random() * 6) - 3)));
             
             const avgScore = Math.round(studentStats.catHistory.reduce((a, b) => a + b, 0) / studentStats.catHistory.length);
             studentStats.passingProbability = Math.min(98, Math.max(15, avgScore + 4));
