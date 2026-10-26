@@ -346,8 +346,8 @@
                                 // Question text normalization
                                 item.questionText = item.questionText || item.question || item.prompt || item.item || item.scenario || item.text || "Review clinical scenario and select appropriate nursing action.";
                                 
-                                // NGN Type detection
-                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : 'standard');
+                                // NGN Type detection & emulation mapping
+                                item.ngnType = item.ngnType || item.type || (item.dropdowns ? 'dropdown' : item.bowtie ? 'bowtie' : item.matrix ? 'matrix' : (Math.random() < 0.15 ? 'matrix' : 'standard'));
                                 
                                 // Options / Choices normalization
                                 item.options = item.options || item.choices || item.answers || ["Option A", "Option B", "Option C", "Option D"];
@@ -497,6 +497,7 @@
         let userAnswersMap = {};
         let activeExamMode = ''; 
         let currentTimerInterval = null;
+        let activeExhibitTab = 'scenario';
 
         window.openModal = function(title) {
             document.getElementById('exam-modal').classList.remove('hidden');
@@ -584,6 +585,11 @@
             }, 1000);
         }
 
+        window.setExhibitTab = function(tabName) {
+            activeExhibitTab = tabName;
+            renderExamQuestion();
+        }
+
         function renderExamQuestion() {
             const body = document.getElementById('modal-body');
             if (currentExamIndex >= currentExamQuestions.length) {
@@ -603,33 +609,47 @@
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-8 items-start">
-                        <!-- Left: Clinical Record & Scenario / NGN Exhibits -->
+                        <!-- Left: NGN Exhibit Tabs & Clinical Record -->
                         <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                            <div class="flex items-center justify-between text-xs font-bold text-slate-500 uppercase">
-                                <span><i class="fa-solid fa-file-medical text-medical-600 mr-1"></i> Client Clinical Record / NGN Exhibit</span>
-                                <span class="text-medical-600 font-extrabold px-2 py-0.5 bg-medical-50 rounded-lg">NGN Split Window</span>
-                            </div>
-                            <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200">
-                                ${q.questionText}
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                                <div class="flex gap-2">
+                                    <button onclick="window.setExhibitTab('scenario')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${activeExhibitTab === 'scenario' ? 'bg-medical-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">Client Scenario</button>
+                                    <button onclick="window.setExhibitTab('vitals')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${activeExhibitTab === 'vitals' ? 'bg-medical-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">Vitals & Labs</button>
+                                    <button onclick="window.setExhibitTab('notes')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${activeExhibitTab === 'notes' ? 'bg-medical-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">Nurse's Notes</button>
+                                </div>
+                                <span class="text-[10px] text-medical-600 font-extrabold px-2 py-0.5 bg-medical-50 rounded-lg">NGN Exhibit</span>
                             </div>
             `;
 
-            // Render NGN exhibits or charts if present in JSON
-            if (q.exhibits || q.vitals || q.nursesNotes) {
-                html += `<div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 space-y-2 text-xs">
-                    <span class="font-bold text-slate-800 uppercase"><i class="fa-solid fa-chart-line text-medical-600 mr-1"></i> Clinical Chart & Vitals</span>`;
-                if (q.vitals) {
-                    html += `<div class="grid grid-cols-2 gap-2 text-slate-700 bg-white p-3 rounded-xl border border-slate-200">
-                        <div><strong>BP:</strong> ${q.vitals.bp || '120/80'}</div>
-                        <div><strong>HR:</strong> ${q.vitals.hr || '80'} bpm</div>
-                        <div><strong>Temp:</strong> ${q.vitals.temp || '37°C'}</div>
-                        <div><strong>SpO2:</strong> ${q.vitals.spo2 || '98%'}</div>
-                    </div>`;
-                }
-                if (q.nursesNotes) {
-                    html += `<p class="text-slate-600 bg-white p-3 rounded-xl border border-slate-200"><strong>Notes:</strong> ${q.nursesNotes}</p>`;
-                }
-                html += `</div>`;
+            if (activeExhibitTab === 'scenario') {
+                html += `
+                    <div class="text-base font-semibold text-slate-900 leading-relaxed bg-slate-50 p-6 rounded-2xl border border-slate-200 animate-fadeIn">
+                        ${q.questionText || "Clinical scenario details loading..."}
+                    </div>
+                    <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                        <span class="text-xs font-bold text-emerald-800 uppercase block mb-1"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Clinical Context</span>
+                        <p class="text-xs text-slate-700">Analyze client findings carefully. Use clinical judgment to prioritize nursing actions and monitor parameters.</p>
+                    </div>
+                `;
+            } else if (activeExhibitTab === 'vitals') {
+                html += `
+                    <div class="space-y-3 animate-fadeIn">
+                        <span class="text-xs font-bold text-slate-700 uppercase">Recent Vital Signs & Laboratory Results</span>
+                        <div class="grid grid-cols-2 gap-3 text-slate-700">
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Blood Pressure</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.bp || '128/82 mmHg'}</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Heart Rate</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.hr || '88 bpm (Regular)'}</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Temperature</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.temp || '37.2°C (99.0°F)'}</span></div>
+                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200"><strong class="block text-slate-400 text-[10px] uppercase">Oxygen Saturation</strong><span class="text-base font-extrabold text-slate-900">${q.vitals?.spo2 || '96% on room air'}</span></div>
+                        </div>
+                    </div>
+                `;
+            } else if (activeExhibitTab === 'notes') {
+                html += `
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
+                        <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-clipboard-user text-medical-600 mr-1"></i> Nurse's Notes Summary</span>
+                        <p class="text-xs text-slate-700 leading-relaxed">${q.nursesNotes || "Client alert and oriented x 3. Respirations unlabored, lung sounds clear bilaterally. Abdomen soft, non-tender. IV patent in left forearm infusing Normal Saline at 75 mL/hr. Client reports mild discomfort; provider notified."}</p>
+                    </div>
+                `;
             }
 
             html += `
@@ -639,50 +659,72 @@
                         <div class="space-y-5 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
                             <div class="flex items-center justify-between">
                                 <h4 class="font-bold text-slate-900 text-sm">Select the best response or complete NGN items below:</h4>
-                                <button onclick="window.openReportModal()" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[11px] font-bold transition-colors flex items-center gap-1 shadow-sm">
-                                    <i class="fa-solid fa-flag"></i> Report Error
+                                <button onclick="window.openReportModal()" class="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg text-[10px] font-bold transition-colors flex items-center gap-1 shadow-sm">
+                                    <i class="fa-solid fa-flag"></i> Report
                                 </button>
                             </div>
             `;
 
-            // Support NGN Drop-down lists, bow-ties, matrices, or standard multiple choice
-            if (q.ngnType === 'dropdown' || (q.dropdowns && Array.isArray(q.dropdowns))) {
-                html += `<div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-list-dropdown text-medical-600 mr-1"></i> NGN Cloze (Drop-Down) Item</span>`;
-                const dropdowns = q.dropdowns || [{ label: "Complete sentence:", choices: q.options }];
-                dropdowns.forEach((dd, dIdx) => {
-                    html += `<div class="space-y-1">
-                        <label class="text-xs text-slate-600 block font-medium">${dd.label || 'Select option:'}</label>
-                        <select onchange="window.selectDropdown(${dIdx}, this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
-                            <option value="">-- Choose Option --</option>`;
-                        (dd.choices || q.options).forEach(opt => {
-                            html += `<option value="${opt}">${opt}</option>`;
-                        });
-                    html += `</select></div>`;
+            if (q.ngnType === 'matrix') {
+                html += `
+                    <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-table-cells text-medical-600 mr-1"></i> NGN Matrix Grid Item</span>
+                        <p class="text-xs text-slate-600">For each clinical action, click to indicate whether the action is <strong>Indicated</strong>, <strong>Nonessential</strong>, or <strong>Contraindicated</strong>.</p>
+                        <div class="space-y-3">
+                `;
+                q.options.slice(0, 3).forEach((optText, mIdx) => {
+                    const rowAnswer = userAnswersMap[`matrix_${mIdx}`] || '';
+                    html += `
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-2">
+                            <div class="text-xs font-semibold text-slate-800">${mIdx + 1}. ${optText}</div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="window.selectMatrix(${mIdx}, 'Indicated')" class="py-1.5 px-2 rounded-lg text-[11px] font-bold border transition-all ${rowAnswer === 'Indicated' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-emerald-50'}">Indicated</button>
+                                <button onclick="window.selectMatrix(${mIdx}, 'Nonessential')" class="py-1.5 px-2 rounded-lg text-[11px] font-bold border transition-all ${rowAnswer === 'Nonessential' ? 'bg-amber-600 text-white border-amber-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-amber-50'}">Nonessential</button>
+                                <button onclick="window.selectMatrix(${mIdx}, 'Contraindicated')" class="py-1.5 px-2 rounded-lg text-[11px] font-bold border transition-all ${rowAnswer === 'Contraindicated' ? 'bg-rose-600 text-white border-rose-600' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-rose-50'}">Contraindicated</button>
+                            </div>
+                        </div>
+                    `;
                 });
-                html += `</div>`;
-            } else if (q.ngnType === 'bowtie' || q.bowtie) {
-                html += `<div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <span class="text-xs font-bold text-slate-700 uppercase"><i class="fa-solid fa-diagram-project text-medical-600 mr-1"></i> NGN Bow-Tie Item</span>
-                    <p class="text-xs text-slate-600">Select condition to manage, actions to take, and parameters to monitor.</p>`;
-                q.options.forEach((opt, idx) => {
-                    const optLetter = String.fromCharCode(65 + idx);
-                    html += `<button onclick="window.selectOption(${idx}, '${optLetter}')" class="w-full text-left p-3 rounded-xl border bg-white hover:border-medical-500 text-xs text-slate-700"><strong>${optLetter}.</strong> ${opt}</button>`;
-                });
-                html += `</div>`;
+                html += `</div></div>`;
+            } else if (q.ngnType === 'dropdown') {
+                html += `
+                    <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-list-dropdown text-medical-600 mr-1"></i> NGN Cloze (Drop-Down) Item</span>
+                        <div class="space-y-3">
+                            <label class="text-xs text-slate-700 block font-medium">Complete the sentence by selecting the appropriate choices:</label>
+                            <select onchange="window.selectDropdown(0, this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
+                                <option value="">-- Select Dropdown Option 1 --</option>
+                                ${q.options.map(opt => `<option value="${opt}" ${userAnswersMap['dd_0'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                `;
+            } else if (q.ngnType === 'bowtie') {
+                html += `
+                    <div class="space-y-4 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-slate-800 uppercase block"><i class="fa-solid fa-diagram-project text-medical-600 mr-1"></i> NGN Bow-Tie Item</span>
+                        <div class="space-y-3">
+                            <label class="text-xs text-slate-700 block font-medium">Select condition to manage:</label>
+                            <select onchange="window.selectBowtie('condition', this.value)" class="w-full p-3 rounded-xl border border-slate-300 text-sm bg-white focus:border-medical-500 outline-none">
+                                <option value="">-- Choose Condition --</option>
+                                ${q.options.slice(0, 3).map(opt => `<option value="${opt}" ${userAnswersMap['bt_condition'] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                `;
             } else {
-                // Standard Options & Multiple Response
                 html += `<div class="space-y-3">`;
                 if (Array.isArray(q.options)) {
                     q.options.forEach((opt, idx) => {
                         const optLetter = String.fromCharCode(65 + idx);
                         const isSelected = selectedOpt === optLetter;
+                        const isCorrect = optLetter === q.correctAnswer;
                         let optStyle = "bg-slate-50 border-slate-200 hover:border-medical-500 text-slate-700";
                         
                         if (isAnswered) {
-                            if (optLetter === q.correctAnswer) {
+                            if (isCorrect) {
                                 optStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-sm";
-                            } else if (isSelected && optLetter !== q.correctAnswer) {
+                            } else if (isSelected && !isCorrect) {
                                 optStyle = "bg-rose-50 border-rose-500 text-rose-900 font-bold shadow-sm";
                             }
                         } else if (isSelected) {
@@ -690,10 +732,10 @@
                         }
 
                         html += `
-                            <button onclick="window.selectOption(${idx}, '${optLetter}')" ${isAnswered && activeExamMode !== 'selfstudy' ? 'disabled' : ''} class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${optStyle}">
+                            <button onclick="window.selectOption(${idx}, '${optLetter}')" class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${optStyle}">
                                 <span class="text-sm"><strong>${optLetter}.</strong> ${opt}</span>
-                                ${isAnswered && optLetter === q.correctAnswer ? '<i class="fa-solid fa-check text-emerald-600 text-base"></i>' : ''}
-                                ${isAnswered && isSelected && optLetter !== q.correctAnswer ? '<i class="fa-solid fa-xmark text-rose-600 text-base"></i>' : ''}
+                                ${isAnswered && isCorrect ? '<i class="fa-solid fa-check text-emerald-600 text-base"></i>' : ''}
+                                ${isAnswered && isSelected && !isCorrect ? '<i class="fa-solid fa-xmark text-rose-600 text-base"></i>' : ''}
                             </button>
                         `;
                     });
@@ -701,33 +743,28 @@
                 html += `</div>`;
             }
 
-            // In self-study mode, ONLY show rationale and clinical pearl in ONE combined box AFTER selecting an answer
-            if (activeExamMode === 'selfstudy') {
-                if (isAnswered) {
-                    html += `
-                        <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale & Clinical Pearl</span>
-                            </div>
-                            <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
-                            <div class="text-xs text-medical-800 pt-2 border-t border-slate-200 font-semibold bg-medical-50/60 p-3 rounded-xl">
-                                <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <strong>Clinical Pearl:</strong> ${q.clinicalPearl}
-                            </div>
+            // In self-study mode, show rationale & clinical pearl combined in ONE box after answering
+            if (activeExamMode === 'selfstudy' && isAnswered) {
+                html += `
+                    <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale & Clinical Pearl</span>
                         </div>
-                    `;
-                }
-            } else {
-                // For CAT / Timed exams, show rationale only after submission
-                if (isAnswered) {
-                    html += `
-                        <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
-                            <div class="flex items-center justify-between">
-                                <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale</span>
-                            </div>
-                            <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
+                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || "Review evidence-based guidelines for this condition."}</p>
+                        <div class="text-xs text-medical-800 pt-2 border-t border-slate-200 font-semibold bg-medical-50/60 p-3 rounded-xl">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> <strong>Clinical Pearl:</strong> ${q.clinicalPearl || "Prioritize nursing interventions accurately based on client assessment."}
                         </div>
-                    `;
-                }
+                    </div>
+                `;
+            } else if (isAnswered && activeExamMode !== 'selfstudy') {
+                html += `
+                    <div class="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 animate-fadeIn">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i> Evidence-Based Rationale</span>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || "Review evidence-based guidelines for this condition."}</p>
+                    </div>
+                `;
             }
 
             html += `
@@ -751,9 +788,7 @@
         }
 
         window.selectOption = function(optIndex, optLetter) {
-            if (userAnswersMap[currentExamIndex] !== undefined && activeExamMode !== 'selfstudy') return;
             userAnswersMap[currentExamIndex] = optLetter;
-            
             studentStats.totalAnswered++;
             const q = currentExamQuestions[currentExamIndex];
             if (optLetter === q.correctAnswer) {
@@ -766,8 +801,29 @@
             renderExamQuestion();
         }
 
-        window.selectDropdown = function(dropdownIdx, val) {
-            userAnswersMap[currentExamIndex] = val;
+        window.selectMatrix = function(mIdx, val) {
+            userAnswersMap[`matrix_${mIdx}`] = val;
+            userAnswersMap[currentExamIndex] = 'answered';
+            studentStats.totalAnswered++;
+            studentStats.correctCount++;
+            updateDashboardStats();
+            persistState();
+            renderExamQuestion();
+        }
+
+        window.selectDropdown = function(ddIdx, val) {
+            userAnswersMap[`dd_${ddIdx}`] = val;
+            userAnswersMap[currentExamIndex] = 'answered';
+            studentStats.totalAnswered++;
+            studentStats.correctCount++;
+            updateDashboardStats();
+            persistState();
+            renderExamQuestion();
+        }
+
+        window.selectBowtie = function(field, val) {
+            userAnswersMap[`bt_${field}`] = val;
+            userAnswersMap[currentExamIndex] = 'answered';
             studentStats.totalAnswered++;
             studentStats.correctCount++;
             updateDashboardStats();
@@ -778,6 +834,7 @@
         window.nextQuestion = function() {
             if (currentExamIndex < currentExamQuestions.length - 1) {
                 currentExamIndex++;
+                activeExhibitTab = 'scenario';
                 renderExamQuestion();
             } else {
                 finishExam();
@@ -787,6 +844,7 @@
         window.prevQuestion = function() {
             if (currentExamIndex > 0) {
                 currentExamIndex--;
+                activeExhibitTab = 'scenario';
                 renderExamQuestion();
             }
         }
