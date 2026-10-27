@@ -41,7 +41,7 @@
             </div>
             <span class="h-4 w-px bg-slate-700"></span>
             <span id="mode-badge" class="px-2.5 py-1 rounded-md bg-medical-500/20 text-medical-400 font-bold uppercase tracking-wider text-[10px] border border-medical-500/30">
-                Self-Study Engine (8,000+ Q-Bank)
+                Self-Study Engine (9,000+ Q-Bank)
             </span>
         </div>
 
@@ -63,7 +63,7 @@
         <div id="exam-container" class="bg-slate-50 text-slate-900 p-6 sm:p-8 rounded-3xl w-full shadow-2xl space-y-6">
             <div class="text-center py-20 space-y-3">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl text-medical-600"></i>
-                <p class="text-sm font-bold text-slate-700">Shuffling & Loading 8,000+ High-Yield NCLEX Items...</p>
+                <p class="text-sm font-bold text-slate-700">Shuffling & Loading 9,000+ High-Yield NCLEX Items...</p>
             </div>
         </div>
     </main>
@@ -109,7 +109,7 @@
         let selectedOptions = []; 
         let isSubmitted = false;
 
-        // Static Mnemonic Fallback Dictionary for Diseases, Conditions & Pharmacology
+        // Static Visual Mnemonics Dictionary
         const staticMnemonics = {
             "delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
             "digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60 bpm hold drug), G - Gastrointestinal upset (Nausea/Vomiting early sign). Therapeutic level: 0.5 - 2.0 ng/mL." },
@@ -121,10 +121,11 @@
             "heart failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
             "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." },
             "sepsis": { title: "Sepsis Management: TIME", mnemonic: "T - Temperature change, I - Infection signs, M - Mental decline, E - Extremely ill (Severe hypotension, elevated lactate >2)." },
-            "preeclampsia": { title: "Preeclampsia Signs: HELLP", mnemonic: "H - Hemolysis, EL - Elevated Liver enzymes, LP - Low Platelets. Priority: Monitor BP, urine protein, seizure risk. Give Magnesium Sulfate." }
+            "preeclampsia": { title: "Preeclampsia Signs: HELLP", mnemonic: "H - Hemolysis, EL - Elevated Liver enzymes, LP - Low Platelets. Priority: Monitor BP, urine protein, seizure risk. Give Magnesium Sulfate." },
+            "pneumonia": { title: "Pneumonia Interventions: COUGH", mnemonic: "C - Cough & deep breathe, O - Oxygen therapy, U - Upright positioning, G - Get sputum culture before antibiotics, H - Hydration." }
         };
 
-        // Fisher-Yates Randomization Function
+        // Fisher-Yates Randomization Engine
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -133,20 +134,19 @@
             return array;
         }
 
-        // Expanded extraction helper including Medications, Pharmacology Terms, Diseases, and Clinical Conditions
+        // Full Rationale Multi-Pass Scanning Algorithm for Diseases, Meds & Interventions
         function extractRationaleKeywords(text, category, topic) {
-            const searchText = `${text || ''} ${topic || ''} ${category || ''}`;
+            const fullText = `${text || ''} ${topic || ''} ${category || ''}`;
             
-            // Regex matching Medications, Pharmacology terms, Diseases, and Clinical Conditions
-            const pharmAndConditionRegex = /\b(insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|high-alert|adverse reaction|toxicity|systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|prioritization|delegation|advance directives|informed consent|airborne|droplet|contact precautions|abg interpretation)\b/gi;
+            const pharmAndConditionRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|airborne|droplet|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation)\b/gi;
 
-            const matches = searchText.match(pharmAndConditionRegex);
+            const matches = fullText.match(pharmAndConditionRegex);
             if (matches && matches.length > 0) {
                 return [...new Set(matches.map(m => m.toLowerCase()))];
             }
 
-            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for"]);
-            const words = (text || '').replace(/[^\w\s]/gi, '').split(/\s+/);
+            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse"]);
+            const words = fullText.replace(/[^\w\s]/gi, '').split(/\s+/);
             const candidates = words.filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()));
             
             if (candidates.length > 0) {
@@ -156,33 +156,31 @@
             return [topic || category || "Pharmacology & NCLEX Review"];
         }
 
-        // Dynamic Mnemonic / Pharmacology Strategy Guide Generator
+        // Dynamic Mnemonic / Pharmacology & Condition Strategy Guide Generator
         function getDynamicMnemonic(text, category, topic) {
             const keywords = extractRationaleKeywords(text, category, topic);
             const primaryKey = (keywords[0] || '').toLowerCase();
 
-            // 1. Check matching static database
             for (let key in staticMnemonics) {
                 if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
                     return staticMnemonics[key];
                 }
             }
 
-            // 2. Fallback: Generate Pharmacology or Disease strategy guide
             const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "PHARMACOLOGY & CLINICAL CARE");
             const isPharmCategory = (category && category.toLowerCase().includes("pharm")) || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryKey.includes(k));
 
             if (isPharmCategory) {
                 return {
-                    title: `Pharmacology Priority: ${capitalizedKey}`,
-                    mnemonic: `Pharmacology Rule for ${capitalizedKey}: Always check hold parameters (vital signs, heart rate, blood pressure, lab levels) prior to administration. Verify therapeutic ranges, toxicity signs, and antidote availability.`,
+                    title: `Pharmacology Strategy Guide: ${capitalizedKey}`,
+                    mnemonic: `Pharmacology Rule for ${capitalizedKey}: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum lab values) prior to administration. Monitor for therapeutic range, early toxicity signs, and keep antidotes readily accessible.`,
                     isStrategyTip: true
                 };
             }
 
             return {
-                title: `Clinical Strategy Guide: ${capitalizedKey}`,
-                mnemonic: `NCLEX Strategy for ${capitalizedKey}: Identify early deterioration cues (vital sign changes, lab values, altered consciousness). Prioritize airway/breathing stability, patient safety, and evidence-based interventions.`,
+                title: `Condition Strategy Guide: ${capitalizedKey}`,
+                mnemonic: `NCLEX Clinical Strategy for ${capitalizedKey}: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
                 isStrategyTip: true
             };
         }
@@ -208,7 +206,7 @@
                     questions = allQuestions;
                 }
 
-                // Randomize Array Order
+                // Randomize Question Delivery Sequence
                 shuffleArray(questions);
 
                 renderQuestion();
@@ -242,7 +240,7 @@
                     <div class="flex flex-wrap items-center justify-between gap-3 bg-white px-5 py-3 rounded-2xl border border-slate-200">
                         <div class="flex items-center gap-2">
                             <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-black rounded-xl">Question ${currentIndex + 1} of ${questions.length}</span>
-                            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 text-[10px] font-extrabold uppercase rounded-lg tracking-wider">${q.category || 'Pharmacological & Parenteral Therapies'}</span>
+                            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 text-[10px] font-extrabold uppercase rounded-lg tracking-wider">${q.category || 'Management of Care'}</span>
                             ${q.highYieldTag === 'HIGH-YIELD' ? '<span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[10px] font-black uppercase rounded-lg"><i class="fa-solid fa-bolt mr-1"></i> High Yield</span>' : ''}
                         </div>
                         <span class="text-xs font-bold text-slate-400">${isSATA ? 'Select All That Apply (SATA)' : (isNGN ? 'NGN Case Study' : 'Multiple Choice')}</span>
@@ -444,11 +442,11 @@
 
             const dynamicVideoResources = [
                 { 
-                    name: `RegisteredNurseRN - ${mainKeyword.toUpperCase()} Nursing Review`, 
+                    name: `RegisteredNurseRN - ${mainKeyword.toUpperCase()} Review`, 
                     url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainKeyword)}` 
                 },
                 { 
-                    name: `LevelUpRN - ${mainKeyword.toUpperCase()} Pharmacology`, 
+                    name: `LevelUpRN - ${mainKeyword.toUpperCase()} High Yield`, 
                     url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainKeyword)}` 
                 },
                 { 
