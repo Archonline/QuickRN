@@ -28,7 +28,7 @@
                 <i class="fa-solid fa-bookmark text-amber-400"></i>
                 <span class="font-extrabold text-lg tracking-wider">QuikRN Saved Bank</span>
             </div>
-            <span class="text-xs text-slate-300 hidden sm:inline">Saved NCLEX Test Questions & Practice Review</span>
+            <span class="text-xs text-slate-300 hidden sm:inline">Categorized per Mastery (30 Items Max per Mastery Category)</span>
         </div>
         <a href="dashboard.html" class="px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
             <i class="fa-solid fa-arrow-left"></i> Return to Dashboard
@@ -36,62 +36,22 @@
     </header>
 
     <main class="flex-grow p-6 max-w-7xl mx-auto w-full space-y-6 overflow-y-auto">
-        <!-- Header Banner -->
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-xl font-black text-slate-900">Bookmarked & Saved NCLEX Items</h1>
-                <p class="text-xs text-slate-500 mt-1">Review saved test questions across all categories, track your mastery levels, and filter by difficulty.</p>
+                <p class="text-xs text-slate-500 mt-1">Review your saved clinical questions organized by NCLEX Client Needs and Mastery categories (up to 30 items per category).</p>
             </div>
             <div class="flex items-center gap-3">
                 <span id="total-saved-badge" class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold border border-amber-300">0 Bookmarked Items</span>
             </div>
         </div>
 
-        <!-- Filter & Search Controls -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
-            <!-- Search -->
-            <div class="relative">
-                <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                <input type="text" id="search-input" oninput="applyFilters()" placeholder="Search question or topic..." class="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <!-- Category Filter -->
-            <div>
-                <select id="filter-category" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="all">All Categories</option>
-                </select>
-            </div>
-
-            <!-- Mastery Filter -->
-            <div>
-                <select id="filter-mastery" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="all">All Mastery Levels</option>
-                    <option value="mastered">Mastered (Green)</option>
-                    <option value="learning">Learning / In Progress (Yellow)</option>
-                    <option value="unmastered">Needs Practice / Unmastered (Red)</option>
-                </select>
-            </div>
-
-            <!-- Difficulty Filter -->
-            <div>
-                <select id="filter-difficulty" onchange="applyFilters()" class="w-full py-2 px-3 text-xs border border-slate-300 rounded-lg bg-white text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="all">All Difficulties</option>
-                    <option value="Easy">Easy</option>
-                    <option value="Moderate">Moderate / Medium</option>
-                    <option value="Hard">Hard / Advanced</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Saved Questions Container -->
         <div id="mastery-categories-container" class="space-y-6">
-            <!-- Dynamically populated -->
+            <!-- Dynamically populated per mastery category -->
         </div>
     </main>
 
     <script>
-        let savedQuestionObjects = [];
-
         window.addEventListener('DOMContentLoaded', () => {
             loadSavedQuestions();
         });
@@ -99,91 +59,15 @@
         function loadSavedQuestions() {
             let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             let favorites = state.studentStats && state.studentStats.favorites ? state.studentStats.favorites : [];
-            let questionStats = state.questionStats || {};
-
+            
             let allPool = [];
             if (typeof embeddedQuestionsData !== 'undefined') allPool = embeddedQuestionsData;
             else if (typeof questions !== 'undefined') allPool = questions;
 
-            savedQuestionObjects = [];
-            
-            favorites.forEach(id => {
-                let q = allPool.find(item => item.id === id);
-                if (q) {
-                    // Extract or calculate mastery
-                    let stats = questionStats[q.id] || {};
-                    let mastery = q.mastery || stats.mastery || 'unmastered';
-                    if (!q.mastery && stats.attempts) {
-                        if (stats.correct / stats.attempts >= 0.8) mastery = 'mastered';
-                        else if (stats.attempts > 0) mastery = 'learning';
-                    }
+            document.getElementById('total-saved-badge').innerText = `${favorites.length} Bookmarked Items`;
 
-                    savedQuestionObjects.push({
-                        ...q,
-                        category: q.category || 'General Nursing',
-                        difficulty: q.difficulty || 'Moderate',
-                        mastery: mastery
-                    });
-                }
-            });
-
-            populateCategoryDropdown(savedQuestionObjects);
-            applyFilters();
-        }
-
-        function populateCategoryDropdown(items) {
-            const select = document.getElementById('filter-category');
-            select.innerHTML = '<option value="all">All Categories</option>';
-            
-            const categories = [...new Set(items.map(i => i.category))];
-            categories.forEach(cat => {
-                let opt = document.createElement('option');
-                opt.value = cat;
-                opt.textContent = cat;
-                select.appendChild(opt);
-            });
-        }
-
-        function applyFilters() {
-            const searchVal = document.getElementById('search-input').value.toLowerCase();
-            const categoryVal = document.getElementById('filter-category').value;
-            const masteryVal = document.getElementById('filter-mastery').value;
-            const difficultyVal = document.getElementById('filter-difficulty').value;
-
-            let filtered = savedQuestionObjects.filter(item => {
-                // Category Filter
-                if (categoryVal !== 'all' && item.category !== categoryVal) return false;
-
-                // Mastery Filter
-                if (masteryVal !== 'all') {
-                    let m = (item.mastery || '').toLowerCase();
-                    if (masteryVal === 'mastered' && m !== 'mastered') return false;
-                    if (masteryVal === 'learning' && m !== 'learning') return false;
-                    if (masteryVal === 'unmastered' && (m === 'mastered' || m === 'learning')) return false;
-                }
-
-                // Difficulty Filter
-                if (difficultyVal !== 'all') {
-                    if ((item.difficulty || '').toLowerCase() !== difficultyVal.toLowerCase()) return false;
-                }
-
-                // Search Filter
-                if (searchVal) {
-                    let text = (item.question || item.questionText || '') + ' ' + (item.topic || '') + ' ' + (item.rationale || '');
-                    if (!text.toLowerCase().includes(searchVal)) return false;
-                }
-
-                return true;
-            });
-
-            renderQuestions(filtered);
-        }
-
-        function renderQuestions(items) {
-            document.getElementById('total-saved-badge').innerText = `${savedQuestionObjects.length} Bookmarked Items`;
             const container = document.getElementById('mastery-categories-container');
-
-            if (savedQuestionObjects.length === 0) {
+            if (favorites.length === 0) {
                 container.innerHTML = `
                     <div class="bg-white rounded-xl border border-slate-200 p-12 text-center space-y-3">
                         <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-regular fa-bookmark"></i></div>
@@ -195,71 +79,45 @@
                 return;
             }
 
-            if (items.length === 0) {
-                container.innerHTML = `
-                    <div class="bg-white rounded-xl border border-slate-200 p-10 text-center space-y-2">
-                        <i class="fa-solid fa-filter-circle-xmark text-3xl text-slate-400"></i>
-                        <h3 class="font-bold text-sm text-slate-800">No Questions Match Your Filters</h3>
-                        <p class="text-xs text-slate-500">Try adjusting your category, mastery, or difficulty dropdown filters.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            // Group filtered items by category
-            let grouped = {};
-            items.forEach(q => {
-                let cat = q.category || 'General Nursing';
-                if (!grouped[cat]) grouped[cat] = [];
-                grouped[cat].push(q);
+            let categorized = {};
+            favorites.forEach(id => {
+                let q = allPool.find(item => item.id === id);
+                if (q) {
+                    let cat = q.category || 'General Nursing';
+                    if (!categorized[cat]) categorized[cat] = [];
+                    if (categorized[cat].length < 30) {
+                        categorized[cat].push(q);
+                    }
+                }
             });
 
             let html = '';
-            for (let cat in grouped) {
-                let list = grouped[cat];
+            for (let cat in categorized) {
+                let items = categorized[cat];
                 html += `
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                             <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-layer-group text-ncsbn-navy"></i> ${cat}
+                                <i class="fa-solid fa-layer-group text-ncsbn-navy"></i> Mastery Category: ${cat}
                             </h3>
-                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">${list.length} Item(s)</span>
+                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">${items.length} / 30 Items</span>
                         </div>
-                        <div class="divide-y divide-slate-100 p-6 space-y-6">
+                        <div class="divide-y divide-slate-100 p-6 space-y-4">
                 `;
 
-                list.forEach((q) => {
-                    let difficultyBg = q.difficulty === 'Hard' ? 'bg-rose-100 text-rose-800' : q.difficulty === 'Easy' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
-                    let masteryBg = q.mastery === 'mastered' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : q.mastery === 'learning' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-rose-50 text-rose-700 border-rose-200';
-                    let masteryText = q.mastery === 'mastered' ? 'Mastered' : q.mastery === 'learning' ? 'In Progress' : 'Needs Practice';
-
+                items.forEach((q, idx) => {
                     html += `
-                        <div class="pt-4 first:pt-0 space-y-3">
-                            <div class="flex flex-wrap justify-between items-center gap-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 bg-slate-100 text-slate-700 rounded">${q.id}</span>
-                                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${difficultyBg}">${q.difficulty}</span>
-                                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded border ${masteryBg}">${masteryText}</span>
-                                    <span class="text-xs font-semibold text-slate-500">${q.topic || 'Clinical Topic'}</span>
-                                </div>
-                                <button onclick="removeBookmark('${q.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1 transition">
+                        <div class="pt-4 first:pt-0 space-y-2">
+                            <div class="flex justify-between items-start gap-4">
+                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 bg-slate-100 text-slate-700 rounded">${q.id} &bull; ${q.topic || 'Clinical Topic'}</span>
+                                <button onclick="removeBookmark('${q.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1">
                                     <i class="fa-solid fa-trash"></i> Remove
                                 </button>
                             </div>
-
-                            <h4 class="text-sm font-bold text-slate-900 line-clamp-2">${q.question || q.questionText}</h4>
-
-                            ${q.options ? `
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs my-2">
-                                    ${q.options.map(opt => `
-                                        <div class="p-2 rounded border border-slate-200 bg-slate-50/50 text-slate-700">${opt}</div>
-                                    `).join('')}
-                                </div>
-                            ` : ''}
-
+                            <h4 class="text-xs md:text-sm font-bold text-slate-900">${q.question || q.questionText}</h4>
                             <div class="bg-blue-50/50 p-3 rounded-lg border border-blue-100 text-xs text-slate-700 space-y-1">
-                                <div><strong class="text-ncsbn-navy">Correct Answer:</strong> <span class="font-semibold text-emerald-700">${q.correctAnswerText || q.correctAnswer}</span></div>
-                                <div><strong class="text-ncsbn-navy">Rationale:</strong> ${q.rationale || 'N/A'}</div>
+                                <strong class="text-ncsbn-navy">Correct Answer:</strong> ${q.correctAnswerText || q.correctAnswer}<br>
+                                <strong class="text-ncsbn-navy">Rationale:</strong> ${q.rationale || 'N/A'}
                             </div>
                         </div>
                     `;
