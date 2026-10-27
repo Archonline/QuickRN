@@ -55,10 +55,23 @@
         const count = parseInt(urlParams.get('count') || '15', 10);
         document.getElementById('header-title').innerText = `Timed Exam (${count} Items)`;
 
+        // Questions mapped with precise NCLEX Client Needs domains
         let questions = [
-            { id: 't1', questionText: 'A client with heart failure is prescribed furosemide. Which laboratory value should the nurse monitor most closely?', options: ['Serum potassium', 'Blood glucose', 'Serum calcium', 'Platelet count'], correctAnswer: 'A', rationale: 'Furosemide is a loop diuretic that wastes potassium, risking hypokalemia.' },
-            { id: 't2', questionText: 'A client with chronic kidney disease has a serum potassium level of 6.2 mEq/L. Which medication should the nurse anticipate administering first?', options: ['Regular insulin with 50% dextrose', 'Sodium polystyrene sulfonate', 'Oral furosemide', 'Calcium carbonate'], correctAnswer: 'A', rationale: 'IV regular insulin shifts potassium intracellularly rapidly for severe hyperkalemia.' },
-            { id: 't3', questionText: 'The nurse is caring for a client post-thyroidectomy. Which assessment finding requires immediate intervention?', options: ['Stridor and noisy respirations', 'Pain score of 4 at incision site', 'Hoarseness when speaking', 'Serum calcium of 9.0 mg/dL'], correctAnswer: 'A', rationale: 'Stridor indicates acute laryngeal edema and airway obstruction post-thyroidectomy.' }
+            { id: 't1', domain: 'Pharmacological & Parenteral Therapies', questionText: 'A client with heart failure is prescribed furosemide. Which laboratory value should the nurse monitor most closely?', options: ['Serum potassium', 'Blood glucose', 'Serum calcium', 'Platelet count'], correctAnswer: 'A', rationale: 'Furosemide is a loop diuretic that wastes potassium, risking hypokalemia.' },
+            { id: 't2', domain: 'Pharmacological & Parenteral Therapies', questionText: 'A client with chronic kidney disease has a serum potassium level of 6.2 mEq/L. Which medication should the nurse anticipate administering first?', options: ['Regular insulin with 50% dextrose', 'Sodium polystyrene sulfonate', 'Oral furosemide', 'Calcium carbonate'], correctAnswer: 'A', rationale: 'IV regular insulin shifts potassium intracellularly rapidly for severe hyperkalemia.' },
+            { id: 't3', domain: 'Physiological Adaptation', questionText: 'The nurse is caring for a client post-thyroidectomy. Which assessment finding requires immediate intervention?', options: ['Stridor and noisy respirations', 'Pain score of 4 at incision site', 'Hoarseness when speaking', 'Serum calcium of 9.0 mg/dL'], correctAnswer: 'A', rationale: 'Stridor indicates acute laryngeal edema and airway obstruction post-thyroidectomy.' },
+            { id: 't4', domain: 'Management of Care', questionText: 'A charge nurse is making assignments. Which client is appropriate to assign to an LPN?', options: ['A stable client with chronic COPD needing routine oral medications', 'A newly admitted client with acute chest pain', 'A client receiving blood transfusions experiencing a reaction', 'A client requiring initial post-operative stroke assessment'], correctAnswer: 'A', rationale: 'LPNs can care for stable clients with predictable outcomes.' },
+            { id: 't5', domain: 'Safety & Infection Control', questionText: 'Which action should the nurse take first when entering the room of a client on contact precautions for Clostridium difficile?', options: ['Put on a clean gown and gloves before entry', 'Put on a surgical mask and eye shield', 'Perform hand hygiene with alcohol rub', 'Place client in negative pressure room'], correctAnswer: 'A', rationale: 'Contact precautions require gowns and gloves. Alcohol rub is ineffective against C. diff spores; handwashing with soap and water is required.' },
+            { id: 't6', domain: 'Health Promotion & Maintenance', questionText: 'At what age should the nurse educate parents that an infant typically begins rolling from back to side?', options: ['4 to 5 months', '2 to 3 months', '6 to 7 months', '9 to 10 months'], correctAnswer: 'A', rationale: 'Infants usually achieve rolling capabilities around 4 to 5 months of age.' },
+            { id: 't7', domain: 'Psychosocial Integrity', questionText: 'A client expressing feelings of hopelessness states, "I just want to end it all." What is the immediate priority action for the nurse?', options: ['Implement continuous suicide precautions and a one-on-one observer', 'Ask the client why they feel this way', 'Encourage the client to think about their family', 'Document the statement in the chart'], correctAnswer: 'A', rationale: 'Client safety is the primary priority when suicide ideation is expressed.' },
+            { id: 't8', domain: 'Basic Care & Comfort', questionText: 'Which nursing intervention is most effective in preventing pressure injuries in a bedridden immobile client?', options: ['Repositioning the client every 2 hours', 'Massaging bony prominences regularly', 'Keeping the head of the bed elevated at 45 degrees continuously', 'Applying heavy-duty plastic sheets'], correctAnswer: 'A', rationale: 'Frequent repositioning relieves sustained pressure on tissue capillaries.' },
+            { id: 't9', domain: 'Reduction of Risk Potential', questionText: 'A client is receiving a unit of packed red blood cells. Thirty minutes into the infusion, the client develops chills, lower back pain, and dark urine. What is the nurse\'s immediate action?', options: ['Stop the transfusion immediately and disconnect tubing with normal saline', 'Slow down the infusion rate and call the provider', 'Administer prescribed antihistamine and continue', 'Apply a warm blanket and monitor'], correctAnswer: 'A', rationale: 'These are classic signs of an acute hemolytic transfusion reaction; stopping the infusion prevents further harm.' },
+            { id: 't10', domain: 'Physiological Adaptation', questionText: 'A client with diabetic ketoacidosis (DKA) is receiving regular insulin via continuous IV infusion. Which electrolyte shift should the nurse anticipate?', options: ['Potassium shifting from extracellular to intracellular space', 'Sodium remaining completely stable', 'Calcium levels spiking sharply', 'Magnesium levels increasing'], correctAnswer: 'A', rationale: 'Insulin drives potassium back into cells, which can quickly drop serum potassium levels.' },
+            { id: 't11', domain: 'Management of Care', questionText: 'A nurse witnesses another staff member charting a procedure before it is actually performed. What is the appropriate ethical and professional response?', options: ['Report the incident privately to the nursing supervisor', 'Confront the nurse publicly in front of the patient', 'Ignore it since charting was completed eventually', 'Erase the entry'], correctAnswer: 'A', rationale: 'Pre-charting is falsification of medical records and should be escalated via chain of command.' },
+            { id: 't12', domain: 'Safety & Infection Control', questionText: 'Which client requires placement in a negative-pressure airflow room (airborne precautions)?', options: ['A client with active pulmonary tuberculosis', 'A client with influenza', 'A client with bacterial pneumonia', 'A client with wound staph infection'], correctAnswer: 'A', rationale: 'Tuberculosis is airborne, requiring negative pressure rooms and N95 respirators.' },
+            { id: 't13', domain: 'Pharmacological & Parenteral Therapies', questionText: 'Which assessment is vital prior to administering oral digoxin to an adult client?', options: ['Apical pulse for a full 60 seconds', 'Blood pressure reading', 'Respiratory rate', 'Serum sodium level'], correctAnswer: 'A', rationale: 'Digoxin slows heart rate; if apical pulse is under 60 bpm, hold the dose and notify provider.' },
+            { id: 't14', domain: 'Health Promotion & Maintenance', questionText: 'A nurse is planning dietary education for a client diagnosed with iron-deficiency anemia. Which food choice should be emphasized?', options: ['Dark leafy green vegetables and lean red meats', 'Citrus fruits only', 'Dairy products like milk and cheese', 'White bread and pasta'], correctAnswer: 'A', rationale: 'Red meat and leafy greens are rich sources of bioavailable dietary iron.' },
+            { id: 't15', domain: 'Psychosocial Integrity', questionText: 'A client recently diagnosed with terminal cancer says, "The lab results must be mixed up; I feel fine most days." Which defense mechanism is the client exhibiting?', options: ['Denial', 'Projection', 'Rationalization', 'Regression'], correctAnswer: 'A', rationale: 'Denial is a coping mechanism where individuals refuse to accept reality or facts.' }
         ];
 
         let currentIndex = 0;
@@ -76,7 +89,7 @@
             let html = `
                 <div class="space-y-6 animate-fadeIn">
                     <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200">
-                        <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentIndex + 1} of ${count}</span>
+                        <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentIndex + 1} of ${count} (${q.domain})</span>
                         <button onclick="saveFavorite('${q.id}')" class="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1"><i class="fa-solid fa-bookmark"></i> Save for Review</button>
                     </div>
                     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
@@ -129,22 +142,42 @@
             let correct = 0;
             let attempted = 0;
             const activeQuestions = questions.slice(0, Math.min(count, questions.length));
+
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, catHistory: [82], peerHistory: [80], examHistory: [], answeredQuestionIds: {}, domainStats: {}, favorites: [] };
+            
+            stateObj.studentStats.testsTaken++;
+            stateObj.studentStats.domainStats = stateObj.studentStats.domainStats || {};
+            stateObj.studentStats.answeredQuestionIds = stateObj.studentStats.answeredQuestionIds || {};
+
             activeQuestions.forEach((q, idx) => {
                 const ans = userAnswers[idx];
                 if (ans !== undefined) {
                     attempted++;
-                    if (ans === q.correctAnswer) correct++;
+                    stateObj.studentStats.answeredQuestionIds[q.id] = true;
+                    stateObj.studentStats.totalAnswered++;
+
+                    // Initialize domain tracking if missing
+                    if (!stateObj.studentStats.domainStats[q.domain]) {
+                        stateObj.studentStats.domainStats[q.domain] = { total: 0, correct: 0 };
+                    }
+                    stateObj.studentStats.domainStats[q.domain].total++;
+
+                    const isCorrect = ans === q.correctAnswer;
+                    if (isCorrect) {
+                        correct++;
+                        stateObj.studentStats.correctCount++;
+                        stateObj.studentStats.domainStats[q.domain].correct++;
+                    } else {
+                        stateObj.studentStats.mistakeCount++;
+                    }
                 }
             });
-            const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
-            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, catHistory: [82], peerHistory: [80], examHistory: [], answeredQuestionIds: {}, favorites: [] };
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += attempted;
-            stateObj.studentStats.correctCount += correct;
+            const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
             stateObj.studentStats.passingProbability = Math.min(95, Math.max(25, scorePercent + 4));
             stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Test (${count} Items)`, total: count, attempted, scorePercent, questions: activeQuestions, userAnswers });
+            
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
             let html = `
@@ -152,6 +185,7 @@
                     <div class="text-center space-y-3">
                         <div class="w-20 h-20 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center text-4xl mx-auto"><i class="fa-solid fa-award"></i></div>
                         <h3 class="text-2xl font-extrabold text-slate-900">Exam Session Completed!</h3>
+                        <p class="text-xs text-slate-500">Your NCLEX Client Needs Mastery categories have been updated.</p>
                     </div>
                     <div class="flex justify-center gap-8 py-4 bg-white rounded-2xl border border-slate-200">
                         <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Score</span><span class="text-3xl font-black text-medical-600">${scorePercent}%</span></div>
@@ -165,7 +199,7 @@
                 html += `
                     <div class="bg-white p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-200 bg-rose-50/20'} space-y-2">
                         <div class="flex justify-between text-xs font-bold text-slate-700">
-                            <span>Question ${qIdx + 1}</span>
+                            <span>Question ${qIdx + 1} (${q.domain})</span>
                             <span class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${isCorrect ? 'Correct' : 'Incorrect'}</span>
                         </div>
                         <p class="text-xs font-semibold text-slate-900">${q.questionText}</p>
