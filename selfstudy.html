@@ -386,15 +386,19 @@
             }
         }
 
-        // FETCH QUESTIONS FROM JSON FILE & INITIALIZE
+        // FETCH QUESTIONS FROM jsDelivr CDN & INITIALIZE
         async function loadQuestionsFromJSON() {
             let rawDataArray = [];
 
             try {
-                let fetchUrl = 'questions.json';
-                if (window.location.origin && window.location.origin !== 'null' && !window.location.href.startsWith('blob:')) {
-                    fetchUrl = new URL('questions.json', window.location.href).href;
-                }
+                // ==========================================
+                // REPLACE THESE WITH YOUR ACTUAL GITHUB INFO:
+                // ==========================================
+                const githubUsername = "YOUR-GITHUB-USERNAME";
+                const repositoryName = "YOUR-REPOSITORY-NAME";
+                const branchName = "main"; // or "master"
+
+                const fetchUrl = `https://cdn.jsdelivr.net/gh/${Archonline}/${QuickRN}@${branchName}/questions.json`;
 
                 const response = await fetch(fetchUrl);
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
@@ -426,44 +430,8 @@
                     }
                 }
             } catch (err) {
-                console.warn("Could not fetch questions.json (CORS/file protocol issue). Using fallback dataset.", err);
-                // Fallback dataset to prevent loading screen freeze when opened via file:// protocol
-                rawDataArray = [
-                    {
-                        "id": "NCLEX-0001",
-                        "category": "Cardiovascular",
-                        "topic": "Acute myocardial infarction",
-                        "type": "Single best answer",
-                        "question": "A nurse is caring for a client with acute myocardial infarction. Which action should the nurse take first?",
-                        "options": [
-                            "Waiting to see whether pain resolves",
-                            "Encouraging the client to walk",
-                            "Giving food before assessment",
-                            "Reporting chest pain and obtaining a rapid ECG"
-                        ],
-                        "correctAnswer": "D",
-                        "correctAnswerText": "Reporting chest pain and obtaining a rapid ECG",
-                        "rationale": "Prompt ECG helps identify ischemia and guide time-sensitive reperfusion decisions.",
-                        "learningObjective": "For suspected acute MI, obtain a 12-lead ECG promptly."
-                    },
-                    {
-                        "id": "NCLEX-0012",
-                        "category": "Cardiovascular",
-                        "topic": "Heart failure",
-                        "type": "Single best answer",
-                        "question": "During a shift assessment, a client has a condition associated with heart failure. Which finding best indicates that the plan is effective?",
-                        "options": [
-                            "Encourage unrestricted fluids",
-                            "Assess breathing, oxygen saturation, lung sounds, and recent weight change",
-                            "Place the client flat without assessment",
-                            "Hold all prescribed medicines automatically"
-                        ],
-                        "correctAnswer": "B",
-                        "correctAnswerText": "Assess breathing, oxygen saturation, lung sounds, and recent weight change",
-                        "rationale": "These findings help identify pulmonary congestion and fluid retention.",
-                        "learningObjective": "For worsening heart failure, assess respiratory status, oxygenation, lung sounds, and daily weight."
-                    }
-                ];
+                console.error("Error loading questions via jsDelivr CDN:", err);
+                alert("Could not load questions.json from jsDelivr CDN. Please make sure you updated your GitHub Username and Repository Name in the code.");
             }
 
             allQuestionsPool = rawDataArray.map((q, idx) => {
@@ -782,7 +750,7 @@
                 container.innerHTML = html;
             }
 
-            document.getElementById('bookmarks-modal').classList.remove('hidden');
+            document.getElementById('bookmarks-modal').classList.add('hidden');
         }
 
         function closeBookmarksModal() {
@@ -834,10 +802,8 @@
         }
 
         // INITIALIZE APPLICATION
-        window.onload = async function() {
-            await loadQuestionsFromJSON();
-            // Automatically start session using default 85 questions or available pool if fewer exist
-            startStudySession(85);
+        window.onload = function() {
+            loadQuestionsFromJSON();
         };
     </script>
 </body>
