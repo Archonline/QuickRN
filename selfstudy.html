@@ -179,9 +179,7 @@
                 </h3>
                 <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1">
-                <!-- Dynamic list populated via JavaScript -->
-            </div>
+            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1"></div>
             <div class="pt-3 border-t border-slate-200 flex justify-end">
                 <button onclick="closeBookmarksModal()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Close</button>
             </div>
@@ -200,6 +198,45 @@
         </div>
     </div>
 
+    <!-- ITEM COUNT CONFIGURATION MODAL -->
+    <div id="session-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 text-slate-900 border border-slate-200">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-blue-100 text-ncsbn-navy flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h2 class="text-xl font-bold text-ncsbn-navy">Start Practice Session</h2>
+                <p class="text-xs text-slate-600">Choose the number of questions you want to practice for this self-study session from the question bank.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="startStudySession(20)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">20</span>
+                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                </button>
+                <button onclick="startStudySession(60)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">60</span>
+                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                </button>
+                <button onclick="startStudySession(85)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">85</span>
+                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Minimum)</span>
+                </button>
+                <button onclick="startStudySession(150)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">150</span>
+                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Maximum)</span>
+                </button>
+            </div>
+
+            <button onclick="startStudySession('all')" class="w-full py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+                <i class="fa-solid fa-layer-group text-amber-400"></i> Load Entire Question Bank (<span id="modal-total-count">...</span> questions)
+            </button>
+        </div>
+    </div>
+
+    <!-- INCLUDE QUESTIONS.JS BEFORE MAIN SCRIPT -->
+    <script src="questions.js"></script>
+
     <script>
         // GLOBAL STATE
         let allQuestionsPool = [];
@@ -210,101 +247,57 @@
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
 
-        // DUAL YOUTUBE VIDEO MAPPING BY TOPIC / CATEGORY
+        // YOUTUBE VIDEO MAPPING BY TOPIC & KEYWORDS
         const topicDualYouTubeMap = {
-            "Acute myocardial infarction": [
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: "Myocardial Infarction (Heart Attack) Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=phu_x9FS7WY",
-                    thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg",
-                    title: "Myocardial Infarction Pathophysiology & ECG",
-                    channel: "RegisteredNurseRN"
-                }
+            "cardio": [
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
             ],
-            "Heart failure": [
-                {
-                    url: "https://www.youtube.com/watch?v=r5W1ns5C1ik",
-                    thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg",
-                    title: "Congestive Heart Failure (CHF) NCLEX Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=mGchzG3Ya7c",
-                    thumbnail: "https://img.youtube.com/vi/mGchzG3Ya7c/hqdefault.jpg",
-                    title: "Left vs Right Heart Failure Pathophysiology",
-                    channel: "RegisteredNurseRN"
-                }
+            "respiratory": [
+                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
             ],
-            "Digoxin safety": [
-                {
-                    url: "https://www.youtube.com/watch?v=S73GT32EE48",
-                    thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg",
-                    title: "Digoxin Nursing Pharmacology Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=B8THrJVTeZU",
-                    thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg",
-                    title: "Pharmacology High Yield NCLEX Review",
-                    channel: "RegisteredNurseRN"
-                }
+            "pharmacology": [
+                { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
             ],
-            "Warfarin teaching": [
-                {
-                    url: "https://www.youtube.com/watch?v=LpVyqHeyTcA",
-                    thumbnail: "https://img.youtube.com/vi/LpVyqHeyTcA/hqdefault.jpg",
-                    title: "Warfarin & Anticoagulant Nursing Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=si67310XO80",
-                    thumbnail: "https://img.youtube.com/vi/si67310XO80/hqdefault.jpg",
-                    title: "Must-Know Nursing Medications NCLEX",
-                    channel: "RegisteredNurseRN"
-                }
-            ],
-            "Tracheostomy Safety": [
-                {
-                    url: "https://www.youtube.com/watch?v=phu_x9FS7WY",
-                    thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg",
-                    title: "Tracheostomy Care & Emergency Nursing Safety",
-                    channel: "RegisteredNurseRN"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: "Airway & Respiratory Priority NCLEX",
-                    channel: "SimpleNursing"
-                }
+            "pediatric": [
+                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=si67310XO80", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
             ]
         };
 
         function getTwoYouTubeVideos(topic, category) {
-            if (topicDualYouTubeMap[topic]) {
-                return topicDualYouTubeMap[topic];
+            const searchKey = `${topic || ''} ${category || ''}`.toLowerCase();
+
+            if (searchKey.includes('heart') || searchKey.includes('cardio') || searchKey.includes('infarction') || searchKey.includes('pulse')) {
+                return topicDualYouTubeMap["cardio"];
+            } else if (searchKey.includes('resp') || searchKey.includes('asthma') || searchKey.includes('trach') || searchKey.includes('oxygen') || searchKey.includes('lung')) {
+                return topicDualYouTubeMap["respiratory"];
+            } else if (searchKey.includes('med') || searchKey.includes('drug') || searchKey.includes('dose') || searchKey.includes('pharmacology') || searchKey.includes('digoxin') || searchKey.includes('insulin')) {
+                return topicDualYouTubeMap["pharmacology"];
+            } else if (searchKey.includes('child') || searchKey.includes('peds') || searchKey.includes('infant') || searchKey.includes('newborn')) {
+                return topicDualYouTubeMap["pediatric"];
             }
-            return [
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: `${topic || category} Core Nursing Review`,
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=r5W1ns5C1ik",
-                    thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg",
-                    title: `${category} NCLEX Clinical Judgment`,
-                    channel: "RegisteredNurseRN"
-                }
+
+            const fallbackPools = [
+                [
+                    { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
+                    { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
+                ],
+                [
+                    { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: `Mastering ${topic || 'NCLEX Topics'}`, channel: "RegisteredNurseRN" },
+                    { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: `${category || 'Exam'} Strategy & Rationales`, channel: "SimpleNursing" }
+                ]
             ];
+            
+            let hash = 0;
+            for (let i = 0; i < searchKey.length; i++) {
+                hash = searchKey.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return fallbackPools[Math.abs(hash) % fallbackPools.length];
         }
 
-        // Array Shuffling Helper (Fisher-Yates)
         function shuffleArray(array) {
             const arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -314,7 +307,6 @@
             return arr;
         }
 
-        // DYNAMIC NCLEX STRATEGY ENGINE
         function getNCLEXStrategy(questionObj) {
             const combinedText = `${questionObj.category || ''} ${questionObj.topic || ''} ${questionObj.questionText || ''} ${questionObj.rationale || ''}`.toLowerCase();
 
@@ -357,58 +349,85 @@
             }
         }
 
-        // FETCH QUESTIONS FROM JSON FILE & INITIALIZE
-        async function loadQuestionsFromJSON() {
+        function loadQuestionsFromJS() {
+            let rawDataArray = [];
+
             try {
-                const response = await fetch('questions.json');
-                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                const rawData = await response.json();
+                const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
                 
-                // Support both direct array and object with 'questions' property
-                const data = Array.isArray(rawData) ? rawData : (rawData.questions || []);
-                
-                if (data.length === 0) {
-                    throw new Error("No question records found in questions.json.");
+                if (Array.isArray(rawData)) {
+                    rawDataArray = rawData;
+                } else if (rawData.questions && Array.isArray(rawData.questions)) {
+                    rawDataArray = rawData.questions;
+                } else if (rawData.categorizedStructure) {
+                    for (const typeKey in rawData.categorizedStructure) {
+                        const diffObj = rawData.categorizedStructure[typeKey];
+                        if (!diffObj) continue;
+                        for (const diffKey in diffObj) {
+                            const catObj = diffObj[diffKey];
+                            if (!catObj) continue;
+                            for (const catKey in catObj) {
+                                const topicObj = catObj[catKey];
+                                if (!topicObj) continue;
+                                for (const topicKey in topicObj) {
+                                    const qList = topicObj[topicKey];
+                                    if (Array.isArray(qList)) {
+                                        rawDataArray = rawDataArray.concat(qList);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-
-                allQuestionsPool = data.map((q, idx) => {
-                    const originalOptions = q.options || [];
-                    const shuffledOptions = shuffleArray(originalOptions);
-
-                    return {
-                        id: q.id || `NCLEX-${idx + 1}`,
-                        category: q.category || 'General Care',
-                        topic: q.topic || 'Core Concept',
-                        type: q.type || 'Single best answer',
-                        questionText: q.question || q.questionText || '',
-                        options: shuffledOptions,
-                        correctAnswer: q.correctAnswerText || q.correctAnswer,
-                        rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                        learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
-                    };
-                });
-
-                activeQuestions = shuffleArray(allQuestionsPool);
-                updateHeaderInfo();
-                renderQuestion();
             } catch (err) {
-                console.error("Failed to load questions.json from repository:", err);
-                document.getElementById('exam-container').innerHTML = `
-                    <div class="flex items-center justify-center h-64 text-center">
-                        <div class="space-y-2">
-                            <i class="fa-solid fa-triangle-exclamation text-3xl text-rose-600"></i>
-                            <p class="text-sm font-bold text-slate-800">Unable to load questions.json</p>
-                            <p class="text-xs text-slate-500">${err.message}</p>
-                            <p class="text-[11px] text-slate-400">If testing locally without a local web server (using file://), browser CORS policies block fetch requests. Use a local server (e.g. Live Server or http-server) or test via GitHub Pages.</p>
-                        </div>
-                    </div>
-                `;
+                console.error("Error reading embedded questions:", err);
             }
+
+            allQuestionsPool = rawDataArray.map((q, idx) => {
+                const originalOptions = q.options || [];
+                return {
+                    id: q.id || `NCLEX-${idx + 1}`,
+                    category: q.category || 'General Care',
+                    topic: q.topic || 'Core Concept',
+                    type: q.type || 'Single best answer',
+                    questionText: q.question || q.questionText || '',
+                    options: originalOptions,
+                    correctAnswer: q.correctAnswerText || q.correctAnswer,
+                    rationale: q.rationale || 'Detailed clinical rationale unavailable.',
+                    learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
+                };
+            });
+
+            const modalCountElem = document.getElementById('modal-total-count');
+            if (modalCountElem) {
+                modalCountElem.innerText = allQuestionsPool.length;
+            }
+        }
+
+        function startStudySession(count) {
+            let shuffled = shuffleArray(allQuestionsPool);
+            if (count !== 'all' && typeof count === 'number') {
+                activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length));
+            } else {
+                activeQuestions = shuffled;
+            }
+
+            activeQuestions = activeQuestions.map(q => ({
+                ...q,
+                options: shuffleArray(q.options)
+            }));
+
+            currentIndex = 0;
+            selectedOptions = {};
+            submittedQuestions = {};
+
+            document.getElementById('session-modal').classList.add('hidden');
+            updateHeaderInfo();
+            renderQuestion();
         }
 
         function updateHeaderInfo() {
             document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Item ${currentIndex + 1} of ${activeQuestions.length}`;
-            
             if (activeQuestions[currentIndex]) {
                 document.getElementById('category-badge').innerText = `Category: ${activeQuestions[currentIndex].category}`;
             }
@@ -423,17 +442,12 @@
 
             const isBookmarked = !!bookmarkedQuestions[q.id];
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
-            if (isBookmarked) {
-                topBookmarkBtn.className = "fa-solid fa-bookmark text-amber-400";
-            } else {
-                topBookmarkBtn.className = "fa-regular fa-bookmark text-slate-400";
-            }
+            topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
 
             updateHeaderInfo();
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <!-- QUESTION HEADER & STEM -->
                     <div class="border-b border-slate-200 pb-4">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">
@@ -445,30 +459,19 @@
                             ${q.questionText}
                         </h2>
                     </div>
-
-                    <!-- OPTIONS LIST -->
                     <div class="space-y-3">
             `;
 
             q.options.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const currentSel = selectedOptions[currentIndex];
-                
-                let isChecked = false;
-                if (isSATA) {
-                    isChecked = Array.isArray(currentSel) && currentSel.includes(optLetter);
-                } else {
-                    isChecked = currentSel === optLetter;
-                }
+                let isChecked = isSATA ? (Array.isArray(currentSel) && currentSel.includes(optLetter)) : (currentSel === optLetter);
 
                 let optStyle = "bg-slate-50 border-slate-300 hover:border-ncsbn-blue hover:bg-blue-50/50 text-slate-800";
                 let badgeStyle = "bg-slate-200 text-slate-700 border-slate-300";
 
                 if (isSubmitted) {
-                    const isCorrectOption = isSATA 
-                        ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optText))
-                        : (q.correctAnswer === optText);
-
+                    const isCorrectOption = isSATA ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optText)) : (q.correctAnswer === optText);
                     if (isCorrectOption) {
                         optStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-semibold";
                         badgeStyle = "bg-emerald-600 text-white border-emerald-600";
@@ -496,7 +499,6 @@
 
             html += `</div>`;
 
-            // POST-SUBMISSION: RATIONALE, STRATEGY & TWO YOUTUBE VIDEO LINKS WITH THUMBNAILS
             if (isSubmitted) {
                 const twoVideos = getTwoYouTubeVideos(q.topic, q.category);
                 const strategy = getNCLEXStrategy(q);
@@ -504,14 +506,12 @@
 
                 html += `
                     <div class="mt-6 pt-6 border-t border-slate-200 space-y-5 animate-fadeIn">
-                        <!-- 1. Clinical Rationale Container -->
+                        <!-- 1. Rationale -->
                         <div class="bg-blue-50/70 border-l-4 border-ncsbn-navy p-5 rounded-r-lg space-y-3 shadow-xs">
                             <h3 class="font-bold text-ncsbn-navy text-sm flex items-center gap-2">
                                 <i class="fa-solid fa-square-poll-vertical text-amber-600"></i> 1. Rationale & Clinical Judgment
                             </h3>
-                            <p class="text-xs md:text-sm text-slate-800 leading-relaxed">
-                                ${q.rationale}
-                            </p>
+                            <p class="text-xs md:text-sm text-slate-800 leading-relaxed">${q.rationale}</p>
                             ${q.learningObjective ? `
                                 <div class="pt-2 border-t border-blue-200 text-xs text-blue-900 font-medium">
                                     <strong class="text-ncsbn-navy">Learning Objective:</strong> ${q.learningObjective}
@@ -519,7 +519,7 @@
                             ` : ''}
                         </div>
 
-                        <!-- 2. Dynamic NCLEX Test-Taking Strategy Box -->
+                        <!-- 2. NCLEX Strategy -->
                         <div class="bg-amber-50/80 border-l-4 border-amber-500 p-5 rounded-r-lg space-y-3 shadow-xs">
                             <div class="font-bold text-amber-900 flex items-center gap-2 text-sm">
                                 <i class="fa-solid fa-lightbulb text-amber-600"></i> 2. NCLEX Test-Taking Strategy: ${strategy.title}
@@ -528,31 +528,23 @@
                             <p class="text-xs text-slate-700 bg-amber-100/60 p-2.5 rounded border border-amber-200 font-mono-custom text-[11px]"><strong class="text-amber-900">Mnemonic / Framework:</strong> ${strategy.mnemonic}</p>
                         </div>
 
-                        <!-- 3. TWO YouTube Video Links with Thumbnails -->
+                        <!-- 3. YouTube Links (Thumbnails Removed) -->
                         <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-4 shadow-xs">
                             <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-brands fa-youtube text-red-600 text-base"></i> 3. Recommended Lecture Videos (2 Related Links)
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 ${twoVideos.map(vid => `
-                                    <div class="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col justify-between shadow-xs hover:border-red-400 transition">
-                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="relative group aspect-video bg-slate-900 overflow-hidden block">
-                                            <img src="${vid.thumbnail}" alt="${vid.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition flex items-center justify-center">
-                                                <i class="fa-solid fa-circle-play text-3xl text-white opacity-90 group-hover:scale-110 transition"></i>
-                                            </div>
-                                        </a>
-                                        <div class="p-3 flex-grow flex flex-col justify-between space-y-2">
-                                            <div>
-                                                <span class="text-[10px] font-bold text-red-700 uppercase bg-red-100 px-2 py-0.5 rounded">
-                                                    ${vid.channel}
-                                                </span>
-                                                <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-2">${vid.title}</h4>
-                                            </div>
-                                            <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 w-full py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
-                                                Watch Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                                            </a>
+                                    <div class="bg-white border border-slate-200 p-4 rounded-lg flex flex-col justify-between shadow-xs hover:border-red-400 transition space-y-3">
+                                        <div>
+                                            <span class="text-[10px] font-bold text-red-700 uppercase bg-red-100 px-2 py-0.5 rounded">
+                                                ${vid.channel}
+                                            </span>
+                                            <h4 class="text-xs md:text-sm font-bold text-slate-900 mt-2 line-clamp-2">${vid.title}</h4>
                                         </div>
+                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
+                                            <i class="fa-brands fa-youtube text-sm"></i> Watch Lecture Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </a>
                                     </div>
                                 `).join('')}
                             </div>
@@ -570,8 +562,6 @@
             }
 
             document.getElementById('exam-container').innerHTML = html;
-
-            // Footer Button States
             document.getElementById('btn-prev').disabled = currentIndex === 0;
             document.getElementById('btn-submit').style.display = isSubmitted ? 'none' : 'flex';
             document.getElementById('btn-next').disabled = currentIndex >= activeQuestions.length - 1;
@@ -584,17 +574,11 @@
             if (isSATA) {
                 let current = selectedOptions[currentIndex] || [];
                 if (!Array.isArray(current)) current = [];
-
-                if (current.includes(letter)) {
-                    current = current.filter(l => l !== letter);
-                } else {
-                    current.push(letter);
-                }
+                current = current.includes(letter) ? current.filter(l => l !== letter) : [...current, letter];
                 selectedOptions[currentIndex] = current;
             } else {
                 selectedOptions[currentIndex] = letter;
             }
-
             renderQuestion();
         }
 
@@ -604,43 +588,29 @@
                 document.getElementById('warning-modal').classList.remove('hidden');
                 return;
             }
-
             submittedQuestions[currentIndex] = true;
             renderQuestion();
         }
 
         function nextQuestion() {
-            if (currentIndex < activeQuestions.length - 1) {
-                currentIndex++;
-                renderQuestion();
-            }
+            if (currentIndex < activeQuestions.length - 1) { currentIndex++; renderQuestion(); }
         }
 
         function previousQuestion() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                renderQuestion();
-            }
+            if (currentIndex > 0) { currentIndex--; renderQuestion(); }
         }
 
-        // BOOKMARK MANAGEMENT
         function toggleBookmarkCurrent() {
             const q = activeQuestions[currentIndex];
             if (!q) return;
-
-            if (bookmarkedQuestions[q.id]) {
-                delete bookmarkedQuestions[q.id];
-            } else {
-                bookmarkedQuestions[q.id] = q;
-            }
-
+            if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
+            else bookmarkedQuestions[q.id] = q;
             updateBookmarkBadge();
             renderQuestion();
         }
 
         function updateBookmarkBadge() {
-            const count = Object.keys(bookmarkedQuestions).length;
-            document.getElementById('saved-count-badge').innerText = count;
+            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
         }
 
         function openBookmarksModal() {
@@ -667,13 +637,10 @@
                 });
                 container.innerHTML = html;
             }
-
             document.getElementById('bookmarks-modal').classList.remove('hidden');
         }
 
-        function closeBookmarksModal() {
-            document.getElementById('bookmarks-modal').classList.add('hidden');
-        }
+        function closeBookmarksModal() { document.getElementById('bookmarks-modal').classList.add('hidden'); }
 
         function jumpToBookmarked(id) {
             const idx = activeQuestions.findIndex(q => q.id === id);
@@ -691,23 +658,12 @@
             renderQuestion();
         }
 
-        // CALCULATOR UTILS
-        function toggleCalculator() {
-            const modal = document.getElementById('calc-modal');
-            modal.classList.toggle('hidden');
-        }
+        function toggleCalculator() { document.getElementById('calc-modal').classList.toggle('hidden'); }
 
         function calcInput(val) {
             const display = document.getElementById('calc-display');
-            if (val === 'C') {
-                display.value = '0';
-                return;
-            }
-            if (display.value === '0') {
-                display.value = val;
-            } else {
-                display.value += val;
-            }
+            if (val === 'C') { display.value = '0'; return; }
+            if (display.value === '0') { display.value = val; } else { display.value += val; }
         }
 
         function calcEquals() {
@@ -719,9 +675,8 @@
             }
         }
 
-        // INITIALIZE APPLICATION
         window.onload = function() {
-            loadQuestionsFromJSON();
+            loadQuestionsFromJS();
         };
     </script>
 </body>
