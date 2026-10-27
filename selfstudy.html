@@ -108,6 +108,7 @@
         let currentIndex = 0;
         let selectedOptions = []; 
         let isSubmitted = false;
+        let currentShuffledOptions = [];
 
         // Static Visual Mnemonics Dictionary
         const staticMnemonics = {
@@ -127,11 +128,12 @@
 
         // Fisher-Yates Randomization Engine
         function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [arr[i], arr[j]] = [arr[j], arr[i]];
             }
-            return array;
+            return arr;
         }
 
         // Full Rationale Multi-Pass Scanning Algorithm for Diseases, Meds & Interventions
@@ -145,7 +147,7 @@
                 return [...new Set(matches.map(m => m.toLowerCase()))];
             }
 
-            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse"]);
+            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse", "first", "initial", "most"]);
             const words = fullText.replace(/[^\w\s]/gi, '').split(/\s+/);
             const candidates = words.filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()));
             
@@ -156,7 +158,7 @@
             return [topic || category || "Pharmacology & NCLEX Review"];
         }
 
-        // Dynamic Mnemonic / Pharmacology & Condition Strategy Guide Generator
+        // Dynamic Mnemonic / Strategy Guide Generator (Clean Titles)
         function getDynamicMnemonic(text, category, topic) {
             const keywords = extractRationaleKeywords(text, category, topic);
             const primaryKey = (keywords[0] || '').toLowerCase();
@@ -167,20 +169,20 @@
                 }
             }
 
-            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "PHARMACOLOGY & CLINICAL CARE");
+            const cleanTopicName = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "PHARMACOLOGY & CLINICAL CARE");
             const isPharmCategory = (category && category.toLowerCase().includes("pharm")) || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryKey.includes(k));
 
             if (isPharmCategory) {
                 return {
-                    title: `Pharmacology Strategy Guide: ${capitalizedKey}`,
-                    mnemonic: `Pharmacology Rule for ${capitalizedKey}: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum lab values) prior to administration. Monitor for therapeutic range, early toxicity signs, and keep antidotes readily accessible.`,
+                    title: `Pharmacology Strategy Guide: ${cleanTopicName}`,
+                    mnemonic: `Pharmacology Rule: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum lab values) prior to administration. Monitor for therapeutic range, early toxicity signs, and keep antidotes readily accessible.`,
                     isStrategyTip: true
                 };
             }
 
             return {
-                title: `Condition Strategy Guide: ${capitalizedKey}`,
-                mnemonic: `NCLEX Clinical Strategy for ${capitalizedKey}: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
+                title: `Condition Strategy Guide: ${cleanTopicName}`,
+                mnemonic: `NCLEX Clinical Strategy: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
                 isStrategyTip: true
             };
         }
@@ -207,7 +209,7 @@
                 }
 
                 // Randomize Question Delivery Sequence
-                shuffleArray(questions);
+                questions = shuffleArray(questions);
 
                 renderQuestion();
             } catch (err) {
@@ -229,6 +231,9 @@
             const q = questions[currentIndex];
             selectedOptions = [];
             isSubmitted = false;
+
+            // Randomize multiple choice options display order for this question item
+            currentShuffledOptions = q.options ? shuffleArray(q.options) : [];
 
             updateBookmarkUI(q.id);
 
@@ -307,12 +312,12 @@
         function renderOptions() {
             const q = questions[currentIndex];
             const container = document.getElementById('options-container');
-            if (!container || !q.options) return;
+            if (!container || !currentShuffledOptions) return;
 
             const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
 
             let html = '';
-            q.options.forEach((opt, idx) => {
+            currentShuffledOptions.forEach((opt, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const isSelected = selectedOptions.includes(optLetter);
 
@@ -364,12 +369,13 @@
             const q = questions[currentIndex];
             
             let isCorrect = false;
+            // Map selected letters to actual text options from currentShuffledOptions
+            const chosenTexts = selectedOptions.map(l => currentShuffledOptions[l.charCodeAt(0) - 65]);
+
             if (Array.isArray(q.correctAnswer)) {
-                const correctLetters = q.options.map((opt, i) => q.correctAnswer.includes(opt) ? String.fromCharCode(65 + i) : null).filter(Boolean);
-                isCorrect = selectedOptions.sort().join('') === correctLetters.sort().join('');
+                isCorrect = chosenTexts.sort().join('') === q.correctAnswer.sort().join('');
             } else {
-                const selectedText = q.options[selectedOptions[0].charCodeAt(0) - 65];
-                isCorrect = (selectedOptions[0] === q.correctAnswer) || (selectedText === q.correctAnswer);
+                isCorrect = chosenTexts.includes(q.correctAnswer) || (selectedOptions[0] === q.correctAnswer);
             }
 
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -394,10 +400,10 @@
         function renderSubmittedOptions(isCorrect) {
             const q = questions[currentIndex];
             const container = document.getElementById('options-container');
-            if (!container) return;
+            if (!container || !currentShuffledOptions) return;
 
             let html = '';
-            q.options.forEach((opt, idx) => {
+            currentShuffledOptions.forEach((opt, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const isSelected = selectedOptions.includes(optLetter);
                 
@@ -475,7 +481,7 @@
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
                                     <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
-                                        <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-pills text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Pharmacology / Strategy Guide' : 'Visual Mnemonic'}
+                                        <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-pills text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Mnemonic'}
                                     </h4>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
                                         Key: ${mainKeyword}
