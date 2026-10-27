@@ -124,7 +124,7 @@
         </div>
     </main>
 
-    <!-- FOOTER NAV BAR (SUBMIT & NEXT BUTTONS ONLY - PREVIOUS REMOVED) -->
+    <!-- FOOTER NAV BAR (SUBMIT & NEXT BUTTONS ONLY) -->
     <footer id="exam-footer" class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
         <div class="max-w-6xl mx-auto flex items-center justify-end gap-3">
             <button id="btn-submit" onclick="submitAnswer()" class="px-6 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
@@ -274,7 +274,10 @@
         function loadQuestionsPool() {
             try {
                 let pool = [];
-                if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                // Access questions from questions.js (embeddedQuestionsData)
+                if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
+                    pool = embeddedQuestionsData;
+                } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
                     pool = window.questions;
                 } else if (typeof questions !== 'undefined' && Array.isArray(questions) && questions.length > 0) {
                     pool = questions;
@@ -291,7 +294,7 @@
                     options: shuffleArray(q.options || []),
                     correctAnswer: q.correctAnswerText || q.correctAnswer,
                     rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                    difficulty: typeof q.difficulty === 'number' ? q.difficulty : 0.0
+                    difficulty: typeof q.difficulty === 'number' ? q.difficulty : 0.5
                 }));
 
                 rawQuestionPool = shuffleArray(rawQuestionPool);
@@ -386,7 +389,6 @@
             html += `</div></div>`;
             document.getElementById('exam-container').innerHTML = html;
 
-            // Footer button states
             document.getElementById('btn-submit').classList.remove('hidden');
             document.getElementById('btn-next').classList.add('hidden');
         }
@@ -415,11 +417,9 @@
                 isCorrect: isCorrect
             });
 
-            // Switch buttons: hide Submit, show Next
             document.getElementById('btn-submit').classList.add('hidden');
             document.getElementById('btn-next').classList.remove('hidden');
 
-            // Visually lock options
             const buttons = document.querySelectorAll('#exam-container button');
             buttons.forEach(btn => btn.disabled = true);
         }
@@ -437,7 +437,6 @@
             const scorePercent = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
             const isPassed = scorePercent >= 65 && totalAnswered >= 15;
 
-            // Save to LocalStorage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
             stateObj.studentStats.testsTaken++;
@@ -453,12 +452,10 @@
             });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Hide Footer Bar
             document.getElementById('exam-footer').style.display = 'none';
 
             let summaryHtml = `
                 <div class="space-y-8 py-4 animate-fadeIn">
-                    <!-- Score Header Card -->
                     <div class="text-center space-y-4 bg-slate-50 p-6 rounded-2xl border border-slate-200">
                         <div class="w-16 h-16 rounded-full ${isPassed ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'} flex items-center justify-center text-3xl mx-auto">
                             <i class="fa-solid ${isPassed ? 'fa-award' : 'fa-circle-xmark'}"></i>
@@ -477,7 +474,6 @@
                         </div>
                     </div>
 
-                    <!-- Detailed Question Review List -->
                     <div class="space-y-6">
                         <h4 class="font-extrabold text-slate-900 text-base border-b border-slate-200 pb-2 flex items-center justify-between">
                             <span>Detailed Question Review & Rationales</span>
@@ -494,7 +490,6 @@
 
                 summaryHtml += `
                     <div class="bg-white border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-200'} rounded-xl p-6 space-y-4 shadow-sm">
-                        <!-- Question Header & Bookmark Button -->
                         <div class="flex items-start justify-between gap-4 border-b border-slate-100 pb-3">
                             <div class="space-y-1">
                                 <span class="text-xs font-bold ${isCorrect ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-rose-700 bg-rose-50 border-rose-200'} px-2.5 py-0.5 rounded border">
@@ -508,7 +503,6 @@
                             </button>
                         </div>
 
-                        <!-- Choices List -->
                         <div class="space-y-2">
                 `;
 
@@ -536,7 +530,6 @@
                 summaryHtml += `
                         </div>
 
-                        <!-- Rationale -->
                         <div class="bg-blue-50/70 border-l-4 border-ncsbn-navy p-4 rounded-r-lg space-y-1">
                             <h6 class="font-bold text-ncsbn-navy text-xs flex items-center gap-2">
                                 <i class="fa-solid fa-square-poll-vertical text-amber-600"></i> Clinical Rationale
@@ -544,7 +537,6 @@
                             <p class="text-xs text-slate-800 leading-relaxed">${q.rationale}</p>
                         </div>
 
-                        <!-- Test Strategy -->
                         <div class="bg-amber-50/80 border-l-4 border-amber-500 p-4 rounded-r-lg space-y-1">
                             <h6 class="font-bold text-amber-900 text-xs flex items-center gap-2">
                                 <i class="fa-solid fa-lightbulb text-amber-600"></i> NCLEX Test-Taking Strategy: ${strategy.title}
@@ -553,7 +545,6 @@
                             <p class="text-xs text-slate-700 font-mono-custom text-[11px]"><strong>Mnemonic:</strong> ${strategy.mnemonic}</p>
                         </div>
 
-                        <!-- YouTube Videos -->
                         <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
                             <h6 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-brands fa-youtube text-red-600 text-base"></i> Recommended Lecture Videos
@@ -585,7 +576,6 @@
             document.getElementById('exam-container').innerHTML = summaryHtml;
         }
 
-        // BOOKMARKS & CALCULATOR UTILS
         function toggleBookmarkCurrent() {
             if (!currentQuestion) return;
             if (bookmarkedQuestions[currentQuestion.id]) {
@@ -608,7 +598,7 @@
                 bookmarkedQuestions[q.id] = q;
             }
             updateBookmarkBadge();
-            finishExam('Review Summary'); // Re-renders summary view to update bookmark button states
+            finishExam('Review Summary');
         }
 
         function updateBookmarkBadge() {
