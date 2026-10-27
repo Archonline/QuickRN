@@ -109,25 +109,68 @@
         let selectedOptions = []; 
         let isSubmitted = false;
 
-        // Visual Mnemonics Database
-        const mnemonicDb = {
-            "Delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
-            "Digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60), G - Gastrointestinal upset (Nausea/Vomiting early sign)." },
-            "Airborne": { title: "Airborne Precautions: My Chicken Hez TB", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
-            "Heart Failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
-            "ABG": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." }
+        // Static Mnemonic Fallback Dictionary
+        const staticMnemonics = {
+            "delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
+            "digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60), G - Gastrointestinal upset (Nausea/Vomiting early sign)." },
+            "airborne": { title: "Airborne Precautions: My Chicken Hez TB", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
+            "heart failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
+            "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." }
         };
 
-        // Curated Free YouTube Links
-        const videoResources = [
-            { name: "RegisteredNurseRN - NCLEX Priority & Delegation", url: "https://www.youtube.com/results?search_query=registerednursern+delegation+prioritization" },
-            { name: "LevelUpRN - Pharmacology High Yield Flashcards", url: "https://www.youtube.com/results?search_query=leveluprn+pharmacology+high+yield" },
-            { name: "Nexus Nursing - NGN Case Studies & Clinical Judgment", url: "https://www.youtube.com/results?search_query=nexus+nursing+ngn+case+study" }
-        ];
+        // Fisher-Yates Randomization Function
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Dynamic Keyword & Concept Mnemonic Generator
+        function getDynamicMnemonic(text, category, topic) {
+            const keywords = extractRationaleKeywords(text, category, topic);
+            const primaryKey = (keywords[0] || '').toLowerCase();
+
+            // Check if key matches static database
+            for (let key in staticMnemonics) {
+                if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
+                    return staticMnemonics[key];
+                }
+            }
+
+            // Generate customized dynamic visual mnemonic hook based on extracted keyword
+            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : "PRIORITY CARE";
+            return {
+                title: `Dynamic Concept Hook: ${capitalizedKey}`,
+                mnemonic: `Focus on ${capitalizedKey}: Always prioritize immediate clinical safety, baseline assessment thresholds, and direct evidence-based interventions for optimal outcomes.`
+            };
+        }
+
+        // Extraction helper for dynamic keyword parsing from rationale
+        function extractRationaleKeywords(text, category, topic) {
+            if (!text) return [topic || category || "NCLEX review"];
+            
+            const medicalTermsRegex = /\b(prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|insulin|heparin|digoxin|potassium|iv titration|medication calculation|adverse reaction|antidote|acute coronary syndrome|myocardial infarction|sepsis|septic shock|respiratory failure|mechanical ventilation|electrolyte imbalance|hyperkalemia|hypokalemia|hypocalcemia|airborne|droplet|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation|dvt|pulmonary embolism|atelectasis|vital signs|antepartum|postpartum|apgar|immunization|pediatric milestones|therapeutic communication|crisis intervention|de-escalation|withdrawal|ciwa|cows|tpn|tube feeding|palliative|pain management|pressure injury)\b/gi;
+
+            const matches = text.match(medicalTermsRegex);
+            if (matches && matches.length > 0) {
+                return [...new Set(matches.map(m => m.toLowerCase()))];
+            }
+
+            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for"]);
+            const words = text.replace(/[^\w\s]/gi, '').split(/\s+/);
+            const candidates = words.filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()));
+            
+            if (candidates.length > 0) {
+                return [...new Set(candidates.slice(0, 3))];
+            }
+
+            return [topic || category || "NCLEX review"];
+        }
 
         async function initEngine() {
             try {
-                // Fetch full question bank (supports local JSON or fallback data array)
                 let response = await fetch('compiled_nclex_9000_comprehensive.json').catch(() => null);
                 if (!response || !response.ok) {
                     response = await fetch('compiled_nclex_8000_verified.json').catch(() => null);
@@ -137,7 +180,6 @@
                 }
                 allQuestions = await response.json();
 
-                // Apply URL Mode Filters
                 if (modeFilter === 'ngn') {
                     questions = allQuestions.filter(q => q.type && (q.type.includes('NGN') || q.type.includes('Case Study') || q.caseStudy));
                     document.getElementById('mode-badge').innerText = "NGN Case Studies Mode";
@@ -149,7 +191,7 @@
                 }
 
                 // Randomize Array Order
-                questions.sort(() => Math.random() - 0.5);
+                shuffleArray(questions);
 
                 renderQuestion();
             } catch (err) {
@@ -179,7 +221,6 @@
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <!-- Progress & Metadata Header -->
                     <div class="flex flex-wrap items-center justify-between gap-3 bg-white px-5 py-3 rounded-2xl border border-slate-200">
                         <div class="flex items-center gap-2">
                             <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-black rounded-xl">Question ${currentIndex + 1} of ${questions.length}</span>
@@ -190,12 +231,10 @@
                     </div>
             `;
 
-            // Render Split Window layout if NGN type
             if (isNGN) {
                 const cs = q.caseStudy || {};
                 html += `
                     <div class="grid lg:grid-cols-2 gap-6">
-                        <!-- Left Tabbed EHR Container -->
                         <div class="bg-slate-100 rounded-3xl p-5 border border-slate-300 space-y-4">
                             <div class="flex items-center justify-between border-b border-slate-200 pb-3">
                                 <span class="text-xs font-black uppercase text-clinical-600 tracking-wider"><i class="fa-solid fa-notes-medical mr-1.5"></i> EHR Client Record</span>
@@ -209,7 +248,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Right Prompt Container -->
                         <div class="space-y-4">
                             <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                                 <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-relaxed">${q.question}</h3>
@@ -219,7 +257,6 @@
                     </div>
                 `;
             } else {
-                // Standard Prompt Layout
                 html += `
                     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                         <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">${q.question}</h3>
@@ -228,10 +265,8 @@
                 `;
             }
 
-            // Interactive Remediation Drawer Container (Locked initially)
             html += `<div id="remediation-container"></div>`;
 
-            // Navigation Toolbar
             html += `
                 <div class="flex items-center justify-between pt-4 border-t border-slate-200">
                     <button onclick="loadPreviousQuestion()" ${currentIndex === 0 ? 'disabled class="opacity-40 cursor-not-allowed px-5 py-3 bg-slate-200 text-slate-500 font-bold rounded-2xl text-xs"' : 'class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-2xl text-xs transition-all flex items-center gap-1.5"'}>
@@ -312,10 +347,8 @@
             isSubmitted = true;
             const q = questions[currentIndex];
             
-            // Check Correctness
             let isCorrect = false;
             if (Array.isArray(q.correctAnswer)) {
-                // SATA validation
                 const correctLetters = q.options.map((opt, i) => q.correctAnswer.includes(opt) ? String.fromCharCode(65 + i) : null).filter(Boolean);
                 isCorrect = selectedOptions.sort().join('') === correctLetters.sort().join('');
             } else {
@@ -323,21 +356,18 @@
                 isCorrect = (selectedOptions[0] === q.correctAnswer) || (selectedText === q.correctAnswer);
             }
 
-            // Sync with Dashboard State (localStorage)
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, answeredQuestionIds: {}, favorites: [] };
             stateObj.studentStats.totalAnswered++;
             if (isCorrect) stateObj.studentStats.correctCount++;
             else stateObj.studentStats.mistakeCount++;
             
-            // Re-calculate readiness probability
             const acc = Math.round((stateObj.studentStats.correctCount / stateObj.studentStats.totalAnswered) * 100);
             stateObj.studentStats.passingProbability = Math.min(99, Math.max(35, acc + 10));
             stateObj.studentStats.answeredQuestionIds[q.id] = { correct: isCorrect };
 
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Lock Options styling
             renderSubmittedOptions(isCorrect);
             revealRemediationEcosystem(isCorrect);
 
@@ -388,18 +418,29 @@
             const container = document.getElementById('remediation-container');
             if (!container) return;
 
-            // Find matching visual mnemonic
-            let activeMnemonic = mnemonicDb["Delegation"];
-            for (let key in mnemonicDb) {
-                if ((q.topic && q.topic.includes(key)) || (q.question && q.question.includes(key))) {
-                    activeMnemonic = mnemonicDb[key];
-                    break;
+            const extractedKeywords = extractRationaleKeywords(q.rationale, q.category, q.topic);
+            const mainQueryTerm = extractedKeywords.join(' ');
+
+            // Dynamic Mnemonic generation based on extracted rationale terms
+            const activeMnemonic = getDynamicMnemonic(q.rationale, q.category, q.topic);
+
+            const dynamicVideoResources = [
+                { 
+                    name: `RegisteredNurseRN - ${extractedKeywords[0] || 'NCLEX'} Review`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainQueryTerm)}` 
+                },
+                { 
+                    name: `LevelUpRN - ${extractedKeywords[0] || 'Pharmacology'} High Yield`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainQueryTerm)}` 
+                },
+                { 
+                    name: `Nexus Nursing - ${extractedKeywords[0] || 'NGN'} Clinical Judgment`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('nexus nursing ' + mainQueryTerm)}` 
                 }
-            }
+            ];
 
             let html = `
                 <div class="space-y-4 pt-4 border-t border-slate-200 animate-fadeIn">
-                    <!-- Status Banner -->
                     <div class="p-4 rounded-2xl ${isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-rose-50 border border-rose-200 text-rose-900'} flex items-center gap-3">
                         <i class="fa-solid ${isCorrect ? 'fa-circle-check text-emerald-600 text-2xl' : 'fa-circle-xmark text-rose-600 text-2xl'}"></i>
                         <div>
@@ -408,32 +449,40 @@
                         </div>
                     </div>
 
-                    <!-- Clinical Rationale -->
                     <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-2">
                         <h4 class="font-extrabold text-xs uppercase text-clinical-600 flex items-center gap-1.5"><i class="fa-solid fa-book-medical"></i> Detailed NCLEX Rationale</h4>
                         <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${q.rationale || 'Prioritizing patient safety and immediate physical assessments is standard nursing care.'}</p>
                     </div>
 
-                    <!-- Multi-Modal Remediation Grid -->
                     <div class="grid md:grid-cols-2 gap-4">
-                        <!-- Sticky Visual Mnemonic -->
+                        <!-- Dynamic Visual Mnemonic -->
                         <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-2">
-                            <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
-                                <i class="fa-solid fa-brain text-amber-600"></i> Sticky Visual Mnemonic
-                            </h4>
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-brain text-amber-600"></i> Sticky Visual Mnemonic
+                                </h4>
+                                <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
+                                    Dynamic Hook
+                                </span>
+                            </div>
                             <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
                             <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
                         </div>
 
-                        <!-- Curated YouTube Video Resources -->
+                        <!-- Dynamic Video Remediation Tutorials -->
                         <div class="bg-clinical-50 p-5 rounded-2xl border border-clinical-200 space-y-2">
-                            <h4 class="font-extrabold text-xs text-clinical-900 uppercase flex items-center gap-1.5">
-                                <i class="fa-solid fa-video text-clinical-600"></i> Video Remediation Tutorials
-                            </h4>
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-extrabold text-xs text-clinical-900 uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-video text-clinical-600"></i> Video Remediation Tutorials
+                                </h4>
+                                <span class="px-2 py-0.5 bg-clinical-100 text-clinical-700 font-extrabold text-[9px] rounded-md uppercase">
+                                    Key: ${extractedKeywords[0] || 'Topic'}
+                                </span>
+                            </div>
                             <div class="space-y-1.5">
             `;
 
-            videoResources.forEach(vid => {
+            dynamicVideoResources.forEach(vid => {
                 html += `
                     <a href="${vid.url}" target="_blank" class="block p-2 rounded-xl bg-white border border-clinical-200 hover:bg-clinical-100 text-[11px] font-bold text-clinical-700 transition-colors flex items-center justify-between">
                         <span><i class="fa-brands fa-youtube text-rose-600 mr-1.5"></i> ${vid.name}</span>
@@ -447,7 +496,6 @@
                         </div>
                     </div>
 
-                    <!-- Authoritative References -->
                     <div class="p-3 bg-slate-100 rounded-xl text-[10px] text-slate-500 flex items-center justify-between font-semibold">
                         <span><i class="fa-solid fa-building-columns mr-1"></i> Reference: ${q.reference || 'NCBI Bookshelf / CDC Infection Control Guidelines / AHA Protocols'}</span>
                         <span class="text-slate-400">Verified 2026/2027 Standards</span>
