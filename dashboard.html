@@ -474,14 +474,14 @@
                 html += `</div></div>`;
                 modalBody.innerHTML = html;
             }
-            document.getElementById('history-modal').classList.remove('hidden');
+            document.getElementById('history-modal').classList.add('hidden');
         }
 
         window.handleSignOut = function() {
             localStorage.removeItem('quickrn_student_state');
             sessionStorage.clear();
-            alert("You have successfully signed out of QuickRN.");
-            window.location.href = "dashboard.html";
+            // Redirects to the landing page (e.g. index.html) upon successful sign out
+            window.location.href = "index.html";
         }
 
         window.onload = function() {
