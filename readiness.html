@@ -450,7 +450,16 @@
             `;
 
             if (q.options && q.options.length > 0) {
-                q.options.forEach((opt, idx) => {
+                let qOptions = q.options;
+            if (!qOptions || !Array.isArray(qOptions) || qOptions.length === 0) {
+                qOptions = [
+                    "Perform focused clinical assessment and monitor vital signs",
+                    "Implement prescribed provider interventions and reassess",
+                    "Ensure patient safety and educate family members",
+                    "Delay care until routine physician rounds occur"
+                ];
+            }
+            qOptions.forEach((opt, idx) => {
                     const letter = String.fromCharCode(65 + idx);
                     const isSelected = selectedOption === letter;
 

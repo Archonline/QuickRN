@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saved & Bookmarked Questions | QuickRN</title>
+    <title>Saved Bank & Unlimited Bookmarks | QuickRN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -17,7 +17,7 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <script src="questions.js"></script>
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
@@ -28,7 +28,7 @@
                 <i class="fa-solid fa-bookmark text-amber-400"></i>
                 <span class="font-extrabold text-lg tracking-wider">QuickRN Saved Bank</span>
             </div>
-            <span class="text-xs text-slate-300 hidden sm:inline">Categorized per Mastery (30 Items Max per Mastery Category)</span>
+            <span class="text-xs text-slate-300 hidden sm:inline">Unlimited Bookmarked Items & Clinical Notes</span>
         </div>
         <a href="dashboard.html" class="px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
             <i class="fa-solid fa-arrow-left"></i> Return to Dashboard
@@ -38,8 +38,8 @@
     <main class="flex-grow p-6 max-w-7xl mx-auto w-full space-y-6 overflow-y-auto">
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
-                <h1 class="text-xl font-black text-slate-900">Bookmarked & Saved NCLEX Items</h1>
-                <p class="text-xs text-slate-500 mt-1">Review your saved clinical questions organized by NCLEX Client Needs and Mastery categories (up to 30 items per category).</p>
+                <h1 class="text-xl font-black text-slate-900">Bookmarked & Saved NCLEX Items (Unlimited)</h1>
+                <p class="text-xs text-slate-500 mt-1">Review all your bookmarked clinical items organized by NCLEX mastery domains, delete items individually, and add custom notes per question.</p>
             </div>
             <div class="flex items-center gap-3">
                 <span id="total-saved-badge" class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold border border-amber-300">0 Bookmarked Items</span>
@@ -59,6 +59,7 @@
         function loadSavedQuestions() {
             let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             let favorites = state.studentStats && state.studentStats.favorites ? state.studentStats.favorites : [];
+            let questionNotes = state.questionNotes || {};
             
             let allPool = [];
             if (typeof embeddedQuestionsData !== 'undefined') allPool = embeddedQuestionsData;
@@ -85,9 +86,7 @@
                 if (q) {
                     let cat = q.category || 'General Nursing';
                     if (!categorized[cat]) categorized[cat] = [];
-                    if (categorized[cat].length < 30) {
-                        categorized[cat].push(q);
-                    }
+                    categorized[cat].push(q); // Unlimited bookmarks per category
                 }
             });
 
@@ -98,26 +97,36 @@
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                             <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-layer-group text-ncsbn-navy"></i> Mastery Category: ${cat}
+                                <i class="fa-solid fa-layer-group text-ncsbn-navy"></i> Mastery Domain: ${cat}
                             </h3>
-                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">${items.length} / 30 Items</span>
+                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded-full">${items.length} Items</span>
                         </div>
-                        <div class="divide-y divide-slate-100 p-6 space-y-4">
+                        <div class="divide-y divide-slate-100 p-6 space-y-6">
                 `;
 
-                items.forEach((q, idx) => {
+                items.forEach((q) => {
+                    let qNote = questionNotes[q.id] || '';
                     html += `
-                        <div class="pt-4 first:pt-0 space-y-2">
+                        <div class="pt-6 first:pt-0 space-y-3 border-t border-slate-100 first:border-t-0">
                             <div class="flex justify-between items-start gap-4">
-                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 bg-slate-100 text-slate-700 rounded">${q.id} &bull; ${q.topic || 'Clinical Topic'}</span>
-                                <button onclick="removeBookmark('${q.id}')" class="text-xs text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1">
-                                    <i class="fa-solid fa-trash"></i> Remove
+                                <span class="text-[10px] font-bold uppercase px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded">${q.id} &bull; ${q.topic || 'Clinical Topic'}</span>
+                                <button onclick="removeBookmark('${q.id}')" class="px-3 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded text-xs font-bold border border-rose-200 transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-trash"></i> Delete Bookmark
                                 </button>
                             </div>
-                            <h4 class="text-xs md:text-sm font-bold text-slate-900">${q.question || q.questionText}</h4>
-                            <div class="bg-blue-50/50 p-3 rounded-lg border border-blue-100 text-xs text-slate-700 space-y-1">
-                                <strong class="text-ncsbn-navy">Correct Answer:</strong> ${q.correctAnswerText || q.correctAnswer}<br>
-                                <strong class="text-ncsbn-navy">Rationale:</strong> ${q.rationale || 'N/A'}
+                            <h4 class="text-xs md:text-sm font-bold text-slate-900 leading-relaxed">${q.question || q.questionText}</h4>
+                            <div class="bg-blue-50/70 p-3.5 rounded-lg border border-blue-100 text-xs text-slate-800 space-y-1">
+                                <strong class="text-ncsbn-navy font-bold">Correct Answer:</strong> ${q.correctAnswerText || q.correctAnswer}<br>
+                                <strong class="text-ncsbn-navy font-bold">Rationale:</strong> ${q.rationale || 'N/A'}
+                            </div>
+
+                            <!-- Multiple Note Taking Area per Question -->
+                            <div class="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-2">
+                                <label class="text-[11px] font-bold text-slate-700 uppercase flex items-center gap-1.5">
+                                    <i class="fa-solid fa-pen-to-square text-amber-600"></i> Clinical Notes & Key Takeaways
+                                </label>
+                                <textarea id="note-${q.id}" oninput="saveQuestionNote('${q.id}')" rows="2" placeholder="Type personal clinical notes, mnemonics, or reminders here..." class="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-ncsbn-blue">${qNote}</textarea>
+                                <span id="saved-status-${q.id}" class="text-[10px] text-emerald-600 font-semibold hidden"><i class="fa-solid fa-check"></i> Note saved</span>
                             </div>
                         </div>
                     `;
@@ -135,6 +144,20 @@
                 state.studentStats.favorites = state.studentStats.favorites.filter(item => item !== id);
                 localStorage.setItem('quickrn_student_state', JSON.stringify(state));
                 loadSavedQuestions();
+            }
+        }
+
+        function saveQuestionNote(id) {
+            let noteVal = document.getElementById(`note-${id}`).value;
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            state.questionNotes = state.questionNotes || {};
+            state.questionNotes[id] = noteVal;
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+
+            let statusSpan = document.getElementById(`saved-status-${id}`);
+            if (statusSpan) {
+                statusSpan.classList.remove('hidden');
+                setTimeout(() => { statusSpan.classList.add('hidden'); }, 1500);
             }
         }
     </script>

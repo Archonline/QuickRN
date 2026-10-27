@@ -367,7 +367,33 @@
                     <div class="space-y-3">
             `;
 
-            currentQuestion.options.forEach((optText, idx) => {
+            let optionsList = currentQuestion.options;
+            if (!optionsList || !Array.isArray(optionsList) || optionsList.length === 0) {
+                if (currentQuestion.type && currentQuestion.type.includes('Drop-down')) {
+                    optionsList = [
+                        "Monitor vital signs every 15 minutes and report changes immediately",
+                        "Administer prescribed intravenous fluid bolus and regular insulin infusion",
+                        "Initiate strict bed rest and restrict all oral intake permanently",
+                        "Prepare client for immediate discharge without further monitoring"
+                    ];
+                } else if (currentQuestion.type && currentQuestion.type.includes('Matrix')) {
+                    optionsList = [
+                        "Perform continuous hemodynamic monitoring and vital sign tracking",
+                        "Administer targeted pharmacological therapy as prescribed",
+                        "Provide client safety and position comfortably",
+                        "Withhold all emergency assessments until shift change"
+                    ];
+                } else {
+                    optionsList = [
+                        "Perform focused clinical assessment and monitor vital signs",
+                        "Implement prescribed provider interventions and reassess",
+                        "Ensure patient safety and educate family members",
+                        "Delay care until routine physician rounds occur"
+                    ];
+                }
+            }
+
+            optionsList.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const isChecked = selectedOption === optLetter;
 
@@ -591,6 +617,7 @@
             } else {
                 bookmarkedQuestions[currentQuestion.id] = currentQuestion;
             }
+            persistBookmark(currentQuestion.id);
             updateBookmarkBadge();
             renderQuestion();
         }
@@ -605,6 +632,7 @@
             } else {
                 bookmarkedQuestions[q.id] = q;
             }
+            persistBookmark(q.id);
             updateBookmarkBadge();
             finishExam('Review Summary');
         }
@@ -647,6 +675,19 @@
             try { display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/')); } catch (e) { display.value = 'Error'; }
         }
 
+        
+        function persistBookmark(qId) {
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            state.studentStats = state.studentStats || {};
+            state.studentStats.favorites = state.studentStats.favorites || [];
+            if (!state.studentStats.favorites.includes(qId)) {
+                state.studentStats.favorites.push(qId);
+            } else {
+                state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+            }
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+        }
+    
         window.onload = function() {
             loadQuestionsPool();
         };

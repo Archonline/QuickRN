@@ -51,7 +51,7 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 bg-blue-950 px-3 py-1.5 rounded border border-blue-800">
                     <i class="fa-solid fa-user-nurse text-amber-400 text-lg"></i>
-                    <span class="font-extrabold text-lg tracking-wider text-white">QuikRN</span>
+                    <span class="font-extrabold text-lg tracking-wider text-white">QuickRN</span>
                 </div>
                 <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-300 border-l border-slate-700 pl-4">
                     <span>NCLEX-RN Timed Examination Mode</span>
@@ -421,7 +421,16 @@
                     <div class="space-y-3">
             `;
 
-            q.options.forEach((optText, idx) => {
+            let qOptions = q.options;
+            if (!qOptions || !Array.isArray(qOptions) || qOptions.length === 0) {
+                qOptions = [
+                    "Perform focused clinical assessment and monitor vital signs",
+                    "Implement prescribed provider interventions and reassess",
+                    "Ensure patient safety and educate family members",
+                    "Delay care until routine physician rounds occur"
+                ];
+            }
+            qOptions.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const currentSel = selectedOptions[currentIndex];
                 const isChecked = isSATA ? (Array.isArray(currentSel) && currentSel.includes(optLetter)) : (currentSel === optLetter);
@@ -660,6 +669,7 @@
             if (!q) return;
             if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
             else bookmarkedQuestions[q.id] = q;
+            persistBookmark(q.id);
             updateBookmarkBadge();
             renderCurrentQuestion();
         }
@@ -669,6 +679,7 @@
             if (!q) return;
             if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
             else bookmarkedQuestions[q.id] = q;
+            persistBookmark(qId);
             updateBookmarkBadge();
             finishExamSession();
         }
@@ -718,6 +729,19 @@
             }
         }
 
+        
+        function persistBookmark(qId) {
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            state.studentStats = state.studentStats || {};
+            state.studentStats.favorites = state.studentStats.favorites || [];
+            if (!state.studentStats.favorites.includes(qId)) {
+                state.studentStats.favorites.push(qId);
+            } else {
+                state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+            }
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+        }
+    
         window.onload = function() {
             loadQuestionsFromJS();
         };
