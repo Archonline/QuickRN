@@ -200,6 +200,42 @@
         </div>
     </div>
 
+    <!-- ITEM COUNT CONFIGURATION MODAL (SHOWN AT START) -->
+    <div id="session-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 text-slate-900 border border-slate-200">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-blue-100 text-ncsbn-navy flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-sliders"></i>
+                </div>
+                <h2 class="text-xl font-bold text-ncsbn-navy">Start Practice Session</h2>
+                <p class="text-xs text-slate-600">Choose the number of questions you want to practice for this self-study session from the question bank.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="startStudySession(20)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">20</span>
+                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                </button>
+                <button onclick="startStudySession(60)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">60</span>
+                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                </button>
+                <button onclick="startStudySession(85)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">85</span>
+                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Minimum)</span>
+                </button>
+                <button onclick="startStudySession(150)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">150</span>
+                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Maximum)</span>
+                </button>
+            </div>
+
+            <button onclick="startStudySession('all')" class="w-full py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+                <i class="fa-solid fa-layer-group text-amber-400"></i> Load Entire Question Bank (<span id="modal-total-count">...</span> questions)
+            </button>
+        </div>
+    </div>
+
     <script>
         // GLOBAL STATE
         let allQuestionsPool = [];
@@ -209,6 +245,42 @@
         let submittedQuestions = {};
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
+
+        // FALLBACK QUESTIONS FOR LOCAL / PREVIEW TEST ENVIRONMENTS
+        const fallbackQuestions = [
+            {
+                id: "NCLEX-FB-1",
+                category: "Safe and Effective Care Environment",
+                topic: "Tracheostomy Safety",
+                type: "Single choice",
+                questionText: "A primary nurse is planning care for a client recovering from a tracheostomy placement. Which bedside equipment is most essential for the nurse to verify prior to receiving the client?",
+                options: [
+                    "Tracheostomy tray and functioning suction apparatus",
+                    "Chest tube drainage system and clamps",
+                    "Enteral feeding tube and pump",
+                    "Electroconvulsive therapy preparation set"
+                ],
+                correctAnswer: "Tracheostomy tray and functioning suction apparatus",
+                rationale: "Clients with a fresh tracheostomy are at acute risk for airway compromise secondary to tissue edema, mucus plugging, or accidental decannulation. Having an extra tracheostomy tube and suction at the bedside is critical for immediate emergency airway intervention.",
+                learningObjective: "Prioritize patient safety by anticipating acute postoperative airway complications."
+            },
+            {
+                id: "NCLEX-FB-2",
+                category: "Pharmacological and Parenteral Therapies",
+                topic: "Digoxin safety",
+                type: "Single choice",
+                questionText: "A nurse is preparing to administer digoxin to an adult client with heart failure. Which assessment finding requires immediate nursing intervention prior to administration?",
+                options: [
+                    "Apical heart rate of 52 beats/minute",
+                    "Blood pressure reading of 128/82 mmHg",
+                    "Serum sodium level of 138 mEq/L",
+                    "Urine output of 180 mL over the last 4 hours"
+                ],
+                correctAnswer: "Apical heart rate of 52 beats/minute",
+                rationale: "Digoxin slows cardiac conduction through the AV node. An apical pulse below 60 beats/minute in an adult indicates bradycardia, requiring the nurse to hold the dose and report to the healthcare provider.",
+                learningObjective: "Evaluate vital signs prior to administering narrow therapeutic cardiac glycosides."
+            }
+        ];
 
         // DUAL YOUTUBE VIDEO MAPPING BY TOPIC / CATEGORY
         const topicDualYouTubeMap = {
@@ -359,55 +431,101 @@
 
         // FETCH QUESTIONS FROM JSON FILE & INITIALIZE
         async function loadQuestionsFromJSON() {
+            let rawDataArray = [];
+
             try {
-                const response = await fetch('questions.json');
+                let fetchUrl = 'questions.json';
+                if (window.location.origin && window.location.origin !== 'null' && !window.location.href.startsWith('blob:')) {
+                    fetchUrl = new URL('questions.json', window.location.href).href;
+                }
+
+                const response = await fetch(fetchUrl);
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
                 const rawData = await response.json();
                 
-                // Support both direct array and object with 'questions' property
-                const data = Array.isArray(rawData) ? rawData : (rawData.questions || []);
-                
-                if (data.length === 0) {
-                    throw new Error("No question records found in questions.json.");
+                // Extract questions supporting Flat Arrays, {questions: []}, or {categorizedStructure: {...}}
+                if (Array.isArray(rawData)) {
+                    rawDataArray = rawData;
+                } else if (rawData.questions && Array.isArray(rawData.questions)) {
+                    rawDataArray = rawData.questions;
+                } else if (rawData.categorizedStructure) {
+                    for (const typeKey in rawData.categorizedStructure) {
+                        const diffObj = rawData.categorizedStructure[typeKey];
+                        for (const diffKey in diffObj) {
+                            const catObj = diffObj[diffKey];
+                            for (const catKey in catObj) {
+                                const topicObj = catObj[catKey];
+                                for (const topicKey in topicObj) {
+                                    const qList = topicObj[topicKey];
+                                    if (Array.isArray(qList)) {
+                                        rawDataArray = rawDataArray.concat(qList);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-
-                allQuestionsPool = data.map((q, idx) => {
-                    const originalOptions = q.options || [];
-                    const shuffledOptions = shuffleArray(originalOptions);
-
-                    return {
-                        id: q.id || `NCLEX-${idx + 1}`,
-                        category: q.category || 'General Care',
-                        topic: q.topic || 'Core Concept',
-                        type: q.type || 'Single best answer',
-                        questionText: q.question || q.questionText || '',
-                        options: shuffledOptions,
-                        correctAnswer: q.correctAnswerText || q.correctAnswer,
-                        rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                        learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
-                    };
-                });
-
-                activeQuestions = shuffleArray(allQuestionsPool);
-                updateHeaderInfo();
-                renderQuestion();
             } catch (err) {
-                console.error("Failed to load questions.json from repository:", err);
-                document.getElementById('exam-container').innerHTML = `
-                    <div class="flex items-center justify-center h-64 text-center">
-                        <div class="space-y-2">
-                            <i class="fa-solid fa-triangle-exclamation text-3xl text-rose-600"></i>
-                            <p class="text-sm font-bold text-slate-800">Unable to load questions.json</p>
-                            <p class="text-xs text-slate-500">${err.message}</p>
-                            <p class="text-[11px] text-slate-400">If testing locally without a local web server (using file://), browser CORS policies block fetch requests. Use a local server (e.g. Live Server or http-server) or test via GitHub Pages.</p>
-                        </div>
-                    </div>
-                `;
+                console.warn("External questions.json unreachable or running in isolated preview/blob context. Using embedded practice pool.", err);
+                rawDataArray = fallbackQuestions;
+            }
+
+            if (!rawDataArray || rawDataArray.length === 0) {
+                rawDataArray = fallbackQuestions;
+            }
+
+            allQuestionsPool = rawDataArray.map((q, idx) => {
+                const originalOptions = q.options || [];
+
+                return {
+                    id: q.id || `NCLEX-${idx + 1}`,
+                    category: q.category || 'General Care',
+                    topic: q.topic || 'Core Concept',
+                    type: q.type || 'Single best answer',
+                    questionText: q.question || q.questionText || '',
+                    options: originalOptions,
+                    correctAnswer: q.correctAnswerText || q.correctAnswer,
+                    rationale: q.rationale || 'Detailed clinical rationale unavailable.',
+                    learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
+                };
+            });
+
+            // Update modal badge count with total pool count
+            const modalCountElem = document.getElementById('modal-total-count');
+            if (modalCountElem) {
+                modalCountElem.innerText = allQuestionsPool.length;
             }
         }
 
+        // START STUDY SESSION WITH SPECIFIED ITEM COUNT
+        function startStudySession(count) {
+            let shuffled = shuffleArray(allQuestionsPool);
+            
+            if (count !== 'all' && typeof count === 'number') {
+                activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length));
+            } else {
+                activeQuestions = shuffled;
+            }
+
+            // Shuffle options for each selected question
+            activeQuestions = activeQuestions.map(q => {
+                return {
+                    ...q,
+                    options: shuffleArray(q.options)
+                };
+            });
+
+            currentIndex = 0;
+            selectedOptions = {};
+            submittedQuestions = {};
+
+            document.getElementById('session-modal').classList.add('hidden');
+            updateHeaderInfo();
+            renderQuestion();
+        }
+
         function updateHeaderInfo() {
-            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Item ${currentIndex + 1} of ${activeQuestions.length}`;
+            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
             
             if (activeQuestions[currentIndex]) {
                 document.getElementById('category-badge').innerText = `Category: ${activeQuestions[currentIndex].category}`;
