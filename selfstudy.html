@@ -360,7 +360,7 @@
         // FETCH QUESTIONS FROM JSON FILE & INITIALIZE
         async function loadQuestionsFromJSON() {
             try {
-                const response = await fetch('./questions.json');
+                const response = await fetch('questions.json');
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
                 const data = await response.json();
                 
@@ -385,26 +385,16 @@
                 updateHeaderInfo();
                 renderQuestion();
             } catch (err) {
-                console.warn("Failed to load questions.json, falling back to basic item:", err);
-                allQuestionsPool = [{
-                    id: "NCLEX-0001",
-                    category: "Cardiovascular",
-                    topic: "Acute myocardial infarction",
-                    type: "Single best answer",
-                    questionText: "A nurse is caring for a client with acute myocardial infarction. Which action should the nurse take first?",
-                    options: shuffleArray([
-                        "Waiting to see whether pain resolves",
-                        "Encouraging the client to walk",
-                        "Giving food before assessment",
-                        "Reporting chest pain and obtaining a rapid ECG"
-                    ]),
-                    correctAnswer: "Reporting chest pain and obtaining a rapid ECG",
-                    rationale: "Prompt ECG helps identify ischemia and guide time-sensitive reperfusion decisions.",
-                    learningObjective: "For suspected acute MI, obtain a 12-lead ECG promptly."
-                }];
-                activeQuestions = [...allQuestionsPool];
-                updateHeaderInfo();
-                renderQuestion();
+                console.error("Failed to load questions.json from repository:", err);
+                document.getElementById('exam-container').innerHTML = `
+                    <div class="flex items-center justify-center h-64 text-center">
+                        <div class="space-y-2">
+                            <i class="fa-solid fa-triangle-exclamation text-3xl text-rose-600"></i>
+                            <p class="text-sm font-bold text-slate-800">Unable to load questions.json</p>
+                            <p class="text-xs text-slate-500">Please ensure questions.json is present in your repository root.</p>
+                        </div>
+                    </div>
+                `;
             }
         }
 
