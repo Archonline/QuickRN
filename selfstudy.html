@@ -109,7 +109,7 @@
         let selectedOptions = []; 
         let isSubmitted = false;
 
-        // Static Mnemonic Fallback Dictionary
+        // Static Mnemonic Fallback Dictionary for Diseases & Conditions
         const staticMnemonics = {
             "delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
             "digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60), G - Gastrointestinal upset (Nausea/Vomiting early sign)." },
@@ -117,7 +117,10 @@
             "heart failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
             "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." },
             "hyperkalemia": { title: "Hyperkalemia Management: C BIG K DIE", mnemonic: "C - Calcium gluconate, B - Bicarbonate/Beta-agonists, I - Insulin (regular), G - Glucose, K - Kayexalate, DIE - Dialysis." },
-            "hypoglycemia": { title: "Hypoglycemia Signs: TIRED", mnemonic: "T - Tachycardia, I - Irritability, R - Restlessness, E - Excessive hunger, D - Diaphoresis." }
+            "hypoglycemia": { title: "Hypoglycemia Signs: TIRED", mnemonic: "T - Tachycardia, I - Irritability, R - Restlessness, E - Excessive hunger, D - Diaphoresis." },
+            "sepsis": { title: "Sepsis Management: TIME", mnemonic: "T - Temperature change, I - Infection signs, M - Mental decline, E - Extremely ill (Severe hypotension, elevated lactate >2)." },
+            "preeclampsia": { title: "Preeclampsia Signs: HELLP", mnemonic: "H - Hemolysis, EL - Elevated Liver enzymes, LP - Low Platelets. Priority: Monitor BP, urine protein, seizure risk." },
+            "pneumonia": { title: "Pneumonia Interventions: COUGH", mnemonic: "C - Cough & deep breathe, O - Oxygen therapy, U - Upright positioning, G - Get sputum culture before antibiotics, H - Hydration." }
         };
 
         // Fisher-Yates Randomization Function
@@ -129,40 +132,20 @@
             return array;
         }
 
-        // Dynamic Keyword & Concept Mnemonic Generator with Fallback Tips
-        function getDynamicMnemonic(text, category, topic) {
-            const keywords = extractRationaleKeywords(text, category, topic);
-            const primaryKey = (keywords[0] || '').toLowerCase();
-
-            // 1. Check if key matches static database
-            for (let key in staticMnemonics) {
-                if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
-                    return staticMnemonics[key];
-                }
-            }
-
-            // 2. Fallback: Provide specific NCLEX test-taking strategy tips for the topic
-            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "NCLEX CLINICAL PRIORITY");
-            return {
-                title: `NCLEX Strategy Tip: ${capitalizedKey}`,
-                mnemonic: `Strategy Tip for ${capitalizedKey}: Apply Maslow's Hierarchy (Airway > Breathing > Circulation > Safety). Always select the intervention that addresses physiological stability before teaching or reporting unless acute harm is imminent.`,
-                isStrategyTip: true
-            };
-        }
-
-        // Extraction helper for dynamic keyword parsing from rationale
+        // Extraction helper including Diseases and Clinical Conditions from Rationale / Question
         function extractRationaleKeywords(text, category, topic) {
-            if (!text) return [topic || category || "NCLEX review"];
+            const searchText = `${text || ''} ${topic || ''} ${category || ''}`;
             
-            const medicalTermsRegex = /\b(prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|insulin|heparin|digoxin|potassium|iv titration|medication calculation|adverse reaction|antidote|acute coronary syndrome|myocardial infarction|sepsis|septic shock|respiratory failure|mechanical ventilation|electrolyte imbalance|hyperkalemia|hypokalemia|hypocalcemia|airborne|droplet|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation|dvt|pulmonary embolism|atelectasis|vital signs|antepartum|postpartum|apgar|immunization|pediatric milestones|therapeutic communication|crisis intervention|de-escalation|withdrawal|ciwa|cows|tpn|tube feeding|palliative|pain management|pressure injury)\b/gi;
+            // Expanded regex matching diseases, clinical conditions, and core nursing interventions
+            const conditionAndInterventionRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|prioritization|delegation|advance directives|informed consent|airborne|droplet|contact precautions|abg interpretation)\b/gi;
 
-            const matches = text.match(medicalTermsRegex);
+            const matches = searchText.match(conditionAndInterventionRegex);
             if (matches && matches.length > 0) {
                 return [...new Set(matches.map(m => m.toLowerCase()))];
             }
 
             const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for"]);
-            const words = text.replace(/[^\w\s]/gi, '').split(/\s+/);
+            const words = (text || '').replace(/[^\w\s]/gi, '').split(/\s+/);
             const candidates = words.filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()));
             
             if (candidates.length > 0) {
@@ -170,6 +153,27 @@
             }
 
             return [topic || category || "NCLEX review"];
+        }
+
+        // Dynamic Mnemonic / Strategy Tip Generator for Condition or Disease
+        function getDynamicMnemonic(text, category, topic) {
+            const keywords = extractRationaleKeywords(text, category, topic);
+            const primaryKey = (keywords[0] || '').toLowerCase();
+
+            // 1. Check matching static mnemonic
+            for (let key in staticMnemonics) {
+                if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
+                    return staticMnemonics[key];
+                }
+            }
+
+            // 2. Fallback: Generate clinical condition strategy guide
+            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "CLINICAL CONDITION");
+            return {
+                title: `Disease Strategy Guide: ${capitalizedKey}`,
+                mnemonic: `Key Focus for ${capitalizedKey}: Identify early deterioration cues (vital sign changes, altered mental status, laboratory critical values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and prescribed emergency interventions.`,
+                isStrategyTip: true
+            };
         }
 
         async function initEngine() {
@@ -422,24 +426,23 @@
             if (!container) return;
 
             const extractedKeywords = extractRationaleKeywords(q.rationale, q.category, q.topic);
-            const mainQueryTerm = extractedKeywords.join(' ');
-            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX mnemonic ' + mainQueryTerm)}`;
+            const mainCondition = extractedKeywords[0] || q.topic || 'Disease Review';
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX mnemonic ' + mainCondition)}`;
 
-            // Dynamic Mnemonic generation or test strategy tips
             const activeMnemonic = getDynamicMnemonic(q.rationale, q.category, q.topic);
 
             const dynamicVideoResources = [
                 { 
-                    name: `RegisteredNurseRN - ${extractedKeywords[0] || 'NCLEX'} Review`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainQueryTerm)}` 
+                    name: `RegisteredNurseRN - ${mainCondition.toUpperCase()}`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainCondition)}` 
                 },
                 { 
-                    name: `LevelUpRN - ${extractedKeywords[0] || 'Pharmacology'} High Yield`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainQueryTerm)}` 
+                    name: `LevelUpRN - ${mainCondition.toUpperCase()} Nursing`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainCondition)}` 
                 },
                 { 
-                    name: `Nexus Nursing - ${extractedKeywords[0] || 'NGN'} Clinical Judgment`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('nexus nursing ' + mainQueryTerm)}` 
+                    name: `Nexus Nursing - ${mainCondition.toUpperCase()} NCLEX Questions`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('nexus nursing ' + mainCondition)}` 
                 }
             ];
 
@@ -459,36 +462,33 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
-                        <!-- Dynamic Visual Mnemonic / Strategy Tip Container -->
                         <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-3 flex flex-col justify-between">
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
                                     <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
-                                        <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-lightbulb text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Test-Taking Strategy Tip' : 'Sticky Visual Mnemonic'}
+                                        <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-lightbulb text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Condition Strategy Guide' : 'Visual Mnemonic'}
                                     </h4>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
-                                        ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Hook'}
+                                        Condition: ${mainCondition}
                                     </span>
                                 </div>
                                 <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
                                 <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
                             </div>
                             
-                            <!-- Search Mnemonic Online Link -->
                             <a href="${googleSearchUrl}" target="_blank" class="pt-2 border-t border-amber-200/60 text-[11px] font-bold text-amber-900 hover:text-amber-700 transition-colors flex items-center justify-between">
-                                <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Search latest online mnemonics for "${extractedKeywords[0] || 'Topic'}"</span>
+                                <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Search online mnemonics for "${mainCondition.toUpperCase()}"</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                             </a>
                         </div>
 
-                        <!-- Dynamic Video Remediation Tutorials -->
                         <div class="bg-clinical-50 p-5 rounded-2xl border border-clinical-200 space-y-2">
                             <div class="flex items-center justify-between">
                                 <h4 class="font-extrabold text-xs text-clinical-900 uppercase flex items-center gap-1.5">
                                     <i class="fa-solid fa-video text-clinical-600"></i> Video Remediation Tutorials
                                 </h4>
                                 <span class="px-2 py-0.5 bg-clinical-100 text-clinical-700 font-extrabold text-[9px] rounded-md uppercase">
-                                    Key: ${extractedKeywords[0] || 'Topic'}
+                                    ${mainCondition}
                                 </span>
                             </div>
                             <div class="space-y-1.5">
