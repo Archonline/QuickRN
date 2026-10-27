@@ -40,7 +40,7 @@
             </div>
             <span class="h-4 w-px bg-slate-700"></span>
             <span id="mode-badge" class="px-2.5 py-1 rounded-md bg-medical-500/20 text-medical-400 font-bold uppercase tracking-wider text-[10px] border border-medical-500/30">
-                Self-Study Engine (9,000+ Q-Bank)
+                Self-Study Engine (Combined Q-Bank)
             </span>
         </div>
 
@@ -61,7 +61,7 @@
         <div id="exam-container" class="bg-slate-50 text-slate-900 p-6 sm:p-8 rounded-3xl w-full shadow-2xl space-y-6">
             <div class="text-center py-20 space-y-3">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl text-medical-600"></i>
-                <p class="text-sm font-bold text-slate-700">Shuffling & Loading 9,000+ High-Yield NCLEX Items...</p>
+                <p class="text-sm font-bold text-slate-700">Merging & Shuffling High-Yield NCLEX Items from All Banks...</p>
             </div>
         </div>
     </main>
@@ -130,16 +130,30 @@
             return arr;
         }
 
-        // CLINICAL PHRASE EXTRACTION ENGINE across Question & Rationale
+        function normalizeQuestion(item) {
+            return {
+                id: item.id || '',
+                category: item.category || 'General Nursing',
+                topic: item.topic || '',
+                type: item.type || 'Multiple Choice',
+                highYieldTag: item.highYieldTag || item.high_yield_tag || '',
+                question: item.question || item.questionText || '',
+                options: item.options || [],
+                correctAnswer: item.correctAnswer || item.correct_answer || '',
+                rationale: item.rationale || '',
+                reference: item.reference || 'NCLEX-RN Test Plan Standards',
+                caseStudy: item.caseStudy || null
+            };
+        }
+
         function extractRationaleKeywords(questionObj) {
-            const qText = questionObj.question || questionObj.questionText || '';
+            const qText = questionObj.question || '';
             const rText = questionObj.rationale || '';
             const catText = questionObj.category || '';
             const topicText = questionObj.topic || '';
             
             const combinedSource = `${qText} ${rText} ${topicText} ${catText}`;
             
-            // Comprehensive Dictionary of Multi-Word Clinical Phrases & Concepts
             const clinicalPhraseRegex = /\b(systemic lupus erythematosus|acute coronary syndrome|myocardial infarction|heart failure|pulmonary embolism|deep vein thrombosis|diabetic ketoacidosis|septic shock|acute respiratory distress syndrome|acute kidney injury|chronic kidney disease|bowel obstruction|multiple sclerosis|postpartum hemorrhage|kawasaki disease|lyme disease|epiglottitis|airborne precautions|droplet precautions|contact precautions|transmission-based precautions|central line administration|medication calculations|vital sign thresholds|diagnostic lab values|abg interpretation|apgar scoring|developmental milestones|therapeutic communication|crisis intervention|de-escalation techniques|substance use withdrawal|non-pharmacological pain management|pressure injury staging|enteral nutrition|parenteral nutrition|palliative care|fall prevention|seizure precautions|needle safety|donning and doffing ppe|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|prioritization and delegation|rights of delegation|high-alert medications|adverse reactions and antidotes|fluid and electrolyte balance|blood transfusion reaction)\b/gi;
 
             let extractedPhrases = [];
@@ -149,7 +163,6 @@
                 extractedPhrases = [...new Set(matches.map(m => m.toLowerCase()))];
             }
 
-            // Secondary Pass: Extract compound clinical phrases (e.g., "potassium toxicity", "heparin infusion", "airborne isolation")
             if (extractedPhrases.length < 6) {
                 const phraseCandidates = [
                     "potassium toxicity", "heparin infusion", "digoxin safety", "insulin administration",
@@ -165,7 +178,6 @@
                 }
             }
 
-            // Fallback multi-word phrases if fewer than 5 exist
             const fallbackPhrases = [
                 "priority nursing intervention",
                 "evidence-based patient safety",
@@ -216,14 +228,43 @@
 
         async function initEngine() {
             try {
-                let response = await fetch('compiled_nclex_9000_comprehensive.json').catch(() => null);
-                if (!response || !response.ok) {
-                    response = await fetch('compiled_nclex_8000_verified.json').catch(() => null);
+                let list1 = [];
+                let list2 = [];
+
+                // Load File 1: master_nclex_qbank_3000.json
+                try {
+                    const res1 = await fetch('master_nclex_qbank_3000.json');
+                    if (res1.ok) {
+                        const data1 = await res1.json();
+                        list1 = Array.isArray(data1) ? data1 : (data1.questions || []);
+                    }
+                } catch (e) {
+                    console.warn("Could not fetch master_nclex_qbank_3000.json:", e);
                 }
-                if (!response || !response.ok) {
-                    response = await fetch('compiled_nclex_qbank.json');
+
+                // Load File 2: compiled_nclex_qbank.json
+                try {
+                    const res2 = await fetch('compiled_nclex_qbank.json');
+                    if (res2.ok) {
+                        const data2 = await res2.json();
+                        list2 = Array.isArray(data2) ? data2 : (data2.questions || []);
+                    }
+                } catch (e) {
+                    console.warn("Could not fetch compiled_nclex_qbank.json:", e);
                 }
-                allQuestions = await response.json();
+
+                // Fallback to legacy single file if both are empty
+                if (list1.length === 0 && list2.length === 0) {
+                    const fallbackRes = await fetch('compiled_nclex_9000_comprehensive.json');
+                    if (fallbackRes.ok) {
+                        const fallbackData = await fallbackRes.json();
+                        list1 = Array.isArray(fallbackData) ? fallbackData : (fallbackData.questions || []);
+                    }
+                }
+
+                // Merge and normalize questions from both sources
+                const rawCombined = [...list1, ...list2];
+                allQuestions = rawCombined.map(normalizeQuestion);
 
                 if (modeFilter === 'ngn') {
                     questions = allQuestions.filter(q => q.type && (q.type.includes('NGN') || q.type.includes('Case Study') || q.caseStudy));
@@ -235,6 +276,7 @@
                     questions = allQuestions;
                 }
 
+                // Shuffle questions into random order
                 questions = shuffleArray(questions);
                 renderQuestion();
             } catch (err) {
@@ -243,7 +285,7 @@
                     <div class="text-center py-10 space-y-4 text-rose-600">
                         <i class="fa-solid fa-triangle-exclamation text-4xl"></i>
                         <h3 class="text-lg font-bold">Failed to Load Question Dataset</h3>
-                        <p class="text-xs text-slate-600">Ensure question bank JSON file is in your local root folder.</p>
+                        <p class="text-xs text-slate-600">Ensure question bank JSON files are placed in your root folder.</p>
                         <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs">Return to Dashboard</button>
                     </div>
                 `;
@@ -463,7 +505,6 @@
             const container = document.getElementById('remediation-container');
             if (!container) return;
 
-            // Extract multi-word clinical phrases across question prompt and rationale
             const extractedPhrases = extractRationaleKeywords(q);
             const mainPhrase = extractedPhrases[0] || q.topic || 'Medication & Clinical Care';
             const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX mnemonic ' + mainPhrase)}`;
@@ -563,7 +604,7 @@
 
                     <div class="p-3 bg-slate-100 rounded-xl text-[10px] text-slate-500 flex items-center justify-between font-semibold">
                         <span><i class="fa-solid fa-building-columns mr-1"></i> Reference: ${q.reference || 'FDA Drug Safety Guidelines / NCBI Bookshelf / CDC / AHA Protocols'}</span>
-                        <span class="text-slate-400">Verified 2026/2027 Standards</span>
+                        <span class="text-slate-400">Verified Standards</span>
                     </div>
                 </div>
             `;
