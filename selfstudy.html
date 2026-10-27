@@ -247,23 +247,23 @@
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
 
-        // ENHANCED DYNAMIC YOUTUBE THUMBNAIL & VIDEO MAPPING
+        // YOUTUBE VIDEO MAPPING BY TOPIC & KEYWORDS
         const topicDualYouTubeMap = {
             "cardio": [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
             ],
             "respiratory": [
-                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
+                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
             ],
             "pharmacology": [
-                { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
+                { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
             ],
             "pediatric": [
-                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", thumbnail: "https://img.youtube.com/vi/LpVyqHeyTcA/hqdefault.jpg", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=si67310XO80", thumbnail: "https://img.youtube.com/vi/si67310XO80/hqdefault.jpg", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
+                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=si67310XO80", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
             ]
         };
 
@@ -282,12 +282,12 @@
 
             const fallbackPools = [
                 [
-                    { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
-                    { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
+                    { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
+                    { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
                 ],
                 [
-                    { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: `Mastering ${topic || 'NCLEX Topics'}`, channel: "RegisteredNurseRN" },
-                    { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: `${category || 'Exam'} Strategy & Rationales`, channel: "SimpleNursing" }
+                    { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: `Mastering ${topic || 'NCLEX Topics'}`, channel: "RegisteredNurseRN" },
+                    { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: `${category || 'Exam'} Strategy & Rationales`, channel: "SimpleNursing" }
                 ]
             ];
             
@@ -528,31 +528,23 @@
                             <p class="text-xs text-slate-700 bg-amber-100/60 p-2.5 rounded border border-amber-200 font-mono-custom text-[11px]"><strong class="text-amber-900">Mnemonic / Framework:</strong> ${strategy.mnemonic}</p>
                         </div>
 
-                        <!-- 3. YouTube Videos -->
+                        <!-- 3. YouTube Links (Thumbnails Removed) -->
                         <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-4 shadow-xs">
                             <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-brands fa-youtube text-red-600 text-base"></i> 3. Recommended Lecture Videos (2 Related Links)
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 ${twoVideos.map(vid => `
-                                    <div class="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col justify-between shadow-xs hover:border-red-400 transition">
-                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="relative group aspect-video bg-slate-900 overflow-hidden block">
-                                            <img src="${vid.thumbnail}" alt="${vid.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition flex items-center justify-center">
-                                                <i class="fa-solid fa-circle-play text-3xl text-white opacity-90 group-hover:scale-110 transition"></i>
-                                            </div>
-                                        </a>
-                                        <div class="p-3 flex-grow flex flex-col justify-between space-y-2">
-                                            <div>
-                                                <span class="text-[10px] font-bold text-red-700 uppercase bg-red-100 px-2 py-0.5 rounded">
-                                                    ${vid.channel}
-                                                </span>
-                                                <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-2">${vid.title}</h4>
-                                            </div>
-                                            <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 w-full py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
-                                                Watch Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                                            </a>
+                                    <div class="bg-white border border-slate-200 p-4 rounded-lg flex flex-col justify-between shadow-xs hover:border-red-400 transition space-y-3">
+                                        <div>
+                                            <span class="text-[10px] font-bold text-red-700 uppercase bg-red-100 px-2 py-0.5 rounded">
+                                                ${vid.channel}
+                                            </span>
+                                            <h4 class="text-xs md:text-sm font-bold text-slate-900 mt-2 line-clamp-2">${vid.title}</h4>
                                         </div>
+                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
+                                            <i class="fa-brands fa-youtube text-sm"></i> Watch Lecture Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </a>
                                     </div>
                                 `).join('')}
                             </div>
