@@ -320,6 +320,7 @@
             readinessTakesCount: 4,
             examHistory: [],
             answeredQuestionIds: {},
+            domainStats: {},
             favorites: []
         };
 
@@ -344,6 +345,9 @@
             }
             if (studentStats.readinessTakesCount === undefined || studentStats.readinessTakesCount === null) {
                 studentStats.readinessTakesCount = 4;
+            }
+            if (!studentStats.domainStats) {
+                studentStats.domainStats = {};
             }
             renderFavorites();
         }
@@ -387,23 +391,24 @@
 
             let html = '';
             clientNeedsDomains.forEach((domain) => {
-                let answeredInDomain = Math.floor(Math.random() * 40) + 10;
-                let correctInDomain = Math.floor(answeredInDomain * 0.78);
-                const accuracy = Math.round((correctInDomain / answeredInDomain) * 100);
-                const isPassing = accuracy >= 72;
+                const dStat = (studentStats.domainStats && studentStats.domainStats[domain]) || { total: 0, correct: 0 };
+                const answeredInDomain = dStat.total;
+                const correctInDomain = dStat.correct;
+                const accuracy = answeredInDomain > 0 ? Math.round((correctInDomain / answeredInDomain) * 100) : 0;
+                const isPassing = answeredInDomain > 0 && accuracy >= 72;
 
                 html += `
                     <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
                         <div class="flex items-center justify-between">
                             <h4 class="font-extrabold text-slate-900 text-sm">${domain}</h4>
-                            <span class="text-sm font-black ${isPassing ? 'text-medical-600' : 'text-amber-600'}">${accuracy}%</span>
+                            <span class="text-sm font-black ${answeredInDomain === 0 ? 'text-slate-400' : (isPassing ? 'text-medical-600' : 'text-amber-600')}">${accuracy}%</span>
                         </div>
                         <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                            <div class="${isPassing ? 'bg-medical-600' : 'bg-amber-500'} h-2 rounded-full" style="width: ${accuracy}%"></div>
+                            <div class="${answeredInDomain === 0 ? 'bg-slate-300' : (isPassing ? 'bg-medical-600' : 'bg-amber-500')} h-2 rounded-full transition-all duration-500" style="width: ${accuracy}%"></div>
                         </div>
                         <div class="flex items-center justify-between text-xs text-slate-500">
-                            <span>120 Questions</span>
-                            <span class="font-bold ${isPassing ? 'text-medical-700' : 'text-amber-700'}">${isPassing ? 'Passing Level' : 'Needs Review'}</span>
+                            <span>${answeredInDomain} Questions Finished</span>
+                            <span class="font-bold ${answeredInDomain === 0 ? 'text-slate-400' : (isPassing ? 'text-medical-700' : 'text-amber-700')}">${answeredInDomain === 0 ? '0% Mastery Start' : (isPassing ? 'Passing Level' : 'Needs Review')}</span>
                         </div>
                     </div>
                 `;
@@ -455,7 +460,7 @@
                 modalBody.innerHTML = `<div class="text-center py-16 text-slate-500 text-xs">No exam history recorded yet.</div>`;
             } else {
                 let html = `<div class="space-y-4"><h3 class="font-extrabold text-slate-900 text-sm">Previous Exam Logs:</h3><div class="space-y-3">`;
-                history.forEach((rec, hIdx) => {
+                history.forEach((rec) => {
                     html += `
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-center justify-between">
                             <div>
@@ -473,6 +478,9 @@
         }
 
         window.handleSignOut = function() {
+            localStorage.removeItem('quickrn_student_state');
+            sessionStorage.clear();
+            alert("You have successfully signed out of QuickRN.");
             window.location.href = "dashboard.html";
         }
 
