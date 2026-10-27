@@ -136,22 +136,21 @@
             return arr;
         }
 
-        // Full Sentence Rationale Parser: Extracts 5-6 core nursing keywords/phrases
+        // Sentence-Level Rationale Parser: Extracts 5-6 key nursing terms/phrases across rationale
         function extractRationaleKeywords(text, category, topic) {
             const combinedSource = `${text || ''} ${topic || ''} ${category || ''}`;
             
-            // Regex for explicit nursing topics, conditions, medications, and clinical interventions
             const clinicalTopicRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|airborne precautions|droplet precautions|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation|vital signs|apgar|developmental milestones|therapeutic communication|crisis intervention|de-escalation|withdrawal|ciwa|cows|tpn|tube feeding|palliative care|pain management|pressure injury)\b/gi;
 
             let extracted = [];
             
-            // Pass 1: Extract matching clinical terms across sentences
+            // Extract matching clinical terms across sentences
             const directMatches = combinedSource.match(clinicalTopicRegex);
             if (directMatches) {
                 extracted = [...new Set(directMatches.map(m => m.toLowerCase()))];
             }
 
-            // Pass 2: Fill up to 5-6 keywords from candidate words in the rationale
+            // Fill up to 5-6 keywords from sentence candidate words
             if (extracted.length < 6) {
                 const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse", "first", "initial", "most", "client", "action", "priority", "nursing", "obtain", "monitor"]);
                 
@@ -180,7 +179,7 @@
             return extracted.slice(0, 6);
         }
 
-        // Clean Strategy Guide Generator (Removes leading single word keywords from header)
+        // Clean Strategy Guide Generator (Header Title Cleaned)
         function getDynamicMnemonic(text, category, topic) {
             const keywords = extractRationaleKeywords(text, category, topic);
             const primaryKey = (keywords[0] || '').toLowerCase();
@@ -191,14 +190,13 @@
                 }
             }
 
-            // Clean Topic Title formatting
             const cleanTopicName = (keywords[0] ? keywords[0] : (topic ? topic : "Clinical Care")).toUpperCase();
             const isPharmCategory = (category && category.toLowerCase().includes("pharm")) || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryKey.includes(k));
 
             if (isPharmCategory) {
                 return {
                     title: `Pharmacology Strategy Guide: ${cleanTopicName}`,
-                    mnemonic: `Pharmacology Rule: Always check hold parameters (vital signs, apical pulse, blood pressure, lab values) prior to administration. Monitor for therapeutic levels, early toxicity signs, and keep antidotes readily available.`,
+                    mnemonic: `Pharmacology Rule: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum labs) prior to administration. Monitor for therapeutic levels, early toxicity signs, and keep antidotes accessible.`,
                     isStrategyTip: true
                 };
             }
@@ -255,7 +253,7 @@
             selectedOptions = [];
             isSubmitted = false;
 
-            // Randomize multiple choice options order for this item
+            // Randomize multiple choice options display order for this item
             currentShuffledOptions = q.options ? shuffleArray(q.options) : [];
 
             updateBookmarkUI(q.id);
@@ -494,40 +492,40 @@
                         </div>
                     </div>
 
-                    <!-- 5-6 Key Term Pill Bar -->
-                    <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 space-y-2">
-                        <div class="text-[10px] font-extrabold uppercase text-slate-600 tracking-wider flex items-center gap-1.5">
-                            <i class="fa-solid fa-key text-amber-500"></i> Nursing Mastery & Keyword Focus (Rationale Scanned Key Terms):
-                        </div>
-                        <div class="flex flex-wrap gap-1.5">
-            `;
-
-            extractedKeywords.forEach(kw => {
-                html += `<span class="px-2.5 py-1 bg-white border border-slate-300 text-slate-800 text-[10px] font-bold rounded-lg shadow-sm uppercase"><i class="fa-solid fa-tag text-medical-600 mr-1"></i>${kw}</span>`;
-            });
-
-            html += `
-                        </div>
-                    </div>
-
                     <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-2">
                         <h4 class="font-extrabold text-xs uppercase text-clinical-600 flex items-center gap-1.5"><i class="fa-solid fa-book-medical"></i> Detailed NCLEX Rationale</h4>
                         <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${q.rationale || 'Prioritizing patient safety, high-alert medication protocols, and baseline physical assessments is standard nursing care.'}</p>
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
+                        <!-- Strategy & Mnemonics Card listing ALL 5-6 Scanned Keywords -->
                         <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-3 flex flex-col justify-between">
-                            <div class="space-y-2">
+                            <div class="space-y-3">
                                 <div class="flex items-center justify-between">
                                     <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
                                         <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-pills text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Mnemonic'}
                                     </h4>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
-                                        Focus: ${mainKeyword}
+                                        ${extractedKeywords.length} Scanned Keywords
                                     </span>
                                 </div>
                                 <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
-                                <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
+                                
+                                <!-- Render ALL 5-6 Extracted Keywords inside Strategy Guide -->
+                                <div class="space-y-1">
+                                    <div class="text-[10px] font-extrabold text-amber-800 uppercase tracking-wider">Scanned Nursing Terms & Concepts:</div>
+                                    <div class="flex flex-wrap gap-1">
+            `;
+
+            extractedKeywords.forEach(kw => {
+                html += `<span class="px-2 py-0.5 bg-amber-200/60 text-amber-900 font-extrabold text-[9px] rounded-md uppercase"><i class="fa-solid fa-tag text-amber-700 mr-1"></i>${kw}</span>`;
+            });
+
+            html += `
+                                    </div>
+                                </div>
+
+                                <p class="text-xs text-amber-800 leading-relaxed pt-1 border-t border-amber-200/50">${activeMnemonic.mnemonic}</p>
                             </div>
                             
                             <a href="${googleSearchUrl}" target="_blank" class="pt-2 border-t border-amber-200/60 text-[11px] font-bold text-amber-900 hover:text-amber-700 transition-colors flex items-center justify-between">
