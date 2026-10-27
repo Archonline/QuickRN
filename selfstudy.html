@@ -48,7 +48,6 @@
     <!-- TOP NCSBN NCLEX-RN HEADER BAR -->
     <header class="bg-ncsbn-header text-white px-4 py-3 shadow-md border-b-2 border-ncsbn-accent sticky top-0 z-40">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Left Branding & Details -->
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 bg-blue-950 px-3 py-1.5 rounded border border-blue-800">
                     <i class="fa-solid fa-user-nurse text-amber-400 text-lg"></i>
@@ -59,22 +58,18 @@
                 </div>
             </div>
 
-            <!-- Right Controls & Dashboard Redirect -->
             <div class="flex items-center gap-3">
-                <!-- Calculator Button -->
                 <button onclick="toggleCalculator()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition" title="Calculator">
                     <i class="fa-solid fa-calculator text-amber-400"></i>
                     <span class="hidden md:inline">Calculator</span>
                 </button>
 
-                <!-- Bookmarks Drawer Button -->
                 <button onclick="openBookmarksModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition">
                     <i class="fa-solid fa-bookmark"></i>
                     <span class="hidden md:inline">Saved</span>
                     <span id="saved-count-badge" class="ml-1 bg-amber-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
                 </button>
 
-                <!-- Dashboard Return Button (Far Right) -->
                 <button onclick="window.location.href='dashboard.html'" class="p-2 bg-rose-700 hover:bg-rose-600 text-white rounded transition flex items-center justify-center border border-rose-500" title="Return to Dashboard">
                     <i class="fa-solid fa-right-from-bracket text-base"></i>
                 </button>
@@ -101,9 +96,7 @@
 
     <!-- MAIN NCLEX QUESTION WORKSPACE -->
     <main class="p-4 md:p-6 max-w-6xl mx-auto w-full flex-grow flex flex-col justify-center">
-        <!-- NCLEX WINDOW CONTAINER -->
         <div id="exam-card" class="bg-white rounded-lg shadow-xl border-2 border-ncsbn-border overflow-hidden flex flex-col min-h-[500px]">
-            <!-- Dynamic Content Container -->
             <div id="exam-container" class="p-6 md:p-8 flex-grow flex flex-col justify-between">
                 <div class="flex items-center justify-center h-64">
                     <div class="text-center space-y-3">
@@ -115,7 +108,7 @@
         </div>
     </main>
 
-    <!-- FOOTER NAV BAR (PREV / NEXT / SUBMIT BUTTONS) -->
+    <!-- FOOTER NAV BAR -->
     <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
         <div class="max-w-6xl mx-auto flex items-center justify-between">
             <button id="btn-prev" onclick="previousQuestion()" class="px-5 py-2.5 bg-slate-300 hover:bg-slate-400 disabled:opacity-40 disabled:hover:bg-slate-300 text-slate-800 font-bold rounded text-xs flex items-center gap-2 border border-slate-400 transition">
@@ -176,9 +169,7 @@
                 </h3>
                 <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1">
-                <!-- Dynamic list populated via JavaScript -->
-            </div>
+            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1"></div>
             <div class="pt-3 border-t border-slate-200 flex justify-end">
                 <button onclick="closeBookmarksModal()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Close</button>
             </div>
@@ -197,7 +188,7 @@
         </div>
     </div>
 
-    <!-- ITEM COUNT CONFIGURATION MODAL (SHOWN AT START) -->
+    <!-- ITEM COUNT CONFIGURATION MODAL -->
     <div id="session-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 text-slate-900 border border-slate-200">
             <div class="text-center space-y-2">
@@ -226,8 +217,15 @@
                     <span class="text-xs font-medium text-slate-600">Questions (NCLEX Maximum)</span>
                 </button>
             </div>
+
+            <button onclick="startStudySession('all')" class="w-full py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
+                <i class="fa-solid fa-layer-group text-amber-400"></i> Load Entire Question Bank (<span id="modal-total-count">...</span> questions)
+            </button>
         </div>
     </div>
+
+    <!-- INCLUDE QUESTIONS.JS BEFORE MAIN SCRIPT -->
+    <script src="questions.js"></script>
 
     <script>
         // GLOBAL STATE
@@ -239,101 +237,25 @@
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
 
-        // DUAL YOUTUBE VIDEO MAPPING BY TOPIC / CATEGORY
         const topicDualYouTubeMap = {
             "Acute myocardial infarction": [
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: "Myocardial Infarction (Heart Attack) Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=phu_x9FS7WY",
-                    thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg",
-                    title: "Myocardial Infarction Pathophysiology & ECG",
-                    channel: "RegisteredNurseRN"
-                }
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Myocardial Infarction (Heart Attack) Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: "Myocardial Infarction Pathophysiology & ECG", channel: "RegisteredNurseRN" }
             ],
             "Heart failure": [
-                {
-                    url: "https://www.youtube.com/watch?v=r5W1ns5C1ik",
-                    thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg",
-                    title: "Congestive Heart Failure (CHF) NCLEX Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=mGchzG3Ya7c",
-                    thumbnail: "https://img.youtube.com/vi/mGchzG3Ya7c/hqdefault.jpg",
-                    title: "Left vs Right Heart Failure Pathophysiology",
-                    channel: "RegisteredNurseRN"
-                }
-            ],
-            "Digoxin safety": [
-                {
-                    url: "https://www.youtube.com/watch?v=S73GT32EE48",
-                    thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg",
-                    title: "Digoxin Nursing Pharmacology Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=B8THrJVTeZU",
-                    thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg",
-                    title: "Pharmacology High Yield NCLEX Review",
-                    channel: "RegisteredNurseRN"
-                }
-            ],
-            "Warfarin teaching": [
-                {
-                    url: "https://www.youtube.com/watch?v=LpVyqHeyTcA",
-                    thumbnail: "https://img.youtube.com/vi/LpVyqHeyTcA/hqdefault.jpg",
-                    title: "Warfarin & Anticoagulant Nursing Review",
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=si67310XO80",
-                    thumbnail: "https://img.youtube.com/vi/si67310XO80/hqdefault.jpg",
-                    title: "Must-Know Nursing Medications NCLEX",
-                    channel: "RegisteredNurseRN"
-                }
-            ],
-            "Tracheostomy Safety": [
-                {
-                    url: "https://www.youtube.com/watch?v=phu_x9FS7WY",
-                    thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg",
-                    title: "Tracheostomy Care & Emergency Nursing Safety",
-                    channel: "RegisteredNurseRN"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: "Airway & Respiratory Priority NCLEX",
-                    channel: "SimpleNursing"
-                }
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: "Congestive Heart Failure (CHF) NCLEX Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=mGchzG3Ya7c", thumbnail: "https://img.youtube.com/vi/mGchzG3Ya7c/hqdefault.jpg", title: "Left vs Right Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
             ]
         };
 
         function getTwoYouTubeVideos(topic, category) {
-            if (topicDualYouTubeMap[topic]) {
-                return topicDualYouTubeMap[topic];
-            }
+            if (topicDualYouTubeMap[topic]) return topicDualYouTubeMap[topic];
             return [
-                {
-                    url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk",
-                    thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg",
-                    title: `${topic || category} Core Nursing Review`,
-                    channel: "SimpleNursing"
-                },
-                {
-                    url: "https://www.youtube.com/watch?v=r5W1ns5C1ik",
-                    thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg",
-                    title: `${category} NCLEX Clinical Judgment`,
-                    channel: "RegisteredNurseRN"
-                }
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: `${topic || category} Core Nursing Review`, channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: `${category} NCLEX Clinical Judgment`, channel: "RegisteredNurseRN" }
             ];
         }
 
-        // Array Shuffling Helper (Fisher-Yates)
         function shuffleArray(array) {
             const arr = [...array];
             for (let i = arr.length - 1; i > 0; i--) {
@@ -343,68 +265,20 @@
             return arr;
         }
 
-        // DYNAMIC NCLEX STRATEGY ENGINE
         function getNCLEXStrategy(questionObj) {
-            const combinedText = `${questionObj.category || ''} ${questionObj.topic || ''} ${questionObj.questionText || ''} ${questionObj.rationale || ''}`.toLowerCase();
-
-            if (combinedText.includes('tracheostomy') || combinedText.includes('stoma') || combinedText.includes('airway') || combinedText.includes('asthma') || combinedText.includes('copd') || combinedText.includes('respiratory')) {
-                return {
-                    title: "Airway & Breathing Priority (ABCs)",
-                    rule: "Always prioritize open airway and adequate oxygenation before diagnostic evaluations or routine medication administration.",
-                    mnemonic: "RAVE: Recognize distress, Airway positioning/stoma protection, Ventilate/Oxygenate, Evaluate response."
-                };
-            } else if (combinedText.includes('myocardial') || combinedText.includes('heart failure') || combinedText.includes('chest tube') || combinedText.includes('cardio') || combinedText.includes('infarction')) {
-                return {
-                    title: "Hemodynamic Stability & Fluid Balance",
-                    rule: "Focus on reducing heart workload (preload/afterload), recognizing air leaks in drainage systems, and immediate ischemic intervention.",
-                    mnemonic: "MONA / OH MES: Oxygen, Nitroglycerin, Aspirin, Morphine for ischemia; Elevate HOB & Diurese for overload."
-                };
-            } else if (combinedText.includes('digoxin') || combinedText.includes('lithium') || combinedText.includes('warfarin') || combinedText.includes('insulin') || combinedText.includes('haloperidol')) {
-                return {
-                    title: "Pharmacological Safety & Narrow Therapeutic Range",
-                    rule: "Verify parameters (vital signs/blood levels) prior to administration and identify early toxicity signs.",
-                    mnemonic: "HOLD: Hear/verify parameters (e.g., apical pulse, INR, serum levels), Observe toxicity signs, Level check, Document."
-                };
-            } else if (combinedText.includes('pyloric') || combinedText.includes('preeclampsia') || combinedText.includes('magnesium') || combinedText.includes('cushing') || combinedText.includes('intracranial')) {
-                return {
-                    title: "Pathophysiological Emergency & Warning Signs",
-                    rule: "Identify distinct physiological crisis indicators (Cushing's triad, loss of DTRs, metabolic alkalosis from upper GI loss).",
-                    mnemonic: "CUSHING / SAFE: Bradycardia + Widened Pulse Pressure + Irregular Breathing = Emergency ICP Elevation."
-                };
-            } else if (combinedText.includes('tuberculosis') || combinedText.includes('precaution') || combinedText.includes('airborne') || combinedText.includes('infection')) {
-                return {
-                    title: "Infection Control & Transmission Precautions",
-                    rule: "Strictly adhere to CDC transmission-based precautions (AIIR, N95 respirators, client masking during transport).",
-                    mnemonic: "MTV: Measles, Tuberculosis, Varicella require Airborne Precautions (N95 + Negative Pressure Room)."
-                };
-            } else {
-                return {
-                    title: "Maslow's Hierarchy & Clinical Safety First",
-                    rule: "Address immediate physiological needs and safety threats before teaching or psychosocial interventions.",
-                    mnemonic: "SAFE: Safety first, Assess before action, Focus on physiological risks, Escalate acute changes."
-                };
-            }
+            return {
+                title: "Maslow's Hierarchy & Clinical Safety First",
+                rule: "Address immediate physiological needs and safety threats before teaching or psychosocial interventions.",
+                mnemonic: "SAFE: Safety first, Assess before action, Focus on physiological risks, Escalate acute changes."
+            };
         }
 
-        // FETCH QUESTIONS FROM jsDelivr CDN & INITIALIZE
-        async function loadQuestionsFromJSON() {
+        function loadQuestionsFromJSON() {
             let rawDataArray = [];
 
             try {
-                // ==========================================
-                // REPLACE THESE WITH YOUR ACTUAL GITHUB INFO:
-                // ==========================================
-                const githubUsername = "Archonline";
-                const repositoryName = "QuickRN";
-                const branchName = "main"; // or "master"
-
-                const fetchUrl = `https://cdn.jsdelivr.net/gh/${githubUsername}/${repositoryName}@${branchName}/questions.json`;
-
-                const response = await fetch(fetchUrl);
-                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                const rawData = await response.json();
+                const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
                 
-                // Extract questions supporting Flat Arrays, {questions: []}, or {categorizedStructure: {...}}
                 if (Array.isArray(rawData)) {
                     rawDataArray = rawData;
                 } else if (rawData.questions && Array.isArray(rawData.questions)) {
@@ -430,25 +304,11 @@
                     }
                 }
             } catch (err) {
-                console.error("Error loading questions via jsDelivr CDN:", err);
-                alert("Could not load questions.json from jsDelivr CDN. Please make sure you updated your GitHub Username and Repository Name in the code.");
+                console.error("Error reading embedded questions:", err);
             }
 
             allQuestionsPool = rawDataArray.map((q, idx) => {
                 const originalOptions = q.options || [];
-                
-                // Robustly resolve correct answer text
-                let resolvedCorrectAnswer = q.correctAnswerText;
-                if (!resolvedCorrectAnswer && q.correctAnswer && originalOptions.length > 0) {
-                    const charCode = q.correctAnswer.toUpperCase().charCodeAt(0);
-                    if (charCode >= 65 && charCode < 65 + originalOptions.length) {
-                        resolvedCorrectAnswer = originalOptions[charCode - 65];
-                    } else {
-                        resolvedCorrectAnswer = q.correctAnswer;
-                    }
-                }
-                if (!resolvedCorrectAnswer) resolvedCorrectAnswer = originalOptions[0] || '';
-
                 return {
                     id: q.id || `NCLEX-${idx + 1}`,
                     category: q.category || 'General Care',
@@ -456,30 +316,30 @@
                     type: q.type || 'Single best answer',
                     questionText: q.question || q.questionText || '',
                     options: originalOptions,
-                    correctAnswer: resolvedCorrectAnswer,
+                    correctAnswer: q.correctAnswerText || q.correctAnswer,
                     rationale: q.rationale || 'Detailed clinical rationale unavailable.',
                     learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
                 };
             });
+
+            const modalCountElem = document.getElementById('modal-total-count');
+            if (modalCountElem) {
+                modalCountElem.innerText = allQuestionsPool.length;
+            }
         }
 
-        // START STUDY SESSION WITH SPECIFIED ITEM COUNT
         function startStudySession(count) {
             let shuffled = shuffleArray(allQuestionsPool);
-            
             if (count !== 'all' && typeof count === 'number') {
                 activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length));
             } else {
                 activeQuestions = shuffled;
             }
 
-            // Shuffle options for each selected question
-            activeQuestions = activeQuestions.map(q => {
-                return {
-                    ...q,
-                    options: shuffleArray(q.options)
-                };
-            });
+            activeQuestions = activeQuestions.map(q => ({
+                ...q,
+                options: shuffleArray(q.options)
+            }));
 
             currentIndex = 0;
             selectedOptions = {};
@@ -505,17 +365,12 @@
 
             const isBookmarked = !!bookmarkedQuestions[q.id];
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
-            if (isBookmarked) {
-                topBookmarkBtn.className = "fa-solid fa-bookmark text-amber-400";
-            } else {
-                topBookmarkBtn.className = "fa-regular fa-bookmark text-slate-400";
-            }
+            topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
 
             updateHeaderInfo();
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <!-- QUESTION HEADER & STEM -->
                     <div class="border-b border-slate-200 pb-4">
                         <div class="flex items-center justify-between mb-2">
                             <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">
@@ -527,30 +382,19 @@
                             ${q.questionText}
                         </h2>
                     </div>
-
-                    <!-- OPTIONS LIST -->
                     <div class="space-y-3">
             `;
 
             q.options.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const currentSel = selectedOptions[currentIndex];
-                
-                let isChecked = false;
-                if (isSATA) {
-                    isChecked = Array.isArray(currentSel) && currentSel.includes(optLetter);
-                } else {
-                    isChecked = currentSel === optLetter;
-                }
+                let isChecked = isSATA ? (Array.isArray(currentSel) && currentSel.includes(optLetter)) : (currentSel === optLetter);
 
                 let optStyle = "bg-slate-50 border-slate-300 hover:border-ncsbn-blue hover:bg-blue-50/50 text-slate-800";
                 let badgeStyle = "bg-slate-200 text-slate-700 border-slate-300";
 
                 if (isSubmitted) {
-                    const isCorrectOption = isSATA 
-                        ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optText))
-                        : (q.correctAnswer === optText);
-
+                    const isCorrectOption = isSATA ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optText)) : (q.correctAnswer === optText);
                     if (isCorrectOption) {
                         optStyle = "bg-emerald-50 border-emerald-500 text-emerald-950 font-semibold";
                         badgeStyle = "bg-emerald-600 text-white border-emerald-600";
@@ -571,14 +415,12 @@
                             ${optLetter}
                         </span>
                         <span class="text-sm leading-snug flex-grow">${optText}</span>
-                        ${isSubmitted && (isSATA ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optText)) : q.correctAnswer === optText) ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>' : ''}
                     </button>
                 `;
             });
 
             html += `</div>`;
 
-            // POST-SUBMISSION: RATIONALE, STRATEGY & TWO YOUTUBE VIDEO LINKS WITH THUMBNAILS
             if (isSubmitted) {
                 const twoVideos = getTwoYouTubeVideos(q.topic, q.category);
                 const strategy = getNCLEXStrategy(q);
@@ -586,74 +428,17 @@
 
                 html += `
                     <div class="mt-6 pt-6 border-t border-slate-200 space-y-5 animate-fadeIn">
-                        <!-- 1. Clinical Rationale Container -->
-                        <div class="bg-blue-50/70 border-l-4 border-ncsbn-navy p-5 rounded-r-lg space-y-3 shadow-xs">
+                        <div class="bg-blue-50/70 border-l-4 border-ncsbn-navy p-5 rounded-r-lg space-y-3">
                             <h3 class="font-bold text-ncsbn-navy text-sm flex items-center gap-2">
                                 <i class="fa-solid fa-square-poll-vertical text-amber-600"></i> 1. Rationale & Clinical Judgment
                             </h3>
-                            <p class="text-xs md:text-sm text-slate-800 leading-relaxed">
-                                ${q.rationale}
-                            </p>
-                            ${q.learningObjective ? `
-                                <div class="pt-2 border-t border-blue-200 text-xs text-blue-900 font-medium">
-                                    <strong class="text-ncsbn-navy">Learning Objective:</strong> ${q.learningObjective}
-                                </div>
-                            ` : ''}
-                        </div>
-
-                        <!-- 2. Dynamic NCLEX Test-Taking Strategy Box -->
-                        <div class="bg-amber-50/80 border-l-4 border-amber-500 p-5 rounded-r-lg space-y-3 shadow-xs">
-                            <div class="font-bold text-amber-900 flex items-center gap-2 text-sm">
-                                <i class="fa-solid fa-lightbulb text-amber-600"></i> 2. NCLEX Test-Taking Strategy: ${strategy.title}
-                            </div>
-                            <p class="text-xs text-slate-800 leading-relaxed"><strong class="text-amber-950">Core Rule:</strong> ${strategy.rule}</p>
-                            <p class="text-xs text-slate-700 bg-amber-100/60 p-2.5 rounded border border-amber-200 font-mono-custom text-[11px]"><strong class="text-amber-900">Mnemonic / Framework:</strong> ${strategy.mnemonic}</p>
-                        </div>
-
-                        <!-- 3. TWO YouTube Video Links with Thumbnails -->
-                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-4 shadow-xs">
-                            <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
-                                <i class="fa-brands fa-youtube text-red-600 text-base"></i> 3. Recommended Lecture Videos (2 Related Links)
-                            </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                ${twoVideos.map(vid => `
-                                    <div class="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col justify-between shadow-xs hover:border-red-400 transition">
-                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="relative group aspect-video bg-slate-900 overflow-hidden block">
-                                            <img src="${vid.thumbnail}" alt="${vid.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition flex items-center justify-center">
-                                                <i class="fa-solid fa-circle-play text-3xl text-white opacity-90 group-hover:scale-110 transition"></i>
-                                            </div>
-                                        </a>
-                                        <div class="p-3 flex-grow flex flex-col justify-between space-y-2">
-                                            <div>
-                                                <span class="text-[10px] font-bold text-red-700 uppercase bg-red-100 px-2 py-0.5 rounded">
-                                                    ${vid.channel}
-                                                </span>
-                                                <h4 class="text-xs font-bold text-slate-900 mt-1 line-clamp-2">${vid.title}</h4>
-                                            </div>
-                                            <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 w-full py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
-                                                Watch Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <!-- Flag for Review -->
-                        <div class="flex justify-end pt-2">
-                            <button onclick="toggleFlagCurrent()" class="px-3 py-1.5 ${isFlagged ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-slate-100 text-slate-600 border-slate-300'} hover:bg-rose-50 border rounded text-xs font-semibold flex items-center gap-1.5 transition">
-                                <i class="fa-solid fa-flag ${isFlagged ? 'text-rose-600' : 'text-slate-400'}"></i>
-                                <span>${isFlagged ? 'Flagged for Review' : 'Flag for Error / Review'}</span>
-                            </button>
+                            <p class="text-xs md:text-sm text-slate-800 leading-relaxed">${q.rationale}</p>
                         </div>
                     </div>
                 `;
             }
 
             document.getElementById('exam-container').innerHTML = html;
-
-            // Footer Button States
             document.getElementById('btn-prev').disabled = currentIndex === 0;
             document.getElementById('btn-submit').style.display = isSubmitted ? 'none' : 'flex';
             document.getElementById('btn-next').disabled = currentIndex >= activeQuestions.length - 1;
@@ -666,17 +451,11 @@
             if (isSATA) {
                 let current = selectedOptions[currentIndex] || [];
                 if (!Array.isArray(current)) current = [];
-
-                if (current.includes(letter)) {
-                    current = current.filter(l => l !== letter);
-                } else {
-                    current.push(letter);
-                }
+                current = current.includes(letter) ? current.filter(l => l !== letter) : [...current, letter];
                 selectedOptions[currentIndex] = current;
             } else {
                 selectedOptions[currentIndex] = letter;
             }
-
             renderQuestion();
         }
 
@@ -686,122 +465,35 @@
                 document.getElementById('warning-modal').classList.remove('hidden');
                 return;
             }
-
             submittedQuestions[currentIndex] = true;
             renderQuestion();
         }
 
         function nextQuestion() {
-            if (currentIndex < activeQuestions.length - 1) {
-                currentIndex++;
-                renderQuestion();
-            }
+            if (currentIndex < activeQuestions.length - 1) { currentIndex++; renderQuestion(); }
         }
 
         function previousQuestion() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                renderQuestion();
-            }
+            if (currentIndex > 0) { currentIndex--; renderQuestion(); }
         }
 
-        // BOOKMARK MANAGEMENT
         function toggleBookmarkCurrent() {
             const q = activeQuestions[currentIndex];
             if (!q) return;
-
-            if (bookmarkedQuestions[q.id]) {
-                delete bookmarkedQuestions[q.id];
-            } else {
-                bookmarkedQuestions[q.id] = q;
-            }
-
+            if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
+            else bookmarkedQuestions[q.id] = q;
             updateBookmarkBadge();
             renderQuestion();
         }
 
         function updateBookmarkBadge() {
-            const count = Object.keys(bookmarkedQuestions).length;
-            document.getElementById('saved-count-badge').innerText = count;
+            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
         }
 
-        function openBookmarksModal() {
-            const container = document.getElementById('bookmarks-list');
-            const keys = Object.keys(bookmarkedQuestions);
+        function openBookmarksModal() { document.getElementById('bookmarks-modal').classList.remove('hidden'); }
+        function closeBookmarksModal() { document.getElementById('bookmarks-modal').classList.add('hidden'); }
+        function toggleCalculator() { document.getElementById('calc-modal').classList.toggle('hidden'); }
 
-            if (keys.length === 0) {
-                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No bookmarked questions saved yet.</div>`;
-            } else {
-                let html = '';
-                keys.forEach(id => {
-                    const item = bookmarkedQuestions[id];
-                    html += `
-                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between hover:border-blue-400 transition">
-                            <div class="space-y-0.5">
-                                <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category}</span>
-                                <p class="text-xs font-semibold text-slate-800 line-clamp-1">${item.questionText}</p>
-                            </div>
-                            <button onclick="jumpToBookmarked('${item.id}')" class="px-2.5 py-1 bg-ncsbn-navy text-white text-xs font-bold rounded hover:bg-blue-900">
-                                View
-                            </button>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
-            }
-
-            document.getElementById('bookmarks-modal').classList.add('hidden');
-        }
-
-        function closeBookmarksModal() {
-            document.getElementById('bookmarks-modal').classList.add('hidden');
-        }
-
-        function jumpToBookmarked(id) {
-            const idx = activeQuestions.findIndex(q => q.id === id);
-            if (idx !== -1) {
-                currentIndex = idx;
-                closeBookmarksModal();
-                renderQuestion();
-            }
-        }
-
-        function toggleFlagCurrent() {
-            const q = activeQuestions[currentIndex];
-            if (!q) return;
-            flaggedQuestions[q.id] = !flaggedQuestions[q.id];
-            renderQuestion();
-        }
-
-        // CALCULATOR UTILS
-        function toggleCalculator() {
-            const modal = document.getElementById('calc-modal');
-            modal.classList.toggle('hidden');
-        }
-
-        function calcInput(val) {
-            const display = document.getElementById('calc-display');
-            if (val === 'C') {
-                display.value = '0';
-                return;
-            }
-            if (display.value === '0') {
-                display.value = val;
-            } else {
-                display.value += val;
-            }
-        }
-
-        function calcEquals() {
-            const display = document.getElementById('calc-display');
-            try {
-                display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
-            } catch (e) {
-                display.value = 'Error';
-            }
-        }
-
-        // INITIALIZE APPLICATION
         window.onload = function() {
             loadQuestionsFromJSON();
         };
