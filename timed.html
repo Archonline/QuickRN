@@ -3,236 +3,724 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timed Exam | QuickRN</title>
+    <title>Timed Exam | QuikRN</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        medical: { 50: '#f0fdf4', 600: '#059669', 700: '#047857' },
-                        clinical: { 600: '#0284c7' }
+                        ncsbn: {
+                            navy: '#0F2C59',
+                            blue: '#1E40AF',
+                            light: '#EFF6FF',
+                            header: '#0B2240',
+                            accent: '#D97706',
+                            border: '#CBD5E1'
+                        }
                     }
                 }
             }
         }
     </script>
+    <!-- FontAwesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Inter', sans-serif; } @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; } </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; user-select: none; }
+        .font-mono-custom { font-family: 'JetBrains Mono', monospace; }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col justify-between">
-    <header class="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-            <span id="header-title" class="font-extrabold text-base text-white">Timed Exam Session</span>
-            <span id="modal-timer" class="px-3 py-1 bg-slate-800 rounded-xl text-xs font-mono font-bold text-medical-400 border border-slate-700">00:25:00</span>
+<body class="bg-slate-200 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
+
+    <!-- TOP NCSBN NCLEX-RN HEADER BAR -->
+    <header class="bg-ncsbn-header text-white px-4 py-3 shadow-md border-b-2 border-ncsbn-accent sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-blue-950 px-3 py-1.5 rounded border border-blue-800">
+                    <i class="fa-solid fa-user-nurse text-amber-400 text-lg"></i>
+                    <span class="font-extrabold text-lg tracking-wider text-white">QuikRN</span>
+                </div>
+                <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-300 border-l border-slate-700 pl-4">
+                    <span>NCLEX-RN Timed Examination Mode</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleCalculator()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition" title="Calculator">
+                    <i class="fa-solid fa-calculator text-amber-400"></i>
+                    <span class="hidden md:inline">Calculator</span>
+                </button>
+                <button onclick="openBookmarksModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="hidden md:inline">Saved</span>
+                    <span id="saved-count-badge" class="ml-1 bg-amber-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                </button>
+                <button onclick="exitToDashboard()" class="p-2 bg-rose-700 hover:bg-rose-600 text-white rounded transition flex items-center justify-center border border-rose-500" title="Return to Dashboard">
+                    <i class="fa-solid fa-right-from-bracket text-base"></i>
+                </button>
+            </div>
         </div>
-        <button onclick="window.location.href='dashboard.html'" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors">
-            <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
     </header>
 
-    <main class="p-6 max-w-7xl mx-auto w-full flex-grow flex items-center justify-center">
-        <div id="exam-container" class="bg-slate-50 text-slate-900 p-8 rounded-3xl w-full max-w-4xl shadow-2xl space-y-6">
-            <!-- Rendered dynamically -->
-        </div>
-    </main>
-
-    <!-- WARNING MODAL -->
-    <div id="warning-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center text-slate-900">
-            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div class="space-y-1">
-                <h3 class="font-bold text-base">Selection Required</h3>
-                <p class="text-xs text-slate-600">Please choose an answer option before proceeding to the next item.</p>
+    <!-- SUB-BAR / EXAM STATUS BANNER -->
+    <div class="bg-ncsbn-navy text-white px-4 py-2 text-xs font-medium shadow-inner border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
+                    <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question Loading...
+                </span>
+                <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
+                    Category: General Nursing
+                </span>
             </div>
-            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-medical-600 text-white rounded-xl text-xs font-bold hover:bg-medical-700">OK</button>
+            
+            <div class="flex items-center gap-3">
+                <span id="exam-timer-display" class="bg-amber-500 text-slate-950 px-3 py-1 rounded font-mono-custom font-extrabold text-xs shadow">
+                    <i class="fa-solid fa-clock mr-1"></i> --:--:--
+                </span>
+                <button onclick="toggleBookmarkCurrent()" id="top-bookmark-btn" class="text-slate-400 hover:text-amber-400 transition text-base p-1" title="Bookmark Question">
+                    <i id="top-bookmark-icon" class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- MAIN NCLEX QUESTION WORKSPACE -->
+    <main class="p-4 md:p-6 max-w-6xl mx-auto w-full flex-grow flex flex-col justify-center">
+        <div id="exam-card" class="bg-white rounded-lg shadow-xl border-2 border-ncsbn-border overflow-hidden flex flex-col min-h-[500px]">
+            <div id="exam-container" class="p-6 md:p-8 flex-grow flex flex-col justify-between">
+                <div class="flex items-center justify-center h-64">
+                    <div class="text-center space-y-3">
+                        <i class="fa-solid fa-spinner fa-spin text-4xl text-ncsbn-navy"></i>
+                        <p class="text-sm font-semibold text-slate-600">Preparing Timed Exam Session...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER NAV BAR (SUBMIT ONLY - NO PREV OR NEXT) -->
+    <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-end">
+            <button id="btn-submit" onclick="submitCurrentAnswer()" class="px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
+                <i class="fa-solid fa-check-double"></i> Submit & Proceed <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- EMBEDDED CALCULATOR MODAL -->
+    <div id="calc-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 text-white rounded-2xl p-5 max-w-xs w-full shadow-2xl border border-slate-700 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="text-xs font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-calculator"></i> NCLEX Calculator</span>
+                <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="text" id="calc-display" readonly value="0" class="w-full bg-slate-950 text-right px-4 py-3 rounded-lg text-xl font-mono-custom text-emerald-400 border border-slate-800 focus:outline-none">
+            <div class="grid grid-cols-4 gap-2 text-sm font-bold">
+                <button onclick="calcInput('C')" class="col-span-2 p-3 bg-rose-700 hover:bg-rose-600 rounded">C</button>
+                <button onclick="calcInput('/')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">÷</button>
+                <button onclick="calcInput('*')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">×</button>
+                
+                <button onclick="calcInput('7')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">7</button>
+                <button onclick="calcInput('8')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">8</button>
+                <button onclick="calcInput('9')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">9</button>
+                <button onclick="calcInput('-')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">-</button>
+
+                <button onclick="calcInput('4')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">4</button>
+                <button onclick="calcInput('5')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">5</button>
+                <button onclick="calcInput('6')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">6</button>
+                <button onclick="calcInput('+')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">+</button>
+
+                <button onclick="calcInput('1')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">1</button>
+                <button onclick="calcInput('2')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">2</button>
+                <button onclick="calcInput('3')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">3</button>
+                <button onclick="calcEquals()" class="row-span-2 p-3 bg-emerald-600 hover:bg-emerald-500 rounded flex items-center justify-center">=</button>
+
+                <button onclick="calcInput('0')" class="col-span-2 p-3 bg-slate-800 hover:bg-slate-700 rounded">0</button>
+                <button onclick="calcInput('.')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">.</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKMARKED QUESTIONS MODAL -->
+    <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-amber-500"></i> Bookmarked Questions
+                </h3>
+                <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1"></div>
+            <div class="pt-3 border-t border-slate-200 flex justify-end">
+                <button onclick="closeBookmarksModal()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELECTION WARNING MODAL -->
+    <div id="warning-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center text-slate-900">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="space-y-1">
+                <h3 class="font-bold text-base">Selection Required</h3>
+                <p class="text-xs text-slate-600">Please select an answer before proceeding to the next item.</p>
+            </div>
+            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-ncsbn-navy text-white rounded-lg text-xs font-bold hover:bg-blue-900">OK</button>
+        </div>
+    </div>
+
+    <!-- TIMED EXAM COUNT SELECTION MODAL -->
+    <div id="session-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 text-slate-900 border border-slate-200">
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-blue-100 text-ncsbn-navy flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-stopwatch"></i>
+                </div>
+                <h2 class="text-xl font-bold text-ncsbn-navy">Timed Exam Mode</h2>
+                <p class="text-xs text-slate-600">Select the item count for your timed examination. Rationale, study strategies, and video links will unlock upon completion.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="startTimedSession(15)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">15</span>
+                    <span class="text-xs font-medium text-slate-600">Items (18 Mins)</span>
+                </button>
+                <button onclick="startTimedSession(60)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">60</span>
+                    <span class="text-xs font-medium text-slate-600">Items (75 Mins)</span>
+                </button>
+                <button onclick="startTimedSession(85)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">85</span>
+                    <span class="text-xs font-medium text-slate-600">Items (Min NCLEX)</span>
+                </button>
+                <button onclick="startTimedSession(150)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">150</span>
+                    <span class="text-xs font-medium text-slate-600">Items (Max NCLEX)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INCLUDE QUESTIONS.JS -->
+    <script src="questions.js"></script>
+
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const count = parseInt(urlParams.get('count') || '15', 10);
-        document.getElementById('header-title').innerText = `Timed Exam (${count} Items)`;
-
-        // Questions mapped with precise NCLEX Client Needs domains
-        let questions = [
-            { id: 't1', domain: 'Pharmacological & Parenteral Therapies', questionText: 'A client with heart failure is prescribed furosemide. Which laboratory value should the nurse monitor most closely?', options: ['Serum potassium', 'Blood glucose', 'Serum calcium', 'Platelet count'], correctAnswer: 'A', rationale: 'Furosemide is a loop diuretic that wastes potassium, risking hypokalemia.' },
-            { id: 't2', domain: 'Pharmacological & Parenteral Therapies', questionText: 'A client with chronic kidney disease has a serum potassium level of 6.2 mEq/L. Which medication should the nurse anticipate administering first?', options: ['Regular insulin with 50% dextrose', 'Sodium polystyrene sulfonate', 'Oral furosemide', 'Calcium carbonate'], correctAnswer: 'A', rationale: 'IV regular insulin shifts potassium intracellularly rapidly for severe hyperkalemia.' },
-            { id: 't3', domain: 'Physiological Adaptation', questionText: 'The nurse is caring for a client post-thyroidectomy. Which assessment finding requires immediate intervention?', options: ['Stridor and noisy respirations', 'Pain score of 4 at incision site', 'Hoarseness when speaking', 'Serum calcium of 9.0 mg/dL'], correctAnswer: 'A', rationale: 'Stridor indicates acute laryngeal edema and airway obstruction post-thyroidectomy.' },
-            { id: 't4', domain: 'Management of Care', questionText: 'A charge nurse is making assignments. Which client is appropriate to assign to an LPN?', options: ['A stable client with chronic COPD needing routine oral medications', 'A newly admitted client with acute chest pain', 'A client receiving blood transfusions experiencing a reaction', 'A client requiring initial post-operative stroke assessment'], correctAnswer: 'A', rationale: 'LPNs can care for stable clients with predictable outcomes.' },
-            { id: 't5', domain: 'Safety & Infection Control', questionText: 'Which action should the nurse take first when entering the room of a client on contact precautions for Clostridium difficile?', options: ['Put on a clean gown and gloves before entry', 'Put on a surgical mask and eye shield', 'Perform hand hygiene with alcohol rub', 'Place client in negative pressure room'], correctAnswer: 'A', rationale: 'Contact precautions require gowns and gloves. Alcohol rub is ineffective against C. diff spores; handwashing with soap and water is required.' },
-            { id: 't6', domain: 'Health Promotion & Maintenance', questionText: 'At what age should the nurse educate parents that an infant typically begins rolling from back to side?', options: ['4 to 5 months', '2 to 3 months', '6 to 7 months', '9 to 10 months'], correctAnswer: 'A', rationale: 'Infants usually achieve rolling capabilities around 4 to 5 months of age.' },
-            { id: 't7', domain: 'Psychosocial Integrity', questionText: 'A client expressing feelings of hopelessness states, "I just want to end it all." What is the immediate priority action for the nurse?', options: ['Implement continuous suicide precautions and a one-on-one observer', 'Ask the client why they feel this way', 'Encourage the client to think about their family', 'Document the statement in the chart'], correctAnswer: 'A', rationale: 'Client safety is the primary priority when suicide ideation is expressed.' },
-            { id: 't8', domain: 'Basic Care & Comfort', questionText: 'Which nursing intervention is most effective in preventing pressure injuries in a bedridden immobile client?', options: ['Repositioning the client every 2 hours', 'Massaging bony prominences regularly', 'Keeping the head of the bed elevated at 45 degrees continuously', 'Applying heavy-duty plastic sheets'], correctAnswer: 'A', rationale: 'Frequent repositioning relieves sustained pressure on tissue capillaries.' },
-            { id: 't9', domain: 'Reduction of Risk Potential', questionText: 'A client is receiving a unit of packed red blood cells. Thirty minutes into the infusion, the client develops chills, lower back pain, and dark urine. What is the nurse\'s immediate action?', options: ['Stop the transfusion immediately and disconnect tubing with normal saline', 'Slow down the infusion rate and call the provider', 'Administer prescribed antihistamine and continue', 'Apply a warm blanket and monitor'], correctAnswer: 'A', rationale: 'These are classic signs of an acute hemolytic transfusion reaction; stopping the infusion prevents further harm.' },
-            { id: 't10', domain: 'Physiological Adaptation', questionText: 'A client with diabetic ketoacidosis (DKA) is receiving regular insulin via continuous IV infusion. Which electrolyte shift should the nurse anticipate?', options: ['Potassium shifting from extracellular to intracellular space', 'Sodium remaining completely stable', 'Calcium levels spiking sharply', 'Magnesium levels increasing'], correctAnswer: 'A', rationale: 'Insulin drives potassium back into cells, which can quickly drop serum potassium levels.' },
-            { id: 't11', domain: 'Management of Care', questionText: 'A nurse witnesses another staff member charting a procedure before it is actually performed. What is the appropriate ethical and professional response?', options: ['Report the incident privately to the nursing supervisor', 'Confront the nurse publicly in front of the patient', 'Ignore it since charting was completed eventually', 'Erase the entry'], correctAnswer: 'A', rationale: 'Pre-charting is falsification of medical records and should be escalated via chain of command.' },
-            { id: 't12', domain: 'Safety & Infection Control', questionText: 'Which client requires placement in a negative-pressure airflow room (airborne precautions)?', options: ['A client with active pulmonary tuberculosis', 'A client with influenza', 'A client with bacterial pneumonia', 'A client with wound staph infection'], correctAnswer: 'A', rationale: 'Tuberculosis is airborne, requiring negative pressure rooms and N95 respirators.' },
-            { id: 't13', domain: 'Pharmacological & Parenteral Therapies', questionText: 'Which assessment is vital prior to administering oral digoxin to an adult client?', options: ['Apical pulse for a full 60 seconds', 'Blood pressure reading', 'Respiratory rate', 'Serum sodium level'], correctAnswer: 'A', rationale: 'Digoxin slows heart rate; if apical pulse is under 60 bpm, hold the dose and notify provider.' },
-            { id: 't14', domain: 'Health Promotion & Maintenance', questionText: 'A nurse is planning dietary education for a client diagnosed with iron-deficiency anemia. Which food choice should be emphasized?', options: ['Dark leafy green vegetables and lean red meats', 'Citrus fruits only', 'Dairy products like milk and cheese', 'White bread and pasta'], correctAnswer: 'A', rationale: 'Red meat and leafy greens are rich sources of bioavailable dietary iron.' },
-            { id: 't15', domain: 'Psychosocial Integrity', questionText: 'A client recently diagnosed with terminal cancer says, "The lab results must be mixed up; I feel fine most days." Which defense mechanism is the client exhibiting?', options: ['Denial', 'Projection', 'Rationalization', 'Regression'], correctAnswer: 'A', rationale: 'Denial is a coping mechanism where individuals refuse to accept reality or facts.' }
-        ];
-
+        let allQuestionsPool = [];
+        let activeQuestions = [];
         let currentIndex = 0;
-        let userAnswers = {};
+        let selectedOptions = {};
+        let bookmarkedQuestions = {};
+        let examTimerInterval = null;
+        let totalSecondsRemaining = 0;
+        
+        // CAT (Computer Adaptive Testing) state tracking
+        let isCatExam = false;
+        let catMaxItems = 150;
+        let catMinItems = 85;
+        let studentAbilityEstimate = 0.0; // logit scale (-3 to +3)
+        let questionHistoryRecord = []; // logs { questionId, difficulty, isCorrect }
 
-        function renderQuestion() {
-            if (currentIndex >= Math.min(count, questions.length)) {
-                finishExam();
+        const topicDualYouTubeMap = {
+            "cardio": [
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
+            ],
+            "respiratory": [
+                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
+            ],
+            "pharmacology": [
+                { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
+            ],
+            "pediatric": [
+                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=si67310XO80", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
+            ]
+        };
+
+        function getTwoYouTubeVideos(topic, category) {
+            const searchKey = `${topic || ''} ${category || ''}`.toLowerCase();
+            if (searchKey.includes('heart') || searchKey.includes('cardio') || searchKey.includes('infarction') || searchKey.includes('pulse')) {
+                return topicDualYouTubeMap["cardio"];
+            } else if (searchKey.includes('resp') || searchKey.includes('asthma') || searchKey.includes('trach') || searchKey.includes('oxygen') || searchKey.includes('lung')) {
+                return topicDualYouTubeMap["respiratory"];
+            } else if (searchKey.includes('med') || searchKey.includes('drug') || searchKey.includes('dose') || searchKey.includes('pharmacology') || searchKey.includes('digoxin') || searchKey.includes('insulin')) {
+                return topicDualYouTubeMap["pharmacology"];
+            } else if (searchKey.includes('child') || searchKey.includes('peds') || searchKey.includes('infant') || searchKey.includes('newborn')) {
+                return topicDualYouTubeMap["pediatric"];
+            }
+            return [
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
+            ];
+        }
+
+        function getNCLEXStrategy(questionObj) {
+            const combinedText = `${questionObj.category || ''} ${questionObj.topic || ''} ${questionObj.questionText || ''} ${questionObj.rationale || ''}`.toLowerCase();
+            if (combinedText.includes('tracheostomy') || combinedText.includes('stoma') || combinedText.includes('airway') || combinedText.includes('asthma')) {
+                return { title: "Airway & Breathing Priority (ABCs)", rule: "Always prioritize open airway and adequate oxygenation before routine tasks.", mnemonic: "RAVE: Recognize, Airway, Ventilate, Evaluate." };
+            } else if (combinedText.includes('myocardial') || combinedText.includes('heart failure') || combinedText.includes('cardio')) {
+                return { title: "Hemodynamic Stability & Fluid Balance", rule: "Focus on reducing heart workload and immediate ischemic intervention.", mnemonic: "MONA: Oxygen, Nitro, Aspirin, Morphine." };
+            } else {
+                return { title: "Maslow's Hierarchy & Clinical Safety First", rule: "Address immediate physiological needs and safety threats before teaching.", mnemonic: "SAFE: Safety first, Assess before action." };
+            }
+        }
+
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function loadQuestionsFromJS() {
+            let rawDataArray = [];
+            try {
+                // Fetch questions directly from embeddedQuestionsData defined in questions.js
+                const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
+                if (Array.isArray(rawData)) {
+                    rawDataArray = rawData;
+                } else if (rawData.questions && Array.isArray(rawData.questions)) {
+                    rawDataArray = rawData.questions;
+                } else if (typeof questions !== 'undefined' && Array.isArray(questions)) {
+                    rawDataArray = questions;
+                }
+            } catch (err) {
+                console.error("Error loading questions from questions.js:", err);
+            }
+
+            // Fallback sample questions if questions.js is missing or empty
+            if (rawDataArray.length === 0) {
+                rawDataArray = [
+                    {
+                        id: "FALLBACK-1",
+                        category: "Management of Care",
+                        topic: "Delegation & Prioritization",
+                        type: "Single best answer",
+                        questionText: "The nurse is prioritizing care for four clients. Which client should the nurse assess first?",
+                        options: [
+                            "A client with type 1 diabetes mellitus reporting mild headache and hunger",
+                            "A client with heart failure reporting acute shortness of breath and pink frothy sputum",
+                            "A client with chronic obstructive pulmonary disease with an oxygen saturation of 91% on room air",
+                            "A client post-appendectomy requesting pain medication 6 hours post-op"
+                        ],
+                        correctAnswerText: "A client with heart failure reporting acute shortness of breath and pink frothy sputum",
+                        rationale: "Acute pulmonary edema indicated by shortness of breath and pink frothy sputum is a life-threatening ABC emergency requiring immediate intervention.",
+                        learningObjective: "Prioritize client assessments using ABC (Airway, Breathing, Circulation) framework."
+                    }
+                ];
+            }
+
+            allQuestionsPool = rawDataArray.map((q, idx) => ({
+                id: q.id || `NCLEX-${idx + 1}`,
+                category: q.category || 'General Nursing',
+                topic: q.topic || 'Clinical Judgment',
+                type: q.type || 'Single best answer',
+                questionText: q.question || q.questionText || '',
+                options: q.options || [],
+                correctAnswer: q.correctAnswerText || q.correctAnswer,
+                rationale: q.rationale || 'Detailed clinical rationale unavailable.',
+                learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical decision making.'
+            }));
+        }
+
+        function startTimedSession(count) {
+            loadQuestionsFromJS();
+            let shuffled = shuffleArray(allQuestionsPool);
+            
+            // Check if CAT mode (85 or 150 items)
+            isCatExam = (count === 85 || count === 150);
+            catMaxItems = count;
+            catMinItems = 85; // NCLEX min items
+            studentAbilityEstimate = 0.0;
+            questionHistoryRecord = [];
+
+            if (isCatExam) {
+                activeQuestions = shuffled.map((q, idx) => ({
+                    ...q,
+                    difficulty: q.difficulty !== undefined ? q.difficulty : ((idx % 5) - 2) * 0.7,
+                    options: shuffleArray(q.options)
+                }));
+                activeQuestions.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
+            } else {
+                activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length)).map(q => ({
+                    ...q,
+                    options: shuffleArray(q.options)
+                }));
+            }
+
+            currentIndex = 0;
+            selectedOptions = {};
+            bookmarkedQuestions = {};
+
+            totalSecondsRemaining = count * 72; // ~1.2 mins per item
+            startTimerCountdown();
+
+            document.getElementById('session-modal').classList.add('hidden');
+            renderCurrentQuestion();
+        }
+
+        function startTimerCountdown() {
+            if (examTimerInterval) clearInterval(examTimerInterval);
+            examTimerInterval = setInterval(() => {
+                if (totalSecondsRemaining > 0) {
+                    totalSecondsRemaining--;
+                    const hrs = String(Math.floor(totalSecondsRemaining / 3600)).padStart(2, '0');
+                    const mins = String(Math.floor((totalSecondsRemaining % 3600) / 60)).padStart(2, '0');
+                    const secs = String(totalSecondsRemaining % 60).padStart(2, '0');
+                    document.getElementById('exam-timer-display').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
+                } else {
+                    clearInterval(examTimerInterval);
+                    finishExamSession();
+                }
+            }, 1000);
+        }
+
+        function renderCurrentQuestion() {
+            if (currentIndex >= activeQuestions.length) {
+                finishExamSession();
                 return;
             }
 
-            const q = questions[currentIndex % questions.length];
-            const sel = userAnswers[currentIndex];
+            const q = activeQuestions[currentIndex];
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+            const isBookmarked = !!bookmarkedQuestions[q.id];
+            
+            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
+            document.getElementById('category-badge').innerText = `Category: ${q.category}`;
+            
+            const topBookmarkBtn = document.getElementById('top-bookmark-icon');
+            topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200">
-                        <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentIndex + 1} of ${count} (${q.domain})</span>
-                        <button onclick="saveFavorite('${q.id}')" class="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1"><i class="fa-solid fa-bookmark"></i> Save for Review</button>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                        <p class="text-base font-semibold text-slate-900">${q.questionText}</p>
+                    <div class="border-b border-slate-200 pb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">${q.topic} &bull; ${q.type}</span>
+                            ${isSATA ? '<span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded border border-amber-300">Select All That Apply</span>' : ''}
+                        </div>
+                        <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">${q.questionText}</h2>
                     </div>
                     <div class="space-y-3">
             `;
 
-            q.options.forEach((opt, idx) => {
+            q.options.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
-                const isSelected = sel === optLetter;
+                const currentSel = selectedOptions[currentIndex];
+                const isChecked = isSATA ? (Array.isArray(currentSel) && currentSel.includes(optLetter)) : (currentSel === optLetter);
+
+                const optStyle = isChecked ? "bg-blue-50 border-ncsbn-blue text-ncsbn-navy font-semibold ring-1 ring-ncsbn-blue" : "bg-slate-50 border-slate-300 hover:border-ncsbn-blue hover:bg-blue-50/50 text-slate-800";
+                const badgeStyle = isChecked ? "bg-ncsbn-blue text-white border-ncsbn-blue" : "bg-slate-200 text-slate-700 border-slate-300";
+
                 html += `
-                    <button onclick="selectOpt('${optLetter}')" class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${isSelected ? 'bg-medical-50 border-medical-500 font-bold text-medical-900' : 'bg-white border-slate-200 hover:border-medical-500 text-slate-700'}">
-                        <span class="text-sm"><strong>${optLetter}.</strong> ${opt}</span>
+                    <button onclick="handleOptionSelect('${optLetter}')" class="w-full text-left p-4 rounded-lg border-2 transition-all flex items-start gap-3 ${optStyle}">
+                        <span class="w-6 h-6 rounded ${isSATA ? 'rounded-xs' : 'rounded-full'} flex items-center justify-center font-bold text-xs border shrink-0 mt-0.5 ${badgeStyle}">
+                            ${optLetter}
+                        </span>
+                        <span class="text-sm leading-snug flex-grow">${optText}</span>
                     </button>
                 `;
             });
 
-            html += `
-                    </div>
-                    <div class="flex justify-end pt-4 border-t border-slate-200">
-                        <button onclick="nextItem()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md">Next Item <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
-            `;
+            html += `</div></div>`;
             document.getElementById('exam-container').innerHTML = html;
         }
 
-        function selectOpt(letter) {
-            userAnswers[currentIndex] = letter;
-            renderQuestion();
+        function handleOptionSelect(letter) {
+            const q = activeQuestions[currentIndex];
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+
+            if (isSATA) {
+                let current = selectedOptions[currentIndex] || [];
+                if (!Array.isArray(current)) current = [];
+                current = current.includes(letter) ? current.filter(l => l !== letter) : [...current, letter];
+                selectedOptions[currentIndex] = current;
+            } else {
+                selectedOptions[currentIndex] = letter;
+            }
+            renderCurrentQuestion();
         }
 
-        function nextItem() {
-            if (userAnswers[currentIndex] === undefined) {
-                document.getElementById('warning-modal').classList.add('hidden');
-                setTimeout(() => document.getElementById('warning-modal').classList.remove('hidden'), 50);
+        function submitCurrentAnswer() {
+            const sel = selectedOptions[currentIndex];
+            if (!sel || (Array.isArray(sel) && sel.length === 0)) {
+                document.getElementById('warning-modal').classList.remove('hidden');
                 return;
             }
 
-            if (currentIndex < Math.min(count, questions.length) - 1) {
-                currentIndex++;
-                renderQuestion();
+            const q = activeQuestions[currentIndex];
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+            let isCorrect = false;
+            if (isSATA) {
+                isCorrect = Array.isArray(sel) && sel.length > 0;
             } else {
-                finishExam();
+                isCorrect = (sel === q.correctAnswer);
+            }
+
+            if (isCatExam) {
+                questionHistoryRecord.push({ id: q.id, difficulty: q.difficulty || 0, isCorrect });
+                studentAbilityEstimate += isCorrect ? 0.4 : -0.4;
+
+                if (currentIndex + 1 >= catMinItems) {
+                    if (currentIndex + 1 >= catMaxItems || Math.abs(studentAbilityEstimate) > 1.8) {
+                        finishExamSession();
+                        return;
+                    }
+                }
+
+                const askedIds = new Set(questionHistoryRecord.map(item => item.id));
+                const remainingPool = allQuestionsPool.filter(item => !askedIds.has(item.id)).map(item => ({
+                    ...item,
+                    difficulty: item.difficulty !== undefined ? item.difficulty : 0.0,
+                    options: shuffleArray(item.options)
+                }));
+
+                if (remainingPool.length > 0) {
+                    remainingPool.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
+                    activeQuestions.push(remainingPool[0]);
+                }
+            }
+
+            if (currentIndex < activeQuestions.length - 1) {
+                currentIndex++;
+                renderCurrentQuestion();
+            } else {
+                finishExamSession();
             }
         }
 
-        function finishExam() {
+        function finishExamSession() {
+            if (examTimerInterval) clearInterval(examTimerInterval);
+            
             let correct = 0;
             let attempted = 0;
-            const activeQuestions = questions.slice(0, Math.min(count, questions.length));
-
-            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, catHistory: [82], peerHistory: [80], examHistory: [], answeredQuestionIds: {}, domainStats: {}, favorites: [] };
-            
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.domainStats = stateObj.studentStats.domainStats || {};
-            stateObj.studentStats.answeredQuestionIds = stateObj.studentStats.answeredQuestionIds || {};
 
             activeQuestions.forEach((q, idx) => {
-                const ans = userAnswers[idx];
-                if (ans !== undefined) {
+                const userAns = selectedOptions[idx];
+                if (userAns !== undefined) {
                     attempted++;
-                    stateObj.studentStats.answeredQuestionIds[q.id] = true;
-                    stateObj.studentStats.totalAnswered++;
-
-                    // Initialize domain tracking if missing
-                    if (!stateObj.studentStats.domainStats[q.domain]) {
-                        stateObj.studentStats.domainStats[q.domain] = { total: 0, correct: 0 };
-                    }
-                    stateObj.studentStats.domainStats[q.domain].total++;
-
-                    const isCorrect = ans === q.correctAnswer;
-                    if (isCorrect) {
-                        correct++;
-                        stateObj.studentStats.correctCount++;
-                        stateObj.studentStats.domainStats[q.domain].correct++;
+                    const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+                    if (isSATA) {
+                        if (Array.isArray(userAns) && userAns.length > 0) correct++;
                     } else {
-                        stateObj.studentStats.mistakeCount++;
+                        if (userAns === q.correctAnswer) correct++;
                     }
                 }
             });
 
             const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
-            stateObj.studentStats.passingProbability = Math.min(95, Math.max(25, scorePercent + 4));
-            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Test (${count} Items)`, total: count, attempted, scorePercent, questions: activeQuestions, userAnswers });
-            
+
+            // Save stats to localStorage for dashboard synchronization
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
+            stateObj.studentStats.testsTaken++;
+            stateObj.studentStats.totalAnswered += attempted;
+            stateObj.studentStats.correctCount += correct;
+            stateObj.studentStats.mistakeCount += (attempted - correct);
+            stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
+            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
+            // Render Results Summary View with Rationale, Strategy, Video Links & Bookmarks
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <div class="text-center space-y-3">
-                        <div class="w-20 h-20 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center text-4xl mx-auto"><i class="fa-solid fa-award"></i></div>
-                        <h3 class="text-2xl font-extrabold text-slate-900">Exam Session Completed!</h3>
-                        <p class="text-xs text-slate-500">Your NCLEX Client Needs Mastery categories have been updated.</p>
+                    <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-2">
+                        <h2 class="text-2xl font-black">Exam Session Completed</h2>
+                        <p class="text-xs text-slate-300">Review your clinical performance, rationales, NCLEX strategies, and video explanations below.</p>
+                        <div class="flex justify-center gap-6 pt-2">
+                            <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
+                                <span class="text-xl font-extrabold text-amber-400">${scorePercent}%</span>
+                            </div>
+                            <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
+                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct</span>
+                                <span class="text-xl font-extrabold text-emerald-400">${correct} / ${attempted}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-center gap-8 py-4 bg-white rounded-2xl border border-slate-200">
-                        <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Score</span><span class="text-3xl font-black text-medical-600">${scorePercent}%</span></div>
-                    </div>
-                    <div class="space-y-4 max-h-[40vh] overflow-y-auto">
+
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-slate-900 text-base border-b pb-2 flex items-center justify-between">
+                            <span>Detailed Item Review & Rationales</span>
+                            <span class="text-xs font-normal text-slate-500">${activeQuestions.length} Items Evaluated</span>
+                        </h3>
             `;
 
-            activeQuestions.forEach((q, qIdx) => {
-                const userAns = userAnswers[qIdx];
-                const isCorrect = userAns === q.correctAnswer;
+            activeQuestions.forEach((q, idx) => {
+                const userAns = selectedOptions[idx];
+                const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+                let isCorrect = false;
+                if (isSATA) {
+                    isCorrect = Array.isArray(userAns) && userAns.length > 0;
+                } else {
+                    isCorrect = (userAns === q.correctAnswer);
+                }
+
+                const strategy = getNCLEXStrategy(q);
+                const videos = getTwoYouTubeVideos(q.topic, q.category);
+                const isBookmarked = !!bookmarkedQuestions[q.id];
+
                 html += `
-                    <div class="bg-white p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-200 bg-rose-50/20'} space-y-2">
-                        <div class="flex justify-between text-xs font-bold text-slate-700">
-                            <span>Question ${qIdx + 1} (${q.domain})</span>
-                            <span class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${isCorrect ? 'Correct' : 'Incorrect'}</span>
+                    <div class="bg-slate-50 border rounded-xl p-5 space-y-4 shadow-xs">
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                    Question ${idx + 1} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
+                                </span>
+                                <h4 class="font-bold text-sm text-slate-900 mt-1">${q.questionText}</h4>
+                            </div>
+                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="text-lg ${isBookmarked ? 'text-amber-500 font-bold' : 'text-slate-400 hover:text-amber-500'}">
+                                <i class="${isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}"></i>
+                            </button>
                         </div>
-                        <p class="text-xs font-semibold text-slate-900">${q.questionText}</p>
-                        <div class="text-xs text-slate-600"><strong>Rationale:</strong> ${q.rationale}</div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                            <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
+                                <span class="text-[11px] font-bold text-ncsbn-blue block flex items-center gap-1.5">
+                                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Clinical Rationale
+                                </span>
+                                <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
+                            </div>
+                            <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
+                                <span class="text-[11px] font-bold text-amber-700 block flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved"></i> NCLEX Strategy: ${strategy.title}
+                                </span>
+                                <p class="text-xs text-slate-700 leading-relaxed">${strategy.rule} <strong class="text-ncsbn-navy font-semibold">${strategy.mnemonic}</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <span class="text-xs font-semibold text-ncsbn-navy flex items-center gap-1.5">
+                                <i class="fa-brands fa-youtube text-rose-600 text-base"></i> Recommended Video Review:
+                            </span>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <a href="${videos[0].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[0].channel}
+                                </a>
+                                <a href="${videos[1].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[1].channel}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 `;
             });
 
             html += `
                     </div>
-                    <div class="text-center pt-2">
-                        <button onclick="window.location.href='dashboard.html'" class="px-8 py-3 bg-slate-900 text-white font-extrabold rounded-2xl text-xs">Return to Dashboard</button>
+                    <div class="text-center pt-4">
+                        <button onclick="exitToDashboard()" class="px-8 py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-extrabold rounded-xl text-xs shadow-md">
+                            Return to Dashboard
+                        </button>
                     </div>
                 </div>
             `;
+
             document.getElementById('exam-container').innerHTML = html;
+            document.querySelector('footer').style.display = 'none';
         }
 
-        function saveFavorite(qId) {
-            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { favorites: [] };
-            stateObj.studentStats.favorites = stateObj.studentStats.favorites || [];
-            const q = questions[currentIndex % questions.length];
-            if (!stateObj.studentStats.favorites.some(f => f.id === q.id)) {
-                stateObj.studentStats.favorites.push(q);
-                localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
-                alert("Question saved to favorites successfully!");
-            } else {
-                alert("Question is already in your saved reviews.");
+        function exitToDashboard() {
+            try {
+                if (window.parent && window.parent !== window && window.parent.location.href) {
+                    window.parent.location.href = 'dashboard.html';
+                } else if (window.location && window.location.href) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    window.location.assign('dashboard.html');
+                }
+            } catch (e) {
+                try {
+                    window.location.href = 'dashboard.html';
+                } catch (err) {
+                    console.error("Dashboard navigation error:", err);
+                }
             }
         }
 
-        renderQuestion();
+        function toggleBookmarkCurrent() {
+            const q = activeQuestions[currentIndex];
+            if (!q) return;
+            if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
+            else bookmarkedQuestions[q.id] = q;
+            updateBookmarkBadge();
+            renderCurrentQuestion();
+        }
+
+        function toggleBookmarkFromSummary(qId) {
+            const q = activeQuestions.find(item => item.id === qId);
+            if (!q) return;
+            if (bookmarkedQuestions[q.id]) delete bookmarkedQuestions[q.id];
+            else bookmarkedQuestions[q.id] = q;
+            updateBookmarkBadge();
+            finishExamSession();
+        }
+
+        function updateBookmarkBadge() {
+            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
+        }
+
+        function openBookmarksModal() {
+            const container = document.getElementById('bookmarks-list');
+            const keys = Object.keys(bookmarkedQuestions);
+            if (keys.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No bookmarked questions saved yet.</div>`;
+            } else {
+                let html = '';
+                keys.forEach(id => {
+                    const item = bookmarkedQuestions[id];
+                    html += `
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
+                            <div class="space-y-0.5">
+                                <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category}</span>
+                                <p class="text-xs font-semibold text-slate-800 line-clamp-1">${item.questionText}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('bookmarks-modal').classList.remove('hidden');
+        }
+
+        function closeBookmarksModal() { document.getElementById('bookmarks-modal').classList.add('hidden'); }
+        function toggleCalculator() { document.getElementById('calc-modal').classList.toggle('hidden'); }
+
+        function calcInput(val) {
+            const display = document.getElementById('calc-display');
+            if (val === 'C') { display.value = '0'; return; }
+            if (display.value === '0') { display.value = val; } else { display.value += val; }
+        }
+
+        function calcEquals() {
+            const display = document.getElementById('calc-display');
+            try {
+                display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+
+        window.onload = function() {
+            loadQuestionsFromJS();
+        };
     </script>
 </body>
 </html>
