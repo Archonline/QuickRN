@@ -270,20 +270,27 @@
             }, 1000);
         }
 
-        // LOAD POOL
+       // LOAD POOL
         function loadQuestionsPool() {
             try {
                 let pool = [];
-                // Access questions from questions.js (embeddedQuestionsData)
+                
+                // Check all possible variable names exported by questions.js
                 if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
                     pool = embeddedQuestionsData;
-                } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
-                    pool = window.questions;
+                } else if (typeof window.embeddedQuestionsData !== 'undefined' && Array.isArray(window.embeddedQuestionsData) && window.embeddedQuestionsData.length > 0) {
+                    pool = window.embeddedQuestionsData;
                 } else if (typeof questions !== 'undefined' && Array.isArray(questions) && questions.length > 0) {
                     pool = questions;
+                } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                    pool = window.questions;
                 }
 
-                if (pool.length === 0) pool = defaultFallbackQuestions;
+                // Fallback if nothing was found
+                if (pool.length === 0) {
+                    console.warn("questions.js pool not found. Using default fallback.");
+                    pool = defaultFallbackQuestions;
+                }
 
                 rawQuestionPool = pool.map((q, idx) => ({
                     id: q.id || `q-${idx + 1}`,
@@ -294,10 +301,11 @@
                     options: shuffleArray(q.options || []),
                     correctAnswer: q.correctAnswerText || q.correctAnswer,
                     rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                    difficulty: typeof q.difficulty === 'number' ? q.difficulty : 0.5
+                    difficulty: q.difficulty || 'Moderate'
                 }));
 
                 rawQuestionPool = shuffleArray(rawQuestionPool);
+                console.log(`Successfully loaded ${rawQuestionPool.length} questions into CAT pool.`);
                 selectNextCATQuestion();
                 startTimer();
             } catch (err) {
