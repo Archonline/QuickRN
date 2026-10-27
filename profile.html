@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style> body { font-family: 'Inter', sans-serif; } </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between" onload="loadProfileData()">
     <header class="bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
@@ -35,17 +35,41 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8 space-y-8 flex-grow w-full">
+        <!-- Profile Header Card -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex items-center gap-6">
             <div class="w-24 h-24 rounded-3xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white text-4xl shadow-md">
                 <i class="fa-solid fa-user-nurse"></i>
             </div>
             <div>
                 <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl uppercase">Verified Candidate</span>
-                <h2 class="text-2xl font-extrabold text-slate-900 mt-1">Future RN Candidate</h2>
+                <h2 id="profile-name-display" class="text-2xl font-extrabold text-slate-900 mt-1">Future RN Student</h2>
                 <p class="text-xs text-slate-500 mt-1"><i class="fa-solid fa-envelope mr-1 text-medical-600"></i> student@quickrn.com</p>
             </div>
         </div>
 
+        <!-- Account Preferences Card (From Screenshot) -->
+        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+            <div>
+                <h3 class="text-lg font-extrabold text-slate-900">Account Preferences</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Manage your student profile and sign out options.</p>
+            </div>
+
+            <div class="space-y-2">
+                <label for="display-name-input" class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Display Name</label>
+                <input type="text" id="display-name-input" value="Future RN Student" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-semibold text-slate-800 focus:outline-none focus:border-medical-600 focus:ring-2 focus:ring-medical-50 transition-all">
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                <button onclick="savePreferences()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded-2xl text-xs shadow-md transition-all">
+                    Save Changes
+                </button>
+                <button onclick="handleSignOut()" class="px-5 py-3 bg-rose-50 hover:bg-rose-100 text-rose-600 font-extrabold rounded-2xl text-xs transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Account & Data Management / Reset Section -->
         <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
             <h3 class="text-lg font-extrabold text-slate-900 border-b border-slate-100 pb-4"><i class="fa-solid fa-gear text-slate-400 mr-2"></i>Account & Data Management</h3>
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-rose-50/50 rounded-2xl border border-rose-200">
@@ -77,12 +101,49 @@
         </div>
     </div>
 
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-6 py-3 rounded-2xl text-xs font-bold shadow-xl transform translate-y-20 opacity-0 transition-all duration-300">
+        Changes saved successfully!
+    </div>
+
     <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">QuickRN Student Portal</footer>
 
     <script>
+        function loadProfileData() {
+            const savedName = localStorage.getItem('quickrn_display_name');
+            if (savedName) {
+                document.getElementById('display-name-input').value = savedName;
+                document.getElementById('profile-name-display').innerText = savedName;
+            }
+        }
+
+        function savePreferences() {
+            const nameInput = document.getElementById('display-name-input').value.trim();
+            if (nameInput) {
+                localStorage.setItem('quickrn_display_name', nameInput);
+                document.getElementById('profile-name-display').innerText = nameInput;
+                showToast("Preferences updated successfully!");
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function handleSignOut() {
+            // Optional: clear user session flags if needed, or just redirect
+            window.location.href = 'dashboard.html';
+        }
+
         function confirmReset() {
             localStorage.removeItem('quickrn_student_state');
             localStorage.removeItem('quickrn_readiness_takes');
+            localStorage.removeItem('quickrn_display_name');
             window.location.href = 'dashboard.html';
         }
     </script>
