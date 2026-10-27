@@ -86,10 +86,7 @@
     <div class="bg-ncsbn-navy text-white px-4 py-2 text-xs font-medium shadow-inner border-b border-slate-700">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
-                    <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question Pool Loading...
-                </span>
-                <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
+                <span id="category-badge" class="inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
                     Category: General Nursing
                 </span>
             </div>
@@ -245,42 +242,6 @@
         let submittedQuestions = {};
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
-
-        // FALLBACK QUESTIONS FOR LOCAL / PREVIEW TEST ENVIRONMENTS
-        const fallbackQuestions = [
-            {
-                id: "NCLEX-FB-1",
-                category: "Safe and Effective Care Environment",
-                topic: "Tracheostomy Safety",
-                type: "Single choice",
-                questionText: "A primary nurse is planning care for a client recovering from a tracheostomy placement. Which bedside equipment is most essential for the nurse to verify prior to receiving the client?",
-                options: [
-                    "Tracheostomy tray and functioning suction apparatus",
-                    "Chest tube drainage system and clamps",
-                    "Enteral feeding tube and pump",
-                    "Electroconvulsive therapy preparation set"
-                ],
-                correctAnswer: "Tracheostomy tray and functioning suction apparatus",
-                rationale: "Clients with a fresh tracheostomy are at acute risk for airway compromise secondary to tissue edema, mucus plugging, or accidental decannulation. Having an extra tracheostomy tube and suction at the bedside is critical for immediate emergency airway intervention.",
-                learningObjective: "Prioritize patient safety by anticipating acute postoperative airway complications."
-            },
-            {
-                id: "NCLEX-FB-2",
-                category: "Pharmacological and Parenteral Therapies",
-                topic: "Digoxin safety",
-                type: "Single choice",
-                questionText: "A nurse is preparing to administer digoxin to an adult client with heart failure. Which assessment finding requires immediate nursing intervention prior to administration?",
-                options: [
-                    "Apical heart rate of 52 beats/minute",
-                    "Blood pressure reading of 128/82 mmHg",
-                    "Serum sodium level of 138 mEq/L",
-                    "Urine output of 180 mL over the last 4 hours"
-                ],
-                correctAnswer: "Apical heart rate of 52 beats/minute",
-                rationale: "Digoxin slows cardiac conduction through the AV node. An apical pulse below 60 beats/minute in an adult indicates bradycardia, requiring the nurse to hold the dose and report to the healthcare provider.",
-                learningObjective: "Evaluate vital signs prior to administering narrow therapeutic cardiac glycosides."
-            }
-        ];
 
         // DUAL YOUTUBE VIDEO MAPPING BY TOPIC / CATEGORY
         const topicDualYouTubeMap = {
@@ -466,12 +427,7 @@
                     }
                 }
             } catch (err) {
-                console.warn("External questions.json unreachable or running in isolated preview/blob context. Using embedded practice pool.", err);
-                rawDataArray = fallbackQuestions;
-            }
-
-            if (!rawDataArray || rawDataArray.length === 0) {
-                rawDataArray = fallbackQuestions;
+                console.error("Error fetching questions.json:", err);
             }
 
             allQuestionsPool = rawDataArray.map((q, idx) => {
@@ -525,8 +481,6 @@
         }
 
         function updateHeaderInfo() {
-            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            
             if (activeQuestions[currentIndex]) {
                 document.getElementById('category-badge').innerText = `Category: ${activeQuestions[currentIndex].category}`;
             }
