@@ -107,10 +107,7 @@
                     <span>Saved Questions</span>
                 </a>
 
-                <a href="reports.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-rose-50 hover:text-rose-700 transition-colors group">
-                    <i class="fa-solid fa-flag w-5 text-center text-rose-500 group-hover:scale-110 transition-transform"></i>
-                    <span>Flagged Reports</span>
-                </a>
+
 
                 <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
@@ -245,24 +242,24 @@
                             </div>
                         </div>
 
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div onclick="openCatExamsModal()" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group">
                             <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">CAT Exams Completed</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-amber-600 transition-colors">CAT Exams Completed</p>
                                 <h3 id="stat-exams" class="text-2xl font-black text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-500 mt-1">Adaptive CAT engine</p>
+                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all CAT exams</p>
                             </div>
-                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-amber-100 transition-colors">
                                 <i class="fa-solid fa-graduation-cap"></i>
                             </div>
                         </div>
 
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div onclick="openPredictorExamsModal()" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-purple-500 hover:shadow-md transition-all group">
                             <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">NCLEX Predictor Exams</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-purple-600 transition-colors">NCLEX Predictor Exams</p>
                                 <h3 id="stat-predictor-count" class="text-2xl font-black text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-500 mt-1">Predictive Test</p>
+                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all Predictor exams</p>
                             </div>
-                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-purple-100 transition-colors">
                                 <i class="fa-solid fa-clipboard-check"></i>
                             </div>
                         </div>
@@ -374,13 +371,14 @@
             catAverageScore: 0,
             predictorAverageScore: 0,
             categories: [
-                { name: 'Cardiovascular', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-500' },
-                { name: 'Respiratory', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-500' },
-                { name: 'Neurologic', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-500' },
-                { name: 'Endocrine', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-500' },
-                { name: 'Renal', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-500' },
-                { name: 'Gastrointestinal', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-500' },
-                { name: 'Infection Safety', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-500' }
+                { name: 'Management of Care (17-23%)', testPlanWeight: '17-23%', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-600' },
+                { name: 'Safety and Infection Control (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-600' },
+                { name: 'Health Promotion and Maintenance (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-600' },
+                { name: 'Psychosocial Integrity (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-600' },
+                { name: 'Basic Care and Comfort (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-600' },
+                { name: 'Pharmacological and Parenteral Therapies (12-18%)', testPlanWeight: '12-18%', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-600' },
+                { name: 'Reduction of Risk Potential (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-600' },
+                { name: 'Physiological Adaptation (11-17%)', testPlanWeight: '11-17%', solved: 0, correct: 0, percentage: 0, color: 'bg-teal-600' }
             ]
         };
 
@@ -751,6 +749,111 @@
             document.getElementById('finished-tests-modal').classList.add('hidden');
         }
 
+        
+        function openCatExamsModal() {
+            const container = document.getElementById('specific-exams-list');
+            document.getElementById('modal-exam-title').textContent = 'CAT Exam History & Previous Attempts';
+            let catHistory = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && Array.isArray(parsed.studentStats.examHistory)) {
+                        catHistory = parsed.studentStats.examHistory;
+                    }
+                } catch(e) {}
+            }
+
+            if (catHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
+                        <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
+                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                catHistory.forEach((ex, i) => {
+                    let score = ex.scorePercent || ex.score || 0;
+                    let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">PASSING</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">NEAR PASSING</span>';
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-bold text-slate-900">CAT Attempt #${i + 1}</span>
+                                    ${passStatus}
+                                </div>
+                                <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed session'}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-base font-black text-amber-600">${score}%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">CAT Score</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
+        }
+
+        function openPredictorExamsModal() {
+            const container = document.getElementById('specific-exams-list');
+            document.getElementById('modal-exam-title').textContent = 'NCLEX Predictor Exam History & Previous Attempts';
+            let predictorHistory = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && Array.isArray(parsed.studentStats.predictorHistory)) {
+                        predictorHistory = parsed.studentStats.predictorHistory;
+                    }
+                } catch(e) {}
+            }
+
+            if (predictorHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h4 class="font-bold text-slate-800 text-sm">No NCLEX Predictor Exams Completed Yet</h4>
+                        <p class="text-xs text-slate-500">Take the Predictive Test to assess your readiness and record your score history here.</p>
+                        <a href="predictor.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                predictorHistory.forEach((ex, i) => {
+                    let score = ex.scorePercent || ex.score || 0;
+                    let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">HIGH LIKELIHOOD</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">BORDERLINE</span>';
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-bold text-slate-900">Predictive Test Attempt #${i + 1}</span>
+                                    ${passStatus}
+                                </div>
+                                <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed assessment'}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-base font-black text-purple-600">${score}%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">Predictor Score</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
+        }
+
+        function closeSpecificExamsModal() {
+            document.getElementById('specific-exams-modal').classList.add('hidden');
+        }
+
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -796,6 +899,31 @@
             </div>
             <div class="pt-3 border-t border-slate-100 flex justify-end">
                 <button onclick="closeFinishedTestsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SPECIFIC EXAMS HISTORY MODAL (CAT & PREDICTOR) -->
+    <div id="specific-exams-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-exam-title" class="font-bold text-slate-900 text-base">Exam History</h3>
+                        <p class="text-xs text-slate-500">All recorded previous exam attempts</p>
+                    </div>
+                </div>
+                <button onclick="closeSpecificExamsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="specific-exams-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeSpecificExamsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
             </div>
         </div>
     </div>
