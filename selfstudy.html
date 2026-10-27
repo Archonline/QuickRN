@@ -108,17 +108,17 @@
 
         const staticMnemonics = {
             "delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
-            "digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60 bpm hold drug), G - Gastrointestinal upset (Nausea/Vomiting early sign). Therapeutic level: 0.5 - 2.0 ng/mL." },
+            "digoxin": { title: "Digoxin Toxicity Protocol", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60 bpm hold drug), G - Gastrointestinal upset (Nausea/Vomiting early sign). Therapeutic level: 0.5 - 2.0 ng/mL." },
             "heparin": { title: "Heparin Therapy & Antidote", mnemonic: "Monitor PTT (Target: 1.5 - 2x baseline / 60-80 sec). Antidote: Protamine Sulfate. Watch for HIT (Heparin-Induced Thrombocytopenia: >50% drop in platelets)." },
-            "warfarin": { title: "Warfarin (Coumadin) Teaching", mnemonic: "Monitor PT/INR (Target INR: 2.0 - 3.0). Antidote: Vitamin K. Maintain consistent intake of green leafy vegetables (Vit K)." },
-            "insulin": { title: "Insulin Administration: RN (Regular before NPH)", mnemonic: "Draw up Clear (Regular) before Cloudy (NPH) to prevent contaminating rapid/short acting vial. Peak times: Lispro (15-30m), Regular (2-4h), NPH (4-12h), Glargine (No peak)." },
-            "potassium": { title: "High-Alert Potassium (K+)", mnemonic: "NEVER IV push potassium! Max IV rate: 10-20 mEq/hr via infusion pump. Normal: 3.5 - 5.0 mEq/L. Hyperkalemia >5.0: ECG changes (peaked T-waves), give C BIG K DIE." },
-            "airborne": { title: "Airborne Precautions: My Chicken Hez TB", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
-            "heart failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
-            "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." },
-            "sepsis": { title: "Sepsis Management: TIME", mnemonic: "T - Temperature change, I - Infection signs, M - Mental decline, E - Extremely ill (Severe hypotension, elevated lactate >2)." },
-            "preeclampsia": { title: "Preeclampsia Signs: HELLP", mnemonic: "H - Hemolysis, EL - Elevated Liver enzymes, LP - Low Platelets. Priority: Monitor BP, urine protein, seizure risk. Give Magnesium Sulfate." },
-            "pneumonia": { title: "Pneumonia Interventions: COUGH", mnemonic: "C - Cough & deep breathe, O - Oxygen therapy, U - Upright positioning, G - Get sputum culture before antibiotics, H - Hydration." }
+            "warfarin": { title: "Warfarin (Coumadin) Management", mnemonic: "Monitor PT/INR (Target INR: 2.0 - 3.0). Antidote: Vitamin K. Maintain consistent intake of green leafy vegetables (Vit K)." },
+            "insulin": { title: "Insulin Administration Protocol", mnemonic: "Draw up Clear (Regular) before Cloudy (NPH) to prevent contaminating rapid/short acting vial. Peak times: Lispro (15-30m), Regular (2-4h), NPH (4-12h), Glargine (No peak)." },
+            "potassium": { title: "High-Alert Potassium Safety", mnemonic: "NEVER IV push potassium! Max IV rate: 10-20 mEq/hr via infusion pump. Normal: 3.5 - 5.0 mEq/L. Hyperkalemia >5.0: ECG changes (peaked T-waves), give C BIG K DIE." },
+            "airborne": { title: "Airborne Isolation Precautions", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
+            "heart failure": { title: "Acute Pulmonary Edema Management", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
+            "abg": { title: "Acid-Base Interpretation (ROME)", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." },
+            "sepsis": { title: "Sepsis & Septic Shock Bundle", mnemonic: "T - Temperature change, I - Infection signs, M - Mental decline, E - Extremely ill (Severe hypotension, elevated lactate >2)." },
+            "preeclampsia": { title: "Preeclampsia & HELLP Syndrome", mnemonic: "H - Hemolysis, EL - Elevated Liver enzymes, LP - Low Platelets. Priority: Monitor BP, urine protein, seizure risk. Give Magnesium Sulfate." },
+            "pneumonia": { title: "Acute Pneumonia Interventions", mnemonic: "C - Cough & deep breathe, O - Oxygen therapy, U - Upright positioning, G - Get sputum culture before antibiotics, H - Hydration." }
         };
 
         function shuffleArray(array) {
@@ -130,7 +130,7 @@
             return arr;
         }
 
-        // Full Sentence & Question Prompt Parser: Extracts 5-6 key nursing terms/phrases across both Question and Rationale
+        // CLINICAL PHRASE EXTRACTION ENGINE across Question & Rationale
         function extractRationaleKeywords(questionObj) {
             const qText = questionObj.question || questionObj.questionText || '';
             const rText = questionObj.rationale || '';
@@ -139,68 +139,77 @@
             
             const combinedSource = `${qText} ${rText} ${topicText} ${catText}`;
             
-            const clinicalTopicRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|airborne precautions|droplet precautions|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation|vital signs|apgar|developmental milestones|therapeutic communication|crisis intervention|de-escalation|withdrawal|ciwa|cows|tpn|tube feeding|palliative care|pain management|pressure injury)\b/gi;
+            // Comprehensive Dictionary of Multi-Word Clinical Phrases & Concepts
+            const clinicalPhraseRegex = /\b(systemic lupus erythematosus|acute coronary syndrome|myocardial infarction|heart failure|pulmonary embolism|deep vein thrombosis|diabetic ketoacidosis|septic shock|acute respiratory distress syndrome|acute kidney injury|chronic kidney disease|bowel obstruction|multiple sclerosis|postpartum hemorrhage|kawasaki disease|lyme disease|epiglottitis|airborne precautions|droplet precautions|contact precautions|transmission-based precautions|central line administration|medication calculations|vital sign thresholds|diagnostic lab values|abg interpretation|apgar scoring|developmental milestones|therapeutic communication|crisis intervention|de-escalation techniques|substance use withdrawal|non-pharmacological pain management|pressure injury staging|enteral nutrition|parenteral nutrition|palliative care|fall prevention|seizure precautions|needle safety|donning and doffing ppe|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|prioritization and delegation|rights of delegation|high-alert medications|adverse reactions and antidotes|fluid and electrolyte balance|blood transfusion reaction)\b/gi;
 
-            let extracted = [];
+            let extractedPhrases = [];
             
-            const directMatches = combinedSource.match(clinicalTopicRegex);
-            if (directMatches) {
-                extracted = [...new Set(directMatches.map(m => m.toLowerCase()))];
+            const matches = combinedSource.match(clinicalPhraseRegex);
+            if (matches) {
+                extractedPhrases = [...new Set(matches.map(m => m.toLowerCase()))];
             }
 
-            if (extracted.length < 6) {
-                const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse", "first", "initial", "most", "client", "action", "priority", "nursing", "obtain", "monitor"]);
-                
-                const sentences = `${qText}. ${rText}`.split(/[.!?]+/);
-                for (let sentence of sentences) {
-                    const words = sentence.replace(/[^\w\s]/gi, '').split(/\s+/);
-                    for (let word of words) {
-                        const cleanWord = word.toLowerCase();
-                        if (cleanWord.length > 4 && !stopWords.has(cleanWord) && !extracted.includes(cleanWord)) {
-                            extracted.push(cleanWord);
-                            if (extracted.length >= 6) break;
-                        }
+            // Secondary Pass: Extract compound clinical phrases (e.g., "potassium toxicity", "heparin infusion", "airborne isolation")
+            if (extractedPhrases.length < 6) {
+                const phraseCandidates = [
+                    "potassium toxicity", "heparin infusion", "digoxin safety", "insulin administration",
+                    "vital sign monitoring", "targeted clinical assessment", "evidence-based interventions",
+                    "acute deterioration", "patient safety priority", "therapeutic range monitoring"
+                ];
+
+                for (let phrase of phraseCandidates) {
+                    if (combinedSource.toLowerCase().includes(phrase) && !extractedPhrases.includes(phrase)) {
+                        extractedPhrases.push(phrase);
+                        if (extractedPhrases.length >= 6) break;
                     }
-                    if (extracted.length >= 6) break;
                 }
             }
 
-            const fallbacks = ["prioritization", "delegation", "patient safety", "assessment", "clinical judgment", "vital signs"];
-            for (let fb of fallbacks) {
-                if (extracted.length < 5 && !extracted.includes(fb)) {
-                    extracted.push(fb);
+            // Fallback multi-word phrases if fewer than 5 exist
+            const fallbackPhrases = [
+                "priority nursing intervention",
+                "evidence-based patient safety",
+                "targeted clinical assessment",
+                "rights of delegation",
+                "vital sign monitoring",
+                "clinical judgment framework"
+            ];
+
+            for (let fb of fallbackPhrases) {
+                if (extractedPhrases.length < 5 && !extractedPhrases.includes(fb)) {
+                    extractedPhrases.push(fb);
                 }
             }
 
-            return extracted.slice(0, 6);
+            return extractedPhrases.slice(0, 6);
         }
 
         function getDynamicMnemonic(questionObj) {
-            const keywords = extractRationaleKeywords(questionObj);
-            const primaryKey = (keywords[0] || '').toLowerCase();
-            const topic = questionObj.topic || '';
-            const category = questionObj.category || '';
+            const phrases = extractRationaleKeywords(questionObj);
+            const primaryPhrase = (phrases[0] || '').toLowerCase();
+            const topic = (questionObj.topic || '').toLowerCase();
+            const category = (questionObj.category || '').toLowerCase();
 
             for (let key in staticMnemonics) {
-                if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
+                if (primaryPhrase.includes(key) || topic.includes(key)) {
                     return staticMnemonics[key];
                 }
             }
 
-            const cleanTopicName = (keywords[0] ? keywords[0] : (topic ? topic : "Clinical Care")).toUpperCase();
-            const isPharmCategory = (category && category.toLowerCase().includes("pharm")) || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryKey.includes(k));
+            const cleanPhraseTitle = (phrases[0] ? phrases[0] : (questionObj.topic ? questionObj.topic : "Clinical Care")).toUpperCase();
+            const isPharmCategory = category.includes("pharm") || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryPhrase.includes(k));
 
             if (isPharmCategory) {
                 return {
-                    title: `Pharmacology Strategy Guide: ${cleanTopicName}`,
-                    mnemonic: `Pharmacology Rule: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum labs) prior to administration. Monitor for therapeutic levels, early toxicity signs, and keep antidotes accessible.`,
+                    title: `Pharmacology Strategy Guide: ${cleanPhraseTitle}`,
+                    mnemonic: `Pharmacology Rule: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum lab values) prior to administration. Monitor for therapeutic levels, early toxicity signs, and keep antidotes accessible.`,
                     isStrategyTip: true
                 };
             }
 
             return {
-                title: `Condition Strategy Guide: ${cleanTopicName}`,
-                mnemonic: `NCLEX Strategy: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
+                title: `Condition Strategy Guide: ${cleanPhraseTitle}`,
+                mnemonic: `NCLEX Clinical Strategy: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
                 isStrategyTip: true
             };
         }
@@ -227,7 +236,6 @@
                 }
 
                 questions = shuffleArray(questions);
-
                 renderQuestion();
             } catch (err) {
                 console.error("Error loading question bank:", err);
@@ -455,25 +463,25 @@
             const container = document.getElementById('remediation-container');
             if (!container) return;
 
-            // Extract 5-6 core nursing keywords scanning BOTH Question Prompt and Rationale
-            const extractedKeywords = extractRationaleKeywords(q);
-            const mainKeyword = extractedKeywords[0] || q.topic || 'Medication & Disease';
-            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX pharmacology mnemonic ' + mainKeyword)}`;
+            // Extract multi-word clinical phrases across question prompt and rationale
+            const extractedPhrases = extractRationaleKeywords(q);
+            const mainPhrase = extractedPhrases[0] || q.topic || 'Medication & Clinical Care';
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX mnemonic ' + mainPhrase)}`;
 
             const activeMnemonic = getDynamicMnemonic(q);
 
             const dynamicVideoResources = [
                 { 
-                    name: `RegisteredNurseRN - ${mainKeyword.toUpperCase()} Review`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainKeyword)}` 
+                    name: `RegisteredNurseRN - ${mainPhrase.toUpperCase()} Review`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('registerednursern ' + mainPhrase)}` 
                 },
                 { 
-                    name: `LevelUpRN - ${mainKeyword.toUpperCase()} High Yield`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainKeyword)}` 
+                    name: `LevelUpRN - ${mainPhrase.toUpperCase()} High Yield`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('leveluprn ' + mainPhrase)}` 
                 },
                 { 
-                    name: `Nexus Nursing - ${mainKeyword.toUpperCase()} NCLEX Questions`, 
-                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('nexus nursing ' + mainKeyword)}` 
+                    name: `Nexus Nursing - ${mainPhrase.toUpperCase()} NCLEX Questions`, 
+                    url: `https://www.youtube.com/results?search_query=${encodeURIComponent('nexus nursing ' + mainPhrase)}` 
                 }
             ];
 
@@ -500,18 +508,18 @@
                                         <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-pills text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Mnemonic'}
                                     </h4>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
-                                        ${extractedKeywords.length} Scanned Keywords
+                                        ${extractedPhrases.length} Scanned Phrases
                                     </span>
                                 </div>
                                 <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
                                 
                                 <div class="space-y-1">
-                                    <div class="text-[10px] font-extrabold text-amber-800 uppercase tracking-wider">Scanned Question & Rationale Concepts:</div>
+                                    <div class="text-[10px] font-extrabold text-amber-800 uppercase tracking-wider">Scanned Clinical Phrases:</div>
                                     <div class="flex flex-wrap gap-1">
             `;
 
-            extractedKeywords.forEach(kw => {
-                html += `<span class="px-2 py-0.5 bg-amber-200/60 text-amber-900 font-extrabold text-[9px] rounded-md uppercase"><i class="fa-solid fa-tag text-amber-700 mr-1"></i>${kw}</span>`;
+            extractedPhrases.forEach(phrase => {
+                html += `<span class="px-2 py-0.5 bg-amber-200/60 text-amber-900 font-extrabold text-[9px] rounded-md uppercase"><i class="fa-solid fa-tag text-amber-700 mr-1"></i>${phrase}</span>`;
             });
 
             html += `
@@ -522,7 +530,7 @@
                             </div>
                             
                             <a href="${googleSearchUrl}" target="_blank" class="pt-2 border-t border-amber-200/60 text-[11px] font-bold text-amber-900 hover:text-amber-700 transition-colors flex items-center justify-between">
-                                <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Search online mnemonics for "${mainKeyword.toUpperCase()}"</span>
+                                <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Search online mnemonics for "${mainPhrase.toUpperCase()}"</span>
                                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                             </a>
                         </div>
@@ -533,7 +541,7 @@
                                     <i class="fa-solid fa-video text-clinical-600"></i> Video Remediation Tutorials
                                 </h4>
                                 <span class="px-2 py-0.5 bg-clinical-100 text-clinical-700 font-extrabold text-[9px] rounded-md uppercase">
-                                    ${mainKeyword}
+                                    ${mainPhrase}
                                 </span>
                             </div>
                             <div class="space-y-1.5">
