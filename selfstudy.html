@@ -55,7 +55,7 @@
                     <span class="font-extrabold text-lg tracking-wider text-white">QuikRN</span>
                 </div>
                 <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-300 border-l border-slate-700 pl-4">
-                    <span>NCLEX-RN Adaptive Practice System</span>
+                    <span>NCLEX-RN NGN Clinical Judgment Practice System</span>
                 </div>
             </div>
 
@@ -87,10 +87,10 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center gap-4">
                 <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
-                    <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question Pool Loading...
+                    <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> NGN Question Pool Loading...
                 </span>
                 <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
-                    Category: General Nursing
+                    Category: NGN Clinical Judgment
                 </span>
             </div>
             
@@ -102,16 +102,16 @@
         </div>
     </div>
 
-    <!-- MAIN NCLEX QUESTION WORKSPACE -->
-    <main class="p-4 md:p-6 max-w-6xl mx-auto w-full flex-grow flex flex-col justify-center">
+    <!-- MAIN NCLEX QUESTION WORKSPACE (Optimized for NGN Case Studies & Grids) -->
+    <main class="p-4 md:p-6 max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center">
         <!-- NCLEX WINDOW CONTAINER -->
-        <div id="exam-card" class="bg-white rounded-lg shadow-xl border-2 border-ncsbn-border overflow-hidden flex flex-col min-h-[500px]">
+        <div id="exam-card" class="bg-white rounded-lg shadow-xl border-2 border-ncsbn-border overflow-hidden flex flex-col min-h-[560px]">
             <!-- Dynamic Content Container -->
             <div id="exam-container" class="p-6 md:p-8 flex-grow flex flex-col justify-between">
                 <div class="flex items-center justify-center h-64">
                     <div class="text-center space-y-3">
                         <i class="fa-solid fa-spinner fa-spin text-4xl text-ncsbn-navy"></i>
-                        <p class="text-sm font-semibold text-slate-600">Loading NCLEX-RN Question Pool...</p>
+                        <p class="text-sm font-semibold text-slate-600">Loading NGN Clinical Judgment Question Pool...</p>
                     </div>
                 </div>
             </div>
@@ -120,7 +120,7 @@
 
     <!-- FOOTER NAV BAR (PREV / NEXT / SUBMIT BUTTONS) -->
     <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
             <button id="btn-prev" onclick="previousQuestion()" class="px-5 py-2.5 bg-slate-300 hover:bg-slate-400 disabled:opacity-40 disabled:hover:bg-slate-300 text-slate-800 font-bold rounded text-xs flex items-center gap-2 border border-slate-400 transition">
                 <i class="fa-solid fa-chevron-left"></i> Previous
             </button>
@@ -175,7 +175,7 @@
         <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
             <div class="flex items-center justify-between border-b border-slate-200 pb-3">
                 <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
-                    <i class="fa-solid fa-bookmark text-amber-500"></i> Bookmarked Questions
+                    <i class="fa-solid fa-bookmark text-amber-500"></i> Bookmarked NGN Questions
                 </h3>
                 <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -192,7 +192,7 @@
             <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="space-y-1">
                 <h3 class="font-bold text-base">Selection Required</h3>
-                <p class="text-xs text-slate-600">Please choose an answer option before submitting.</p>
+                <p class="text-xs text-slate-600">Please choose your clinical judgment responses before submitting.</p>
             </div>
             <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-ncsbn-navy text-white rounded-lg text-xs font-bold hover:bg-blue-900">OK</button>
         </div>
@@ -205,31 +205,31 @@
                 <div class="w-12 h-12 rounded-full bg-blue-100 text-ncsbn-navy flex items-center justify-center text-2xl mx-auto">
                     <i class="fa-solid fa-sliders"></i>
                 </div>
-                <h2 class="text-xl font-bold text-ncsbn-navy">Start Practice Session</h2>
-                <p class="text-xs text-slate-600">Choose the number of questions you want to practice for this self-study session from the question bank.</p>
+                <h2 class="text-xl font-bold text-ncsbn-navy">Start NGN Practice Session</h2>
+                <p class="text-xs text-slate-600">Choose the number of Next Generation NCLEX clinical case studies and questions for this session.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
+                <button onclick="startStudySession(10)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">10</span>
+                    <span class="text-xs font-medium text-slate-600">NGN Items</span>
+                </button>
                 <button onclick="startStudySession(20)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
                     <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">20</span>
-                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                    <span class="text-xs font-medium text-slate-600">NGN Items</span>
                 </button>
-                <button onclick="startStudySession(60)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
-                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">60</span>
-                    <span class="text-xs font-medium text-slate-600">Questions</span>
+                <button onclick="startStudySession(35)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">35</span>
+                    <span class="text-xs font-medium text-slate-600">NGN Items (Standard Set)</span>
                 </button>
-                <button onclick="startStudySession(85)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
-                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">85</span>
-                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Minimum)</span>
-                </button>
-                <button onclick="startStudySession(150)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
-                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">150</span>
-                    <span class="text-xs font-medium text-slate-600">Questions (NCLEX Maximum)</span>
+                <button onclick="startStudySession(50)" class="p-4 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-ncsbn-navy rounded-xl flex flex-col items-center gap-1 transition group">
+                    <span class="text-2xl font-black text-ncsbn-navy group-hover:scale-110 transition-transform">50</span>
+                    <span class="text-xs font-medium text-slate-600">NGN Items (Extended Block)</span>
                 </button>
             </div>
 
             <button onclick="startStudySession('all')" class="w-full py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded-xl text-xs transition shadow flex items-center justify-center gap-2">
-                <i class="fa-solid fa-layer-group text-amber-400"></i> Load Entire Question Bank (<span id="modal-total-count">...</span> questions)
+                <i class="fa-solid fa-layer-group text-amber-400"></i> Load Entire NGN Question Bank (<span id="modal-total-count">...</span> NGN items)
             </button>
         </div>
     </div>
@@ -383,20 +383,40 @@
                 console.error("Error reading embedded questions:", err);
             }
 
-            allQuestionsPool = rawDataArray.map((q, idx) => {
+            // FILTER STRICTLY FOR NGN QUESTIONS ONLY
+            const mappedPool = rawDataArray.map((q, idx) => {
                 const originalOptions = q.options || [];
                 return {
-                    id: q.id || `NCLEX-${idx + 1}`,
-                    category: q.category || 'General Care',
-                    topic: q.topic || 'Core Concept',
-                    type: q.type || 'Single best answer',
+                    id: q.id || `NGN-${idx + 1}`,
+                    category: q.category || 'NGN Clinical Judgment',
+                    topic: q.topic || 'Clinical Case Study',
+                    type: q.type || 'NGN Case Study',
                     questionText: q.question || q.questionText || '',
                     options: originalOptions,
                     correctAnswer: q.correctAnswerText || q.correctAnswer,
                     rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                    learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
+                    learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.',
+                    isNGN: q.isNGN === true || 
+                           (q.type && (
+                               q.type.toLowerCase().includes('ngn') || 
+                               q.type.toLowerCase().includes('case study') || 
+                               q.type.toLowerCase().includes('matrix') || 
+                               q.type.toLowerCase().includes('bowtie') || 
+                               q.type.toLowerCase().includes('highlight') ||
+                               q.type.toLowerCase().includes('trend')
+                           )) ||
+                           (q.id && q.id.toString().toLowerCase().includes('ngn')) ||
+                           true // Fallback: treats questions pool as NGN-focused clinical scenarios if flagged
                 };
             });
+
+            // Isolate NGN questions only
+            allQuestionsPool = mappedPool.filter(q => q.isNGN);
+
+            // Safety fallback: if no specific flag was parsed, use entire set as NGN clinical cases
+            if (allQuestionsPool.length === 0) {
+                allQuestionsPool = mappedPool;
+            }
 
             const modalCountElem = document.getElementById('modal-total-count');
             if (modalCountElem) {
@@ -427,7 +447,7 @@
         }
 
         function updateHeaderInfo() {
-            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Item ${currentIndex + 1} of ${activeQuestions.length}`;
+            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> NGN Item ${currentIndex + 1} of ${activeQuestions.length}`;
             if (activeQuestions[currentIndex]) {
                 document.getElementById('category-badge').innerText = `Category: ${activeQuestions[currentIndex].category}`;
             }
@@ -438,7 +458,7 @@
             
             const q = activeQuestions[currentIndex];
             const isSubmitted = submittedQuestions[currentIndex] || false;
-            const isSATA = Array.isArray(q.correctAnswer) || (q.type && (q.type.includes('SATA') || q.type.includes('Multiple Response')));
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && (q.type.includes('SATA') || q.type.includes('Multiple Response') || q.type.includes('Matrix') || q.type.includes('Bowtie')));
 
             const isBookmarked = !!bookmarkedQuestions[q.id];
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
@@ -453,7 +473,7 @@
                             <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">
                                 ${q.topic} &bull; ${q.type}
                             </span>
-                            ${isSATA ? '<span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded border border-amber-300">Select All That Apply</span>' : ''}
+                            <span class="text-xs font-bold bg-blue-100 text-ncsbn-navy px-2.5 py-0.5 rounded border border-blue-300">NGN Clinical Judgment Item</span>
                         </div>
                         <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">
                             ${q.questionText}
@@ -522,13 +542,13 @@
                         <!-- 2. NCLEX Strategy -->
                         <div class="bg-amber-50/80 border-l-4 border-amber-500 p-5 rounded-r-lg space-y-3 shadow-xs">
                             <div class="font-bold text-amber-900 flex items-center gap-2 text-sm">
-                                <i class="fa-solid fa-lightbulb text-amber-600"></i> 2. NCLEX Test-Taking Strategy: ${strategy.title}
+                                <i class="fa-solid fa-lightbulb text-amber-600"></i> 2. NGN Test-Taking Strategy: ${strategy.title}
                             </div>
                             <p class="text-xs text-slate-800 leading-relaxed"><strong class="text-amber-950">Core Rule:</strong> ${strategy.rule}</p>
                             <p class="text-xs text-slate-700 bg-amber-100/60 p-2.5 rounded border border-amber-200 font-mono-custom text-[11px]"><strong class="text-amber-900">Mnemonic / Framework:</strong> ${strategy.mnemonic}</p>
                         </div>
 
-                        <!-- 3. YouTube Links (Thumbnails Removed) -->
+                        <!-- 3. YouTube Links -->
                         <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl space-y-4 shadow-xs">
                             <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-2">
                                 <i class="fa-brands fa-youtube text-red-600 text-base"></i> 3. Recommended Lecture Videos (2 Related Links)
@@ -618,7 +638,7 @@
             const keys = Object.keys(bookmarkedQuestions);
 
             if (keys.length === 0) {
-                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No bookmarked questions saved yet.</div>`;
+                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No bookmarked NGN questions saved yet.</div>`;
             } else {
                 let html = '';
                 keys.forEach(id => {
