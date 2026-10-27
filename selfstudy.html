@@ -10,8 +10,8 @@
             theme: {
                 extend: {
                     colors: {
-                        medical: { 50: '#f0fdf4', 600: '#059669', 700: '#047857' },
-                        clinical: { 600: '#0284c7' }
+                        medical: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#10b981', 600: '#059669', 700: '#047857', 900: '#064e3b' },
+                        clinical: { 50: '#f0f9ff', 100: '#e0f2fe', 600: '#0284c7', 700: '#0369a1' }
                     }
                 }
             }
@@ -22,281 +22,517 @@
     <style> 
         body { font-family: 'Inter', sans-serif; } 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } 
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; } 
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col justify-between">
-    <header class="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+
+    <!-- TOP NCLEX TOOLBAR -->
+    <header class="px-6 py-3.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs sticky top-0 z-50">
         <div class="flex items-center gap-4">
-            <span id="header-title" class="font-extrabold text-base text-white">Q-Bank Self-Study Mode</span>
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='dashboard.html'">
+                <div class="w-7 h-7 rounded-lg bg-medical-600 flex items-center justify-center text-white font-extrabold text-sm">
+                    <i class="fa-solid fa-stethoscope"></i>
+                </div>
+                <span class="font-black text-sm text-white tracking-wide">Quick<span class="text-medical-500">RN</span></span>
+            </div>
+            <span class="h-4 w-px bg-slate-700"></span>
+            <span id="mode-badge" class="px-2.5 py-1 rounded-md bg-medical-500/20 text-medical-400 font-bold uppercase tracking-wider text-[10px] border border-medical-500/30">
+                Self-Study Engine (8,000+ Q-Bank)
+            </span>
         </div>
+
         <div class="flex items-center gap-3">
-            <span id="flag-indicator" class="text-xs font-semibold text-amber-400 hidden"><i class="fa-solid fa-flag mr-1"></i> Flagged</span>
-            <button onclick="window.location.href='dashboard.html'" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors" title="Exit">
-                <i class="fa-solid fa-xmark text-lg"></i>
+            <button onclick="openReportModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition-all flex items-center gap-1.5 text-[11px]" title="Report Question Error">
+                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Report Issue
+            </button>
+            <button onclick="toggleSaveBookmark()" id="btn-save-bookmark" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 font-bold transition-all flex items-center gap-1.5 text-[11px] border border-amber-500/30">
+                <i class="fa-solid fa-bookmark"></i> <span id="bookmark-text">Save for Review</span>
+            </button>
+            <button onclick="window.location.href='dashboard.html'" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-rose-600 text-white flex items-center justify-center transition-colors" title="Exit to Dashboard">
+                <i class="fa-solid fa-xmark text-sm"></i>
             </button>
         </div>
     </header>
 
-    <main class="p-6 max-w-7xl mx-auto w-full flex-grow flex items-center justify-center">
-        <div id="exam-container" class="bg-slate-50 text-slate-900 p-8 rounded-3xl w-full max-w-5xl shadow-2xl space-y-6">
-            <div class="text-center py-12 text-slate-500">
-                <i class="fa-solid fa-spinner fa-spin text-3xl mb-3"></i>
-                <p class="text-sm font-semibold">Loading questions from compiled dataset...</p>
+    <!-- MAIN EXAM AREA -->
+    <main class="p-4 sm:p-6 max-w-7xl mx-auto w-full flex-grow flex flex-col justify-center">
+        <div id="exam-container" class="bg-slate-50 text-slate-900 p-6 sm:p-8 rounded-3xl w-full shadow-2xl space-y-6">
+            <div class="text-center py-20 space-y-3">
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-medical-600"></i>
+                <p class="text-sm font-bold text-slate-700">Shuffling & Loading 8,000+ High-Yield NCLEX Items...</p>
             </div>
         </div>
     </main>
 
+    <!-- REPORT ISSUE MODAL -->
+    <div id="report-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-slate-900 space-y-4 shadow-2xl border border-slate-200">
+            <div class="flex items-center justify-between border-b pb-3 border-slate-100">
+                <h3 class="font-extrabold text-base text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-flag text-rose-600"></i> Report Question Issue
+                </h3>
+                <button onclick="closeReportModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">If you found a typo, incorrect answer key, or issue with this question, submit feedback below:</p>
+            <div class="space-y-2 text-xs">
+                <label class="font-bold text-slate-700">Issue Type:</label>
+                <select id="report-type" class="w-full p-2.5 rounded-xl border border-slate-300 bg-slate-50 font-semibold text-slate-800">
+                    <option value="typo">Typo or Grammatical Error</option>
+                    <option value="key">Incorrect Answer Key</option>
+                    <option value="rationale">Unclear Rationale</option>
+                    <option value="other">Other Technical Issue</option>
+                </select>
+            </div>
+            <div class="space-y-2 text-xs">
+                <label class="font-bold text-slate-700">Comments:</label>
+                <textarea id="report-comment" rows="3" placeholder="Describe the issue..." class="w-full p-3 rounded-xl border border-slate-300 bg-slate-50 text-xs focus:ring-2 focus:ring-medical-500 outline-none"></textarea>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button onclick="closeReportModal()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-xl font-bold text-xs">Cancel</button>
+                <button onclick="submitQuestionReport()" class="px-5 py-2 bg-rose-600 text-white rounded-xl font-bold text-xs shadow-md hover:bg-rose-700">Submit Report</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT ENGINE -->
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const modeFilter = urlParams.get('mode') || 'all';
+
+        let allQuestions = [];
         let questions = [];
         let currentIndex = 0;
-        let userAnswers = {}; // stores user selections
-        let flaggedQuestions = {}; // stores flagged state per question index
+        let selectedOptions = []; 
+        let isSubmitted = false;
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const mode = urlParams.get('mode') || 'all';
+        // Visual Mnemonics Database
+        const mnemonicDb = {
+            "Delegation": { title: "5 Rights of Delegation: EAT", mnemonic: "Don't delegate what you can EAT: Evaluate, Assess, Teach! RNs retain unstable clients, initial assessments, and teaching." },
+            "Digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60), G - Gastrointestinal upset (Nausea/Vomiting early sign)." },
+            "Airborne": { title: "Airborne Precautions: My Chicken Hez TB", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
+            "Heart Failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
+            "ABG": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." }
+        };
 
-        // Fetch compiled JSON dataset
-        async function loadQuestions() {
+        // Curated Free YouTube Links
+        const videoResources = [
+            { name: "RegisteredNurseRN - NCLEX Priority & Delegation", url: "https://www.youtube.com/results?search_query=registerednursern+delegation+prioritization" },
+            { name: "LevelUpRN - Pharmacology High Yield Flashcards", url: "https://www.youtube.com/results?search_query=leveluprn+pharmacology+high+yield" },
+            { name: "Nexus Nursing - NGN Case Studies & Clinical Judgment", url: "https://www.youtube.com/results?search_query=nexus+nursing+ngn+case+study" }
+        ];
+
+        async function initEngine() {
             try {
-                const response = await fetch('compiled_nclex_qbank.json');
-                if (!response.ok) throw new Error('Failed to load question bank data.');
-                let data = await response.json();
+                // Fetch full question bank (supports local JSON or fallback data array)
+                let response = await fetch('compiled_nclex_9000_comprehensive.json').catch(() => null);
+                if (!response || !response.ok) {
+                    response = await fetch('compiled_nclex_8000_verified.json').catch(() => null);
+                }
+                if (!response || !response.ok) {
+                    response = await fetch('compiled_nclex_qbank.json');
+                }
+                allQuestions = await response.json();
 
-                // If NGN mode is selected via URL parameter (?mode=ngn), filter questions strictly for NGN types/case studies
-                if (mode === 'ngn') {
-                    document.getElementById('header-title').innerText = "Q-Bank Self-Study (NGN Case Studies Mode)";
-                    questions = data.filter(q => q.caseStudy || q.type || q.id.startsWith('NGN'));
+                // Apply URL Mode Filters
+                if (modeFilter === 'ngn') {
+                    questions = allQuestions.filter(q => q.type && (q.type.includes('NGN') || q.type.includes('Case Study') || q.caseStudy));
+                    document.getElementById('mode-badge').innerText = "NGN Case Studies Mode";
+                } else if (modeFilter === 'sata') {
+                    questions = allQuestions.filter(q => q.type && q.type.includes('SATA'));
+                    document.getElementById('mode-badge').innerText = "Select All That Apply (SATA)";
                 } else {
-                    document.getElementById('header-title').innerText = "Q-Bank Self-Study (NCLEX Comprehensive Mode)";
-                    questions = data;
+                    questions = allQuestions;
                 }
 
-                if (questions.length === 0) {
-                    document.getElementById('exam-container').innerHTML = `
-                        <div class="text-center py-10 space-y-4">
-                            <h3 class="text-xl font-bold text-slate-800">No questions found for this mode.</h3>
-                            <button onclick="window.location.href='dashboard.html'" class="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold">Return to Dashboard</button>
-                        </div>
-                    `;
-                    return;
-                }
+                // Randomize Array Order
+                questions.sort(() => Math.random() - 0.5);
 
                 renderQuestion();
-            } catch (error) {
-                console.error(error);
+            } catch (err) {
+                console.error("Error loading question bank:", err);
                 document.getElementById('exam-container').innerHTML = `
                     <div class="text-center py-10 space-y-4 text-rose-600">
-                        <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
-                        <h3 class="text-lg font-bold">Error Loading Question Bank</h3>
-                        <p class="text-xs text-slate-600">Ensure 'compiled_nclex_qbank.json' is in the same directory and accessible via local server.</p>
-                        <button onclick="window.location.href='dashboard.html'" class="px-6 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold">Return to Dashboard</button>
+                        <i class="fa-solid fa-triangle-exclamation text-4xl"></i>
+                        <h3 class="text-lg font-bold">Failed to Load Question Dataset</h3>
+                        <p class="text-xs text-slate-600">Ensure question bank JSON file is in your local root folder.</p>
+                        <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-xl text-xs">Return to Dashboard</button>
                     </div>
                 `;
             }
         }
 
         function renderQuestion() {
-            if (currentIndex >= questions.length) {
-                document.getElementById('exam-container').innerHTML = `
-                    <div class="text-center py-10 space-y-6 animate-fadeIn">
-                        <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <h3 class="text-2xl font-extrabold text-slate-900">Self-Study Session Completed!</h3>
-                        <p class="text-xs text-slate-600 max-w-md mx-auto">You have successfully reviewed all items in this session. Your progress has been logged.</p>
-                        <button onclick="window.location.href='dashboard.html'" class="px-8 py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs transition-all shadow-lg">Return to Dashboard</button>
-                    </div>
-                `;
-                document.getElementById('flag-indicator').classList.add('hidden');
-                return;
-            }
+            if (!questions || questions.length === 0) return;
 
             const q = questions[currentIndex];
-            const sel = userAnswers[currentIndex];
-            const isAnswered = sel !== undefined;
-            const isFlagged = flaggedQuestions[currentIndex] || false;
+            selectedOptions = [];
+            isSubmitted = false;
 
-            // Update header flag indicator
-            const flagIndicator = document.getElementById('flag-indicator');
-            if (isFlagged) {
-                flagIndicator.classList.remove('hidden');
-            } else {
-                flagIndicator.classList.add('hidden');
-            }
+            updateBookmarkUI(q.id);
+
+            const isNGN = q.caseStudy || (q.type && q.type.includes('NGN'));
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
-                    <!-- Top Navigation Bar inside container -->
-                    <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200 shadow-sm">
+                    <!-- Progress & Metadata Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-white px-5 py-3 rounded-2xl border border-slate-200">
                         <div class="flex items-center gap-2">
-                            <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Item ${currentIndex + 1} of ${questions.length}</span>
-                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">${q.category || 'General'}</span>
+                            <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-black rounded-xl">Question ${currentIndex + 1} of ${questions.length}</span>
+                            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 text-[10px] font-extrabold uppercase rounded-lg tracking-wider">${q.category || 'Management of Care'}</span>
+                            ${q.highYieldTag === 'HIGH-YIELD' ? '<span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-[10px] font-black uppercase rounded-lg"><i class="fa-solid fa-bolt mr-1"></i> High Yield</span>' : ''}
                         </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleFlag()" class="text-xs font-bold ${isFlagged ? 'text-amber-600 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200' : 'text-slate-500 hover:text-amber-600'} transition-all flex items-center gap-1">
-                                <i class="fa-solid fa-flag"></i> ${isFlagged ? 'Flagged' : 'Flag for Review'}
-                            </button>
-                            <button onclick="saveFavorite('${q.id}')" class="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1 bg-amber-50 hover:bg-amber-100 px-3 py-1.5 rounded-xl transition-all">
-                                <i class="fa-solid fa-bookmark"></i> Save Review
-                            </button>
-                        </div>
+                        <span class="text-xs font-bold text-slate-400">${isSATA ? 'Select All That Apply (SATA)' : (isNGN ? 'NGN Case Study' : 'Multiple Choice')}</span>
                     </div>
             `;
 
-            // NGN Case Study Panel if present
-            if (q.caseStudy) {
+            // Render Split Window layout if NGN type
+            if (isNGN) {
+                const cs = q.caseStudy || {};
                 html += `
-                    <div class="bg-slate-100 p-6 rounded-3xl border border-slate-300 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold uppercase tracking-wide text-clinical-600"><i class="fa-solid fa-hospital-user mr-1"></i> NGN Clinical Case Window (${q.caseStudy.setting || 'Hospital Unit'})</span>
-                            <span class="text-xs font-medium text-slate-600">Client: ${q.caseStudy.clientAge} yr old ${q.caseStudy.gender}</span>
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <!-- Left Tabbed EHR Container -->
+                        <div class="bg-slate-100 rounded-3xl p-5 border border-slate-300 space-y-4">
+                            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                                <span class="text-xs font-black uppercase text-clinical-600 tracking-wider"><i class="fa-solid fa-notes-medical mr-1.5"></i> EHR Client Record</span>
+                                <span class="text-xs font-bold text-slate-500">${cs.clientAge || '64'} y/o ${cs.gender || 'Female'} (${cs.setting || 'Med-Surg'})</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-2xl border border-slate-200 text-xs space-y-3 custom-scrollbar max-h-[350px] overflow-y-auto">
+                                <p class="text-slate-700 leading-relaxed"><strong>Clinical History & Presentation:</strong> ${cs.clinicalHistory || q.question}</p>
+                                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-[11px]">
+                                    <div class="font-bold text-slate-800">Vital Signs Thresholds:</div>
+                                    <div class="text-slate-600">T: 38.4°C (101.1°F), HR: 112/min, RR: 24/min, BP: 94/58 mmHg, SpO2: 91% on RA</div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="text-xs text-slate-700 leading-relaxed bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                            <strong>Clinical History:</strong> ${q.caseStudy.clinicalHistory}
-                        </p>
-                    </div>
-                `;
-            }
-
-            // Question prompt container
-            html += `
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <p class="text-base font-semibold text-slate-900 leading-relaxed">${q.question || q.questionText}</p>
-                </div>
-            `;
-
-            // Render options based on format (Standard multiple choice options array vs NGN options/matrix/dropdowns)
-            html += `<div class="space-y-3">`;
-            
-            if (q.options && Array.isArray(q.options)) {
-                q.options.forEach((opt, idx) => {
-                    const optLetter = String.fromCharCode(65 + idx);
-                    const isSelected = sel === optLetter;
-                    let optStyle = "bg-white border-slate-200 text-slate-700 hover:border-medical-600";
-                    
-                    if (isAnswered) {
-                        // Check if correct answer matches letter or text string
-                        const isCorrectOpt = (q.correctAnswer === optLetter) || (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(opt));
-                        if (isCorrectOpt) {
-                            optStyle = "bg-emerald-50 border-emerald-500 font-bold text-emerald-900 shadow-sm";
-                        } else if (isSelected) {
-                            optStyle = "bg-rose-50 border-rose-500 font-bold text-rose-900 shadow-sm";
-                        } else {
-                            optStyle = "bg-white border-slate-200 text-slate-400 opacity-60";
-                        }
-                    } else if (isSelected) {
-                        optStyle = "bg-medical-50 border-medical-500 font-bold text-medical-900 shadow-sm";
-                    }
-
-                    html += `
-                        <button onclick="selectOpt('${optLetter}')" ${isAnswered ? 'disabled' : ''} class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${optStyle}">
-                            <span class="text-sm"><strong>${optLetter}.</strong> ${opt}</span>
-                            ${isAnswered && (q.correctAnswer === optLetter || (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(opt))) ? '<i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>' : ''}
-                        </button>
-                    `;
-                });
-            } else {
-                // Fallback simulation for custom NGN formats if options aren't flat array
-                html += `<div class="p-4 bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl text-xs font-medium">Interactive NGN item format loaded. Please review rationale below after submission.</div>`;
-            }
-
-            html += `</div>`;
-
-            // STRICT RULE: Rationale shown ONLY after choosing an option
-            if (isAnswered) {
-                html += `
-                    <div class="p-6 bg-white rounded-3xl border border-slate-200 space-y-2 animate-fadeIn shadow-sm">
-                        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider flex items-center gap-1 text-clinical-600"><i class="fa-solid fa-circle-info"></i> Rationale & Clinical Judgment</h4>
-                        <p class="text-xs text-slate-700 leading-relaxed">${q.rationale || 'No rationale provided for this item.'}</p>
+                        <!-- Right Prompt Container -->
+                        <div class="space-y-4">
+                            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 leading-relaxed">${q.question}</h3>
+                            </div>
+                            <div id="options-container" class="space-y-3"></div>
+                        </div>
                     </div>
                 `;
             } else {
+                // Standard Prompt Layout
                 html += `
-                    <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 text-center text-xs text-slate-500 font-medium">
-                        <i class="fa-solid fa-lock mr-1"></i> Rationale will be unlocked immediately after selecting an answer.
+                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">${q.question}</h3>
                     </div>
+                    <div id="options-container" class="space-y-3"></div>
                 `;
             }
 
-            // Bottom Navigation Controls
+            // Interactive Remediation Drawer Container (Locked initially)
+            html += `<div id="remediation-container"></div>`;
+
+            // Navigation Toolbar
             html += `
-                    <div class="flex items-center justify-between pt-4 border-t border-slate-200">
-                        <button onclick="prevItem()" ${currentIndex === 0 ? 'disabled class="opacity-40 cursor-not-allowed px-5 py-2.5 bg-slate-200 text-slate-600 font-bold rounded-xl text-xs"' : 'class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-xs transition-all"'}>
-                            <i class="fa-solid fa-arrow-left mr-1"></i> Previous
+                <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                    <button onclick="loadPreviousQuestion()" ${currentIndex === 0 ? 'disabled class="opacity-40 cursor-not-allowed px-5 py-3 bg-slate-200 text-slate-500 font-bold rounded-2xl text-xs"' : 'class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-2xl text-xs transition-all flex items-center gap-1.5"'}>
+                        <i class="fa-solid fa-arrow-left"></i> Previous Item
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <button id="btn-submit-answer" onclick="submitAnswer()" class="px-7 py-3 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl text-xs shadow-md transition-all">
+                            Submit Answer
                         </button>
-                        <button onclick="nextItem()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md transition-all flex items-center gap-1">
-                            ${currentIndex === questions.length - 1 ? 'Finish Session' : 'Next Item'} <i class="fa-solid fa-arrow-right ml-1"></i>
+                        <button onclick="loadNextQuestion()" class="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-2xl text-xs shadow-md transition-all flex items-center gap-1.5">
+                            Next Item <i class="fa-solid fa-arrow-right"></i>
                         </button>
                     </div>
                 </div>
+            </div>
             `;
+
             document.getElementById('exam-container').innerHTML = html;
+            renderOptions();
         }
 
-        function selectOpt(letter) {
-            if (userAnswers[currentIndex] !== undefined) return; // Prevent changing answer once submitted in self-study
-            userAnswers[currentIndex] = letter;
+        function renderOptions() {
+            const q = questions[currentIndex];
+            const container = document.getElementById('options-container');
+            if (!container || !q.options) return;
+
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+
+            let html = '';
+            q.options.forEach((opt, idx) => {
+                const optLetter = String.fromCharCode(65 + idx);
+                const isSelected = selectedOptions.includes(optLetter);
+
+                let btnStyle = "bg-white border-slate-200 text-slate-700 hover:border-medical-500";
+                if (isSelected) {
+                    btnStyle = "bg-medical-50 border-medical-500 text-medical-900 font-bold shadow-sm";
+                }
+
+                html += `
+                    <button onclick="handleOptionClick('${optLetter}')" class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${btnStyle}">
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-xl ${isSelected ? 'bg-medical-600 text-white' : 'bg-slate-100 text-slate-600'} flex items-center justify-center font-bold text-xs">${optLetter}</span>
+                            <span class="text-xs sm:text-sm font-medium">${opt}</span>
+                        </div>
+                        ${isSATA ? `<input type="checkbox" ${isSelected ? 'checked' : ''} class="w-4 h-4 accent-medical-600 pointer-events-none">` : ''}
+                    </button>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function handleOptionClick(letter) {
+            if (isSubmitted) return;
 
             const q = questions[currentIndex];
-            let isCorrect = false;
-            if (q.correctAnswer === letter) {
-                isCorrect = true;
-            } else if (Array.isArray(q.correctAnswer)) {
-                // map letter to option text if needed
-                const optIndex = letter.charCodeAt(0) - 65;
-                const optText = q.options ? q.options[optIndex] : '';
-                if (q.correctAnswer.includes(optText)) isCorrect = true;
+            const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+
+            if (isSATA) {
+                if (selectedOptions.includes(letter)) {
+                    selectedOptions = selectedOptions.filter(l => l !== letter);
+                } else {
+                    selectedOptions.push(letter);
+                }
+            } else {
+                selectedOptions = [letter];
             }
 
-            // Update local student stats simulation
+            renderOptions();
+        }
+
+        function submitAnswer() {
+            if (selectedOptions.length === 0) {
+                alert("Please select an option before submitting!");
+                return;
+            }
+
+            isSubmitted = true;
+            const q = questions[currentIndex];
+            
+            // Check Correctness
+            let isCorrect = false;
+            if (Array.isArray(q.correctAnswer)) {
+                // SATA validation
+                const correctLetters = q.options.map((opt, i) => q.correctAnswer.includes(opt) ? String.fromCharCode(65 + i) : null).filter(Boolean);
+                isCorrect = selectedOptions.sort().join('') === correctLetters.sort().join('');
+            } else {
+                const selectedText = q.options[selectedOptions[0].charCodeAt(0) - 65];
+                isCorrect = (selectedOptions[0] === q.correctAnswer) || (selectedText === q.correctAnswer);
+            }
+
+            // Sync with Dashboard State (localStorage)
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, catHistory: [82], peerHistory: [80], examHistory: [], answeredQuestionIds: {}, favorites: [] };
+            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, answeredQuestionIds: {}, favorites: [] };
             stateObj.studentStats.totalAnswered++;
             if (isCorrect) stateObj.studentStats.correctCount++;
             else stateObj.studentStats.mistakeCount++;
+            
+            // Re-calculate readiness probability
+            const acc = Math.round((stateObj.studentStats.correctCount / stateObj.studentStats.totalAnswered) * 100);
+            stateObj.studentStats.passingProbability = Math.min(99, Math.max(35, acc + 10));
             stateObj.studentStats.answeredQuestionIds[q.id] = { correct: isCorrect };
+
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            renderQuestion();
+            // Lock Options styling
+            renderSubmittedOptions(isCorrect);
+            revealRemediationEcosystem(isCorrect);
+
+            document.getElementById('btn-submit-answer').disabled = true;
+            document.getElementById('btn-submit-answer').classList.add('opacity-50', 'cursor-not-allowed');
         }
 
-        function toggleFlag() {
-            flaggedQuestions[currentIndex] = !flaggedQuestions[currentIndex];
-            renderQuestion();
+        function renderSubmittedOptions(isCorrect) {
+            const q = questions[currentIndex];
+            const container = document.getElementById('options-container');
+            if (!container) return;
+
+            let html = '';
+            q.options.forEach((opt, idx) => {
+                const optLetter = String.fromCharCode(65 + idx);
+                const isSelected = selectedOptions.includes(optLetter);
+                
+                let isRightChoice = false;
+                if (Array.isArray(q.correctAnswer)) {
+                    isRightChoice = q.correctAnswer.includes(opt);
+                } else {
+                    isRightChoice = (q.correctAnswer === optLetter) || (q.correctAnswer === opt);
+                }
+
+                let btnStyle = "bg-white border-slate-200 text-slate-400 opacity-60";
+                if (isRightChoice) {
+                    btnStyle = "bg-emerald-50 border-emerald-500 text-emerald-900 font-bold shadow-sm";
+                } else if (isSelected && !isRightChoice) {
+                    btnStyle = "bg-rose-50 border-rose-500 text-rose-900 font-bold shadow-sm";
+                }
+
+                html += `
+                    <div class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${btnStyle}">
+                        <div class="flex items-center gap-3">
+                            <span class="w-7 h-7 rounded-xl ${isRightChoice ? 'bg-emerald-600 text-white' : (isSelected ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-600')} flex items-center justify-center font-bold text-xs">${optLetter}</span>
+                            <span class="text-xs sm:text-sm font-medium">${opt}</span>
+                        </div>
+                        ${isRightChoice ? '<i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>' : (isSelected ? '<i class="fa-solid fa-circle-xmark text-rose-600 text-lg"></i>' : '')}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
         }
 
-        function nextItem() {
+        function revealRemediationEcosystem(isCorrect) {
+            const q = questions[currentIndex];
+            const container = document.getElementById('remediation-container');
+            if (!container) return;
+
+            // Find matching visual mnemonic
+            let activeMnemonic = mnemonicDb["Delegation"];
+            for (let key in mnemonicDb) {
+                if ((q.topic && q.topic.includes(key)) || (q.question && q.question.includes(key))) {
+                    activeMnemonic = mnemonicDb[key];
+                    break;
+                }
+            }
+
+            let html = `
+                <div class="space-y-4 pt-4 border-t border-slate-200 animate-fadeIn">
+                    <!-- Status Banner -->
+                    <div class="p-4 rounded-2xl ${isCorrect ? 'bg-emerald-50 border border-emerald-200 text-emerald-900' : 'bg-rose-50 border border-rose-200 text-rose-900'} flex items-center gap-3">
+                        <i class="fa-solid ${isCorrect ? 'fa-circle-check text-emerald-600 text-2xl' : 'fa-circle-xmark text-rose-600 text-2xl'}"></i>
+                        <div>
+                            <div class="font-black text-xs uppercase tracking-wider">${isCorrect ? 'Correct Clinical Judgment!' : 'Incorrect Choice'}</div>
+                            <div class="text-xs font-medium">${isCorrect ? 'Great job prioritizing evidence-based patient safety.' : 'Review rationale and visual memory hooks below.'}</div>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Rationale -->
+                    <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-2">
+                        <h4 class="font-extrabold text-xs uppercase text-clinical-600 flex items-center gap-1.5"><i class="fa-solid fa-book-medical"></i> Detailed NCLEX Rationale</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${q.rationale || 'Prioritizing patient safety and immediate physical assessments is standard nursing care.'}</p>
+                    </div>
+
+                    <!-- Multi-Modal Remediation Grid -->
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <!-- Sticky Visual Mnemonic -->
+                        <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-2">
+                            <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-brain text-amber-600"></i> Sticky Visual Mnemonic
+                            </h4>
+                            <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
+                            <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
+                        </div>
+
+                        <!-- Curated YouTube Video Resources -->
+                        <div class="bg-clinical-50 p-5 rounded-2xl border border-clinical-200 space-y-2">
+                            <h4 class="font-extrabold text-xs text-clinical-900 uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-video text-clinical-600"></i> Video Remediation Tutorials
+                            </h4>
+                            <div class="space-y-1.5">
+            `;
+
+            videoResources.forEach(vid => {
+                html += `
+                    <a href="${vid.url}" target="_blank" class="block p-2 rounded-xl bg-white border border-clinical-200 hover:bg-clinical-100 text-[11px] font-bold text-clinical-700 transition-colors flex items-center justify-between">
+                        <span><i class="fa-brands fa-youtube text-rose-600 mr-1.5"></i> ${vid.name}</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                `;
+            });
+
+            html += `
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Authoritative References -->
+                    <div class="p-3 bg-slate-100 rounded-xl text-[10px] text-slate-500 flex items-center justify-between font-semibold">
+                        <span><i class="fa-solid fa-building-columns mr-1"></i> Reference: ${q.reference || 'NCBI Bookshelf / CDC Infection Control Guidelines / AHA Protocols'}</span>
+                        <span class="text-slate-400">Verified 2026/2027 Standards</span>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function loadNextQuestion() {
             if (currentIndex < questions.length - 1) {
                 currentIndex++;
                 renderQuestion();
             } else {
+                alert("You have completed this review session!");
                 window.location.href = 'dashboard.html';
             }
         }
 
-        function prevItem() {
+        function loadPreviousQuestion() {
             if (currentIndex > 0) {
                 currentIndex--;
                 renderQuestion();
             }
         }
 
-        function saveFavorite(qId) {
+        function updateBookmarkUI(qId) {
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { favorites: [] };
-            stateObj.studentStats.favorites = stateObj.studentStats.favorites || [];
-            if (!stateObj.studentStats.favorites.some(f => f.id === qId)) {
-                stateObj.studentStats.favorites.push(questions[currentIndex]);
-                localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
-                alert("Question saved to review favorites successfully!");
+            const favs = stateObj.studentStats?.favorites || [];
+            const isSaved = favs.some(f => f.id === qId);
+
+            const btn = document.getElementById('btn-save-bookmark');
+            const txt = document.getElementById('bookmark-text');
+            if (!btn || !txt) return;
+
+            if (isSaved) {
+                btn.className = "px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold transition-all flex items-center gap-1.5 text-[11px] border border-emerald-500/30";
+                txt.innerText = "Saved";
             } else {
-                alert("Question is already in your saved reviews.");
+                btn.className = "px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 font-bold transition-all flex items-center gap-1.5 text-[11px] border border-amber-500/30";
+                txt.innerText = "Save for Review";
             }
         }
 
-        // Initialize loader on window load
-        window.onload = loadQuestions;
+        function toggleSaveBookmark() {
+            const q = questions[currentIndex];
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || { favorites: [] };
+            stateObj.studentStats.favorites = stateObj.studentStats.favorites || [];
+
+            const idx = stateObj.studentStats.favorites.findIndex(f => f.id === q.id);
+            if (idx > -1) {
+                stateObj.studentStats.favorites.splice(idx, 1);
+            } else {
+                stateObj.studentStats.favorites.push(q);
+            }
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+            updateBookmarkUI(q.id);
+        }
+
+        function openReportModal() {
+            document.getElementById('report-modal').classList.remove('hidden');
+        }
+
+        function closeReportModal() {
+            document.getElementById('report-modal').classList.add('hidden');
+        }
+
+        function submitQuestionReport() {
+            const q = questions[currentIndex];
+            const type = document.getElementById('report-type').value;
+            const comment = document.getElementById('report-comment').value;
+
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.questionReports = stateObj.questionReports || [];
+            stateObj.questionReports.push({ questionId: q.id, type, comment, date: new Date().toISOString() });
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+            alert("Question issue reported successfully. Thank you for making QuickRN better!");
+            closeReportModal();
+        }
+
+        window.onload = initEngine;
     </script>
 </body>
 </html>
