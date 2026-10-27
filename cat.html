@@ -304,6 +304,12 @@
                     };
                 });
 
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                let answeredIds = new Set(state.answeredQuestionIds || []);
+                
+                // Pre-populate usedQuestionIds with previously answered question IDs
+                usedQuestionIds = answeredIds;
+
                 rawQuestionPool = shuffleArray(rawQuestionPool);
                 selectNextCATQuestion();
                 startTimer();
@@ -441,6 +447,20 @@
                 selectedOption: chosenText,
                 isCorrect: isCorrect
             });
+
+            // Update persistent student state (Questions only / totalAnswered) instantly
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
+            state.studentStats.totalAnswered = (state.studentStats.totalAnswered || 0) + 1;
+
+            state.answeredQuestionIds = state.answeredQuestionIds || [];
+            if (!state.answeredQuestionIds.includes(currentQuestion.id)) {
+                state.answeredQuestionIds.push(currentQuestion.id);
+            }
+            if (isCorrect) {
+                state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
+            }
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
 
             // Visually lock options
             const buttons = document.querySelectorAll('#exam-container button');

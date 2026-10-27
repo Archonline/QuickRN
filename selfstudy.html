@@ -405,7 +405,18 @@
         }
 
         function startStudySession(count) {
-            let shuffled = shuffleArray(allQuestionsPool);
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let answeredIds = new Set(state.answeredQuestionIds || []);
+
+            let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
+            if (availablePool.length === 0) {
+                // If all questions exhausted, reset answered questions to allow continuous revision
+                state.answeredQuestionIds = [];
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                availablePool = [...allQuestionsPool];
+            }
+
+            let shuffled = shuffleArray(availablePool);
             if (count !== 'all' && typeof count === 'number') {
                 activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length));
             } else {
@@ -598,6 +609,59 @@
                 return;
             }
             submittedQuestions[currentIndex] = true;
+
+            // Check if correct
+            const q = activeQuestions[currentIndex];
+            let isCorrect = false;
+            if (Array.isArray(q.correctAnswer)) {
+                let userSel = Array.isArray(sel) ? sel.sort() : [sel];
+                let correctAns = [...q.correctAnswer].sort();
+                if (userSel.length === correctAns.length && userSel.every((val, idx) => val === correctAns[idx])) {
+                    isCorrect = true;
+                }
+            } else {
+                if (sel === q.correctAnswer) {
+                    isCorrect = true;
+                }
+            }
+
+            // Update persistent student state (Questions only / totalAnswered)
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
+            
+            // To ensure each unique question is counted only once per answer submission:
+            if (!q._countedAnswered) {
+                q._countedAnswered = true;
+                state.studentStats.totalAnswered = (state.studentStats.totalAnswered || 0) + 1;
+                
+                state.answeredQuestionIds = state.answeredQuestionIds || [];
+                if (!state.answeredQuestionIds.includes(q.id)) {
+                    state.answeredQuestionIds.push(q.id);
+                }
+                if (isCorrect) {
+                    state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
+                }
+
+                // Update category mastery
+                if (!state.studentStats.categories) state.studentStats.categories = [
+                    { name: 'Cardiovascular', solved: 0, correct: 0 },
+                    { name: 'Respiratory', solved: 0, correct: 0 },
+                    { name: 'Neurologic', solved: 0, correct: 0 },
+                    { name: 'Endocrine', solved: 0, correct: 0 },
+                    { name: 'Renal', solved: 0, correct: 0 },
+                    { name: 'Gastrointestinal', solved: 0, correct: 0 },
+                    { name: 'Infection Safety', solved: 0, correct: 0 }
+                ];
+
+                let catName = q.domain || 'Cardiovascular';
+                let catObj = state.studentStats.categories.find(c => c.name.toLowerCase() === catName.toLowerCase());
+                if (catObj) {
+                    catObj.solved = (catObj.solved || 0) + 1;
+                    if (isCorrect) catObj.correct = (catObj.correct || 0) + 1;
+                }
+            }
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
             renderQuestion();
         }
 

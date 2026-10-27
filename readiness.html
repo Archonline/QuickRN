@@ -327,7 +327,18 @@
 
         // Adaptive Selection Logic
         function buildAdaptiveExamSet(pool) {
-            let shuffled = [...pool].sort(() => 0.5 - Math.random());
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let answeredIds = new Set(state.answeredQuestionIds || []);
+
+            let availablePool = pool.filter(q => !answeredIds.has(q.id || q.questionText));
+            if (availablePool.length < 20) {
+                // If exhausted, reset answered pool
+                state.answeredQuestionIds = [];
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                availablePool = [...pool];
+            }
+
+            let shuffled = [...availablePool].sort(() => 0.5 - Math.random());
             return shuffled.slice(0, Math.min(shuffled.length, 50));
         }
 
@@ -548,6 +559,14 @@
             stateObj.studentStats.testsTaken++;
             stateObj.studentStats.totalAnswered += activeExamQuestions.length;
             stateObj.studentStats.correctCount += correctCount;
+
+            stateObj.answeredQuestionIds = stateObj.answeredQuestionIds || [];
+            activeExamQuestions.forEach(q => {
+                let qId = q.id || q.questionText;
+                if (!stateObj.answeredQuestionIds.includes(qId)) {
+                    stateObj.answeredQuestionIds.push(qId);
+                }
+            });
             stateObj.studentStats.mistakeCount += (activeExamQuestions.length - correctCount);
             stateObj.studentStats.passingProbability = passingProbability;
             stateObj.studentStats.readinessTakesCount = takesLeft;

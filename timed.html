@@ -343,7 +343,18 @@
 
         function startTimedSession(count) {
             loadQuestionsFromJS();
-            let shuffled = shuffleArray(allQuestionsPool);
+            
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let answeredIds = new Set(state.answeredQuestionIds || []);
+
+            let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
+            if (availablePool.length === 0) {
+                state.answeredQuestionIds = [];
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                availablePool = [...allQuestionsPool];
+            }
+
+            let shuffled = shuffleArray(availablePool);
             
             // Check if CAT mode (85 or 150 items)
             isCatExam = (count === 85 || count === 150);
@@ -481,6 +492,23 @@
                 isCorrect = Array.isArray(sel) && sel.length > 0;
             } else {
                 isCorrect = (sel === q.correctAnswer);
+            }
+
+            // Update persistent student state (Questions only / totalAnswered) instantly per submitted question
+            if (!q._timedCounted) {
+                q._timedCounted = true;
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
+                state.studentStats.totalAnswered = (state.studentStats.totalAnswered || 0) + 1;
+
+                state.answeredQuestionIds = state.answeredQuestionIds || [];
+                if (!state.answeredQuestionIds.includes(q.id)) {
+                    state.answeredQuestionIds.push(q.id);
+                }
+                if (isCorrect) {
+                    state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
+                }
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
             }
 
             if (isCatExam) {

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reported Question Catalog | QuickRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ncsbn: { navy: '#0F2C59', blue: '#1E40AF', light: '#EFF6FF', header: '#0B2240', accent: '#D97706', border: '#CBD5E1' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="questions.js"></script>
+    <style>body { font-family: 'Inter', sans-serif; }</style>
+</head>
+<body class="h-full flex flex-col text-slate-800 antialiased">
+    <header class="bg-[#0B2240] text-white px-6 py-4 flex justify-between items-center shadow border-b-2 border-amber-600">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-950 px-3 py-1.5 rounded border border-blue-800 flex items-center gap-2">
+                <i class="fa-solid fa-flag text-amber-400"></i>
+                <span class="font-extrabold text-lg tracking-wider">QuickRN Reports & Flagged Catalog</span>
+            </div>
+            <span class="text-xs text-slate-300 hidden sm:inline">Organized by Question ID Number</span>
+        </div>
+        <a href="dashboard.html" class="px-4 py-2 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
+            <i class="fa-solid fa-arrow-left"></i> Return to Dashboard
+        </a>
+    </header>
+
+    <main class="flex-grow p-6 max-w-7xl mx-auto w-full space-y-6 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-xl font-black text-slate-900">Reported Items & Feedback Catalog</h1>
+                <p class="text-xs text-slate-500 mt-1">Review all error reports submitted by users, grouped by question ID number. Mark items as fixed or patched to remove them from the active queue.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="total-reports-badge" class="px-3 py-1.5 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold border border-amber-300">0 Reports</span>
+                <button onclick="clearAllReports()" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-lg text-xs font-bold border border-rose-200 transition">Clear All</button>
+            </div>
+        </div>
+
+        <div id="reports-container" class="space-y-6"></div>
+    </main>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            loadReports();
+        });
+
+        function loadReports() {
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let reports = state.reportedItems || [];
+
+            document.getElementById('total-reports-badge').innerText = `${reports.length} Total Reports`;
+
+            const container = document.getElementById('reports-container');
+            if (reports.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white rounded-xl border border-slate-200 p-12 text-center space-y-3">
+                        <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-check"></i></div>
+                        <h3 class="font-bold text-base text-slate-900">All Reported Items Resolved</h3>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto">There are currently no active question error reports or pending feedback items in the catalog.</p>
+                        <a href="dashboard.html" class="inline-block mt-2 px-6 py-2.5 bg-ncsbn-navy text-white text-xs font-bold rounded-lg hover:bg-blue-900">Return to Dashboard</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let grouped = {};
+            reports.forEach((r, originalIdx) => {
+                let qId = r.id || 'UNKNOWN-ID';
+                if (!grouped[qId]) {
+                    grouped[qId] = {
+                        id: qId,
+                        questionText: r.questionText || 'Question text not available',
+                        submissions: []
+                    };
+                }
+                grouped[qId].submissions.push({
+                    originalIndex: originalIdx,
+                    errorText: r.errorText || 'No description provided',
+                    timestamp: r.timestamp || new Date().toLocaleString(),
+                    user: r.user || 'Candidate'
+                });
+            });
+
+            let html = '';
+            for (let qId in grouped) {
+                let group = grouped[qId];
+                html += `
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-flag text-rose-600"></i> Question ID: <span class="font-mono text-ncsbn-navy">${group.id}</span>
+                            </h3>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs font-semibold bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full">${group.submissions.length} Report(s)</span>
+                                <button onclick="resolveReportsForId('${group.id}')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold transition flex items-center gap-1.5 shadow-2xs">
+                                    <i class="fa-solid fa-check"></i> Mark Fixed / Patch ID
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100">
+                                <strong class="text-xs font-bold text-ncsbn-navy block mb-1">Question Prompt:</strong>
+                                <p class="text-xs md:text-sm text-slate-800">${group.questionText}</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">Submitted Feedback & Error Reports:</h4>
+                                <div class="space-y-2">
+                `;
+
+                group.submissions.forEach((sub, idx) => {
+                    html += `
+                        <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 text-xs space-y-1 flex justify-between items-start">
+                            <div class="space-y-1 flex-grow">
+                                <div class="flex justify-between items-center text-[10px] text-slate-500 font-semibold pr-4">
+                                    <span><i class="fa-solid fa-user text-slate-400 mr-1"></i> ${sub.user}</span>
+                                    <span><i class="fa-regular fa-clock text-slate-400 mr-1"></i> ${sub.timestamp}</span>
+                                </div>
+                                <p class="text-slate-800 font-medium"><strong class="text-rose-700">Report #${idx + 1}:</strong> ${sub.errorText}</p>
+                            </div>
+                            <button onclick="removeSingleReport(${sub.originalIndex})" class="text-slate-400 hover:text-rose-600 text-sm p-1" title="Remove Report">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+
+                html += `
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function resolveReportsForId(qId) {
+            if (confirm(`Mark Question ID "${qId}" as fixed? This will remove all associated reports from the queue.`)) {
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                if (state.reportedItems) {
+                    state.reportedItems = state.reportedItems.filter(item => item.id !== qId);
+                    localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                    loadReports();
+                }
+            }
+        }
+
+        function removeSingleReport(originalIndex) {
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            if (state.reportedItems) {
+                state.reportedItems.splice(originalIndex, 1);
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                loadReports();
+            }
+        }
+
+        function clearAllReports() {
+            if (confirm('Clear all submitted reports?')) {
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                state.reportedItems = [];
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                loadReports();
+            }
+        }
+    </script>
+</body>
+</html>
