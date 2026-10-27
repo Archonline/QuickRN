@@ -407,7 +407,7 @@
             renderQuestion();
         }
 
-        function submitAnswer() {
+    function submitAnswer() {
             if (!selectedOption) {
                 document.getElementById('warning-modal').classList.remove('hidden');
                 return;
@@ -425,15 +425,25 @@
                 isCorrect: isCorrect
             });
 
-            document.getElementById('btn-submit').classList.add('hidden');
-            document.getElementById('btn-next').classList.remove('hidden');
-
+            // Visually lock options and show feedback styling immediately
             const buttons = document.querySelectorAll('#exam-container button');
             buttons.forEach(btn => btn.disabled = true);
-        }
 
-        function nextQuestion() {
-            selectNextCATQuestion();
+            // Optional: highlight the correct/incorrect choice before moving on
+            // (Uncomment the lines below if you want color feedback flash before moving to the next item)
+            /*
+            buttons.forEach(btn => {
+                const textSpan = btn.querySelector('span:nth-child(2)');
+                if (textSpan && textSpan.innerText.includes(currentQuestion.correctAnswer)) {
+                    btn.classList.add('bg-emerald-100', 'border-emerald-500');
+                }
+            });
+            */
+
+            // Automatically proceed to the next question after a 1.2 second pause
+            setTimeout(() => {
+                selectNextCATQuestion();
+            }, 1200);
         }
 
         // FULL COMPREHENSIVE SUMMARY REPORT UPON EXAM FINISH
