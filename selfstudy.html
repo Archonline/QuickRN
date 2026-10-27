@@ -395,12 +395,7 @@
             let rawDataArray = [];
 
             try {
-                let fetchUrl = 'questions.json';
-                if (window.location.origin && window.location.origin !== 'null' && !window.location.href.startsWith('blob:')) {
-                    fetchUrl = new URL('questions.json', window.location.href).href;
-                }
-
-                const response = await fetch(fetchUrl);
+                const response = await fetch('questions.json');
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
                 const rawData = await response.json();
                 
@@ -412,10 +407,13 @@
                 } else if (rawData.categorizedStructure) {
                     for (const typeKey in rawData.categorizedStructure) {
                         const diffObj = rawData.categorizedStructure[typeKey];
+                        if (!diffObj) continue;
                         for (const diffKey in diffObj) {
                             const catObj = diffObj[diffKey];
+                            if (!catObj) continue;
                             for (const catKey in catObj) {
                                 const topicObj = catObj[catKey];
+                                if (!topicObj) continue;
                                 for (const topicKey in topicObj) {
                                     const qList = topicObj[topicKey];
                                     if (Array.isArray(qList)) {
@@ -432,6 +430,18 @@
 
             allQuestionsPool = rawDataArray.map((q, idx) => {
                 const originalOptions = q.options || [];
+                
+                // Robustly resolve correct answer text
+                let resolvedCorrectAnswer = q.correctAnswerText;
+                if (!resolvedCorrectAnswer && q.correctAnswer && originalOptions.length > 0) {
+                    const charCode = q.correctAnswer.toUpperCase().charCodeAt(0);
+                    if (charCode >= 65 && charCode < 65 + originalOptions.length) {
+                        resolvedCorrectAnswer = originalOptions[charCode - 65];
+                    } else {
+                        resolvedCorrectAnswer = q.correctAnswer;
+                    }
+                }
+                if (!resolvedCorrectAnswer) resolvedCorrectAnswer = originalOptions[0] || '';
 
                 return {
                     id: q.id || `NCLEX-${idx + 1}`,
@@ -440,7 +450,7 @@
                     type: q.type || 'Single best answer',
                     questionText: q.question || q.questionText || '',
                     options: originalOptions,
-                    correctAnswer: q.correctAnswerText || q.correctAnswer,
+                    correctAnswer: resolvedCorrectAnswer,
                     rationale: q.rationale || 'Detailed clinical rationale unavailable.',
                     learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
                 };
