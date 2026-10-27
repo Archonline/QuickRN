@@ -267,12 +267,11 @@
             }, 1000);
         }
 
-        // LOAD POOL
+       // LOAD POOL
         function loadQuestionsPool() {
             try {
                 let pool = [];
                 
-                // Check all possible variable names exported by questions.js, prioritizing embeddedQuestionsData[cite: 2]
                 if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
                     pool = embeddedQuestionsData;
                 } else if (typeof window.embeddedQuestionsData !== 'undefined' && Array.isArray(window.embeddedQuestionsData) && window.embeddedQuestionsData.length > 0) {
@@ -284,24 +283,28 @@
                 }
 
                 if (pool.length === 0) {
-                    console.warn("questions.js pool not found. Using default fallback.");
                     pool = defaultFallbackQuestions;
                 }
 
-                rawQuestionPool = pool.map((q, idx) => ({
-                    id: q.id || `q-${idx + 1}`,
-                    category: q.category || 'General Nursing',
-                    topic: q.topic || 'Clinical Judgment',
-                    type: q.type || 'Single Best Answer',
-                    questionText: q.question || q.questionText || '',
-                    options: shuffleArray(q.options || []),
-                    correctAnswer: q.correctAnswerText || q.correctAnswer,
-                    rationale: q.rationale || 'Detailed clinical rationale unavailable.',
-                    difficulty: typeof q.difficulty === 'number' ? q.difficulty : 0.5
-                }));
+                rawQuestionPool = pool.map((q, idx) => {
+                    let rawText = q.question || q.questionText || '';
+                    // Clean and remove bracketed prefixes like [Cardiovascular & Respiratory Problems - ...]
+                    let cleanedText = rawText.replace(/^\[.*?\]\s*/, '');
+
+                    return {
+                        id: q.id || `q-${idx + 1}`,
+                        category: q.category || 'General Nursing',
+                        topic: q.topic || 'Clinical Judgment',
+                        type: q.type || 'Single Best Answer',
+                        questionText: cleanedText,
+                        options: shuffleArray(q.options || []),
+                        correctAnswer: q.correctAnswerText || q.correctAnswer,
+                        rationale: q.rationale || 'Detailed clinical rationale unavailable.',
+                        difficulty: typeof q.difficulty === 'number' ? q.difficulty : 0.5
+                    };
+                });
 
                 rawQuestionPool = shuffleArray(rawQuestionPool);
-                console.log(`Successfully loaded ${rawQuestionPool.length} questions into CAT pool.`);
                 selectNextCATQuestion();
                 startTimer();
             } catch (err) {
