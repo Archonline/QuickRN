@@ -362,8 +362,15 @@
             try {
                 const response = await fetch('questions.json');
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                const data = await response.json();
+                const rawData = await response.json();
                 
+                // Support both direct array and object with 'questions' property
+                const data = Array.isArray(rawData) ? rawData : (rawData.questions || []);
+                
+                if (data.length === 0) {
+                    throw new Error("No question records found in questions.json.");
+                }
+
                 allQuestionsPool = data.map((q, idx) => {
                     const originalOptions = q.options || [];
                     const shuffledOptions = shuffleArray(originalOptions);
@@ -373,9 +380,9 @@
                         category: q.category || 'General Care',
                         topic: q.topic || 'Core Concept',
                         type: q.type || 'Single best answer',
-                        questionText: q.question,
+                        questionText: q.question || q.questionText || '',
                         options: shuffledOptions,
-                        correctAnswer: q.correctAnswerText,
+                        correctAnswer: q.correctAnswerText || q.correctAnswer,
                         rationale: q.rationale || 'Detailed clinical rationale unavailable.',
                         learningObjective: q.learningObjective || 'Review safe nursing interventions and clinical judgment parameters.'
                     };
@@ -391,7 +398,8 @@
                         <div class="space-y-2">
                             <i class="fa-solid fa-triangle-exclamation text-3xl text-rose-600"></i>
                             <p class="text-sm font-bold text-slate-800">Unable to load questions.json</p>
-                            <p class="text-xs text-slate-500">Please ensure questions.json is present in your repository root.</p>
+                            <p class="text-xs text-slate-500">${err.message}</p>
+                            <p class="text-[11px] text-slate-400">If testing locally without a local web server (using file://), browser CORS policies block fetch requests. Use a local server (e.g. Live Server or http-server) or test via GitHub Pages.</p>
                         </div>
                     </div>
                 `;
