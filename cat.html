@@ -343,6 +343,7 @@
         }
 
         function renderQuestion() {
+            
             if (!currentQuestion) return;
 
             const itemNum = catHistory.length + 1;
@@ -355,12 +356,6 @@
             let html = `
                 <div class="space-y-6 animate-fadeIn">
                     <div class="border-b border-slate-200 pb-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">
-                                ${currentQuestion.topic.toUpperCase()} • SINGLE BEST ANSWER
-                            </span>
-                            <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-0.5 rounded border border-blue-300">CAT Clinical Judgment Item</span>
-                        </div>
                         <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">
                             ${currentQuestion.questionText}
                         </h2>
