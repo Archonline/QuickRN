@@ -128,11 +128,6 @@
                     <i class="fa-solid fa-user w-5 text-center"></i>
                     <span>Candidate Profile</span>
                 </a>
-
-                <a href="#" onclick="switchTab('settings')" id="nav-settings" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
-                    <i class="fa-solid fa-gear w-5 text-center"></i>
-                    <span>Settings</span>
-                </a>
             </nav>
 
             <div class="p-4 border-t border-slate-100">
@@ -335,31 +330,6 @@
                     </div>
                 </div>
 
-                <!-- SETTINGS TAB -->
-                <div id="tab-content-settings" class="hidden space-y-6">
-                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm max-w-2xl space-y-6">
-                        <div>
-                            <h2 class="text-base font-bold text-slate-900">Account Preferences</h2>
-                            <p class="text-xs text-slate-500">Manage your student profile and sign out options.</p>
-                        </div>
-                        <div class="space-y-4 pt-2">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Display Name</label>
-                                <input type="text" id="settings-name" value="Future RN Student" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
-                            </div>
-                            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
-                                <button onclick="showToast('Settings saved successfully!', 'success')" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl transition-all">
-                                    Save Changes
-                                </button>
-                                <button onclick="handleSignOut()" class="px-5 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold rounded-xl transition-all flex items-center space-x-2">
-                                    <i class="fa-solid fa-right-from-bracket"></i>
-                                    <span>Sign Out Now</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </main>
         </div>
     </div>
@@ -440,7 +410,7 @@
             } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
                 pool = embeddedQuestionsData;
             }
-            totalQuestionsInPool = pool.length > 0 ? pool.length : 150; // default total benchmark
+            totalQuestionsInPool = pool.length > 0 ? pool.length : 150;
             document.getElementById('stat-pool-total').textContent = `/ ${totalQuestionsInPool}`;
         }
 
@@ -521,12 +491,9 @@
             showToast('Welcome back! Dashboard synchronized.', 'success');
         }
 
-        // Calculate and Render Passing Probability + Stats
         function renderDashboardStats() {
-            // Update Questions Solved Count
             document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
             
-            // Overall Accuracy
             const accuracy = studentStats.totalSolved > 0 
                 ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
                 : 0;
@@ -535,7 +502,6 @@
             document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
             document.getElementById('stat-readiness-count').textContent = studentStats.readinessExamsCount;
 
-            // Compute Algorithmic NCLEX Passing Probability (Starts at 0% when no attempts made)
             let calculatedProbability = 0;
 
             if (studentStats.totalSolved > 0 || studentStats.catExamsCount > 0 || studentStats.readinessExamsCount > 0) {
@@ -547,7 +513,6 @@
                 calculatedProbability = Math.min(99, Math.round(questionVolumeWeight + accuracyWeight + catWeight + readinessWeight));
             }
 
-            // Update Probability Ring Gauge & Text
             const probText = document.getElementById('probability-value-text');
             const gaugeCircle = document.getElementById('gauge-circle-path');
 
@@ -599,7 +564,6 @@
             });
         }
 
-        // Archer-style Chart Initialization (Defaults to 0 baseline until tests recorded)
         function initArcherScoreChart() {
             const ctx = document.getElementById('archerScoreChart');
             if (!ctx) return;
@@ -695,9 +659,8 @@
             });
         }
 
-        // Tab Navigation
         function switchTab(tabId) {
-            ['dashboard', 'analytics', 'settings'].forEach(t => {
+            ['dashboard', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if (content) content.classList.add('hidden');
@@ -717,13 +680,11 @@
 
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
-                analytics: 'Client Needs Mastery Analytics',
-                settings: 'Account Settings'
+                analytics: 'Client Needs Mastery Analytics'
             };
             document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
         }
 
-        // Toast Notification System
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
