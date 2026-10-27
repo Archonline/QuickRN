@@ -136,29 +136,51 @@
             return arr;
         }
 
-        // Full Rationale Multi-Pass Scanning Algorithm for Diseases, Meds & Interventions
+        // Full Sentence Rationale Parser: Extracts 5-6 core nursing keywords/phrases
         function extractRationaleKeywords(text, category, topic) {
-            const fullText = `${text || ''} ${topic || ''} ${category || ''}`;
+            const combinedSource = `${text || ''} ${topic || ''} ${category || ''}`;
             
-            const pharmAndConditionRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|airborne|droplet|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation)\b/gi;
+            // Regex for explicit nursing topics, conditions, medications, and clinical interventions
+            const clinicalTopicRegex = /\b(systemic lupus erythematosus|sle|lyme disease|kawasaki disease|appendicitis|pneumonia|tuberculosis|tb|sepsis|septic shock|acute coronary syndrome|myocardial infarction|mi|heart failure|pulmonary embolism|pe|deep vein thrombosis|dvt|atelectasis|stroke|diabetic ketoacidosis|dka|hypoglycemia|hyperkalemia|hypokalemia|hypocalcemia|croup|epiglottitis|preeclampsia|postpartum hemorrhage|asthma|copd|pancreatitis|cirrhosis|bowel obstruction|meningitis|parkinson|multiple sclerosis|pneumothorax|ards|acute kidney injury|aki|chronic kidney disease|ckd|nephrolithiasis|insulin|heparin|digoxin|potassium|warfarin|coumadin|furosemide|lasix|levothyroxine|metformin|metoprolol|lisinopril|albuterol|morphine|vancomycin|nitroglycerin|naloxone|narcan|calcium gluconate|protamine sulfate|iv titration|therapeutic range|antidote|prioritization|delegation|advance directives|informed consent|organ donation|ethical dilemmas|interprofessional collaboration|airborne precautions|droplet precautions|contact precautions|ppe|needle safety|fall prevention|seizure precautions|abg interpretation|vital signs|apgar|developmental milestones|therapeutic communication|crisis intervention|de-escalation|withdrawal|ciwa|cows|tpn|tube feeding|palliative care|pain management|pressure injury)\b/gi;
 
-            const matches = fullText.match(pharmAndConditionRegex);
-            if (matches && matches.length > 0) {
-                return [...new Set(matches.map(m => m.toLowerCase()))];
+            let extracted = [];
+            
+            // Pass 1: Extract matching clinical terms across sentences
+            const directMatches = combinedSource.match(clinicalTopicRegex);
+            if (directMatches) {
+                extracted = [...new Set(directMatches.map(m => m.toLowerCase()))];
             }
 
-            const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse", "first", "initial", "most"]);
-            const words = fullText.replace(/[^\w\s]/gi, '').split(/\s+/);
-            const candidates = words.filter(w => w.length > 4 && !stopWords.has(w.toLowerCase()));
-            
-            if (candidates.length > 0) {
-                return [...new Set(candidates.slice(0, 3))];
+            // Pass 2: Fill up to 5-6 keywords from candidate words in the rationale
+            if (extracted.length < 6) {
+                const stopWords = new Set(["in", "management", "of", "care", "prioritizing", "immediate", "assessment", "and", "evidence-based", "clinical", "judgment", "related", "to", "ensures", "patient", "safety", "aligns", "with", "standards", "the", "that", "this", "from", "for", "which", "should", "nurse", "first", "initial", "most", "client", "action", "priority", "nursing", "obtain", "monitor"]);
+                
+                const sentences = (text || '').split(/[.!?]+/);
+                for (let sentence of sentences) {
+                    const words = sentence.replace(/[^\w\s]/gi, '').split(/\s+/);
+                    for (let word of words) {
+                        const cleanWord = word.toLowerCase();
+                        if (cleanWord.length > 4 && !stopWords.has(cleanWord) && !extracted.includes(cleanWord)) {
+                            extracted.push(cleanWord);
+                            if (extracted.length >= 6) break;
+                        }
+                    }
+                    if (extracted.length >= 6) break;
+                }
             }
 
-            return [topic || category || "Pharmacology & NCLEX Review"];
+            // Fallbacks if under 5 keywords
+            const fallbacks = ["prioritization", "delegation", "patient safety", "assessment", "clinical judgment", "vital signs"];
+            for (let fb of fallbacks) {
+                if (extracted.length < 5 && !extracted.includes(fb)) {
+                    extracted.push(fb);
+                }
+            }
+
+            return extracted.slice(0, 6);
         }
 
-        // Dynamic Mnemonic / Strategy Guide Generator (Clean Titles)
+        // Clean Strategy Guide Generator (Removes leading single word keywords from header)
         function getDynamicMnemonic(text, category, topic) {
             const keywords = extractRationaleKeywords(text, category, topic);
             const primaryKey = (keywords[0] || '').toLowerCase();
@@ -169,20 +191,21 @@
                 }
             }
 
-            const cleanTopicName = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "PHARMACOLOGY & CLINICAL CARE");
+            // Clean Topic Title formatting
+            const cleanTopicName = (keywords[0] ? keywords[0] : (topic ? topic : "Clinical Care")).toUpperCase();
             const isPharmCategory = (category && category.toLowerCase().includes("pharm")) || ["insulin", "heparin", "digoxin", "potassium", "medication", "iv"].some(k => primaryKey.includes(k));
 
             if (isPharmCategory) {
                 return {
                     title: `Pharmacology Strategy Guide: ${cleanTopicName}`,
-                    mnemonic: `Pharmacology Rule: Always verify hold parameters (vital signs, apical pulse, blood pressure, serum lab values) prior to administration. Monitor for therapeutic range, early toxicity signs, and keep antidotes readily accessible.`,
+                    mnemonic: `Pharmacology Rule: Always check hold parameters (vital signs, apical pulse, blood pressure, lab values) prior to administration. Monitor for therapeutic levels, early toxicity signs, and keep antidotes readily available.`,
                     isStrategyTip: true
                 };
             }
 
             return {
                 title: `Condition Strategy Guide: ${cleanTopicName}`,
-                mnemonic: `NCLEX Clinical Strategy: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
+                mnemonic: `NCLEX Strategy: Identify early cues of physiological deterioration (vital sign trends, altered LOC, critical lab values). Always prioritize airway/breathing stability, fluid/electrolyte balance, and immediate safety protocols.`,
                 isStrategyTip: true
             };
         }
@@ -232,7 +255,7 @@
             selectedOptions = [];
             isSubmitted = false;
 
-            // Randomize multiple choice options display order for this question item
+            // Randomize multiple choice options order for this item
             currentShuffledOptions = q.options ? shuffleArray(q.options) : [];
 
             updateBookmarkUI(q.id);
@@ -369,7 +392,6 @@
             const q = questions[currentIndex];
             
             let isCorrect = false;
-            // Map selected letters to actual text options from currentShuffledOptions
             const chosenTexts = selectedOptions.map(l => currentShuffledOptions[l.charCodeAt(0) - 65]);
 
             if (Array.isArray(q.correctAnswer)) {
@@ -440,6 +462,7 @@
             const container = document.getElementById('remediation-container');
             if (!container) return;
 
+            // Extract 5-6 core nursing keywords from full sentence scanning
             const extractedKeywords = extractRationaleKeywords(q.rationale, q.category, q.topic);
             const mainKeyword = extractedKeywords[0] || q.topic || 'Medication & Disease';
             const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX pharmacology mnemonic ' + mainKeyword)}`;
@@ -471,6 +494,22 @@
                         </div>
                     </div>
 
+                    <!-- 5-6 Key Term Pill Bar -->
+                    <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 space-y-2">
+                        <div class="text-[10px] font-extrabold uppercase text-slate-600 tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-key text-amber-500"></i> Nursing Mastery & Keyword Focus (Rationale Scanned Key Terms):
+                        </div>
+                        <div class="flex flex-wrap gap-1.5">
+            `;
+
+            extractedKeywords.forEach(kw => {
+                html += `<span class="px-2.5 py-1 bg-white border border-slate-300 text-slate-800 text-[10px] font-bold rounded-lg shadow-sm uppercase"><i class="fa-solid fa-tag text-medical-600 mr-1"></i>${kw}</span>`;
+            });
+
+            html += `
+                        </div>
+                    </div>
+
                     <div class="p-6 bg-white rounded-3xl border border-slate-200 shadow-sm space-y-2">
                         <h4 class="font-extrabold text-xs uppercase text-clinical-600 flex items-center gap-1.5"><i class="fa-solid fa-book-medical"></i> Detailed NCLEX Rationale</h4>
                         <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${q.rationale || 'Prioritizing patient safety, high-alert medication protocols, and baseline physical assessments is standard nursing care.'}</p>
@@ -484,7 +523,7 @@
                                         <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-pills text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Mnemonic'}
                                     </h4>
                                     <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
-                                        Key: ${mainKeyword}
+                                        Focus: ${mainKeyword}
                                     </span>
                                 </div>
                                 <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
