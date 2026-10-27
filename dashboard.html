@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | QuickRN</title>
+    <title>Dashboard | QuickRN NCLEX Prep</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -25,11 +25,13 @@
         }
     </script>
     <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js for Archer-Style Exam Trajectory Graph -->
+    <!-- Chart.js for Archer-style trajectory line graph -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- External Questions Bank -->
+    <script src="questions.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -80,59 +82,67 @@
                 </div>
             </div>
 
-            <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
-                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
-                    <i class="fa-solid fa-chart-pie w-5"></i>
+            <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+                <div class="px-3 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Core Dashboard</div>
+                
+                <a href="dashboard.html" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
-                    <i class="fa-solid fa-chart-line w-5"></i>
+                
+                <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
                     <span>Client Needs Mastery</span>
                 </a>
-                <a href="#" onclick="switchTab('settings')" id="nav-settings" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
-                    <i class="fa-solid fa-gear w-5"></i>
-                    <span>Settings</span>
-                </a>
 
-                <!-- Core Navigation Modes -->
-                <div class="pt-6 pb-2 px-2">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Study & Testing</span>
-                </div>
-                <!-- Updated Self Study Mode Link -->
-                <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-purple-50 hover:text-purple-700 transition-colors border border-slate-100">
-                    <i class="fa-solid fa-book-open text-purple-600 w-4"></i>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Study & Testing</div>
+
+                <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
+                    <i class="fa-solid fa-book-open w-5 text-center text-purple-600"></i>
                     <span>Self Study Mode</span>
                 </a>
-                <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors border border-slate-100 mt-2">
-                    <i class="fa-solid fa-stopwatch text-blue-500 w-4"></i>
+
+                <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
                     <span>Timed Practice Test</span>
                 </a>
-                <a href="readiness.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-700 transition-colors border border-slate-100 mt-2">
-                    <i class="fa-solid fa-clipboard-check text-amber-500 w-4"></i>
+
+                <a href="readiness.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-clipboard-check w-5 text-center text-amber-600"></i>
                     <span>Readiness Assessment</span>
                 </a>
-                <a href="cat.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors border border-slate-100 mt-2">
-                    <i class="fa-solid fa-laptop-code text-emerald-600 w-4"></i>
-                    <span>CAT Test Simulator</span>
+
+                <a href="cat.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-laptop-code w-5 text-center text-slate-800"></i>
+                    <span>CAT Exam Simulator</span>
+                </a>
+
+                <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Account</div>
+
+                <a href="profile.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-user w-5 text-center"></i>
+                    <span>Candidate Profile</span>
+                </a>
+
+                <a href="#" onclick="switchTab('settings')" id="nav-settings" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-gear w-5 text-center"></i>
+                    <span>Settings</span>
                 </a>
             </nav>
 
-            <!-- User Profile Button -> Links to profile.html -->
             <div class="p-4 border-t border-slate-100">
-                <div onclick="window.location.href = 'profile.html'" title="View Profile" class="bg-slate-50 hover:bg-brand-50 p-3 rounded-2xl flex items-center justify-between cursor-pointer transition-all border border-slate-200/60 hover:border-brand-200 group">
+                <a href="profile.html" class="bg-slate-50 p-3 rounded-2xl flex items-center justify-between hover:bg-slate-100 transition-colors group">
                     <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs group-hover:bg-brand-200 transition-colors">
                             RN
                         </div>
                         <div class="overflow-hidden">
-                            <h4 id="user-display-name" class="text-xs font-semibold text-slate-800 truncate group-hover:text-brand-700">Future RN</h4>
-                            <p class="text-[10px] text-slate-500 truncate">View Candidate Profile <i class="fa-solid fa-chevron-right text-[9px] ml-0.5"></i></p>
+                            <h4 id="user-display-name" class="text-xs font-semibold text-slate-800 truncate">Future RN</h4>
+                            <p class="text-[10px] text-slate-500 truncate">View Profile & Stat History</p>
                         </div>
                     </div>
-                    <button onclick="event.stopPropagation(); handleSignOut();" title="Sign Out" class="text-slate-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition-colors">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
-                </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-slate-600"></i>
+                </a>
             </div>
         </aside>
 
@@ -142,14 +152,16 @@
             <!-- Top Header -->
             <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
                 <div class="flex items-center space-x-4">
-                    <h1 id="page-title" class="text-lg font-bold text-slate-900">Dashboard Overview</h1>
+                    <h1 id="page-title" class="text-lg font-bold text-slate-900">NCLEX Candidate Dashboard</h1>
                 </div>
-                
-                <!-- Action Navigation Buttons Header -->
-                <div class="flex items-center space-x-2 sm:space-x-3">
-                    <button onclick="handleSignOut()" class="flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all ml-1">
+                <div class="flex items-center space-x-4">
+                    <a href="profile.html" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                        <i class="fa-solid fa-user text-slate-500"></i>
+                        <span>Candidate Profile</span>
+                    </a>
+                    <button onclick="handleSignOut()" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
                         <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="hidden lg:inline">Sign Out</span>
+                        <span>Sign Out</span>
                     </button>
                 </div>
             </header>
@@ -160,143 +172,154 @@
                 <!-- DASHBOARD TAB -->
                 <div id="tab-content-dashboard" class="space-y-6">
                     
-                    <!-- PROMINENT DYNAMIC PROBABILITY TO PASS CONTAINER -->
-                    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 rounded-2xl p-6 text-white shadow-xl border border-slate-700/50 relative overflow-hidden">
-                        <div class="absolute -right-10 -bottom-10 w-60 h-60 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <!-- DYNAMIC PROBABILITY BANNER WITH DYNAMIC ENCOURAGING GREETING -->
+                    <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-2xl p-6 lg:p-8 text-white shadow-xl border border-slate-800 relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-60 h-60 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -left-10 -bottom-10 w-60 h-60 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             
-                            <!-- Left Section: Probability Score & Status Tier -->
-                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                                <div class="relative flex items-center justify-center flex-shrink-0">
-                                    <!-- Dynamic Circular Meter / Visual Indicator -->
-                                    <svg class="w-32 h-32 transform -rotate-90">
-                                        <circle cx="64" cy="64" r="54" stroke="currentColor" stroke-width="10" class="text-slate-700" fill="transparent" />
-                                        <circle id="pass-probability-ring" cx="64" cy="64" r="54" stroke="currentColor" stroke-width="10" class="text-brand-500 transition-all duration-1000 ease-out" fill="transparent" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round" />
-                                    </svg>
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                        <span id="pass-probability-value" class="text-3xl font-extrabold text-white tracking-tight">0%</span>
-                                        <span class="text-[9px] uppercase font-bold tracking-widest text-slate-400">Pass Rate</span>
-                                    </div>
+                            <!-- LEFT SIDE: Personalized Greeting & Encouraging Passage -->
+                            <div class="lg:col-span-7 space-y-4">
+                                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                    <span>Daily NCLEX Encouragement</span>
                                 </div>
 
-                                <div class="space-y-2">
-                                    <div class="flex items-center space-x-2">
-                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-400 border border-brand-500/30">Algorithmic Readiness</span>
-                                        <span id="pass-tier-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-700 text-slate-300 border border-slate-600">Initial State</span>
-                                    </div>
-                                    <h2 class="text-xl sm:text-2xl font-extrabold text-white">NCLEX Passing Probability</h2>
-                                    <p class="text-xs text-slate-300 max-w-xl leading-relaxed">
-                                        Calculated dynamically using adaptive weighting of reviewed questions volume, CAT scores trajectory, and Readiness Assessment benchmarks. Complete tests to generate prediction model.
+                                <h2 id="greeting-title" class="text-2xl lg:text-3xl font-extrabold tracking-tight text-white">
+                                    Welcome Back, Future RN! 👋
+                                </h2>
+
+                                <div class="bg-white/5 border border-white/10 rounded-xl p-4 backdrop-blur-sm">
+                                    <p id="encouraging-passage" class="text-sm lg:text-base text-slate-200 italic leading-relaxed">
+                                        "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name."
                                     </p>
+                                    <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
+                                        <span id="quote-author" class="font-medium text-emerald-400">— QuickRN Motivation</span>
+                                        <button onclick="rotateEncouragement()" class="hover:text-white transition-colors inline-flex items-center space-x-1 text-[11px] bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-lg">
+                                            <i class="fa-solid fa-rotate text-[10px]"></i>
+                                            <span>Refresh Quote</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Right Section: Key Contributing Metric Breakdowns -->
-                            <div class="grid grid-cols-3 gap-3 bg-white/5 p-4 rounded-xl border border-white/10 text-center min-w-[280px]">
-                                <div class="p-2 border-r border-white/10">
-                                    <p class="text-[10px] uppercase font-semibold text-slate-400">Reviewed Qs</p>
-                                    <h4 id="pass-metric-questions" class="text-base font-bold text-white mt-1">0</h4>
-                                    <p class="text-[9px] text-slate-400 mt-0.5">Target: 500+</p>
+                            <!-- RIGHT SIDE: NCLEX Passing Probability Ring Gauge & Algorithm Badges -->
+                            <div class="lg:col-span-5 bg-slate-900/80 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md flex flex-col justify-between space-y-5">
+                                <div class="flex items-center space-x-4">
+                                    <!-- Circular Percentage Gauge -->
+                                    <div class="relative w-20 h-20 flex-shrink-0 flex items-center justify-center">
+                                        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                            <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                            <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        </svg>
+                                        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                            <span id="probability-value-text" class="text-xl font-extrabold text-white">0%</span>
+                                            <span class="text-[8px] font-bold text-slate-400 uppercase tracking-tighter">PASS RATE</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-1">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded text-[10px] font-extrabold uppercase tracking-wider">Algorithmic Readiness</span>
+                                            <span id="readiness-state-badge" class="px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded text-[10px] font-extrabold uppercase tracking-wider">Initial State</span>
+                                        </div>
+                                        <h3 class="text-lg font-bold text-white tracking-tight">NCLEX Passing Probability</h3>
+                                    </div>
                                 </div>
-                                <div class="p-2 border-r border-white/10">
-                                    <p class="text-[10px] uppercase font-semibold text-slate-400">Avg CAT</p>
-                                    <h4 id="pass-metric-cat" class="text-base font-bold text-emerald-400 mt-1">0%</h4>
-                                    <p class="text-[9px] text-slate-400 mt-0.5">Target: >70%</p>
-                                </div>
-                                <div class="p-2">
-                                    <p class="text-[10px] uppercase font-semibold text-slate-400">Readiness</p>
-                                    <h4 id="pass-metric-readiness" class="text-base font-bold text-amber-400 mt-1">0%</h4>
-                                    <p class="text-[9px] text-slate-400 mt-0.5">High Benchmark</p>
-                                </div>
+
+                                <p class="text-xs text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
+                                    Calculated dynamically using adaptive weighting of reviewed questions volume, CAT scores trajectory, and Readiness Assessment benchmarks. Complete tests to generate prediction model.
+                                </p>
                             </div>
 
                         </div>
                     </div>
 
-                    <!-- Quick Stats Grid (Reset to 0 / 0%) -->
+                    <!-- Quick Stats Grid (Initial State: All 0) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        
+                        <!-- Questions Solved with Dynamic Pool Display -->
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                             <div>
-                                <p class="text-xs font-medium text-slate-400 uppercase">Questions Solved</p>
-                                <h3 id="stat-solved" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-400 mt-1"><i class="fa-solid fa-clock"></i> Awaiting first attempt</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Questions Solved</p>
+                                <h3 id="stat-solved-display" class="text-2xl font-black text-slate-900 mt-1">0 <span id="stat-pool-total" class="text-sm font-semibold text-slate-400">/ 0</span></h3>
+                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Awaiting first attempt</p>
                             </div>
-                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                         </div>
 
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                             <div>
-                                <p class="text-xs font-medium text-slate-400 uppercase">Overall Accuracy</p>
-                                <h3 id="stat-accuracy" class="text-2xl font-bold text-slate-900 mt-1">0%</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">Benchmark: > 72%</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Overall Accuracy</p>
+                                <h3 id="stat-accuracy" class="text-2xl font-black text-slate-900 mt-1">0%</h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Target: &gt; 75% accuracy</p>
                             </div>
-                            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
                                 <i class="fa-solid fa-bullseye"></i>
                             </div>
                         </div>
 
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                             <div>
-                                <p class="text-xs font-medium text-slate-400 uppercase">CAT Exams Completed</p>
-                                <h3 id="stat-exams" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">Adaptive Engine</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">CAT Exams Completed</p>
+                                <h3 id="stat-exams" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Adaptive CAT engine</p>
                             </div>
-                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-laptop-code"></i>
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-graduation-cap"></i>
                             </div>
                         </div>
 
                         <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                             <div>
-                                <p class="text-xs font-medium text-slate-400 uppercase">Readiness Assessments</p>
-                                <h3 id="stat-readiness-count" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-400 mt-1">Predictive Evaluation</p>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Readiness Exams</p>
+                                <h3 id="stat-readiness-count" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Predictive readiness tests</p>
                             </div>
-                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
                                 <i class="fa-solid fa-clipboard-check"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!-- ARCHER-STYLE LINE GRAPH: CAT SCORES vs PEER AVERAGE vs READINESS ASSESSMENT -->
-                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-                        <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4 border-b border-slate-100 pb-4">
+                    <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                             <div>
-                                <div class="flex items-center space-x-2">
-                                    <h2 class="text-base font-bold text-slate-900">Performance Trajectory & Benchmark Analysis</h2>
-                                    <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold rounded">Archer Standard Format</span>
-                                </div>
-                                <p class="text-xs text-slate-500 mt-0.5">Compare your CAT exam and Readiness scores against national peer benchmark averages</p>
+                                <h2 class="text-base font-bold text-slate-900">NCLEX Score Trajectory & Peer Benchmark Comparison</h2>
+                                <p class="text-xs text-slate-500">Archer-style performance curve plotting CAT scores, Readiness Assessments, and National Peer Averages (74%)</p>
                             </div>
-                            
-                            <!-- Archer Style Legend Badges -->
-                            <div class="flex flex-wrap items-center gap-3 text-xs font-semibold">
-                                <div class="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200/60">
-                                    <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span> Candidate CAT Score
+                            <!-- Legend indicators -->
+                            <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
+                                    <span>CAT Exam Score</span>
                                 </div>
-                                <div class="flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 rounded-lg border border-amber-200/60">
-                                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Readiness Score
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                                    <span>Readiness Assessment</span>
                                 </div>
-                                <div class="flex items-center gap-1.5 px-3 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">
-                                    <span class="w-3 h-0.5 bg-slate-400 inline-block border-t-2 border-dashed border-slate-500"></span> Peer Average (74%)
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-slate-400 inline-block"></span>
+                                    <span>Peer Average (74%)</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="h-72 w-full">
-                            <canvas id="scoreHistoryChart"></canvas>
+                            <canvas id="archerScoreChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- NCLEX Client Needs Mastery Categories -->
-                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col">
-                        <div class="flex items-center justify-between mb-6">
+                    <!-- NCLEX Client Needs Mastery Breakdown Grid -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                        <div class="flex items-center justify-between">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h2>
-                                <p class="text-xs text-slate-500">Updates dynamically as you complete practice sessions, study modules, and exams</p>
+                                <p class="text-xs text-slate-500">Dynamically updates as you complete practice questions & tests across all domains</p>
                             </div>
                         </div>
 
@@ -324,8 +347,8 @@
                 <div id="tab-content-settings" class="hidden space-y-6">
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm max-w-2xl space-y-6">
                         <div>
-                            <h2 class="text-base font-bold text-slate-900">Account & Preferences</h2>
-                            <p class="text-xs text-slate-500">Manage your candidate profile and active sessions.</p>
+                            <h2 class="text-base font-bold text-slate-900">Account Preferences</h2>
+                            <p class="text-xs text-slate-500">Manage your student profile and sign out options.</p>
                         </div>
                         <div class="space-y-4 pt-2">
                             <div>
@@ -351,14 +374,47 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Baseline Initialized to 0 / 0% for All Metrics
+        // Array of 30 Encouraging Phrases, Quotes & Passages for NCLEX Candidates
+        const encouragingQuotes = [
+            { quote: "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name.", author: "QuickRN Inspiration" },
+            { quote: "The struggle you're in today is developing the strength you need for tomorrow. Keep pushing forward!", author: "NCLEX Prep Quote" },
+            { quote: "It’s a beautiful day to save lives and pass the NCLEX!", author: "Future RN Mantra" },
+            { quote: "Believe you can and you're halfway there. Trust your nursing judgment and intuition.", author: "Theodore Roosevelt" },
+            { quote: "Small daily improvements over time lead to stunning long-term results. Focus on one high-yield question at a time.", author: "QuickRN Coaching" },
+            { quote: "You have come too far to only come this far. Your future patients are waiting for you!", author: "Nursing Excellence" },
+            { quote: "Confidence comes from discipline and training. Trust the process, study smart, and stay focused.", author: "NCLEX Mastery" },
+            { quote: "Safety first, ABCs always! Remember your fundamental nursing prioritization rules.", author: "Test-Taking Strategy" },
+            { quote: "Hard work beats talent when talent doesn't work hard. Your dedication will pay off on exam day.", author: "Tim Notke" },
+            { quote: "Don't wish it were easier; work to make yourself better. Every rationale reviewed builds clinical mastery.", author: "Jim Rohn" },
+            { quote: "You are going to make an extraordinary nurse. Keep believing in your purpose.", author: "QuickRN Motivation" },
+            { quote: "Breathe deeply, read every stem carefully, and eliminate the incorrect options with confidence.", author: "Test Prep Wisdom" },
+            { quote: "Success isn't always about greatness. It's about consistency. Consistent hard work leads to passing.", author: "Dwayne Johnson" },
+            { quote: "Your degree was proof you can learn; passing the NCLEX is proof you can protect and heal.", author: "Nurse Leader" },
+            { quote: "You don't need to know everything—you just need to know how to think like a safe, competent nurse.", author: "Clinical Judgment Core" },
+            { quote: "Doubt kills more dreams than failure ever will. Trust your preparation and stay positive!", author: "Suzy Kassem" },
+            { quote: "Every expert was once a beginner. Keep refining your knowledge every single day.", author: "Helen Hayes" },
+            { quote: "You are stronger, smarter, and more resilient than you think. You will conquer this exam!", author: "QuickRN Coach" },
+            { quote: "When you feel like quitting, remember why you started nursing in the first place.", author: "Nursing Call" },
+            { quote: "Focus on progress, not perfection. Learning from missed questions is the key to passing.", author: "NCLEX Strategy" },
+            { quote: "Keep calm and prioritize: Airway, Breathing, Circulation, and Patient Safety!", author: "NCLEX Rule" },
+            { quote: "Your dedication today protects patient lives tomorrow. Stay focused on the end goal.", author: "Future RN Reminder" },
+            { quote: "The NCLEX is not an obstacle; it is your doorway into the noble profession of nursing.", author: "QuickRN Core" },
+            { quote: "One day, you will be the nurse you once wished you had. Keep striving for excellence.", author: "Inspirational Nursing" },
+            { quote: "Preparation is the key to confidence. Every rationale you master builds your passing foundation.", author: "Clinical Insight" },
+            { quote: "You are capable of achieving anything you set your mind to. Keep studying with courage!", author: "Mindset Matters" },
+            { quote: "Mistakes are proof that you are trying and learning. Embrace every practice rationale.", author: "Learning Principle" },
+            { quote: "Step by step, day by day, question by question—you are building your RN future.", author: "QuickRN Journey" },
+            { quote: "When you put on that RN badge for the first time, all this hard work will be entirely worth it.", author: "Nurse Pride" },
+            { quote: "You've survived nursing school—the NCLEX is just your final victory lap. Go get it!", author: "QuickRN Staff" }
+        ];
+
         let studentStats = {
             totalSolved: 0,
             correctCount: 0,
-            catExamCount: 0,
-            readinessCount: 0,
-            avgCatScore: 0,
-            avgReadinessScore: 0,
+            catExamsCount: 0,
+            readinessExamsCount: 0,
+            catAverageScore: 0,
+            readinessAverageScore: 0,
             categories: [
                 { name: 'Cardiovascular', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-500' },
                 { name: 'Respiratory', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-500' },
@@ -366,21 +422,60 @@
                 { name: 'Endocrine', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-500' },
                 { name: 'Renal', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-500' },
                 { name: 'Gastrointestinal', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-500' },
-                { name: 'Infection Control', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-500' }
+                { name: 'Infection Safety', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-500' }
             ]
         };
 
-        let scoreChartInstance = null;
+        let totalQuestionsInPool = 0;
+        let archerChartInstance = null;
 
-        // Init App on DOM Ready
+        // Session & App Setup
         window.addEventListener('DOMContentLoaded', () => {
             checkAuthStatus();
+            detectTotalQuestionsPool();
             loadStateFromStorage();
-            calculateAndRenderProbabilityToPass();
+            updateTimeBasedGreeting();
+            rotateEncouragement();
             renderDashboardStats();
             renderMasteryCategories();
-            initArcherStyleScoreChart();
+            initArcherScoreChart();
         });
+
+        function detectTotalQuestionsPool() {
+            let pool = [];
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
+                pool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
+                pool = embeddedQuestionsData;
+            }
+            totalQuestionsInPool = pool.length > 0 ? pool.length : 150; // default total benchmark
+            document.getElementById('stat-pool-total').textContent = `/ ${totalQuestionsInPool}`;
+        }
+
+        function updateTimeBasedGreeting() {
+            const hour = new Date().getHours();
+            let greetingWord = "Welcome Back";
+            if (hour < 12) greetingWord = "Good Morning";
+            else if (hour < 18) greetingWord = "Good Afternoon";
+            else greetingWord = "Good Evening";
+
+            const name = localStorage.getItem('quickrn_user_name') || 'Future RN';
+            const titleElem = document.getElementById('greeting-title');
+            if (titleElem) {
+                titleElem.innerHTML = `${greetingWord}, ${name}! 👋`;
+            }
+        }
+
+        function rotateEncouragement() {
+            const randomIndex = Math.floor(Math.random() * encouragingQuotes.length);
+            const selected = encouragingQuotes[randomIndex];
+            
+            const passageElem = document.getElementById('encouraging-passage');
+            const authorElem = document.getElementById('quote-author');
+
+            if (passageElem) passageElem.textContent = `"${selected.quote}"`;
+            if (authorElem) authorElem.textContent = `— ${selected.author}`;
+        }
 
         function loadStateFromStorage() {
             const savedState = localStorage.getItem('quickrn_student_state');
@@ -388,19 +483,11 @@
                 try {
                     const parsed = JSON.parse(savedState);
                     if (parsed.studentStats) {
-                        studentStats.totalSolved = parsed.studentStats.totalAnswered || parsed.studentStats.totalSolved || 0;
+                        studentStats.totalSolved = parsed.studentStats.totalAnswered || 0;
                         studentStats.correctCount = parsed.studentStats.correctCount || 0;
-                        if (parsed.studentStats.examHistory && Array.isArray(parsed.studentStats.examHistory)) {
-                            studentStats.catExamCount = parsed.studentStats.examHistory.length;
-                            const catScores = parsed.studentStats.examHistory.map(e => e.scorePercent || 0);
-                            studentStats.avgCatScore = catScores.length > 0 ? Math.round(catScores.reduce((a,b) => a+b, 0) / catScores.length) : 0;
-                        }
-                        if (parsed.studentStats.readinessCount) {
-                            studentStats.readinessCount = parsed.studentStats.readinessCount;
-                        }
-                        if (parsed.studentStats.avgReadinessScore) {
-                            studentStats.avgReadinessScore = parsed.studentStats.avgReadinessScore;
-                        }
+                        studentStats.catExamsCount = parsed.studentStats.examHistory ? parsed.studentStats.examHistory.length : 0;
+                        studentStats.readinessExamsCount = parsed.studentStats.readinessHistory ? parsed.studentStats.readinessHistory.length : 0;
+                        
                         if (parsed.studentStats.categories && Array.isArray(parsed.studentStats.categories)) {
                             studentStats.categories = parsed.studentStats.categories;
                         }
@@ -411,71 +498,20 @@
             }
         }
 
-        // DYNAMIC PROBABILITY TO PASS CALCULATION
-        function calculateAndRenderProbabilityToPass() {
-            let totalQuestions = studentStats.totalSolved || 0;
-            let catAvg = studentStats.avgCatScore || 0;
-            let readinessAvg = studentStats.avgReadinessScore || 0;
-
-            // Raw total pass probability percentage
-            let passProb = 0;
-            
-            if (totalQuestions > 0 || catAvg > 0 || readinessAvg > 0) {
-                let qFactor = Math.min(25, (totalQuestions / 600) * 25);
-                let catFactor = (catAvg / 100) * 40;
-                let readinessFactor = (readinessAvg / 100) * 35;
-                passProb = Math.min(99, Math.max(0, Math.round(qFactor + catFactor + readinessFactor)));
-            }
-
-            // Update DOM Elements
-            const passValueElem = document.getElementById('pass-probability-value');
-            const passRingElem = document.getElementById('pass-probability-ring');
-            const tierBadgeElem = document.getElementById('pass-tier-badge');
-
-            if (passValueElem) passValueElem.textContent = `${passProb}%`;
-            
-            // Circular stroke dashoffset calculation (Circumference ~339.29)
-            if (passRingElem) {
-                const maxCircumference = 339.29;
-                const offset = maxCircumference - (passProb / 100) * maxCircumference;
-                passRingElem.style.strokeDashoffset = offset;
-            }
-
-            // Status Tier Assignment
-            if (tierBadgeElem) {
-                if (passProb >= 85) {
-                    tierBadgeElem.textContent = "Very High";
-                    tierBadgeElem.className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
-                } else if (passProb >= 72) {
-                    tierBadgeElem.textContent = "High";
-                    tierBadgeElem.className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-300 border border-brand-500/30";
-                } else if (passProb >= 50) {
-                    tierBadgeElem.textContent = "Borderline";
-                    tierBadgeElem.className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30";
-                } else {
-                    tierBadgeElem.textContent = "Initial State";
-                    tierBadgeElem.className = "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-700 text-slate-300 border border-slate-600";
-                }
-            }
-
-            // Update sub-metrics in probability card
-            document.getElementById('pass-metric-questions').textContent = totalQuestions;
-            document.getElementById('pass-metric-cat').textContent = `${catAvg}%`;
-            document.getElementById('pass-metric-readiness').textContent = `${readinessAvg}%`;
-        }
-
         function checkAuthStatus() {
             const isSignedOut = localStorage.getItem('quickrn_signed_out') === 'true';
             const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                if (isSignedOut) overlay.classList.remove('hidden');
-                else overlay.classList.add('hidden');
+
+            if (isSignedOut) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
             }
         }
 
         function handleSignOut() {
             localStorage.setItem('quickrn_signed_out', 'true');
-            showToast('Successfully signed out of QuickRN session.', 'info');
+            showToast('Successfully signed out of QuickRN active session.', 'info');
             setTimeout(() => {
                 document.getElementById('auth-overlay').classList.remove('hidden');
             }, 300);
@@ -486,8 +522,202 @@
             const email = document.getElementById('login-email').value;
             localStorage.setItem('quickrn_signed_out', 'false');
             localStorage.setItem('quickrn_user_email', email);
+            
             document.getElementById('auth-overlay').classList.add('hidden');
-            showToast('Welcome back! Session restored.', 'success');
+            updateTimeBasedGreeting();
+            rotateEncouragement();
+            showToast('Welcome back! Dashboard synchronized.', 'success');
+        }
+
+        // Calculate and Render Passing Probability + Stats
+        function renderDashboardStats() {
+            // Update Questions Solved Count
+            document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
+            
+            // Overall Accuracy
+            const accuracy = studentStats.totalSolved > 0 
+                ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
+                : 0;
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
+
+            document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
+            document.getElementById('stat-readiness-count').textContent = studentStats.readinessExamsCount;
+
+            // Compute Algorithmic NCLEX Passing Probability (Starts at 0% when no attempts made)
+            let calculatedProbability = 0;
+
+            if (studentStats.totalSolved > 0 || studentStats.catExamsCount > 0 || studentStats.readinessExamsCount > 0) {
+                const questionVolumeWeight = Math.min(1.0, studentStats.totalSolved / 500) * 25; // max 25 pts
+                const accuracyWeight = (accuracy / 100) * 35; // max 35 pts
+                const catWeight = studentStats.catExamsCount > 0 ? (studentStats.catAverageScore || 70) * 0.20 : 0; // max 20 pts
+                const readinessWeight = studentStats.readinessExamsCount > 0 ? (studentStats.readinessAverageScore || 70) * 0.20 : 0; // max 20 pts
+                
+                calculatedProbability = Math.min(99, Math.round(questionVolumeWeight + accuracyWeight + catWeight + readinessWeight));
+            }
+
+            // Update Probability Ring Gauge & Text
+            const probText = document.getElementById('probability-value-text');
+            const gaugeCircle = document.getElementById('gauge-circle-path');
+            const badge = document.getElementById('readiness-state-badge');
+
+            if (probText) probText.textContent = calculatedProbability + '%';
+            if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability}, 100`);
+
+            if (badge) {
+                if (calculatedProbability === 0) {
+                    badge.textContent = 'Initial State';
+                    badge.className = 'px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded text-[10px] font-extrabold uppercase tracking-wider';
+                } else if (calculatedProbability >= 80) {
+                    badge.textContent = 'Very High Readiness';
+                    badge.className = 'px-2 py-0.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded text-[10px] font-extrabold uppercase tracking-wider';
+                } else if (calculatedProbability >= 65) {
+                    badge.textContent = 'Moderate Readiness';
+                    badge.className = 'px-2 py-0.5 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded text-[10px] font-extrabold uppercase tracking-wider';
+                } else {
+                    badge.textContent = 'Low Readiness';
+                    badge.className = 'px-2 py-0.5 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded text-[10px] font-extrabold uppercase tracking-wider';
+                }
+            }
+        }
+
+        function renderMasteryCategories() {
+            const container = document.getElementById('mastery-categories-list');
+            const detailedContainer = document.getElementById('analytics-detailed-list');
+            
+            if (container) container.innerHTML = '';
+            if (detailedContainer) detailedContainer.innerHTML = '';
+
+            studentStats.categories.forEach(cat => {
+                cat.percentage = cat.solved > 0 ? Math.round((cat.correct / cat.solved) * 100) : 0;
+
+                if (container) {
+                    container.innerHTML += `
+                        <div class="space-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span class="text-slate-700">${cat.name}</span>
+                                <span class="text-slate-900">${cat.percentage}% <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} solved)</span></span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (detailedContainer) {
+                    detailedContainer.innerHTML += `
+                        <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-sm text-slate-800">${cat.name}</h4>
+                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.percentage}% Mastery</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
+                            </div>
+                            <div class="flex justify-between text-[11px] text-slate-500">
+                                <span>Questions Attempted: <strong class="text-slate-700">${cat.solved}</strong></span>
+                                <span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Archer-style Chart Initialization (Defaults to 0 baseline until tests recorded)
+        function initArcherScoreChart() {
+            const ctx = document.getElementById('archerScoreChart');
+            if (!ctx) return;
+
+            let labels = ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5'];
+            let catScores = [0, 0, 0, 0, 0];
+            let readinessScores = [0, 0, 0, 0, 0];
+            const peerAverage = [74, 74, 74, 74, 74]; // National Peer Average benchmark line
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats) {
+                        if (Array.isArray(parsed.studentStats.examHistory) && parsed.studentStats.examHistory.length > 0) {
+                            labels = [];
+                            catScores = [];
+                            readinessScores = [];
+                            
+                            parsed.studentStats.examHistory.forEach((ex, i) => {
+                                labels.push(`Attempt ${i + 1}`);
+                                catScores.push(ex.scorePercent || 0);
+                                readinessScores.push(ex.readinessScore || 0);
+                            });
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            if (archerChartInstance) {
+                archerChartInstance.destroy();
+            }
+
+            archerChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'CAT Exam Score (%)',
+                            data: catScores,
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.08)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#16a34a'
+                        },
+                        {
+                            label: 'Readiness Score (%)',
+                            data: readinessScores,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            borderWidth: 3,
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.35,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#f59e0b'
+                        },
+                        {
+                            label: 'National Peer Average (74%)',
+                            data: peerAverage.slice(0, labels.length),
+                            borderColor: '#94a3b8',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            fill: false,
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                callback: function(val) { return val + '%'; }
+                            },
+                            grid: { color: 'rgba(226, 232, 240, 0.6)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
         }
 
         // Tab Navigation
@@ -511,177 +741,16 @@
             }
 
             const titles = {
-                dashboard: 'Dashboard Overview',
+                dashboard: 'NCLEX Candidate Dashboard',
                 analytics: 'Client Needs Mastery Analytics',
                 settings: 'Account Settings'
             };
             document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
         }
 
-        // Render Quick Stats Overview
-        function renderDashboardStats() {
-            document.getElementById('stat-solved').textContent = studentStats.totalSolved;
-            
-            const accuracy = studentStats.totalSolved > 0 
-                ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
-                : 0;
-            document.getElementById('stat-accuracy').textContent = accuracy + '%';
-            document.getElementById('stat-exams').textContent = studentStats.catExamCount || 0;
-            document.getElementById('stat-readiness-count').textContent = studentStats.readinessCount || 0;
-        }
-
-        function renderMasteryCategories() {
-            const container = document.getElementById('mastery-categories-list');
-            const detailedContainer = document.getElementById('analytics-detailed-list');
-            
-            if (container) container.innerHTML = '';
-            if (detailedContainer) detailedContainer.innerHTML = '';
-
-            studentStats.categories.forEach(cat => {
-                cat.percentage = cat.solved > 0 ? Math.round((cat.correct / cat.solved) * 100) : 0;
-
-                if (container) {
-                    container.innerHTML += `
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-semibold">
-                                <span class="text-slate-700">${cat.name}</span>
-                                <span class="text-slate-900">${cat.percentage}% (${cat.correct}/${cat.solved} correct)</span>
-                            </div>
-                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                if (detailedContainer) {
-                    detailedContainer.innerHTML += `
-                        <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-3">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-sm text-slate-800">${cat.name}</h4>
-                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.percentage}% Mastery</span>
-                            </div>
-                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
-                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
-                            </div>
-                            <div class="flex justify-between text-[11px] text-slate-500">
-                                <span>Questions Reviewed: <strong class="text-slate-700">${cat.solved}</strong></span>
-                                <span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        // ARCHER-STYLE LINE GRAPH INITIALIZED TO BASELINE
-        function initArcherStyleScoreChart() {
-            const ctx = document.getElementById('scoreHistoryChart');
-            if (!ctx) return;
-
-            let labels = ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Exam 5'];
-            let candidateCatScores = [0, 0, 0, 0, 0];
-            let readinessScores = [0, 0, 0, 0, 0];
-            let peerAverageScores = [74, 74, 74, 74, 74]; // National Archer Benchmark Peer Average line
-
-            if (scoreChartInstance) {
-                scoreChartInstance.destroy();
-            }
-
-            scoreChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Candidate CAT Score (%)',
-                            data: candidateCatScores,
-                            borderColor: '#16a34a', // Brand Green
-                            backgroundColor: 'rgba(22, 163, 74, 0.08)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.3,
-                            pointRadius: 6,
-                            pointHoverRadius: 8,
-                            pointBackgroundColor: '#16a34a',
-                            pointBorderColor: '#ffffff',
-                            pointBorderWidth: 2
-                        },
-                        {
-                            label: 'Readiness Assessment Score (%)',
-                            data: readinessScores,
-                            borderColor: '#f59e0b', // Amber
-                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.3,
-                            pointRadius: 6,
-                            pointHoverRadius: 8,
-                            pointBackgroundColor: '#f59e0b',
-                            pointBorderColor: '#ffffff',
-                            pointBorderWidth: 2
-                        },
-                        {
-                            label: 'Peer Average (Archer Standard Benchmark)',
-                            data: peerAverageScores,
-                            borderColor: '#94a3b8', // Slate Benchmark Line
-                            borderWidth: 2,
-                            borderDash: [6, 6],
-                            fill: false,
-                            tension: 0,
-                            pointRadius: 0 // Smooth continuous benchmark line
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            backgroundColor: '#0f172a',
-                            titleFont: { size: 12, weight: 'bold' },
-                            bodyFont: { size: 11 },
-                            padding: 12,
-                            cornerRadius: 10,
-                            callbacks: {
-                                label: function(context) {
-                                    return ` ${context.dataset.label}: ${context.raw}%`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { display: false },
-                            ticks: { font: { size: 11, weight: '600' }, color: '#64748b' }
-                        },
-                        y: {
-                            min: 0,
-                            max: 100,
-                            grid: { color: '#f1f5f9' },
-                            ticks: {
-                                stepSize: 20,
-                                font: { size: 11, weight: '500' },
-                                color: '#64748b',
-                                callback: function(value) { return value + '%'; }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
         // Toast Notification System
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
-            if (!container) return;
             const toast = document.createElement('div');
             
             const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-slate-900';
