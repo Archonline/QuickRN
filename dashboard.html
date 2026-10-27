@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,498 +8,774 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        medical: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#10b981', 600: '#059669', 700: '#047857', 900: '#064e3b' },
-                        clinical: { 50: '#f0f9ff', 600: '#0284c7', 700: '#0369a1' }
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        }
                     }
                 }
             }
         }
     </script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Chart.js for graphs -->
+    <!-- Chart.js for CAT Exam Progress Line Graph -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style> 
-        body { font-family: 'Inter', sans-serif; } 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+    <!-- External Questions Bank -->
+    <script src="questions.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col">
 
-    <!-- NAVIGATION BAR -->
-    <header class="sticky top-0 z-50 bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.href='dashboard.html'">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white shadow-md">
-                    <i class="fa-solid fa-stethoscope text-lg"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-extrabold tracking-tight text-slate-900">Quick<span class="text-medical-600">RN</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Student Portal</span>
-                </div>
-            </div>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
-            <div class="flex items-center gap-4">
-                <button onclick="window.location.href='profile.html'" id="user-email-badge" class="px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-colors text-xs font-bold text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-user-nurse text-medical-600"></i> <span id="badge-name-text">Future RN</span>
-                </button>
-                <button onclick="window.handleSignOut()" class="px-4 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">
-                    Sign Out
-                </button>
+    <!-- Login / Welcome Overlay (Shown when signed out) -->
+    <div id="auth-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all scale-100">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900">Welcome Back to QuickRN</h2>
+                <p class="text-slate-500 text-sm mt-1">Sign in to resume your NCLEX mastery journey</p>
             </div>
-        </div>
-    </header>
-
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main id="main-content-area" class="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 flex-grow w-full">
-        
-        <!-- 1. Passing Probability Banner -->
-        <div id="passing-probability-banner" class="bg-gradient-to-r from-slate-900 via-slate-800 to-medical-900 rounded-3xl p-8 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 border border-slate-700">
-            <div class="space-y-2">
-                <span class="px-3 py-1 rounded-full bg-medical-500/20 text-medical-400 border border-medical-500/30 text-xs font-bold uppercase tracking-wider">Readiness Engine</span>
-                <h2 id="welcome-title" class="text-2xl sm:text-3xl font-extrabold">Welcome back, Future RN!</h2>
-                <p class="text-slate-300 text-sm max-w-xl">Your predicted exam success probability updates in real-time as you complete diagnostic simulations and Q-bank items.</p>
-            </div>
-            <div class="flex items-center gap-6 bg-white/15 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/10">
-                <div class="text-right">
-                    <span class="text-xs text-slate-300 block uppercase tracking-wider font-semibold">Success Probability</span>
-                    <span id="passing-prob-display" class="text-4xl font-black text-medical-400">0%</span>
-                </div>
-                <div class="w-12 h-12 rounded-full bg-medical-500/20 flex items-center justify-center text-medical-400 text-2xl">
-                    <i class="fa-solid fa-bullseye"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dashboard Stats Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div onclick="window.openTestHistoryModal()" class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2 cursor-pointer hover:border-medical-500 hover:shadow-md transition-all group">
-                <div class="flex items-center justify-between text-slate-400">
-                    <span class="text-xs font-bold uppercase tracking-wider group-hover:text-medical-600 transition-colors">Tests Taken <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></span>
-                    <i class="fa-solid fa-laptop-medical text-medical-600 text-lg"></i>
-                </div>
-                <div id="stat-tests-taken" class="text-3xl font-extrabold text-slate-900">0</div>
-                <p class="text-xs text-medical-600 font-semibold">Click to view exam history & retake</p>
-            </div>
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-                <div class="flex items-center justify-between text-slate-400">
-                    <span class="text-xs font-bold uppercase tracking-wider">Questions Answered</span>
-                    <i class="fa-solid fa-check-double text-clinical-600 text-lg"></i>
-                </div>
-                <div class="flex items-baseline gap-2">
-                    <div id="stat-total-answered" class="text-3xl font-extrabold text-slate-900">0</div>
-                    <span id="stat-total-available-tracker" class="text-xs font-bold text-slate-400">/ 5400 Available</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-1.5 mt-1 overflow-hidden">
-                    <div id="stat-progress-bar" class="bg-clinical-600 h-1.5 rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-                <div class="flex items-center justify-between text-slate-400">
-                    <span class="text-xs font-bold uppercase tracking-wider">Overall Accuracy</span>
-                    <i class="fa-solid fa-percent text-amber-500 text-lg"></i>
-                </div>
-                <div id="stat-overall-accuracy" class="text-3xl font-extrabold text-slate-900">0%</div>
-                <p class="text-xs text-slate-500">Correct answers ratio</p>
-            </div>
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-2">
-                <div class="flex items-center justify-between text-slate-400">
-                    <span class="text-xs font-bold uppercase tracking-wider">Study Streak</span>
-                    <i class="fa-solid fa-fire text-rose-500 text-lg"></i>
-                </div>
-                <div class="text-3xl font-extrabold text-slate-900"><span id="stat-streak-days">1</span> Days</div>
-                <p class="text-xs text-rose-600 font-semibold">Active Reviewer</p>
-            </div>
-        </div>
-
-        <!-- GRAPHS & PERFORMANCE INFOGRAPHICS SECTION (Archer-Style) -->
-        <div class="grid lg:grid-cols-3 gap-8">
-            <!-- Archer-Style CAT Line Graph (Spans 2 columns) -->
-            <div class="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h3 class="font-extrabold text-slate-900 text-lg">CAT Performance Trend</h3>
-                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">Adaptive Engine</span>
-                        </div>
-                        <p class="text-xs text-slate-500">Computerized Adaptive Testing score tracking mapped against peer averages.</p>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs font-bold">
-                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Your Score</div>
-                        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sky-500 inline-block"></span> Peer Score</div>
-                    </div>
-                </div>
-                <div class="h-72 relative">
-                    <canvas id="catTrendChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Pass Targets & Infographics (1 Column - Archer Style) -->
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-6">
+            <form id="login-form" onsubmit="handleSignIn(event)" class="space-y-4">
                 <div>
-                    <h3 class="font-extrabold text-slate-900 text-lg mb-1">Pass Targets & Usage</h3>
-                    <p class="text-xs text-slate-500">Readiness benchmarks & exam utilization.</p>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Email Address</label>
+                    <input type="email" id="login-email" required value="student@quickrn.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
                 </div>
-
-                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">Your Score Accuracy</span>
-                        <span id="target-score-val" class="text-medical-600 font-extrabold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                        <div id="target-score-bar" class="bg-medical-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[11px] text-slate-500">
-                        <span>Target: 61%+</span>
-                        <span id="target-score-status" class="font-bold text-slate-400">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">Qbank Utilization</span>
-                        <span id="target-qbank-val" class="text-clinical-600 font-extrabold">0%</span>
-                    </div>
-                    <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                        <div id="target-qbank-bar" class="bg-clinical-600 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[11px] text-slate-500">
-                        <span>Target: 85%+</span>
-                        <span id="target-qbank-status" class="font-bold text-slate-400">In Progress</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    <div class="flex justify-between text-xs font-bold">
-                        <span class="text-slate-700">Readiness Assessments</span>
-                        <span id="target-cat-count" class="text-purple-600 font-extrabold">0 / 4</span>
-                    </div>
-                    <div class="grid grid-cols-4 gap-1 pt-1">
-                        <div id="cat-badge-1" class="h-2 rounded-full bg-slate-200"></div>
-                        <div id="cat-badge-2" class="h-2 rounded-full bg-slate-200"></div>
-                        <div id="cat-badge-3" class="h-2 rounded-full bg-slate-200"></div>
-                        <div id="cat-badge-4" class="h-2 rounded-full bg-slate-200"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- INTERACTIVE STUDY MODES SECTION (Linking to separate HTML files) -->
-        <div class="grid md:grid-cols-4 gap-6">
-            <!-- 1. Readiness Assessment -->
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-purple-500 transition-all flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-stethoscope"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Readiness Assessment</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Adaptive diagnostic exam designed to predict exam success. Strictly limited to 4 takes.</p>
-                </div>
-                <button onclick="window.location.href='readiness.html'" class="w-full py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
-                    <i class="fa-solid fa-play"></i> Start Assessment (<span id="readiness-takes-left">4</span> Left)
-                </button>
-            </div>
-
-            <!-- 2. CAT Adaptive Exam -->
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-medical-500 transition-all flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-2xl bg-medical-100 text-medical-600 flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-laptop-medical"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">CAT Adaptive Exam</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">NCLEX mirror environment with 5-hour limit, split window for NGN test items, and dynamic item pulling (max 150 items with stop rules).</p>
-                </div>
-                <button onclick="window.location.href='cat.html'" class="w-full py-3.5 bg-medical-600 hover:bg-medical-700 text-white font-extrabold rounded-2xl shadow-md transition-colors flex items-center justify-center gap-2 text-xs">
-                    <i class="fa-solid fa-play"></i> Launch CAT Simulator
-                </button>
-            </div>
-
-            <!-- 3. Q-Bank Self-Study -->
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-clinical-500 transition-all flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-2xl bg-clinical-50 text-clinical-600 flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-book-open-reader"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Q-Bank Self-Study</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Self-paced practice questions with instant choices, randomized topics, rationales, and Next button.</p>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="window.location.href='selfstudy.html?mode=all'" class="py-2.5 bg-clinical-600 hover:bg-clinical-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
-                        <i class="fa-solid fa-book"></i> All Q-Bank
-                    </button>
-                    <button onclick="window.location.href='selfstudy.html?mode=ngn'" class="py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-extrabold rounded-xl shadow-md transition-colors flex items-center justify-center gap-1.5 text-xs">
-                        <i class="fa-solid fa-laptop-code"></i> NGN Only
-                    </button>
-                </div>
-            </div>
-
-            <!-- 4. Timed Exam & CAT Launcher -->
-            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-amber-500 transition-all flex flex-col justify-between space-y-6">
-                <div class="space-y-3">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-stopwatch"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900">Timed Exam & CAT Launcher</h3>
-                    <p class="text-xs text-slate-600 leading-relaxed">Choose precise item counts (15, 60, 85 CAT, or 150 CAT) to test endurance and adaptive algorithms.</p>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="window.location.href='timed.html?count=15'" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">15 Items</button>
-                    <button onclick="window.location.href='timed.html?count=60'" class="py-2 bg-slate-100 hover:bg-amber-100 text-slate-700 hover:text-amber-800 font-bold rounded-xl text-xs transition-colors">60 Items</button>
-                    <button onclick="window.location.href='timed.html?count=85'" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">85 CAT</button>
-                    <button onclick="window.location.href='timed.html?count=150'" class="py-2 bg-purple-100 hover:bg-purple-200 text-purple-800 font-bold rounded-xl text-xs transition-colors">150 CAT</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 8 Core Client Need Domains Section (Clickable) -->
-        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
-                    <p class="text-xs text-slate-500">Detailed breakdown of subject accuracy and mastery for review across 8 Core Client Need Domains.</p>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Password</label>
+                    <input type="password" id="login-password" required value="password123" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
                 </div>
-                <span class="text-xs font-bold text-slate-400">8 Core Client Need Domains</span>
-            </div>
-            <div id="client-needs-grid" class="grid md:grid-cols-2 gap-6"></div>
-        </div>
-
-        <!-- Saved & Favorite Questions Hub (Max 20 items) -->
-        <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-xl font-bold text-slate-900"><i class="fa-solid fa-bookmark text-amber-500 mr-2"></i>Saved & Favorite Questions for Review</h3>
-                    <p class="text-xs text-slate-500">Review questions you bookmarked during self-study or timed exam sessions (Maximum 20 items).</p>
-                </div>
-                <span id="favorite-count-badge" class="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full">0 / 20 Saved Items</span>
-            </div>
-            <div id="favorites-container" class="space-y-4 max-h-[400px] overflow-y-auto pr-2">
-                <div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-white border-t border-slate-200 mt-12 py-6 text-center text-xs text-slate-400">
-        QuickRN Student Portal &bull; Compiled JSON Data Engine Active
-    </footer>
-
-    <!-- EXAM HISTORY MODAL -->
-    <div id="history-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
-        <div class="bg-slate-50 rounded-3xl w-full max-w-5xl h-[90vh] flex flex-col shadow-2xl overflow-hidden border border-slate-300">
-            <div class="px-6 py-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-medical-500/20 text-medical-400 flex items-center justify-center">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </div>
-                    <span class="font-extrabold text-base tracking-wide text-white">Exam History & Performance Logs</span>
-                </div>
-                <button onclick="document.getElementById('history-modal').classList.add('hidden')" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors">
-                    <i class="fa-solid fa-xmark text-lg"></i>
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/20 transition-all text-sm">
+                    Sign In to Dashboard
                 </button>
-            </div>
-            <div id="history-modal-body" class="p-6 overflow-y-auto space-y-6 flex-grow"></div>
+            </form>
         </div>
     </div>
 
-    <!-- SCRIPT LOGIC FOR DASHBOARD -->
+    <!-- App Shell -->
+    <div id="app-shell" class="flex h-full overflow-hidden">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex">
+            <div class="p-6 flex items-center space-x-3 border-b border-slate-100">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/30">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-slate-900">Quick<span class="text-brand-600">RN</span></span>
+                    <span class="block text-[10px] uppercase font-semibold text-slate-400">NCLEX Prep Engine</span>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
+                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" onclick="switchTab('practice')" id="nav-practice" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-stethoscope w-5"></i>
+                    <span>Practice Questions</span>
+                </a>
+                <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-chart-line w-5"></i>
+                    <span>Client Needs Mastery</span>
+                </a>
+                <a href="#" onclick="switchTab('settings')" id="nav-settings" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-gear w-5"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-slate-100">
+                <div class="bg-slate-50 p-3 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-xs">
+                            RN
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 id="user-display-name" class="text-xs font-semibold text-slate-800 truncate">Future RN</h4>
+                            <p class="text-[10px] text-slate-500 truncate">NCLEX-RN Candidate</p>
+                        </div>
+                    </div>
+                    <button onclick="handleSignOut()" title="Sign Out" class="text-slate-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition-colors">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Header -->
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
+                <div class="flex items-center space-x-4">
+                    <h1 id="page-title" class="text-lg font-bold text-slate-900">Dashboard Overview</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="cat.html" class="flex items-center space-x-2 text-xs font-bold px-3 py-2 rounded-xl bg-slate-900 text-amber-400 hover:bg-slate-800 transition-all shadow">
+                        <i class="fa-solid fa-laptop-code"></i>
+                        <span>Launch CAT Exam</span>
+                    </a>
+                    <div class="hidden sm:flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-full text-xs font-medium text-slate-600">
+                        <i class="fa-regular fa-calendar text-brand-600"></i>
+                        <span id="current-date">Exam Target: Nov 2026</span>
+                    </div>
+                    <button onclick="handleSignOut()" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable View Container -->
+            <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+                <!-- DASHBOARD TAB -->
+                <div id="tab-content-dashboard" class="space-y-6">
+                    <!-- Quick Stats Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400 uppercase">Questions Solved</p>
+                                <h3 id="stat-solved" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-emerald-600 mt-1"><i class="fa-solid fa-arrow-up"></i> Live updates active</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400 uppercase">Overall Accuracy</p>
+                                <h3 id="stat-accuracy" class="text-2xl font-bold text-slate-900 mt-1">0%</h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Target: > 75%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400 uppercase">Passing Probability</p>
+                                <h3 id="stat-passing" class="text-2xl font-bold text-slate-900 mt-1">0%</h3>
+                                <p class="text-[11px] text-brand-600 mt-1">Based on CAT engine</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-award"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-medium text-slate-400 uppercase">CAT Exams Completed</p>
+                                <h3 id="stat-exams" class="text-2xl font-bold text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-amber-600 mt-1">Real-time synced</p>
+                            </div>
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Line Chart: CAT Exam Score Progression & Readiness Assessment -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
+                            <div>
+                                <h2 class="text-base font-bold text-slate-900">CAT Exam & Readiness Assessment Trajectory</h2>
+                                <p class="text-xs text-slate-500">Tracks CAT exam scores alongside optional readiness assessment scores</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex items-center gap-1.5 text-xs text-slate-600 font-semibold">
+                                    <span class="w-3 h-3 rounded-full bg-brand-600 inline-block"></span> CAT Exam Score
+                                </div>
+                                <div class="flex items-center gap-1.5 text-xs text-slate-600 font-semibold">
+                                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Readiness Score
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-64 w-full">
+                            <canvas id="scoreHistoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Main Section: Client Needs Mastery Categories -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Left 2 Cols: NCLEX Client Needs Mastery Categories -->
+                        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h2 class="text-base font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h2>
+                                    <p class="text-xs text-slate-500">Dynamically updates as you complete practice questions & CAT exams</p>
+                                </div>
+                                <button onclick="switchTab('practice')" class="text-xs font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg transition-colors">
+                                    Practice Now <i class="fa-solid fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+
+                            <div id="mastery-categories-list" class="space-y-5 flex-1">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Right Col: Quick Practice Widget / CTA -->
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 text-white flex flex-col justify-between shadow-lg">
+                            <div>
+                                <span class="px-3 py-1 bg-brand-500/20 text-brand-400 rounded-full text-[10px] font-bold uppercase tracking-wider">Adaptive CAT Simulator</span>
+                                <h3 class="text-xl font-bold mt-4">Ready for a Quick Practice Set?</h3>
+                                <p class="text-slate-300 text-xs mt-2 leading-relaxed">Solve high-yield NCLEX style multiple choice & alternate format questions across all client needs categories.</p>
+                            </div>
+                            
+                            <div class="mt-8 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-slate-400 bg-white/5 p-3 rounded-xl">
+                                    <span>Questions ready in pool</span>
+                                    <span id="pool-count-badge" class="font-bold text-white">0 items</span>
+                                </div>
+                                <button onclick="switchTab('practice'); startNewPracticeSession();" class="w-full py-3 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-sm transition-all shadow-lg shadow-brand-600/30 flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-play"></i>
+                                    <span>Start Practice Session</span>
+                                </button>
+                                <a href="cat.html" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-sm transition-all shadow-lg flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                    <span>Launch CAT Simulator Exam</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PRACTICE TAB -->
+                <div id="tab-content-practice" class="hidden space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+                        <div id="practice-setup" class="space-y-4">
+                            <h2 class="text-lg font-bold text-slate-900">NCLEX Practice Session</h2>
+                            <p class="text-xs text-slate-500">Select category or start comprehensive adaptive practice.</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                <button onclick="startNewPracticeSession('Cardiovascular')" class="p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                                    <h4 class="font-bold text-sm text-slate-800 group-hover:text-brand-700">Cardiovascular</h4>
+                                    <p class="text-xs text-slate-500 mt-1">MI, Heart Failure, Digoxin & Warfarin Safety</p>
+                                </button>
+                                <button onclick="startNewPracticeSession('Respiratory')" class="p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                                    <h4 class="font-bold text-sm text-slate-800 group-hover:text-brand-700">Respiratory</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Asthma, COPD, Pneumonia & Tracheostomy</p>
+                                </button>
+                                <button onclick="startNewPracticeSession('Neurologic')" class="p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                                    <h4 class="font-bold text-sm text-slate-800 group-hover:text-brand-700">Neurologic</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Stroke, ICP, Seizure & Spinal Cord Injury</p>
+                                </button>
+                                <button onclick="startNewPracticeSession('Endocrine')" class="p-4 rounded-xl border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 text-left transition-all group">
+                                    <h4 class="font-bold text-sm text-slate-800 group-hover:text-brand-700">Endocrine</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Hypoglycemia, DKA, SIADH & Thyroid Storm</p>
+                                </button>
+                            </div>
+                            <div class="pt-4">
+                                <button onclick="startNewPracticeSession('All')" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl text-sm transition-all shadow-md">
+                                    Start Full Mixed Practice (10 Questions)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Active Question Interface -->
+                        <div id="practice-active" class="hidden space-y-6">
+                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                                <span id="question-category-badge" class="px-3 py-1 bg-brand-50 text-brand-700 text-xs font-bold rounded-lg">Category</span>
+                                <span id="question-counter" class="text-xs font-semibold text-slate-400">Question 1 of 10</span>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 id="question-text" class="text-base font-semibold text-slate-900 leading-relaxed">Question stem goes here...</h3>
+                            </div>
+                            <div id="question-options" class="space-y-3">
+                                <!-- Options populated by JS -->
+                            </div>
+                            <div class="flex justify-end pt-4">
+                                <button id="submit-answer-btn" onclick="submitAnswer()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl shadow transition-all disabled:opacity-50" disabled>
+                                    Submit Answer
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Session Results View -->
+                        <div id="practice-results" class="hidden text-center py-8 space-y-4">
+                            <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">Practice Session Completed!</h3>
+                            <p id="results-summary-text" class="text-sm text-slate-500">You scored 8 out of 10 correct.</p>
+                            <div class="pt-4 flex justify-center space-x-3">
+                                <button onclick="resetPractice()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl transition-all">
+                                    Practice Again
+                                </button>
+                                <button onclick="switchTab('dashboard')" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-all">
+                                    Back to Dashboard
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ANALYTICS TAB -->
+                <div id="tab-content-analytics" class="hidden space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-900">Detailed Client Needs Performance Breakdown</h2>
+                            <p class="text-xs text-slate-500">Comprehensive overview of mastery progression across NCLEX test plan domains.</p>
+                        </div>
+                        <div id="analytics-detailed-list" class="space-y-6">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS TAB -->
+                <div id="tab-content-settings" class="hidden space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm max-w-2xl space-y-6">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-900">Account & Preferences</h2>
+                            <p class="text-xs text-slate-500">Manage your student profile and sign out options.</p>
+                        </div>
+                        <div class="space-y-4 pt-2">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Display Name</label>
+                                <input type="text" id="settings-name" value="Future RN Student" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Target Exam Date</label>
+                                <input type="date" value="2026-11-15" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                                <button onclick="showToast('Settings saved successfully!', 'success')" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-xl transition-all">
+                                    Save Changes
+                                </button>
+                                <button onclick="handleSignOut()" class="px-5 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold rounded-xl transition-all flex items-center space-x-2">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span>Sign Out Now</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
     <script>
         let studentStats = {
-            testsTaken: 0,
-            totalAnswered: 0,
+            totalSolved: 0,
             correctCount: 0,
-            mistakeCount: 0,
-            passingProbability: 0,
-            catHistory: [82, 84, 85, 87, 88, 89],
-            peerHistory: [80, 81, 83, 82, 84, 86],
-            readinessTakesCount: 4,
-            examHistory: [],
-            answeredQuestionIds: {},
-            domainStats: {},
-            favorites: []
+            streak: 1,
+            categories: [
+                { name: 'Cardiovascular', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-500' },
+                { name: 'Respiratory', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-500' },
+                { name: 'Neurologic', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-500' },
+                { name: 'Endocrine', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-500' },
+                { name: 'Renal', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-500' },
+                { name: 'Gastrointestinal', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-500' },
+                { name: 'Infection', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-500' }
+            ]
         };
 
-        const clientNeedsDomains = [
-            "Management of Care",
-            "Safety & Infection Control",
-            "Health Promotion & Maintenance",
-            "Psychosocial Integrity",
-            "Basic Care & Comfort",
-            "Pharmacological & Parenteral Therapies",
-            "Reduction of Risk Potential",
-            "Physiological Adaptation"
-        ];
+        let questionBank = [];
+        let currentSessionQuestions = [];
+        let currentQuestionIndex = 0;
+        let selectedOptionIndex = null;
+        let sessionCorrectCount = 0;
+        let scoreChartInstance = null;
 
-        function loadSavedState() {
-            const saved = localStorage.getItem('quickrn_student_state');
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    studentStats = parsed.studentStats || studentStats;
-                } catch(e) {}
+        // Session & Auth Management
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAuthStatus();
+            loadQuestionsFromJs();
+            loadStateFromStorage();
+            renderDashboardStats();
+            renderMasteryCategories();
+            initScoreChart();
+        });
+
+        function loadQuestionsFromJs() {
+            let pool = [];
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
+                pool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
+                pool = embeddedQuestionsData;
             }
-            if (studentStats.readinessTakesCount === undefined || studentStats.readinessTakesCount === null) {
-                studentStats.readinessTakesCount = 4;
-            }
-            if (!studentStats.domainStats) {
-                studentStats.domainStats = {};
-            }
-            renderFavorites();
+
+            questionBank = pool.map(q => ({
+                category: q.category || 'General Nursing',
+                stem: q.question || q.questionText || '',
+                options: q.options || [],
+                correctIndex: q.correctAnswer === 'A' ? 0 : q.correctAnswer === 'B' ? 1 : q.correctAnswer === 'C' ? 2 : 3,
+                rationale: q.rationale || ''
+            }));
+
+            const poolBadge = document.getElementById('pool-count-badge');
+            if (poolBadge) poolBadge.textContent = `${questionBank.length}+ items`;
         }
 
-        function updateDashboardStats() {
-            loadSavedState();
-            const totalAvail = 5400;
-            const answeredCount = Object.keys(studentStats.answeredQuestionIds || {}).length;
-            
-            document.getElementById('stat-tests-taken').innerText = studentStats.testsTaken;
-            document.getElementById('stat-total-answered').innerText = answeredCount;
-            document.getElementById('stat-progress-bar').style.width = Math.min(100, Math.round((answeredCount / totalAvail) * 100)) + '%';
-
-            const accuracy = studentStats.totalAnswered > 0 ? Math.round((studentStats.correctCount / studentStats.totalAnswered) * 100) : 0;
-            document.getElementById('stat-overall-accuracy').innerText = accuracy + '%';
-            document.getElementById('passing-prob-display').innerText = studentStats.passingProbability + '%';
-            document.getElementById('target-score-val').innerText = accuracy + '%';
-            document.getElementById('target-score-bar').style.width = Math.min(100, accuracy) + '%';
-
-            const qbankPercent = Math.min(100, Math.round((answeredCount / totalAvail) * 100));
-            document.getElementById('target-qbank-val').innerText = qbankPercent + '%';
-            document.getElementById('target-qbank-bar').style.width = qbankPercent + '%';
-
-            const catCount = Math.min(4, 4 - (studentStats.readinessTakesCount || 4));
-            document.getElementById('target-cat-count').innerText = `${catCount} / 4`;
-            document.getElementById('readiness-takes-left').innerText = Math.max(0, studentStats.readinessTakesCount);
-
-            for (let i = 1; i <= 4; i++) {
-                const badge = document.getElementById(`cat-badge-${i}`);
-                if (badge) {
-                    badge.className = i <= catCount ? "h-2 rounded-full bg-emerald-500" : "h-2 rounded-full bg-slate-200";
+        function loadStateFromStorage() {
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats) {
+                        studentStats.totalSolved = parsed.studentStats.totalAnswered || studentStats.totalSolved;
+                        studentStats.correctCount = parsed.studentStats.correctCount || studentStats.correctCount;
+                    }
+                } catch(e) {
+                    console.error("Error reading saved state:", e);
                 }
             }
-
-            renderClientNeedsMastery();
         }
 
-        function renderClientNeedsMastery() {
-            const container = document.getElementById('client-needs-grid');
-            if (!container) return;
+        function checkAuthStatus() {
+            const isSignedOut = localStorage.getItem('quickrn_signed_out') === 'true';
+            const overlay = document.getElementById('auth-overlay');
 
-            let html = '';
-            clientNeedsDomains.forEach((domain) => {
-                const dStat = (studentStats.domainStats && studentStats.domainStats[domain]) || { total: 0, correct: 0 };
-                const answeredInDomain = dStat.total;
-                const correctInDomain = dStat.correct;
-                const accuracy = answeredInDomain > 0 ? Math.round((correctInDomain / answeredInDomain) * 100) : 0;
-                const isPassing = answeredInDomain > 0 && accuracy >= 72;
+            if (isSignedOut) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
 
-                html += `
-                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-extrabold text-slate-900 text-sm">${domain}</h4>
-                            <span class="text-sm font-black ${answeredInDomain === 0 ? 'text-slate-400' : (isPassing ? 'text-medical-600' : 'text-amber-600')}">${accuracy}%</span>
-                        </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                            <div class="${answeredInDomain === 0 ? 'bg-slate-300' : (isPassing ? 'bg-medical-600' : 'bg-amber-500')} h-2 rounded-full transition-all duration-500" style="width: ${accuracy}%"></div>
-                        </div>
-                        <div class="flex items-center justify-between text-xs text-slate-500">
-                            <span>${answeredInDomain} Questions Finished</span>
-                            <span class="font-bold ${answeredInDomain === 0 ? 'text-slate-400' : (isPassing ? 'text-medical-700' : 'text-amber-700')}">${answeredInDomain === 0 ? '0% Mastery Start' : (isPassing ? 'Passing Level' : 'Needs Review')}</span>
-                        </div>
-                    </div>
-                `;
+        function handleSignOut() {
+            localStorage.setItem('quickrn_signed_out', 'true');
+            showToast('Successfully signed out of QuickRN active session.', 'info');
+            setTimeout(() => {
+                document.getElementById('auth-overlay').classList.remove('hidden');
+            }, 300);
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            localStorage.setItem('quickrn_signed_out', 'false');
+            localStorage.setItem('quickrn_user_email', email);
+            
+            document.getElementById('auth-overlay').classList.add('hidden');
+            showToast('Welcome back! Session restored.', 'success');
+        }
+
+        // Tab Navigation
+        function switchTab(tabId) {
+            ['dashboard', 'practice', 'analytics', 'settings'].forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (content) content.classList.add('hidden');
+                if (nav) {
+                    nav.classList.remove('bg-brand-50', 'text-brand-700');
+                    nav.classList.add('text-slate-600', 'hover:bg-slate-50');
+                }
             });
-            container.innerHTML = html;
-        }
 
-        function renderFavorites() {
-            const container = document.getElementById('favorites-container');
-            const badge = document.getElementById('favorite-count-badge');
-            if (!container || !badge) return;
-
-            const favs = studentStats.favorites || [];
-            badge.innerText = `${favs.length} / 20 Saved Items`;
-
-            if (favs.length === 0) {
-                container.innerHTML = `<div class="text-center py-10 text-slate-400 text-xs italic">No saved questions yet. Click the "Save for Review" bookmark icon while taking exams or studying.</div>`;
-                return;
+            const activeContent = document.getElementById(`tab-content-${tabId}`);
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.remove('text-slate-600', 'hover:bg-slate-50');
+                activeNav.classList.add('bg-brand-50', 'text-brand-700');
             }
 
-            let html = '';
-            favs.forEach((q) => {
-                html += `
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 relative">
-                        <button onclick="window.removeFavorite('${q.id}')" class="absolute top-4 right-4 text-rose-500 hover:text-rose-700 text-xs font-bold">
-                            <i class="fa-solid fa-trash"></i> Remove
-                        </button>
-                        <div class="flex items-center gap-2">
-                            <span class="px-2.5 py-0.5 bg-medical-50 text-medical-700 text-[10px] font-bold rounded-lg uppercase">Saved Question</span>
-                        </div>
-                        <p class="text-xs font-semibold text-slate-900 pr-16">${q.questionText || 'Clinical scenario review item.'}</p>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+            const titles = {
+                dashboard: 'Dashboard Overview',
+                practice: 'NCLEX Practice Arena',
+                analytics: 'Client Needs Mastery Analytics',
+                settings: 'Account Settings'
+            };
+            document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
         }
 
-        window.removeFavorite = function(qId) {
-            studentStats.favorites = (studentStats.favorites || []).filter(item => item.id !== qId);
-            localStorage.setItem('quickrn_student_state', JSON.stringify({ studentStats }));
-            renderFavorites();
-        }
-
-        window.openTestHistoryModal = function() {
-            const modalBody = document.getElementById('history-modal-body');
-            const history = studentStats.examHistory || [];
+        // Render Dashboard & Mastery Categories
+        function renderDashboardStats() {
+            document.getElementById('stat-solved').textContent = studentStats.totalSolved;
             
-            if (history.length === 0) {
-                modalBody.innerHTML = `<div class="text-center py-16 text-slate-500 text-xs">No exam history recorded yet.</div>`;
-            } else {
-                let html = `<div class="space-y-4"><h3 class="font-extrabold text-slate-900 text-sm">Previous Exam Logs:</h3><div class="space-y-3">`;
-                history.forEach((rec) => {
-                    html += `
-                        <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-center justify-between">
-                            <div>
-                                <span class="px-2.5 py-1 bg-medical-50 text-medical-700 text-xs font-bold uppercase rounded-lg">${rec.mode.toUpperCase()}</span>
-                                <span class="text-xs text-slate-400 ml-2">${rec.date}</span>
-                                <div class="text-sm font-extrabold text-slate-900 mt-1">Score: ${rec.scorePercent}%</div>
+            const accuracy = studentStats.totalSolved > 0 
+                ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
+                : 0;
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
+
+            let examHistory = [];
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && parsed.studentStats.examHistory) {
+                        examHistory = parsed.studentStats.examHistory;
+                    }
+                } catch(e) {}
+            }
+
+            document.getElementById('stat-exams').textContent = examHistory.length;
+
+            const passingProb = studentStats.totalSolved >= 5 ? Math.min(98, Math.max(0, accuracy + 12)) : 0;
+            document.getElementById('stat-passing').textContent = studentStats.totalSolved >= 5 ? passingProb + '%' : 'Pending (Min 5)';
+        }
+
+        function renderMasteryCategories() {
+            const container = document.getElementById('mastery-categories-list');
+            const detailedContainer = document.getElementById('analytics-detailed-list');
+            
+            if (container) container.innerHTML = '';
+            if (detailedContainer) detailedContainer.innerHTML = '';
+
+            studentStats.categories.forEach(cat => {
+                cat.percentage = cat.solved > 0 ? Math.round((cat.correct / cat.solved) * 100) : 0;
+
+                if (container) {
+                    container.innerHTML += `
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-semibold">
+                                <span class="text-slate-700">${cat.name}</span>
+                                <span class="text-slate-900">${cat.percentage}% (${cat.correct}/${cat.solved} correct)</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
                             </div>
                         </div>
                     `;
-                });
-                html += `</div></div>`;
-                modalBody.innerHTML = html;
+                }
+
+                if (detailedContainer) {
+                    detailedContainer.innerHTML += `
+                        <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-bold text-sm text-slate-800">${cat.name}</h4>
+                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.percentage}% Mastery</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
+                            </div>
+                            <div class="flex justify-between text-[11px] text-slate-500">
+                                <span>Questions Attempted: <strong class="text-slate-700">${cat.solved}</strong></span>
+                                <span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Line Chart setup for CAT history & Optional Readiness Assessment Line
+        function initScoreChart() {
+            const ctx = document.getElementById('scoreHistoryChart');
+            if (!ctx) return;
+
+            let labels = [];
+            let catScores = [];
+            let readinessScores = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && Array.isArray(parsed.studentStats.examHistory)) {
+                        const history = [...parsed.studentStats.examHistory].reverse();
+                        history.forEach((exam, idx) => {
+                            labels.push(`Exam ${idx + 1}`);
+                            catScores.push(exam.scorePercent || 0);
+                            
+                            // Check if a readiness assessment score is recorded alongside this exam or globally
+                            // (Supports both exam.readinessScore or global readiness scores if stored)
+                            const readinessVal = exam.readinessScore !== undefined ? exam.readinessScore : (parsed.studentStats.readinessScores && parsed.studentStats.readinessScores[idx] !== undefined ? parsed.studentStats.readinessScores[idx] : null);
+                            readinessScores.push(readinessVal);
+                        });
+                    }
+                } catch(e) {}
             }
-            document.getElementById('history-modal').classList.add('hidden');
-        }
 
-        window.handleSignOut = function() {
-            localStorage.removeItem('quickrn_student_state');
-            sessionStorage.clear();
-            // Redirects to the landing page (e.g. index.html) upon successful sign out
-            window.location.href = "index.html";
-        }
+            if (labels.length === 0) {
+                labels = ['Exam 1 (Sample)'];
+                catScores = [70];
+                readinessScores = [null]; // null means it won't plot a point/line for un-taken readiness assessments
+            }
 
-        window.onload = function() {
-            loadSavedState();
-            updateDashboardStats();
-            
-            const ctx = document.getElementById('catTrendChart').getContext('2d');
-            new Chart(ctx, {
+            if (scoreChartInstance) {
+                scoreChartInstance.destroy();
+            }
+
+            scoreChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['1', '2', '3', '4', '5', '6'],
+                    labels: labels,
                     datasets: [
-                        { label: 'Your Score', data: studentStats.catHistory, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.08)', fill: true, tension: 0.35, borderWidth: 3 },
-                        { label: 'Peer Score', data: studentStats.peerHistory, borderColor: '#0284c7', backgroundColor: 'transparent', tension: 0.35, borderWidth: 2 }
+                        {
+                            label: 'CAT Exam Score (%)',
+                            data: catScores,
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#16a34a'
+                        },
+                        {
+                            label: 'Readiness Assessment Score (%)',
+                            data: readinessScores,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 3,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.3,
+                            spanGaps: true, // skips missing/null readiness assessments gracefully if not taken for some sessions
+                            pointRadius: 5,
+                            pointBackgroundColor: '#f59e0b'
+                        }
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) { return value + '%'; }
+                            }
+                        }
+                    }
+                }
             });
+        }
+
+        // Practice Session Controller
+        function startNewPracticeSession(categoryFilter = 'All') {
+            document.getElementById('practice-setup').classList.add('hidden');
+            document.getElementById('practice-results').classList.add('hidden');
+            document.getElementById('practice-active').classList.remove('hidden');
+
+            if (categoryFilter === 'All') {
+                currentSessionQuestions = [...questionBank].slice(0, 10);
+            } else {
+                currentSessionQuestions = questionBank.filter(q => q.category === categoryFilter).slice(0, 10);
+                if (currentSessionQuestions.length === 0) {
+                    currentSessionQuestions = [...questionBank].slice(0, 10);
+                }
+            }
+
+            currentQuestionIndex = 0;
+            sessionCorrectCount = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            selectedOptionIndex = null;
+            document.getElementById('submit-answer-btn').disabled = true;
+
+            const q = currentSessionQuestions[currentQuestionIndex];
+            document.getElementById('question-category-badge').textContent = q.category;
+            document.getElementById('question-counter').textContent = `Question ${currentQuestionIndex + 1} of ${currentSessionQuestions.length}`;
+            document.getElementById('question-text').textContent = q.stem;
+
+            const optionsContainer = document.getElementById('question-options');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                optionsContainer.innerHTML += `
+                    <div onclick="selectOption(${idx})" id="option-card-${idx}" class="p-4 rounded-xl border border-slate-200 hover:border-brand-500 cursor-pointer transition-all flex items-start space-x-3 bg-white">
+                        <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center text-xs font-bold text-slate-500 flex-shrink-0 mt-0.5">${String.fromCharCode(65 + idx)}</span>
+                        <span class="text-sm text-slate-700">${opt}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function selectOption(idx) {
+            selectedOptionIndex = idx;
+            document.getElementById('submit-answer-btn').disabled = false;
+
+            currentSessionQuestions[currentQuestionIndex].options.forEach((_, i) => {
+                const card = document.getElementById(`option-card-${i}`);
+                if (i === idx) {
+                    card.className = 'p-4 rounded-xl border-2 border-brand-500 bg-brand-50/50 cursor-pointer transition-all flex items-start space-x-3';
+                } else {
+                    card.className = 'p-4 rounded-xl border border-slate-200 hover:border-brand-500 cursor-pointer transition-all flex items-start space-x-3 bg-white';
+                }
+            });
+        }
+
+        function submitAnswer() {
+            if (selectedOptionIndex === null) return;
+
+            const q = currentSessionQuestions[currentQuestionIndex];
+            const isCorrect = (selectedOptionIndex === q.correctIndex);
+
+            if (isCorrect) sessionCorrectCount++;
+
+            studentStats.totalSolved++;
+            if (isCorrect) studentStats.correctCount++;
+
+            const catObj = studentStats.categories.find(c => c.name === q.category);
+            if (catObj) {
+                catObj.solved++;
+                if (isCorrect) catObj.correct++;
+            }
+
+            renderDashboardStats();
+            renderMasteryCategories();
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentSessionQuestions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById('practice-active').classList.add('hidden');
+                document.getElementById('practice-results').classList.remove('hidden');
+                document.getElementById('results-summary-text').textContent = `You scored ${sessionCorrectCount} out of ${currentSessionQuestions.length} correct in this session.`;
+                showToast('Practice session successfully completed & mastery percentages updated!', 'success');
+            }
+        }
+
+        function resetPractice() {
+            document.getElementById('practice-results').classList.add('hidden');
+            document.getElementById('practice-setup').classList.remove('hidden');
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-slate-900';
+
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-3 transform transition-all translate-y-2 opacity-0 pointer-events-auto`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-300' : 'fa-circle-info text-blue-300'}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
         }
     </script>
 </body>
