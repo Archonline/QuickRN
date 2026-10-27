@@ -394,11 +394,11 @@
                 // ==========================================
                 // REPLACE THESE WITH YOUR ACTUAL GITHUB INFO:
                 // ==========================================
-                const githubUsername = "YOUR-GITHUB-USERNAME";
-                const repositoryName = "YOUR-REPOSITORY-NAME";
+                const githubUsername = "Archonline";
+                const repositoryName = "QuickRN";
                 const branchName = "main"; // or "master"
 
-                const fetchUrl = `https://cdn.jsdelivr.net/gh/${Archonline}/${QuickRN}@${branchName}/questions.json`;
+                const fetchUrl = `https://cdn.jsdelivr.net/gh/${githubUsername}/${repositoryName}@${branchName}/questions.json`;
 
                 const response = await fetch(fetchUrl);
                 if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
