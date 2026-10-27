@@ -4,168 +4,571 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAT Adaptive Exam | QuickRN</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        medical: { 50: '#f0fdf4', 600: '#059669', 700: '#047857' },
-                        clinical: { 600: '#0284c7' }
+                        ncsbn: {
+                            navy: '#0F2C59',
+                            blue: '#1E40AF',
+                            light: '#EFF6FF',
+                            header: '#0B2240',
+                            accent: '#D97706',
+                            border: '#CBD5E1'
+                        }
                     }
                 }
             }
         }
     </script>
+    <!-- FontAwesome & Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Inter', sans-serif; } @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } } .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; } </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Question Pool JS File -->
+    <script src="questions.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; user-select: none; }
+        .font-mono-custom { font-family: 'JetBrains Mono', monospace; }
+        
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(3px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col justify-between">
-    <header class="px-6 py-4 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-            <span class="font-extrabold text-base text-white">CAT Adaptive Exam (NCLEX Environment)</span>
-            <span id="modal-timer" class="px-3 py-1 bg-slate-800 rounded-xl text-xs font-mono font-bold text-medical-400 border border-slate-700">05:00:00</span>
+<body class="bg-slate-200 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
+
+    <!-- TOP NCSBN NCLEX-RN HEADER BAR -->
+    <header class="bg-ncsbn-header text-white px-4 py-3 shadow-md border-b-2 border-ncsbn-accent sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Left Branding & Details -->
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 bg-blue-950 px-3 py-1.5 rounded border border-blue-800">
+                    <i class="fa-solid fa-user-nurse text-amber-400 text-lg"></i>
+                    <span class="font-extrabold text-lg tracking-wider text-white">QuikRN</span>
+                </div>
+                <div class="hidden sm:flex items-center gap-2 text-xs font-medium text-slate-300 border-l border-slate-700 pl-4">
+                    <span>CAT Adaptive Examination Environment</span>
+                </div>
+            </div>
+
+            <!-- Timer & Right Controls -->
+            <div class="flex items-center gap-3">
+                <!-- 5 Hour Countdown Timer -->
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded text-xs font-mono-custom font-bold text-amber-400">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="timer-display">05:00:00</span>
+                </div>
+
+                <!-- Calculator Button -->
+                <button onclick="toggleCalculator()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition" title="Calculator">
+                    <i class="fa-solid fa-calculator text-amber-400"></i>
+                    <span class="hidden md:inline">Calculator</span>
+                </button>
+
+                <!-- Bookmarks Drawer Button -->
+                <button onclick="openBookmarksModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded text-xs font-semibold flex items-center gap-1.5 border border-slate-600 transition">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="hidden md:inline">Saved</span>
+                    <span id="saved-count-badge" class="ml-1 bg-amber-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                </button>
+
+                <!-- Dashboard Return Button -->
+                <button onclick="window.location.href='dashboard.html'" class="p-2 bg-rose-700 hover:bg-rose-600 text-white rounded transition flex items-center justify-center border border-rose-500" title="Return to Dashboard">
+                    <i class="fa-solid fa-right-from-bracket text-base"></i>
+                </button>
+            </div>
         </div>
-        <button onclick="window.location.href='dashboard.html'" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-rose-600 flex items-center justify-center text-white transition-colors">
-            <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
     </header>
 
-    <main class="p-6 max-w-7xl mx-auto w-full flex-grow flex items-center justify-center">
-        <div id="exam-container" class="bg-slate-50 text-slate-900 p-8 rounded-3xl w-full max-w-4xl shadow-2xl space-y-6">
-            <!-- Rendered dynamically -->
+    <!-- SUB-BAR / EXAM STATUS BANNER -->
+    <div class="bg-ncsbn-navy text-white px-4 py-2 text-xs font-medium shadow-inner border-b border-slate-700">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
+                    <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question 1 of 150 (Max)
+                </span>
+                <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
+                    Category: General Nursing
+                </span>
+                <span id="difficulty-badge" class="hidden sm:inline-block px-2 py-1 bg-amber-950 border border-amber-800 rounded text-amber-300 font-mono-custom text-[11px]">
+                    CAT Difficulty: Moderate
+                </span>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <button onclick="toggleBookmarkCurrent()" id="top-bookmark-btn" class="text-slate-400 hover:text-amber-400 transition text-base p-1" title="Bookmark Question">
+                    <i id="top-bookmark-icon" class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NCLEX QUESTION WORKSPACE -->
+    <main class="p-4 md:p-6 max-w-6xl mx-auto w-full flex-grow flex flex-col justify-center">
+        <div id="exam-card" class="bg-white rounded-lg shadow-xl border-2 border-ncsbn-border overflow-hidden flex flex-col min-h-[500px]">
+            <div id="exam-container" class="p-6 md:p-8 flex-grow flex flex-col justify-between">
+                <div class="flex items-center justify-center h-64">
+                    <div class="text-center space-y-3">
+                        <i class="fa-solid fa-spinner fa-spin text-4xl text-ncsbn-navy"></i>
+                        <p class="text-sm font-semibold text-slate-600">Initializing CAT Adaptive Engine & Item Pool...</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- WARNING MODAL -->
-    <div id="warning-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center text-slate-900">
-            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    <!-- FOOTER NAV BAR (SUBMIT ANSWER ONLY - PREVIOUS REMOVED) -->
+    <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-end">
+            <button id="btn-submit" onclick="submitAndAdvance()" class="px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 disabled:opacity-50 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
+                <span>Submit Answer</span> <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- EMBEDDED CALCULATOR MODAL -->
+    <div id="calc-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 text-white rounded-2xl p-5 max-w-xs w-full shadow-2xl border border-slate-700 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="text-xs font-bold text-amber-400 flex items-center gap-2"><i class="fa-solid fa-calculator"></i> NCLEX Calculator</span>
+                <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <input type="text" id="calc-display" readonly value="0" class="w-full bg-slate-950 text-right px-4 py-3 rounded-lg text-xl font-mono-custom text-emerald-400 border border-slate-800 focus:outline-none">
+            <div class="grid grid-cols-4 gap-2 text-sm font-bold">
+                <button onclick="calcInput('C')" class="col-span-2 p-3 bg-rose-700 hover:bg-rose-600 rounded">C</button>
+                <button onclick="calcInput('/')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">÷</button>
+                <button onclick="calcInput('*')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">×</button>
+                
+                <button onclick="calcInput('7')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">7</button>
+                <button onclick="calcInput('8')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">8</button>
+                <button onclick="calcInput('9')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">9</button>
+                <button onclick="calcInput('-')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">-</button>
+
+                <button onclick="calcInput('4')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">4</button>
+                <button onclick="calcInput('5')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">5</button>
+                <button onclick="calcInput('6')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">6</button>
+                <button onclick="calcInput('+')" class="p-3 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded">+</button>
+
+                <button onclick="calcInput('1')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">1</button>
+                <button onclick="calcInput('2')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">2</button>
+                <button onclick="calcInput('3')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">3</button>
+                <button onclick="calcEquals()" class="row-span-2 p-3 bg-emerald-600 hover:bg-emerald-500 rounded flex items-center justify-center">=</button>
+
+                <button onclick="calcInput('0')" class="col-span-2 p-3 bg-slate-800 hover:bg-slate-700 rounded">0</button>
+                <button onclick="calcInput('.')" class="p-3 bg-slate-800 hover:bg-slate-700 rounded">.</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKMARKED QUESTIONS MODAL -->
+    <div id="bookmarks-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[80vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-amber-500"></i> Bookmarked Questions
+                </h3>
+                <button onclick="closeBookmarksModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="bookmarks-list" class="flex-grow overflow-y-auto space-y-2 pr-1">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="pt-3 border-t border-slate-200 flex justify-end">
+                <button onclick="closeBookmarksModal()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SELECTION WARNING MODAL -->
+    <div id="warning-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl text-center text-slate-900">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="space-y-1">
                 <h3 class="font-bold text-base">Selection Required</h3>
-                <p class="text-xs text-slate-600">Please choose an answer option before proceeding to the next item.</p>
+                <p class="text-xs text-slate-600">Please choose an answer option before submitting. Skipping is not allowed in CAT mode.</p>
             </div>
-            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-medical-600 text-white rounded-xl text-xs font-bold hover:bg-medical-700">OK</button>
+            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-ncsbn-navy text-white rounded-lg text-xs font-bold hover:bg-blue-900">OK</button>
         </div>
     </div>
 
     <script>
-        let questions = [
-            { id: 'c1', questionText: 'A client is receiving total parenteral nutrition (TPN) through a central line. What is the priority nursing intervention?', options: ['Monitor blood glucose every 6 hours', 'Change the IV tubing every 72 hours', 'Obtain daily serum potassium levels', 'Flush line with heparin daily'], correctAnswer: 'A', rationale: 'TPN has a high dextrose concentration, requiring strict blood glucose monitoring for hyperglycemia.' },
-            { id: 'c2', questionText: 'A client with chronic kidney disease has a serum potassium level of 6.2 mEq/L. Which medication should the nurse anticipate administering first?', options: ['Regular insulin with 50% dextrose', 'Sodium polystyrene sulfonate', 'Oral furosemide', 'Calcium carbonate'], correctAnswer: 'A', rationale: 'IV regular insulin shifts potassium intracellularly rapidly for severe hyperkalemia.' },
-            { id: 'c3', questionText: 'The nurse is caring for a client post-thyroidectomy. Which assessment finding requires immediate intervention?', options: ['Stridor and noisy respirations', 'Pain score of 4 out of 10 at incision site', 'Hoarseness when speaking', 'Serum calcium of 9.0 mg/dL'], correctAnswer: 'A', rationale: 'Stridor indicates acute laryngeal edema and airway obstruction post-thyroidectomy.' }
+        // ENGINE & CAT CONSTANTS
+        const MAX_ITEMS = 150;
+        const MIN_ITEMS = 15; // Minimum items required before CAT stop check
+        const PASSING_THETA = 0.0; // Passing logit threshold on standard scale (-3.0 to +3.0)
+        let timerSeconds = 5 * 60 * 60; // 5 Hours in seconds
+        let timerInterval = null;
+
+        // CAT STATE
+        let rawQuestionPool = [];
+        let usedQuestionIds = new Set();
+        let catHistory = []; // Tracks answered items & scores
+        let candidateTheta = 0.0; // Initial ability estimate (0.0 = average)
+        let currentQuestion = null;
+        let selectedOption = null;
+        let bookmarkedQuestions = {};
+
+        // FALLBACK QUESTIONS IF EXTERNAL JS IS EMPTY
+        const defaultFallbackQuestions = [
+            { id: 'cat-1', category: 'Physiological Integrity', topic: 'Parenteral Therapy', questionText: 'A client is receiving total parenteral nutrition (TPN) through a central venous catheter. What is the priority nursing intervention?', options: ['Monitor blood glucose levels every 6 hours', 'Change the IV tubing every 72 hours', 'Obtain daily serum potassium levels', 'Flush line with heparin daily'], correctAnswer: 'Monitor blood glucose levels every 6 hours', difficulty: 0.2, rationale: 'TPN contains high dextrose concentrations; strict blood glucose monitoring is critical to detect hyperglycemia early.' },
+            { id: 'cat-2', category: 'Physiological Integrity', topic: 'Renal / Electrolytes', questionText: 'A client with chronic kidney disease has a serum potassium level of 6.2 mEq/L. Which medication order should the nurse anticipate executing first?', options: ['Regular insulin IV with 50% dextrose', 'Sodium polystyrene sulfonate orally', 'Oral furosemide', 'Calcium carbonate with meals'], correctAnswer: 'Regular insulin IV with 50% dextrose', difficulty: 0.8, rationale: 'IV regular insulin with glucose drives potassium rapidly into cells, providing the fastest reduction in dangerous hyperkalemia.' },
+            { id: 'cat-3', category: 'Reduction of Risk Potential', topic: 'Postoperative Care', questionText: 'The nurse cares for a client post-thyroidectomy. Which assessment finding requires immediate intervention?', options: ['Stridor and noisy respirations', 'Incisional pain rated 4 out of 10', 'Mild hoarseness when speaking', 'Serum calcium level of 9.0 mg/dL'], correctAnswer: 'Stridor and noisy respirations', difficulty: -0.4, rationale: 'Stridor indicates acute airway narrowing from laryngeal edema or hematoma, posing an immediate respiratory threat.' }
         ];
-        let currentIndex = 0;
-        let userAnswers = {};
 
-        function renderQuestion() {
-            if (currentIndex >= questions.length || currentIndex >= 150) {
-                finishExam();
-                return;
+        // SHUFFLE HELPER
+        function shuffleArray(array) {
+            const arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
             }
-            const q = questions[currentIndex];
-            const sel = userAnswers[currentIndex];
-
-            let html = `
-                <div class="space-y-6 animate-fadeIn">
-                    <div class="flex items-center justify-between bg-white px-6 py-3 rounded-2xl border border-slate-200">
-                        <span class="px-3 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-xl">Question ${currentIndex + 1} of 150 (CAT Stop Rules Active)</span>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                        <p class="text-base font-semibold text-slate-900">${q.questionText}</p>
-                    </div>
-                    <div class="space-y-3">
-            `;
-
-            q.options.forEach((opt, idx) => {
-                const optLetter = String.fromCharCode(65 + idx);
-                const isSelected = sel === optLetter;
-                html += `
-                    <button onclick="selectOpt('${optLetter}')" class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${isSelected ? 'bg-medical-50 border-medical-500 font-bold text-medical-900' : 'bg-white border-slate-200 hover:border-medical-500 text-slate-700'}">
-                        <span class="text-sm"><strong>${optLetter}.</strong> ${opt}</span>
-                    </button>
-                `;
-            });
-
-            html += `
-                    </div>
-                    <div class="flex justify-end pt-4 border-t border-slate-200">
-                        <button onclick="nextItem()" class="px-6 py-3 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-xl text-xs shadow-md">Next Item <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
-            `;
-            document.getElementById('exam-container').innerHTML = html;
+            return arr;
         }
 
-        function selectOpt(letter) {
-            userAnswers[currentIndex] = letter;
-            renderQuestion();
-        }
-
-        function nextItem() {
-            if (userAnswers[currentIndex] === undefined) {
-                document.getElementById('warning-modal').classList.remove('hidden');
-                return;
-            }
-
-            if (currentIndex >= 1) {
-                let correctCount = 0;
-                let answeredCount = 0;
-                for (let i = 0; i <= currentIndex; i++) {
-                    if (userAnswers[i] !== undefined) {
-                        answeredCount++;
-                        if (userAnswers[i] === questions[i].correctAnswer) correctCount++;
-                    }
+        // TIMER SYSTEM
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam('Time Expired (5 Hours Limit)');
+                    return;
                 }
-                const acc = correctCount / answeredCount;
-                if (answeredCount >= 2 && (acc >= 0.85 || acc <= 0.40)) {
-                    finishExam();
+                timerSeconds--;
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const hrs = Math.floor(timerSeconds / 3600);
+            const mins = Math.floor((timerSeconds % 3600) / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timer-display').innerText = 
+                `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        // LOAD QUESTIONS FROM QUESTIONS.JS (OR FALLBACK)
+        function loadQuestionsPool() {
+            try {
+                let pool = [];
+                // Check global variable defined in questions.js
+                if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                    pool = window.questions;
+                } else if (typeof questions !== 'undefined' && Array.isArray(questions) && questions.length > 0) {
+                    pool = questions;
+                }
+
+                if (pool.length === 0) {
+                    pool = defaultFallbackQuestions;
+                }
+
+                rawQuestionPool = pool.map((q, idx) => {
+                    const originalOptions = q.options || [];
+                    const shuffledOptions = shuffleArray(originalOptions);
+                    
+                    // Assign numerical difficulty logit if not present
+                    let difficultyLogit = q.difficulty !== undefined ? parseFloat(q.difficulty) : 0.0;
+                    if (isNaN(difficultyLogit)) difficultyLogit = 0.0;
+
+                    return {
+                        id: q.id || `q-${idx + 1}`,
+                        category: q.category || 'General Nursing',
+                        topic: q.topic || 'Clinical Judgment',
+                        type: q.type || 'Single Choice',
+                        questionText: q.question || q.questionText || '',
+                        options: shuffledOptions,
+                        correctAnswer: q.correctAnswerText || q.correctAnswer,
+                        rationale: q.rationale || 'Detailed clinical rationale unavailable.',
+                        difficulty: difficultyLogit
+                    };
+                });
+
+                rawQuestionPool = shuffleArray(rawQuestionPool);
+                selectNextCATQuestion();
+                startTimer();
+            } catch (err) {
+                console.error("Error loading question pool:", err);
+                rawQuestionPool = shuffleArray(defaultFallbackQuestions);
+                selectNextCATQuestion();
+                startTimer();
+            }
+        }
+
+        // CAT ENGINE: SELECT ITEM MATCHING CANDIDATE THETA
+        function selectNextCATQuestion() {
+            if (catHistory.length >= MAX_ITEMS) {
+                finishExam('Maximum items threshold reached (150 Items)');
+                return;
+            }
+
+            // Check stopping condition after minimum items
+            if (catHistory.length >= MIN_ITEMS) {
+                const stdError = 1.0 / Math.sqrt(catHistory.length);
+                const confidenceLowerBound = candidateTheta - (1.96 * stdError);
+                const confidenceUpperBound = candidateTheta + (1.96 * stdError);
+
+                if (confidenceLowerBound > PASSING_THETA || confidenceUpperBound < PASSING_THETA) {
+                    finishExam('CAT Decision Rule Triggered (Confidence Interval Clear)');
                     return;
                 }
             }
 
-            if (currentIndex < questions.length - 1) {
-                currentIndex++;
-                renderQuestion();
-            } else {
-                finishExam();
+            // Find unselected item closest in difficulty to candidateTheta
+            let available = rawQuestionPool.filter(q => !usedQuestionIds.has(q.id));
+            if (available.length === 0) {
+                finishExam('Question pool exhausted');
+                return;
             }
+
+            // Sort by difficulty proximity to candidate's theta
+            available.sort((a, b) => Math.abs(a.difficulty - candidateTheta) - Math.abs(b.difficulty - candidateTheta));
+            
+            // Pick from top best-matching candidates with small random variation
+            const poolSlice = available.slice(0, Math.min(3, available.length));
+            currentQuestion = poolSlice[Math.floor(Math.random() * poolSlice.length)];
+
+            usedQuestionIds.add(currentQuestion.id);
+            selectedOption = null;
+            renderQuestion();
         }
 
-        function finishExam() {
-            let correct = 0;
-            let attempted = 0;
-            questions.forEach((q, idx) => {
-                if (userAnswers[idx] !== undefined) {
-                    attempted++;
-                    if (userAnswers[idx] === q.correctAnswer) correct++;
-                }
-            });
-            const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+        function getDifficultyLabel(diff) {
+            if (diff < -0.5) return 'Easy / Direct Recall';
+            if (diff <= 0.5) return 'Moderate / Application';
+            return 'Hard / High-level Analysis';
+        }
 
+        function renderQuestion() {
+            if (!currentQuestion) return;
+
+            const itemNumber = catHistory.length + 1;
+            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${itemNumber} of 150 (Max)`;
+            document.getElementById('category-badge').innerText = `Category: ${currentQuestion.category}`;
+            document.getElementById('difficulty-badge').innerText = `CAT Level: ${getDifficultyLabel(currentQuestion.difficulty)}`;
+
+            const isBookmarked = !!bookmarkedQuestions[currentQuestion.id];
+            const topBookmarkBtn = document.getElementById('top-bookmark-icon');
+            topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
+
+            let html = `
+                <div class="space-y-6 animate-fadeIn">
+                    <!-- QUESTION HEADER & STEM -->
+                    <div class="border-b border-slate-200 pb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">
+                                ${currentQuestion.topic} &bull; ${currentQuestion.category}
+                            </span>
+                        </div>
+                        <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">
+                            ${currentQuestion.questionText}
+                        </h2>
+                    </div>
+
+                    <!-- OPTIONS LIST -->
+                    <div class="space-y-3">
+            `;
+
+            currentQuestion.options.forEach((optText, idx) => {
+                const optLetter = String.fromCharCode(65 + idx);
+                const isChecked = selectedOption === optLetter;
+
+                let optStyle = isChecked 
+                    ? "bg-blue-50 border-ncsbn-blue text-ncsbn-navy font-semibold ring-1 ring-ncsbn-blue" 
+                    : "bg-slate-50 border-slate-300 hover:border-ncsbn-blue hover:bg-blue-50/50 text-slate-800";
+                let badgeStyle = isChecked 
+                    ? "bg-ncsbn-blue text-white border-ncsbn-blue" 
+                    : "bg-slate-200 text-slate-700 border-slate-300";
+
+                html += `
+                    <button onclick="handleOptionSelect('${optLetter}')" class="w-full text-left p-4 rounded-lg border-2 transition-all flex items-start gap-3 ${optStyle}">
+                        <span class="w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs border shrink-0 mt-0.5 ${badgeStyle}">
+                            ${optLetter}
+                        </span>
+                        <span class="text-sm leading-snug flex-grow">${optText}</span>
+                    </button>
+                `;
+            });
+
+            html += `</div></div>`;
+            document.getElementById('exam-container').innerHTML = html;
+        }
+
+        function handleOptionSelect(letter) {
+            selectedOption = letter;
+            renderQuestion();
+        }
+
+        function submitAndAdvance() {
+            if (!selectedOption) {
+                document.getElementById('warning-modal').classList.remove('hidden');
+                return;
+            }
+
+            const optIdx = selectedOption.charCodeAt(0) - 65;
+            const chosenText = currentQuestion.options[optIdx];
+            const isCorrect = chosenText === currentQuestion.correctAnswer;
+
+            // CAT IRT Ability Estimation Update (Step size based on performance)
+            const kFactor = 0.4; 
+            const expectedScore = 1.0 / (1.0 + Math.exp(-(candidateTheta - currentQuestion.difficulty)));
+            candidateTheta = candidateTheta + kFactor * ((isCorrect ? 1.0 : 0.0) - expectedScore);
+
+            catHistory.push({
+                question: currentQuestion,
+                selectedOption: chosenText,
+                isCorrect: isCorrect,
+                thetaAfter: candidateTheta
+            });
+
+            // Auto-advance to next question immediately
+            selectNextCATQuestion();
+        }
+
+        function finishExam(reason) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            const totalAnswered = catHistory.length;
+            const correctCount = catHistory.filter(h => h.isCorrect).length;
+            const scorePercent = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            const isPassed = candidateTheta >= PASSING_THETA && totalAnswered >= MIN_ITEMS;
+
+            // Save Stats to Local Storage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, catHistory: [82], peerHistory: [80], examHistory: [], answeredQuestionIds: {}, favorites: [] };
+            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
             stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += attempted;
-            stateObj.studentStats.correctCount += correct;
-            stateObj.studentStats.passingProbability = Math.min(98, Math.max(20, scorePercent + 3));
-            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: 'CAT Adaptive Exam', total: questions.length, attempted, scorePercent, questions, userAnswers });
+            stateObj.studentStats.totalAnswered += totalAnswered;
+            stateObj.studentStats.correctCount += correctCount;
+            stateObj.studentStats.mistakeCount += (totalAnswered - correctCount);
+            stateObj.studentStats.passingProbability = isPassed ? Math.min(99, Math.max(75, scorePercent)) : Math.max(15, scorePercent - 10);
+            
+            stateObj.studentStats.examHistory.unshift({
+                date: new Date().toLocaleString(),
+                mode: 'CAT Adaptive Exam',
+                totalAnswered,
+                scorePercent,
+                finalTheta: candidateTheta.toFixed(2),
+                status: isPassed ? 'PASSED' : 'DID NOT PASS'
+            });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
+            document.getElementById('btn-submit').style.display = 'none';
+
             document.getElementById('exam-container').innerHTML = `
-                <div class="text-center py-10 space-y-6 animate-fadeIn">
-                    <div class="w-20 h-20 rounded-full bg-medical-100 text-medical-600 flex items-center justify-center text-4xl mx-auto"><i class="fa-solid fa-laptop-medical"></i></div>
-                    <h3 class="text-2xl font-extrabold text-slate-900">CAT Simulator Completed!</h3>
-                    <div class="flex justify-center gap-8 py-4 bg-white rounded-2xl border border-slate-200">
-                        <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Score</span><span class="text-3xl font-black text-medical-600">${scorePercent}%</span></div>
+                <div class="text-center py-8 space-y-6 animate-fadeIn">
+                    <div class="w-20 h-20 rounded-full ${isPassed ? 'bg-emerald-100 text-emerald-600' : 'bg-rose-100 text-rose-600'} flex items-center justify-center text-4xl mx-auto border-2 ${isPassed ? 'border-emerald-300' : 'border-rose-300'}">
+                        <i class="fa-solid ${isPassed ? 'fa-award' : 'fa-circle-xmark'}"></i>
                     </div>
-                    <button onclick="window.location.href='dashboard.html'" class="px-8 py-3 bg-slate-900 text-white font-extrabold rounded-2xl text-xs">Return to Dashboard</button>
+                    
+                    <div class="space-y-2">
+                        <h3 class="text-2xl font-black text-slate-900">${isPassed ? 'PASSED NCLEX CAT SIMULATION' : 'DID NOT PASS'}</h3>
+                        <p class="text-xs text-slate-500 font-medium">${reason}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto py-4">
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Items Answered</span>
+                            <span class="text-2xl font-black text-slate-800">${totalAnswered} / 150</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Accuracy Score</span>
+                            <span class="text-2xl font-black text-ncsbn-blue">${scorePercent}%</span>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold block">Final Ability ($\theta$)</span>
+                            <span class="text-2xl font-black ${candidateTheta >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${candidateTheta.toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-center gap-4">
+                        <button onclick="window.location.reload()" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg text-xs transition">
+                            Retake CAT Exam
+                        </button>
+                        <button onclick="window.location.href='dashboard.html'" class="px-6 py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded-lg text-xs transition">
+                            Return to Dashboard
+                        </button>
+                    </div>
                 </div>
             `;
         }
 
-        renderQuestion();
+        // BOOKMARKS SYSTEM
+        function toggleBookmarkCurrent() {
+            if (!currentQuestion) return;
+            if (bookmarkedQuestions[currentQuestion.id]) {
+                delete bookmarkedQuestions[currentQuestion.id];
+            } else {
+                bookmarkedQuestions[currentQuestion.id] = currentQuestion;
+            }
+            updateBookmarkBadge();
+            renderQuestion();
+        }
+
+        function updateBookmarkBadge() {
+            const count = Object.keys(bookmarkedQuestions).length;
+            document.getElementById('saved-count-badge').innerText = count;
+        }
+
+        function openBookmarksModal() {
+            const container = document.getElementById('bookmarks-list');
+            const keys = Object.keys(bookmarkedQuestions);
+
+            if (keys.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center text-xs text-slate-500">No bookmarked questions saved yet.</div>`;
+            } else {
+                let html = '';
+                keys.forEach(id => {
+                    const item = bookmarkedQuestions[id];
+                    html += `
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-1">
+                            <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category}</span>
+                            <p class="text-xs font-semibold text-slate-800">${item.questionText}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('bookmarks-modal').classList.remove('hidden');
+        }
+
+        function closeBookmarksModal() {
+            document.getElementById('bookmarks-modal').classList.add('hidden');
+        }
+
+        // CALCULATOR UTILS
+        function toggleCalculator() {
+            document.getElementById('calc-modal').classList.toggle('hidden');
+        }
+
+        function calcInput(val) {
+            const display = document.getElementById('calc-display');
+            if (val === 'C') {
+                display.value = '0';
+                return;
+            }
+            display.value = (display.value === '0') ? val : display.value + val;
+        }
+
+        function calcEquals() {
+            const display = document.getElementById('calc-display');
+            try {
+                display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
+            } catch (e) {
+                display.value = 'Error';
+            }
+        }
+
+        // INITIALIZATION
+        window.onload = function() {
+            loadQuestionsPool();
+        };
     </script>
 </body>
 </html>
