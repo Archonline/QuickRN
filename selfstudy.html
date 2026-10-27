@@ -115,7 +115,9 @@
             "digoxin": { title: "Digoxin Toxicity: DIG", mnemonic: "D - Dizziness/Halo vision, I - Impaired heart rate (Bradycardia <60), G - Gastrointestinal upset (Nausea/Vomiting early sign)." },
             "airborne": { title: "Airborne Precautions: My Chicken Hez TB", mnemonic: "M - Measles, C - Chickenpox (Varicella), H - Herpes Zoster (Disseminated), TB - Tuberculosis. (N95 Mask + Negative Pressure Room)." },
             "heart failure": { title: "Acute Pulmonary Edema: UNLOAD FAST", mnemonic: "U - Upright position, N - Nitrates, L - Lasix (Furosemide), O - Oxygen, A - ACE inhibitors, D - Digoxin." },
-            "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." }
+            "abg": { title: "Acid-Base Imbalance: ROME", mnemonic: "R - Respiratory O - Opposite (pH up, PaCO2 down = Alkalosis), M - Metabolic E - Equal (pH up, HCO3 up = Alkalosis)." },
+            "hyperkalemia": { title: "Hyperkalemia Management: C BIG K DIE", mnemonic: "C - Calcium gluconate, B - Bicarbonate/Beta-agonists, I - Insulin (regular), G - Glucose, K - Kayexalate, DIE - Dialysis." },
+            "hypoglycemia": { title: "Hypoglycemia Signs: TIRED", mnemonic: "T - Tachycardia, I - Irritability, R - Restlessness, E - Excessive hunger, D - Diaphoresis." }
         };
 
         // Fisher-Yates Randomization Function
@@ -127,23 +129,24 @@
             return array;
         }
 
-        // Dynamic Keyword & Concept Mnemonic Generator
+        // Dynamic Keyword & Concept Mnemonic Generator with Fallback Tips
         function getDynamicMnemonic(text, category, topic) {
             const keywords = extractRationaleKeywords(text, category, topic);
             const primaryKey = (keywords[0] || '').toLowerCase();
 
-            // Check if key matches static database
+            // 1. Check if key matches static database
             for (let key in staticMnemonics) {
                 if (primaryKey.includes(key) || (topic && topic.toLowerCase().includes(key))) {
                     return staticMnemonics[key];
                 }
             }
 
-            // Generate customized dynamic visual mnemonic hook based on extracted keyword
-            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : "PRIORITY CARE";
+            // 2. Fallback: Provide specific NCLEX test-taking strategy tips for the topic
+            const capitalizedKey = primaryKey ? primaryKey.toUpperCase() : (topic ? topic.toUpperCase() : "NCLEX CLINICAL PRIORITY");
             return {
-                title: `Dynamic Concept Hook: ${capitalizedKey}`,
-                mnemonic: `Focus on ${capitalizedKey}: Always prioritize immediate clinical safety, baseline assessment thresholds, and direct evidence-based interventions for optimal outcomes.`
+                title: `NCLEX Strategy Tip: ${capitalizedKey}`,
+                mnemonic: `Strategy Tip for ${capitalizedKey}: Apply Maslow's Hierarchy (Airway > Breathing > Circulation > Safety). Always select the intervention that addresses physiological stability before teaching or reporting unless acute harm is imminent.`,
+                isStrategyTip: true
             };
         }
 
@@ -420,8 +423,9 @@
 
             const extractedKeywords = extractRationaleKeywords(q.rationale, q.category, q.topic);
             const mainQueryTerm = extractedKeywords.join(' ');
+            const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent('NCLEX mnemonic ' + mainQueryTerm)}`;
 
-            // Dynamic Mnemonic generation based on extracted rationale terms
+            // Dynamic Mnemonic generation or test strategy tips
             const activeMnemonic = getDynamicMnemonic(q.rationale, q.category, q.topic);
 
             const dynamicVideoResources = [
@@ -455,18 +459,26 @@
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-4">
-                        <!-- Dynamic Visual Mnemonic -->
-                        <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-2">
-                            <div class="flex items-center justify-between">
-                                <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
-                                    <i class="fa-solid fa-brain text-amber-600"></i> Sticky Visual Mnemonic
-                                </h4>
-                                <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
-                                    Dynamic Hook
-                                </span>
+                        <!-- Dynamic Visual Mnemonic / Strategy Tip Container -->
+                        <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 space-y-3 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-extrabold text-xs text-amber-900 uppercase flex items-center gap-1.5">
+                                        <i class="fa-solid ${activeMnemonic.isStrategyTip ? 'fa-lightbulb text-amber-600' : 'fa-brain text-amber-600'}"></i> ${activeMnemonic.isStrategyTip ? 'Test-Taking Strategy Tip' : 'Sticky Visual Mnemonic'}
+                                    </h4>
+                                    <span class="px-2 py-0.5 bg-amber-100 text-amber-800 font-extrabold text-[9px] rounded-md uppercase">
+                                        ${activeMnemonic.isStrategyTip ? 'Strategy Guide' : 'Visual Hook'}
+                                    </span>
+                                </div>
+                                <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
+                                <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
                             </div>
-                            <div class="font-bold text-xs text-amber-900">${activeMnemonic.title}</div>
-                            <p class="text-xs text-amber-800 leading-relaxed">${activeMnemonic.mnemonic}</p>
+                            
+                            <!-- Search Mnemonic Online Link -->
+                            <a href="${googleSearchUrl}" target="_blank" class="pt-2 border-t border-amber-200/60 text-[11px] font-bold text-amber-900 hover:text-amber-700 transition-colors flex items-center justify-between">
+                                <span><i class="fa-solid fa-magnifying-glass mr-1"></i> Search latest online mnemonics for "${extractedKeywords[0] || 'Topic'}"</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
                         </div>
 
                         <!-- Dynamic Video Remediation Tutorials -->
