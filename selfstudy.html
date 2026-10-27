@@ -247,35 +247,55 @@
         let bookmarkedQuestions = {};
         let flaggedQuestions = {};
 
+        // ENHANCED DYNAMIC YOUTUBE THUMBNAIL & VIDEO MAPPING
         const topicDualYouTubeMap = {
-            "Acute myocardial infarction": [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Myocardial Infarction (Heart Attack) Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: "Myocardial Infarction Pathophysiology & ECG", channel: "RegisteredNurseRN" }
+            "cardio": [
+                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
             ],
-            "Heart failure": [
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: "Congestive Heart Failure (CHF) NCLEX Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=mGchzG3Ya7c", thumbnail: "https://img.youtube.com/vi/mGchzG3Ya7c/hqdefault.jpg", title: "Left vs Right Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
-            ],
-            "Digoxin safety": [
-                { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: "Digoxin Nursing Pharmacology Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg", title: "Pharmacology High Yield NCLEX Review", channel: "RegisteredNurseRN" }
-            ],
-            "Warfarin teaching": [
-                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", thumbnail: "https://img.youtube.com/vi/LpVyqHeyTcA/hqdefault.jpg", title: "Warfarin & Anticoagulant Nursing Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=si67310XO80", thumbnail: "https://img.youtube.com/vi/si67310XO80/hqdefault.jpg", title: "Must-Know Nursing Medications NCLEX", channel: "RegisteredNurseRN" }
-            ],
-            "Tracheostomy Safety": [
-                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: "Tracheostomy Care & Emergency Nursing Safety", channel: "RegisteredNurseRN" },
+            "respiratory": [
+                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
                 { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
+            ],
+            "pharmacology": [
+                { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
+            ],
+            "pediatric": [
+                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", thumbnail: "https://img.youtube.com/vi/LpVyqHeyTcA/hqdefault.jpg", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
+                { url: "https://www.youtube.com/watch?v=si67310XO80", thumbnail: "https://img.youtube.com/vi/si67310XO80/hqdefault.jpg", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
             ]
         };
 
         function getTwoYouTubeVideos(topic, category) {
-            if (topicDualYouTubeMap[topic]) return topicDualYouTubeMap[topic];
-            return [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: `${topic || category} Core Nursing Review`, channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: `${category} NCLEX Clinical Judgment`, channel: "RegisteredNurseRN" }
+            const searchKey = `${topic || ''} ${category || ''}`.toLowerCase();
+
+            if (searchKey.includes('heart') || searchKey.includes('cardio') || searchKey.includes('infarction') || searchKey.includes('pulse')) {
+                return topicDualYouTubeMap["cardio"];
+            } else if (searchKey.includes('resp') || searchKey.includes('asthma') || searchKey.includes('trach') || searchKey.includes('oxygen') || searchKey.includes('lung')) {
+                return topicDualYouTubeMap["respiratory"];
+            } else if (searchKey.includes('med') || searchKey.includes('drug') || searchKey.includes('dose') || searchKey.includes('pharmacology') || searchKey.includes('digoxin') || searchKey.includes('insulin')) {
+                return topicDualYouTubeMap["pharmacology"];
+            } else if (searchKey.includes('child') || searchKey.includes('peds') || searchKey.includes('infant') || searchKey.includes('newborn')) {
+                return topicDualYouTubeMap["pediatric"];
+            }
+
+            const fallbackPools = [
+                [
+                    { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
+                    { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
+                ],
+                [
+                    { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", thumbnail: "https://img.youtube.com/vi/phu_x9FS7WY/hqdefault.jpg", title: `Mastering ${topic || 'NCLEX Topics'}`, channel: "RegisteredNurseRN" },
+                    { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: `${category || 'Exam'} Strategy & Rationales`, channel: "SimpleNursing" }
+                ]
             ];
+            
+            let hash = 0;
+            for (let i = 0; i < searchKey.length; i++) {
+                hash = searchKey.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return fallbackPools[Math.abs(hash) % fallbackPools.length];
         }
 
         function shuffleArray(array) {
