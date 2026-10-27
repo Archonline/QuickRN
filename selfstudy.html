@@ -3,481 +3,1019 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCLEX Interactive Self-Study Hub</title>
+    <title>QuikRN - Self-Study NCLEX Environment</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nclex: {
+                            blue: '#005b94',
+                            header: '#1e3a8a',
+                            darkBlue: '#0f2b5c',
+                            teal: '#008080',
+                            grayBg: '#e5e7eb',
+                            cardBg: '#ffffff',
+                            border: '#9ca3af',
+                            highlight: '#fef08a',
+                            flag: '#dc2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'Open Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --success: #16a34a;
-            --error: #dc2626;
-            --background: #f8fafc;
-            --surface: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            user-select: none;
+            background-color: #d1d5db;
         }
-
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: var(--surface);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        .nclex-header {
+            background: linear-gradient(90deg, #1e3a8a 0%, #005b94 100%);
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-
-        header h1 {
-            color: var(--primary);
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
         }
-
-        .stats-bar {
-            display: flex;
-            justify-content: space-between;
-            background: var(--background);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .controls select {
-            flex: 1;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-
-        .question-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .meta-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tag {
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 2px 8px;
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
             border-radius: 4px;
-            font-weight: bold;
         }
-
-        .stem {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-
-        .options-list {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 20px 0;
-        }
-
-        .option-item {
-            background: var(--background);
-            border: 1px solid var(--border);
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        .option-item:hover {
-            background: #f1f5f9;
-            border-color: var(--primary);
-        }
-
-        .option-item input {
-            margin-right: 12px;
-            accent-color: var(--primary);
-        }
-
-        .option-item.correct {
-            background: #dcfce7;
-            border-color: var(--success);
-            color: #166534;
-        }
-
-        .option-item.incorrect {
-            background: #fee2e2;
-            border-color: var(--error);
-            color: #991b1b;
-        }
-
-        .rationale-box {
-            display: none;
-            background: #f0fdf4;
-            border-left: 4px solid var(--success);
-            padding: 15px;
-            border-radius: 0 6px 6px 0;
-            margin-top: 15px;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .rationale-box.visible {
-            display: block;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-
-        button.action-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        button.action-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        button.action-btn:disabled {
-            background: var(--border);
-            cursor: not-allowed;
-            color: var(--text-light);
-        }
-
-        .complete-message {
-            text-align: center;
-            padding: 40px;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
-<body>
+<body class="h-screen w-screen flex flex-col overflow-hidden font-sans text-gray-800">
 
-    <div class="container">
-        <header>
-            <h1>NCLEX Review Hub</h1>
-            <p>Interactive Study Dashboard Powered by Provided Question Banks</p>
-        </header>
+    <!-- TOP NCLEX TEST BAR -->
+    <header class="nclex-header text-white px-4 py-2 flex justify-between items-center shadow-md flex-shrink-0 border-b-2 border-amber-400">
+        <div class="flex items-center space-x-4">
+            <div class="font-bold text-lg tracking-wide flex items-center">
+                <i class="fa-solid font-bold fa-user-nurse mr-2 text-xl text-amber-300"></i>
+                <span>QuikRN® Examination Self-Study Environment</span>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4 text-sm font-semibold">
+            <!-- Bookmarks Drawer Trigger -->
+            <button onclick="toggleBookmarksDrawer()" class="bg-blue-900 hover:bg-blue-800 text-white px-3 py-1 rounded border border-amber-400 flex items-center space-x-2 text-xs transition relative">
+                <i class="fa-solid fa-bookmark text-amber-300"></i>
+                <span>Saved Questions</span>
+                <span id="bookmark-counter-badge" class="bg-amber-400 text-blue-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+            </button>
 
-        <div class="stats-bar">
-            <span id="progress-indicator">Question 1 of 0</span>
-            <span id="score-indicator">Score: 0 / 0</span>
+            <!-- Question Counter Badge (Total Pool Indicator) -->
+            <div class="bg-blue-950/70 border border-blue-400/50 rounded px-2.5 py-1 text-xs text-blue-100 flex items-center space-x-1">
+                <i class="fa-solid fa-layer-group text-amber-300 mr-1 text-[11px]"></i>
+                <span>Pool: <strong id="total-questions-count" class="text-amber-300">0</strong> Qs</span>
+            </div>
+
+            <button onclick="toggleCalculator()" class="bg-blue-800 hover:bg-blue-700 text-white px-3 py-1 rounded border border-blue-400 flex items-center space-x-1 text-xs transition">
+                <i class="fa-solid fa-calculator text-amber-300"></i>
+                <span>Calculator</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ACTION CONTROLS / TOOLBAR -->
+    <nav class="bg-gray-200 border-b border-gray-400 px-4 py-1.5 flex justify-between items-center flex-shrink-0 text-sm">
+        <div class="flex items-center space-x-2">
+            <!-- Flag Button -->
+            <button id="flag-btn" onclick="toggleFlag()" class="bg-white hover:bg-red-50 text-gray-700 px-3 py-1 border border-gray-400 rounded shadow-sm flex items-center space-x-1.5 transition">
+                <i class="fa-regular fa-flag text-red-600" id="flag-icon"></i>
+                <span id="flag-text">Flag for Error / Review</span>
+            </button>
+
+            <!-- Bookmark Button -->
+            <button id="bookmark-btn" onclick="toggleBookmark()" class="bg-white hover:bg-amber-50 text-gray-700 px-3 py-1 border border-gray-400 rounded shadow-sm flex items-center space-x-1.5 transition">
+                <svg id="bookmark-svg" class="w-4 h-4 text-amber-500 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span id="bookmark-text">Save Question</span>
+            </button>
+
+            <span class="text-gray-400">|</span>
+            <span id="filter-status-indicator" class="hidden bg-amber-200 text-amber-900 text-xs px-2 py-0.5 rounded-full font-bold flex items-center">
+                <i class="fa-solid fa-filter mr-1"></i> Filter: Saved Only
+                <button onclick="clearBookmarkFilter()" class="ml-2 hover:text-red-700 font-bold">&times;</button>
+            </span>
+            <span class="bg-amber-100 text-amber-900 border border-amber-300 text-xs px-2.5 py-1 rounded-full font-medium" id="category-badge">
+                Cardiovascular
+            </span>
+        </div>
+    </nav>
+
+    <!-- MAIN EXAM CONTENT AREA -->
+    <main class="flex-1 flex overflow-hidden p-3 gap-3">
+        
+        <!-- LEFT PANEL: CLINICAL SCENARIO / CASE / QUESTION CONTENT -->
+        <section class="flex-1 bg-white rounded border border-gray-400 shadow-inner flex flex-col overflow-hidden">
+            <!-- Panel Header -->
+            <div class="bg-gray-100 px-4 py-2 border-b border-gray-300 font-bold text-gray-700 flex justify-between items-center flex-shrink-0">
+                <span><i class="fa-solid fa-file-medical text-nclex-blue mr-2"></i>Client Scenario & Clinical Item</span>
+                <span class="text-xs text-gray-500 font-normal">ID: <span id="question-id-display">NCLEX-0000</span></span>
+            </div>
+            
+            <!-- Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-5 custom-scrollbar" id="question-container">
+                <div class="mb-4 text-base text-gray-900 leading-relaxed font-normal" id="question-text">
+                    Loading question...
+                </div>
+
+                <!-- Answer Options Form -->
+                <div id="options-container" class="space-y-3 mt-4">
+                    <!-- Options inserted dynamically -->
+                </div>
+
+                <!-- SUBMITTED RATIONALE & NCLEX STRATEGY PANEL (Only visible post-submission) -->
+                <div id="rationale-panel" class="hidden mt-6 border-t-2 border-nclex-blue pt-4 space-y-4">
+                    <div class="bg-blue-50 border-l-4 border-nclex-blue p-4 rounded shadow-sm">
+                        <h4 class="font-bold text-nclex-header text-base mb-1 flex items-center">
+                            <i class="fa-solid fa-graduation-cap text-amber-600 mr-2"></i> Evidence-Based Evaluation & Rationale
+                        </h4>
+                        <p class="text-sm text-gray-800 leading-relaxed" id="rationale-text">
+                            Rationale content will appear here after answer submission.
+                        </p>
+                    </div>
+
+                    <!-- TEST TAKING STRATEGY & MNEMONICS -->
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded shadow-sm">
+                        <h4 class="font-bold text-amber-900 text-base mb-1 flex items-center">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-2"></i> NCLEX Test-Taking Strategy & Clinical Mnemonic
+                        </h4>
+                        <div class="text-sm text-amber-950 space-y-2" id="strategy-content">
+                            <!-- Generated strategy key phrases and mnemonics -->
+                        </div>
+                    </div>
+
+                    <!-- RECOMMENDED FREE YOUTUBE NCLEX REVIEW VIDEOS -->
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded shadow-sm">
+                        <h4 class="font-bold text-red-900 text-base mb-2 flex items-center">
+                            <i class="fa-brands fa-youtube text-red-600 mr-2"></i> Verified Video Review Resources
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="youtube-links-container">
+                            <!-- Youtube video links -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- NCLEX FOOTER NAVIGATION BUTTONS -->
+    <footer class="bg-gray-200 border-t-2 border-gray-400 px-6 py-2.5 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center space-x-2">
+            <button id="prev-btn" onclick="previousQuestion()" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-4 py-1.5 border border-gray-400 rounded shadow-sm text-sm transition disabled:opacity-50 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-chevron-left mr-1"></i> Previous
+            </button>
+            <button id="next-btn" onclick="nextQuestion()" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-4 py-1.5 border border-gray-400 rounded shadow-sm text-sm transition">
+                Next <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
         </div>
 
-        <div class="controls">
-            <select id="category-filter" onchange="filterQuestions()">
-                <option value="all">All Categories</option>
-            </select>
+        <div class="flex items-center space-x-3">
+            <button id="submit-btn" onclick="submitAnswer()" class="bg-nclex-blue hover:bg-blue-800 text-white font-bold px-6 py-1.5 rounded shadow transition text-sm flex items-center">
+                <i class="fa-solid fa-check-circle mr-2"></i> Submit Answer
+            </button>
         </div>
+    </footer>
+    <!-- BOOKMARKS DRAWER MODAL -->
+    <div id="bookmarks-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex justify-end">
+        <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col transform transition-transform duration-300">
+            <!-- Drawer Header -->
+            <div class="bg-nclex-header text-white px-4 py-3 flex justify-between items-center border-b-2 border-amber-400">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-bookmark text-amber-300 text-lg"></i>
+                    <h3 class="font-bold text-base">Bookmarked Questions</h3>
+                </div>
+                <button onclick="toggleBookmarksDrawer()" class="text-gray-300 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
 
-        <div id="quiz-container">
-            <!-- Dynamic Question Card goes here -->
-        </div>
+            <!-- Filter Action Bar -->
+            <div class="p-3 bg-gray-100 border-b border-gray-200 flex justify-between items-center text-xs">
+                <span id="drawer-saved-count" class="font-semibold text-gray-700">0 questions saved</span>
+                <button id="toggle-filter-mode-btn" onclick="toggleFilterMode()" class="bg-nclex-blue text-white px-2.5 py-1 rounded hover:bg-blue-800 transition font-medium">
+                    Study Only Saved
+                </button>
+            </div>
 
-        <div class="btn-container">
-            <button id="submit-btn" class="action-btn" onclick="submitAnswer()">Submit Answer</button>
-            <button id="next-btn" class="action-btn" onclick="nextQuestion()" style="display: none;">Next Question</button>
+            <!-- Bookmarked List -->
+            <div id="bookmarks-list" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+                <!-- Items populated dynamically -->
+            </div>
         </div>
     </div>
 
+    <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
-        // Integrated Question Banks (Part 2 & Part 3 Combined)
-        const qBank = [
-            // From nclex_qbank_3000_part2.json[cite: 6]
+        // EMBEDDED MASTER DATASET (EXPANDED NCLEX POOL)
+        const nclexMasterDataset = [
+            // CARDIOVASCULAR
             {
-                "id": "NCLEX-3000-1001",
-                "category": "Pharmacology & Parenteral Therapies",
-                "sub_category": "Med-Surg / Pharm",
-                "format": "SATA",
-                "tag": "[SATA]",
-                "stem": "The nurse is planning care for a client admitted with heart failure. Which interventions should the nurse include? (Select all that apply.)",
+                "id": "NCLEX-0001",
+                "category": "Cardiovascular",
+                "topic": "Acute myocardial infarction",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A nurse is caring for a client with acute myocardial infarction. Which action should the nurse take first?",
                 "options": [
-                    "A. Serum potassium level of 3.1 mEq/L",
-                    "B. Blood pressure 118/74 mm Hg",
-                    "C. Heart rate 76 bpm",
-                    "D. Trace ankle edema",
-                    "E. Daily weight protocol"
+                    "Waiting to see whether pain resolves",
+                    "Encouraging the client to walk",
+                    "Giving food before assessment",
+                    "Reporting chest pain and obtaining a rapid ECG"
                 ],
-                "correct_answer": "A, B, and D",
-                "rationale": "Options A, B, and D are evidence-based nursing interventions for heart failure."
+                "correctAnswerText": "Reporting chest pain and obtaining a rapid ECG",
+                "rationale": "[Evidence-Based Evaluation]: Prompt ECG helps identify ischemia and guide time-sensitive reperfusion decisions. The word 'first' signals the need to address the most time-sensitive risk before routine tasks.",
+                "learningObjective": "For suspected acute MI, obtain a 12-lead ECG promptly and assess symptoms/vitals; activate the emergency response pathway as indicated."
             },
             {
-                "id": "NCLEX-3000-1002",
-                "category": "Management of Care",
-                "sub_category": "Leadership & Delegation",
-                "format": "NGN",
-                "tag": "[NGN]",
-                "stem": "Client Case File: 45-year-old presenting with symptoms of type 1 diabetes. Based on clinical indicators, which action should the nurse prioritize first?",
+                "id": "NCLEX-0012",
+                "category": "Cardiovascular",
+                "topic": "Heart failure",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "During a shift assessment, a client has a condition associated with heart failure. Which client statement indicates correct understanding?",
                 "options": [
-                    "A. Initiate IV access and administer regular insulin",
-                    "B. Place client in high-Fowler position",
-                    "C. Assess vital signs and oxygen saturation",
-                    "D. Notify the health care provider"
+                    "Encourage unrestricted fluids.",
+                    "Assess breathing, oxygen saturation, lung sounds, and recent weight change.",
+                    "Place the client flat without assessment.",
+                    "Hold all prescribed medicines automatically."
                 ],
-                "correct_answer": "C. Assess vital signs and oxygen saturation",
-                "rationale": "Assessment and clinical data gathering precede implementation according to the CJMM model."
+                "correctAnswerText": "Assess breathing, oxygen saturation, lung sounds, and recent weight change.",
+                "rationale": "[Evidence-Based Evaluation]: These findings help identify pulmonary congestion and fluid retention. The correct statement reflects the key safety teaching for this condition.",
+                "learningObjective": "For worsening heart failure, assess respiratory status, oxygenation, lung sounds, edema, daily weight, and fluid balance."
             },
             {
-                "id": "NCLEX-3000-1003",
-                "category": "Reduction of Risk Potential",
-                "sub_category": "Med-Surg / Lab Values",
-                "format": "Traditional",
-                "tag": "[Traditional]",
-                "stem": "A client with COPD exacerbation is prescribed albuterol nebulizer. Which assessment finding requires immediate intervention?",
+                "id": "NCLEX-0023",
+                "category": "Cardiovascular",
+                "topic": "Digoxin safety",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A nurse reviews the care plan for a client affected by digoxin safety. Which finding requires the most immediate follow-up?",
                 "options": [
-                    "A. Respiratory rate of 32/min and accessory muscle use",
-                    "B. SpO2 91% on 2L NC",
-                    "C. Productive cough",
-                    "D. Wheezing bilaterally"
+                    "Give an extra dose if the pulse is slow",
+                    "Check temperature only",
+                    "Crush the medication into any feeding tube without checking",
+                    "Count the apical pulse for one full minute and verify parameters"
                 ],
-                "correct_answer": "A. Respiratory rate of 32/min and accessory muscle use",
-                "rationale": "Immediate intervention is needed for Respiratory rate of 32/min and accessory muscle use because it indicates acute decompensation or toxicity."
-            },
-            // From nclex_qbank_3000_part3.json[cite: 5]
-            {
-                "id": "NCLEX-3000-2001",
-                "category": "Pharmacology & Parenteral Therapies",
-                "sub_category": "Med-Surg / Pharm",
-                "format": "NGN",
-                "tag": "[NGN]",
-                "stem": "Client Case File: 45-year-old presenting with symptoms of heart failure. Based on clinical indicators, which action should the nurse prioritize first?",
-                "options": [
-                    "A. Initiate IV access and administer furosemide",
-                    "B. Place client in high-Fowler position",
-                    "C. Assess vital signs and oxygen saturation",
-                    "D. Notify the health care provider"
-                ],
-                "correct_answer": "C. Assess vital signs and oxygen saturation",
-                "rationale": "Assessment and clinical data gathering precede implementation according to the CJMM model."
+                "correctAnswerText": "Count the apical pulse for one full minute and verify parameters",
+                "rationale": "[Evidence-Based Evaluation]: Digoxin can slow heart rate; hold thresholds are order- and policy-dependent. A change suggesting immediate risk should be escalated rather than deferred.",
+                "learningObjective": "Before administering digoxin to an adult, assess the apical pulse for one full minute and follow the prescribed hold parameters."
             },
             {
-                "id": "NCLEX-3000-2002",
-                "category": "Management of Care",
-                "sub_category": "Leadership & Delegation",
-                "format": "Traditional",
-                "tag": "[Traditional]",
-                "stem": "A client with type 1 diabetes is prescribed regular insulin. Which assessment finding requires immediate intervention?",
+                "id": "NCLEX-0031",
+                "category": "Cardiovascular",
+                "topic": "Warfarin teaching",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A nurse is caring for a client with warfarin teaching. Which action should the nurse take first?",
                 "options": [
-                    "A. Diaphoresis and tremors",
-                    "B. Blood glucose 140 mg/dL",
-                    "C. Mild fatigue",
-                    "D. Polydipsia"
+                    "Avoid all green vegetables permanently",
+                    "Keep vitamin K intake consistent and report unusual bleeding",
+                    "Double the next dose after a missed dose",
+                    "Stop INR testing when feeling well"
                 ],
-                "correct_answer": "A. Diaphoresis and tremors",
-                "rationale": "Immediate intervention is needed for Diaphoresis and tremors because it indicates acute decompensation or toxicity."
+                "correctAnswerText": "Keep vitamin K intake consistent and report unusual bleeding",
+                "rationale": "[Evidence-Based Evaluation]: Consistency helps stabilize anticoagulation; bleeding may indicate excessive anticoagulant effect.",
+                "learningObjective": "Teach a client taking warfarin to keep vitamin K intake consistent and report bleeding; INR monitoring is required."
             },
             {
-                "id": "NCLEX-3000-2003",
-                "category": "Reduction of Risk Potential",
-                "sub_category": "Med-Surg / Lab Values",
-                "format": "SATA",
-                "tag": "[SATA]",
-                "stem": "The nurse is planning care for a client admitted with COPD exacerbation. Which interventions should the nurse include? (Select all that apply.)",
+                "id": "NCLEX-0042",
+                "category": "Cardiovascular",
+                "topic": "Nitroglycerin",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "During a shift assessment, a client has a condition associated with nitroglycerin. Which client statement indicates correct understanding?",
                 "options": [
-                    "A. Respiratory rate of 32/min and accessory muscle use",
-                    "B. SpO2 91% on 2L NC",
-                    "C. Productive cough",
-                    "D. Wheezing bilaterally",
-                    "E. Pursed-lip breathing"
+                    "Give while standing and walking.",
+                    "Combine with sildenafil to improve effect.",
+                    "Repeat doses indefinitely without reassessment.",
+                    "Sit the client down, assess blood pressure, and check contraindications."
                 ],
-                "correct_answer": "A, B, and D",
-                "rationale": "Options A, B, and D are evidence-based nursing interventions for COPD exacerbation."
+                "correctAnswerText": "Sit the client down, assess blood pressure, and check contraindications.",
+                "rationale": "[Evidence-Based Evaluation]: Nitroglycerin may cause hypotension and can interact dangerously with PDE-5 inhibitors.",
+                "learningObjective": "For prescribed sublingual nitroglycerin, have the client sit down and assess blood pressure; avoid use with recent PDE-5 inhibitor use per guidance."
+            },
+            // RESPIRATORY
+            {
+                "id": "NCLEX-0053",
+                "category": "Respiratory",
+                "topic": "Asthma exacerbation",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A nurse reviews the care plan for a client affected by asthma exacerbation. Which finding requires the most immediate follow-up?",
+                "options": [
+                    "Use only a long-acting controller for immediate relief",
+                    "Assess respiratory status and give the prescribed rescue bronchodilator",
+                    "Have the client lie flat and wait",
+                    "Withhold all inhaled medicines during wheezing"
+                ],
+                "correctAnswerText": "Assess respiratory status and give the prescribed rescue bronchodilator",
+                "rationale": "[Evidence-Based Evaluation]: Short-acting bronchodilators relieve acute bronchoconstriction.",
+                "learningObjective": "For acute asthma symptoms, assess airway and breathing and administer the prescribed rapid-acting bronchodilator promptly."
+            },
+            {
+                "id": "NCLEX-0060",
+                "category": "Respiratory",
+                "topic": "Tracheostomy Safety",
+                "difficulty": "Hard",
+                "type": "Single best answer",
+                "question": "A client with a new tracheostomy experiences accidental decannulation during turning. What is the nurse's immediate priority action?",
+                "options": [
+                    "Notify the physician immediately",
+                    "Extend the neck and ventilate with a bag-valve mask",
+                    "Call a rapid response team and obtain an X-ray",
+                    "Spread the stoma with a sterile hemostat and insert a spare tracheostomy tube with obturator"
+                ],
+                "correctAnswerText": "Spread the stoma with a sterile hemostat and insert a spare tracheostomy tube with obturator",
+                "rationale": "[Evidence-Based Evaluation]: A spare tracheostomy tube and obturator must be kept at the bedside at all times. If dislodged, opening the stoma and inserting the replacement tube re-establishes the airway immediately.",
+                "learningObjective": "Maintain emergency airway equipment at the bedside for all tracheostomy clients."
+            },
+            {
+                "id": "NCLEX-0061",
+                "category": "Respiratory",
+                "topic": "Chest Tube Management",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "The nurse notes continuous, vigorous bubbling in the water seal chamber of a chest tube drainage system. How should the nurse interpret this finding?",
+                "options": [
+                    "The system is functioning properly to evacuate a pneumothorax",
+                    "The suction pressure is set too low",
+                    "There is an air leak in the system or client insertion site",
+                    "The client's lung has fully re-expanded"
+                ],
+                "correctAnswerText": "There is an air leak in the system or client insertion site",
+                "rationale": "[Evidence-Based Evaluation]: Continuous bubbling in the water seal chamber indicates an air leak. Intermittent bubbling during expiration or coughing is expected with a pneumothorax.",
+                "learningObjective": "Differentiate expected tidaling/intermittent bubbling from continuous air leaks in chest drainage systems."
+            },
+            // PHARMACOLOGY & SATA
+            {
+                "id": "NCLEX-NGN-01",
+                "category": "Pharmacology & SATA",
+                "topic": "SATA - Heart Failure Interventions",
+                "difficulty": "Hard",
+                "type": "Select All That Apply (SATA)",
+                "question": "The nurse is planning care for a client admitted with acute decompensated heart failure (ADHF). Which interventions should the nurse include in the care plan? (Select all that apply.)",
+                "options": [
+                    "Monitor daily weight at the same time each morning",
+                    "Encourage fluid intake up to 3000 mL daily",
+                    "Assess bilateral lung sounds for crackles every 4 hours",
+                    "Elevate the head of the bed to High-Fowler's position",
+                    "Administer prescribed IV furosemide as ordered"
+                ],
+                "correctAnswerText": [
+                    "Monitor daily weight at the same time each morning",
+                    "Assess bilateral lung sounds for crackles every 4 hours",
+                    "Elevate the head of the bed to High-Fowler's position",
+                    "Administer prescribed IV furosemide as ordered"
+                ],
+                "rationale": "[Evidence-Based Evaluation]: Daily weights provide accurate assessment of fluid retention. High-Fowler's maximizes chest expansion and reduces venous return. IV diuretics relieve fluid overload.",
+                "learningObjective": "Prioritize interventions that decrease preload, improve oxygenation, and track fluid retention in ADHF."
+            },
+            {
+                "id": "NCLEX-NGN-02",
+                "category": "Respiratory & NGN",
+                "topic": "NGN Clinical Judgment Case",
+                "difficulty": "Hard",
+                "type": "NextGen NGN - Multiple Response",
+                "question": "A client with Chronic Obstructive Pulmonary Disease (COPD) is experiencing worsening dyspnea and blood gas changes. Select the nursing actions that are indicated at this time. (Select all that apply.)",
+                "options": [
+                    "Titrate oxygen therapy to maintain SpO2 between 88% and 92%",
+                    "Place the client in a tripod position",
+                    "Administer high-flow oxygen via non-rebreather at 15 L/min continuously",
+                    "Instruct the client in pursed-lip breathing techniques",
+                    "Obtain arterial blood gas (ABG) sample as prescribed"
+                ],
+                "correctAnswerText": [
+                    "Titrate oxygen therapy to maintain SpO2 between 88% and 92%",
+                    "Place the client in a tripod position",
+                    "Instruct the client in pursed-lip breathing techniques",
+                    "Obtain arterial blood gas (ABG) sample as prescribed"
+                ],
+                "rationale": "[Evidence-Based Evaluation]: Targeted SpO2 (88-92%) prevents suppression of hypoxic drive while correcting severe hypoxemia. Tripod positioning and pursed-lip breathing decrease work of breathing.",
+                "learningObjective": "Implement clinical judgment to balance oxygen delivery and ventilation techniques in hypercapnic respiratory failure."
+            },
+            {
+                "id": "NCLEX-0070",
+                "category": "Pharmacology",
+                "topic": "Insulin Administration",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A nurse is preparing to administer regular insulin and NPH insulin in a single syringe. Which action demonstrates correct administration technique?",
+                "options": [
+                    "Draw up the NPH insulin first, followed by the regular insulin",
+                    "Inject air into the NPH vial, inject air into the regular vial, draw up regular insulin, then draw up NPH insulin",
+                    "Inject air into the regular vial first, draw regular insulin, then inject air into NPH and draw NPH",
+                    "Mix the two insulins and let them sit for 30 minutes before drawing"
+                ],
+                "correctAnswerText": "Inject air into the NPH vial, inject air into the regular vial, draw up regular insulin, then draw up NPH insulin",
+                "rationale": "[Evidence-Based Evaluation]: Remember 'Clear before Cloudy' (Regular is clear, NPH is cloudy). Injecting air into NPH first, then regular, followed by drawing regular then NPH prevents contamination of clear insulin.",
+                "learningObjective": "Safely mix short-acting and intermediate-acting insulins using the clear-to-cloudy drawing protocol."
+            },
+            {
+                "id": "NCLEX-0071",
+                "category": "Pharmacology",
+                "topic": "Lithium Toxicity",
+                "difficulty": "Hard",
+                "type": "Single best answer",
+                "question": "A client taking lithium carbonate for bipolar disorder reports vomiting, severe diarrhea, blurred vision, and coarse hand tremors. What is the nurse's priority action?",
+                "options": [
+                    "Reassure the client that these are common initial side effects",
+                    "Hold the next dose and request an immediate serum lithium level",
+                    "Administer an antiemetic and encourage oral fluid intake",
+                    "Advise the client to restrict sodium intake to decrease toxicity"
+                ],
+                "correctAnswerText": "Hold the next dose and request an immediate serum lithium level",
+                "rationale": "[Evidence-Based Evaluation]: Vomiting, diarrhea, ataxia, blurred vision, and coarse tremors indicate moderate-to-severe lithium toxicity (levels > 1.5-2.0 mEq/L). The drug must be held and serum levels drawn.",
+                "learningObjective": "Recognize signs of lithium toxicity and implement immediate protocol to withhold medication and check blood levels."
+            },
+            // PEDIATRICS & MATERNITY
+            {
+                "id": "NCLEX-0080",
+                "category": "Pediatrics",
+                "topic": "Pyloric Stenosis",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A 5-week-old infant is brought to the clinic with persistent projectile non-bilious vomiting after feedings. On palpation, the nurse notes an olive-shaped mass in the epigastrium. Which laboratory abnormality is expected?",
+                "options": [
+                    "Metabolic acidosis",
+                    "Hyperkalemia and hyponatremia",
+                    "Hypokalemic, hypochloremic metabolic alkalosis",
+                    "Hyperchloremic metabolic acidosis"
+                ],
+                "correctAnswerText": "Hypokalemic, hypochloremic metabolic alkalosis",
+                "rationale": "[Evidence-Based Evaluation]: Severe vomiting leads to loss of gastric acid (HCl) and potassium, resulting in hypokalemic, hypochloremic metabolic alkalosis.",
+                "learningObjective": "Identify electrolyte imbalances associated with persistent upper GI fluid loss in pediatric hypertrophic pyloric stenosis."
+            },
+            {
+                "id": "NCLEX-0081",
+                "category": "Maternity / Obstetrics",
+                "topic": "Preeclampsia & Magnesium Sulfate",
+                "difficulty": "Hard",
+                "type": "Single best answer",
+                "question": "A pregnant client at 34 weeks gestation with severe preeclampsia is receiving an IV infusion of magnesium sulfate. Which assessment finding indicates magnesium toxicity?",
+                "options": [
+                    "Patellar reflex response of 2+",
+                    "Respiratory rate of 10 breaths per minute",
+                    "Urinary output of 45 mL/hour",
+                    "Serum magnesium level of 5.5 mEq/L"
+                ],
+                "correctAnswerText": "Respiratory rate of 10 breaths per minute",
+                "rationale": "[Evidence-Based Evaluation]: Signs of magnesium toxicity include loss of deep tendon reflexes, respiratory depression (< 12 breaths/min), oliguria (< 30 mL/hr), and cardiac arrest. Calcium gluconate is the antidote.",
+                "learningObjective": "Monitor clinical indicators of magnesium toxicity during preeclampsia management and keep calcium gluconate readily accessible."
+            },
+            // NEUROLOGY & MENTAL HEALTH
+            {
+                "id": "NCLEX-0090",
+                "category": "Neurology",
+                "topic": "Increased Intracranial Pressure (ICP)",
+                "difficulty": "Hard",
+                "type": "Single best answer",
+                "question": "A nurse evaluates a client with a head injury. Which cluster of vital signs indicates Cushing's triad (late sign of increased intracranial pressure)?",
+                "options": [
+                    "Tachycardia, hypotension, and tachypnea",
+                    "Bradycardia, widened pulse pressure (systolic hypertension), and irregular respirations",
+                    "Tachycardia, narrow pulse pressure, and Kussmaul respirations",
+                    "Bradycardia, hypotension, and shallow rapid breathing"
+                ],
+                "correctAnswerText": "Bradycardia, widened pulse pressure (systolic hypertension), and irregular respirations",
+                "rationale": "[Evidence-Based Evaluation]: Cushing's triad is a brainstem herniation warning sign consisting of bradycardia, widening pulse pressure (elevated SBP with stable/low DBP), and altered/irregular respiratory pattern.",
+                "learningObjective": "Identify Cushing's triad as a critical emergency indicator of brainstem compression secondary to severe ICP elevation."
+            },
+            {
+                "id": "NCLEX-0091",
+                "category": "Mental Health",
+                "topic": "Extrapyramidal Symptoms (EPS)",
+                "difficulty": "Moderate",
+                "type": "Single best answer",
+                "question": "A client started on haloperidol 3 days ago develops acute muscle spasms of the neck, eyes rolled upward, and difficulty swallowing. Which medication should the nurse anticipate administering immediately?",
+                "options": [
+                    "Lorazepam IV",
+                    "Diphenhydramine or Benztropine IM/IV",
+                    "Flumazenil IV",
+                    "Dantrolene sodium IV"
+                ],
+                "correctAnswerText": "Diphenhydramine or Benztropine IM/IV",
+                "rationale": "[Evidence-Based Evaluation]: Acute dystonia is an emergency extrapyramidal reaction to typical antipsychotics. Anticholinergics like benztropine or diphenhydramine reverse acute dystonia rapidly.",
+                "learningObjective": "Recognize acute dystonic reactions and administer prompt anticholinergic therapy."
+            },
+            // FUNDAMENTALS & SAFETY
+            {
+                "id": "NCLEX-0100",
+                "category": "Fundamentals & Safety",
+                "topic": "Infection Control / Precautions",
+                "difficulty": "Moderate",
+                "type": "Select All That Apply (SATA)",
+                "question": "A nurse is caring for a client admitted with active pulmonary tuberculosis. Which isolation precautions and personal protective equipment (PPE) are required? (Select all that apply.)",
+                "options": [
+                    "Negative-pressure airborne infection isolation room (AIIR)",
+                    "N95 respirator mask or powered air-purifying respirator (PAPR)",
+                    "Standard surgical mask for the nurse",
+                    "Surgical mask placed on the client during transport outside the room",
+                    "Gown and double gloves for all routine room entries"
+                ],
+                "correctAnswerText": [
+                    "Negative-pressure airborne infection isolation room (AIIR)",
+                    "N95 respirator mask or powered air-purifying respirator (PAPR)",
+                    "Surgical mask placed on the client during transport outside the room"
+                ],
+                "rationale": "[Evidence-Based Evaluation]: Tuberculosis requires airborne precautions: negative pressure room, N95 respirator for healthcare workers, and surgical mask on the client if leaving the room.",
+                "learningObjective": "Apply airborne transmission precautions correctly according to CDC infection control guidelines."
             }
         ];
 
-        let activeQuestions = [...qBank];
+        // GLOBAL APP STATE
+        let examQuestions = [];
         let currentIndex = 0;
-        let score = 0;
-        let answeredCurrent = false;
+        let userAnswers = {}; // { questionId: [selectedOptions] }
+        let submittedQuestions = {}; // { questionId: boolean }
+        let flaggedQuestions = {}; // { questionId: boolean }
+        let bookmarkedQuestions = {}; // { questionId: boolean }
+        let isSavedOnlyFilter = false;
+        let activeFilteredIndices = [];
 
-        function initApp() {
-            populateCategories();
-            loadQuestion();
-        }
+        // INITIALIZATION
+        window.onload = function() {
+            initializeExam();
+        };
 
-        function populateCategories() {
-            const categories = [...new Set(qBank.map(q => q.category))];
-            const select = document.getElementById('category-filter');
-            categories.forEach(cat => {
-                const opt = document.createElement('option');
-                opt.value = cat;
-                opt.textContent = cat;
-                select.appendChild(opt);
+        function initializeExam() {
+            // Clone and shuffle original items to make all available in random sequence
+            examQuestions = JSON.parse(JSON.stringify(nclexMasterDataset));
+            shuffleArray(examQuestions);
+
+            // For each question, randomize option order while maintaining correct tracking
+            examQuestions.forEach(q => {
+                shuffleArray(q.options);
             });
-        }
 
-        function filterQuestions() {
-            const selectedCat = document.getElementById('category-filter').value;
-            if (selectedCat === 'all') {
-                activeQuestions = [...qBank];
-            } else {
-                activeQuestions = qBank.filter(q => q.category === selectedCat);
-            }
             currentIndex = 0;
-            score = 0;
-            loadQuestion();
+            document.getElementById('total-questions-count').innerText = examQuestions.length;
+            renderQuestion();
+            updateBookmarkCounter();
         }
 
-        function loadQuestion() {
-            answeredCurrent = false;
-            const container = document.getElementById('quiz-container');
-            const submitBtn = document.getElementById('submit-btn');
-            const nextBtn = document.getElementById('next-btn');
-
-            submitBtn.style.display = 'inline-block';
-            nextBtn.style.display = 'none';
-
-            if (activeQuestions.length === 0 || currentIndex >= activeQuestions.length) {
-                container.innerHTML = `<div class="complete-message">Quiz Complete! Final Score: ${score} / ${activeQuestions.length}</div>`;
-                document.getElementById('progress-indicator').textContent = "Complete";
-                document.getElementById('score-indicator').textContent = `Score: ${score} / ${activeQuestions.length}`;
-                submitBtn.style.display = 'none';
-                return;
+        // UTILITY: Fisher-Yates Shuffle
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-
-            const q = activeQuestions[currentIndex];
-            document.getElementById('progress-indicator').textContent = `Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            document.getElementById('score-indicator').textContent = `Score: ${score}`;
-
-            let html = `
-                <div class="question-card">
-                    <div class="meta-info">
-                        <span>${q.category}</span>
-                        <span class="tag">${q.tag || q.format}</span>
-                    </div>
-                    <div class="stem">${q.stem}</div>
-                    <ul class="options-list">
-            `;
-
-            q.options.forEach((opt, idx) => {
-                const inputType = q.format === 'SATA' ? 'checkbox' : 'radio';
-                html += `
-                    <label class="option-item" id="opt-container-${idx}">
-                        <input type="${inputType}" name="quiz-opt" value="${opt.charAt(0)}" data-index="${idx}">
-                        <span>${opt}</span>
-                    </label>
-                `;
-            });
-
-            html += `
-                    </ul>
-                    <div id="rationale" class="rationale-box">
-                        <strong>Rationale:</strong> ${q.rationale}
-                    </div>
-                </div>
-            `;
-
-            container.innerHTML = html;
         }
 
-        function submitAnswer() {
-            if (answeredCurrent) return;
+        // RENDER QUESTION
+        function renderQuestion() {
+            const q = examQuestions[currentIndex];
+            const isSubmitted = submittedQuestions[q.id] || false;
 
-            const q = activeQuestions[currentIndex];
-            const inputs = document.querySelectorAll('input[name="quiz-opt"]:checked');
-            
-            if (inputs.length === 0) {
-                alert("Please select at least one option.");
-                return;
-            }
+            // Header counters and tags
+            document.getElementById('question-id-display').innerText = q.id;
+            document.getElementById('category-badge').innerText = `${q.category} • ${q.topic}`;
 
-            answeredCurrent = true;
-            
-            // Extract selected option prefixes (e.g., 'A', 'B')
-            let selectedVals = Array.from(inputs).map(input => input.value).sort().join(', ');
-            
-            // Clean correct answer string format match
-            let correctFormatted = q.correct_answer.replace(/and/g, '').replace(/,/g, '').replace(/\s+/g, '').toUpperCase();
-            let selectedFormatted = selectedVals.replace(/,/g, '').replace(/\s+/g, '').toUpperCase();
+            // Update Flag & Bookmark State
+            updateFlagUI(flaggedQuestions[q.id]);
+            updateBookmarkUI(bookmarkedQuestions[q.id]);
 
-            // Simple evaluation logic mapping prefixes
-            let isCorrect = false;
-            if (q.format === 'SATA') {
-                const cleanCorrect = q.correct_answer.match(/[A-E]/g).sort().join('');
-                const cleanSelected = Array.from(inputs).map(i => i.value).sort().join('');
-                isCorrect = (cleanCorrect === cleanSelected);
+            // Filter indicator state
+            const filterBadge = document.getElementById('filter-status-indicator');
+            if (isSavedOnlyFilter) {
+                filterBadge.classList.remove('hidden');
             } else {
-                isCorrect = q.correct_answer.charAt(0).toUpperCase() === inputs[0].value.toUpperCase();
+                filterBadge.classList.add('hidden');
             }
 
-            if (isCorrect) score++;
+            // Question text
+            document.getElementById('question-text').innerText = q.question;
 
-            // Highlight items
-            q.options.forEach((opt, idx) => {
-                const optPrefix = opt.charAt(0).toUpperCase();
-                const containerEl = document.getElementById(`opt-container-${idx}`);
-                if (q.correct_answer.toUpperCase().includes(optPrefix)) {
-                    containerEl.classList.add('correct');
-                } else {
-                    const inputEl = containerEl.querySelector('input');
-                    if (inputEl.checked) {
-                        containerEl.classList.add('incorrect');
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            const isSATA = q.type.includes('SATA') || q.type.includes('Select All') || q.type.includes('NGN');
+            const inputType = isSATA ? 'checkbox' : 'radio';
+
+            q.options.forEach((optText, index) => {
+                const optionId = `opt_${currentIndex}_${index}`;
+                const optionWrapper = document.createElement('label');
+                
+                // Checked state check
+                const currentSelected = userAnswers[q.id] || [];
+                const isChecked = currentSelected.includes(optText);
+
+                // Option styling for submission
+                let borderClass = 'border-gray-300';
+                let bgClass = 'bg-white';
+                let indicator = '';
+
+                if (isSubmitted) {
+                    const isCorrectOption = Array.isArray(q.correctAnswerText) 
+                        ? q.correctAnswerText.includes(optText)
+                        : q.correctAnswerText.trim() === optText.trim();
+
+                    if (isCorrectOption) {
+                        borderClass = 'border-green-500 bg-green-50 text-green-900 font-medium';
+                        indicator = '<i class="fa-solid fa-circle-check text-green-600 ml-auto text-lg"></i>';
+                    } else if (isChecked && !isCorrectOption) {
+                        borderClass = 'border-red-500 bg-red-50 text-red-900';
+                        indicator = '<i class="fa-solid fa-circle-xmark text-red-600 ml-auto text-lg"></i>';
                     }
                 }
+
+                optionWrapper.className = `flex items-center p-3.5 border ${borderClass} ${bgClass} rounded-lg cursor-pointer transition hover:shadow-sm ${isSubmitted ? 'cursor-default' : ''}`;
+
+                optionWrapper.innerHTML = `
+                    <input type="${inputType}" 
+                           name="nclex_option" 
+                           value="${escapeHtml(optText)}" 
+                           id="${optionId}"
+                           ${isChecked ? 'checked' : ''} 
+                           ${isSubmitted ? 'disabled' : ''}
+                           onchange="handleOptionSelect('${escapeJsString(optText)}', ${isSATA})"
+                           class="h-4 w-4 text-nclex-blue focus:ring-nclex-blue border-gray-300 rounded ${inputType === 'radio' ? 'rounded-full' : ''} mt-0.5">
+                    <span class="ml-3 text-sm text-gray-800 leading-normal flex-1">${optText}</span>
+                    ${indicator}
+                `;
+                optionsContainer.appendChild(optionWrapper);
             });
 
-            document.getElementById('rationale').classList.add('visible');
-            document.getElementById('submit-btn').style.display = 'none';
-            document.getElementById('next-btn').style.display = 'inline-block';
-            document.getElementById('score-indicator').textContent = `Score: ${score}`;
+            // Rationale & Strategy
+            const rationalePanel = document.getElementById('rationale-panel');
+            if (isSubmitted) {
+                rationalePanel.classList.remove('hidden');
+                document.getElementById('rationale-text').innerText = q.rationale;
+                generateNCLEXStrategy(q);
+                generateYouTubeResources(q);
+            } else {
+                rationalePanel.classList.add('hidden');
+            }
+
+            // Button States
+            if (isSavedOnlyFilter) {
+                const currentFilteredPos = activeFilteredIndices.indexOf(currentIndex);
+                document.getElementById('prev-btn').disabled = currentFilteredPos <= 0;
+            } else {
+                document.getElementById('prev-btn').disabled = currentIndex === 0;
+            }
+
+            const submitBtn = document.getElementById('submit-btn');
+            if (isSubmitted) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
         }
 
+        // TOGGLE BOOKMARK
+        function toggleBookmark() {
+            const q = examQuestions[currentIndex];
+            bookmarkedQuestions[q.id] = !bookmarkedQuestions[q.id];
+            updateBookmarkUI(bookmarkedQuestions[q.id]);
+            updateBookmarkCounter();
+            renderBookmarksList();
+        }
+
+        function updateBookmarkUI(isBookmarked) {
+            const bookmarkBtn = document.getElementById('bookmark-btn');
+            const bookmarkSvg = document.getElementById('bookmark-svg');
+            const bookmarkText = document.getElementById('bookmark-text');
+
+            if (isBookmarked) {
+                bookmarkBtn.classList.add('bg-amber-50', 'border-amber-500', 'text-amber-800');
+                bookmarkSvg.setAttribute('class', 'w-4 h-4 text-amber-500 fill-current stroke-current');
+                bookmarkText.innerText = 'Question Saved';
+            } else {
+                bookmarkBtn.classList.remove('bg-amber-50', 'border-amber-500', 'text-amber-800');
+                bookmarkSvg.setAttribute('class', 'w-4 h-4 text-amber-500 fill-none stroke-current');
+                bookmarkText.innerText = 'Save Question';
+            }
+        }
+
+        function updateBookmarkCounter() {
+            const savedCount = Object.keys(bookmarkedQuestions).filter(id => bookmarkedQuestions[id]).length;
+            document.getElementById('bookmark-counter-badge').innerText = savedCount;
+            document.getElementById('drawer-saved-count').innerText = `${savedCount} question${savedCount === 1 ? '' : 's'} saved`;
+        }
+
+        // BOOKMARKS DRAWER CONTROLS
+        function toggleBookmarksDrawer() {
+            const drawer = document.getElementById('bookmarks-modal');
+            drawer.classList.toggle('hidden');
+            if (!drawer.classList.contains('hidden')) {
+                renderBookmarksList();
+            }
+        }
+
+        function renderBookmarksList() {
+            const listContainer = document.getElementById('bookmarks-list');
+            listContainer.innerHTML = '';
+
+            const savedIds = Object.keys(bookmarkedQuestions).filter(id => bookmarkedQuestions[id]);
+
+            if (savedIds.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="text-center py-10 text-gray-500">
+                        <i class="fa-regular fa-bookmark text-4xl mb-3 text-gray-300"></i>
+                        <p class="text-sm font-medium">No saved questions yet.</p>
+                        <p class="text-xs text-gray-400 mt-1">Click the "Save Question" button while studying to review items here.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            savedIds.forEach(id => {
+                const qIndex = examQuestions.findIndex(item => item.id === id);
+                if (qIndex === -1) return;
+                const q = examQuestions[qIndex];
+                const isSubmitted = submittedQuestions[q.id];
+
+                const itemCard = document.createElement('div');
+                itemCard.className = `p-3 rounded-lg border border-gray-200 hover:border-nclex-blue hover:shadow-md transition cursor-pointer bg-white`;
+                itemCard.onclick = () => {
+                    currentIndex = qIndex;
+                    renderQuestion();
+                    toggleBookmarksDrawer();
+                };
+
+                itemCard.innerHTML = `
+                    <div class="flex justify-between items-start mb-1.5">
+                        <span class="text-xs font-bold text-nclex-blue bg-blue-50 px-2 py-0.5 rounded">${q.id}</span>
+                        <div class="flex items-center space-x-2">
+                            ${isSubmitted ? '<span class="text-[10px] bg-green-100 text-green-800 font-semibold px-1.5 py-0.5 rounded">Answered</span>' : '<span class="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">Unanswered</span>'}
+                            <button onclick="event.stopPropagation(); removeBookmark('${q.id}')" class="text-gray-400 hover:text-red-500 text-xs">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-800 line-clamp-2 font-medium mb-1">${q.question}</p>
+                    <span class="text-[11px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 inline-block">${q.category}</span>
+                `;
+
+                listContainer.appendChild(itemCard);
+            });
+        }
+
+        function removeBookmark(id) {
+            bookmarkedQuestions[id] = false;
+            updateBookmarkCounter();
+            renderBookmarksList();
+            if (examQuestions[currentIndex].id === id) {
+                updateBookmarkUI(false);
+            }
+            if (isSavedOnlyFilter) {
+                rebuildFilteredIndices();
+            }
+        }
+
+        // STUDY ONLY SAVED FILTER MODE
+        function toggleFilterMode() {
+            isSavedOnlyFilter = !isSavedOnlyFilter;
+            const filterBtn = document.getElementById('toggle-filter-mode-btn');
+
+            if (isSavedOnlyFilter) {
+                rebuildFilteredIndices();
+                if (activeFilteredIndices.length === 0) {
+                    alert('No bookmarked questions available to filter.');
+                    isSavedOnlyFilter = false;
+                    return;
+                }
+                filterBtn.innerText = 'Show All Questions';
+                filterBtn.classList.replace('bg-nclex-blue', 'bg-amber-600');
+                currentIndex = activeFilteredIndices[0];
+                renderQuestion();
+                toggleBookmarksDrawer();
+            } else {
+                clearBookmarkFilter();
+            }
+        }
+
+        function clearBookmarkFilter() {
+            isSavedOnlyFilter = false;
+            const filterBtn = document.getElementById('toggle-filter-mode-btn');
+            filterBtn.innerText = 'Study Only Saved';
+            filterBtn.classList.replace('bg-amber-600', 'bg-nclex-blue');
+            renderQuestion();
+        }
+
+        function rebuildFilteredIndices() {
+            activeFilteredIndices = [];
+            examQuestions.forEach((q, idx) => {
+                if (bookmarkedQuestions[q.id]) {
+                    activeFilteredIndices.push(idx);
+                }
+            });
+            if (activeFilteredIndices.length === 0 && isSavedOnlyFilter) {
+                clearBookmarkFilter();
+            }
+        }
+
+        // NEXT & PREVIOUS (OVERRIDDEN FOR FILTER COMPATIBILITY)
         function nextQuestion() {
-            currentIndex++;
-            loadQuestion();
+            if (isSavedOnlyFilter) {
+                const currentFilteredPos = activeFilteredIndices.indexOf(currentIndex);
+                if (currentFilteredPos !== -1 && currentFilteredPos < activeFilteredIndices.length - 1) {
+                    currentIndex = activeFilteredIndices[currentFilteredPos + 1];
+                    renderQuestion();
+                } else {
+                    alert('You have reached the end of your bookmarked questions.');
+                }
+            } else {
+                if (currentIndex < examQuestions.length - 1) {
+                    currentIndex++;
+                    renderQuestion();
+                } else {
+                    alert('You have reached the end of the question pool.');
+                }
+            }
         }
 
-        window.onload = initApp;
+        function previousQuestion() {
+            if (isSavedOnlyFilter) {
+                const currentFilteredPos = activeFilteredIndices.indexOf(currentIndex);
+                if (currentFilteredPos > 0) {
+                    currentIndex = activeFilteredIndices[currentFilteredPos - 1];
+                    renderQuestion();
+                }
+            } else {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    renderQuestion();
+                }
+            }
+        }
+
+        // HANDLE SELECTION
+        function handleOptionSelect(selectedText, isSATA) {
+            const q = examQuestions[currentIndex];
+            if (submittedQuestions[q.id]) return; // Read-only if submitted
+
+            if (!userAnswers[q.id]) userAnswers[q.id] = [];
+
+            if (isSATA) {
+                const index = userAnswers[q.id].indexOf(selectedText);
+                if (index > -1) {
+                    userAnswers[q.id].splice(index, 1);
+                } else {
+                    userAnswers[q.id].push(selectedText);
+                }
+            } else {
+                userAnswers[q.id] = [selectedText];
+            }
+        }
+
+        // SUBMIT ANSWER
+        function submitAnswer() {
+            const q = examQuestions[currentIndex];
+            const currentSelected = userAnswers[q.id] || [];
+
+            if (currentSelected.length === 0) {
+                alert('Please select an answer before submitting.');
+                return;
+            }
+
+            submittedQuestions[q.id] = true;
+            renderQuestion();
+        }
+
+        // TOGGLE FLAG FOR ERROR / REVIEW
+        function toggleFlag() {
+            const q = examQuestions[currentIndex];
+            flaggedQuestions[q.id] = !flaggedQuestions[q.id];
+            updateFlagUI(flaggedQuestions[q.id]);
+        }
+
+        function updateFlagUI(isFlagged) {
+            const flagBtn = document.getElementById('flag-btn');
+            const flagIcon = document.getElementById('flag-icon');
+            const flagText = document.getElementById('flag-text');
+
+            if (isFlagged) {
+                flagBtn.classList.add('bg-red-50', 'border-red-500', 'text-red-700');
+                flagIcon.className = 'fa-solid fa-flag text-red-600';
+                flagText.innerText = 'Flagged for Review';
+            } else {
+                flagBtn.classList.remove('bg-red-50', 'border-red-500', 'text-red-700');
+                flagIcon.className = 'fa-regular fa-flag text-red-600';
+                flagText.innerText = 'Flag for Error / Review';
+            }
+        }
+
+        // GENERATE TEST TAKING STRATEGIES & MNEMONICS
+        function generateNCLEXStrategy(q) {
+            const strategyContainer = document.getElementById('strategy-content');
+            
+            // Extract key phrases
+            const category = q.category.toLowerCase();
+            const questionText = q.question.toLowerCase();
+            
+            let mnemonicTitle = "ABCs & Priority Safety Model";
+            let mnemonicDesc = "Rule of Priority: Assess Airway, Breathing, and Circulation first. Address non-invasive assessment prior to invasive interventions.";
+            
+            if (category.includes('cardio') || questionText.includes('heart') || questionText.includes('chest')) {
+                mnemonicTitle = "MONA / ABC Priority Framework";
+                mnemonicDesc = "For acute cardiac compromise, prioritize Morphine, Oxygen, Nitroglycerin, Aspirin. Recognize life-threatening ischemia immediately.";
+            } else if (category.includes('resp') || questionText.includes('breathing') || questionText.includes('copd')) {
+                mnemonicTitle = "PAO2 & Ventilatory Drive Rule";
+                mnemonicDesc = "In chronic respiratory retention, prioritize target oxygen saturation (88-92%) to prevent blunting hypoxic respiratory drive.";
+            } else if (questionText.includes('digoxin') || questionText.includes('warfarin') || category.includes('pharm')) {
+                mnemonicTitle = "SAFETY & High-Alert Medication Protocol";
+                mnemonicDesc = "Verify specific lab parameters (INR for Warfarin, Apical Pulse > 60 bpm for Digoxin) BEFORE administration.";
+            }
+
+            strategyContainer.innerHTML = `
+                <div class="flex items-start space-x-2">
+                    <span class="font-bold text-amber-800 uppercase tracking-wide text-xs bg-amber-200 px-2 py-0.5 rounded">Strategy:</span>
+                    <span class="font-semibold text-gray-900">${mnemonicTitle}</span>
+                </div>
+                <p class="text-xs text-gray-700 leading-relaxed">${mnemonicDesc}</p>
+                <div class="mt-2 text-xs text-gray-600 border-t border-amber-200 pt-2 flex items-center">
+                    <i class="fa-solid fa-key text-amber-600 mr-1.5"></i>
+                    <span>Key Trigger Words Identified: <strong>"${q.topic}"</strong>, <strong>"${q.type}"</strong></span>
+                </div>
+            `;
+        }
+
+        // GENERATE FREE VERIFIED YOUTUBE NCLEX VIDEO LINKS
+        function generateYouTubeResources(q) {
+            const container = document.getElementById('youtube-links-container');
+            const topicEncoded = encodeURIComponent(`NCLEX ${q.topic} review nursing`);
+            const categoryEncoded = encodeURIComponent(`Registered Nurse RN NCLEX ${q.category}`);
+
+            container.innerHTML = `
+                <a href="https://www.youtube.com/results?search_query=${topicEncoded}" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center p-2.5 bg-white border border-red-200 rounded hover:bg-red-50 transition shadow-sm text-xs font-semibold text-gray-800">
+                    <i class="fa-brands fa-youtube text-red-600 text-lg mr-2.5"></i>
+                    <div class="truncate">
+                        <div class="text-gray-900 font-bold truncate">NCLEX Review: ${q.topic}</div>
+                        <div class="text-gray-500 font-normal text-[11px]">Free YouTube Lecture & Rationales</div>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/results?search_query=${categoryEncoded}" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center p-2.5 bg-white border border-red-200 rounded hover:bg-red-50 transition shadow-sm text-xs font-semibold text-gray-800">
+                    <i class="fa-brands fa-youtube text-red-600 text-lg mr-2.5"></i>
+                    <div class="truncate">
+                        <div class="text-gray-900 font-bold truncate">Mastery Guide: ${q.category}</div>
+                        <div class="text-gray-500 font-normal text-[11px]">Strategies & Clinical Practice</div>
+                    </div>
+                </a>
+            `;
+        }
+
+        // CALCULATOR FUNCTIONALITY
+        function toggleCalculator() {
+            const calc = document.getElementById('calc-modal');
+            calc.classList.toggle('hidden');
+        }
+
+        let calcValue = '0';
+        function calcInput(val) {
+            const display = document.getElementById('calc-display');
+            if (val === 'C') {
+                calcValue = '0';
+            } else {
+                if (calcValue === '0' && val !== '.') {
+                    calcValue = val;
+                } else {
+                    calcValue += val;
+                }
+            }
+            display.value = calcValue;
+        }
+
+        function calcEquals() {
+            const display = document.getElementById('calc-display');
+            try {
+                calcValue = eval(calcValue).toString();
+                display.value = calcValue;
+            } catch (e) {
+                display.value = 'Error';
+                calcValue = '0';
+            }
+        }
+
+        // ESCAPE HELPERS
+        function escapeHtml(str) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+        function escapeJsString(str) {
+            return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
     </script>
 </body>
 </html>
