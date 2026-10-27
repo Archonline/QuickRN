@@ -76,15 +76,21 @@
                 <span id="bookmark-counter-badge" class="bg-amber-400 text-blue-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
             </button>
 
-            <!-- Question Counter Badge (Total Pool Indicator) -->
-            <div class="bg-blue-950/70 border border-blue-400/50 rounded px-2.5 py-1 text-xs text-blue-100 flex items-center space-x-1">
+            <!-- Question Pool Selection Trigger -->
+            <button onclick="openQuestionCountModal()" class="bg-blue-950/70 border border-blue-400/50 hover:border-amber-400 rounded px-2.5 py-1 text-xs text-blue-100 flex items-center space-x-1 transition cursor-pointer">
                 <i class="fa-solid fa-layer-group text-amber-300 mr-1 text-[11px]"></i>
-                <span>Pool: <strong id="total-questions-count" class="text-amber-300">0</strong> Qs</span>
-            </div>
+                <span>Session: <strong id="total-questions-count" class="text-amber-300">0</strong> Qs</span>
+                <i class="fa-solid fa-pen-to-square ml-1 text-[10px] text-gray-300"></i>
+            </button>
 
             <button onclick="toggleCalculator()" class="bg-blue-800 hover:bg-blue-700 text-white px-3 py-1 rounded border border-blue-400 flex items-center space-x-1 text-xs transition">
                 <i class="fa-solid fa-calculator text-amber-300"></i>
                 <span>Calculator</span>
+            </button>
+
+            <!-- Return to Dashboard Icon Button (Far Right, No Text) -->
+            <button onclick="returnToDashboard()" title="Return to Dashboard" class="bg-blue-950/80 hover:bg-blue-900 text-amber-300 hover:text-white p-2 rounded-full border border-amber-400/60 flex items-center justify-center transition shadow-sm">
+                <i class="fa-solid fa-house text-sm"></i>
             </button>
         </div>
     </header>
@@ -92,21 +98,6 @@
     <!-- ACTION CONTROLS / TOOLBAR -->
     <nav class="bg-gray-200 border-b border-gray-400 px-4 py-1.5 flex justify-between items-center flex-shrink-0 text-sm">
         <div class="flex items-center space-x-2">
-            <!-- Flag Button -->
-            <button id="flag-btn" onclick="toggleFlag()" class="bg-white hover:bg-red-50 text-gray-700 px-3 py-1 border border-gray-400 rounded shadow-sm flex items-center space-x-1.5 transition">
-                <i class="fa-regular fa-flag text-red-600" id="flag-icon"></i>
-                <span id="flag-text">Flag for Error / Review</span>
-            </button>
-
-            <!-- Bookmark Button -->
-            <button id="bookmark-btn" onclick="toggleBookmark()" class="bg-white hover:bg-amber-50 text-gray-700 px-3 py-1 border border-gray-400 rounded shadow-sm flex items-center space-x-1.5 transition">
-                <svg id="bookmark-svg" class="w-4 h-4 text-amber-500 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span id="bookmark-text">Save Question</span>
-            </button>
-
-            <span class="text-gray-400">|</span>
             <span id="filter-status-indicator" class="hidden bg-amber-200 text-amber-900 text-xs px-2 py-0.5 rounded-full font-bold flex items-center">
                 <i class="fa-solid fa-filter mr-1"></i> Filter: Saved Only
                 <button onclick="clearBookmarkFilter()" class="ml-2 hover:text-red-700 font-bold">&times;</button>
@@ -114,6 +105,15 @@
             <span class="bg-amber-100 text-amber-900 border border-amber-300 text-xs px-2.5 py-1 rounded-full font-medium" id="category-badge">
                 Cardiovascular
             </span>
+        </div>
+
+        <!-- Bookmark Button moved to far right -->
+        <div class="flex items-center space-x-2">
+            <button id="bookmark-btn" onclick="toggleBookmark()" title="Save Question" class="bg-white hover:bg-amber-50 text-gray-700 p-1.5 border border-gray-400 rounded shadow-sm flex items-center justify-center transition">
+                <svg id="bookmark-svg" class="w-4 h-4 text-amber-500 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </button>
         </div>
     </nav>
 
@@ -143,7 +143,7 @@
                 <div id="rationale-panel" class="hidden mt-6 border-t-2 border-nclex-blue pt-4 space-y-4">
                     <div class="bg-blue-50 border-l-4 border-nclex-blue p-4 rounded shadow-sm">
                         <h4 class="font-bold text-nclex-header text-base mb-1 flex items-center">
-                            <i class="fa-solid fa-graduation-cap text-amber-600 mr-2"></i> Evidence-Based Evaluation & Rationale
+                            <i class="fa-solid fa-graduation-cap text-amber-600 mr-2"></i> Rationale
                         </h4>
                         <p class="text-sm text-gray-800 leading-relaxed" id="rationale-text">
                             Rationale content will appear here after answer submission.
@@ -169,6 +169,14 @@
                             <!-- Youtube video links -->
                         </div>
                     </div>
+
+                    <!-- FLAG BUTTON (NOW PLACED BELOW YOUTUBE VIDEOS UPON SUBMISSION) -->
+                    <div class="pt-2 flex justify-end">
+                        <button id="flag-btn" onclick="toggleFlag()" class="bg-white hover:bg-red-50 text-gray-700 px-3 py-1.5 border border-gray-400 rounded shadow-sm flex items-center space-x-1.5 transition text-xs">
+                            <i class="fa-regular fa-flag text-red-600" id="flag-icon"></i>
+                            <span id="flag-text">Flag for Error / Review</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -192,6 +200,57 @@
             </button>
         </div>
     </footer>
+
+    <!-- QUESTION COUNT SELECTOR MODAL (POPUP FOR SELF STUDY SESSION) -->
+    <div id="item-count-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-md w-full overflow-hidden transform transition-all border border-amber-400">
+            <!-- Modal Header -->
+            <div class="nclex-header px-5 py-4 text-white flex justify-between items-center border-b-2 border-amber-400">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-sliders text-amber-300 text-lg"></i>
+                    <h3 class="font-bold text-base tracking-wide">Select Study Session Size</h3>
+                </div>
+                <button onclick="closeQuestionCountModal()" class="text-gray-300 hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-4 bg-gray-50">
+                <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                    Choose how many NCLEX practice items you want in this self-study block. Your pool will be dynamically configured with detailed rationales and strategy hints.
+                </p>
+
+                <!-- Grid Options: 20, 60, 80, 100 -->
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="selectItemCount(20)" class="flex flex-col items-center justify-center p-4 bg-white border-2 border-gray-300 hover:border-nclex-blue hover:bg-blue-50/50 rounded-lg transition group shadow-sm">
+                        <span class="text-2xl font-extrabold text-nclex-blue group-hover:scale-110 transition-transform">20</span>
+                        <span class="text-xs text-gray-500 font-medium mt-1">Quick Quiz</span>
+                    </button>
+                    <button onclick="selectItemCount(60)" class="flex flex-col items-center justify-center p-4 bg-white border-2 border-gray-300 hover:border-nclex-blue hover:bg-blue-50/50 rounded-lg transition group shadow-sm">
+                        <span class="text-2xl font-extrabold text-nclex-blue group-hover:scale-110 transition-transform">60</span>
+                        <span class="text-xs text-gray-500 font-medium mt-1">Standard Block</span>
+                    </button>
+                    <button onclick="selectItemCount(80)" class="flex flex-col items-center justify-center p-4 bg-white border-2 border-gray-300 hover:border-nclex-blue hover:bg-blue-50/50 rounded-lg transition group shadow-sm">
+                        <span class="text-2xl font-extrabold text-nclex-blue group-hover:scale-110 transition-transform">80</span>
+                        <span class="text-xs text-gray-500 font-medium mt-1">Comprehensive</span>
+                    </button>
+                    <button onclick="selectItemCount(100)" class="flex flex-col items-center justify-center p-4 bg-white border-2 border-amber-500 hover:border-amber-600 bg-amber-50/40 hover:bg-amber-100/50 rounded-lg transition group shadow-sm">
+                        <span class="text-2xl font-extrabold text-amber-700 group-hover:scale-110 transition-transform">100</span>
+                        <span class="text-xs text-amber-800 font-semibold mt-1">Full Exam Simulation</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gray-100 px-5 py-3 border-t border-gray-200 flex justify-end">
+                <button onclick="closeQuestionCountModal()" class="px-4 py-1.5 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded font-semibold text-xs transition">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- BOOKMARKS DRAWER MODAL -->
     <div id="bookmarks-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex justify-end">
         <div class="w-full max-w-md bg-white h-full shadow-2xl flex flex-col transform transition-transform duration-300">
@@ -223,324 +282,12 @@
 
     <!-- MAIN JAVASCRIPT LOGIC -->
     <script>
-        // EMBEDDED MASTER DATASET (EXPANDED NCLEX POOL)
-        const nclexMasterDataset = [
-            // CARDIOVASCULAR
-            {
-                "id": "NCLEX-0001",
-                "category": "Cardiovascular",
-                "topic": "Acute myocardial infarction",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A nurse is caring for a client with acute myocardial infarction. Which action should the nurse take first?",
-                "options": [
-                    "Waiting to see whether pain resolves",
-                    "Encouraging the client to walk",
-                    "Giving food before assessment",
-                    "Reporting chest pain and obtaining a rapid ECG"
-                ],
-                "correctAnswerText": "Reporting chest pain and obtaining a rapid ECG",
-                "rationale": "[Evidence-Based Evaluation]: Prompt ECG helps identify ischemia and guide time-sensitive reperfusion decisions. The word 'first' signals the need to address the most time-sensitive risk before routine tasks.",
-                "learningObjective": "For suspected acute MI, obtain a 12-lead ECG promptly and assess symptoms/vitals; activate the emergency response pathway as indicated."
-            },
-            {
-                "id": "NCLEX-0012",
-                "category": "Cardiovascular",
-                "topic": "Heart failure",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "During a shift assessment, a client has a condition associated with heart failure. Which client statement indicates correct understanding?",
-                "options": [
-                    "Encourage unrestricted fluids.",
-                    "Assess breathing, oxygen saturation, lung sounds, and recent weight change.",
-                    "Place the client flat without assessment.",
-                    "Hold all prescribed medicines automatically."
-                ],
-                "correctAnswerText": "Assess breathing, oxygen saturation, lung sounds, and recent weight change.",
-                "rationale": "[Evidence-Based Evaluation]: These findings help identify pulmonary congestion and fluid retention. The correct statement reflects the key safety teaching for this condition.",
-                "learningObjective": "For worsening heart failure, assess respiratory status, oxygenation, lung sounds, edema, daily weight, and fluid balance."
-            },
-            {
-                "id": "NCLEX-0023",
-                "category": "Cardiovascular",
-                "topic": "Digoxin safety",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A nurse reviews the care plan for a client affected by digoxin safety. Which finding requires the most immediate follow-up?",
-                "options": [
-                    "Give an extra dose if the pulse is slow",
-                    "Check temperature only",
-                    "Crush the medication into any feeding tube without checking",
-                    "Count the apical pulse for one full minute and verify parameters"
-                ],
-                "correctAnswerText": "Count the apical pulse for one full minute and verify parameters",
-                "rationale": "[Evidence-Based Evaluation]: Digoxin can slow heart rate; hold thresholds are order- and policy-dependent. A change suggesting immediate risk should be escalated rather than deferred.",
-                "learningObjective": "Before administering digoxin to an adult, assess the apical pulse for one full minute and follow the prescribed hold parameters."
-            },
-            {
-                "id": "NCLEX-0031",
-                "category": "Cardiovascular",
-                "topic": "Warfarin teaching",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A nurse is caring for a client with warfarin teaching. Which action should the nurse take first?",
-                "options": [
-                    "Avoid all green vegetables permanently",
-                    "Keep vitamin K intake consistent and report unusual bleeding",
-                    "Double the next dose after a missed dose",
-                    "Stop INR testing when feeling well"
-                ],
-                "correctAnswerText": "Keep vitamin K intake consistent and report unusual bleeding",
-                "rationale": "[Evidence-Based Evaluation]: Consistency helps stabilize anticoagulation; bleeding may indicate excessive anticoagulant effect.",
-                "learningObjective": "Teach a client taking warfarin to keep vitamin K intake consistent and report bleeding; INR monitoring is required."
-            },
-            {
-                "id": "NCLEX-0042",
-                "category": "Cardiovascular",
-                "topic": "Nitroglycerin",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "During a shift assessment, a client has a condition associated with nitroglycerin. Which client statement indicates correct understanding?",
-                "options": [
-                    "Give while standing and walking.",
-                    "Combine with sildenafil to improve effect.",
-                    "Repeat doses indefinitely without reassessment.",
-                    "Sit the client down, assess blood pressure, and check contraindications."
-                ],
-                "correctAnswerText": "Sit the client down, assess blood pressure, and check contraindications.",
-                "rationale": "[Evidence-Based Evaluation]: Nitroglycerin may cause hypotension and can interact dangerously with PDE-5 inhibitors.",
-                "learningObjective": "For prescribed sublingual nitroglycerin, have the client sit down and assess blood pressure; avoid use with recent PDE-5 inhibitor use per guidance."
-            },
-            // RESPIRATORY
-            {
-                "id": "NCLEX-0053",
-                "category": "Respiratory",
-                "topic": "Asthma exacerbation",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A nurse reviews the care plan for a client affected by asthma exacerbation. Which finding requires the most immediate follow-up?",
-                "options": [
-                    "Use only a long-acting controller for immediate relief",
-                    "Assess respiratory status and give the prescribed rescue bronchodilator",
-                    "Have the client lie flat and wait",
-                    "Withhold all inhaled medicines during wheezing"
-                ],
-                "correctAnswerText": "Assess respiratory status and give the prescribed rescue bronchodilator",
-                "rationale": "[Evidence-Based Evaluation]: Short-acting bronchodilators relieve acute bronchoconstriction.",
-                "learningObjective": "For acute asthma symptoms, assess airway and breathing and administer the prescribed rapid-acting bronchodilator promptly."
-            },
-            {
-                "id": "NCLEX-0060",
-                "category": "Respiratory",
-                "topic": "Tracheostomy Safety",
-                "difficulty": "Hard",
-                "type": "Single best answer",
-                "question": "A client with a new tracheostomy experiences accidental decannulation during turning. What is the nurse's immediate priority action?",
-                "options": [
-                    "Notify the physician immediately",
-                    "Extend the neck and ventilate with a bag-valve mask",
-                    "Call a rapid response team and obtain an X-ray",
-                    "Spread the stoma with a sterile hemostat and insert a spare tracheostomy tube with obturator"
-                ],
-                "correctAnswerText": "Spread the stoma with a sterile hemostat and insert a spare tracheostomy tube with obturator",
-                "rationale": "[Evidence-Based Evaluation]: A spare tracheostomy tube and obturator must be kept at the bedside at all times. If dislodged, opening the stoma and inserting the replacement tube re-establishes the airway immediately.",
-                "learningObjective": "Maintain emergency airway equipment at the bedside for all tracheostomy clients."
-            },
-            {
-                "id": "NCLEX-0061",
-                "category": "Respiratory",
-                "topic": "Chest Tube Management",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "The nurse notes continuous, vigorous bubbling in the water seal chamber of a chest tube drainage system. How should the nurse interpret this finding?",
-                "options": [
-                    "The system is functioning properly to evacuate a pneumothorax",
-                    "The suction pressure is set too low",
-                    "There is an air leak in the system or client insertion site",
-                    "The client's lung has fully re-expanded"
-                ],
-                "correctAnswerText": "There is an air leak in the system or client insertion site",
-                "rationale": "[Evidence-Based Evaluation]: Continuous bubbling in the water seal chamber indicates an air leak. Intermittent bubbling during expiration or coughing is expected with a pneumothorax.",
-                "learningObjective": "Differentiate expected tidaling/intermittent bubbling from continuous air leaks in chest drainage systems."
-            },
-            // PHARMACOLOGY & SATA
-            {
-                "id": "NCLEX-NGN-01",
-                "category": "Pharmacology & SATA",
-                "topic": "SATA - Heart Failure Interventions",
-                "difficulty": "Hard",
-                "type": "Select All That Apply (SATA)",
-                "question": "The nurse is planning care for a client admitted with acute decompensated heart failure (ADHF). Which interventions should the nurse include in the care plan? (Select all that apply.)",
-                "options": [
-                    "Monitor daily weight at the same time each morning",
-                    "Encourage fluid intake up to 3000 mL daily",
-                    "Assess bilateral lung sounds for crackles every 4 hours",
-                    "Elevate the head of the bed to High-Fowler's position",
-                    "Administer prescribed IV furosemide as ordered"
-                ],
-                "correctAnswerText": [
-                    "Monitor daily weight at the same time each morning",
-                    "Assess bilateral lung sounds for crackles every 4 hours",
-                    "Elevate the head of the bed to High-Fowler's position",
-                    "Administer prescribed IV furosemide as ordered"
-                ],
-                "rationale": "[Evidence-Based Evaluation]: Daily weights provide accurate assessment of fluid retention. High-Fowler's maximizes chest expansion and reduces venous return. IV diuretics relieve fluid overload.",
-                "learningObjective": "Prioritize interventions that decrease preload, improve oxygenation, and track fluid retention in ADHF."
-            },
-            {
-                "id": "NCLEX-NGN-02",
-                "category": "Respiratory & NGN",
-                "topic": "NGN Clinical Judgment Case",
-                "difficulty": "Hard",
-                "type": "NextGen NGN - Multiple Response",
-                "question": "A client with Chronic Obstructive Pulmonary Disease (COPD) is experiencing worsening dyspnea and blood gas changes. Select the nursing actions that are indicated at this time. (Select all that apply.)",
-                "options": [
-                    "Titrate oxygen therapy to maintain SpO2 between 88% and 92%",
-                    "Place the client in a tripod position",
-                    "Administer high-flow oxygen via non-rebreather at 15 L/min continuously",
-                    "Instruct the client in pursed-lip breathing techniques",
-                    "Obtain arterial blood gas (ABG) sample as prescribed"
-                ],
-                "correctAnswerText": [
-                    "Titrate oxygen therapy to maintain SpO2 between 88% and 92%",
-                    "Place the client in a tripod position",
-                    "Instruct the client in pursed-lip breathing techniques",
-                    "Obtain arterial blood gas (ABG) sample as prescribed"
-                ],
-                "rationale": "[Evidence-Based Evaluation]: Targeted SpO2 (88-92%) prevents suppression of hypoxic drive while correcting severe hypoxemia. Tripod positioning and pursed-lip breathing decrease work of breathing.",
-                "learningObjective": "Implement clinical judgment to balance oxygen delivery and ventilation techniques in hypercapnic respiratory failure."
-            },
-            {
-                "id": "NCLEX-0070",
-                "category": "Pharmacology",
-                "topic": "Insulin Administration",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A nurse is preparing to administer regular insulin and NPH insulin in a single syringe. Which action demonstrates correct administration technique?",
-                "options": [
-                    "Draw up the NPH insulin first, followed by the regular insulin",
-                    "Inject air into the NPH vial, inject air into the regular vial, draw up regular insulin, then draw up NPH insulin",
-                    "Inject air into the regular vial first, draw regular insulin, then inject air into NPH and draw NPH",
-                    "Mix the two insulins and let them sit for 30 minutes before drawing"
-                ],
-                "correctAnswerText": "Inject air into the NPH vial, inject air into the regular vial, draw up regular insulin, then draw up NPH insulin",
-                "rationale": "[Evidence-Based Evaluation]: Remember 'Clear before Cloudy' (Regular is clear, NPH is cloudy). Injecting air into NPH first, then regular, followed by drawing regular then NPH prevents contamination of clear insulin.",
-                "learningObjective": "Safely mix short-acting and intermediate-acting insulins using the clear-to-cloudy drawing protocol."
-            },
-            {
-                "id": "NCLEX-0071",
-                "category": "Pharmacology",
-                "topic": "Lithium Toxicity",
-                "difficulty": "Hard",
-                "type": "Single best answer",
-                "question": "A client taking lithium carbonate for bipolar disorder reports vomiting, severe diarrhea, blurred vision, and coarse hand tremors. What is the nurse's priority action?",
-                "options": [
-                    "Reassure the client that these are common initial side effects",
-                    "Hold the next dose and request an immediate serum lithium level",
-                    "Administer an antiemetic and encourage oral fluid intake",
-                    "Advise the client to restrict sodium intake to decrease toxicity"
-                ],
-                "correctAnswerText": "Hold the next dose and request an immediate serum lithium level",
-                "rationale": "[Evidence-Based Evaluation]: Vomiting, diarrhea, ataxia, blurred vision, and coarse tremors indicate moderate-to-severe lithium toxicity (levels > 1.5-2.0 mEq/L). The drug must be held and serum levels drawn.",
-                "learningObjective": "Recognize signs of lithium toxicity and implement immediate protocol to withhold medication and check blood levels."
-            },
-            // PEDIATRICS & MATERNITY
-            {
-                "id": "NCLEX-0080",
-                "category": "Pediatrics",
-                "topic": "Pyloric Stenosis",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A 5-week-old infant is brought to the clinic with persistent projectile non-bilious vomiting after feedings. On palpation, the nurse notes an olive-shaped mass in the epigastrium. Which laboratory abnormality is expected?",
-                "options": [
-                    "Metabolic acidosis",
-                    "Hyperkalemia and hyponatremia",
-                    "Hypokalemic, hypochloremic metabolic alkalosis",
-                    "Hyperchloremic metabolic acidosis"
-                ],
-                "correctAnswerText": "Hypokalemic, hypochloremic metabolic alkalosis",
-                "rationale": "[Evidence-Based Evaluation]: Severe vomiting leads to loss of gastric acid (HCl) and potassium, resulting in hypokalemic, hypochloremic metabolic alkalosis.",
-                "learningObjective": "Identify electrolyte imbalances associated with persistent upper GI fluid loss in pediatric hypertrophic pyloric stenosis."
-            },
-            {
-                "id": "NCLEX-0081",
-                "category": "Maternity / Obstetrics",
-                "topic": "Preeclampsia & Magnesium Sulfate",
-                "difficulty": "Hard",
-                "type": "Single best answer",
-                "question": "A pregnant client at 34 weeks gestation with severe preeclampsia is receiving an IV infusion of magnesium sulfate. Which assessment finding indicates magnesium toxicity?",
-                "options": [
-                    "Patellar reflex response of 2+",
-                    "Respiratory rate of 10 breaths per minute",
-                    "Urinary output of 45 mL/hour",
-                    "Serum magnesium level of 5.5 mEq/L"
-                ],
-                "correctAnswerText": "Respiratory rate of 10 breaths per minute",
-                "rationale": "[Evidence-Based Evaluation]: Signs of magnesium toxicity include loss of deep tendon reflexes, respiratory depression (< 12 breaths/min), oliguria (< 30 mL/hr), and cardiac arrest. Calcium gluconate is the antidote.",
-                "learningObjective": "Monitor clinical indicators of magnesium toxicity during preeclampsia management and keep calcium gluconate readily accessible."
-            },
-            // NEUROLOGY & MENTAL HEALTH
-            {
-                "id": "NCLEX-0090",
-                "category": "Neurology",
-                "topic": "Increased Intracranial Pressure (ICP)",
-                "difficulty": "Hard",
-                "type": "Single best answer",
-                "question": "A nurse evaluates a client with a head injury. Which cluster of vital signs indicates Cushing's triad (late sign of increased intracranial pressure)?",
-                "options": [
-                    "Tachycardia, hypotension, and tachypnea",
-                    "Bradycardia, widened pulse pressure (systolic hypertension), and irregular respirations",
-                    "Tachycardia, narrow pulse pressure, and Kussmaul respirations",
-                    "Bradycardia, hypotension, and shallow rapid breathing"
-                ],
-                "correctAnswerText": "Bradycardia, widened pulse pressure (systolic hypertension), and irregular respirations",
-                "rationale": "[Evidence-Based Evaluation]: Cushing's triad is a brainstem herniation warning sign consisting of bradycardia, widening pulse pressure (elevated SBP with stable/low DBP), and altered/irregular respiratory pattern.",
-                "learningObjective": "Identify Cushing's triad as a critical emergency indicator of brainstem compression secondary to severe ICP elevation."
-            },
-            {
-                "id": "NCLEX-0091",
-                "category": "Mental Health",
-                "topic": "Extrapyramidal Symptoms (EPS)",
-                "difficulty": "Moderate",
-                "type": "Single best answer",
-                "question": "A client started on haloperidol 3 days ago develops acute muscle spasms of the neck, eyes rolled upward, and difficulty swallowing. Which medication should the nurse anticipate administering immediately?",
-                "options": [
-                    "Lorazepam IV",
-                    "Diphenhydramine or Benztropine IM/IV",
-                    "Flumazenil IV",
-                    "Dantrolene sodium IV"
-                ],
-                "correctAnswerText": "Diphenhydramine or Benztropine IM/IV",
-                "rationale": "[Evidence-Based Evaluation]: Acute dystonia is an emergency extrapyramidal reaction to typical antipsychotics. Anticholinergics like benztropine or diphenhydramine reverse acute dystonia rapidly.",
-                "learningObjective": "Recognize acute dystonic reactions and administer prompt anticholinergic therapy."
-            },
-            // FUNDAMENTALS & SAFETY
-            {
-                "id": "NCLEX-0100",
-                "category": "Fundamentals & Safety",
-                "topic": "Infection Control / Precautions",
-                "difficulty": "Moderate",
-                "type": "Select All That Apply (SATA)",
-                "question": "A nurse is caring for a client admitted with active pulmonary tuberculosis. Which isolation precautions and personal protective equipment (PPE) are required? (Select all that apply.)",
-                "options": [
-                    "Negative-pressure airborne infection isolation room (AIIR)",
-                    "N95 respirator mask or powered air-purifying respirator (PAPR)",
-                    "Standard surgical mask for the nurse",
-                    "Surgical mask placed on the client during transport outside the room",
-                    "Gown and double gloves for all routine room entries"
-                ],
-                "correctAnswerText": [
-                    "Negative-pressure airborne infection isolation room (AIIR)",
-                    "N95 respirator mask or powered air-purifying respirator (PAPR)",
-                    "Surgical mask placed on the client during transport outside the room"
-                ],
-                "rationale": "[Evidence-Based Evaluation]: Tuberculosis requires airborne precautions: negative pressure room, N95 respirator for healthcare workers, and surgical mask on the client if leaving the room.",
-                "learningObjective": "Apply airborne transmission precautions correctly according to CDC infection control guidelines."
-            }
-        ];
+        // MASTER DATASET LOADED FROM EXTERNAL JSON FILE
+        let nclexMasterDataset = [];
 
         // GLOBAL APP STATE
         let examQuestions = [];
+        let targetSessionCount = 20; // Default session count
         let currentIndex = 0;
         let userAnswers = {}; // { questionId: [selectedOptions] }
         let submittedQuestions = {}; // { questionId: boolean }
@@ -549,22 +296,104 @@
         let isSavedOnlyFilter = false;
         let activeFilteredIndices = [];
 
+        // FETCH QUESTIONS FROM JSON FILE
+        async function fetchQuestionsFromJSON() {
+            try {
+                const response = await fetch('./questions.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                nclexMasterDataset = await response.json();
+            } catch (error) {
+                console.error("Failed to load questions.json:", error);
+                // Simple inline fallback message container if fetch fails
+                const container = document.getElementById('question-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="p-6 bg-red-50 border border-red-200 rounded text-red-800 text-sm">
+                            <i class="fa-solid fa-triangle-exclamation text-red-600 mr-2 text-lg"></i>
+                            <strong>Error loading question bank.</strong> Make sure <code>questions.json</code> is located in the root folder of your repository.
+                        </div>
+                    `;
+                }
+            }
+        }
+
         // INITIALIZATION
-        window.onload = function() {
-            initializeExam();
+        window.onload = async function() {
+            await fetchQuestionsFromJSON();
+            openQuestionCountModal();
         };
 
-        function initializeExam() {
-            // Clone and shuffle original items to make all available in random sequence
-            examQuestions = JSON.parse(JSON.stringify(nclexMasterDataset));
-            shuffleArray(examQuestions);
+        function openQuestionCountModal() {
+            document.getElementById('item-count-modal').classList.remove('hidden');
+        }
+
+        function closeQuestionCountModal() {
+            document.getElementById('item-count-modal').classList.add('hidden');
+            if (examQuestions.length === 0 && nclexMasterDataset.length > 0) {
+                initializeExam(20); // Fallback to 20 if closed before selecting
+            }
+        }
+
+        function selectItemCount(count) {
+            targetSessionCount = count;
+            closeQuestionCountModal();
+            initializeExam(count);
+        }
+
+        function returnToDashboard() {
+            // Friendly inline alert replacing alert() function per environment safety guidelines
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg p-5 max-w-sm w-full shadow-xl border-t-4 border-nclex-blue text-center">
+                    <i class="fa-solid fa-house-user text-3xl text-nclex-blue mb-3"></i>
+                    <h4 class="font-bold text-gray-800 text-base mb-2">Return to Dashboard</h4>
+                    <p class="text-xs text-gray-600 mb-4">Are you sure you want to exit your active self-study session and return to the main dashboard?</p>
+                    <div class="flex justify-center space-x-2">
+                        <button id="cancel-dash-btn" class="px-3 py-1.5 bg-gray-200 text-gray-700 rounded text-xs font-semibold hover:bg-gray-300">Stay Here</button>
+                        <button id="confirm-dash-btn" class="px-4 py-1.5 bg-nclex-blue text-white rounded text-xs font-bold hover:bg-blue-800">Return to Dashboard</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            document.getElementById('cancel-dash-btn').onclick = () => modal.remove();
+            document.getElementById('confirm-dash-btn').onclick = () => {
+                modal.remove();
+                openQuestionCountModal(); // Resets study session safely
+            };
+        }
+
+        function initializeExam(desiredCount = targetSessionCount) {
+            if (!nclexMasterDataset || nclexMasterDataset.length === 0) return;
+
+            // Clone original items dataset
+            let fullPool = JSON.parse(JSON.stringify(nclexMasterDataset));
+            shuffleArray(fullPool);
+
+            // Repeat/cycle pool items if the user selects more questions than master raw dataset items
+            examQuestions = [];
+            let datasetIndex = 0;
+            for (let i = 0; i < desiredCount; i++) {
+                let item = JSON.parse(JSON.stringify(fullPool[datasetIndex % fullPool.length]));
+                // Give unique instance IDs for repeated pool elements
+                if (i >= fullPool.length) {
+                    item.id = `${item.id}-${Math.floor(i / fullPool.length) + 1}`;
+                }
+                examQuestions.push(item);
+                datasetIndex++;
+            }
 
             // For each question, randomize option order while maintaining correct tracking
             examQuestions.forEach(q => {
-                shuffleArray(q.options);
+                if (q.options) shuffleArray(q.options);
             });
 
             currentIndex = 0;
+            userAnswers = {};
+            submittedQuestions = {};
             document.getElementById('total-questions-count').innerText = examQuestions.length;
             renderQuestion();
             updateBookmarkCounter();
@@ -657,7 +486,7 @@
             const rationalePanel = document.getElementById('rationale-panel');
             if (isSubmitted) {
                 rationalePanel.classList.remove('hidden');
-                document.getElementById('rationale-text').innerText = q.rationale;
+                document.getElementById('rationale-text').innerText = q.rationale.replace(/^\[Evidence-Based Evaluation\]:\s*/i, '');
                 generateNCLEXStrategy(q);
                 generateYouTubeResources(q);
             } else {
@@ -694,16 +523,13 @@
         function updateBookmarkUI(isBookmarked) {
             const bookmarkBtn = document.getElementById('bookmark-btn');
             const bookmarkSvg = document.getElementById('bookmark-svg');
-            const bookmarkText = document.getElementById('bookmark-text');
 
             if (isBookmarked) {
-                bookmarkBtn.classList.add('bg-amber-50', 'border-amber-500', 'text-amber-800');
+                bookmarkBtn.classList.add('bg-amber-50', 'border-amber-500');
                 bookmarkSvg.setAttribute('class', 'w-4 h-4 text-amber-500 fill-current stroke-current');
-                bookmarkText.innerText = 'Question Saved';
             } else {
-                bookmarkBtn.classList.remove('bg-amber-50', 'border-amber-500', 'text-amber-800');
+                bookmarkBtn.classList.remove('bg-amber-50', 'border-amber-500');
                 bookmarkSvg.setAttribute('class', 'w-4 h-4 text-amber-500 fill-none stroke-current');
-                bookmarkText.innerText = 'Save Question';
             }
         }
 
