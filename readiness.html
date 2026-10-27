@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCLEX Readiness Assessment | Official Test Environment</title>
+    <title>NCLEX NCLEX Predictor Exam | Official Test Environment</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -180,7 +180,7 @@
         <!-- Summary Header -->
         <div class="bg-[#002244] text-white px-6 py-4 flex justify-between items-center border-b border-slate-700 shadow-md">
             <div>
-                <h2 class="text-lg font-bold">NCLEX-RN Readiness Performance Report</h2>
+                <h2 class="text-lg font-bold">NCLEX-RN Predictor Performance Report</h2>
                 <p class="text-xs text-slate-300">CAT Assessment Results & Detailed Item Analysis</p>
             </div>
             <button onclick="returnToDashboard()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded transition shadow flex items-center gap-2">
@@ -303,7 +303,7 @@
         // Limit Check for 4 Total Exam Takes
         function checkTakesRemaining() {
             let takesLeft = 4;
-            const savedTakes = localStorage.getItem('quickrn_readiness_takes');
+            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
             if (savedTakes !== null) {
                 takesLeft = parseInt(savedTakes, 10);
             }
@@ -313,7 +313,7 @@
                     <div class="p-12 text-center w-full my-auto space-y-4">
                         <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-ban"></i></div>
                         <h3 class="text-xl font-bold text-slate-900">Assessment Attempt Limit Reached</h3>
-                        <p class="text-xs text-slate-600 max-w-md mx-auto">You have used all 4 allotted Readiness Assessment takes. Review your previous exam logs or continue practice in the Q-Bank.</p>
+                        <p class="text-xs text-slate-600 max-w-md mx-auto">You have used all 4 allotted NCLEX Predictor Exam takes. Review your previous exam logs or continue practice in the Q-Bank.</p>
                         <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-lg text-xs hover:bg-slate-800 transition">Return to Dashboard</button>
                     </div>
                 `;
@@ -539,10 +539,10 @@
 
             // Update Remaining Takes
             let takesLeft = 4;
-            const savedTakes = localStorage.getItem('quickrn_readiness_takes');
+            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
             if (savedTakes !== null) takesLeft = parseInt(savedTakes, 10);
             takesLeft = Math.max(0, takesLeft - 1);
-            localStorage.setItem('quickrn_readiness_takes', takesLeft.toString());
+            localStorage.setItem('quickrn_predictor_takes', takesLeft.toString());
 
             // Persist Exam Results to Local Storage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -569,12 +569,12 @@
             });
             stateObj.studentStats.mistakeCount += (activeExamQuestions.length - correctCount);
             stateObj.studentStats.passingProbability = passingProbability;
-            stateObj.studentStats.readinessTakesCount = takesLeft;
+            stateObj.studentStats.predictorTakesCount = takesLeft;
 
             // Log exam record
             stateObj.studentStats.examHistory.unshift({
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                mode: 'Readiness Assessment (CAT)',
+                mode: 'NCLEX Predictor Exam (CAT)',
                 total: activeExamQuestions.length,
                 scorePercent,
                 passingProbability,

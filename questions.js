@@ -40247,13 +40247,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40267,13 +40267,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40287,13 +40287,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40307,13 +40307,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40327,13 +40327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40347,13 +40347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Five Rights of Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Five Rights of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40367,13 +40367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40387,13 +40387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40407,13 +40407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40427,13 +40427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40447,13 +40447,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40467,13 +40467,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Supervision and Accountability in Team Nursing, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40487,13 +40487,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40507,13 +40507,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40527,13 +40527,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40547,13 +40547,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40567,13 +40567,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40587,13 +40587,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Leadership & Delegation - Communication and the Four Cs of Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Communication and the Four Cs of Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40727,13 +40727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40747,13 +40747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40767,13 +40767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40787,13 +40787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40807,13 +40807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40827,13 +40827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Maslow's Hierarchy in Client Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40847,13 +40847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40867,13 +40867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40887,13 +40887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40907,13 +40907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40927,13 +40927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -40947,13 +40947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41087,13 +41087,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41107,13 +41107,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41127,13 +41127,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41147,13 +41147,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41167,13 +41167,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41187,13 +41187,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41327,13 +41327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41347,13 +41347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41367,13 +41367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41387,13 +41387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41407,13 +41407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41427,13 +41427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for RN Scope: Initial Assessment and Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41687,13 +41687,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41707,13 +41707,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41727,13 +41727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41747,13 +41747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41767,13 +41767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41787,13 +41787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41807,13 +41807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41827,13 +41827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41847,13 +41847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41867,13 +41867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41887,13 +41887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41907,13 +41907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Potassium Imbalance and Cardiac Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41927,13 +41927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41947,13 +41947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41967,13 +41967,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -41987,13 +41987,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42007,13 +42007,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42027,13 +42027,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Sodium Imbalance and Neurological Status, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42047,13 +42047,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42067,13 +42067,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42087,13 +42087,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42107,13 +42107,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42127,13 +42127,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42147,13 +42147,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42167,13 +42167,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42187,13 +42187,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42207,13 +42207,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42227,13 +42227,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42247,13 +42247,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42267,13 +42267,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diuretic Therapy Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42287,13 +42287,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42307,13 +42307,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42327,13 +42327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42347,13 +42347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42367,13 +42367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42387,13 +42387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42407,13 +42407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42427,13 +42427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42447,13 +42447,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42467,13 +42467,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42487,13 +42487,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42507,13 +42507,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neutropenic Precautions and Infection Control, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42527,13 +42527,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42547,13 +42547,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42567,13 +42567,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42587,13 +42587,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42607,13 +42607,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42627,13 +42627,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thrombocytopenia and Bleeding Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42647,13 +42647,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42667,13 +42667,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42687,13 +42687,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42707,13 +42707,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42727,13 +42727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42747,13 +42747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42767,13 +42767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42787,13 +42787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42807,13 +42807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42827,13 +42827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42847,13 +42847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42867,13 +42867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Blood Transfusion Delegation and Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42887,13 +42887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42907,13 +42907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42927,13 +42927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42947,13 +42947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42967,13 +42967,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -42987,13 +42987,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43007,13 +43007,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43027,13 +43027,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43047,13 +43047,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43067,13 +43067,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43087,13 +43087,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43107,13 +43107,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Stroke (CVA) Care and Swallow Precautions, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43127,13 +43127,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43147,13 +43147,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43167,13 +43167,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43187,13 +43187,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43207,13 +43207,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43227,13 +43227,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Seizure Precautions and Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Seizure Precautions and Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43247,13 +43247,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43267,13 +43267,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43287,13 +43287,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43307,13 +43307,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43327,13 +43327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43347,13 +43347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43367,13 +43367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43387,13 +43387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43407,13 +43407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43427,13 +43427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43447,13 +43447,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43467,13 +43467,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Spinal Cord Injury and Autonomic Dysreflexia, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43487,13 +43487,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43507,13 +43507,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43527,13 +43527,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43547,13 +43547,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43567,13 +43567,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43587,13 +43587,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Neurologic Problems - Neurological Assessment Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43607,13 +43607,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43627,13 +43627,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43647,13 +43647,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43667,13 +43667,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43687,13 +43687,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43707,13 +43707,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Post-Operative Abdominal Surgery Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43727,13 +43727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43747,13 +43747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43767,13 +43767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43787,13 +43787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43807,13 +43807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43827,13 +43827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Renal Colic and Lithotripsy Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43847,13 +43847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43867,13 +43867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43887,13 +43887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43907,13 +43907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43927,13 +43927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43947,13 +43947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43967,13 +43967,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -43987,13 +43987,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44007,13 +44007,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44027,13 +44027,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44047,13 +44047,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44067,13 +44067,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for GI Bleeding and Hemodynamic Stability, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44087,13 +44087,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44107,13 +44107,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44127,13 +44127,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44147,13 +44147,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44167,13 +44167,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44187,13 +44187,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44207,13 +44207,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44227,13 +44227,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44247,13 +44247,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44267,13 +44267,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44287,13 +44287,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44307,13 +44307,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Heart Failure Exacerbation and Diuresis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44327,13 +44327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44347,13 +44347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44367,13 +44367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44387,13 +44387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44407,13 +44407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44427,13 +44427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Myocardial Infarction and Chest Pain Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44447,13 +44447,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44467,13 +44467,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44487,13 +44487,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44507,13 +44507,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44527,13 +44527,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44547,13 +44547,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44567,13 +44567,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44587,13 +44587,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44607,13 +44607,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44627,13 +44627,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44647,13 +44647,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44667,13 +44667,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Pulmonary Embolism Recognition and Action, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44687,13 +44687,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44707,13 +44707,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44727,13 +44727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44747,13 +44747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44767,13 +44767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44787,13 +44787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44807,13 +44807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44827,13 +44827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44847,13 +44847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44867,13 +44867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44887,13 +44887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44907,13 +44907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Fractures and Compartment Syndrome Signs, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44927,13 +44927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44947,13 +44947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44967,13 +44967,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -44987,13 +44987,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45007,13 +45007,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45027,13 +45027,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Osteomyelitis and Vital Sign Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45047,13 +45047,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45067,13 +45067,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45087,13 +45087,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45107,13 +45107,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45127,13 +45127,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45147,13 +45147,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45167,13 +45167,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45187,13 +45187,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45207,13 +45207,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45227,13 +45227,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45247,13 +45247,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45267,13 +45267,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Cast Care and Neurovascular Checks, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45287,13 +45287,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45307,13 +45307,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45327,13 +45327,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45347,13 +45347,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45367,13 +45367,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45387,13 +45387,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45407,13 +45407,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45427,13 +45427,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45447,13 +45447,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45467,13 +45467,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45487,13 +45487,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45507,13 +45507,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetic Ketoacidosis (DKA) Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45527,13 +45527,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45547,13 +45547,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45567,13 +45567,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45587,13 +45587,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45607,13 +45607,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45627,13 +45627,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Hypoglycemia vs Hyperglycemia Protocol, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45647,13 +45647,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45667,13 +45667,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45687,13 +45687,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45707,13 +45707,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45727,13 +45727,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45747,13 +45747,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45767,13 +45767,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45787,13 +45787,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45807,13 +45807,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45827,13 +45827,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45847,13 +45847,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45867,13 +45867,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Thyroidectomy and Airway Complications] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Thyroidectomy and Airway Complications, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45887,13 +45887,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45907,13 +45907,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45927,13 +45927,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45947,13 +45947,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45967,13 +45967,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 0,
-        "correctAnswerText": "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+        "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
@@ -45987,13 +45987,13 @@ const embeddedQuestionsData = [
         "type": "single_choice",
         "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
         "options": [
-            "A: Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-            "B: Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-            "C: Provide independent patient education on complex disease pathology and discharge self-management.",
-            "D: Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
+            "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
+            "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
+            "Provide independent patient education on complex disease pathology and discharge self-management.",
+            "Evaluate overall treatment effectiveness and modify the individualized nursing care plan."
         ],
         "correctAnswer": 2,
-        "correctAnswerText": "C: Provide independent patient education on complex disease pathology and discharge self-management.",
+        "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
         "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
         "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
         "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
