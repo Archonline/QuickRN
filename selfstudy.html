@@ -121,26 +121,42 @@
             "pneumonia": { title: "Acute Pneumonia Interventions", mnemonic: "C - Cough & deep breathe, O - Oxygen therapy, U - Upright positioning, G - Get sputum culture before antibiotics, H - Hydration." }
         };
 
+        // Enhanced multi-pass Fisher-Yates Shuffle for thorough Q-bank coverage and randomization
         function shuffleArray(array) {
             let arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+            for (let pass = 0; pass < 2; pass++) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
             }
             return arr;
         }
 
+        // Clean text helper to strip embedded option labels and Q-bank artifacts
+        function cleanText(text) {
+            if (!text) return '';
+            return String(text)
+                .replace(/^(?:option\s*[a-d][\):\.]?)\s*/i, '')
+                .replace(/\bfor\s+NCLEX-Q\d+\b\.?/gi, '')
+                .replace(/\bNCLEX-Q\d+:?\s*/gi, '')
+                .trim();
+        }
+
         function normalizeQuestion(item) {
+            const rawOptions = item.options || [];
+            const cleanedOptions = rawOptions.map(opt => cleanText(opt));
+
             return {
                 id: item.id || '',
                 category: item.category || 'General Nursing',
                 topic: item.topic || '',
                 type: item.type || 'Multiple Choice',
                 highYieldTag: item.highYieldTag || item.high_yield_tag || '',
-                question: item.question || item.questionText || '',
-                options: item.options || [],
-                correctAnswer: item.correctAnswer || item.correct_answer || '',
-                rationale: item.rationale || '',
+                question: cleanText(item.question || item.questionText || ''),
+                options: cleanedOptions,
+                correctAnswer: cleanText(item.correctAnswer || item.correct_answer || ''),
+                rationale: cleanText(item.rationale || ''),
                 reference: item.reference || 'NCLEX-RN Test Plan Standards',
                 caseStudy: item.caseStudy || null
             };
@@ -231,7 +247,6 @@
                 let list1 = [];
                 let list2 = [];
 
-                // Load File 1: master_nclex_qbank_3000.json
                 try {
                     const res1 = await fetch('master_nclex_qbank_3000.json');
                     if (res1.ok) {
@@ -242,7 +257,6 @@
                     console.warn("Could not fetch master_nclex_qbank_3000.json:", e);
                 }
 
-                // Load File 2: compiled_nclex_qbank.json
                 try {
                     const res2 = await fetch('compiled_nclex_qbank.json');
                     if (res2.ok) {
@@ -253,7 +267,6 @@
                     console.warn("Could not fetch compiled_nclex_qbank.json:", e);
                 }
 
-                // Fallback to legacy single file if both are empty
                 if (list1.length === 0 && list2.length === 0) {
                     const fallbackRes = await fetch('compiled_nclex_9000_comprehensive.json');
                     if (fallbackRes.ok) {
@@ -262,7 +275,6 @@
                     }
                 }
 
-                // Merge and normalize questions from both sources
                 const rawCombined = [...list1, ...list2];
                 allQuestions = rawCombined.map(normalizeQuestion);
 
@@ -276,7 +288,7 @@
                     questions = allQuestions;
                 }
 
-                // Shuffle questions into random order
+                // Fully shuffle all questions across the entire dataset
                 questions = shuffleArray(questions);
                 renderQuestion();
             } catch (err) {
