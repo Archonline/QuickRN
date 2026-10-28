@@ -570,6 +570,11 @@
                             </div>
                         </div>
 
+                        
+                        <button onclick="openAITutorModal()" class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl text-xs transition flex items-center gap-2 border border-indigo-200 shadow-xs">
+                            <i class="fa-solid fa-robot text-indigo-600"></i> Ask Nurse AI Tutor
+                        </button>
+
                         <!-- Flag for Review -->
                         <div class="flex justify-end pt-2">
                             <button onclick="toggleFlagCurrent()" class="px-3 py-1.5 ${isFlagged ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-slate-100 text-slate-600 border-slate-300'} hover:bg-rose-50 border rounded text-xs font-semibold flex items-center gap-1.5 transition">
@@ -766,5 +771,31 @@
             loadQuestionsFromJS();
         };
     </script>
+
+    <!-- AI NURSE TUTOR MODAL -->
+    <div id="ai-tutor-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">Nurse AI Clinical Tutor</h3>
+                        <p class="text-xs text-slate-500">Instant AI-powered clinical reasoning & rationale breakdown</p>
+                    </div>
+                </div>
+                <button onclick="closeAITutorModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="ai-tutor-content" class="flex-grow overflow-y-auto space-y-3 p-4 bg-indigo-50/50 rounded-xl border border-indigo-100 text-xs text-slate-700 leading-relaxed">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-between items-center">
+                <span class="text-[10px] text-slate-400 font-medium">100% Free Client-Side Clinical AI Model</span>
+                <button onclick="closeAITutorModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close Tutor</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

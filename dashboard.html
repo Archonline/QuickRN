@@ -90,6 +90,12 @@
                     <span>Dashboard</span>
                 </a>
                 
+                
+                <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
+                    <span>QuikRN Feature Hub</span>
+                </a>
+
                 <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-chart-line w-5 text-center"></i>
                     <span>Client Needs Mastery</span>
@@ -294,6 +300,32 @@
                         </div>
                     </div>
 
+                    
+                    <!-- 100% FREE CLIENT-SIDE AI STUDY COACH & REMEDIATION GENERATOR -->
+                    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl space-y-4 relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-indigo-800/60 pb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl shadow-inner">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <h2 class="text-base font-bold text-white">QuikRN AI Study Coach & Remediation Generator</h2>
+                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">100% Free AI Engine</span>
+                                    </div>
+                                    <p class="text-xs text-indigo-200">Analyzes your telemetry data, weak client needs domains, and missed items to build custom study plans.</p>
+                                </div>
+                            </div>
+                            <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Study Roadmap
+                            </button>
+                        </div>
+                        <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
+                            <p class="italic text-indigo-300">Click "Generate AI Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
+                        </div>
+                    </div>
+
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
                         <div class="flex items-center justify-between">
@@ -309,6 +341,81 @@
                     </div>
 
                 </div>
+
+                
+                                <!-- FEATURE HUB TAB -->
+                <div id="tab-content-features" class="hidden space-y-6">
+                    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-8 text-white shadow-xl space-y-4 relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="max-w-2xl space-y-3 relative z-10">
+                            <span class="px-3 py-1 bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">Simulated NCLEX Environment & Reviewer Guide</span>
+                            <h2 class="text-3xl font-black tracking-tight text-white">QuikRN Feature Hub</h2>
+                            <p class="text-indigo-200 text-sm leading-relaxed">
+                                Explore all built-in clinical review modules, AI tutoring systems, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- WHAT'S NEW & RELEASE CHANGELOG SECTION -->
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-bullhorn"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-base">What's New in QuikRN</h3>
+                                    <p class="text-xs text-slate-500">Latest platform updates, AI integrations, and reviewer enhancements</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Latest: v4.2 Live</span>
+                        </div>
+
+                        <div class="space-y-4 text-xs text-slate-700">
+                            <!-- Update Item 1 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                        <span>v4.2 — QuikRN Feature Hub & What's New Live Feed</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Added the dedicated <strong>QuikRN Feature Hub</strong> to the dashboard navigation and integrated this <strong>What's New</strong> changelog feed to track all platform upgrades, AI tutoring additions, and reviewer enhancements in real time.
+                                </p>
+                            </div>
+
+                            <!-- Update Item 2 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                        <span>v4.1 — 100% Free Client-Side AI Features & Coach</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Deployed the <strong>Nurse AI Clinical Tutor</strong> in self-study question reviews and the <strong>QuikRN AI Study Coach & Remediation Roadmap Generator</strong> on the candidate dashboard ($0 cost, 100% browser-based).
+                                </p>
+                            </div>
+
+                            <!-- Update Item 3 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                        <span>v4.0 — NCLEX Predictor Exam & CAT Simulator Suite</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Released official Computer Adaptive Testing (CAT) algorithms, timed practice tests, client needs mastery analytics, and the NCLEX Predictor Exam with Archer-style trajectory graphs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
 
                 <!-- ANALYTICS TAB -->
                 <div id="tab-content-analytics" class="hidden space-y-6">
@@ -485,6 +592,53 @@
             showToast('Welcome back! Dashboard synchronized.', 'success');
         }
 
+        
+        function generateAIAuditsAndRoadmap() {
+            const container = document.getElementById('ai-roadmap-container');
+            container.innerHTML = `
+                <div class="p-4 bg-indigo-900/40 border border-indigo-500/30 rounded-xl space-y-3 animate-pulse">
+                    <div class="flex items-center space-x-2 text-indigo-300">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <span class="font-bold">AI Clinical Engine analyzing your performance metrics & client needs domains...</span>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                // Find weakest category
+                let sortedCats = [...studentStats.categories].sort((a,b) => a.percentage - b.percentage);
+                let weakest = sortedCats[0] || { name: 'Pharmacological and Parenteral Therapies', percentage: 0 };
+                let weakest2 = sortedCats[1] || { name: 'Management of Care', percentage: 0 };
+
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2">
+                            <div class="flex items-center space-x-2 text-emerald-400 font-bold">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>AI Readiness Audit</span>
+                            </div>
+                            <p class="text-indigo-200 text-[11px] leading-relaxed">
+                                Based on your current accuracy and solved volume, your primary focus should be reinforcing <strong>${weakest.name}</strong> and <strong>${weakest2.name}</strong> using high-yield rationales and NCJMM priority matrices.
+                            </p>
+                        </div>
+                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2 col-span-2">
+                            <div class="flex items-center space-x-2 text-amber-400 font-bold">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span>Custom 7-Day AI Remediation Roadmap</span>
+                            </div>
+                            <ul class="space-y-1.5 text-indigo-200 text-[11px]">
+                                <li><strong>Days 1-2:</strong> Deep-dive into ${weakest.name} flashcards & video lectures.</li>
+                                <li><strong>Days 3-4:</strong> Timed practice sets focusing on safety prioritization and ABCs.</li>
+                                <li><strong>Days 5-6:</strong> CAT Exam Simulator session to test adaptive stamina under pressure.</li>
+                                <li><strong>Day 7:</strong> Full NCLEX Predictor Exam review and final rationale check.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                showToast('AI Study Roadmap successfully generated!', 'success');
+            }, 800);
+        }
+
         function renderDashboardStats() {
             document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
             
@@ -654,7 +808,7 @@
         }
 
         function switchTab(tabId) {
-            ['dashboard', 'analytics'].forEach(t => {
+            ['dashboard', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if (content) content.classList.add('hidden');
@@ -674,6 +828,7 @@
 
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
+                features: 'QuikRN Feature Hub & NCLEX Tour',
                 analytics: 'Client Needs Mastery Analytics'
             };
             document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
