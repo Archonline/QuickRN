@@ -116,9 +116,7 @@
     <footer id="exam-footer" class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
         <div class="max-w-6xl mx-auto flex items-center justify-end">
             <button id="btn-submit" onclick="submitCurrentAnswer()" class="px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
-                <i id="btn-submit-icon" class="fa-solid fa-check-double"></i>
-                <span id="btn-submit-text">Submit & Proceed</span>
-                <i id="btn-submit-arrow" class="fa-solid fa-chevron-right ml-1"></i>
+                <i class="fa-solid fa-check-double"></i> <span id="btn-submit-text">Submit & Proceed</span> <i id="btn-submit-icon" class="fa-solid fa-chevron-right ml-1"></i>
             </button>
         </div>
     </footer>
@@ -179,7 +177,7 @@
             <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="space-y-1">
                 <h3 class="font-bold text-base">Selection Required</h3>
-                <p class="text-xs text-slate-600">Please select an answer before proceeding.</p>
+                <p class="text-xs text-slate-600">Please select an answer before proceeding to the next item.</p>
             </div>
             <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-ncsbn-navy text-white rounded-lg text-xs font-bold hover:bg-blue-900">OK</button>
         </div>
@@ -193,7 +191,7 @@
                     <i class="fa-solid fa-stopwatch"></i>
                 </div>
                 <h2 class="text-xl font-bold text-ncsbn-navy">Timed Exam Mode</h2>
-                <p class="text-xs text-slate-600">Select the item count for your timed examination. Rationale, study strategies, and inline AI tutor analysis will unlock upon completion.</p>
+                <p class="text-xs text-slate-600">Select the item count for your timed examination. Rationale, study strategies, and video links will unlock upon completion.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
@@ -217,7 +215,7 @@
         </div>
     </div>
 
-    <!-- QUESTIONS SOURCE SCRIPT -->
+    <!-- INCLUDE QUESTIONS.JS -->
     <script src="questions.js"></script>
 
     <script>
@@ -229,11 +227,12 @@
         let examTimerInterval = null;
         let totalSecondsRemaining = 0;
         
+        // CAT (Computer Adaptive Testing) state tracking
         let isCatExam = false;
         let catMaxItems = 150;
         let catMinItems = 85;
-        let studentAbilityEstimate = 0.0;
-        let questionHistoryRecord = [];
+        let studentAbilityEstimate = 0.0; // logit scale (-3 to +3)
+        let questionHistoryRecord = []; // logs { questionId, difficulty, isCorrect }
 
         const topicDualYouTubeMap = {
             "cardio": [
@@ -294,6 +293,7 @@
         function loadQuestionsFromJS() {
             let rawDataArray = [];
             try {
+                // Fetch questions directly from embeddedQuestionsData defined in questions.js
                 const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
                 if (Array.isArray(rawData)) {
                     rawDataArray = rawData;
@@ -306,25 +306,26 @@
                 console.error("Error loading questions from questions.js:", err);
             }
 
+            // Fallback sample questions if questions.js is missing or empty
             if (rawDataArray.length === 0) {
-                rawDataArray = [
-                    {
-                        id: "FALLBACK-1",
+                for (let i = 1; i <= 25; i++) {
+                    rawDataArray.push({
+                        id: `NCLEX-SAMPLE-${i}`,
                         category: "Management of Care",
-                        topic: "Delegation & Prioritization",
+                        topic: "Priority Nursing Interventions",
                         type: "Single best answer",
-                        questionText: "The nurse is prioritizing care for four clients. Which client should the nurse assess first?",
+                        questionText: `Sample NCLEX Clinical Practice Question #${i}: Which action should the nurse take first when caring for an acutely unstable client?`,
                         options: [
-                            "A client with type 1 diabetes mellitus reporting mild headache and hunger",
-                            "A client with heart failure reporting acute shortness of breath and pink frothy sputum",
-                            "A client with chronic obstructive pulmonary disease with an oxygen saturation of 91% on room air",
-                            "A client post-appendectomy requesting pain medication 6 hours post-op"
+                            "Assess airway, breathing, and circulation immediately",
+                            "Administer routine oral medications",
+                            "Document client responses in the electronic health record",
+                            "Notify the health care provider after completing non-urgent tasks"
                         ],
-                        correctAnswerText: "A client with heart failure reporting acute shortness of breath and pink frothy sputum",
-                        rationale: "Acute pulmonary edema indicated by shortness of breath and pink frothy sputum is a life-threatening ABC emergency requiring immediate intervention.",
-                        learningObjective: "Prioritize client assessments using ABC (Airway, Breathing, Circulation) framework."
-                    }
-                ];
+                        correctAnswerText: "Assess airway, breathing, and circulation immediately",
+                        rationale: "Initial physical assessment using ABCs is always the highest priority nursing action.",
+                        learningObjective: "Prioritize client assessments using ABC framework."
+                    });
+                }
             }
 
             allQuestionsPool = rawDataArray.map((q, idx) => ({
@@ -347,7 +348,7 @@
             let answeredIds = new Set(state.answeredQuestionIds || []);
 
             let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
-            if (availablePool.length === 0) {
+            if (availablePool.length < count) {
                 state.answeredQuestionIds = [];
                 localStorage.setItem('quickrn_student_state', JSON.stringify(state));
                 availablePool = [...allQuestionsPool];
@@ -355,6 +356,7 @@
 
             let shuffled = shuffleArray(availablePool);
             
+            // Check if CAT mode
             isCatExam = (count === 85 || count === 150);
             catMaxItems = count;
             catMinItems = 85;
@@ -369,19 +371,15 @@
                 }));
                 activeQuestions.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
             } else {
-                let selectedPool = [];
-                let poolIdx = 0;
-                while (selectedPool.length < count && shuffled.length > 0) {
-                    const baseItem = shuffled[poolIdx % shuffled.length];
-                    const isDup = selectedPool.length >= shuffled.length;
-                    selectedPool.push({
-                        ...baseItem,
-                        id: isDup ? `${baseItem.id}-CYCLE-${selectedPool.length + 1}` : baseItem.id,
-                        options: shuffleArray(baseItem.options)
-                    });
-                    poolIdx++;
+                // Cycle through pool if count is larger than available questions
+                let selected = [];
+                while (selected.length < count) {
+                    selected.push(...shuffleArray(shuffled));
                 }
-                activeQuestions = selectedPool;
+                activeQuestions = selected.slice(0, count).map(q => ({
+                    ...q,
+                    options: shuffleArray(q.options)
+                }));
             }
 
             currentIndex = 0;
@@ -406,10 +404,7 @@
                     const hrs = String(Math.floor(totalSecondsRemaining / 3600)).padStart(2, '0');
                     const mins = String(Math.floor((totalSecondsRemaining % 3600) / 60)).padStart(2, '0');
                     const secs = String(totalSecondsRemaining % 60).padStart(2, '0');
-                    const timerElem = document.getElementById('exam-timer-display');
-                    if (timerElem) {
-                        timerElem.innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
-                    }
+                    document.getElementById('exam-timer-display').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
                 } else {
                     clearInterval(examTimerInterval);
                     finishExamSession();
@@ -418,25 +413,22 @@
         }
 
         function updateSubmitButtonState() {
-            const btn = document.getElementById('btn-submit');
+            const btnSubmit = document.getElementById('btn-submit');
             const btnText = document.getElementById('btn-submit-text');
             const btnIcon = document.getElementById('btn-submit-icon');
-            const btnArrow = document.getElementById('btn-submit-arrow');
 
-            if (!btn) return;
+            if (!btnSubmit || !btnText || !btnIcon) return;
 
-            const isLastQuestion = currentIndex === activeQuestions.length - 1;
+            const isLastQuestion = (currentIndex === activeQuestions.length - 1);
 
             if (isLastQuestion) {
-                if (btnText) btnText.innerText = "Finish Exam & View Summary";
-                if (btnIcon) btnIcon.className = "fa-solid fa-flag-checkered";
-                if (btnArrow) btnArrow.className = "fa-solid fa-chart-pie ml-1";
-                btn.className = "px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded text-xs shadow-md border border-emerald-800 transition flex items-center gap-2 animate-pulse";
+                btnSubmit.className = "px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded text-xs shadow-lg border border-emerald-800 transition flex items-center gap-2 animate-pulse";
+                btnText.innerText = "Finish Exam & View Summary";
+                btnIcon.className = "fa-solid fa-flag-checkered ml-1";
             } else {
-                if (btnText) btnText.innerText = "Submit & Proceed";
-                if (btnIcon) btnIcon.className = "fa-solid fa-check-double";
-                if (btnArrow) btnArrow.className = "fa-solid fa-chevron-right ml-1";
-                btn.className = "px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2";
+                btnSubmit.className = "px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2";
+                btnText.innerText = "Submit & Proceed";
+                btnIcon.className = "fa-solid fa-chevron-right ml-1";
             }
         }
 
@@ -446,18 +438,19 @@
                 return;
             }
 
+            updateSubmitButtonState();
+
             const q = activeQuestions[currentIndex];
             const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
             const isBookmarked = !!bookmarkedQuestions[q.id];
             
-            const pill = document.getElementById('session-info-pill');
-            if (pill) pill.innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            
-            const badge = document.getElementById('category-badge');
-            if (badge) badge.innerText = `Category: ${q.category}`;
+            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
+            document.getElementById('category-badge').innerText = `Category: ${q.category}`;
             
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
-            if (topBookmarkBtn) topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
+            if (topBookmarkBtn) {
+                topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
+            }
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
@@ -500,8 +493,6 @@
 
             html += `</div></div>`;
             document.getElementById('exam-container').innerHTML = html;
-
-            updateSubmitButtonState();
         }
 
         function handleOptionSelect(letter) {
@@ -535,6 +526,7 @@
                 isCorrect = (sel === q.correctAnswer);
             }
 
+            // Update persistent student state per question
             if (!q._timedCounted) {
                 q._timedCounted = true;
                 let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -589,59 +581,55 @@
             let correct = 0;
             let attempted = 0;
 
-            activeQuestions.forEach((q, idx) => {
+            const evaluatedItems = activeQuestions.map((q, idx) => {
                 const userAns = selectedOptions[idx];
+                const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+                let isCorrect = false;
+
                 if (userAns !== undefined) {
                     attempted++;
-                    const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
                     if (isSATA) {
-                        if (Array.isArray(userAns) && userAns.length > 0) correct++;
+                        if (Array.isArray(userAns) && userAns.length > 0) isCorrect = true;
                     } else {
-                        if (userAns === q.correctAnswer) correct++;
+                        if (userAns === q.correctAnswer) isCorrect = true;
                     }
+                    if (isCorrect) correct++;
                 }
+
+                return {
+                    question: q,
+                    originalIndex: idx + 1,
+                    userAns,
+                    isCorrect
+                };
             });
+
+            // Sort: Incorrect items first, then correct items
+            evaluatedItems.sort((a, b) => (a.isCorrect === b.isCorrect) ? 0 : a.isCorrect ? 1 : -1);
 
             const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
-            try {
-                let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
-                stateObj.studentStats.testsTaken++;
-                stateObj.studentStats.totalAnswered += attempted;
-                stateObj.studentStats.correctCount += correct;
-                stateObj.studentStats.mistakeCount += (attempted - correct);
-                stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
-                stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
-                localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
-            } catch(e) {
-                console.error("Error updating local state stats:", e);
-            }
+            // Save stats to localStorage for dashboard synchronization
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
+            stateObj.studentStats.testsTaken++;
+            stateObj.studentStats.totalAnswered += attempted;
+            stateObj.studentStats.correctCount += correct;
+            stateObj.studentStats.mistakeCount += (attempted - correct);
+            stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
+            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Map and sort questions: Incorrect first, then Correct
-            const processedItems = activeQuestions.map((q, originalIdx) => {
-                const userAns = selectedOptions[originalIdx];
-                const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
-                let isCorrect = false;
-                if (isSATA) {
-                    isCorrect = Array.isArray(userAns) && userAns.length > 0;
-                } else {
-                    isCorrect = (userAns === q.correctAnswer);
-                }
-                return { q, originalIdx, userAns, isCorrect };
-            });
+            // Hide bottom footer in summary
+            const footer = document.getElementById('exam-footer');
+            if (footer) footer.style.display = 'none';
 
-            processedItems.sort((a, b) => {
-                if (a.isCorrect === b.isCorrect) return a.originalIdx - b.originalIdx;
-                return a.isCorrect ? 1 : -1; // Incorrect items (isCorrect = false) come first
-            });
-
-            // Render Results Summary View
+            // Render Summary View
             let html = `
                 <div class="space-y-6 animate-fadeIn">
                     <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-2">
                         <h2 class="text-2xl font-black">Exam Session Completed</h2>
-                        <p class="text-xs text-slate-300">Review your clinical performance below. Incorrect answers are prioritized at the top for immediate remediation.</p>
+                        <p class="text-xs text-slate-300">Review your performance below. Incorrect items are highlighted first for focused review.</p>
                         <div class="flex justify-center gap-6 pt-2">
                             <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
                                 <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
@@ -656,19 +644,24 @@
 
                     <div class="space-y-4">
                         <h3 class="font-bold text-slate-900 text-base border-b pb-2 flex items-center justify-between">
-                            <span>Detailed Item Review & Rationales (Incorrect First)</span>
-                            <span class="text-xs font-normal text-slate-500">${activeQuestions.length} Items Evaluated</span>
+                            <span>Detailed Item Review & Rationales</span>
+                            <span class="text-xs font-normal text-slate-500">Sorted: Incorrect First (${activeQuestions.length} Items)</span>
                         </h3>
             `;
 
-            processedItems.forEach(({ q, originalIdx, userAns, isCorrect }) => {
+            evaluatedItems.forEach((item) => {
+                const q = item.question;
+                const idx = item.originalIndex;
+                const userAns = item.userAns;
+                const isCorrect = item.isCorrect;
                 const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+
                 const strategy = getNCLEXStrategy(q);
                 const videos = getTwoYouTubeVideos(q.topic, q.category);
                 const isBookmarked = !!bookmarkedQuestions[q.id];
 
-                // Complete Choices Breakdown with Green/Red Badges
-                let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Response Breakdown:</span>';
+                // Build choices breakdown with color badges
+                let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Responses:</span>';
                 let qOpts = q.options || [];
                 qOpts.forEach((optText, oIdx) => {
                     const optLetter = String.fromCharCode(65 + oIdx);
@@ -677,9 +670,9 @@
                     
                     let bgStyle = "bg-white border-slate-200 text-slate-800";
                     if (isRightAnswer) {
-                        bgStyle = "bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold";
+                        bgStyle = "bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold";
                     } else if (isUserSelected && !isRightAnswer) {
-                        bgStyle = "bg-rose-50 border-rose-400 text-rose-950 font-semibold";
+                        bgStyle = "bg-rose-50 border-rose-300 text-rose-950 font-semibold";
                     }
 
                     choicesHtml += `
@@ -688,43 +681,42 @@
                                 <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">${optLetter}</span>
                                 <span>${optText}</span>
                             </div>
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                ${isUserSelected ? (isRightAnswer ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 border border-emerald-400 px-2 py-0.5 rounded-full font-extrabold"><i class="fa-solid fa-check mr-1"></i> Your Choice (Correct)</span>' : '<span class="text-[10px] bg-rose-200 text-rose-950 border border-rose-400 px-2 py-0.5 rounded-full font-extrabold"><i class="fa-solid fa-xmark mr-1"></i> Your Choice (Incorrect)</span>') : ''}
-                                ${(!isUserSelected && isRightAnswer) ? '<span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-bold">Correct Answer</span>' : ''}
+                            <div class="flex items-center gap-1.5">
+                                ${isUserSelected ? `<span class="text-[10px] ${isRightAnswer ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'} px-1.5 py-0.5 rounded font-bold">Your Choice ${isRightAnswer ? '(Correct)' : '(Incorrect)'}</span>` : ''}
+                                ${isRightAnswer && !isUserSelected ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">Correct Answer</span>' : ''}
                             </div>
                         </div>
                     `;
                 });
                 choicesHtml += '</div>';
 
-                // Inline AI Clinical Tutor Section
+                // Inline AI Tutor Breakdown
                 const aiTutorContentHtml = `
-                    <div class="p-4 bg-indigo-50/80 rounded-xl border border-indigo-200 space-y-2">
+                    <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
                         <div class="flex items-center space-x-2 text-indigo-900 font-bold text-xs">
-                            <i class="fa-solid fa-robot text-indigo-600 text-sm"></i>
-                            <span>AI Clinical Tutor Breakdown & Core Pathophysiology (${q.topic || 'Clinical Mastery'})</span>
+                            <i class="fa-solid fa-robot text-indigo-600"></i>
+                            <span>AI Clinical Tutor Deep-Dive Rationale (${q.topic || 'Clinical Mastery'})</span>
                         </div>
                         <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>Pathophysiology Insight:</strong> In scenarios involving <em>${q.topic || 'this clinical condition'}</em>, prioritize immediate physiological stability under the NCLEX Clinical Judgment Measurement Model (NCJMM). Always recognize early signs of decompensation prior to emergency onset.
+                            <strong>Pathophysiology & Clinical Judgment:</strong> When evaluating <em>${q.topic || 'this scenario'}</em>, prioritize immediate physiological stability and client safety. Rationales emphasize recognizing subtle early signs of clinical decompensation before acute failure occurs.
                         </p>
-                        <div class="p-3 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
-                            <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> Strategy Core Rule: ${strategy.title}</strong>
+                        <div class="p-2.5 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
+                            <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> NCLEX Strategy: ${strategy.title}</strong>
                             <span>${strategy.rule} <span class="font-bold text-indigo-900">${strategy.mnemonic}</span></span>
                         </div>
                     </div>
                 `;
 
                 html += `
-                    <div class="bg-slate-50 border rounded-xl p-5 space-y-4 shadow-xs">
+                    <div class="bg-slate-50 border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-300'} rounded-xl p-5 space-y-4 shadow-xs">
                         <div class="flex items-start justify-between gap-4">
                             <div class="space-y-1">
                                 <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                                    Question ${originalIdx + 1} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
+                                    Question ${idx} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
                                 </span>
                                 <h4 class="font-bold text-sm text-slate-900 mt-1">${q.questionText}</h4>
                             </div>
-                            <!-- Instant Summary Bookmark Toggle -->
-                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 shrink-0 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
+                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
                                 <i class="${isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}"></i>
                                 <span>${isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
                             </button>
@@ -777,8 +769,6 @@
             `;
 
             document.getElementById('exam-container').innerHTML = html;
-            const footer = document.getElementById('exam-footer');
-            if (footer) footer.style.display = 'none';
         }
 
         function exitToDashboard() {
@@ -791,11 +781,7 @@
                     window.location.assign('dashboard.html');
                 }
             } catch (e) {
-                try {
-                    window.location.href = 'dashboard.html';
-                } catch (err) {
-                    console.error("Dashboard navigation error:", err);
-                }
+                window.location.href = 'dashboard.html';
             }
         }
 
@@ -820,8 +806,7 @@
         }
 
         function updateBookmarkBadge() {
-            const badge = document.getElementById('saved-count-badge');
-            if (badge) badge.innerText = Object.keys(bookmarkedQuestions).length;
+            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
         }
 
         function openBookmarksModal() {
@@ -866,19 +851,15 @@
         }
 
         function persistBookmark(qId) {
-            try {
-                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                state.studentStats = state.studentStats || {};
-                state.studentStats.favorites = state.studentStats.favorites || [];
-                if (!state.studentStats.favorites.includes(qId)) {
-                    state.studentStats.favorites.push(qId);
-                } else {
-                    state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
-                }
-                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
-            } catch(e) {
-                console.error("Error persisting bookmark:", e);
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            state.studentStats = state.studentStats || {};
+            state.studentStats.favorites = state.studentStats.favorites || [];
+            if (!state.studentStats.favorites.includes(qId)) {
+                state.studentStats.favorites.push(qId);
+            } else {
+                state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
             }
+            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
         }
     
         window.onload = function() {
