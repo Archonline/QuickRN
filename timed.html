@@ -355,6 +355,20 @@
 
             let shuffled = shuffleArray(availablePool);
             
+            // Generate padded fallback items dynamically if pool length is smaller than requested count (e.g. 20 items)
+            if (!isCatExam && shuffled.length < count) {
+                let generatedCount = shuffled.length;
+                while (shuffled.length < count) {
+                    generatedCount++;
+                    const template = allQuestionsPool[(generatedCount - 1) % allQuestionsPool.length] || allQuestionsPool[0];
+                    shuffled.push({
+                        ...template,
+                        id: `GEN-FALLBACK-${generatedCount}`,
+                        questionText: `[Item ${generatedCount}] ${template.questionText}`
+                    });
+                }
+            }
+            
             isCatExam = (count === 85 || count === 150);
             catMaxItems = count;
             catMinItems = 85;
