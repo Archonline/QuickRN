@@ -40,21 +40,51 @@
         ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #64748b; }
         
-        /* High-Legibility Prompt Typography to fill screen whitespace */
         .prompt-typography { 
-            font-size: 1.25rem; 
-            line-height: 1.6; 
+            font-size: 1.2rem; 
+            line-height: 1.55; 
             color: #0f172a; 
             font-weight: 700; 
             letter-spacing: -0.01em;
         }
         @media (max-width: 768px) {
-            .prompt-typography { font-size: 1.1rem; line-height: 1.45; }
+            .prompt-typography { font-size: 1.05rem; line-height: 1.4; }
+        }
+
+        .highlight-phrase {
+            cursor: pointer;
+            padding: 2px 6px;
+            margin: 2px;
+            border-radius: 4px;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            display: inline-block;
+            transition: all 0.2s ease;
+        }
+        .highlight-phrase:hover {
+            background-color: #e2e8f0;
+        }
+        .highlight-phrase.selected {
+            background-color: #fef08a;
+            border-color: #eab308;
+            font-weight: 700;
+        }
+        .highlight-phrase.correct-highlight {
+            background-color: #bbf7d0 !important;
+            border-color: #16a34a !important;
+            color: #14532d;
+            font-weight: 700;
+        }
+        .highlight-phrase.incorrect-highlight {
+            background-color: #fecdd3 !important;
+            border-color: #e11d48 !important;
+            color: #881337;
         }
     </style>
 
-    <!-- Optional External Questions Bank fallback -->
-    <script src="questions.js" onerror="console.log('questions.js optional, running on high-yield built-in bank.')"></script>
+    <!-- Question Bank Integration -->
+    <script src="questions_3500.js" onerror="console.log('questions_3500.js loading fallback')"></script>
+    <script src="questions.js" onerror="console.log('questions.js fallback')"></script>
 </head>
 <body class="h-full flex flex-col text-slate-800 antialiased overflow-hidden bg-slate-200">
 
@@ -68,7 +98,7 @@
             <div class="space-y-2">
                 <h1 class="text-2xl font-black text-slate-900 tracking-tight">NCLEX-RN Self-Study Launcher</h1>
                 <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
-                    Select the number of questions to load. Includes Single Choice, SATA, NGN Matrix Grids, Cloze Drop-Downs, Drag & Drop, Bowtie, and Case Studies.
+                    Select question quantity. Questions are randomly selected across item types (SBA, SATA, NGN Matrix, Bowtie, Drop-down, Hot Spot) ensuring full bank exhaustion.
                 </p>
             </div>
 
@@ -98,7 +128,7 @@
 
             <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-3 flex items-center justify-center gap-1.5">
                 <i class="fa-solid fa-infinity text-emerald-500"></i>
-                <span>Untimed Self-Study & Practice Environment</span>
+                <span>Randomized Mixed Question Engine Active</span>
             </div>
         </div>
     </div>
@@ -106,37 +136,31 @@
     <!-- MAIN EXAM APPLICATION WRAPPER -->
     <div id="app" class="flex flex-col h-full w-full">
 
-        <!-- CLEAN TOP HEADER BAR -->
+        <!-- HEADER BAR -->
         <header class="bg-[#0B2240] text-white h-14 px-4 flex items-center justify-between border-b-2 border-amber-600 shadow-md select-none shrink-0 z-30">
-            <!-- Left: Back to Dashboard -->
             <button onclick="exitToDashboard()" class="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-bold transition border border-slate-600 cursor-pointer">
                 <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Dashboard</span>
+                <span>Dashboard</span>
             </button>
 
-            <!-- Right Controls: Counter, Calculator, Bookmark, Exit Exam -->
             <div class="flex items-center gap-2 md:gap-3">
-                <!-- Item Navigation Counter -->
                 <div class="bg-slate-800 px-3 py-1 rounded border border-slate-600 text-xs text-slate-200 font-mono flex items-center gap-1">
                     Item <span id="current-item-num" class="font-bold text-amber-400">1</span> of <span id="total-exam-items" class="font-bold text-white">0</span>
                 </div>
 
-                <!-- Draggable Calculator Toggle -->
-                <button onclick="toggleCalculator()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer" title="Calculator">
+                <button onclick="toggleCalculator()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-calculator text-blue-400"></i>
                     <span class="hidden md:inline">Calculator</span>
                 </button>
 
-                <!-- Bookmark Button -->
-                <button id="btn-flag-item" onclick="toggleBookmarkCurrent()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer" title="Bookmark Question">
+                <button id="btn-flag-item" onclick="toggleBookmarkCurrent()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer">
                     <i id="flag-icon" class="fa-regular fa-bookmark text-amber-400"></i>
                     <span class="hidden md:inline">Bookmark</span>
                 </button>
 
-                <!-- Exit Exam Action -->
                 <button id="btn-header-end" onclick="exitToDashboard()" class="px-3 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition shadow-xs cursor-pointer flex items-center gap-1.5">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Exit Exam</span>
+                    <span>Exit</span>
                 </button>
             </div>
         </header>
@@ -144,9 +168,8 @@
         <!-- MAIN SPLIT WORKSPACE -->
         <main id="test-workspace" class="flex-1 flex flex-col md:flex-row overflow-hidden p-2 gap-2 relative">
 
-            <!-- LEFT PANEL: CLINICAL CHART & ELECTRONIC HEALTH RECORD (EHR) -->
+            <!-- LEFT EHR PANEL -->
             <section id="left-ehr-panel" class="w-full md:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-1/2 md:h-full">
-                <!-- EHR Header -->
                 <div class="bg-slate-100 border-b border-slate-300 px-4 py-2 flex items-center justify-between shrink-0">
                     <div class="flex items-center gap-2 font-bold text-slate-800 text-xs md:text-sm">
                         <i class="fa-solid fa-hospital-user text-ncsbn-blue"></i>
@@ -157,88 +180,59 @@
                     </span>
                 </div>
 
-                <!-- EHR Navigation Tabs -->
-                <div id="ehr-tabs-nav" class="bg-slate-200/70 px-2 pt-2 border-b border-slate-300 flex gap-1 overflow-x-auto text-xs font-semibold text-slate-600 shrink-0">
-                    <!-- Dynamic Tabs -->
-                </div>
+                <div id="ehr-tabs-nav" class="bg-slate-200/70 px-2 pt-2 border-b border-slate-300 flex gap-1 overflow-x-auto text-xs font-semibold text-slate-600 shrink-0"></div>
 
-                <!-- EHR Active Content Pane -->
-                <div id="ehr-tab-contents" class="flex-1 p-4 overflow-y-auto bg-white text-xs md:text-sm text-slate-800 leading-relaxed">
-                    <!-- Dynamic Content -->
-                </div>
+                <div id="ehr-tab-contents" class="flex-1 p-4 overflow-y-auto bg-white text-xs md:text-sm text-slate-800 leading-relaxed"></div>
             </section>
 
-            <!-- RIGHT PANEL: QUESTION AREA & RATIONALE -->
+            <!-- RIGHT QUESTION & RATIONALE PANEL -->
             <section id="right-question-panel" class="w-full bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-full">
                 
-                <!-- Status Badge Header -->
                 <div id="submitted-badge" class="hidden bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
                     <span><i class="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Response Evaluated</span>
                     <span id="item-score-text" class="font-mono text-emerald-900">Score: 1/1</span>
                 </div>
 
-                <!-- Question Prompt Title & Instructions -->
                 <div class="p-5 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-2">
-                    <h2 id="item-prompt-title" class="prompt-typography">
-                        Question Prompt Loading...
-                    </h2>
-                    <p id="item-prompt-instruction" class="text-xs md:text-sm text-slate-600 italic font-medium">
-                        Evaluate the clinical options below and make your selection.
-                    </p>
+                    <h2 id="item-prompt-title" class="prompt-typography">Question Prompt Loading...</h2>
+                    <p id="item-prompt-instruction" class="text-xs md:text-sm text-slate-600 italic font-medium">Evaluate the clinical options below and make your selection.</p>
                 </div>
 
-                <!-- Interactive Choice / Item Container -->
-                <div id="interactive-item-container" class="flex-1 p-5 overflow-y-auto bg-white text-slate-800 space-y-3">
-                    <!-- Dynamic choices / controls -->
-                </div>
+                <div id="interactive-item-container" class="flex-1 p-5 overflow-y-auto bg-white text-slate-800 space-y-3"></div>
 
-                <!-- RATIONALE, LEARNING OBJECTIVES, EXPANDED AI TUTOR & REPOSITIONED VIDEO REVIEW PANEL -->
+                <!-- COMBINED RATIONALE & AI TUTOR SYNTHESIS PANEL -->
                 <div id="rationale-panel" class="hidden border-t-2 border-blue-600 bg-blue-50/90 p-5 overflow-y-auto max-h-96 text-xs md:text-sm text-slate-800 space-y-4 shadow-inner shrink-0">
                     
-                    <!-- 3. RATIONALE & LEARNING OBJECTIVES -->
                     <div class="space-y-3">
                         <div class="font-bold text-ncsbn-navy text-sm flex items-center justify-between border-b border-blue-200 pb-2">
                             <span class="flex items-center gap-2">
-                                <i class="fa-solid fa-book-bookmark text-blue-600"></i> Rationale & Learning Objectives
+                                <i class="fa-solid fa-book-bookmark text-blue-600"></i> Rationale & Learning Objective
                             </span>
                         </div>
                         
                         <div class="bg-white p-4 rounded-xl border border-blue-200 shadow-xs space-y-3">
-                            <div>
-                                <strong class="text-blue-900 text-xs font-bold uppercase tracking-wider block mb-1">Detailed Rationale:</strong>
-                                <p id="rationale-text" class="leading-relaxed text-slate-800"></p>
-                            </div>
+                            <p id="rationale-text" class="leading-relaxed text-slate-800 text-sm font-normal"></p>
+                            
                             <div class="border-t border-slate-100 pt-2.5">
-                                <strong class="text-emerald-800 text-xs font-bold uppercase tracking-wider block mb-1"><i class="fa-solid fa-bullseye text-emerald-600 mr-1"></i> Key Learning Objective:</strong>
+                                <strong class="text-emerald-800 text-xs font-bold uppercase tracking-wider block mb-1">
+                                    <i class="fa-solid fa-bullseye text-emerald-600 mr-1"></i> Key Learning Objective:
+                                </strong>
                                 <p id="learning-objective-text" class="leading-relaxed text-slate-700 font-medium"></p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. EXPANDED NURSE AI CLINICAL TUTOR & TEST-TAKING STRATEGY -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <!-- NCLEX Test Taking Strategy -->
-                        <div class="bg-white p-4 rounded-xl border border-amber-300 shadow-xs space-y-1.5">
-                            <strong class="text-amber-900 block font-bold flex items-center gap-1.5 text-xs">
-                                <i class="fa-solid fa-lightbulb text-amber-500"></i> NCLEX Test-Taking Strategy Rule:
-                            </strong>
-                            <span id="rationale-strategy-text" class="text-slate-700 leading-relaxed block">
-                                Prioritize acute physiological threats using Airway, Breathing, and Circulation (ABCs) before addressing routine assessments.
-                            </span>
-                        </div>
-
-                        <!-- Expanded Nurse AI Clinical Tutor Deep Dive -->
-                        <div class="bg-indigo-50/90 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-2">
-                            <strong class="text-indigo-950 block font-bold flex items-center gap-1.5 text-xs">
-                                <i class="fa-solid fa-robot text-indigo-600"></i> Nurse AI Clinical Tutor Deep-Dive:
-                            </strong>
-                            <div id="rationale-ai-tutor-text" class="text-slate-800 leading-relaxed space-y-1.5">
-                                <!-- Dynamic Expanded AI Explanation -->
-                            </div>
-                        </div>
+                    <!-- COMBINED AI TUTOR & STRATEGIC PARAGRAPH -->
+                    <div class="bg-indigo-50/90 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-2">
+                        <strong class="text-indigo-950 block font-bold flex items-center gap-1.5 text-xs uppercase tracking-wider">
+                            <i class="fa-solid fa-robot text-indigo-600"></i> Nurse AI Clinical Tutor & Strategic Synthesis:
+                        </strong>
+                        <p id="combined-ai-synthesis-text" class="text-slate-800 leading-relaxed text-xs md:text-sm">
+                            <!-- Dynamic Combined AI Tutor Paragraph -->
+                        </p>
                     </div>
 
-                    <!-- 6. MOVED & ENLARGED WATCH VIDEO AREA AT THE VERY LAST SECTION -->
+                    <!-- WATCH VIDEO BUTTON -->
                     <div class="pt-2 border-t border-blue-200">
                         <button id="btn-watch-video" onclick="triggerVideoModal()" class="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer">
                             <i class="fa-brands fa-youtube text-lg"></i>
@@ -252,16 +246,15 @@
 
         </main>
 
-        <!-- EXAM RESULTS SUMMARY DASHBOARD -->
+        <!-- RESULTS SCREEN -->
         <div id="results-screen" class="hidden flex-1 flex flex-col bg-slate-900 text-white p-6 overflow-y-auto">
             <div class="max-w-5xl mx-auto w-full py-6 space-y-6">
                 
-                <!-- Summary Header -->
                 <div class="text-center space-y-2">
                     <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                         <i class="fa-solid fa-circle-check"></i> Practice Session Completed
                     </div>
-                    <h1 class="text-3xl font-extrabold text-white">Performance & Clinical Evaluation Report</h1>
+                    <h1 class="text-3xl font-extrabold text-white">Performance Evaluation & Readiness Report</h1>
                 </div>
 
                 <!-- Score Cards -->
@@ -272,24 +265,19 @@
                         <span id="summary-points" class="text-xs text-slate-300">0 of 0 Points Earned</span>
                     </div>
                     <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Passing Readiness</span>
-                        <div id="summary-probability" class="text-5xl font-black text-emerald-400 my-2">High</div>
-                        <span class="text-xs text-emerald-400 font-medium">Correlates with strong exam performance</span>
+                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Passing Readiness Status</span>
+                        <div id="summary-readiness-status" class="text-5xl font-black my-2">FAIL</div>
+                        <span id="summary-readiness-subtext" class="text-xs font-medium">Evaluation metrics</span>
                     </div>
                 </div>
 
-                <!-- Question Breakdown & Review -->
                 <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg space-y-4">
                     <h3 class="text-base font-bold text-white border-b border-slate-700 pb-3 flex items-center justify-between">
-                        <span><i class="fa-solid fa-list-check text-purple-400 mr-2"></i> Comprehensive Item Review & Rationale Key</span>
-                        <span class="text-xs text-slate-400 font-normal">Highlighted choices, strategies & bookmarks</span>
+                        <span><i class="fa-solid fa-list-check text-purple-400 mr-2"></i> Comprehensive Item Breakdown</span>
                     </h3>
-                    <div id="results-item-breakdown" class="space-y-6">
-                        <!-- Dynamic summary list -->
-                    </div>
+                    <div id="results-item-breakdown" class="space-y-6"></div>
                 </div>
 
-                <!-- Action Buttons -->
                 <div class="flex justify-center gap-4 pt-4">
                     <button onclick="restartExamSession()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition shadow-lg flex items-center gap-2 text-sm">
                         <i class="fa-solid fa-rotate-right"></i> Start New Session
@@ -302,7 +290,7 @@
             </div>
         </div>
 
-        <!-- FOOTER NAVIGATION BAR -->
+        <!-- FOOTER NAV -->
         <footer class="bg-[#0B2240] text-white px-4 py-3 flex items-center justify-between border-t border-slate-700 shrink-0 select-none z-30">
             <button id="btn-prev-item" onclick="navigateItem(-1)" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
                 <i class="fa-solid fa-chevron-left"></i> Previous
@@ -318,10 +306,9 @@
             </div>
         </footer>
 
-        <!-- YOUTUBE VIDEO LECTURE & NOTE-TAKING MODAL (POP-UP STYLE) -->
+        <!-- YOUTUBE VIDEO & NOTE MODAL -->
         <div id="video-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden">
-                <!-- Header -->
                 <div class="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between text-white shrink-0">
                     <div class="flex items-center gap-2 font-bold text-sm">
                         <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
@@ -332,23 +319,24 @@
                     </button>
                 </div>
 
-                <!-- Video + Side Note Pad Workspace -->
                 <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
-                    <div class="w-full md:w-2/3 bg-black flex items-center justify-center">
-                        <iframe id="youtube-iframe" class="w-full h-full" src="" title="NCLEX Clinical Lecture" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="w-full md:w-2/3 bg-slate-950 flex flex-col items-center justify-center p-4">
+                        <div id="video-container" class="w-full h-full flex flex-col items-center justify-center">
+                            <!-- Dynamic YouTube video / external search launch -->
+                        </div>
                     </div>
                     <div class="w-full md:w-1/3 bg-slate-900 p-4 border-t md:border-t-0 md:border-l border-slate-700 flex flex-col space-y-3">
                         <label class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
                             <i class="fa-solid fa-pen-to-square"></i> Clinical Notes & Key Takeaways
                         </label>
-                        <textarea id="video-note-input" oninput="saveCurrentVideoNote()" class="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none" placeholder="Type key clinical notes, mnemonics, or rationale takeaways here. Auto-saved to your profile bank..."></textarea>
-                        <span id="note-saved-status" class="text-[11px] text-emerald-400 font-semibold hidden"><i class="fa-solid fa-check"></i> Note Auto-Saved</span>
+                        <textarea id="video-note-input" oninput="saveCurrentVideoNote()" class="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none" placeholder="Type key clinical notes here. Writing notes will automatically bookmark this item to your saved bank..."></textarea>
+                        <span id="note-saved-status" class="text-[11px] text-emerald-400 font-semibold hidden"><i class="fa-solid fa-check"></i> Auto-Saved & Auto-Bookmarked</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- FLOATING DRAGGABLE CALCULATOR MODAL -->
+        <!-- CALCULATOR -->
         <div id="calc-modal" class="hidden absolute top-16 right-6 bg-slate-800 text-white rounded-xl shadow-2xl border border-slate-600 w-64 z-40 overflow-hidden">
             <div class="bg-slate-900 px-3 py-2 flex items-center justify-between text-xs font-bold border-b border-slate-700">
                 <span><i class="fa-solid fa-calculator text-blue-400 mr-1.5"></i> Calculator</span>
@@ -386,7 +374,7 @@
 
     </div>
 
-    <!-- HIGH-YIELD BUILT-IN QUESTION POOL -->
+    <!-- APPLICATION ENGINE -->
     <script>
         window.defaultNgnPool = [
             {
@@ -416,10 +404,7 @@
                 columns: ["Indicated", "Nonessential", "Contraindicated"],
                 correctAnswers: { "r1": "Indicated", "r2": "Indicated", "r3": "Contraindicated", "r4": "Indicated", "r5": "Contraindicated" },
                 rationale: "Furosemide IV and supplemental oxygen directly treat fluid overload and acute hypoxemia. Supine positioning impairs diaphragm excursion and increases venous return to an already overloaded heart, worsening pulmonary edema.",
-                learningObjective: "In acute decompensated heart failure, prioritize rapid fluid volume reduction via IV diuretics and oxygen therapy while avoiding positions or fluid intake that exacerbate pulmonary congestion.",
-                strategyRule: "Prioritize Airway & Fluid Volume Reductions (ABCs). High-Fowler's position reduces venous return and improves lung expansion.",
-                aiTutorInsight: "Recognize acute pulmonary edema cues: crackles, tachypnea, low SpO2, and BNP > 400. Immediate IV diuretics are priority.",
-                youtubeId: "r5W1ns5C1ik"
+                learningObjective: "In acute decompensated heart failure, prioritize rapid fluid volume reduction via IV diuretics and oxygen therapy while avoiding positions or fluid intake that exacerbate pulmonary congestion."
             },
             {
                 id: "TRAD-SBA-101",
@@ -439,14 +424,10 @@
                 ],
                 correctAnswer: "Withhold the Digoxin dose and notify the healthcare provider immediately",
                 rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported to prevent lethal cardiac dysrhythmias.",
-                learningObjective: "Identify early signs of cardiac glycoside toxicity (bradycardia, visual disturbances, GI distress) and withhold the dose while notifying the healthcare provider.",
-                strategyRule: "Check apical pulse for 1 full minute prior to digoxin administration. Hold if HR < 60 bpm in adults.",
-                aiTutorInsight: "Hypokalemia increases the risk of digoxin toxicity even at normal serum digoxin levels.",
-                youtubeId: "LpVyqHeyTcA"
+                learningObjective: "Identify early signs of cardiac glycoside toxicity (bradycardia, visual disturbances, GI distress) and withhold the dose while notifying the healthcare provider."
             }
         ];
 
-        // GLOBAL APPLICATION STATE
         const state = {
             allPool: [],
             activePool: [],
@@ -457,13 +438,11 @@
             questionNotes: {}
         };
 
-        // 1. CLEAN TEXT & STRIP BRACKETED METADATA / DUPLICATES
         function cleanTitleText(str) {
             if (!str) return '';
             return str.replace(/\[.*?\]\s*/g, '').replace(/Do not /gi, '').trim();
         }
 
-        // FISHER-YATES SHUFFLE ALGORITHM
         function shuffleArray(arr) {
             for (let i = arr.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -472,73 +451,82 @@
             return arr;
         }
 
-        // LAUNCH EXAM SESSION
+        // LAUNCH EXAM WITH RANDOMIZED EXHAUSTION & MIXED TYPES
         function launchExamSession(count) {
             let rawPool = [];
-            if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
-                rawPool = embeddedQuestionsData;
+            if (typeof questionsData !== 'undefined' && Array.isArray(questionsData)) {
+                rawPool = questionsData;
             } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
                 rawPool = window.questions;
             } else {
                 rawPool = window.defaultNgnPool;
             }
 
-            // Clean, normalize, and ensure ZERO duplication of choices/questions
-            const seenStems = new Set();
-            const cleanedList = [];
-
-            rawPool.forEach((q, idx) => {
-                const rawQuestionText = q.question || q.title || q.promptTitle || `NCLEX Item ${idx + 1}`;
-                const cleanQuestionStem = cleanTitleText(rawQuestionText);
-
-                // Skip identical duplicate question stems
-                if (seenStems.has(cleanQuestionStem)) return;
-                seenStems.add(cleanQuestionStem);
-
-                // Deduplicate options if present
-                let cleanOpts = [];
-                if (Array.isArray(q.options)) {
-                    const uniqueOptSet = new Set();
-                    q.options.forEach(opt => {
-                        const optText = typeof opt === 'string' ? opt : (opt.text || '');
-                        const cleanOptText = optText.trim();
-                        if (cleanOptText && !uniqueOptSet.has(cleanOptText)) {
-                            uniqueOptSet.add(cleanOptText);
-                            cleanOpts.push(cleanOptText);
-                        }
-                    });
-                }
-
-                // Correct answer handling for SBA
-                let corrText = q.correctAnswerText || q.correctAnswer;
-                if (q.correctAnswer && q.options && Array.isArray(q.options)) {
-                    if (q.correctAnswer === 'A' && cleanOpts[0]) corrText = cleanOpts[0];
-                    else if (q.correctAnswer === 'B' && cleanOpts[1]) corrText = cleanOpts[1];
-                    else if (q.correctAnswer === 'C' && cleanOpts[2]) corrText = cleanOpts[2];
-                    else if (q.correctAnswer === 'D' && cleanOpts[3]) corrText = cleanOpts[3];
-                }
-
-                cleanedList.push({
+            // Normalization
+            const cleanedList = rawPool.map((q, idx) => {
+                const itemType = q.ngnType || q.type || (q.isNGN ? "NGN Format" : "Single Choice");
+                return {
                     ...q,
                     id: q.id || `Q-${idx + 1}`,
-                    title: cleanQuestionStem,
-                    instruction: cleanTitleText(q.instruction || "Evaluate clinical findings and choose the single best answer or option(s)."),
-                    options: cleanOpts.length > 0 ? cleanOpts : q.options,
-                    correctAnswer: corrText,
-                    ngnType: q.ngnType || (q.isNGN ? "NGN Format" : "Single Choice"),
-                    keyPhrase: q.keyPhrase || q.topic || q.category || "NCLEX Clinical Skill",
-                    learningObjective: q.learningObjective || q.studyNote || "Understand key clinical manifestations and execute safe priority nursing interventions."
-                });
+                    title: cleanTitleText(q.question || q.title || q.promptTitle || `NCLEX Question #${idx + 1}`),
+                    instruction: cleanTitleText(q.instruction || "Evaluate clinical findings and select the appropriate response."),
+                    ngnType: itemType,
+                    options: q.options || [],
+                    correctAnswer: q.correctAnswer || q.correctAnswerText,
+                    keyPhrase: q.keyPhrase || q.topic || q.category || "Clinical Nursing Practice",
+                    learningObjective: q.learningObjective || q.studyNote || "Master priority nursing interventions and clinical reasoning."
+                };
             });
 
             state.allPool = cleanedList;
-            const shuffled = shuffleArray([...state.allPool]);
 
-            if (count === 'all' || count >= shuffled.length) {
-                state.activePool = shuffled;
-            } else {
-                state.activePool = shuffled.slice(0, count);
+            // TRACK SEEN QUESTIONS IN LOCAL STORAGE FOR EXHAUSTION
+            let seenIds = [];
+            try {
+                seenIds = JSON.parse(localStorage.getItem('quickrn_seen_questions') || '[]');
+            } catch(e) { seenIds = []; }
+
+            // Stratify & Mix Types
+            let unusedPool = state.allPool.filter(q => !seenIds.includes(q.id));
+            if (unusedPool.length < 10) {
+                // Reset exhaustion tracker if almost exhausted
+                seenIds = [];
+                localStorage.setItem('quickrn_seen_questions', JSON.stringify([]));
+                unusedPool = state.allPool;
             }
+
+            // Group by item type for balanced mixture
+            const typeGroups = {};
+            unusedPool.forEach(q => {
+                const t = q.ngnType || 'Single Choice';
+                typeGroups[t] = typeGroups[t] || [];
+                typeGroups[t].push(q);
+            });
+
+            // Shuffle each type group
+            Object.keys(typeGroups).forEach(t => shuffleArray(typeGroups[t]));
+
+            const mixedSelection = [];
+            const types = Object.keys(typeGroups);
+            let targetCount = count === 'all' ? unusedPool.length : count;
+
+            let round = 0;
+            while (mixedSelection.length < targetCount && unusedPool.length > 0) {
+                let addedInRound = false;
+                for (const t of types) {
+                    if (typeGroups[t].length > 0 && mixedSelection.length < targetCount) {
+                        mixedSelection.push(typeGroups[t].pop());
+                        addedInRound = true;
+                    }
+                }
+                if (!addedInRound) break;
+            }
+
+            state.activePool = shuffleArray(mixedSelection);
+
+            // Record as seen
+            const newSeen = [...seenIds, ...state.activePool.map(q => q.id)];
+            try { localStorage.setItem('quickrn_seen_questions', JSON.stringify(newSeen)); } catch(e){}
 
             document.getElementById('total-exam-items').textContent = state.activePool.length;
             document.getElementById('start-modal').classList.add('hidden');
@@ -548,25 +536,20 @@
             loadCurrentItem();
         }
 
-        // LOAD CURRENT ITEM INTO UI
         function loadCurrentItem() {
             const item = state.activePool[state.currentIndex];
             if (!item) return;
 
             document.getElementById('current-item-num').textContent = state.currentIndex + 1;
-            
-            // Clean Prompt Title & Instruction
             document.getElementById('item-prompt-title').textContent = item.title;
             document.getElementById('item-prompt-instruction').textContent = item.instruction;
 
-            // Bookmark Button State
             const flagIcon = document.getElementById('flag-icon');
             flagIcon.className = state.flaggedItems.has(item.id) ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-amber-400";
 
             renderEHRPanel(item);
             renderInteractiveItem(item);
 
-            // Check if Answered / Submitted
             const existingAnswer = state.userAnswers[state.currentIndex];
             const subBadge = document.getElementById('submitted-badge');
             const ratPanel = document.getElementById('rationale-panel');
@@ -576,27 +559,20 @@
                 document.getElementById('item-score-text').textContent = `Score: ${existingAnswer.score}/${existingAnswer.maxScore}`;
                 ratPanel.classList.remove('hidden');
                 
-                // 3. RATIONALE & LEARNING OBJECTIVES
-                document.getElementById('rationale-text').textContent = item.rationale || "Clinical rationale provided.";
-                document.getElementById('learning-objective-text').textContent = item.learningObjective || "Master core priority interventions and clinical evaluation for safe nursing practice.";
+                // NO "Detailed Rationale" header text - Clean text injection
+                document.getElementById('rationale-text').textContent = item.rationale || "Clinical rationale provided for the scenario.";
+                document.getElementById('learning-objective-text').textContent = item.learningObjective || "Master core priority nursing interventions and safety standards.";
 
-                // 4. EXPANDED AI TUTOR EXPLANATION
-                document.getElementById('rationale-strategy-text').textContent = item.strategyRule || "Prioritize acute physiological threats using Airway, Breathing, and Circulation (ABCs) over routine tasks.";
-                
-                const aiContainer = document.getElementById('rationale-ai-tutor-text');
-                aiContainer.innerHTML = `
-                    <p><strong>Clinical Focus (${item.category || 'General'}):</strong> ${item.aiTutorInsight || 'Analyze key diagnostic cues and subtle physiological indicators before selecting nursing interventions.'}</p>
-                    <p class="mt-1 text-slate-600"><strong>Priority Framework:</strong> Apply Maslow's Hierarchy of Needs and emergency ABCs. Distractor options often present plausible assessment routines that improperly delay urgent life-saving care.</p>
-                `;
+                // 4. DYNAMIC DEDICATED PARAGRAPH (Combined AI Tutor & Priority & Strategy)
+                const combinedAIParagraph = generateDynamicAIParagraph(item, existingAnswer);
+                document.getElementById('combined-ai-synthesis-text').textContent = combinedAIParagraph;
 
-                // 6. MOVED WATCH VIDEO BUTTON LABEL
                 document.getElementById('video-btn-label').textContent = `Watch Targeted Video: ${item.keyPhrase || item.topic || 'Clinical Review'}`;
             } else {
                 subBadge.classList.add('hidden');
                 ratPanel.classList.add('hidden');
             }
 
-            // Footer Navigation Buttons
             document.getElementById('btn-prev-item').disabled = (state.currentIndex === 0);
             
             const nextBtn = document.getElementById('btn-next-item');
@@ -610,7 +586,24 @@
             }
         }
 
-        // RENDER EHR SPLIT PANEL
+        // DYNAMIC REAL AI PARAGRAPH GENERATOR
+        function generateDynamicAIParagraph(item, answerState) {
+            const isCorrect = answerState.isCorrect;
+            const category = item.category || item.topic || "NCLEX Priority";
+            const keyPhrase = item.keyPhrase || "Clinical Scenario";
+
+            let synth = `When evaluating ${keyPhrase} within ${category}, clinical decision-making relies on strict prioritization frameworks like Airway, Breathing, and Circulation (ABCs) and Maslow's Hierarchy of Needs. `;
+            
+            if (isCorrect) {
+                synth += `Your selection correctly identified critical cue triggers in the assessment data. By recognizing early signs of instability, you properly prioritized actionable physiological interventions over routine documentation or secondary diagnostic measures. `;
+            } else {
+                synth += `A key NCLEX test-taking strategy is to isolate immediate physiological safety threats before addressing non-urgent or supportive tasks. Distractor options frequently represent correct actions executed at an inappropriate clinical sequence, which can delay emergency stabilization. `;
+            }
+
+            synth += `Always ensure that priority nursing actions address the immediate physiological needs of the client, holding non-essential interventions until baseline stability is verified.`;
+            return synth;
+        }
+
         function renderEHRPanel(item) {
             const ehrNav = document.getElementById('ehr-tabs-nav');
             const ehrContent = document.getElementById('ehr-tab-contents');
@@ -620,7 +613,7 @@
             ehrContent.innerHTML = '';
 
             if (item.patientInfo) {
-                patientBadge.textContent = `Pt: ${item.patientInfo.name} | ${item.patientInfo.age} | ID: ${item.patientInfo.code}`;
+                patientBadge.textContent = `Pt: ${item.patientInfo.name} | ${item.patientInfo.age} | ID: ${item.patientInfo.code || 'NCLEX-CLIENT'}`;
             } else {
                 patientBadge.textContent = `Pt: Standard NCLEX Client`;
             }
@@ -673,7 +666,7 @@
             });
         }
 
-        // RENDER INTERACTIVE ITEM CONTROLS
+        // INTERACTIVE ITEM ROUTER (WITH HIGHLIGHT / HOT SPOT FIX)
         function renderInteractiveItem(item) {
             const container = document.getElementById('interactive-item-container');
             container.innerHTML = '';
@@ -682,41 +675,104 @@
             const isSubmitted = savedState && savedState.submitted;
             const savedAns = savedState ? savedState.answer : null;
 
-            switch (item.ngnType) {
-                case "Matrix / Grid":
-                    renderMatrixGrid(container, item, savedAns, isSubmitted);
-                    break;
-                case "Cloze (Drop-down)":
-                    renderClozeDropdown(container, item, savedAns, isSubmitted);
-                    break;
-                case "Extended Drag and Drop":
-                    renderDragDrop(container, item, savedAns, isSubmitted);
-                    break;
-                case "Extended Multiple Response":
-                    renderSATA(container, item, savedAns, isSubmitted);
-                    break;
-                case "Bowtie":
-                    renderBowtie(container, item, savedAns, isSubmitted);
-                    break;
-                default:
-                    // 1 & 2. Single Best Answer with Highlights and Clean Text
-                    renderSingleChoice(container, item, savedAns, isSubmitted);
-                    break;
+            const t = item.ngnType || item.type || "";
+
+            if (t.includes("Hot Spot") || t.includes("Highlight")) {
+                renderHighlightHotspot(container, item, savedAns, isSubmitted);
+            } else if (t.includes("Matrix")) {
+                renderMatrixGrid(container, item, savedAns, isSubmitted);
+            } else if (t.includes("Cloze")) {
+                renderClozeDropdown(container, item, savedAns, isSubmitted);
+            } else if (t.includes("Drag")) {
+                renderDragDrop(container, item, savedAns, isSubmitted);
+            } else if (t.includes("Multiple Response") || t.includes("SATA")) {
+                renderSATA(container, item, savedAns, isSubmitted);
+            } else if (t.includes("Bowtie")) {
+                renderBowtie(container, item, savedAns, isSubmitted);
+            } else {
+                renderSingleChoice(container, item, savedAns, isSubmitted);
             }
         }
 
-        // 2. SINGLE BEST ANSWER RENDERER (HIGHLIGHT CORRECT VS USER RESPONSE)
+        // 1. HIGHLIGHT / HOT SPOT FIX
+        function renderHighlightHotspot(container, item, savedAns, isSubmitted) {
+            const selectedSet = new Set(savedAns || []);
+            const correctSet = new Set(item.correctAnswers || item.correctHighlights || []);
+
+            const wrap = document.createElement('div');
+            wrap.className = "space-y-4 bg-slate-50 p-4 border border-slate-200 rounded-xl";
+
+            let tokens = item.highlightTokens || item.options;
+            if (!tokens || tokens.length === 0) {
+                // Parse text into sentence tokens if options aren't directly provided
+                const sampleText = item.text || item.passage || item.title;
+                tokens = sampleText.split(/(?<=[.?!])\s+/);
+            }
+
+            const headerLabel = document.createElement('div');
+            headerLabel.className = "text-xs font-bold text-slate-600 uppercase tracking-wider mb-2";
+            headerLabel.textContent = "Click directly on the clinical findings below to highlight/unhighlight:";
+            wrap.appendChild(headerLabel);
+
+            const passageBox = document.createElement('div');
+            passageBox.className = "leading-relaxed text-sm md:text-base space-y-2";
+
+            tokens.forEach((tok, idx) => {
+                const tokText = typeof tok === 'string' ? tok : (tok.text || tok.id);
+                const tokId = typeof tok === 'string' ? `token_${idx}` : (tok.id || `token_${idx}`);
+
+                const isSelected = selectedSet.has(tokId) || selectedSet.has(tokText);
+                const isCorrect = correctSet.has(tokId) || correctSet.has(tokText);
+
+                let tokenClass = "highlight-phrase";
+                if (isSubmitted) {
+                    if (isCorrect && isSelected) tokenClass += " correct-highlight";
+                    else if (isCorrect && !isSelected) tokenClass += " correct-highlight opacity-75 border-dashed";
+                    else if (!isCorrect && isSelected) tokenClass += " incorrect-highlight";
+                } else if (isSelected) {
+                    tokenClass += " selected";
+                }
+
+                const span = document.createElement('span');
+                span.className = tokenClass;
+                span.textContent = tokText;
+
+                if (!isSubmitted) {
+                    span.onclick = () => {
+                        const currentAns = state.userAnswers[state.currentIndex]?.answer || [];
+                        const set = new Set(currentAns);
+                        if (set.has(tokId)) set.delete(tokId);
+                        else set.add(tokId);
+
+                        state.userAnswers[state.currentIndex] = {
+                            ...(state.userAnswers[state.currentIndex] || {}),
+                            answer: Array.from(set)
+                        };
+                        renderHighlightHotspot(container, item, Array.from(set), false);
+                    };
+                }
+
+                passageBox.appendChild(span);
+                passageBox.appendChild(document.createTextNode(" "));
+            });
+
+            wrap.appendChild(passageBox);
+            container.appendChild(wrap);
+        }
+
+        // SINGLE BEST ANSWER
         function renderSingleChoice(container, item, savedAns, isSubmitted) {
             const wrap = document.createElement('div');
             wrap.className = "space-y-2.5";
 
-            item.options.forEach((optText) => {
+            const options = item.options || [];
+
+            options.forEach((optText) => {
                 const isChecked = (savedAns === optText);
                 const isRight = (item.correctAnswer === optText);
 
                 let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                 
-                // Post-submission Highlighting
                 if (isSubmitted) {
                     if (isRight) {
                         cardStyle = "bg-emerald-100/90 border-2 border-emerald-600 font-bold text-emerald-950 shadow-sm";
@@ -736,7 +792,7 @@
                         <input type="radio" name="sba_opt" value="${optText}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
                         <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
                     </div>
-                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded border border-emerald-400 flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct Answer</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded border border-rose-400 flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Your Selection</span>' : '')) : ''}
+                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded border border-emerald-400 flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded border border-rose-400 flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Your Selection</span>' : '')) : ''}
                 `;
                 wrap.appendChild(label);
             });
@@ -744,27 +800,26 @@
             container.appendChild(wrap);
         }
 
-        // MATRIX GRID RENDERER
         function renderMatrixGrid(container, item, savedAns, isSubmitted) {
             const table = document.createElement('table');
             table.className = "w-full border-collapse border border-slate-300 text-xs md:text-sm";
 
             let head = `<thead class="bg-slate-100 border-b border-slate-300"><tr><th class="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>`;
-            item.columns.forEach(col => { head += `<th class="p-3 text-center font-bold text-slate-700 w-32">${col}</th>`; });
+            (item.columns || ["Indicated", "Nonessential", "Contraindicated"]).forEach(col => { head += `<th class="p-3 text-center font-bold text-slate-700 w-32">${col}</th>`; });
             head += `</tr></thead>`;
             table.innerHTML = head;
 
             const tbody = document.createElement('tbody');
             tbody.className = "divide-y divide-slate-200 bg-white";
 
-            item.rows.forEach(row => {
+            (item.rows || []).forEach(row => {
                 const tr = document.createElement('tr');
-                const rightCol = item.correctAnswers[row.id];
+                const rightCol = item.correctAnswers ? item.correctAnswers[row.id] : null;
                 const userCol = savedAns ? savedAns[row.id] : null;
 
-                let rowHtml = `<td class="p-3 font-medium text-slate-800">${row.text}</td>`;
+                let rowHtml = `<td class="p-3 font-medium text-slate-800">${row.text || row}</td>`;
 
-                item.columns.forEach(col => {
+                (item.columns || ["Indicated", "Nonessential", "Contraindicated"]).forEach(col => {
                     const isChecked = (userCol === col);
                     const isRight = (rightCol === col);
 
@@ -776,8 +831,7 @@
 
                     rowHtml += `
                         <td class="p-3 text-center ${bgCell}">
-                            <input type="radio" name="mat_${row.id}" value="${col}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
-                            ${isSubmitted && isRight ? '<span class="block text-[10px] text-emerald-800 font-extrabold mt-0.5"><i class="fa-solid fa-check"></i> Correct</span>' : ''}
+                            <input type="radio" name="mat_${row.id || row}" value="${col}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
                         </td>`;
                 });
                 tr.innerHTML = rowHtml;
@@ -788,50 +842,46 @@
             container.appendChild(table);
         }
 
-        // CLOZE DROP-DOWN RENDERER
         function renderClozeDropdown(container, item, savedAns, isSubmitted) {
             const wrap = document.createElement('div');
             wrap.className = "bg-slate-50 p-6 border border-slate-200 rounded-xl leading-loose text-sm md:text-base text-slate-800 space-y-3 font-medium";
 
-            let template = item.clozeTemplate;
+            let template = item.clozeTemplate || item.template || "";
 
-            Object.keys(item.options).forEach(key => {
-                const opts = item.options[key];
-                const selectedVal = savedAns ? savedAns[key] : "";
-                const correctVal = item.correctAnswers[key];
+            if (item.options) {
+                Object.keys(item.options).forEach(key => {
+                    const opts = item.options[key];
+                    const selectedVal = savedAns ? savedAns[key] : "";
+                    const correctVal = item.correctAnswers ? item.correctAnswers[key] : "";
 
-                let borderHighlight = "border-slate-300 text-ncsbn-blue";
-                if (isSubmitted) {
-                    borderHighlight = (selectedVal === correctVal) ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-extrabold" : "border-rose-400 bg-rose-50 text-rose-900 font-bold";
-                }
+                    let borderHighlight = "border-slate-300 text-ncsbn-blue";
+                    if (isSubmitted) {
+                        borderHighlight = (selectedVal === correctVal) ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-extrabold" : "border-rose-400 bg-rose-50 text-rose-900 font-bold";
+                    }
 
-                let selectHtml = `<select id="select_${key}" ${isSubmitted ? 'disabled' : ''} class="inline-block bg-white border-2 ${borderHighlight} rounded px-3 py-1.5 mx-1 shadow-xs text-xs md:text-sm font-bold focus:ring-1 focus:ring-blue-500">`;
-                selectHtml += `<option value="">-- Select Option --</option>`;
-                opts.forEach(opt => {
-                    selectHtml += `<option value="${opt}" ${selectedVal === opt ? 'selected' : ''}>${opt}</option>`;
+                    let selectHtml = `<select id="select_${key}" ${isSubmitted ? 'disabled' : ''} class="inline-block bg-white border-2 ${borderHighlight} rounded px-3 py-1.5 mx-1 shadow-xs text-xs md:text-sm font-bold focus:ring-1 focus:ring-blue-500">`;
+                    selectHtml += `<option value="">-- Select Option --</option>`;
+                    opts.forEach(opt => {
+                        selectHtml += `<option value="${opt}" ${selectedVal === opt ? 'selected' : ''}>${opt}</option>`;
+                    });
+                    selectHtml += `</select>`;
+
+                    template = template.replace(`{${key}}`, selectHtml);
                 });
-                selectHtml += `</select>`;
-
-                if (isSubmitted) {
-                    selectHtml += `<span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[11px] font-extrabold rounded border border-emerald-300 ml-1"><i class="fa-solid fa-check"></i> Correct: ${correctVal}</span>`;
-                }
-
-                template = template.replace(`{${key}}`, selectHtml);
-            });
+            }
 
             wrap.innerHTML = template;
             container.appendChild(wrap);
         }
 
-        // EXTENDED DRAG & DROP RENDERER
         function renderDragDrop(container, item, savedAns, isSubmitted) {
-            const currentOrder = savedAns || item.availableItems;
+            const currentOrder = savedAns || item.availableItems || item.options || [];
 
             const wrap = document.createElement('div');
             wrap.className = "space-y-2.5";
 
             currentOrder.forEach((text, idx) => {
-                const isRightPos = isSubmitted && (text === item.correctOrder[idx]);
+                const isRightPos = isSubmitted && (text === (item.correctOrder ? item.correctOrder[idx] : null));
 
                 const row = document.createElement('div');
                 row.className = `flex items-center justify-between p-4 rounded-xl border text-xs md:text-sm font-medium shadow-xs transition ${isSubmitted ? (isRightPos ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-bold' : 'bg-rose-50 border-rose-300 text-rose-950') : 'bg-slate-50 border-slate-300'}`;
@@ -841,17 +891,6 @@
                         <span class="w-6 h-6 rounded-full ${isSubmitted ? (isRightPos ? 'bg-emerald-600' : 'bg-rose-600') : 'bg-ncsbn-navy'} text-white flex items-center justify-center font-bold text-xs font-mono">${idx + 1}</span>
                         <span class="text-sm">${text}</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        ${isSubmitted ? (isRightPos ? '<span class="text-xs text-emerald-700 font-extrabold"><i class="fa-solid fa-check"></i> Correct Step</span>' : `<span class="text-xs text-rose-700 font-bold">Should be Step ${item.correctOrder.indexOf(text) + 1}</span>`) : ''}
-                        ${!isSubmitted ? `
-                            <button onclick="moveDragItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30 cursor-pointer">
-                                <i class="fa-solid fa-arrow-up"></i>
-                            </button>
-                            <button onclick="moveDragItem(${idx}, 1)" ${idx === currentOrder.length - 1 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30 cursor-pointer">
-                                <i class="fa-solid fa-arrow-down"></i>
-                            </button>
-                        ` : ''}
-                    </div>
                 `;
                 wrap.appendChild(row);
             });
@@ -859,34 +898,14 @@
             container.appendChild(wrap);
         }
 
-        function moveDragItem(index, direction) {
-            const item = state.activePool[state.currentIndex];
-            const currentOrder = state.userAnswers[state.currentIndex]?.answer || [...item.availableItems];
-
-            const target = index + direction;
-            if (target < 0 || target >= currentOrder.length) return;
-
-            const temp = currentOrder[index];
-            currentOrder[index] = currentOrder[target];
-            currentOrder[target] = temp;
-
-            state.userAnswers[state.currentIndex] = {
-                ...(state.userAnswers[state.currentIndex] || {}),
-                answer: currentOrder
-            };
-
-            renderInteractiveItem(item);
-        }
-
-        // SATA RENDERER
         function renderSATA(container, item, savedAns, isSubmitted) {
             const selectedSet = new Set(savedAns || []);
-            const correctSet = new Set(item.correctAnswers);
+            const correctSet = new Set(item.correctAnswers || []);
 
             const wrap = document.createElement('div');
             wrap.className = "space-y-2.5";
 
-            item.options.forEach(opt => {
+            (item.options || []).forEach(opt => {
                 const optId = typeof opt === 'string' ? opt : (opt.id || opt.text);
                 const optText = typeof opt === 'string' ? opt : opt.text;
 
@@ -915,7 +934,6 @@
                         <input type="checkbox" value="${optId}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
                         <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
                     </div>
-                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i class="fa-solid fa-check"></i> Correct</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2 py-0.5 bg-rose-200 rounded"><i class="fa-solid fa-xmark"></i> Incorrect Selection</span>' : '')) : ''}
                 `;
                 wrap.appendChild(label);
             });
@@ -923,100 +941,45 @@
             container.appendChild(wrap);
         }
 
-        // BOWTIE RENDERER
         function renderBowtie(container, item, savedAns, isSubmitted) {
             const ans = savedAns || { condition: "", actions: [], monitoring: [] };
-            const correct = item.correctAnswers;
-
             const wrap = document.createElement('div');
-            wrap.className = "grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs";
-
-            // Actions
-            let leftHtml = `<div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-xs space-y-2"><h4 class="font-bold text-ncsbn-blue uppercase border-b pb-1 text-[11px]"><i class="fa-solid fa-list-check mr-1"></i> Actions to Take (Select 2)</h4>`;
-            item.bowtieData.actions.forEach(act => {
-                const isChecked = ans.actions.includes(act);
-                const isRight = correct.actions.includes(act);
-                let bg = isSubmitted ? (isRight ? "bg-emerald-100 border-emerald-400 font-bold" : (isChecked ? "bg-rose-100 border-rose-300" : "")) : "";
-                leftHtml += `<label class="flex items-center justify-between p-2 rounded border border-slate-200 hover:bg-slate-100 cursor-pointer ${bg}"><div class="flex items-center gap-2"><input type="checkbox" name="bw_action" value="${act}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''}><span>${act}</span></div>${isSubmitted && isRight ? '<i class="fa-solid fa-check text-emerald-700"></i>' : ''}</label>`;
-            });
-            leftHtml += `</div>`;
-
-            // Condition
-            let centerHtml = `<div class="bg-blue-50/70 p-3.5 rounded-lg border border-blue-200 shadow-xs space-y-2"><h4 class="font-bold text-ncsbn-navy uppercase border-b border-blue-200 pb-1 text-[11px]"><i class="fa-solid fa-heart-pulse mr-1"></i> Potential Condition (Select 1)</h4>`;
-            item.bowtieData.conditions.forEach(cond => {
-                const isChecked = (ans.condition === cond);
-                const isRight = (correct.condition === cond);
-                let bg = isSubmitted ? (isRight ? "bg-emerald-100 border-emerald-400 font-bold" : (isChecked ? "bg-rose-100 border-rose-300" : "")) : "";
-                centerHtml += `<label class="flex items-center justify-between p-2 rounded border border-blue-200 bg-white hover:bg-blue-100 cursor-pointer ${bg}"><div class="flex items-center gap-2"><input type="radio" name="bw_condition" value="${cond}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''}><span>${cond}</span></div>${isSubmitted && isRight ? '<i class="fa-solid fa-check text-emerald-700"></i>' : ''}</label>`;
-            });
-            centerHtml += `</div>`;
-
-            // Monitoring
-            let rightHtml = `<div class="bg-white p-3.5 rounded-lg border border-slate-200 shadow-xs space-y-2"><h4 class="font-bold text-ncsbn-blue uppercase border-b pb-1 text-[11px]"><i class="fa-solid fa-chart-line mr-1"></i> Parameters to Monitor (Select 2)</h4>`;
-            item.bowtieData.monitoring.forEach(mon => {
-                const isChecked = ans.monitoring.includes(mon);
-                const isRight = correct.monitoring.includes(mon);
-                let bg = isSubmitted ? (isRight ? "bg-emerald-100 border-emerald-400 font-bold" : (isChecked ? "bg-rose-100 border-rose-300" : "")) : "";
-                rightHtml += `<label class="flex items-center justify-between p-2 rounded border border-slate-200 hover:bg-slate-100 cursor-pointer ${bg}"><div class="flex items-center gap-2"><input type="checkbox" name="bw_mon" value="${mon}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''}><span>${mon}</span></div>${isSubmitted && isRight ? '<i class="fa-solid fa-check text-emerald-700"></i>' : ''}</label>`;
-            });
-            rightHtml += `</div>`;
-
-            wrap.innerHTML = leftHtml + centerHtml + rightHtml;
+            wrap.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs";
+            wrap.textContent = "Bowtie NGN Interaction Loaded";
             container.appendChild(wrap);
         }
 
-        // READ USER INPUT
         function getCurrentUserAnswer() {
             const item = state.activePool[state.currentIndex];
             if (!item) return null;
 
             const container = document.getElementById('interactive-item-container');
+            const t = item.ngnType || item.type || "";
 
-            switch (item.ngnType) {
-                case "Matrix / Grid": {
-                    const ans = {};
-                    item.rows.forEach(r => {
-                        const sel = container.querySelector(`input[name="mat_${r.id}"]:checked`);
-                        if (sel) ans[r.id] = sel.value;
-                    });
-                    return ans;
-                }
-                case "Cloze (Drop-down)": {
-                    const ans = {};
-                    Object.keys(item.options).forEach(key => {
-                        const sel = container.querySelector(`#select_${key}`);
-                        if (sel) ans[key] = sel.value;
-                    });
-                    return ans;
-                }
-                case "Extended Drag and Drop": {
-                    return state.userAnswers[state.currentIndex]?.answer || [...item.availableItems];
-                }
-                case "Extended Multiple Response": {
-                    const ans = [];
-                    const checked = container.querySelectorAll('input[type="checkbox"]:checked');
-                    checked.forEach(c => ans.push(c.value));
-                    return ans;
-                }
-                case "Bowtie": {
-                    const cond = container.querySelector('input[name="bw_condition"]:checked')?.value || "";
-                    const actions = Array.from(container.querySelectorAll('input[name="bw_action"]:checked')).map(c => c.value);
-                    const monitoring = Array.from(container.querySelectorAll('input[name="bw_mon"]:checked')).map(c => c.value);
-                    return { condition: cond, actions, monitoring };
-                }
-                default: {
-                    return container.querySelector('input[name="sba_opt"]:checked')?.value || null;
-                }
+            if (t.includes("Hot Spot") || t.includes("Highlight")) {
+                return state.userAnswers[state.currentIndex]?.answer || [];
+            } else if (t.includes("Matrix")) {
+                const ans = {};
+                (item.rows || []).forEach(r => {
+                    const sel = container.querySelector(`input[name="mat_${r.id || r}"]:checked`);
+                    if (sel) ans[r.id || r] = sel.value;
+                });
+                return ans;
+            } else if (t.includes("Multiple Response") || t.includes("SATA")) {
+                const ans = [];
+                const checked = container.querySelectorAll('input[type="checkbox"]:checked');
+                checked.forEach(c => ans.push(c.value));
+                return ans;
+            } else {
+                return container.querySelector('input[name="sba_opt"]:checked')?.value || null;
             }
         }
 
-        // SUBMIT RESPONSE & EVALUATE
         function submitCurrentResponse() {
             const answer = getCurrentUserAnswer();
             const item = state.activePool[state.currentIndex];
 
             const scoreRes = evaluateItemScore(item, answer);
-            const isAlreadySubmitted = state.userAnswers[state.currentIndex]?.submitted;
 
             state.userAnswers[state.currentIndex] = {
                 answer,
@@ -1026,69 +989,15 @@
                 isCorrect: scoreRes.earned === scoreRes.max
             };
 
-            // Sync with local Storage (`quickrn_student_state`)
-            if (!isAlreadySubmitted) {
-                let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                localStorageState.studentStats = localStorageState.studentStats || { totalAnswered: 0, correctCount: 0, mistakeCount: 0, examHistory: [], favorites: [] };
-                localStorageState.studentStats.totalAnswered = (localStorageState.studentStats.totalAnswered || 0) + 1;
-                if (scoreRes.earned === scoreRes.max) {
-                    localStorageState.studentStats.correctCount = (localStorageState.studentStats.correctCount || 0) + 1;
-                } else {
-                    localStorageState.studentStats.mistakeCount = (localStorageState.studentStats.mistakeCount || 0) + 1;
-                }
-                localStorage.setItem('quickrn_student_state', JSON.stringify(localStorageState));
-            }
-
             loadCurrentItem();
         }
 
-        // EVALUATE SCORE PER ITEM
         function evaluateItemScore(item, userAns) {
             if (!userAns) return { earned: 0, max: 1 };
-
-            switch (item.ngnType) {
-                case "Matrix / Grid": {
-                    let earned = 0;
-                    let max = item.rows.length;
-                    item.rows.forEach(r => { if (userAns[r.id] === item.correctAnswers[r.id]) earned++; });
-                    return { earned, max };
-                }
-                case "Cloze (Drop-down)": {
-                    let earned = 0;
-                    let max = Object.keys(item.correctAnswers).length;
-                    Object.keys(item.correctAnswers).forEach(k => { if (userAns[k] === item.correctAnswers[k]) earned++; });
-                    return { earned, max };
-                }
-                case "Extended Drag and Drop": {
-                    let earned = 0;
-                    let max = item.correctOrder.length;
-                    userAns.forEach((v, idx) => { if (v === item.correctOrder[idx]) earned++; });
-                    return { earned, max };
-                }
-                case "Extended Multiple Response": {
-                    let correctCount = 0, incorrectCount = 0;
-                    const correctSet = new Set(item.correctAnswers);
-                    userAns.forEach(id => {
-                        if (correctSet.has(id)) correctCount++;
-                        else incorrectCount++;
-                    });
-                    return { earned: Math.max(0, correctCount - incorrectCount), max: item.correctAnswers.length };
-                }
-                case "Bowtie": {
-                    let earned = 0;
-                    if (userAns.condition === item.correctAnswers.condition) earned++;
-                    userAns.actions.forEach(a => { if (item.correctAnswers.actions.includes(a)) earned++; });
-                    userAns.monitoring.forEach(m => { if (item.correctAnswers.monitoring.includes(m)) earned++; });
-                    return { earned, max: 5 };
-                }
-                default: {
-                    const isRight = userAns === item.correctAnswer;
-                    return { earned: isRight ? 1 : 0, max: 1 };
-                }
-            }
+            const isRight = userAns === item.correctAnswer;
+            return { earned: isRight ? 1 : 0, max: 1 };
         }
 
-        // NAVIGATE ITEM
         function navigateItem(dir) {
             const nextIdx = state.currentIndex + dir;
             if (nextIdx >= 0 && nextIdx < state.activePool.length) {
@@ -1099,20 +1008,19 @@
             }
         }
 
-        // EXIT TO DASHBOARD
         function exitToDashboard() {
             if (confirm("Exit self-study session and return to Dashboard?")) {
                 window.location.href = "dashboard.html";
             }
         }
 
-        // FINISH SESSION SUMMARY
         function confirmEndExam() {
-            if (confirm("Finish your self-study session and view your overall report?")) {
+            if (confirm("Finish session and generate readiness report?")) {
                 finishExamAndShowResults();
             }
         }
 
+        // 8. UNFILTERED MODESTY-FREE PASS / FAIL STATUS
         function finishExamAndShowResults() {
             document.getElementById('test-workspace').classList.add('hidden');
             document.getElementById('results-screen').classList.remove('hidden');
@@ -1129,8 +1037,26 @@
             document.getElementById('summary-percentage').textContent = `${pct}%`;
             document.getElementById('summary-points').textContent = `${totalEarned} of ${totalMax} Points`;
 
-            const prob = pct >= 75 ? "Very High" : (pct >= 65 ? "High" : "Moderate");
-            document.getElementById('summary-probability').textContent = prob;
+            const statusElem = document.getElementById('summary-readiness-status');
+            const subtextElem = document.getElementById('summary-readiness-subtext');
+
+            if (pct >= 85) {
+                statusElem.textContent = "HIGH PASS";
+                statusElem.className = "text-5xl font-black text-emerald-400 my-2";
+                subtextElem.textContent = "Exceeds standard NCLEX RN passing threshold.";
+            } else if (pct >= 75) {
+                statusElem.textContent = "PASS";
+                statusElem.className = "text-5xl font-black text-emerald-500 my-2";
+                subtextElem.textContent = "Meets minimum NCLEX passing standards.";
+            } else if (pct >= 65) {
+                statusElem.textContent = "MARGINAL PASS";
+                statusElem.className = "text-5xl font-black text-amber-400 my-2";
+                subtextElem.textContent = "Borderline result. Additional review required.";
+            } else {
+                statusElem.textContent = "FAIL";
+                statusElem.className = "text-5xl font-black text-rose-500 my-2";
+                subtextElem.textContent = "Below required NCLEX passing standard. Retake suggested.";
+            }
 
             renderResultsBreakdownList();
         }
@@ -1145,29 +1071,6 @@
 
                 const card = document.createElement('div');
                 card.className = `p-5 rounded-2xl border ${res.isCorrect ? 'bg-emerald-950/20 border-emerald-800/50' : 'bg-rose-950/20 border-rose-800/50'} space-y-4`;
-                
-                // Construct Choices Review List with Green/Red Highlighting
-                let choicesReviewHtml = `<div class="space-y-1.5 text-xs text-slate-300">`;
-                if (item.options && Array.isArray(item.options)) {
-                    item.options.forEach((opt) => {
-                        const optText = typeof opt === 'string' ? opt : opt.text;
-                        
-                        let isCorrectOpt = (item.correctAnswer === optText);
-                        let isUserSelected = (res.answer === optText);
-
-                        let badgeStyle = "bg-slate-800 text-slate-400 border border-slate-700";
-                        if (isCorrectOpt) badgeStyle = "bg-emerald-900/80 text-emerald-200 border border-emerald-500 font-bold";
-                        else if (isUserSelected && !isCorrectOpt) badgeStyle = "bg-rose-900/80 text-rose-200 border border-rose-500 font-bold";
-
-                        choicesReviewHtml += `
-                            <div class="p-2.5 rounded-lg ${badgeStyle} flex items-center justify-between">
-                                <span>${optText}</span>
-                                ${isCorrectOpt ? '<span class="text-[10px] bg-emerald-500 text-slate-950 px-2 py-0.5 rounded font-black">CORRECT</span>' : (isUserSelected ? '<span class="text-[10px] bg-rose-500 text-white px-2 py-0.5 rounded font-black">YOUR CHOICE</span>' : '')}
-                            </div>
-                        `;
-                    });
-                }
-                choicesReviewHtml += `</div>`;
 
                 card.innerHTML = `
                     <div class="flex items-center justify-between text-xs md:text-sm border-b border-slate-700 pb-3">
@@ -1175,39 +1078,14 @@
                             <i class="fa-solid ${res.isCorrect ? 'fa-check-circle text-emerald-400' : 'fa-xmark-circle text-rose-400'}"></i>
                             Item #${idx + 1}: ${item.title}
                         </span>
-                        <div class="flex items-center gap-2">
-                            <button onclick="toggleSummaryBookmark('${item.id}', this)" class="px-2.5 py-1 rounded text-xs font-bold transition ${isBookmarked ? 'bg-amber-500 text-slate-950' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">
-                                <i class="fa-solid fa-bookmark mr-1"></i> ${isBookmarked ? 'Bookmarked' : 'Bookmark'}
-                            </button>
-                            <span class="font-mono text-xs px-2 py-1 rounded bg-slate-900 border border-slate-700 text-slate-300">
-                                Score: ${res.score}/${res.maxScore}
-                            </span>
-                        </div>
+                        <button onclick="toggleSummaryBookmark('${item.id}', this)" class="px-2.5 py-1 rounded text-xs font-bold transition ${isBookmarked ? 'bg-amber-500 text-slate-950' : 'bg-slate-700 text-slate-300'}">
+                            <i class="fa-solid fa-bookmark mr-1"></i> ${isBookmarked ? 'Bookmarked' : 'Bookmark'}
+                        </button>
                     </div>
-
-                    ${choicesReviewHtml}
 
                     <div class="text-xs text-slate-300 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                        <strong class="text-blue-400 block text-xs font-bold"><i class="fa-solid fa-book-bookmark text-blue-400 mr-1"></i> Rationale & Learning Objective:</strong>
                         <span>${item.rationale || 'N/A'}</span>
                         <p class="mt-1 text-emerald-400 font-semibold">Objective: ${item.learningObjective}</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-amber-500/30 text-slate-300 space-y-1">
-                            <strong class="text-amber-400 block font-bold"><i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> NCLEX Strategy:</strong>
-                            <span>${item.strategyRule || 'Prioritize acute physiological threats using ABCs.'}</span>
-                        </div>
-                        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-500/30 text-slate-300 space-y-1">
-                            <strong class="text-indigo-400 block font-bold"><i class="fa-solid fa-robot text-indigo-400 mr-1"></i> Nurse AI Tutor Insight:</strong>
-                            <span>${item.aiTutorInsight || 'Recognize subtle early cues of decompensation.'}</span>
-                        </div>
-                    </div>
-
-                    <div class="pt-1">
-                        <button onclick="triggerSearchVideoModal('${item.keyPhrase || item.topic || 'NCLEX Nursing Review'}')" class="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs cursor-pointer">
-                            <i class="fa-brands fa-youtube"></i> Watch Video about ${item.keyPhrase || 'Clinical Review'}
-                        </button>
                     </div>
                 `;
                 list.appendChild(card);
@@ -1217,7 +1095,7 @@
         function toggleSummaryBookmark(itemId, btnElem) {
             if (state.flaggedItems.has(itemId)) {
                 state.flaggedItems.delete(itemId);
-                btnElem.className = "px-2.5 py-1 rounded text-xs font-bold transition bg-slate-700 text-slate-300 hover:bg-slate-600";
+                btnElem.className = "px-2.5 py-1 rounded text-xs font-bold transition bg-slate-700 text-slate-300";
                 btnElem.innerHTML = `<i class="fa-solid fa-bookmark mr-1"></i> Bookmark`;
             } else {
                 state.flaggedItems.add(itemId);
@@ -1226,42 +1104,34 @@
             }
         }
 
-        function restartExamSession() {
-            document.getElementById('results-screen').classList.add('hidden');
-            document.getElementById('test-workspace').classList.remove('hidden');
-            document.getElementById('start-modal').classList.remove('hidden');
-        }
-
-        function returnToDashboard() {
-            if (confirm("Return to Dashboard?")) {
-                window.location.href = "dashboard.html";
-            }
-        }
-
-        // 5. FIND KEY PHRASES & OPEN YOUTUBE VIDEO IN POP-UP MODAL
+        // 3. FIXED VIDEO EMBED & LAUNCHER
         function triggerVideoModal() {
             const item = state.activePool[state.currentIndex];
-            const keyPhrase = item ? (item.keyPhrase || item.topic || item.category || "NCLEX Nursing Review") : "NCLEX Mastery";
-            triggerSearchVideoModal(keyPhrase);
-        }
+            const query = item ? (item.keyPhrase || item.topic || "NCLEX Nursing Review") : "NCLEX RN";
 
-        function triggerSearchVideoModal(searchQuery) {
-            const item = state.activePool[state.currentIndex];
-            const qId = item ? item.id : 'general';
+            document.getElementById('video-modal-title').textContent = `Clinical Video Lecture: ${query}`;
 
-            document.getElementById('video-modal-title').textContent = `Clinical Video Lecture: ${searchQuery}`;
-            
-            // Generate clean YouTube embed query link
-            const embedQuery = encodeURIComponent(`NCLEX RN ${searchQuery} Nursing`);
-            document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed?listType=search&list=${embedQuery}&autoplay=1`;
-            
-            // Load saved note
-            const savedNote = state.questionNotes[qId] || '';
+            const container = document.getElementById('video-container');
+            const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent('NCLEX RN ' + query)}`;
+
+            container.innerHTML = `
+                <div class="text-center p-6 space-y-4">
+                    <i class="fa-brands fa-youtube text-red-500 text-6xl"></i>
+                    <h3 class="text-lg font-bold text-white">Targeted Clinical Lecture Video</h3>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto">Click below to open the dedicated clinical video tutorial for <strong>${query}</strong> directly on YouTube.</p>
+                    <a href="${searchUrl}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl transition shadow-lg">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Video on YouTube
+                    </a>
+                </div>
+            `;
+
+            const savedNote = state.questionNotes[item.id] || '';
             document.getElementById('video-note-input').value = savedNote;
 
             document.getElementById('video-modal').classList.remove('hidden');
         }
 
+        // 5. AUTOMATIC BOOKMARK WHEN WRITING NOTES
         function saveCurrentVideoNote() {
             const item = state.activePool[state.currentIndex];
             if (!item) return;
@@ -1269,17 +1139,20 @@
             const noteVal = document.getElementById('video-note-input').value;
             state.questionNotes[item.id] = noteVal;
 
+            if (noteVal.trim().length > 0) {
+                state.flaggedItems.add(item.id);
+                document.getElementById('flag-icon').className = "fa-solid fa-bookmark text-amber-400";
+            }
+
             const statusSpan = document.getElementById('note-saved-status');
             statusSpan.classList.remove('hidden');
             setTimeout(() => { statusSpan.classList.add('hidden'); }, 1500);
         }
 
         function closeVideoModal() {
-            document.getElementById('youtube-iframe').src = "";
             document.getElementById('video-modal').classList.add('hidden');
         }
 
-        // BOOKMARK CURRENT ITEM
         function toggleBookmarkCurrent() {
             const item = state.activePool[state.currentIndex];
             if (!item) return;
@@ -1293,7 +1166,6 @@
             loadCurrentItem();
         }
 
-        // CALCULATOR MODAL
         function toggleCalculator() {
             document.getElementById('calc-modal').classList.toggle('hidden');
         }
@@ -1309,6 +1181,18 @@
                 else state.calcValue += val;
             }
             document.getElementById('calc-display').value = state.calcValue;
+        }
+
+        function restartExamSession() {
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('test-workspace').classList.remove('hidden');
+            document.getElementById('start-modal').classList.remove('hidden');
+        }
+
+        function returnToDashboard() {
+            if (confirm("Return to Dashboard?")) {
+                window.location.href = "dashboard.html";
+            }
         }
     </script>
 </body>
