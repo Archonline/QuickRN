@@ -112,7 +112,7 @@
         </div>
     </main>
 
-    <!-- FOOTER NAV BAR (SUBMIT ONLY - NO PREV OR NEXT) -->
+    <!-- FOOTER NAV BAR -->
     <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
         <div class="max-w-6xl mx-auto flex items-center justify-end">
             <button id="btn-submit" onclick="submitCurrentAnswer()" class="px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
@@ -191,7 +191,7 @@
                     <i class="fa-solid fa-stopwatch"></i>
                 </div>
                 <h2 class="text-xl font-bold text-ncsbn-navy">Timed Exam Mode</h2>
-                <p class="text-xs text-slate-600">Select the item count for your timed examination. Rationale, study strategies, and video links will unlock upon completion.</p>
+                <p class="text-xs text-slate-600">Select the item count for your timed examination. Rationale, study strategies, and inline AI tutor analysis will unlock upon completion.</p>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <!-- INCLUDE QUESTIONS.JS -->
+    <!-- QUESTIONS SOURCE SCRIPT -->
     <script src="questions.js"></script>
 
     <script>
@@ -227,12 +227,11 @@
         let examTimerInterval = null;
         let totalSecondsRemaining = 0;
         
-        // CAT (Computer Adaptive Testing) state tracking
         let isCatExam = false;
         let catMaxItems = 150;
         let catMinItems = 85;
-        let studentAbilityEstimate = 0.0; // logit scale (-3 to +3)
-        let questionHistoryRecord = []; // logs { questionId, difficulty, isCorrect }
+        let studentAbilityEstimate = 0.0;
+        let questionHistoryRecord = [];
 
         const topicDualYouTubeMap = {
             "cardio": [
@@ -293,7 +292,6 @@
         function loadQuestionsFromJS() {
             let rawDataArray = [];
             try {
-                // Fetch questions directly from embeddedQuestionsData defined in questions.js
                 const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
                 if (Array.isArray(rawData)) {
                     rawDataArray = rawData;
@@ -306,7 +304,6 @@
                 console.error("Error loading questions from questions.js:", err);
             }
 
-            // Fallback sample questions if questions.js is missing or empty
             if (rawDataArray.length === 0) {
                 rawDataArray = [
                     {
@@ -356,10 +353,9 @@
 
             let shuffled = shuffleArray(availablePool);
             
-            // Check if CAT mode (85 or 150 items)
             isCatExam = (count === 85 || count === 150);
             catMaxItems = count;
-            catMinItems = 85; // NCLEX min items
+            catMinItems = 85;
             studentAbilityEstimate = 0.0;
             questionHistoryRecord = [];
 
@@ -381,7 +377,7 @@
             selectedOptions = {};
             bookmarkedQuestions = {};
 
-            totalSecondsRemaining = count * 72; // ~1.2 mins per item
+            totalSecondsRemaining = count * 72;
             startTimerCountdown();
 
             document.getElementById('session-modal').classList.add('hidden');
@@ -494,7 +490,6 @@
                 isCorrect = (sel === q.correctAnswer);
             }
 
-            // Update persistent student state (Questions only / totalAnswered) instantly per submitted question
             if (!q._timedCounted) {
                 q._timedCounted = true;
                 let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -564,7 +559,6 @@
 
             const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
-            // Save stats to localStorage for dashboard synchronization
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
             stateObj.studentStats.testsTaken++;
@@ -575,12 +569,12 @@
             stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Render Results Summary View with Rationale, Strategy, Video Links & Bookmarks
+            // Render Results Summary View
             let html = `
                 <div class="space-y-6 animate-fadeIn">
                     <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-2">
                         <h2 class="text-2xl font-black">Exam Session Completed</h2>
-                        <p class="text-xs text-slate-300">Review your clinical performance, rationales, NCLEX strategies, and video explanations below.</p>
+                        <p class="text-xs text-slate-300">Review your clinical performance, choices breakdown, inline AI tutor analysis, and video explanations below.</p>
                         <div class="flex justify-center gap-6 pt-2">
                             <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
                                 <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
@@ -614,8 +608,8 @@
                 const videos = getTwoYouTubeVideos(q.topic, q.category);
                 const isBookmarked = !!bookmarkedQuestions[q.id];
 
-                // Build choices list HTML with highlighting
-                let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Responses:</span>';
+                // Complete Choices Breakdown with Green/Red Badges
+                let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Response Breakdown:</span>';
                 let qOpts = q.options || [];
                 qOpts.forEach((optText, oIdx) => {
                     const optLetter = String.fromCharCode(65 + oIdx);
@@ -624,9 +618,9 @@
                     
                     let bgStyle = "bg-white border-slate-200 text-slate-800";
                     if (isRightAnswer) {
-                        bgStyle = "bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold";
+                        bgStyle = "bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold";
                     } else if (isUserSelected && !isRightAnswer) {
-                        bgStyle = "bg-rose-50 border-rose-300 text-rose-950 font-semibold";
+                        bgStyle = "bg-rose-50 border-rose-400 text-rose-950 font-semibold";
                     }
 
                     choicesHtml += `
@@ -635,27 +629,27 @@
                                 <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">${optLetter}</span>
                                 <span>${optText}</span>
                             </div>
-                            <div class="flex items-center gap-1.5">
-                                ${isUserSelected ? '<span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold">Your Choice</span>' : ''}
-                                ${isRightAnswer ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">Correct Answer</span>' : ''}
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                ${isUserSelected ? (isRightAnswer ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 border border-emerald-400 px-2 py-0.5 rounded-full font-extrabold"><i class="fa-solid fa-check mr-1"></i> Your Choice (Correct)</span>' : '<span class="text-[10px] bg-rose-200 text-rose-950 border border-rose-400 px-2 py-0.5 rounded-full font-extrabold"><i class="fa-solid fa-xmark mr-1"></i> Your Choice (Incorrect)</span>') : ''}
+                                ${(!isUserSelected && isRightAnswer) ? '<span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-bold">Correct Answer</span>' : ''}
                             </div>
                         </div>
                     `;
                 });
                 choicesHtml += '</div>';
 
-                // AI Tutor Mode Content (Inline)
+                // Inline AI Clinical Tutor Section
                 const aiTutorContentHtml = `
-                    <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
+                    <div class="p-4 bg-indigo-50/80 rounded-xl border border-indigo-200 space-y-2">
                         <div class="flex items-center space-x-2 text-indigo-900 font-bold text-xs">
-                            <i class="fa-solid fa-robot text-indigo-600"></i>
-                            <span>AI Clinical Tutor Deep-Dive Rationale (${q.topic || 'Clinical Mastery'})</span>
+                            <i class="fa-solid fa-robot text-indigo-600 text-sm"></i>
+                            <span>AI Clinical Tutor Breakdown & Core Pathophysiology (${q.topic || 'Clinical Mastery'})</span>
                         </div>
                         <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>Pathophysiology & Clinical Judgment:</strong> When evaluating <em>${q.topic || 'this scenario'}</em>, prioritize immediate physiological stability and client safety. Rationales emphasize recognizing subtle early signs of clinical decompensation before acute failure occurs.
+                            <strong>Pathophysiology Insight:</strong> In scenarios involving <em>${q.topic || 'this clinical condition'}</em>, prioritize immediate physiological stability under the NCLEX Clinical Judgment Measurement Model (NCJMM). Always recognize early signs of decompensation prior to emergency onset.
                         </p>
-                        <div class="p-2.5 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
-                            <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> NCLEX Strategy: ${strategy.title}</strong>
+                        <div class="p-3 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
+                            <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> Strategy Core Rule: ${strategy.title}</strong>
                             <span>${strategy.rule} <span class="font-bold text-indigo-900">${strategy.mnemonic}</span></span>
                         </div>
                     </div>
@@ -670,7 +664,8 @@
                                 </span>
                                 <h4 class="font-bold text-sm text-slate-900 mt-1">${q.questionText}</h4>
                             </div>
-                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
+                            <!-- Instant Summary Bookmark Toggle -->
+                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 shrink-0 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
                                 <i class="${isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}"></i>
                                 <span>${isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
                             </button>
@@ -809,7 +804,6 @@
             }
         }
 
-        
         function persistBookmark(qId) {
             let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             state.studentStats = state.studentStats || {};
@@ -826,191 +820,5 @@
             loadQuestionsFromJS();
         };
     </script>
-
-    <!-- YOUTUBE LECTURE MODAL PLAYER -->
-    <div id="youtube-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full p-6 space-y-4 flex flex-col">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold">
-                        <i class="fa-brands fa-youtube text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 id="youtube-modal-title" class="font-bold text-slate-900 text-base">NCLEX Lecture Video</h3>
-                        <p class="text-xs text-slate-500">Official QuikRN Recommended Review Resource</p>
-                    </div>
-                </div>
-                <button onclick="closeYouTubeModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
-                <iframe id="youtube-iframe" class="w-full h-full" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <div class="pt-2 flex justify-between items-center">
-                <span class="text-xs text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i> Watch full rationale breakdown to master this clinical concept.</span>
-                <button onclick="closeYouTubeModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close Video</button>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        
-        let currentActiveQuestionId = null;
-
-        function openYouTubeModal(url, title, questionId) {
-            currentActiveQuestionId = questionId;
-            const modal = document.getElementById('youtube-modal');
-            const iframe = document.getElementById('youtube-iframe');
-            const titleElem = document.getElementById('youtube-modal-title');
-            const noteInput = document.getElementById('video-note-input');
-            
-            if (titleElem) titleElem.textContent = title || 'NCLEX Lecture Video';
-            
-            let embedUrl = url;
-            if (url.includes('watch?v=')) {
-                const videoId = url.split('watch?v=')[1].split('&')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            } else if (url.includes('youtu.be/')) {
-                const videoId = url.split('youtu.be/')[1].split('?')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            }
-            
-            if (iframe) iframe.src = embedUrl;
-            
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            if (noteInput) {
-                noteInput.value = (state.questionNotes && state.questionNotes[questionId]) || '';
-            }
-            
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function handleVideoNoteInput() {
-            if (!currentActiveQuestionId) return;
-            const noteText = document.getElementById('video-note-input').value;
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            
-            state.questionNotes = state.questionNotes || {};
-            state.questionNotes[currentActiveQuestionId] = noteText;
-            
-            state.studentStats = state.studentStats || { favorites: [] };
-            state.studentStats.favorites = state.studentStats.favorites || [];
-            if (!state.studentStats.favorites.includes(currentActiveQuestionId) && noteText.trim().length > 0) {
-                state.studentStats.favorites.push(currentActiveQuestionId);
-            }
-            
-            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
-            
-            const status = document.getElementById('auto-bookmark-status');
-            if (status && noteText.trim().length > 0) {
-                status.classList.remove('hidden');
-            }
-        }
-
-        function closeYouTubeModal() {
-            const modal = document.getElementById('youtube-modal');
-            const iframe = document.getElementById('youtube-iframe');
-            if (iframe) iframe.src = '';
-            if (modal) modal.classList.add('hidden');
-            currentActiveQuestionId = null;
-            if (typeof loadSavedQuestions === 'function') loadSavedQuestions();
-        }
-
-    </script>
-
-
-    <!-- GOOGLE GEMINI SIDEBAR & CONDITIONAL AI TUTOR SCRIPT -->
-    <div id="gemini-sidebar" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col transform transition-transform duration-300 translate-x-full">
-        <div class="p-4 bg-ncsbn-navy text-white flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
-                <span class="font-bold text-sm">Google Gemini AI Tutor</span>
-            </div>
-            <button onclick="closeGeminiSidebar()" class="text-slate-300 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="flex-grow p-4 flex flex-col space-y-3 bg-slate-50">
-            <p class="text-xs text-slate-600">Automatically searching tips to master: <strong id="gemini-topic-label" class="text-slate-900"></strong></p>
-            <div class="flex-grow bg-white rounded-xl border border-slate-200 overflow-hidden shadow-inner flex flex-col">
-                <iframe id="gemini-iframe" class="w-full h-full border-0" src=""></iframe>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function handleAITutorClick(topic, rationale) {
-            let authProvider = localStorage.getItem('auth_provider') || 'email';
-            try {
-                const studentState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                if (studentState.provider) {
-                    authProvider = studentState.provider;
-                }
-            } catch(e) {}
-
-            if (authProvider === 'google.com' || authProvider === 'google' || authProvider === 'gmail') {
-                openGoogleGeminiSidebar(topic || 'NCLEX Clinical Judgment');
-            } else {
-                openBrowserAITutorModal(topic, rationale);
-            }
-        }
-
-        
-        function openGoogleGeminiSidebar(topic) {
-            const encodedQuery = encodeURIComponent(`NCLEX clinical judgment tips ${topic} core pathophysiology`);
-            window.open(`https://www.google.com/search?q=${encodedQuery}`, '_blank');
-        }
-
-        function closeGeminiSidebar() {
-            const sidebar = document.getElementById('gemini-sidebar');
-            if (sidebar) sidebar.classList.add('translate-x-full');
-        }
-
-        function openBrowserAITutorModal(topic, rationale) {
-            const modal = document.getElementById('ai-tutor-modal');
-            const content = document.getElementById('ai-tutor-content');
-            
-            const encodedTopic = encodeURIComponent(topic || 'NCLEX clinical judgment');
-            const freeResourcesHTML = `
-                <div class="mt-4 p-3 bg-white rounded-xl border border-indigo-200 space-y-2">
-                    <strong class="text-indigo-900 text-xs block"><i class="fa-solid fa-globe text-blue-600 mr-1"></i> Free Online Reading & References:</strong>
-                    <ul class="text-[11px] text-blue-700 space-y-1 list-disc pl-4 font-medium">
-                        <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK470438/" target="_blank" rel="noopener noreferrer" class="hover:underline">NCLEX Clinical Judgment Measurement Model (NCJMM) Overview - NIH / StatPearls</a></li>
-                        <li><a href="https://www.google.com/search?q=${encodedTopic}+nursing+intervention+guidelines+filetype:pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Free Clinical Practice Guidelines & PDFs (${topic || 'Core Nursing'})</a></li>
-                        <li><a href="https://www.cdc.gov" target="_blank" rel="noopener noreferrer" class="hover:underline">CDC Disease & Treatment Guidelines</a></li>
-                    </ul>
-                </div>
-            `;
-
-            if (content) {
-                content.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm border-b border-indigo-200 pb-2">
-                            <i class="fa-solid fa-robot animate-bounce"></i>
-                            <span>Nurse AI Deep-Dive Tutor: ${topic || 'Clinical Mastery'}</span>
-                        </div>
-                        
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>Advanced Pathophysiology & Priority Breakdown:</strong><br>
-                            When analyzing <em>${topic || 'this clinical concept'}</em> on the NCLEX, examine how physiological instability alters client outcomes. Focus on the underlying disease mechanisms, early subtle compensatory signs before decompensation occurs, and immediate nursing actions required under the Clinical Judgment Measurement Model (NCJMM).
-                        </p>
-
-                        <div class="p-3 bg-indigo-50/80 rounded-xl border border-indigo-200 space-y-1.5">
-                            <strong class="text-indigo-950 text-xs block"><i class="fa-solid fa-stethoscope text-indigo-600 mr-1"></i> Expanded Clinical Insights & Distractor Traps:</strong>
-                            <p class="text-slate-700 text-[11px] leading-relaxed">
-                                Test-takers frequently fall for distractor options that suggest routine nursing assessments when an immediate, life-saving intervention is required. Always remember that monitoring is secondary to direct airway, breathing, or hemodynamic stabilization when dealing with acute client distress.
-                            </p>
-                        </div>
-
-                        ${freeResourcesHTML}
-                    </div>
-                `;
-            }
-            if (modal) modal.classList.remove('hidden');
-        }
-        function closeAITutorModal() {
-            const modal = document.getElementById('ai-tutor-modal');
-            if (modal) modal.classList.add('hidden');
-        }
-
-    </script>
-
 </body>
 </html>
