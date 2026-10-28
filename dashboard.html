@@ -75,7 +75,7 @@
     <div id="app-shell" class="flex h-full overflow-hidden flex-1">
         
         <!-- Sidebar Navigation -->
-        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex flex-shrink-0">
+        <aside id="app-sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col flex-shrink-0 z-30 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out">
             <div class="p-6 flex items-center space-x-3 border-b border-slate-100">
                 <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/30">
                     <i class="fa-solid fa-bolt-lightning"></i>
@@ -143,8 +143,9 @@
             
             <!-- Top Header -->
             <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 flex-shrink-0">
-                <div class="flex items-center space-x-4">
-                    <h1 id="page-title" class="text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
+                <div class="flex items-center space-x-3">
+                    <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none"><i class="fa-solid fa-bars text-lg"></i></button>
+                    <h1 id="page-title" class="text-lg lg:text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-3">
                     <a href="profile.html" class="flex items-center space-x-2.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all">
@@ -1435,6 +1436,14 @@
                     }
                 }
             });
+        }
+
+        
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('app-sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('-translate-x-full');
+            }
         }
 
         function switchTab(tabId) {
