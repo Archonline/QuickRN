@@ -539,6 +539,54 @@
     </div>
 </div>
 
+<!-- FINISHED TESTS MODAL -->
+<div id="finished-tests-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base">Finished Test History</h3>
+                    <p class="text-xs text-slate-500">All completed exams and finished test sessions</p>
+                </div>
+            </div>
+            <button onclick="closeFinishedTestsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="finished-tests-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+            <!-- Dynamically populated -->
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex justify-end">
+            <button onclick="closeFinishedTestsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- SPECIFIC EXAMS HISTORY MODAL (CAT & PREDICTOR) -->
+<div id="specific-exams-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <div>
+                    <h3 id="modal-exam-title" class="font-bold text-slate-900 text-base">Exam History</h3>
+                    <p class="text-xs text-slate-500">All recorded previous exam attempts</p>
+                </div>
+            </div>
+            <button onclick="closeSpecificExamsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="specific-exams-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+            <!-- Dynamically populated -->
+        </div>
+        <div class="pt-3 border-t border-slate-100 flex justify-end">
+            <button onclick="closeSpecificExamsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+        </div>
+    </div>
+</div>
+
 <!-- JavaScript Application Logic -->
 <script>
     // Array of Encouraging Quotes
@@ -1313,6 +1361,178 @@
         };
         const pageTitle = document.getElementById('page-title');
         if (pageTitle) pageTitle.textContent = titles[tabId] || 'Dashboard';
+    }
+
+    function openFinishedTestsModal() {
+        const container = document.getElementById('finished-tests-list');
+        let finishedExams = [];
+
+        const savedState = localStorage.getItem('quickrn_student_state');
+        if (savedState) {
+            try {
+                const parsed = JSON.parse(savedState);
+                if (parsed.studentStats) {
+                    if (Array.isArray(parsed.studentStats.examHistory)) {
+                        finishedExams = parsed.studentStats.examHistory.filter(ex => ex.isFinished || ex.finished || ex.scorePercent !== undefined);
+                    }
+                    if (Array.isArray(parsed.studentStats.predictorHistory)) {
+                        parsed.studentStats.predictorHistory.forEach(r => {
+                            finishedExams.push({
+                                type: 'NCLEX Predictor Exam',
+                                scorePercent: r.scorePercent || r.score || 0,
+                                date: r.date || new Date().toLocaleString(),
+                                details: r.details || 'Completed NCLEX Predictor Exam'
+                            });
+                        });
+                    }
+                }
+            } catch(e) {}
+        }
+
+        if (finishedExams.length === 0) {
+            container.innerHTML = `
+                <div class="p-8 text-center space-y-2">
+                    <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto"><i class="fa-regular fa-folder-open"></i></div>
+                    <h4 class="font-bold text-slate-800 text-sm">No Finished Tests Yet</h4>
+                    <p class="text-xs text-slate-500">Complete a CAT Exam, Timed Practice Test, or NCLEX Predictor Exam to view finished results here.</p>
+                </div>
+            `;
+        } else {
+            let html = '';
+            finishedExams.forEach((ex, i) => {
+                let score = ex.scorePercent !== undefined ? ex.scorePercent : (ex.score || 0);
+                let title = ex.type || `Exam Attempt #${i + 1}`;
+                let dateStr = ex.date || 'Recent session';
+                let passStatus = score >= 75 ? '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">PASSING</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">NEEDS REVIEW</span>';
+                
+                html += `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-slate-900">${title}</span>
+                                ${passStatus}
+                            </div>
+                            <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${dateStr}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-base font-black text-brand-600">${score}%</span>
+                            <span class="block text-[10px] text-slate-400 uppercase">Score</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.getElementById('finished-tests-modal').classList.remove('hidden');
+    }
+
+    function closeFinishedTestsModal() {
+        document.getElementById('finished-tests-modal').classList.add('hidden');
+    }
+
+    function openCatExamsModal() {
+        const container = document.getElementById('specific-exams-list');
+        document.getElementById('modal-exam-title').textContent = 'CAT Exam History & Previous Attempts';
+        let catHistory = [];
+
+        const savedState = localStorage.getItem('quickrn_student_state');
+        if (savedState) {
+            try {
+                const parsed = JSON.parse(savedState);
+                if (parsed.studentStats && Array.isArray(parsed.studentStats.examHistory)) {
+                    catHistory = parsed.studentStats.examHistory;
+                }
+            } catch(e) {}
+        }
+
+        if (catHistory.length === 0) {
+            container.innerHTML = `
+                <div class="p-8 text-center space-y-2">
+                    <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
+                    <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
+                    <a href="cat.html" class="inline-block mt-3 px-4 py-2 text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
+                </div>
+            `;
+        } else {
+            let html = '';
+            catHistory.forEach((ex, i) => {
+                let score = ex.scorePercent || ex.score || 0;
+                let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">PASSING</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">NEAR PASSING</span>';
+                html += `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-slate-900">CAT Attempt #${i + 1}</span>
+                                ${passStatus}
+                            </div>
+                            <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed session'}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-base font-black text-amber-600">${score}%</span>
+                            <span class="block text-[10px] text-slate-400 uppercase">CAT Score</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        document.getElementById('specific-exams-modal').classList.remove('hidden');
+    }
+
+    function openPredictorExamsModal() {
+        const container = document.getElementById('specific-exams-list');
+        document.getElementById('modal-exam-title').textContent = 'NCLEX Predictor Exam History & Previous Attempts';
+        let predictorHistory = [];
+
+        const savedState = localStorage.getItem('quickrn_student_state');
+        if (savedState) {
+            try {
+                const parsed = JSON.parse(savedState);
+                if (parsed.studentStats && Array.isArray(parsed.studentStats.predictorHistory)) {
+                    predictorHistory = parsed.studentStats.predictorHistory;
+                }
+            } catch(e) {}
+        }
+
+        if (predictorHistory.length === 0) {
+            container.innerHTML = `
+                <div class="p-8 text-center space-y-2">
+                    <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <h4 class="font-bold text-slate-800 text-sm">No NCLEX Predictor Exams Completed Yet</h4>
+                    <p class="text-xs text-slate-500">Take the Predictive Test to assess your readiness and record your score history here.</p>
+                    <a href="predictor.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
+                </div>
+            `;
+        } else {
+            let html = '';
+            predictorHistory.forEach((ex, i) => {
+                let score = ex.scorePercent || ex.score || 0;
+                let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">HIGH LIKELIHOOD</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">BORDERLINE</span>';
+                html += `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                        <div class="space-y-1">
+                            <div class="flex items-center space-x-2">
+                                <span class="font-bold text-slate-900">Predictive Test Attempt #${i + 1}</span>
+                                ${passStatus}
+                            </div>
+                            <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed assessment'}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-base font-black text-purple-600">${score}%</span>
+                            <span class="block text-[10px] text-slate-400 uppercase">Predictor Score</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+        document.getElementById('specific-exams-modal').classList.remove('hidden');
+    }
+
+    function closeSpecificExamsModal() {
+        document.getElementById('specific-exams-modal').classList.add('hidden');
     }
 
     function showToast(message, type = 'info') {
