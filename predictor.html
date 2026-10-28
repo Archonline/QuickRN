@@ -48,7 +48,7 @@
             <div class="bg-white text-[#002244] font-black text-sm px-2.5 py-1 rounded tracking-wider shadow">NCLEX-RN</div>
             <span class="text-sm font-semibold tracking-wide text-slate-200 border-l border-slate-600 pl-4 hidden sm:inline">NCSBN Computerized Adaptive Test (CAT) Simulation</span>
         </div>
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-4">
             <!-- Timer Display -->
             <div class="flex items-center gap-2 bg-[#00152a] px-3.5 py-1.5 rounded border border-slate-700">
                 <i class="fa-regular fa-clock text-amber-400 text-xs"></i>
@@ -58,8 +58,12 @@
                 <span id="cat-mode-badge" class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
                     <i class="fas font-mono text-xs mr-1">⚡</i> Adaptive CAT
                 </span>
-                <button id="btn-calculator" class="nclex-btn-secondary px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm">
+                <button id="btn-calculator" class="nclex-btn-secondary px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-slate-800 hover:bg-slate-700 text-white">
                     <i class="fas fa-calculator mr-1.5"></i> Calculator
+                </button>
+                <!-- Exit Button Added Here -->
+                <button onclick="promptExit()" class="px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-red-600 hover:bg-red-700 text-white transition">
+                    <i class="fas fa-right-from-bracket mr-1.5"></i> Exit
                 </button>
             </div>
         </div>
@@ -89,10 +93,15 @@
         <div class="mt-3 bg-white border border-slate-300 rounded-md p-3 px-5 flex justify-between items-center shadow-sm">
             <div class="text-xs text-slate-500 flex items-center gap-2">
                 <i class="fa-solid fa-lock text-slate-400"></i> 
-                <span>NCLEX Adaptive Secure Engine v4.2</span>
+                <span>NCLEX Adaptive Secure Engine v5.0 (Unlimited Questions Linked)</span>
             </div>
             <div class="flex items-center gap-3">
-                <!-- Submit / Proceed Next Item Button -->
+                <!-- Finish Exam Button -->
+                <button onclick="finishAssessment()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-flag-checkered text-[11px]"></i>
+                    <span>Finish Exam</span>
+                </button>
+                <!-- Proceed Next Item Button -->
                 <button id="next-btn" onclick="submitAndProceed()" class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
                     <span>Next</span>
                     <i class="fa-solid fa-chevron-right text-[10px]"></i>
@@ -181,7 +190,7 @@
         <div class="bg-[#002244] text-white px-6 py-4 flex justify-between items-center border-b border-slate-700 shadow-md">
             <div>
                 <h2 class="text-lg font-bold">NCLEX-RN Predictor Performance Report</h2>
-                <p class="text-xs text-slate-300">CAT Assessment Results & Detailed Item Analysis</p>
+                <p class="text-xs text-slate-300">CAT Assessment Results & Detailed Item Analysis (Wrong Items Prioritized)</p>
             </div>
             <button onclick="returnToDashboard()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded transition shadow flex items-center gap-2">
                 <i class="fa-solid fa-house"></i>
@@ -219,13 +228,13 @@
                 </div>
             </div>
 
-            <!-- Detailed Question Log & Bookmarks -->
+            <!-- Detailed Question Log & Bookmarks (Wrong Items First with AI Tutor, Videos, PDFs) -->
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Question Log & Explanatory Review</h3>
-                    <span class="text-xs text-slate-500"><i class="fa-regular fa-bookmark text-amber-500 mr-1"></i>Click bookmark icons to save questions for future study.</span>
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Exam Summary & Remediation (Wrong Items First)</h3>
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i>Review missed questions with AI Tutor, video recommendations, and PDF sources.</span>
                 </div>
-                <div id="summary-question-list" class="space-y-4">
+                <div id="summary-question-list" class="space-y-6">
                     <!-- Rendered dynamically -->
                 </div>
             </div>
@@ -249,20 +258,21 @@
         // On Page Initialization
         window.addEventListener('DOMContentLoaded', () => {
             initializeQuestionsPool();
-            checkTakesRemaining();
+            startExamTimer();
+            renderQuestionItem();
         });
 
-        // Initialize and Verify Questions Data Source
+        // Initialize and Verify Questions Data Source from questions.js without limit
         function initializeQuestionsPool() {
             let questionsPool = [];
 
-            // Attempt loading questions array from questions.js
             if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
                 questionsPool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
+                questionsPool = embeddedQuestionsData;
             } else if (typeof window.nclexQuestions !== 'undefined' && Array.isArray(window.nclexQuestions) && window.nclexQuestions.length > 0) {
                 questionsPool = window.nclexQuestions;
             } else {
-                // Fallback NCLEX Sample Set if external file is missing/unreachable
                 questionsPool = [
                     {
                         id: 'q1',
@@ -277,69 +287,13 @@
                         category: 'Physiological Adaptation',
                         topic: 'Pharmacology',
                         rationale: 'Digoxin slows heart rate. Apical pulse must be checked for a full minute; hold medication if pulse < 60 bpm.'
-                    },
-                    {
-                        id: 'q2',
-                        question: 'A nurse is caring for a patient presenting with suspected diabetic ketoacidosis (DKA). Which arterial blood gas result aligns with this diagnosis?',
-                        options: [
-                            'pH 7.52, PaCO2 30 mmHg, HCO3 26 mEq/L',
-                            'pH 7.28, PaCO2 36 mmHg, HCO3 16 mEq/L',
-                            'pH 7.35, PaCO2 50 mmHg, HCO3 30 mEq/L',
-                            'pH 7.48, PaCO2 48 mmHg, HCO3 32 mEq/L'
-                        ],
-                        correctAnswer: 'B',
-                        category: 'Physiological Adaptation',
-                        topic: 'Acid-Base Balance',
-                        rationale: 'DKA causes metabolic acidosis characterized by low pH (<7.35) and low serum bicarbonate (<22 mEq/L).'
                     }
                 ];
             }
 
-            // Build Adaptive Exam Set
-            activeExamQuestions = buildAdaptiveExamSet(questionsPool);
+            // Use the full pool or robust shuffle without artificial low cap
+            activeExamQuestions = [...questionsPool].sort(() => 0.5 - Math.random());
             document.getElementById('total-item-num').innerText = activeExamQuestions.length;
-        }
-
-        // Limit Check for 4 Total Exam Takes
-        function checkTakesRemaining() {
-            let takesLeft = 4;
-            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
-            if (savedTakes !== null) {
-                takesLeft = parseInt(savedTakes, 10);
-            }
-
-            if (takesLeft <= 0) {
-                document.getElementById('exam-workspace').innerHTML = `
-                    <div class="p-12 text-center w-full my-auto space-y-4">
-                        <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-ban"></i></div>
-                        <h3 class="text-xl font-bold text-slate-900">Assessment Attempt Limit Reached</h3>
-                        <p class="text-xs text-slate-600 max-w-md mx-auto">You have used all 4 allotted NCLEX Predictor Exam takes. Review your previous exam logs or continue practice in the Q-Bank.</p>
-                        <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-lg text-xs hover:bg-slate-800 transition">Return to Dashboard</button>
-                    </div>
-                `;
-                document.getElementById('next-btn').disabled = true;
-                document.getElementById('next-btn').classList.add('opacity-50', 'cursor-not-allowed');
-            } else {
-                startExamTimer();
-                renderQuestionItem();
-            }
-        }
-
-        // Adaptive Selection Logic
-        function buildAdaptiveExamSet(pool) {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            let answeredIds = new Set(state.answeredQuestionIds || []);
-
-            let availablePool = pool.filter(q => !answeredIds.has(q.id || q.questionText));
-            if (availablePool.length < 20) {
-                // If exhausted, reset answered pool
-                state.answeredQuestionIds = [];
-                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
-                availablePool = [...pool];
-            }
-
-            let shuffled = [...availablePool].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, Math.min(shuffled.length, 50));
         }
 
         // Timer Engine
@@ -351,7 +305,6 @@
 
                     updateTimerDisplay();
 
-                    // Offer scheduled break between 2 and 3 hours elapsed (7200s - 10800s)
                     if (totalElapsedSeconds >= 7200 && totalElapsedSeconds <= 10800 && !breakOffered) {
                         offerScheduledBreak();
                     }
@@ -377,7 +330,6 @@
             timerEl.innerText = formatted;
         }
 
-        // Scheduled Break Handling
         function offerScheduledBreak() {
             breakOffered = true;
             document.getElementById('break-modal').classList.remove('hidden');
@@ -398,7 +350,7 @@
             document.getElementById('pause-modal').classList.add('hidden');
         }
 
-        // Exit Logic — Ensure Discard Without Saving
+        // Exit Logic — Ensure Discard Without Recording to Dashboard
         function promptExit() {
             document.getElementById('exitModal').classList.remove('hidden');
         }
@@ -409,8 +361,7 @@
 
         function confirmExitAndDiscard() {
             if (timerInterval) clearInterval(timerInterval);
-            
-            // Discard active session without saving stats or decreasing attempt counts
+            // Discard active session without saving stats
             window.location.href = 'dashboard.html';
         }
 
@@ -423,7 +374,6 @@
 
             const q = activeExamQuestions[currentQuestionIndex];
             
-            // Update Headers
             document.getElementById('current-item-num').innerText = currentQuestionIndex + 1;
             document.getElementById('current-category').innerText = q.category || 'General Nursing';
             
@@ -439,9 +389,7 @@
 
             const selectedOption = userAnswers[currentQuestionIndex];
 
-            // Render Official NCLEX Split View Layout
             let html = `
-                <!-- Left Panel: Scenario / Prompt -->
                 <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-between bg-slate-50/50 overflow-y-auto custom-scrollbar">
                     <div class="space-y-4">
                         <div class="inline-block bg-slate-200 text-slate-700 text-[10px] font-bold uppercase px-2 py-0.5 rounded">
@@ -454,14 +402,12 @@
                     </div>
                 </div>
 
-                <!-- Right Panel: Answer Options -->
                 <div class="w-full md:w-1/2 p-6 flex flex-col justify-between bg-white overflow-y-auto custom-scrollbar">
                     <div class="space-y-3">
                         <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Options</span>
             `;
 
-            if (q.options && q.options.length > 0) {
-                let qOptions = q.options;
+            let qOptions = q.options;
             if (!qOptions || !Array.isArray(qOptions) || qOptions.length === 0) {
                 qOptions = [
                     "Perform focused clinical assessment and monitor vital signs",
@@ -471,19 +417,18 @@
                 ];
             }
             qOptions.forEach((opt, idx) => {
-                    const letter = String.fromCharCode(65 + idx);
-                    const isSelected = selectedOption === letter;
+                const letter = String.fromCharCode(65 + idx);
+                const isSelected = selectedOption === letter;
 
-                    html += `
-                        <button onclick="selectOption('${letter}')" class="w-full text-left p-3.5 rounded border transition flex items-start gap-3 ${isSelected ? 'bg-blue-50 border-nclex-blue font-semibold text-nclex-blue shadow-sm' : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700'}">
-                            <span class="w-6 h-6 rounded-full flex items-center justify-center border text-xs font-bold ${isSelected ? 'bg-nclex-blue text-white border-nclex-blue' : 'bg-slate-100 border-slate-300 text-slate-600'}">
-                                ${letter}
-                            </span>
-                            <span class="text-xs pt-0.5 flex-1 leading-normal">${opt}</span>
-                        </button>
-                    `;
-                });
-            }
+                html += `
+                    <button onclick="selectOption('${letter}')" class="w-full text-left p-3.5 rounded border transition flex items-start gap-3 ${isSelected ? 'bg-blue-50 border-nclex-blue font-semibold text-nclex-blue shadow-sm' : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700'}">
+                        <span class="w-6 h-6 rounded-full flex items-center justify-center border text-xs font-bold ${isSelected ? 'bg-nclex-blue text-white border-nclex-blue' : 'bg-slate-100 border-slate-300 text-slate-600'}">
+                            ${letter}
+                        </span>
+                        <span class="text-xs pt-0.5 flex-1 leading-normal">${opt}</span>
+                    </button>
+                `;
+            });
 
             html += `
                     </div>
@@ -512,39 +457,35 @@
             }
         }
 
-        // Finalize Exam & Record Stats (ONLY executed on completion)
+        // Finalize Exam & Record Stats & Update Dashboard
         function finishAssessment() {
-            clearInterval(timerInterval);
+            if (timerInterval) clearInterval(timerInterval);
 
-            // Calculate Score & CAT Metrics
             let correctCount = 0;
+            let answeredCount = 0;
             let domainStats = {};
 
             activeExamQuestions.forEach((q, idx) => {
                 const userAns = userAnswers[idx];
-                const isCorrect = userAns === q.correctAnswer;
-                if (isCorrect) correctCount++;
+                if (userAns !== undefined) {
+                    answeredCount++;
+                    const isCorrect = userAns === q.correctAnswer;
+                    if (isCorrect) correctCount++;
+                }
 
                 const domain = q.category || 'General Nursing';
                 if (!domainStats[domain]) domainStats[domain] = { total: 0, correct: 0 };
                 domainStats[domain].total++;
-                if (isCorrect) domainStats[domain].correct++;
+                if (userAns === q.correctAnswer) domainStats[domain].correct++;
             });
 
-            const scorePercent = Math.round((correctCount / activeExamQuestions.length) * 100);
+            const totalGraded = answeredCount > 0 ? answeredCount : 1;
+            const scorePercent = Math.round((correctCount / totalGraded) * 100);
             
-            // CAT Theta Ability Calculation
             studentTheta = ((scorePercent - 65) / 10).toFixed(2);
             const passingProbability = Math.min(99, Math.max(15, Math.round(scorePercent * 1.05 + 5)));
 
-            // Update Remaining Takes
-            let takesLeft = 4;
-            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
-            if (savedTakes !== null) takesLeft = parseInt(savedTakes, 10);
-            takesLeft = Math.max(0, takesLeft - 1);
-            localStorage.setItem('quickrn_predictor_takes', takesLeft.toString());
-
-            // Persist Exam Results to Local Storage
+            // Persist Exam Results to Local Storage for Dashboard & Line Graph
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || {
                 testsTaken: 0,
@@ -553,38 +494,45 @@
                 mistakeCount: 0,
                 passingProbability: 0,
                 examHistory: [],
+                predictorHistory: [],
                 favorites: []
             };
 
             stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += activeExamQuestions.length;
+            stateObj.studentStats.totalAnswered += answeredCount;
             stateObj.studentStats.correctCount += correctCount;
+            stateObj.studentStats.mistakeCount += (answeredCount - correctCount);
+            stateObj.studentStats.passingProbability = passingProbability;
 
             stateObj.answeredQuestionIds = stateObj.answeredQuestionIds || [];
-            activeExamQuestions.forEach(q => {
-                let qId = q.id || q.questionText;
-                if (!stateObj.answeredQuestionIds.includes(qId)) {
-                    stateObj.answeredQuestionIds.push(qId);
+            activeExamQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] !== undefined) {
+                    let qId = q.id || q.questionText;
+                    if (!stateObj.answeredQuestionIds.includes(qId)) {
+                        stateObj.answeredQuestionIds.push(qId);
+                    }
                 }
             });
-            stateObj.studentStats.mistakeCount += (activeExamQuestions.length - correctCount);
-            stateObj.studentStats.passingProbability = passingProbability;
-            stateObj.studentStats.predictorTakesCount = takesLeft;
 
-            // Log exam record
-            stateObj.studentStats.examHistory.unshift({
+            const examRecord = {
+                type: 'NCLEX Predictor Exam',
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                mode: 'NCLEX Predictor Exam (CAT)',
-                total: activeExamQuestions.length,
+                total: answeredCount,
                 scorePercent,
                 passingProbability,
                 theta: studentTheta,
                 domainStats
-            });
+            };
+
+            stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
+            stateObj.studentStats.examHistory.unshift(examRecord);
+
+            stateObj.studentStats.predictorHistory = stateObj.studentStats.predictorHistory || [];
+            stateObj.studentStats.predictorHistory.unshift(examRecord);
 
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Display Detailed Performance Report
+            // Display Detailed Summary Report (Wrong Items First)
             displaySummaryReport(scorePercent, passingProbability, studentTheta, domainStats);
         }
 
@@ -594,10 +542,9 @@
             document.getElementById('summary-theta').innerText = (theta > 0 ? `+${theta}` : theta);
             document.getElementById('summary-total-items').innerText = activeExamQuestions.length;
 
-            // Domain List Breakdown
             let domainHtml = '';
             for (const [dom, data] of Object.entries(domainStats)) {
-                const domPct = Math.round((data.correct / data.total) * 100);
+                const domPct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
                 domainHtml += `
                     <div class="p-3 bg-slate-50 rounded border border-slate-200">
                         <div class="flex justify-between font-semibold mb-1">
@@ -612,32 +559,73 @@
             }
             document.getElementById('domain-breakdown-list').innerHTML = domainHtml;
 
-            // Question Log & Review Area
+            // Sort questions: Wrong items first, then correct items
+            let sortedItems = activeExamQuestions.map((q, idx) => ({
+                q,
+                idx,
+                uAns: userAnswers[idx],
+                isCorrect: userAnswers[idx] === q.correctAnswer
+            })).sort((a, b) => (a.isCorrect === b.isCorrect ? 0 : a.isCorrect ? 1 : -1));
+
             let qHtml = '';
-            activeExamQuestions.forEach((q, idx) => {
-                const uAns = userAnswers[idx];
-                const isCorrect = uAns === q.correctAnswer;
+            sortedItems.forEach(({ q, idx, uAns, isCorrect }) => {
                 const isBookmarked = bookmarkedQuestions[q.id] || false;
+                const topicName = q.topic || q.category || 'Clinical Nursing';
 
                 qHtml += `
-                    <div class="p-4 rounded-lg border ${isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-rose-200 bg-rose-50/30'} space-y-3">
+                    <div class="p-5 rounded-xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-300 bg-rose-50/30'} space-y-4 shadow-xs">
                         <div class="flex justify-between items-start gap-4">
                             <div class="space-y-1">
-                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                                    Item ${idx + 1}: ${isCorrect ? 'Correct' : 'Incorrect'}
+                                <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800 font-extrabold'}">
+                                    Item ${idx + 1}: ${isCorrect ? 'Correct' : 'Incorrect (Prioritized Review)'}
                                 </span>
-                                <h4 class="text-xs font-bold text-slate-900 pt-1">${q.question}</h4>
+                                <h4 class="text-sm font-bold text-slate-900 pt-1 leading-snug">${q.question}</h4>
                             </div>
                             <button onclick="toggleBookmark('${q.id}', this)" class="text-slate-400 hover:text-amber-500 transition text-sm">
                                 <i class="${isBookmarked ? 'fa-solid fa-bookmark text-amber-500' : 'fa-regular fa-bookmark'}"></i>
                             </button>
                         </div>
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
-                            <div><span class="text-slate-500">Your Selection:</span> <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${uAns || 'None'}</strong></div>
-                            <div><span class="text-slate-500">Correct Answer:</span> <strong class="text-emerald-700">${q.correctAnswer}</strong></div>
+                            <div class="p-2.5 rounded bg-white border border-slate-200"><span class="text-slate-500 block text-[10px] uppercase font-bold">Your Selection</span> <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'} text-sm">${uAns || 'Unanswered'}</strong></div>
+                            <div class="p-2.5 rounded bg-white border border-slate-200"><span class="text-slate-500 block text-[10px] uppercase font-bold">Correct Answer</span> <strong class="text-emerald-700 text-sm">${q.correctAnswer} (${q.correctAnswerText || 'Correct Option'})</strong></div>
                         </div>
-                        <div class="text-xs bg-white p-3 rounded border border-slate-200 text-slate-600 leading-relaxed">
-                            <strong class="text-slate-800">Rationale:</strong> ${q.rationale || 'N/A'}
+
+                        <!-- Rationale -->
+                        <div class="text-xs bg-white p-4 rounded-xl border border-slate-200 text-slate-700 leading-relaxed space-y-1">
+                            <strong class="text-slate-900 block font-bold"><i class="fa-solid fa-circle-info text-blue-600 mr-1.5"></i> Clinical Rationale:</strong>
+                            <p>${q.rationale || q.learningObjective || 'Review core foundational pathophysiological principles for this topic.'}</p>
+                        </div>
+
+                        <!-- AI Tutor Insights -->
+                        <div class="text-xs bg-indigo-50/70 p-4 rounded-xl border border-indigo-200 text-indigo-900 leading-relaxed space-y-1">
+                            <strong class="block font-bold text-indigo-950"><i class="fa-solid fa-brain text-indigo-600 mr-1.5"></i> AI Clinical Tutor Insight:</strong>
+                            <p>To master questions on <strong>${topicName}</strong>, always prioritize client safety and airway/circulation stability. Focus on why distractors are incorrect based on NCSBN clinical judgment measurement models.</p>
+                        </div>
+
+                        <!-- Video Recommendation & PDF Sources -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+                            <div class="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center"><i class="fa-brands fa-youtube"></i></div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900">Video Masterclass</span>
+                                        <span class="block text-[10px] text-slate-500">NCLEX Review: ${topicName}</span>
+                                    </div>
+                                </div>
+                                <a href="https://www.youtube.com/results?search_query=nclex+rn+${encodeURIComponent(topicName)}" target="_blank" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Watch</a>
+                            </div>
+
+                            <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900">PDF Study Source</span>
+                                        <span class="block text-[10px] text-slate-500">Open-Access Clinical Guide</span>
+                                    </div>
+                                </div>
+                                <a href="https://www.ncbi.nlm.nih.gov/pmc/?term=${encodeURIComponent(topicName)}" target="_blank" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-[11px] transition">Open PDF</a>
+                            </div>
                         </div>
                     </div>
                 `;
