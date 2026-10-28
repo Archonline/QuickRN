@@ -61,7 +61,7 @@
                 <button id="btn-calculator" class="nclex-btn-secondary px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-slate-800 hover:bg-slate-700 text-white">
                     <i class="fas fa-calculator mr-1.5"></i> Calculator
                 </button>
-                <!-- Exit Button Added Here -->
+                <!-- Exit Button -->
                 <button onclick="promptExit()" class="px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-red-600 hover:bg-red-700 text-white transition">
                     <i class="fas fa-right-from-bracket mr-1.5"></i> Exit
                 </button>
@@ -93,22 +93,35 @@
         <div class="mt-3 bg-white border border-slate-300 rounded-md p-3 px-5 flex justify-between items-center shadow-sm">
             <div class="text-xs text-slate-500 flex items-center gap-2">
                 <i class="fa-solid fa-lock text-slate-400"></i> 
-                <span>NCLEX Adaptive Secure Engine v5.0 (Unlimited Questions Linked)</span>
+                <span>NCLEX Adaptive Secure Engine v5.0 (Unlimited Practice Attempts)</span>
             </div>
             <div class="flex items-center gap-3">
-                <!-- Finish Exam Button -->
-                <button onclick="finishAssessment()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
-                    <i class="fa-solid fa-flag-checkered text-[11px]"></i>
-                    <span>Finish Exam</span>
-                </button>
-                <!-- Proceed Next Item Button -->
+                <!-- Action Button: Dynamically toggles between Next & Finish Exam on last item -->
                 <button id="next-btn" onclick="submitAndProceed()" class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
-                    <span>Next</span>
-                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span id="next-btn-text">Next</span>
+                    <i id="next-btn-icon" class="fa-solid fa-chevron-right text-[10px]"></i>
                 </button>
             </div>
         </div>
     </main>
+
+    <!-- CAT AUTOMATIC TERMINATION ANNOUNCEMENT MODAL -->
+    <div id="cat-stop-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-center space-y-4">
+            <div id="cat-stop-icon" class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <h3 id="cat-stop-title" class="text-lg font-bold text-slate-900">CAT Standard Reached</h3>
+                <p id="cat-stop-desc" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    The adaptive algorithm has determined your competency level with 95% statistical confidence.
+                </p>
+            </div>
+            <button onclick="closeCatModalAndShowSummary()" class="w-full bg-[#003366] hover:bg-[#002244] text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow">
+                View Performance Report
+            </button>
+        </div>
+    </div>
 
     <!-- EXIT CONFIRMATION MODAL -->
     <div id="exitModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -118,10 +131,10 @@
             </div>
             <h3 class="text-xl font-bold text-slate-900 text-center mb-2">Exit Assessment?</h3>
             <p class="text-slate-600 text-sm text-center mb-6 leading-relaxed">
-                Exiting will completely <strong class="text-red-600 font-semibold">discard all exam progress</strong> and responses for this session.
+                Exiting will completely <strong class="text-red-600 font-semibold">discard current exam progress</strong> for this session.
                 <br><br>
                 <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium inline-block border border-slate-200">
-                    <i class="fa-solid fa-shield-halved text-slate-500 mr-1"></i> No results will be recorded or calculated into your Dashboard Analytics.
+                    <i class="fa-solid fa-shield-halved text-slate-500 mr-1"></i> Unfinished session stats will not be added to your score history.
                 </span>
             </p>
             <div class="flex gap-3">
@@ -244,6 +257,7 @@
     <!-- ENGINE SCRIPT LOGIC -->
     <script>
         // Global Engine State Variables
+        let questionPool = [];
         let activeExamQuestions = [];
         let currentQuestionIndex = 0;
         let userAnswers = {};
@@ -252,28 +266,36 @@
         let timerInterval = null;
         let isPaused = false;
         let breakOffered = false;
-        let studentTheta = 0.0;
+        let studentTheta = 0.0; // Ability estimate in Logits (-3.0 to +3.0)
+        let semStandardError = 1.0; // Initial standard error
         let bookmarkedQuestions = {};
+
+        // CAT Parameters
+        const MIN_CAT_QUESTIONS = 15;
+        const PASSING_THETA_THRESHOLD = 0.50; // Theta required to pass
+        const FAIL_THETA_THRESHOLD = -0.80;  // Theta below which test stops & fails
+        const CONFIDENCE_SE = 0.35;           // Targeted standard error precision
 
         // On Page Initialization
         window.addEventListener('DOMContentLoaded', () => {
             initializeQuestionsPool();
             startExamTimer();
+            selectNextCatQuestion();
             renderQuestionItem();
         });
 
         // Initialize and Verify Questions Data Source from questions.js without limit
         function initializeQuestionsPool() {
-            let questionsPool = [];
+            let pool = [];
 
             if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
-                questionsPool = window.questions;
+                pool = window.questions;
             } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
-                questionsPool = embeddedQuestionsData;
+                pool = embeddedQuestionsData;
             } else if (typeof window.nclexQuestions !== 'undefined' && Array.isArray(window.nclexQuestions) && window.nclexQuestions.length > 0) {
-                questionsPool = window.nclexQuestions;
+                pool = window.nclexQuestions;
             } else {
-                questionsPool = [
+                pool = [
                     {
                         id: 'q1',
                         question: 'A client with heart failure is prescribed digoxin 0.25 mg IV daily. Prior to administering the medication, which action should the nurse prioritize?',
@@ -286,14 +308,30 @@
                         correctAnswer: 'A',
                         category: 'Physiological Adaptation',
                         topic: 'Pharmacology',
+                        difficulty: 0.0,
                         rationale: 'Digoxin slows heart rate. Apical pulse must be checked for a full minute; hold medication if pulse < 60 bpm.'
                     }
                 ];
             }
 
-            // Use the full pool or robust shuffle without artificial low cap
-            activeExamQuestions = [...questionsPool].sort(() => 0.5 - Math.random());
-            document.getElementById('total-item-num').innerText = activeExamQuestions.length;
+            // Assign baseline difficulty logits if not defined
+            questionPool = pool.map((q, i) => ({
+                ...q,
+                difficulty: typeof q.difficulty === 'number' ? q.difficulty : ((i % 5) - 2) * 0.5 // Range -1.0 to +1.0
+            }));
+        }
+
+        // CAT Item Selection Algorithm based on estimated Theta
+        function selectNextCatQuestion() {
+            const unasked = questionPool.filter(q => !activeExamQuestions.some(aq => aq.id === q.id));
+            if (unasked.length === 0) return;
+
+            // Pick question whose difficulty closest matches student ability (Theta)
+            unasked.sort((a, b) => Math.abs(a.difficulty - studentTheta) - Math.abs(b.difficulty - studentTheta));
+            
+            // Add top match as the next question in active list
+            activeExamQuestions.push(unasked[0]);
+            document.getElementById('total-item-num').innerText = questionPool.length;
         }
 
         // Timer Engine
@@ -350,7 +388,7 @@
             document.getElementById('pause-modal').classList.add('hidden');
         }
 
-        // Exit Logic — Ensure Discard Without Recording to Dashboard
+        // Exit Logic — Discard active session without saving partial state
         function promptExit() {
             document.getElementById('exitModal').classList.remove('hidden');
         }
@@ -361,7 +399,6 @@
 
         function confirmExitAndDiscard() {
             if (timerInterval) clearInterval(timerInterval);
-            // Discard active session without saving stats
             window.location.href = 'dashboard.html';
         }
 
@@ -385,6 +422,19 @@
             } else {
                 typeBadge.innerText = "Traditional Multiple Choice";
                 typeBadge.className = "bg-blue-50 text-nclex-blue border border-blue-200 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase";
+            }
+
+            // Update Next / Finish Exam Action Button Text
+            const nextBtnText = document.getElementById('next-btn-text');
+            const nextBtnIcon = document.getElementById('next-btn-icon');
+            const isLastAvailable = (currentQuestionIndex >= questionPool.length - 1);
+
+            if (isLastAvailable) {
+                nextBtnText.innerText = "Finish Exam";
+                nextBtnIcon.className = "fa-solid fa-flag-checkered text-[10px]";
+            } else {
+                nextBtnText.innerText = "Next";
+                nextBtnIcon.className = "fa-solid fa-chevron-right text-[10px]";
             }
 
             const selectedOption = userAnswers[currentQuestionIndex];
@@ -449,12 +499,69 @@
                 return;
             }
 
-            if (currentQuestionIndex < activeExamQuestions.length - 1) {
-                currentQuestionIndex++;
-                renderQuestionItem();
-            } else {
-                finishAssessment();
+            // Dynamic Adaptive Ability (Theta) Recalculation
+            const currentQ = activeExamQuestions[currentQuestionIndex];
+            const isCorrect = userAnswers[currentQuestionIndex] === currentQ.correctAnswer;
+            
+            // Adjust theta based on performance relative to question difficulty
+            const step = isCorrect ? 0.35 : -0.35;
+            studentTheta = Math.max(-3.0, Math.min(3.0, studentTheta + step));
+            
+            // Refine Standard Error as questions answered increases
+            const totalAnswered = currentQuestionIndex + 1;
+            semStandardError = Math.max(0.2, 1.0 / Math.sqrt(totalAnswered));
+
+            // Check CAT Dynamic Stopping Rules
+            const is95PercentConfPass = (studentTheta - (1.65 * semStandardError)) > PASSING_THETA_THRESHOLD;
+            const is95PercentConfFail = (studentTheta + (1.65 * semStandardError)) < FAIL_THETA_THRESHOLD;
+
+            if (totalAnswered >= MIN_CAT_QUESTIONS) {
+                if (is95PercentConfPass) {
+                    announceCatTermination("Pass", "Congratulations! Your performance clearly exceeds the NCLEX passing standard with 95% statistical confidence.");
+                    return;
+                } else if (is95PercentConfFail) {
+                    announceCatTermination("Fail", "The assessment has concluded. Your current performance level is below the required NCLEX passing logit standard.");
+                    return;
+                }
             }
+
+            // Check if last question in pool reached
+            if (currentQuestionIndex >= questionPool.length - 1) {
+                finishAssessment();
+            } else {
+                currentQuestionIndex++;
+                if (currentQuestionIndex >= activeExamQuestions.length) {
+                    selectNextCatQuestion();
+                }
+                renderQuestionItem();
+            }
+        }
+
+        function announceCatTermination(status, message) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            const modal = document.getElementById('cat-stop-modal');
+            const icon = document.getElementById('cat-stop-icon');
+            const title = document.getElementById('cat-stop-title');
+            const desc = document.getElementById('cat-stop-desc');
+
+            if (status === "Pass") {
+                icon.className = "w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                title.innerText = "CAT Adaptive Pass Standard Reached";
+            } else {
+                icon.className = "w-14 h-14 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl";
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+                title.innerText = "CAT Adaptive Standard Concluded";
+            }
+
+            desc.innerText = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeCatModalAndShowSummary() {
+            document.getElementById('cat-stop-modal').classList.add('hidden');
+            finishAssessment();
         }
 
         // Finalize Exam & Record Stats & Update Dashboard
@@ -485,7 +592,7 @@
             studentTheta = ((scorePercent - 65) / 10).toFixed(2);
             const passingProbability = Math.min(99, Math.max(15, Math.round(scorePercent * 1.05 + 5)));
 
-            // Persist Exam Results to Local Storage for Dashboard & Line Graph
+            // Persist Exam Results to Local Storage for Dashboard & Analytics
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || {
                 testsTaken: 0,
