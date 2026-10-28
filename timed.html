@@ -113,10 +113,12 @@
     </main>
 
     <!-- FOOTER NAV BAR -->
-    <footer class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
+    <footer id="exam-footer" class="bg-slate-100 border-t border-slate-300 px-6 py-4 mt-4">
         <div class="max-w-6xl mx-auto flex items-center justify-end">
             <button id="btn-submit" onclick="submitCurrentAnswer()" class="px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2">
-                <i class="fa-solid fa-check-double"></i> Submit & Proceed <i class="fa-solid fa-chevron-right ml-1"></i>
+                <i id="btn-submit-icon" class="fa-solid fa-check-double"></i>
+                <span id="btn-submit-text">Submit & Proceed</span>
+                <i id="btn-submit-arrow" class="fa-solid fa-chevron-right ml-1"></i>
             </button>
         </div>
     </footer>
@@ -177,7 +179,7 @@
             <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="space-y-1">
                 <h3 class="font-bold text-base">Selection Required</h3>
-                <p class="text-xs text-slate-600">Please select an answer before proceeding to the next item.</p>
+                <p class="text-xs text-slate-600">Please select an answer before proceeding.</p>
             </div>
             <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full py-2.5 bg-ncsbn-navy text-white rounded-lg text-xs font-bold hover:bg-blue-900">OK</button>
         </div>
@@ -400,6 +402,29 @@
             }, 1000);
         }
 
+        function updateSubmitButtonState() {
+            const btn = document.getElementById('btn-submit');
+            const btnText = document.getElementById('btn-submit-text');
+            const btnIcon = document.getElementById('btn-submit-icon');
+            const btnArrow = document.getElementById('btn-submit-arrow');
+
+            if (!btn) return;
+
+            const isLastQuestion = currentIndex === activeQuestions.length - 1;
+
+            if (isLastQuestion) {
+                btnText.innerText = "Finish Exam & View Summary";
+                btnIcon.className = "fa-solid fa-flag-checkered";
+                btnArrow.className = "fa-solid fa-chart-pie ml-1";
+                btn.className = "px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded text-xs shadow-md border border-emerald-800 transition flex items-center gap-2 animate-pulse";
+            } else {
+                btnText.innerText = "Submit & Proceed";
+                btnIcon.className = "fa-solid fa-check-double";
+                btnArrow.className = "fa-solid fa-chevron-right ml-1";
+                btn.className = "px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2";
+            }
+        }
+
         function renderCurrentQuestion() {
             if (currentIndex >= activeQuestions.length) {
                 finishExamSession();
@@ -457,6 +482,8 @@
 
             html += `</div></div>`;
             document.getElementById('exam-container').innerHTML = html;
+
+            updateSubmitButtonState();
         }
 
         function handleOptionSelect(letter) {
@@ -718,7 +745,8 @@
             `;
 
             document.getElementById('exam-container').innerHTML = html;
-            document.querySelector('footer').style.display = 'none';
+            const footer = document.getElementById('exam-footer');
+            if (footer) footer.style.display = 'none';
         }
 
         function exitToDashboard() {
