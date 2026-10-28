@@ -33,11 +33,7 @@
     <!-- External Questions Bank -->
     <script src="questions.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
-        .hidden { display: none !important; }
-        /* Fallback CSS for SVG & Overlay layout stability */
-        #auth-overlay.hidden { display: none !important; }
-        svg path { fill: none; }
+        body { font-family: 'Inter', sans-serif; }
     </style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col">
@@ -45,8 +41,8 @@
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
-    <!-- Login / Welcome Overlay (Hidden by default to prevent layout jump) -->
-    <div id="auth-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4" style="display: none;">
+    <!-- Login / Welcome Overlay (Shown when signed out) -->
+    <div id="auth-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all scale-100">
             <div class="text-center mb-6">
                 <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
@@ -72,10 +68,10 @@
     </div>
 
     <!-- App Shell -->
-    <div id="app-shell" class="flex h-full overflow-hidden flex-1">
+    <div id="app-shell" class="flex h-full overflow-hidden">
         
         <!-- Sidebar Navigation -->
-        <aside id="app-sidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col flex-shrink-0 z-30 fixed md:static inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out">
+        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex">
             <div class="p-6 flex items-center space-x-3 border-b border-slate-100">
                 <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/30">
                     <i class="fa-solid fa-bolt-lightning"></i>
@@ -89,15 +85,11 @@
             <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
                 <div class="px-3 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Core Dashboard</div>
                 
-                <a href="#" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
+                <a href="dashboard.html" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
                     <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-
-                <a href="#" onclick="switchTab('calendar')" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-indigo-50 hover:text-indigo-700 transition-colors group">
-                    <i class="fa-solid fa-calendar-days w-5 text-center text-indigo-500 group-hover:scale-110 transition-transform"></i>
-                    <span>Study Calendar & Exam</span>
-                </a>
+                
                 
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
@@ -121,6 +113,8 @@
                     <span>Saved Questions</span>
                 </a>
 
+
+
                 <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
                     <span>Timed Practice Test</span>
@@ -135,17 +129,22 @@
                     <i class="fa-solid fa-laptop-code w-5 text-center text-slate-800"></i>
                     <span>CAT Exam Simulator</span>
                 </a>
+
+
+
+                
             </nav>
+
+
         </aside>
 
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col overflow-hidden">
             
             <!-- Top Header -->
-            <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 flex-shrink-0">
-                <div class="flex items-center space-x-3">
-                    <button onclick="toggleMobileSidebar()" class="md:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 focus:outline-none"><i class="fa-solid fa-bars text-lg"></i></button>
-                    <h1 id="page-title" class="text-lg lg:text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
+                <div class="flex items-center space-x-4">
+                    <h1 id="page-title" class="text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-3">
                     <a href="profile.html" class="flex items-center space-x-2.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all">
@@ -168,7 +167,7 @@
                 <!-- DASHBOARD TAB -->
                 <div id="tab-content-dashboard" class="space-y-6">
                     
-                    <!-- BANNER -->
+                    <!-- BANNER WITH NO CARD BORDERS AND ENLARGED PASS RATE ON THE RIGHTMOST SIDE -->
                     <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-2xl p-6 lg:p-8 text-white shadow-xl relative overflow-hidden">
                         <div class="absolute -right-10 -top-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -left-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -202,15 +201,15 @@
                                         NCLEX Passing Probability
                                     </h3>
                                     <p class="text-sm text-slate-300 leading-relaxed">
-                                        Calculated dynamically using adaptive weighting of reviewed questions volume, CAT scores trajectory, and NCLEX Predictor Exam benchmarks.
+                                        Calculated dynamically using adaptive weighting of reviewed questions volume, CAT scores trajectory, and NCLEX Predictor Exam benchmarks. Complete tests to generate prediction model.
                                     </p>
                                 </div>
 
-                                <!-- Rightmost Percentage Gauge Circle with Explicit Width/Height Fix -->
-                                <div class="relative w-28 h-28 lg:w-32 lg:h-32 flex-shrink-0 flex items-center justify-center" style="width: 128px; height: 128px;">
-                                    <svg class="w-full h-full -rotate-90" width="128" height="128" viewBox="0 0 36 36" style="width:128px; height:128px;">
-                                        <path class="text-slate-800" stroke-width="3.5" stroke="#1e293b" fill="none" style="fill:none !important;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                        <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="#22c55e" fill="none" style="fill:none !important;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <!-- Rightmost Large Percentage Gauge Circle -->
+                                <div class="relative w-28 h-28 lg:w-32 lg:h-32 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                        <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                     </svg>
                                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                                         <span id="probability-value-text" class="text-3xl lg:text-4xl font-black text-white tracking-tight">0%</span>
@@ -223,34 +222,10 @@
                         </div>
                     </div>
 
-                    <!-- UNFINISHED EXAM BANNER -->
-                    <div id="unfinished-exam-banner" class="hidden bg-gradient-to-r from-amber-950/90 via-slate-900 to-amber-950/90 border border-amber-500/40 rounded-2xl p-6 text-white shadow-xl space-y-3">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                            <div class="flex items-center space-x-4">
-                                <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold flex-shrink-0">
-                                    <i class="fa-solid fa-clock-rotate-left"></i>
-                                </div>
-                                <div>
-                                    <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2.5 py-0.5 rounded font-black uppercase tracking-wider">Unfinished Session Saved</span>
-                                    <h3 id="unfinished-exam-title" class="text-lg font-bold text-white mt-0.5">NCLEX Predictor Exam - In Progress</h3>
-                                    <p id="unfinished-exam-progress" class="text-xs text-slate-300">Answered questions count toward dashboard mastery. No final score recorded yet.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-3 w-full sm:w-auto">
-                                <button onclick="resumeUnfinishedExam()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-lg shadow-amber-600/30">
-                                    <i class="fa-solid fa-play"></i>
-                                    <span>Resume Exam</span>
-                                </button>
-                                <button onclick="restartUnfinishedExam()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2">
-                                    <i class="fa-solid fa-rotate-right"></i>
-                                    <span>Retake Fresh Exam</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Stats Grid -->
+                    <!-- Quick Stats Grid (Initial State: All 0) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        
+                        <!-- Questions Only Card (Clickable to show finished exams / test history) -->
                         <div onclick="openFinishedTestsModal()" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
                             <div>
                                 <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-brand-600 transition-colors">Questions only</p>
@@ -296,13 +271,14 @@
                         </div>
                     </div>
 
-                    <!-- ARCHER-STYLE LINE GRAPH -->
+                    <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">NCLEX Score Trajectory & Peer Benchmark Comparison</h2>
                                 <p class="text-xs text-slate-500">Performance curve plotting CAT scores, NCLEX Predictor Exams, and National Peer Averages (74%)</p>
                             </div>
+                            <!-- Legend indicators -->
                             <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
                                 <div class="flex items-center space-x-1.5">
                                     <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
@@ -324,6 +300,7 @@
                         </div>
                     </div>
 
+                    
                     <!-- 100% FREE CLIENT-SIDE AI STUDY COACH & REMEDIATION GENERATOR -->
                     <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl space-y-4 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -337,15 +314,15 @@
                                         <h2 class="text-base font-bold text-white">QuikRN AI Study Coach & Remediation Generator</h2>
                                         <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">100% Free AI Engine</span>
                                     </div>
-                                    <p class="text-xs text-indigo-200">Analyzes telemetry data and weak client needs domains to build custom study plans synced directly to your calendar.</p>
+                                    <p class="text-xs text-indigo-200">Analyzes your telemetry data, weak client needs domains, and missed items to build custom study plans.</p>
                                 </div>
                             </div>
                             <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate & Sync AI Roadmap
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Study Roadmap
                             </button>
                         </div>
                         <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate & Sync AI Roadmap" above to analyze your practice history and auto-populate your 7-Day NCLEX remediation plan in your calendar.</p>
+                            <p class="italic text-indigo-300">Click "Generate AI Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
                         </div>
                     </div>
 
@@ -365,100 +342,8 @@
 
                 </div>
 
-                <!-- STUDY CALENDAR & EXAM TRACKER TAB CONTENT -->
-                <div id="tab-content-calendar" class="hidden space-y-6">
-                    <!-- Exam Date & Countdown Header Banner -->
-                    <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 rounded-2xl p-6 lg:p-8 text-white shadow-xl relative overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                            <div class="lg:col-span-7 space-y-3">
-                                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold uppercase tracking-wider">
-                                    <i class="fa-solid fa-calendar-check"></i>
-                                    <span>NCLEX Exam Day Countdown & Study Planner</span>
-                                </div>
-                                <h2 class="text-2xl lg:text-3xl font-black text-white tracking-tight">Interactive Study Schedule & Exam Launcher</h2>
-                                <p class="text-xs lg:text-sm text-indigo-200 leading-relaxed">
-                                    Track exam countdowns, access embedded YouTube lectures & PDF guides without leaving QuickRN, and unlock active exam links when scheduled date arrives.
-                                </p>
-                            </div>
-                            <!-- Exam Date Selector & Days Left Gauge -->
-                            <div class="lg:col-span-5 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                                <div class="space-y-1 text-center sm:text-left">
-                                    <label class="block text-[11px] font-bold uppercase tracking-wider text-indigo-200">NCLEX Scheduled Exam Date</label>
-                                    <input type="date" id="calendar-exam-date" onchange="saveExamDate(this.value)" class="bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg border border-indigo-500/40 focus:outline-none focus:ring-2 focus:ring-indigo-400">
-                                </div>
-                                <div class="text-center bg-indigo-600/40 px-5 py-3 rounded-xl border border-indigo-400/30 min-w-[110px]">
-                                    <span id="countdown-days-count" class="text-3xl font-black text-white block leading-none">--</span>
-                                    <span class="text-[9px] font-bold text-indigo-200 uppercase tracking-widest">Days Remaining</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Calendar View & Daily Task Manager -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                        <!-- Calendar Grid (8 Cols) -->
-                        <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
-                            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-                                <div class="flex items-center space-x-3">
-                                    <button onclick="changeCalendarMonth(-1)" class="p-2 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 text-sm"><i class="fa-solid fa-chevron-left"></i></button>
-                                    <h3 id="calendar-month-year-title" class="font-extrabold text-slate-900 text-base">October 2026</h3>
-                                    <button onclick="changeCalendarMonth(1)" class="p-2 text-slate-400 hover:text-slate-800 rounded-lg hover:bg-slate-100 text-sm"><i class="fa-solid fa-chevron-right"></i></button>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="openAddTaskModal()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-md transition flex items-center space-x-1.5">
-                                        <i class="fa-solid fa-plus"></i>
-                                        <span>Add Task</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Legend Bar -->
-                            <div class="flex flex-wrap items-center gap-4 text-[10px] font-bold text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                                <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span><span>Today</span></div>
-                                <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span><span>AI Roadmap Task</span></div>
-                                <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span><span>Exam Day</span></div>
-                                <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-300"></span><span>Past / Grayed Out</span></div>
-                            </div>
-
-                            <!-- Days Header -->
-                            <div class="grid grid-cols-7 text-center text-[11px] font-extrabold text-slate-400 uppercase tracking-wider py-1">
-                                <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                            </div>
-
-                            <!-- Days Grid -->
-                            <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 text-xs">
-                                <!-- Dynamically Generated Days -->
-                            </div>
-                        </div>
-
-                        <!-- Selected Day Study Tasks Sidebar (4 Cols) -->
-                        <div class="lg:col-span-4 space-y-4">
-                            <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
-                                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                                    <h3 id="selected-day-tasks-header" class="font-bold text-slate-900 text-sm">Tasks for Selected Day</h3>
-                                    <span id="selected-day-badge" class="px-2.5 py-0.5 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-bold">Scheduled</span>
-                                </div>
-                                <div id="selected-day-tasks-list" class="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                                    <!-- Tasks dynamically rendered -->
-                                </div>
-                            </div>
-
-                            <!-- AI Roadmap Sync Status -->
-                            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-2">
-                                <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                                    <span>In-App Study & Exam Integration</span>
-                                </div>
-                                <p class="text-[11px] text-emerald-700 leading-relaxed">
-                                    Click video or PDF links to open lessons directly inside QuickRN popup windows. Scheduled exams unlock automatically on exam day!
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FEATURE HUB TAB -->
+                
+                                <!-- FEATURE HUB TAB -->
                 <div id="tab-content-features" class="hidden space-y-6">
                     <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-8 text-white shadow-xl space-y-4 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -471,7 +356,7 @@
                         </div>
                     </div>
 
-                    <!-- WHAT'S NEW SECTION -->
+                    <!-- WHAT'S NEW & RELEASE CHANGELOG SECTION -->
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
                         <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                             <div class="flex items-center space-x-3">
@@ -483,25 +368,97 @@
                                     <p class="text-xs text-slate-500">Latest platform updates, AI integrations, and reviewer enhancements</p>
                                 </div>
                             </div>
-                            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">v5.4 Live</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Latest: v5.1 Live</span>
                         </div>
 
                         <div class="space-y-4 text-xs text-slate-700">
+                            <!-- Update Item v5.1 (Persistent Login) -->
+                            <div class="p-4 bg-emerald-50/90 rounded-xl border-2 border-emerald-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                                        <span>v5.1 — Persistent Session Login (No Re-login Required)</span>
+                                    </div>
+                                    <span class="text-emerald-700 font-bold text-[11px] bg-emerald-100 px-2.5 py-0.5 rounded">Latest Update</span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">
+                                    Implemented persistent session authentication: You remain logged in across browser sessions and page navigation automatically unless you explicitly click <strong>Sign Out</strong>.
+                                </p>
+                            </div>
+
+                            <!-- Update Item v5.0 (Latest Release) -->
                             <div class="p-4 bg-indigo-50/90 rounded-xl border-2 border-indigo-200 space-y-2">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2 font-bold text-slate-900">
                                         <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
-                                        <span>v5.4 — Embedded Resources & Time-Gated Exam Launcher</span>
+                                        <span>v5.0 — Unified AI Clinical Tutor & Advanced Rationale Card</span>
                                     </div>
-                                    <span class="text-indigo-800 font-bold text-[11px] bg-indigo-100 px-2.5 py-0.5 rounded">Major Upgrade</span>
+                                    <span class="text-indigo-700 font-bold text-[11px] bg-indigo-100 px-2.5 py-0.5 rounded">Latest Release</span>
                                 </div>
                                 <p class="text-slate-700 leading-relaxed">
-                                    Calendar tasks now embed YouTube video tutorials and open-access PDF sources inside in-app popup windows. Scheduled exam days feature dedicated <strong>Take CAT / Predictor Exam</strong> launchers, time-locked to scheduled date and auto-grayed out if past.
+                                    Combined the <strong>Nurse AI Clinical Tutor</strong>, core question rationale, test-taking strategies (ABCs/Maslow's), and <strong>free online reading & references</strong> (NIH/StatPearls, CDC guidelines, open-access nursing PDFs) into a single unified breakdown card directly beneath each question. Removed separate buttons for a streamlined review workflow.
+                                </p>
+                            </div>
+
+
+                            <!-- Update Item v4.3 (New) -->
+                            <div class="p-4 bg-blue-50/70 rounded-xl border border-blue-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                                        <span>v4.3 — Conditional Google Gemini & Browser AI Tutor Integration</span>
+                                    </div>
+                                    <span class="text-emerald-700 font-bold text-[11px] bg-emerald-100 px-2 py-0.5 rounded">New Feature</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Enhanced the AI Tutor feature to detect authentication providers: Gmail / Google logins automatically slide out the <strong>Google Gemini AI Tutor</strong> sidebar to search tips for mastering each question topic, while standard email logins trigger the built-in browser-based clinical AI modal.
+                                </p>
+                            </div>
+
+                            <!-- Update Item 1 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                                        <span>v4.2 — QuikRN Feature Hub & What's New Live Feed</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Added the dedicated <strong>QuikRN Feature Hub</strong> to the dashboard navigation and integrated this <strong>What's New</strong> changelog feed to track all platform upgrades, AI tutoring additions, and reviewer enhancements in real time.
+                                </p>
+                            </div>
+
+                            <!-- Update Item 2 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                        <span>v4.1 — 100% Free Client-Side AI Features & Coach</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Deployed the <strong>Nurse AI Clinical Tutor</strong> in self-study question reviews and the <strong>QuikRN AI Study Coach & Remediation Roadmap Generator</strong> on the candidate dashboard ($0 cost, 100% browser-based).
+                                </p>
+                            </div>
+
+                            <!-- Update Item 3 -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                        <span>v4.0 — NCLEX Predictor Exam & CAT Simulator Suite</span>
+                                    </div>
+                                    <span class="text-slate-400 text-[11px]">October 2026</span>
+                                </div>
+                                <p class="text-slate-600 leading-relaxed">
+                                    Released official Computer Adaptive Testing (CAT) algorithms, timed practice tests, client needs mastery analytics, and the NCLEX Predictor Exam with Standard trajectory graphs.
                                 </p>
                             </div>
                         </div>
                     </div>
-                </div>
+
 
                 <!-- ANALYTICS TAB -->
                 <div id="tab-content-analytics" class="hidden space-y-6">
@@ -517,114 +474,6 @@
                 </div>
 
             </main>
-        </div>
-    </div>
-
-    <!-- IN-APP POPUP MODAL FOR YOUTUBE VIDEOS & PDF SOURCE READING -->
-    <div id="resource-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full flex flex-col h-[85vh] overflow-hidden border border-slate-200">
-            <!-- Modal Header -->
-            <div class="bg-slate-900 text-white p-4 px-6 flex justify-between items-center flex-shrink-0">
-                <div class="flex items-center space-x-3">
-                    <div id="resource-modal-icon" class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                    </div>
-                    <div>
-                        <h3 id="resource-modal-title" class="font-bold text-sm lg:text-base text-white truncate max-w-md">Resource Topic</h3>
-                        <p id="resource-modal-subtitle" class="text-xs text-indigo-300">QuickRN In-App Learning Viewer</p>
-                    </div>
-                </div>
-                <button onclick="closeResourceModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            
-            <!-- Modal Viewer Area -->
-            <div id="resource-modal-body" class="flex-grow bg-slate-100 flex items-center justify-center overflow-hidden relative p-2">
-                <!-- Video or PDF iframe injected dynamically -->
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between px-6 text-xs text-slate-600 flex-shrink-0">
-                <span class="flex items-center space-x-1.5"><i class="fa-solid fa-lock text-emerald-600"></i><span>In-App Embedded Reader • No External Window Opened</span></span>
-                <button onclick="closeResourceModal()" class="px-4 py-2 bg-slate-900 text-white font-bold rounded-xl text-xs hover:bg-slate-800 transition">Return to Calendar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ADD CUSTOM TASK MODAL -->
-    <div id="add-task-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                <h3 class="font-bold text-slate-900 text-base">Add Study Task / Goal</h3>
-                <button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="submitNewTask(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date</label>
-                    <input type="date" id="task-date-input" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Task Title / Subject</label>
-                    <input type="text" id="task-title-input" placeholder="e.g. Master Dosage Calculations & Pediatric Safety" required class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Task Type</label>
-                    <select id="task-type-input" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                        <option value="custom">General Study Goal</option>
-                        <option value="cat_exam">CAT Exam Simulator Day</option>
-                        <option value="predictor_exam">NCLEX Predictor Exam Day</option>
-                    </select>
-                </div>
-                <div class="pt-2 flex justify-end space-x-2">
-                    <button type="button" onclick="closeAddTaskModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 shadow-md">Add Task</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- FINISHED TESTS MODAL -->
-    <div id="finished-tests-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900 text-base">Finished Test History</h3>
-                        <p class="text-xs text-slate-500">All completed exams and finished test sessions</p>
-                    </div>
-                </div>
-                <button onclick="closeFinishedTestsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="finished-tests-list" class="flex-grow overflow-y-auto space-y-3 pr-1"></div>
-            <div class="pt-3 border-t border-slate-100 flex justify-end">
-                <button onclick="closeFinishedTestsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SPECIFIC EXAMS HISTORY MODAL (CAT & PREDICTOR) -->
-    <div id="specific-exams-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4" style="display: none;">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
-            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                    </div>
-                    <div>
-                        <h3 id="modal-exam-title" class="font-bold text-slate-900 text-base">Exam History</h3>
-                        <p class="text-xs text-slate-500">All recorded previous exam attempts</p>
-                    </div>
-                </div>
-                <button onclick="closeSpecificExamsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="specific-exams-list" class="flex-grow overflow-y-auto space-y-3 pr-1"></div>
-            <div class="pt-3 border-t border-slate-100 flex justify-end">
-                <button onclick="closeSpecificExamsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
-            </div>
         </div>
     </div>
 
@@ -672,104 +521,69 @@
             catAverageScore: 0,
             predictorAverageScore: 0,
             categories: [
-                { id: 'management', name: 'Management of Care (17-23%)', testPlanWeight: '17-23%', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-600' },
-                { id: 'safety', name: 'Safety and Infection Control (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-600' },
-                { id: 'health_promo', name: 'Health Promotion and Maintenance (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-600' },
-                { id: 'psychosocial', name: 'Psychosocial Integrity (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-600' },
-                { id: 'basic_care', name: 'Basic Care and Comfort (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-600' },
-                { id: 'pharmacological', name: 'Pharmacological and Parenteral Therapies (12-18%)', testPlanWeight: '12-18%', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-600' },
-                { id: 'physiological', name: 'Reduction of Risk Potential (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-600' },
-                { id: 'physiological_adap', name: 'Physiological Adaptation (11-17%)', testPlanWeight: '11-17%', solved: 0, correct: 0, percentage: 0, color: 'bg-teal-600' }
+                { name: 'Management of Care (17-23%)', testPlanWeight: '17-23%', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-600' },
+                { name: 'Safety and Infection Control (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-600' },
+                { name: 'Health Promotion and Maintenance (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-600' },
+                { name: 'Psychosocial Integrity (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-600' },
+                { name: 'Basic Care and Comfort (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-600' },
+                { name: 'Pharmacological and Parenteral Therapies (12-18%)', testPlanWeight: '12-18%', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-600' },
+                { name: 'Reduction of Risk Potential (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-600' },
+                { name: 'Physiological Adaptation (11-17%)', testPlanWeight: '11-17%', solved: 0, correct: 0, percentage: 0, color: 'bg-teal-600' }
             ]
         };
 
-        let unfinishedExamData = null;
-        let answeredItemsData = [];
         let totalQuestionsInPool = 0;
         let quickrnChartInstance = null;
 
-        // Calendar & Exam State
-        let calendarTasks = [];
-        let currentCalDate = new Date();
-        let selectedCalDateStr = new Date().toISOString().split('T')[0];
-
-        // Knowledge Base mapping for video/pdf popups
-        const topicMediaDatabase = {
-            pharmacological: {
-                videoTitle: "NCLEX Pharmacology High-Yield Review & Calculations",
-                youtubeId: "Y3-0N1q8gno",
-                pdfTitle: "NIH StatPearls & CDC Pharmacology Guidelines",
-                pdfUrl: "https://www.ncbi.nlm.nih.gov/books/NBK535404/pdf/Bookshelf_NBK535404.pdf"
-            },
-            management: {
-                videoTitle: "Management of Care, Delegation & Prioritization Rules",
-                youtubeId: "K5I_S_vN0i4",
-                pdfTitle: "NCSBN NCLEX-RN Test Plan & Leadership Guide",
-                pdfUrl: "https://www.ncsbn.org/public-files/2023_RN_Test_Plan_English.pdf"
-            },
-            safety: {
-                videoTitle: "Safety & Infection Control Precautions Review",
-                youtubeId: "O9n-yX2eT1o",
-                pdfTitle: "CDC Infection Control & Transmission Precautions Manual",
-                pdfUrl: "https://www.cdc.gov/infectioncontrol/pdf/guidelines/isolation-guidelines-H.pdf"
-            },
-            default: {
-                videoTitle: "NCLEX Comprehensive Review & Priority Strategies",
-                youtubeId: "vC3eKz_7qO8",
-                pdfTitle: "NCSBN Comprehensive Clinical Judgment Handbook",
-                pdfUrl: "https://www.ncsbn.org/public-files/2023_RN_Test_Plan_English.pdf"
-            }
-        };
-
-        // Setup on Load
+        // Session & App Setup
         window.addEventListener('DOMContentLoaded', () => {
             checkAuthStatus();
             detectTotalQuestionsPool();
             loadStateFromStorage();
-            loadCalendarState();
             updateTimeBasedGreeting();
             rotateEncouragement();
-            renderUnfinishedExamBanner();
             renderDashboardStats();
             renderMasteryCategories();
             initQuickRNScoreChart();
-            renderCalendarGrid();
-            renderSelectedDayTasks(selectedCalDateStr);
         });
 
         function detectTotalQuestionsPool() {
             let pool = [];
-            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) pool = window.questions;
-            else if (typeof QUESTION_BANK !== 'undefined' && Array.isArray(QUESTION_BANK)) pool = QUESTION_BANK;
-            else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) pool = embeddedQuestionsData;
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
+                pool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
+                pool = embeddedQuestionsData;
+            }
             totalQuestionsInPool = pool.length > 0 ? pool.length : 150;
-            const elem = document.getElementById('stat-pool-total');
-            if (elem) elem.textContent = `/ ${totalQuestionsInPool}`;
+            document.getElementById('stat-pool-total').textContent = `/ ${totalQuestionsInPool}`;
         }
 
         function updateTimeBasedGreeting() {
             const hour = new Date().getHours();
-            let greetingWord = hour < 12 ? "Good Morning" : (hour < 18 ? "Good Afternoon" : "Good Evening");
+            let greetingWord = "Welcome Back";
+            if (hour < 12) greetingWord = "Good Morning";
+            else if (hour < 18) greetingWord = "Good Afternoon";
+            else greetingWord = "Good Evening";
+
             const name = localStorage.getItem('quickrn_user_name') || 'Future RN';
             const titleElem = document.getElementById('greeting-title');
-            if (titleElem) titleElem.innerHTML = `${greetingWord}, ${name}! 👋`;
+            if (titleElem) {
+                titleElem.innerHTML = `${greetingWord}, ${name}! 👋`;
+            }
         }
 
         function rotateEncouragement() {
-            const selected = encouragingQuotes[Math.floor(Math.random() * encouragingQuotes.length)];
+            const randomIndex = Math.floor(Math.random() * encouragingQuotes.length);
+            const selected = encouragingQuotes[randomIndex];
+            
             const passageElem = document.getElementById('encouraging-passage');
             const authorElem = document.getElementById('quote-author');
+
             if (passageElem) passageElem.textContent = `"${selected.quote}"`;
             if (authorElem) authorElem.textContent = `— ${selected.author}`;
         }
 
         function loadStateFromStorage() {
-            const savedAnswered = localStorage.getItem('quickrn_answered_items');
-            answeredItemsData = savedAnswered ? JSON.parse(savedAnswered) : [];
-
-            const savedUnfinished = localStorage.getItem('quickrn_unfinished_exam');
-            unfinishedExamData = savedUnfinished ? JSON.parse(savedUnfinished) : null;
-
             const savedState = localStorage.getItem('quickrn_student_state');
             if (savedState) {
                 try {
@@ -779,61 +593,34 @@
                         studentStats.correctCount = parsed.studentStats.correctCount || 0;
                         studentStats.catExamsCount = parsed.studentStats.examHistory ? parsed.studentStats.examHistory.length : 0;
                         studentStats.predictorExamsCount = parsed.studentStats.predictorHistory ? parsed.studentStats.predictorHistory.length : 0;
+                        
                         if (parsed.studentStats.categories && Array.isArray(parsed.studentStats.categories)) {
                             studentStats.categories = parsed.studentStats.categories;
                         }
                     }
-                } catch(e) {}
-            }
-        }
-
-        function renderUnfinishedExamBanner() {
-            const banner = document.getElementById('unfinished-exam-banner');
-            if (!banner) return;
-
-            if (unfinishedExamData) {
-                banner.classList.remove('hidden');
-                banner.style.display = 'block';
-                const answeredCount = Object.keys(unfinishedExamData.submitted || {}).length;
-                const totalCount = unfinishedExamData.questions ? unfinishedExamData.questions.length : 85;
-                document.getElementById('unfinished-exam-title').textContent = `${unfinishedExamData.title || 'NCLEX Predictor Exam'} - Session Saved`;
-                document.getElementById('unfinished-exam-progress').textContent = `${answeredCount} of ${totalCount} questions submitted. Answered items update dashboard stats. Final score pending completion.`;
-            } else {
-                banner.classList.add('hidden');
-                banner.style.display = 'none';
-            }
-        }
-
-        function resumeUnfinishedExam() { window.location.href = 'predictor.html?resume=true'; }
-        function restartUnfinishedExam() {
-            if (confirm('Start a fresh NCLEX Predictor Exam? Submitted answers remain recorded.')) {
-                localStorage.removeItem('quickrn_unfinished_exam');
-                window.location.href = 'predictor.html?restart=true';
+                } catch(e) {
+                    console.error("Error reading saved state:", e);
+                }
             }
         }
 
         function checkAuthStatus() {
             const isSignedOut = localStorage.getItem('quickrn_signed_out') === 'true';
             const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                if (isSignedOut) {
-                    overlay.classList.remove('hidden');
-                    overlay.style.display = 'flex';
-                } else {
-                    overlay.classList.add('hidden');
-                    overlay.style.display = 'none';
-                }
+
+            if (isSignedOut) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
             }
         }
 
         function handleSignOut() {
             localStorage.setItem('quickrn_signed_out', 'true');
-            showToast('Signed out of QuickRN session.', 'info');
-            const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                overlay.classList.remove('hidden');
-                overlay.style.display = 'flex';
-            }
+            showToast('Successfully signed out of QuickRN active session.', 'info');
+            setTimeout(() => {
+                document.getElementById('auth-overlay').classList.remove('hidden');
+            }, 300);
         }
 
         function handleSignIn(e) {
@@ -841,499 +628,79 @@
             const email = document.getElementById('login-email').value;
             localStorage.setItem('quickrn_signed_out', 'false');
             localStorage.setItem('quickrn_user_email', email);
-            const overlay = document.getElementById('auth-overlay');
-            if (overlay) {
-                overlay.classList.add('hidden');
-                overlay.style.display = 'none';
-            }
+            
+            document.getElementById('auth-overlay').classList.add('hidden');
             updateTimeBasedGreeting();
             rotateEncouragement();
-            showToast('Welcome back! Synchronized.', 'success');
+            showToast('Welcome back! Dashboard synchronized.', 'success');
         }
 
-        // --- CALENDAR & EXAM TIME RESTRICTION SYSTEM ---
-
-        function loadCalendarState() {
-            const savedExamDate = localStorage.getItem('quickrn_exam_date');
-            if (savedExamDate) {
-                const dateInput = document.getElementById('calendar-exam-date');
-                if (dateInput) dateInput.value = savedExamDate;
-                updateExamCountdown(savedExamDate);
-            } else {
-                const future = new Date();
-                future.setDate(future.getDate() + 30);
-                const defaultStr = future.toISOString().split('T')[0];
-                const dateInput = document.getElementById('calendar-exam-date');
-                if (dateInput) dateInput.value = defaultStr;
-                localStorage.setItem('quickrn_exam_date', defaultStr);
-                updateExamCountdown(defaultStr);
-            }
-
-            const savedTasks = localStorage.getItem('quickrn_calendar_tasks');
-            if (savedTasks) {
-                try { calendarTasks = JSON.parse(savedTasks); } catch(e) { calendarTasks = []; }
-            } else {
-                calendarTasks = [];
-            }
-        }
-
-        function saveExamDate(dateStr) {
-            localStorage.setItem('quickrn_exam_date', dateStr);
-            updateExamCountdown(dateStr);
-            renderCalendarGrid();
-            renderSelectedDayTasks(selectedCalDateStr);
-            showToast('NCLEX target exam date updated!', 'success');
-        }
-
-        function updateExamCountdown(targetDateStr) {
-            const display = document.getElementById('countdown-days-count');
-            if (!display || !targetDateStr) return;
-
-            const target = new Date(targetDateStr + 'T00:00:00');
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            target.setHours(0,0,0,0);
-
-            const diffTime = target - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays < 0) {
-                display.textContent = 'Passed';
-                display.className = "text-xl font-black text-rose-300 block leading-none mt-1";
-            } else if (diffDays === 0) {
-                display.textContent = 'TODAY!';
-                display.className = "text-xl font-black text-emerald-300 block leading-none mt-1";
-            } else {
-                display.textContent = diffDays;
-                display.className = "text-3xl font-black text-white block leading-none";
-            }
-        }
-
-        function saveCalendarTasks() {
-            localStorage.setItem('quickrn_calendar_tasks', JSON.stringify(calendarTasks));
-        }
-
+        
         function generateAIAuditsAndRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
             container.innerHTML = `
                 <div class="p-4 bg-indigo-900/40 border border-indigo-500/30 rounded-xl space-y-3 animate-pulse">
                     <div class="flex items-center space-x-2 text-indigo-300">
                         <i class="fa-solid fa-spinner fa-spin"></i>
-                        <span class="font-bold">AI Clinical Engine analyzing metrics & generating auto-synced calendar tasks...</span>
+                        <span class="font-bold">AI Clinical Engine analyzing your performance metrics & client needs domains...</span>
                     </div>
                 </div>
             `;
 
             setTimeout(() => {
-                let sortedCats = [...studentStats.categories].sort((a,b) => (a.percentage || 0) - (b.percentage || 0));
+                // Find weakest category
+                let sortedCats = [...studentStats.categories].sort((a,b) => a.percentage - b.percentage);
                 let weakest = sortedCats[0] || { name: 'Pharmacological and Parenteral Therapies', percentage: 0 };
                 let weakest2 = sortedCats[1] || { name: 'Management of Care', percentage: 0 };
-
-                syncAIRoadmapToCalendar(weakest.name, weakest2.name);
 
                 container.innerHTML = `
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2">
                             <div class="flex items-center space-x-2 text-emerald-400 font-bold">
                                 <i class="fa-solid fa-circle-check"></i>
-                                <span>AI Audit Complete</span>
+                                <span>AI Readiness Audit</span>
                             </div>
                             <p class="text-indigo-200 text-[11px] leading-relaxed">
-                                Remediation roadmap generated for <strong>${weakest.name}</strong> and <strong>${weakest2.name}</strong>. All 7 days scheduled into calendar with YouTube & PDF links!
+                                Based on your current accuracy and solved volume, your primary focus should be reinforcing <strong>${weakest.name}</strong> and <strong>${weakest2.name}</strong> using high-yield rationales and NCJMM priority matrices.
                             </p>
                         </div>
                         <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2 col-span-2">
                             <div class="flex items-center space-x-2 text-amber-400 font-bold">
                                 <i class="fa-solid fa-calendar-days"></i>
-                                <span>Synced Calendar Schedule</span>
+                                <span>Custom 7-Day AI Remediation Roadmap</span>
                             </div>
-                            <p class="text-indigo-200 text-[11px]">7 Study tasks auto-populated starting today. Click <strong>Study Calendar & Exam</strong> in the sidebar to open videos and practice tests.</p>
+                            <ul class="space-y-1.5 text-indigo-200 text-[11px]">
+                                <li><strong>Days 1-2:</strong> Deep-dive into ${weakest.name} flashcards & video lectures.</li>
+                                <li><strong>Days 3-4:</strong> Timed practice sets focusing on safety prioritization and ABCs.</li>
+                                <li><strong>Days 5-6:</strong> CAT Exam Simulator session to test adaptive stamina under pressure.</li>
+                                <li><strong>Day 7:</strong> Full NCLEX Predictor Exam review and final rationale check.</li>
+                            </ul>
                         </div>
                     </div>
                 `;
-                showToast('AI Study Roadmap generated & synced to calendar!', 'success');
+                showToast('AI Study Roadmap successfully generated!', 'success');
             }, 800);
         }
 
-        function syncAIRoadmapToCalendar(weakestCategory, secondWeakest) {
-            const today = new Date();
-            const roadmapTasks = [
-                { offset: 0, title: `AI Remediation: Deep-dive into ${weakestCategory}`, type: 'ai', mediaKey: 'pharmacological' },
-                { offset: 1, title: `High-Yield Review: ${weakestCategory} flashcards & rationale check`, type: 'ai', mediaKey: 'pharmacological' },
-                { offset: 2, title: `Focus Practice: 25 items on ${secondWeakest}`, type: 'ai', mediaKey: 'management' },
-                { offset: 3, title: `Safety & Infection Control Priority Quiz`, type: 'ai', mediaKey: 'safety' },
-                { offset: 4, title: `Adaptive CAT Exam Simulator Session`, type: 'cat_exam' },
-                { offset: 5, title: `Pharmacology & Client Needs Drill`, type: 'ai', mediaKey: 'pharmacological' },
-                { offset: 6, title: `NCLEX Predictor Readiness Exam`, type: 'predictor_exam' }
-            ];
-
-            roadmapTasks.forEach(task => {
-                const targetDay = new Date();
-                targetDay.setDate(today.getDate() + task.offset);
-                const dateStr = targetDay.toISOString().split('T')[0];
-
-                const exists = calendarTasks.some(t => t.date === dateStr && t.title === task.title);
-                if (!exists) {
-                    calendarTasks.push({
-                        id: 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2,4),
-                        date: dateStr,
-                        title: task.title,
-                        completed: false,
-                        type: task.type,
-                        mediaKey: task.mediaKey || 'default'
-                    });
-                }
-            });
-
-            saveCalendarTasks();
-            renderCalendarGrid();
-            renderSelectedDayTasks(selectedCalDateStr);
-        }
-
-        function renderCalendarGrid() {
-            const grid = document.getElementById('calendar-days-grid');
-            const title = document.getElementById('calendar-month-year-title');
-            if (!grid || !title) return;
-
-            const year = currentCalDate.getFullYear();
-            const month = currentCalDate.getMonth();
-
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            title.textContent = `${monthNames[month]} ${year}`;
-
-            const firstDayIndex = new Date(year, month, 1).getDay();
-            const totalDaysInMonth = new Date(year, month + 1, 0).getDate();
-            
-            grid.innerHTML = '';
-
-            for (let i = 0; i < firstDayIndex; i++) {
-                grid.innerHTML += `<div class="h-16 lg:h-20 bg-slate-50/50 rounded-xl border border-slate-100/50"></div>`;
-            }
-
-            const todayObj = new Date();
-            todayObj.setHours(0,0,0,0);
-            const todayStr = todayObj.toISOString().split('T')[0];
-            const examDateStr = localStorage.getItem('quickrn_exam_date');
-
-            for (let day = 1; day <= totalDaysInMonth; day++) {
-                const dayMonth = (month + 1).toString().padStart(2, '0');
-                const dayStr = day.toString().padStart(2, '0');
-                const fullDateStr = `${year}-${dayMonth}-${dayStr}`;
-
-                const cellDateObj = new Date(fullDateStr + 'T00:00:00');
-
-                const dayTasks = calendarTasks.filter(t => t.date === fullDateStr);
-                const isToday = fullDateStr === todayStr;
-                const isExamDay = fullDateStr === examDateStr;
-                const isSelected = fullDateStr === selectedCalDateStr;
-                
-                // AUTOMATIC GRAY OUT FOR PASSED UNCOMPLETED DAYS
-                const isPassed = cellDateObj < todayObj;
-                const allCompleted = dayTasks.length > 0 && dayTasks.every(t => t.completed);
-
-                let bgClass = 'bg-white';
-                let borderClass = 'border-slate-200 hover:border-indigo-400';
-                let textClass = 'text-slate-800';
-
-                if (isPassed && !allCompleted) {
-                    bgClass = 'bg-slate-100/80 opacity-60'; // Grayed out passed date
-                    borderClass = 'border-slate-200';
-                    textClass = 'text-slate-400';
-                }
-
-                if (isSelected) borderClass = 'border-2 border-indigo-600 bg-indigo-50/40';
-                if (isToday) {
-                    borderClass = 'border-2 border-emerald-500 bg-emerald-50/50';
-                    textClass = 'text-emerald-800 font-black';
-                    bgClass = 'bg-emerald-50/30';
-                }
-
-                let badgeHtml = '';
-                if (isExamDay) {
-                    badgeHtml = `<span class="bg-rose-600 text-white font-black text-[8px] px-1 py-0.5 rounded uppercase tracking-tighter block mt-0.5 shadow-xs">EXAM DAY</span>`;
-                } else if (dayTasks.length > 0) {
-                    const hasExamTask = dayTasks.some(t => t.type === 'cat_exam' || t.type === 'predictor_exam');
-                    const badgeBg = hasExamTask ? 'bg-amber-600' : 'bg-indigo-600';
-                    badgeHtml = `<span class="${badgeBg} text-white font-bold text-[9px] px-1.5 py-0.5 rounded-full inline-flex items-center justify-center mt-1">${dayTasks.length} ${hasExamTask ? 'Exam' : 'Task'}</span>`;
-                } else if (isPassed && !allCompleted) {
-                    badgeHtml = `<span class="text-[8px] font-semibold text-slate-400 italic block mt-1">Passed</span>`;
-                }
-
-                grid.innerHTML += `
-                    <div onclick="selectCalendarDay('${fullDateStr}')" class="h-16 lg:h-20 p-1.5 rounded-xl border ${borderClass} ${bgClass} flex flex-col justify-between cursor-pointer transition-all shadow-xs group">
-                        <div class="flex justify-between items-start">
-                            <span class="font-bold ${textClass} text-xs">${day}</span>
-                            ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>' : ''}
-                        </div>
-                        <div>
-                            ${badgeHtml}
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function changeCalendarMonth(delta) {
-            currentCalDate.setMonth(currentCalDate.getMonth() + delta);
-            renderCalendarGrid();
-        }
-
-        function selectCalendarDay(dateStr) {
-            selectedCalDateStr = dateStr;
-            renderCalendarGrid();
-            renderSelectedDayTasks(dateStr);
-        }
-
-        function renderSelectedDayTasks(dateStr) {
-            const header = document.getElementById('selected-day-tasks-header');
-            const list = document.getElementById('selected-day-tasks-list');
-            if (!header || !list) return;
-
-            const todayObj = new Date();
-            todayObj.setHours(0,0,0,0);
-            const todayStr = todayObj.toISOString().split('T')[0];
-
-            const cellDateObj = new Date(dateStr + 'T00:00:00');
-            const isToday = dateStr === todayStr;
-            const isFuture = cellDateObj > todayObj;
-            const isPassed = cellDateObj < todayObj;
-
-            const options = { month: 'short', day: 'numeric', year: 'numeric' };
-            header.textContent = isToday ? 'Tasks for Today' : `Tasks for ${cellDateObj.toLocaleDateString('en-US', options)}`;
-
-            const dayTasks = calendarTasks.filter(t => t.date === dateStr);
-
-            if (dayTasks.length === 0) {
-                list.innerHTML = `
-                    <div class="p-6 text-center space-y-2 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
-                        <div class="w-10 h-10 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto text-sm"><i class="fa-regular fa-calendar-xmark"></i></div>
-                        <p class="text-xs font-semibold text-slate-700">No tasks scheduled for this day.</p>
-                        <button onclick="openAddTaskModal()" class="text-xs text-indigo-600 font-bold hover:underline">+ Add custom study goal</button>
-                    </div>
-                `;
-                return;
-            }
-
-            list.innerHTML = '';
-            dayTasks.forEach(task => {
-                const isExamTask = task.type === 'cat_exam' || task.type === 'predictor_exam';
-                const media = topicMediaDatabase[task.mediaKey] || topicMediaDatabase.default;
-
-                // --- EXAM BUTTON TIME-LOCK & GRAY OUT LOGIC ---
-                let examButtonHtml = '';
-                if (isExamTask) {
-                    const examUrl = task.type === 'cat_exam' ? 'cat.html' : 'predictor.html';
-                    const examTitle = task.type === 'cat_exam' ? 'Take CAT Exam' : 'Take Predictor Exam';
-
-                    if (isToday) {
-                        // Unlocked today!
-                        examButtonHtml = `
-                            <div class="mt-2 pt-2 border-t border-slate-200">
-                                <a href="${examUrl}" class="w-full py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl flex items-center justify-center space-x-2 shadow-md shadow-emerald-600/20 transition">
-                                    <i class="fa-solid fa-circle-play animate-pulse"></i>
-                                    <span>${examTitle} (Available Today)</span>
-                                </a>
-                            </div>
-                        `;
-                    } else if (isFuture) {
-                        // Locked future date
-                        examButtonHtml = `
-                            <div class="mt-2 pt-2 border-t border-slate-200">
-                                <button disabled class="w-full py-2 px-3 bg-slate-200 text-slate-500 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 cursor-not-allowed">
-                                    <i class="fa-solid fa-lock"></i>
-                                    <span>${examTitle} (Locked until ${task.date})</span>
-                                </button>
-                            </div>
-                        `;
-                    } else if (isPassed) {
-                        // Passed / Missed date
-                        examButtonHtml = `
-                            <div class="mt-2 pt-2 border-t border-slate-200">
-                                <button disabled class="w-full py-2 px-3 bg-slate-100 text-slate-400 font-bold text-xs rounded-xl flex items-center justify-center space-x-2 cursor-not-allowed border border-slate-200">
-                                    <i class="fa-solid fa-calendar-xmark"></i>
-                                    <span>Exam Date Passed (Missed Session)</span>
-                                </button>
-                            </div>
-                        `;
-                    }
-                }
-
-                // Media Popup Buttons (YouTube Video & PDF)
-                let mediaButtonsHtml = '';
-                if (!isExamTask) {
-                    mediaButtonsHtml = `
-                        <div class="flex items-center space-x-2 mt-2 pt-2 border-t border-slate-200">
-                            <button onclick="openVideoModal('${task.mediaKey || 'default'}', '${task.title}')" class="flex-1 py-1.5 px-2 bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg text-[11px] font-bold flex items-center justify-center space-x-1.5 transition">
-                                <i class="fa-brands fa-youtube text-red-600 text-xs"></i>
-                                <span>Watch Lecture</span>
-                            </button>
-                            <button onclick="openPdfModal('${task.mediaKey || 'default'}', '${task.title}')" class="flex-1 py-1.5 px-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-lg text-[11px] font-bold flex items-center justify-center space-x-1.5 transition">
-                                <i class="fa-solid fa-file-pdf text-indigo-600 text-xs"></i>
-                                <span>Read PDF Source</span>
-                            </button>
-                        </div>
-                    `;
-                }
-
-                list.innerHTML += `
-                    <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1 text-xs">
-                        <div class="flex items-center justify-between gap-2">
-                            <div class="flex items-center space-x-2.5 flex-1 min-w-0">
-                                <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTaskCompleted('${task.id}')" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-                                <span class="${task.completed ? 'line-through text-slate-400' : 'text-slate-900 font-bold'} truncate">${task.title}</span>
-                            </div>
-                            <button onclick="deleteCalendarTask('${task.id}')" class="text-slate-400 hover:text-rose-600 p-1"><i class="fa-solid fa-trash-can"></i></button>
-                        </div>
-
-                        ${mediaButtonsHtml}
-                        ${examButtonHtml}
-                    </div>
-                `;
-            });
-        }
-
-        // --- POPUP MODAL READERS FOR YOUTUBE & PDF ---
-
-        function openVideoModal(mediaKey, taskTitle) {
-            const media = topicMediaDatabase[mediaKey] || topicMediaDatabase.default;
-            const modal = document.getElementById('resource-modal');
-            const titleElem = document.getElementById('resource-modal-title');
-            const bodyElem = document.getElementById('resource-modal-body');
-            const iconElem = document.getElementById('resource-modal-icon');
-
-            iconElem.className = "w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center text-sm font-bold";
-            iconElem.innerHTML = `<i class="fa-brands fa-youtube"></i>`;
-
-            titleElem.textContent = `Video Tutorial: ${media.videoTitle}`;
-            
-            bodyElem.innerHTML = `
-                <div class="w-full h-full flex flex-col items-center justify-center p-2">
-                    <div class="w-full max-w-3xl aspect-video rounded-xl overflow-hidden shadow-2xl border border-slate-800">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/${media.youtubeId}?autoplay=1" title="${media.videoTitle}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            `;
-
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-        }
-
-        function openPdfModal(mediaKey, taskTitle) {
-            const media = topicMediaDatabase[mediaKey] || topicMediaDatabase.default;
-            const modal = document.getElementById('resource-modal');
-            const titleElem = document.getElementById('resource-modal-title');
-            const bodyElem = document.getElementById('resource-modal-body');
-            const iconElem = document.getElementById('resource-modal-icon');
-
-            iconElem.className = "w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm font-bold";
-            iconElem.innerHTML = `<i class="fa-solid fa-file-pdf"></i>`;
-
-            titleElem.textContent = `PDF Reference: ${media.pdfTitle}`;
-
-            bodyElem.innerHTML = `
-                <div class="w-full h-full flex flex-col">
-                    <iframe class="w-full h-full rounded-b-xl" src="${media.pdfUrl}" title="${media.pdfTitle}"></iframe>
-                </div>
-            `;
-
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-        }
-
-        function closeResourceModal() {
-            const modal = document.getElementById('resource-modal');
-            const bodyElem = document.getElementById('resource-modal-body');
-            if (bodyElem) bodyElem.innerHTML = '';
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }
-        }
-
-        function toggleTaskCompleted(taskId) {
-            const task = calendarTasks.find(t => t.id === taskId);
-            if (task) {
-                task.completed = !task.completed;
-                saveCalendarTasks();
-                renderCalendarGrid();
-                renderSelectedDayTasks(selectedCalDateStr);
-            }
-        }
-
-        function deleteCalendarTask(taskId) {
-            calendarTasks = calendarTasks.filter(t => t.id !== taskId);
-            saveCalendarTasks();
-            renderCalendarGrid();
-            renderSelectedDayTasks(selectedCalDateStr);
-            showToast('Task removed from calendar.', 'info');
-        }
-
-        function openAddTaskModal() {
-            const modal = document.getElementById('add-task-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-            }
-            const dateInput = document.getElementById('task-date-input');
-            if (dateInput) dateInput.value = selectedCalDateStr;
-        }
-
-        function closeAddTaskModal() {
-            const modal = document.getElementById('add-task-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }
-        }
-
-        function submitNewTask(e) {
-            e.preventDefault();
-            const title = document.getElementById('task-title-input').value.trim();
-            const dateStr = document.getElementById('task-date-input').value;
-            const type = document.getElementById('task-type-input').value;
-
-            if (!title || !dateStr) return;
-
-            calendarTasks.push({
-                id: 'task_' + Date.now(),
-                date: dateStr,
-                title: title,
-                completed: false,
-                type: type,
-                mediaKey: 'default'
-            });
-
-            saveCalendarTasks();
-            closeAddTaskModal();
-            document.getElementById('task-title-input').value = '';
-            
-            renderCalendarGrid();
-            renderSelectedDayTasks(selectedCalDateStr);
-            showToast('Custom study task added to calendar!', 'success');
-        }
-
         function renderDashboardStats() {
-            const elem = document.getElementById('stat-solved-display');
-            if (elem) elem.innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
+            document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
             
             const accuracy = studentStats.totalSolved > 0 
                 ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
                 : 0;
-            const accElem = document.getElementById('stat-accuracy');
-            if (accElem) accElem.textContent = accuracy + '%';
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
 
-            const catElem = document.getElementById('stat-exams');
-            if (catElem) catElem.textContent = studentStats.catExamsCount;
-
-            const predElem = document.getElementById('stat-predictor-count');
-            if (predElem) predElem.textContent = studentStats.predictorExamsCount;
+            document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
+            document.getElementById('stat-predictor-count').textContent = studentStats.predictorExamsCount;
 
             let calculatedProbability = 0;
+
             if (studentStats.totalSolved > 0 || studentStats.catExamsCount > 0 || studentStats.predictorExamsCount > 0) {
                 const questionVolumeWeight = Math.min(1.0, studentStats.totalSolved / 500) * 25;
                 const accuracyWeight = (accuracy / 100) * 35;
                 const catWeight = studentStats.catExamsCount > 0 ? (studentStats.catAverageScore || 70) * 0.20 : 0;
                 const predictorWeight = studentStats.predictorExamsCount > 0 ? (studentStats.predictorAverageScore || 70) * 0.20 : 0;
+                
                 calculatedProbability = Math.min(99, Math.round(questionVolumeWeight + accuracyWeight + catWeight + predictorWeight));
             }
 
@@ -1401,59 +768,93 @@
             if (savedState) {
                 try {
                     const parsed = JSON.parse(savedState);
-                    if (parsed.studentStats && Array.isArray(parsed.studentStats.examHistory) && parsed.studentStats.examHistory.length > 0) {
-                        labels = [];
-                        catScores = [];
-                        predictorScores = [];
-                        parsed.studentStats.examHistory.forEach((ex, i) => {
-                            labels.push(`Attempt ${i + 1}`);
-                            catScores.push(ex.scorePercent || 0);
-                            predictorScores.push(ex.predictorScore || 0);
-                        });
+                    if (parsed.studentStats) {
+                        if (Array.isArray(parsed.studentStats.examHistory) && parsed.studentStats.examHistory.length > 0) {
+                            labels = [];
+                            catScores = [];
+                            predictorScores = [];
+                            
+                            parsed.studentStats.examHistory.forEach((ex, i) => {
+                                labels.push(`Attempt ${i + 1}`);
+                                catScores.push(ex.scorePercent || 0);
+                                predictorScores.push(ex.predictorScore || 0);
+                            });
+                        }
                     }
                 } catch(e) {}
             }
 
-            if (quickrnChartInstance) quickrnChartInstance.destroy();
+            if (quickrnChartInstance) {
+                quickrnChartInstance.destroy();
+            }
 
             quickrnChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
-                        { label: 'CAT Exam Score (%)', data: catScores, borderColor: '#16a34a', backgroundColor: 'rgba(22, 163, 74, 0.08)', borderWidth: 3, fill: true, tension: 0.35, pointRadius: 5 },
-                        { label: 'Predictor Score (%)', data: predictorScores, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.05)', borderWidth: 3, borderDash: [4, 4], fill: false, tension: 0.35, pointRadius: 5 },
-                        { label: 'National Peer Average (74%)', data: peerAverage.slice(0, labels.length), borderColor: '#94a3b8', borderWidth: 2, borderDash: [6, 6], fill: false, pointRadius: 0 }
+                        {
+                            label: 'CAT Exam Score (%)',
+                            data: catScores,
+                            borderColor: '#16a34a',
+                            backgroundColor: 'rgba(22, 163, 74, 0.08)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.35,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#16a34a'
+                        },
+                        {
+                            label: 'Predictor Score (%)',
+                            data: predictorScores,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            borderWidth: 3,
+                            borderDash: [4, 4],
+                            fill: false,
+                            tension: 0.35,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#f59e0b'
+                        },
+                        {
+                            label: 'National Peer Average (74%)',
+                            data: peerAverage.slice(0, labels.length),
+                            borderColor: '#94a3b8',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            fill: false,
+                            pointRadius: 0
+                        }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false }
+                    },
                     scales: {
-                        y: { min: 0, max: 100, ticks: { callback: v => v + '%' }, grid: { color: 'rgba(226, 232, 240, 0.6)' } },
-                        x: { grid: { display: false } }
+                        y: {
+                            min: 0,
+                            max: 100,
+                            ticks: {
+                                callback: function(val) { return val + '%'; }
+                            },
+                            grid: { color: 'rgba(226, 232, 240, 0.6)' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
                     }
                 }
             });
         }
 
-        
-        function toggleMobileSidebar() {
-            const sidebar = document.getElementById('app-sidebar');
-            if (sidebar) {
-                sidebar.classList.toggle('-translate-x-full');
-            }
-        }
-
         function switchTab(tabId) {
-            ['dashboard', 'calendar', 'features', 'analytics'].forEach(t => {
+            ['dashboard', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
-                if (content) {
-                    content.classList.add('hidden');
-                    content.style.display = 'none';
-                }
+                if (content) content.classList.add('hidden');
                 if (nav) {
                     nav.classList.remove('bg-brand-50', 'text-brand-700');
                     nav.classList.add('text-slate-600', 'hover:bg-slate-50');
@@ -1462,10 +863,7 @@
 
             const activeContent = document.getElementById(`tab-content-${tabId}`);
             const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeContent) {
-                activeContent.classList.remove('hidden');
-                activeContent.style.display = 'block';
-            }
+            if (activeContent) activeContent.classList.remove('hidden');
             if (activeNav) {
                 activeNav.classList.remove('text-slate-600', 'hover:bg-slate-50');
                 activeNav.classList.add('bg-brand-50', 'text-brand-700');
@@ -1473,14 +871,13 @@
 
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
-                calendar: 'Study Calendar & Exam Launcher',
                 features: 'QuikRN Feature Hub & NCLEX Tour',
                 analytics: 'Client Needs Mastery Analytics'
             };
-            const pageTitle = document.getElementById('page-title');
-            if (pageTitle) pageTitle.textContent = titles[tabId] || 'Dashboard';
+            document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
         }
 
+        
         function openFinishedTestsModal() {
             const container = document.getElementById('finished-tests-list');
             let finishedExams = [];
@@ -1491,6 +888,7 @@
                     const parsed = JSON.parse(savedState);
                     if (parsed.studentStats) {
                         if (Array.isArray(parsed.studentStats.examHistory)) {
+                            // Filter only finished exams
                             finishedExams = parsed.studentStats.examHistory.filter(ex => ex.isFinished || ex.finished || ex.scorePercent !== undefined);
                         }
                         if (Array.isArray(parsed.studentStats.predictorHistory)) {
@@ -1542,21 +940,14 @@
                 container.innerHTML = html;
             }
 
-            const modal = document.getElementById('finished-tests-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-            }
+            document.getElementById('finished-tests-modal').classList.remove('hidden');
         }
 
         function closeFinishedTestsModal() {
-            const modal = document.getElementById('finished-tests-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }
+            document.getElementById('finished-tests-modal').classList.add('hidden');
         }
 
+        
         function openCatExamsModal() {
             const container = document.getElementById('specific-exams-list');
             document.getElementById('modal-exam-title').textContent = 'CAT Exam History & Previous Attempts';
@@ -1578,7 +969,7 @@
                         <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
                         <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
                         <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
-                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-lg">Start CAT Exam</a>
+                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
                     </div>
                 `;
             } else {
@@ -1604,11 +995,7 @@
                 });
                 container.innerHTML = html;
             }
-            const modal = document.getElementById('specific-exams-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
         }
 
         function openPredictorExamsModal() {
@@ -1658,38 +1045,86 @@
                 });
                 container.innerHTML = html;
             }
-            const modal = document.getElementById('specific-exams-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.style.display = 'flex';
-            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
         }
 
         function closeSpecificExamsModal() {
-            const modal = document.getElementById('specific-exams-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }
+            document.getElementById('specific-exams-modal').classList.add('hidden');
         }
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
-            if (!container) return;
             const toast = document.createElement('div');
+            
             const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-slate-900';
 
             toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-3 transform transition-all translate-y-2 opacity-0 pointer-events-auto`;
-            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-300' : 'fa-circle-info text-blue-300'}"></i><span>${message}</span>`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-300' : 'fa-circle-info text-blue-300'}"></i>
+                <span>${message}</span>
+            `;
 
             container.appendChild(toast);
 
-            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 50);
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
             setTimeout(() => {
                 toast.classList.add('translate-y-2', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, 3500);
         }
     </script>
+
+    <!-- FINISHED TESTS MODAL -->
+    <div id="finished-tests-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">Finished Test History</h3>
+                        <p class="text-xs text-slate-500">All completed exams and finished test sessions</p>
+                    </div>
+                </div>
+                <button onclick="closeFinishedTestsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="finished-tests-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeFinishedTestsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SPECIFIC EXAMS HISTORY MODAL (CAT & PREDICTOR) -->
+    <div id="specific-exams-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-exam-title" class="font-bold text-slate-900 text-base">Exam History</h3>
+                        <p class="text-xs text-slate-500">All recorded previous exam attempts</p>
+                    </div>
+                </div>
+                <button onclick="closeSpecificExamsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="specific-exams-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeSpecificExamsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
