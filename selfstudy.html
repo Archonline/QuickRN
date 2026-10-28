@@ -562,9 +562,9 @@
                                             </span>
                                             <h4 class="text-xs md:text-sm font-bold text-slate-900 mt-2 line-clamp-2">${vid.title}</h4>
                                         </div>
-                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition">
-                                            <i class="fa-brands fa-youtube text-sm"></i> Watch Lecture Video <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                                        </a>
+                                        <button onclick="openYouTubeModal('${vid.url}', '${vid.title}', '${q.id}')" class="inline-flex items-center justify-center gap-2 w-full py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded text-xs transition cursor-pointer">
+                                            <i class="fa-brands fa-youtube text-sm"></i> Watch Lecture Video <i class="fa-solid fa-play text-[10px]"></i>
+                                        </button>
                                     </div>
                                 `).join('')}
                             </div>
