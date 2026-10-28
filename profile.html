@@ -46,6 +46,7 @@
     </header>
 
     <main class="flex-grow p-6 max-w-4xl mx-auto w-full space-y-6 overflow-y-auto">
+        <!-- Profile Settings Form -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
             <div class="flex items-center gap-4 border-b border-slate-100 pb-6">
                 <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-3xl font-bold">
@@ -82,9 +83,61 @@
                 </button>
             </div>
         </div>
+
+        <!-- Analytics Data & Reset Controls -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-4">
+            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-extrabold text-slate-900">Analytics & Progress Controls</h2>
+                    <p class="text-xs text-slate-500">Erase or restore performance metrics, subject scores, and test history.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                <button onclick="openWarningModal('erase')" class="flex-1 px-5 py-3 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-xl text-xs shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-trash-can"></i> Erase Analytics Data
+                </button>
+                <button onclick="openWarningModal('revert')" class="flex-1 px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-xl text-xs shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Revert / Restore Analytics
+                </button>
+            </div>
+        </div>
     </main>
 
+    <!-- Warning Modal -->
+    <div id="warning-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+            <div class="flex items-center gap-4">
+                <div id="modal-icon-bg" class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0">
+                    <i id="modal-icon" class="fa-solid"></i>
+                </div>
+                <div>
+                    <h3 id="modal-title" class="text-lg font-extrabold text-slate-900">Warning</h3>
+                    <p id="modal-subtitle" class="text-xs text-slate-500">Please confirm your action</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <p id="modal-message" class="text-xs text-slate-700 leading-relaxed font-medium"></p>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeWarningModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition">
+                    Cancel
+                </button>
+                <button id="modal-confirm-btn" onclick="executeModalAction()" class="px-5 py-2.5 text-white font-extrabold rounded-xl text-xs shadow transition flex items-center gap-2">
+                    Confirm Action
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        let currentModalAction = null;
+
         window.addEventListener('DOMContentLoaded', () => {
             let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             document.getElementById('input-name').value = state.userName || localStorage.getItem('quickrn_user_name') || 'Future RN';
@@ -110,6 +163,92 @@
 
             alert('Profile updated successfully!');
             window.location.href = 'dashboard.html';
+        }
+
+        // Modal Controls
+        function openWarningModal(action) {
+            currentModalAction = action;
+            const modal = document.getElementById('warning-modal');
+            const modalIconBg = document.getElementById('modal-icon-bg');
+            const modalIcon = document.getElementById('modal-icon');
+            const modalTitle = document.getElementById('modal-title');
+            const modalSubtitle = document.getElementById('modal-subtitle');
+            const modalMessage = document.getElementById('modal-message');
+            const confirmBtn = document.getElementById('modal-confirm-btn');
+
+            if (action === 'erase') {
+                modalIconBg.className = 'w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 bg-rose-100 text-rose-600';
+                modalIcon.className = 'fa-solid fa-triangle-exclamation';
+                modalTitle.textContent = 'Erase Analytics Data?';
+                modalSubtitle.textContent = 'This action will reset your current progress metrics.';
+                modalMessage.textContent = 'Are you sure you want to erase all performance analytics, category scores, and quiz histories? A backup snapshot will automatically be saved so you can restore your data later if needed.';
+                confirmBtn.className = 'px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-extrabold rounded-xl text-xs shadow transition flex items-center gap-2';
+                confirmBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Erase Data';
+            } else if (action === 'revert') {
+                let backupState = localStorage.getItem('quickrn_student_state_backup');
+                if (!backupState) {
+                    alert('No previous analytics backup found to revert to.');
+                    return;
+                }
+
+                modalIconBg.className = 'w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 bg-amber-100 text-amber-600';
+                modalIcon.className = 'fa-solid fa-rotate-left';
+                modalTitle.textContent = 'Revert Analytics Data?';
+                modalSubtitle.textContent = 'Restore metrics from your previous backup snapshot.';
+                modalMessage.textContent = 'This will overwrite your current active analytics and restore the performance records stored in your backup state.';
+                confirmBtn.className = 'px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-extrabold rounded-xl text-xs shadow transition flex items-center gap-2';
+                confirmBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Restore Backup';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeWarningModal() {
+            document.getElementById('warning-modal').classList.add('hidden');
+            currentModalAction = null;
+        }
+
+        function executeModalAction() {
+            if (currentModalAction === 'erase') {
+                performEraseAnalytics();
+            } else if (currentModalAction === 'revert') {
+                performRevertAnalytics();
+            }
+            closeWarningModal();
+        }
+
+        // Action Handlers
+        function performEraseAnalytics() {
+            let currentState = localStorage.getItem('quickrn_student_state');
+            if (currentState) {
+                // Save backup prior to erasing
+                localStorage.setItem('quickrn_student_state_backup', currentState);
+            }
+
+            let state = JSON.parse(currentState || '{}');
+            // Keep user credentials, reset test performance & metrics
+            let resetState = {
+                userName: state.userName || '',
+                userEmail: state.userEmail || '',
+                targetDate: state.targetDate || '',
+                nursingSchool: state.nursingSchool || '',
+                totalQuestionsAnswered: 0,
+                correctAnswers: 0,
+                overallPassingPredictor: 0,
+                categoryScores: {},
+                testHistory: []
+            };
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(resetState));
+            window.location.href = 'dashboard.html';
+        }
+
+        function performRevertAnalytics() {
+            let backupState = localStorage.getItem('quickrn_student_state_backup');
+            if (backupState) {
+                localStorage.setItem('quickrn_student_state', backupState);
+                window.location.href = 'dashboard.html';
+            }
         }
     </script>
 </body>
