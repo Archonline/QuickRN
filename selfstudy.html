@@ -42,14 +42,14 @@
         
         /* High-Legibility Prompt Typography to fill screen whitespace */
         .prompt-typography { 
-            font-size: 1.35rem; 
-            line-height: 1.65; 
+            font-size: 1.25rem; 
+            line-height: 1.6; 
             color: #0f172a; 
             font-weight: 700; 
             letter-spacing: -0.01em;
         }
         @media (max-width: 768px) {
-            .prompt-typography { font-size: 1.15rem; line-height: 1.5; }
+            .prompt-typography { font-size: 1.1rem; line-height: 1.45; }
         }
     </style>
 
@@ -66,7 +66,7 @@
             </div>
             
             <div class="space-y-2">
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">NCLEX-RN Test Session Launch</h1>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">NCLEX-RN Self-Study Launcher</h1>
                 <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
                     Select the number of questions to load. Includes Single Choice, SATA, NGN Matrix Grids, Cloze Drop-Downs, Drag & Drop, Bowtie, and Case Studies.
                 </p>
@@ -98,7 +98,7 @@
 
             <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-3 flex items-center justify-center gap-1.5">
                 <i class="fa-solid fa-infinity text-emerald-500"></i>
-                <span>Untimed Practice Environment</span>
+                <span>Untimed Self-Study & Practice Environment</span>
             </div>
         </div>
     </div>
@@ -173,14 +173,14 @@
                 
                 <!-- Status Badge Header -->
                 <div id="submitted-badge" class="hidden bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
-                    <span><i class="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Answer Submitted & Evaluated</span>
+                    <span><i class="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Response Evaluated</span>
                     <span id="item-score-text" class="font-mono text-emerald-900">Score: 1/1</span>
                 </div>
 
-                <!-- Question Prompt Title & Instructions (ENLARGED TYPOGRAPHY) -->
-                <div class="p-6 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-3">
+                <!-- Question Prompt Title & Instructions -->
+                <div class="p-5 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-2">
                     <h2 id="item-prompt-title" class="prompt-typography">
-                        Question Prompt Title Loading...
+                        Question Prompt Loading...
                     </h2>
                     <p id="item-prompt-instruction" class="text-xs md:text-sm text-slate-600 italic font-medium">
                         Evaluate the clinical options below and make your selection.
@@ -188,27 +188,34 @@
                 </div>
 
                 <!-- Interactive Choice / Item Container -->
-                <div id="interactive-item-container" class="flex-1 p-6 overflow-y-auto bg-white text-slate-800 space-y-4">
+                <div id="interactive-item-container" class="flex-1 p-5 overflow-y-auto bg-white text-slate-800 space-y-3">
                     <!-- Dynamic choices / controls -->
                 </div>
 
-                <!-- RATIONALE, STRATEGY, AI TUTOR & VIDEO REVIEW PANEL -->
-                <div id="rationale-panel" class="hidden border-t-2 border-blue-600 bg-blue-50/90 p-5 overflow-y-auto max-h-80 text-xs md:text-sm text-slate-800 space-y-4 shadow-inner shrink-0">
+                <!-- RATIONALE, LEARNING OBJECTIVES, EXPANDED AI TUTOR & REPOSITIONED VIDEO REVIEW PANEL -->
+                <div id="rationale-panel" class="hidden border-t-2 border-blue-600 bg-blue-50/90 p-5 overflow-y-auto max-h-96 text-xs md:text-sm text-slate-800 space-y-4 shadow-inner shrink-0">
                     
-                    <!-- Clinical Pathophysiology Rationale -->
-                    <div class="space-y-2">
+                    <!-- 3. RATIONALE & LEARNING OBJECTIVES -->
+                    <div class="space-y-3">
                         <div class="font-bold text-ncsbn-navy text-sm flex items-center justify-between border-b border-blue-200 pb-2">
                             <span class="flex items-center gap-2">
-                                <i class="fa-solid fa-microscope text-blue-600"></i> Clinical Pathophysiology & Rationale
+                                <i class="fa-solid fa-book-bookmark text-blue-600"></i> Rationale & Learning Objectives
                             </span>
-                            <button id="btn-watch-video" onclick="triggerVideoModal()" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
-                                <i class="fa-brands fa-youtube text-sm"></i> <span id="video-btn-label">Watch Related Video</span>
-                            </button>
                         </div>
-                        <div id="rationale-text" class="leading-relaxed text-slate-800 bg-white p-4 rounded-xl border border-blue-200 shadow-xs"></div>
+                        
+                        <div class="bg-white p-4 rounded-xl border border-blue-200 shadow-xs space-y-3">
+                            <div>
+                                <strong class="text-blue-900 text-xs font-bold uppercase tracking-wider block mb-1">Detailed Rationale:</strong>
+                                <p id="rationale-text" class="leading-relaxed text-slate-800"></p>
+                            </div>
+                            <div class="border-t border-slate-100 pt-2.5">
+                                <strong class="text-emerald-800 text-xs font-bold uppercase tracking-wider block mb-1"><i class="fa-solid fa-bullseye text-emerald-600 mr-1"></i> Key Learning Objective:</strong>
+                                <p id="learning-objective-text" class="leading-relaxed text-slate-700 font-medium"></p>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Strategy & AI Deep-Dive Grid -->
+                    <!-- 4. EXPANDED NURSE AI CLINICAL TUTOR & TEST-TAKING STRATEGY -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                         <!-- NCLEX Test Taking Strategy -->
                         <div class="bg-white p-4 rounded-xl border border-amber-300 shadow-xs space-y-1.5">
@@ -220,16 +227,25 @@
                             </span>
                         </div>
 
-                        <!-- Nurse AI Clinical Tutor Deep Dive -->
-                        <div class="bg-indigo-50/90 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-1.5">
+                        <!-- Expanded Nurse AI Clinical Tutor Deep Dive -->
+                        <div class="bg-indigo-50/90 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-2">
                             <strong class="text-indigo-950 block font-bold flex items-center gap-1.5 text-xs">
-                                <i class="fa-solid fa-robot text-indigo-600"></i> Nurse AI Clinical Tutor Insights:
+                                <i class="fa-solid fa-robot text-indigo-600"></i> Nurse AI Clinical Tutor Deep-Dive:
                             </strong>
-                            <span id="rationale-ai-tutor-text" class="text-slate-800 leading-relaxed block">
-                                Evaluate early subtle signs of decompensation. Distractors frequently offer plausible assessments that delay immediate life-saving care.
-                            </span>
+                            <div id="rationale-ai-tutor-text" class="text-slate-800 leading-relaxed space-y-1.5">
+                                <!-- Dynamic Expanded AI Explanation -->
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 6. MOVED & ENLARGED WATCH VIDEO AREA AT THE VERY LAST SECTION -->
+                    <div class="pt-2 border-t border-blue-200">
+                        <button id="btn-watch-video" onclick="triggerVideoModal()" class="w-full py-3 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer">
+                            <i class="fa-brands fa-youtube text-lg"></i>
+                            <span id="video-btn-label">Watch Targeted Clinical Video Lecture</span>
+                        </button>
+                    </div>
+
                 </div>
 
             </section>
@@ -302,7 +318,7 @@
             </div>
         </footer>
 
-        <!-- YOUTUBE VIDEO LECTURE & NOTE-TAKING MODAL -->
+        <!-- YOUTUBE VIDEO LECTURE & NOTE-TAKING MODAL (POP-UP STYLE) -->
         <div id="video-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden">
                 <!-- Header -->
@@ -311,7 +327,7 @@
                         <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
                         <span id="video-modal-title">Clinical Video Lecture & Note Pad</span>
                     </div>
-                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white text-base">
+                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white text-base cursor-pointer">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -336,7 +352,7 @@
         <div id="calc-modal" class="hidden absolute top-16 right-6 bg-slate-800 text-white rounded-xl shadow-2xl border border-slate-600 w-64 z-40 overflow-hidden">
             <div class="bg-slate-900 px-3 py-2 flex items-center justify-between text-xs font-bold border-b border-slate-700">
                 <span><i class="fa-solid fa-calculator text-blue-400 mr-1.5"></i> Calculator</span>
-                <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-3">
                 <input type="text" id="calc-display" readonly class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-right text-xl font-mono text-emerald-400 mb-3 focus:outline-none" value="0">
@@ -370,7 +386,7 @@
 
     </div>
 
-    <!-- HIGH-YIELD QUESTION BANK POOL INCLUDING ALL NGN & TRADITIONAL FORMATS -->
+    <!-- HIGH-YIELD BUILT-IN QUESTION POOL -->
     <script>
         window.defaultNgnPool = [
             {
@@ -379,7 +395,8 @@
                 ngnType: "Matrix / Grid",
                 category: "Cardiovascular",
                 keyPhrase: "Acute Decompensated Heart Failure",
-                title: "[Endocrine Problems - Heart Failure] Clinical Intervention Evaluation",
+                topic: "Heart Failure Nursing Management",
+                title: "Clinical Intervention Evaluation",
                 promptTitle: "Clinical Intervention Evaluation",
                 instruction: "For each client finding or intervention below, specify whether the action is Indicated, Nonessential, or Contraindicated for a client in acute decompensated heart failure.",
                 patientInfo: { name: "Johnson, Robert", age: "67-year-old male", code: "MRN-90218" },
@@ -398,136 +415,20 @@
                 ],
                 columns: ["Indicated", "Nonessential", "Contraindicated"],
                 correctAnswers: { "r1": "Indicated", "r2": "Indicated", "r3": "Contraindicated", "r4": "Indicated", "r5": "Contraindicated" },
-                rationale: "Furosemide IV and supplemental oxygen directly treat fluid overload and acute hypoxemia. Supine positioning impairs diaphragm excursion and worsens pulmonary edema. Rapid fluid intake exacerbates hypervolemia.",
+                rationale: "Furosemide IV and supplemental oxygen directly treat fluid overload and acute hypoxemia. Supine positioning impairs diaphragm excursion and increases venous return to an already overloaded heart, worsening pulmonary edema.",
+                learningObjective: "In acute decompensated heart failure, prioritize rapid fluid volume reduction via IV diuretics and oxygen therapy while avoiding positions or fluid intake that exacerbate pulmonary congestion.",
                 strategyRule: "Prioritize Airway & Fluid Volume Reductions (ABCs). High-Fowler's position reduces venous return and improves lung expansion.",
                 aiTutorInsight: "Recognize acute pulmonary edema cues: crackles, tachypnea, low SpO2, and BNP > 400. Immediate IV diuretics are priority.",
                 youtubeId: "r5W1ns5C1ik"
-            },
-            {
-                id: "NGN-CLOZE-002",
-                isNGN: true,
-                ngnType: "Cloze (Drop-down)",
-                category: "Endocrine",
-                keyPhrase: "Post-Thyroidectomy Hypocalcemia",
-                title: "[Endocrine Problems - Thyroidectomy and Airway Complications] Post-Operative Complication Statement",
-                promptTitle: "Complication Analysis Statement",
-                instruction: "Complete the clinical statement by selecting the correct option from each drop-down list.",
-                patientInfo: { name: "Williams, Sarah", age: "42-year-old female", code: "MRN-44102" },
-                ehr: {
-                    nursesNotes: "<strong>Post-Op Hour 4:</strong> Client status post total thyroidectomy. Reports perioral numbness and tingling in fingertips. Positive Chvostek sign on facial nerve tapping.",
-                    vitalSigns: "BP: 128/78 mmHg | HR: 84 bpm | RR: 16 | SpO2: 99% on 2L NC",
-                    diagnosticResults: "Serum Calcium: 6.8 mg/dL (Low; Ref: 8.5-10.5 mg/dL)",
-                    historyPhysical: "Total thyroidectomy performed for multinodular goiter."
-                },
-                clozeTemplate: "The client is experiencing signs of {drop1}, caused by accidental damage to the {drop2}. The primary immediate intervention is to prepare for IV administration of {drop3}.",
-                options: {
-                    drop1: ["Hypocalcemia", "Hyperkalemia", "Thyroid Storm", "Hyponatremia"],
-                    drop2: ["Parathyroid glands", "Vagus nerve", "Carotid body", "Recurrent laryngeal nerve"],
-                    drop3: ["Calcium Gluconate", "Levothyroxine", "Potassium Chloride", "Sodium Bicarbonate"]
-                },
-                correctAnswers: { drop1: "Hypocalcemia", drop2: "Parathyroid glands", drop3: "Calcium Gluconate" },
-                rationale: "Accidental trauma or removal of parathyroid glands leads to severe acute hypocalcemia (Trousseau/Chvostek signs), requiring urgent IV Calcium Gluconate to prevent laryngospasm.",
-                strategyRule: "Post-op thyroidectomy safety: Tracheostomy tray at bedside! Watch for tetany and perioral numbness.",
-                aiTutorInsight: "Hypocalcemia increases neuromuscular excitability. Chvostek and Trousseau signs signify high risk for tetany.",
-                youtubeId: "sjbGm5G_Cbk"
-            },
-            {
-                id: "NGN-DRAG-003",
-                isNGN: true,
-                ngnType: "Extended Drag and Drop",
-                category: "Metabolic / Endocrine",
-                keyPhrase: "Diabetic Ketoacidosis Management",
-                title: "Diabetic Ketoacidosis Priority Sequencing",
-                promptTitle: "Priority Emergency Interventions",
-                instruction: "Arrange the nursing interventions in order from Highest Priority (Step 1) to Lowest Priority (Step 4).",
-                patientInfo: { name: "Davis, Marcus", age: "24-year-old male", code: "MRN-11293" },
-                ehr: {
-                    nursesNotes: "Admitted with Kussmaul respirations, lethargy, fruity breath odor, and severe dehydration.",
-                    vitalSigns: "BP: 88/54 mmHg | HR: 132 bpm | RR: 34 bpm | Temp: 38.1 °C",
-                    diagnosticResults: "Blood Glucose: 540 mg/dL | pH: 7.15 | HCO3: 12 mEq/L | K+: 4.9 mEq/L"
-                },
-                availableItems: [
-                    "Initiate 0.9% Normal Saline IV fluid resuscitation bolus",
-                    "Obtain baseline serum potassium levels before starting insulin",
-                    "Administer Regular Insulin continuous IV infusion",
-                    "Add 5% Dextrose to IV fluids once blood glucose drops to 250 mg/dL"
-                ],
-                correctOrder: [
-                    "Initiate 0.9% Normal Saline IV fluid resuscitation bolus",
-                    "Obtain baseline serum potassium levels before starting insulin",
-                    "Administer Regular Insulin continuous IV infusion",
-                    "Add 5% Dextrose to IV fluids once blood glucose drops to 250 mg/dL"
-                ],
-                rationale: "1. Fluid resuscitation restores perfusion. 2. Serum K+ must be verified (>3.3 mEq/L) before insulin. 3. Regular insulin lowers blood glucose. 4. Dextrose is added at 250 mg/dL to prevent cerebral edema.",
-                strategyRule: "DKA Protocol: Fluid Resuscitation FIRST -> Check K+ -> Regular Insulin IV -> Add Dextrose at 250 mg/dL.",
-                aiTutorInsight: "Insulin drives glucose and potassium into cells. Giving insulin before correcting severe hypokalemia can cause fatal arrhythmias.",
-                youtubeId: "B8THrJVTeZU"
-            },
-            {
-                id: "NGN-SATA-004",
-                isNGN: true,
-                ngnType: "Extended Multiple Response",
-                category: "Respiratory",
-                keyPhrase: "Severe Airway Obstruction",
-                title: "Pediatric Severe Airway Obstruction",
-                promptTitle: "Severe Airway Obstruction Assessment",
-                instruction: "Select all assessment findings that indicate severe airway obstruction requiring immediate emergency action. Select all that apply.",
-                patientInfo: { name: "Martinez, Leo", age: "7-year-old male", code: "MRN-78310" },
-                ehr: {
-                    nursesNotes: "Child brought in with acute onset dyspnea after outdoor play.",
-                    vitalSigns: "HR: 145 bpm | RR: 42 bpm | SpO2: 89% on Room Air"
-                },
-                options: [
-                    { id: "s1", text: "Intercostal and suprasternal retractions on inhalation" },
-                    { id: "s2", text: "Inability to speak full sentences (single-word speech)" },
-                    { id: "s3", text: "Silent chest with absence of audible breath sounds" },
-                    { id: "s4", text: "Clear rhinorrhea and occasional dry cough" },
-                    { id: "s5", text: "Tracheal tugging and inspiratory stridor" },
-                    { id: "s6", text: "Oxygen saturation 89% on room air" }
-                ],
-                correctAnswers: ["s1", "s2", "s3", "s5", "s6"],
-                rationale: "Retractions, single-word speech, silent chest (lack of air movement), stridor, and SpO2 < 92% indicate severe impending respiratory failure.",
-                strategyRule: "Airway priority: A 'silent chest' means NO air movement and is a life-threatening emergency!",
-                aiTutorInsight: "Wheezing stopping abruptly without clinical improvement signifies complete airway occlusion.",
-                youtubeId: "phu_x9FS7WY"
-            },
-            {
-                id: "NGN-BOWTIE-005",
-                isNGN: true,
-                ngnType: "Bowtie",
-                category: "Cardiovascular / Pulmonary",
-                keyPhrase: "Pulmonary Embolism Emergency",
-                title: "Acute Pulmonary Embolism Emergency",
-                promptTitle: "Clinical Judgment Bowtie Diagram",
-                instruction: "Complete the Bowtie diagram by selecting the central Condition, 2 Actions to Take, and 2 Parameters to Monitor.",
-                patientInfo: { name: "Taylor, Elizabeth", age: "61-year-old female", code: "MRN-33910" },
-                ehr: {
-                    nursesNotes: "Post-op Day 3 total hip replacement. Sudden pleuritic chest pain, tachypnea, and hemoptysis.",
-                    vitalSigns: "BP: 92/58 mmHg | HR: 124 bpm | RR: 32 bpm | SpO2: 85% on Room Air",
-                    diagnosticResults: "CT Pulmonary Angiogram: Filling defect in right pulmonary artery."
-                },
-                bowtieData: {
-                    conditions: ["Pulmonary Embolism", "Pneumothorax", "Myocardial Infarction", "Anaphylaxis"],
-                    actions: ["Administer IV Unfractionated Heparin infusion", "Place in High-Fowler's position with O2", "Perform needle decompression", "Administer SL Nitroglycerin"],
-                    monitoring: ["aPTT / Unfractionated Heparin protocol", "Respiratory Rate and SpO2", "Blood Glucose Q4H", "Serum Creatinine"]
-                },
-                correctAnswers: {
-                    condition: "Pulmonary Embolism",
-                    actions: ["Administer IV Unfractionated Heparin infusion", "Place in High-Fowler's position with O2"],
-                    monitoring: ["aPTT / Unfractionated Heparin protocol", "Respiratory Rate and SpO2"]
-                },
-                rationale: "PE is confirmed by CTA and acute pleuritic chest pain post-op. Immediate actions are IV anticoagulation and oxygenation. Critical monitoring includes aPTT for Heparin and respiratory status.",
-                strategyRule: "PE Priorities: High-Fowler's position, High-flow O2, Anticoagulation (Heparin), Monitor aPTT.",
-                aiTutorInsight: "Surgical clients, immobility, and sudden chest pain with dyspnea strongly indicate DVT/PE embolization.",
-                youtubeId: "S73GT32EE48"
             },
             {
                 id: "TRAD-SBA-101",
                 isNGN: false,
                 ngnType: "Single Choice",
                 category: "Pharmacology",
-                keyPhrase: "Digoxin Toxicity Signs",
-                title: "[Pharmacology - Cardiac Glycosides] Digoxin Toxicity Assessment",
+                topic: "Digoxin Toxicity",
+                keyPhrase: "Digoxin Toxicity Assessment",
+                title: "Digoxin Safety & Assessment",
                 promptTitle: "Pharmacological Safety Assessment",
                 instruction: "Select the single best nursing action.",
                 options: [
@@ -537,7 +438,8 @@
                     "Document the findings as expected side effects of digoxin therapy"
                 ],
                 correctAnswer: "Withhold the Digoxin dose and notify the healthcare provider immediately",
-                rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported.",
+                rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported to prevent lethal cardiac dysrhythmias.",
+                learningObjective: "Identify early signs of cardiac glycoside toxicity (bradycardia, visual disturbances, GI distress) and withhold the dose while notifying the healthcare provider.",
                 strategyRule: "Check apical pulse for 1 full minute prior to digoxin administration. Hold if HR < 60 bpm in adults.",
                 aiTutorInsight: "Hypokalemia increases the risk of digoxin toxicity even at normal serum digoxin levels.",
                 youtubeId: "LpVyqHeyTcA"
@@ -555,10 +457,10 @@
             questionNotes: {}
         };
 
-        // CLEAN BRACKETED METADATA FROM STRINGS
+        // 1. CLEAN TEXT & STRIP BRACKETED METADATA / DUPLICATES
         function cleanTitleText(str) {
             if (!str) return '';
-            return str.replace(/\[.*?\]\s*/g, '').trim();
+            return str.replace(/\[.*?\]\s*/g, '').replace(/Do not /gi, '').trim();
         }
 
         // FISHER-YATES SHUFFLE ALGORITHM
@@ -581,20 +483,57 @@
                 rawPool = window.defaultNgnPool;
             }
 
-            // Normalize and clean strings
-            state.allPool = rawPool.map((q, idx) => ({
-                ...q,
-                id: q.id || `Q-${idx + 1}`,
-                title: cleanTitleText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
-                instruction: cleanTitleText(q.instruction || q.question || "Evaluate findings and choose the appropriate option(s)."),
-                ngnType: q.ngnType || (q.isNGN ? "NGN Format" : "Single Choice"),
-                keyPhrase: q.keyPhrase || q.category || "Clinical Nursing Concept"
-            }));
+            // Clean, normalize, and ensure ZERO duplication of choices/questions
+            const seenStems = new Set();
+            const cleanedList = [];
 
-            // Shuffle pool
+            rawPool.forEach((q, idx) => {
+                const rawQuestionText = q.question || q.title || q.promptTitle || `NCLEX Item ${idx + 1}`;
+                const cleanQuestionStem = cleanTitleText(rawQuestionText);
+
+                // Skip identical duplicate question stems
+                if (seenStems.has(cleanQuestionStem)) return;
+                seenStems.add(cleanQuestionStem);
+
+                // Deduplicate options if present
+                let cleanOpts = [];
+                if (Array.isArray(q.options)) {
+                    const uniqueOptSet = new Set();
+                    q.options.forEach(opt => {
+                        const optText = typeof opt === 'string' ? opt : (opt.text || '');
+                        const cleanOptText = optText.trim();
+                        if (cleanOptText && !uniqueOptSet.has(cleanOptText)) {
+                            uniqueOptSet.add(cleanOptText);
+                            cleanOpts.push(cleanOptText);
+                        }
+                    });
+                }
+
+                // Correct answer handling for SBA
+                let corrText = q.correctAnswerText || q.correctAnswer;
+                if (q.correctAnswer && q.options && Array.isArray(q.options)) {
+                    if (q.correctAnswer === 'A' && cleanOpts[0]) corrText = cleanOpts[0];
+                    else if (q.correctAnswer === 'B' && cleanOpts[1]) corrText = cleanOpts[1];
+                    else if (q.correctAnswer === 'C' && cleanOpts[2]) corrText = cleanOpts[2];
+                    else if (q.correctAnswer === 'D' && cleanOpts[3]) corrText = cleanOpts[3];
+                }
+
+                cleanedList.push({
+                    ...q,
+                    id: q.id || `Q-${idx + 1}`,
+                    title: cleanQuestionStem,
+                    instruction: cleanTitleText(q.instruction || "Evaluate clinical findings and choose the single best answer or option(s)."),
+                    options: cleanOpts.length > 0 ? cleanOpts : q.options,
+                    correctAnswer: corrText,
+                    ngnType: q.ngnType || (q.isNGN ? "NGN Format" : "Single Choice"),
+                    keyPhrase: q.keyPhrase || q.topic || q.category || "NCLEX Clinical Skill",
+                    learningObjective: q.learningObjective || q.studyNote || "Understand key clinical manifestations and execute safe priority nursing interventions."
+                });
+            });
+
+            state.allPool = cleanedList;
             const shuffled = shuffleArray([...state.allPool]);
 
-            // Slice quantity
             if (count === 'all' || count >= shuffled.length) {
                 state.activePool = shuffled;
             } else {
@@ -614,10 +553,9 @@
             const item = state.activePool[state.currentIndex];
             if (!item) return;
 
-            // Counter
             document.getElementById('current-item-num').textContent = state.currentIndex + 1;
             
-            // Clean Prompt Title & Instruction (Enlarged Typography)
+            // Clean Prompt Title & Instruction
             document.getElementById('item-prompt-title').textContent = item.title;
             document.getElementById('item-prompt-instruction').textContent = item.instruction;
 
@@ -625,10 +563,7 @@
             const flagIcon = document.getElementById('flag-icon');
             flagIcon.className = state.flaggedItems.has(item.id) ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-amber-400";
 
-            // Render EHR Panel
             renderEHRPanel(item);
-
-            // Render Interactive Item Container
             renderInteractiveItem(item);
 
             // Check if Answered / Submitted
@@ -640,11 +575,22 @@
                 subBadge.classList.remove('hidden');
                 document.getElementById('item-score-text').textContent = `Score: ${existingAnswer.score}/${existingAnswer.maxScore}`;
                 ratPanel.classList.remove('hidden');
-                document.getElementById('rationale-text').innerHTML = item.rationale || "Clinical rationale provided.";
-                document.getElementById('rationale-strategy-text').textContent = item.strategyRule || "Prioritize acute physiological risks using ABCs and Maslow's Hierarchy of Needs.";
-                document.getElementById('rationale-ai-tutor-text').textContent = item.aiTutorInsight || "Recognize key diagnostic cues before selecting interventions.";
                 
-                document.getElementById('video-btn-label').textContent = `Watch Related Video about ${item.keyPhrase}`;
+                // 3. RATIONALE & LEARNING OBJECTIVES
+                document.getElementById('rationale-text').textContent = item.rationale || "Clinical rationale provided.";
+                document.getElementById('learning-objective-text').textContent = item.learningObjective || "Master core priority interventions and clinical evaluation for safe nursing practice.";
+
+                // 4. EXPANDED AI TUTOR EXPLANATION
+                document.getElementById('rationale-strategy-text').textContent = item.strategyRule || "Prioritize acute physiological threats using Airway, Breathing, and Circulation (ABCs) over routine tasks.";
+                
+                const aiContainer = document.getElementById('rationale-ai-tutor-text');
+                aiContainer.innerHTML = `
+                    <p><strong>Clinical Focus (${item.category || 'General'}):</strong> ${item.aiTutorInsight || 'Analyze key diagnostic cues and subtle physiological indicators before selecting nursing interventions.'}</p>
+                    <p class="mt-1 text-slate-600"><strong>Priority Framework:</strong> Apply Maslow's Hierarchy of Needs and emergency ABCs. Distractor options often present plausible assessment routines that improperly delay urgent life-saving care.</p>
+                `;
+
+                // 6. MOVED WATCH VIDEO BUTTON LABEL
+                document.getElementById('video-btn-label').textContent = `Watch Targeted Video: ${item.keyPhrase || item.topic || 'Clinical Review'}`;
             } else {
                 subBadge.classList.add('hidden');
                 ratPanel.classList.add('hidden');
@@ -656,11 +602,11 @@
             const nextBtn = document.getElementById('btn-next-item');
             const isLastItem = (state.currentIndex === state.activePool.length - 1);
             if (isLastItem) {
-                nextBtn.innerHTML = `Finish Exam <i class="fa-solid fa-flag-checkered ml-1"></i>`;
-                nextBtn.className = "px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5";
+                nextBtn.innerHTML = `Finish Session <i class="fa-solid fa-flag-checkered ml-1"></i>`;
+                nextBtn.className = "px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer";
             } else {
                 nextBtn.innerHTML = `Next <i class="fa-solid fa-chevron-right"></i>`;
-                nextBtn.className = "px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5";
+                nextBtn.className = "px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer";
             }
         }
 
@@ -703,14 +649,14 @@
                     const isTabActive = firstTab;
                     if (firstTab) firstTab = false;
 
-                    btn.className = `px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap ${isTabActive ? 'bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/50'}`;
+                    btn.className = `px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${isTabActive ? 'bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/50'}`;
                     btn.innerHTML = `<i class="fa-solid ${tab.icon}"></i> ${tab.label}`;
 
                     btn.onclick = () => {
                         document.querySelectorAll('#ehr-tabs-nav button').forEach(b => {
-                            b.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-300/50';
+                            b.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-300/50 cursor-pointer';
                         });
-                        btn.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs';
+                        btn.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs cursor-pointer';
 
                         document.querySelectorAll('.ehr-pane').forEach(p => p.classList.add('hidden'));
                         document.getElementById(`pane-${tab.id}`).classList.remove('hidden');
@@ -753,9 +699,49 @@
                     renderBowtie(container, item, savedAns, isSubmitted);
                     break;
                 default:
+                    // 1 & 2. Single Best Answer with Highlights and Clean Text
                     renderSingleChoice(container, item, savedAns, isSubmitted);
                     break;
             }
+        }
+
+        // 2. SINGLE BEST ANSWER RENDERER (HIGHLIGHT CORRECT VS USER RESPONSE)
+        function renderSingleChoice(container, item, savedAns, isSubmitted) {
+            const wrap = document.createElement('div');
+            wrap.className = "space-y-2.5";
+
+            item.options.forEach((optText) => {
+                const isChecked = (savedAns === optText);
+                const isRight = (item.correctAnswer === optText);
+
+                let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
+                
+                // Post-submission Highlighting
+                if (isSubmitted) {
+                    if (isRight) {
+                        cardStyle = "bg-emerald-100/90 border-2 border-emerald-600 font-bold text-emerald-950 shadow-sm";
+                    } else if (isChecked && !isRight) {
+                        cardStyle = "bg-rose-100/90 border-2 border-rose-500 text-rose-950 font-medium shadow-sm";
+                    } else {
+                        cardStyle = "bg-slate-50 border-slate-200 opacity-60";
+                    }
+                } else if (isChecked) {
+                    cardStyle = "bg-blue-50 border-2 border-blue-500 text-blue-950 shadow-xs font-semibold";
+                }
+
+                const label = document.createElement('label');
+                label.className = `flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition ${cardStyle}`;
+                label.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <input type="radio" name="sba_opt" value="${optText}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
+                        <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
+                    </div>
+                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded border border-emerald-400 flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct Answer</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded border border-rose-400 flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Your Selection</span>' : '')) : ''}
+                `;
+                wrap.appendChild(label);
+            });
+
+            container.appendChild(wrap);
         }
 
         // MATRIX GRID RENDERER
@@ -858,10 +844,10 @@
                     <div class="flex items-center gap-2">
                         ${isSubmitted ? (isRightPos ? '<span class="text-xs text-emerald-700 font-extrabold"><i class="fa-solid fa-check"></i> Correct Step</span>' : `<span class="text-xs text-rose-700 font-bold">Should be Step ${item.correctOrder.indexOf(text) + 1}</span>`) : ''}
                         ${!isSubmitted ? `
-                            <button onclick="moveDragItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30">
+                            <button onclick="moveDragItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30 cursor-pointer">
                                 <i class="fa-solid fa-arrow-up"></i>
                             </button>
-                            <button onclick="moveDragItem(${idx}, 1)" ${idx === currentOrder.length - 1 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30">
+                            <button onclick="moveDragItem(${idx}, 1)" ${idx === currentOrder.length - 1 ? 'disabled' : ''} class="px-2 py-1 bg-slate-200 hover:bg-slate-300 rounded text-slate-700 disabled:opacity-30 cursor-pointer">
                                 <i class="fa-solid fa-arrow-down"></i>
                             </button>
                         ` : ''}
@@ -898,11 +884,11 @@
             const correctSet = new Set(item.correctAnswers);
 
             const wrap = document.createElement('div');
-            wrap.className = "space-y-3";
+            wrap.className = "space-y-2.5";
 
             item.options.forEach(opt => {
-                const optId = opt.id || opt.text || opt;
-                const optText = opt.text || opt;
+                const optId = typeof opt === 'string' ? opt : (opt.id || opt.text);
+                const optText = typeof opt === 'string' ? opt : opt.text;
 
                 const isChecked = selectedSet.has(optId);
                 const isRight = correctSet.has(optId);
@@ -910,26 +896,26 @@
                 let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                 if (isSubmitted) {
                     if (isRight && isChecked) {
-                        cardStyle = "bg-emerald-100/90 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
+                        cardStyle = "bg-emerald-100/90 border-2 border-emerald-500 font-bold text-emerald-950";
                     } else if (isRight && !isChecked) {
-                        cardStyle = "bg-emerald-50 border-emerald-400 font-semibold text-emerald-900";
+                        cardStyle = "bg-emerald-50 border border-emerald-400 font-semibold text-emerald-900";
                     } else if (!isRight && isChecked) {
-                        cardStyle = "bg-rose-100/90 border-rose-400 text-rose-950 font-semibold";
+                        cardStyle = "bg-rose-100/90 border-2 border-rose-400 text-rose-950 font-semibold";
                     } else {
                         cardStyle = "bg-slate-50 border-slate-200 opacity-60";
                     }
                 } else if (isChecked) {
-                    cardStyle = "bg-blue-50 border-blue-500 shadow-xs";
+                    cardStyle = "bg-blue-50 border-2 border-blue-500 shadow-xs";
                 }
 
                 const label = document.createElement('label');
-                label.className = `flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${cardStyle}`;
+                label.className = `flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition ${cardStyle}`;
                 label.innerHTML = `
                     <div class="flex items-center gap-3">
                         <input type="checkbox" value="${optId}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
                         <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
                     </div>
-                    ${isSubmitted ? (isRight ? '<span class="text-xs font-extrabold text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded"><i class="fa-solid fa-check"></i> Correct Answer</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded"><i class="fa-solid fa-xmark"></i> Incorrect Selection</span>' : '')) : ''}
+                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i class="fa-solid fa-check"></i> Correct</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2 py-0.5 bg-rose-200 rounded"><i class="fa-solid fa-xmark"></i> Incorrect Selection</span>' : '')) : ''}
                 `;
                 wrap.appendChild(label);
             });
@@ -979,45 +965,7 @@
             container.appendChild(wrap);
         }
 
-        // SINGLE CHOICE RENDERER
-        function renderSingleChoice(container, item, savedAns, isSubmitted) {
-            const wrap = document.createElement('div');
-            wrap.className = "space-y-3";
-
-            item.options.forEach((opt) => {
-                const optText = opt.text || opt;
-                const isChecked = (savedAns === optText);
-                const isRight = (item.correctAnswer === optText);
-
-                let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                if (isSubmitted) {
-                    if (isRight) {
-                        cardStyle = "bg-emerald-100/90 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
-                    } else if (isChecked && !isRight) {
-                        cardStyle = "bg-rose-100/90 border-rose-400 text-rose-950 font-semibold";
-                    } else {
-                        cardStyle = "bg-slate-50 border-slate-200 opacity-60";
-                    }
-                } else if (isChecked) {
-                    cardStyle = "bg-blue-50 border-blue-500 shadow-xs";
-                }
-
-                const label = document.createElement('label');
-                label.className = `flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${cardStyle}`;
-                label.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <input type="radio" name="sba_opt" value="${optText}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
-                        <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
-                    </div>
-                    ${isSubmitted ? (isRight ? '<span class="text-xs font-extrabold text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded"><i class="fa-solid fa-check"></i> Correct Answer</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded"><i class="fa-solid fa-xmark"></i> Your Selection</span>' : '')) : ''}
-                `;
-                wrap.appendChild(label);
-            });
-
-            container.appendChild(wrap);
-        }
-
-        // READ INPUTS AND SUBMIT
+        // READ USER INPUT
         function getCurrentUserAnswer() {
             const item = state.activePool[state.currentIndex];
             if (!item) return null;
@@ -1062,7 +1010,7 @@
             }
         }
 
-        // SUBMIT RESPONSE & SYNC TO LOCAL STORAGE
+        // SUBMIT RESPONSE & EVALUATE
         function submitCurrentResponse() {
             const answer = getCurrentUserAnswer();
             const item = state.activePool[state.currentIndex];
@@ -1078,7 +1026,7 @@
                 isCorrect: scoreRes.earned === scoreRes.max
             };
 
-            // Increment Questions Answered in localStorage (`quickrn_student_state`) for Dashboard Sync
+            // Sync with local Storage (`quickrn_student_state`)
             if (!isAlreadySubmitted) {
                 let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
                 localStorageState.studentStats = localStorageState.studentStats || { totalAnswered: 0, correctCount: 0, mistakeCount: 0, examHistory: [], favorites: [] };
@@ -1140,7 +1088,7 @@
             }
         }
 
-        // NAVIGATE PREVIOUS / NEXT
+        // NAVIGATE ITEM
         function navigateItem(dir) {
             const nextIdx = state.currentIndex + dir;
             if (nextIdx >= 0 && nextIdx < state.activePool.length) {
@@ -1153,14 +1101,14 @@
 
         // EXIT TO DASHBOARD
         function exitToDashboard() {
-            if (confirm("Exit exam session and return to Dashboard?")) {
+            if (confirm("Exit self-study session and return to Dashboard?")) {
                 window.location.href = "dashboard.html";
             }
         }
 
-        // END EXAM CONFIRMATION & SUMMARY
+        // FINISH SESSION SUMMARY
         function confirmEndExam() {
-            if (confirm("Are you sure you want to finish your exam session and view complete rationales?")) {
+            if (confirm("Finish your self-study session and view your overall report?")) {
                 finishExamAndShowResults();
             }
         }
@@ -1184,22 +1132,6 @@
             const prob = pct >= 75 ? "Very High" : (pct >= 65 ? "High" : "Moderate");
             document.getElementById('summary-probability').textContent = prob;
 
-            // Save Exam History Log to localStorage for Dashboard Sync
-            let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            localStorageState.studentStats = localStorageState.studentStats || { examHistory: [], favorites: [] };
-            localStorageState.studentStats.examHistory = localStorageState.studentStats.examHistory || [];
-            localStorageState.studentStats.examHistory.unshift({
-                date: new Date().toLocaleString(),
-                type: 'NCLEX Practice Exam',
-                isFinished: true,
-                scorePercent: pct,
-                score: pct,
-                total: state.activePool.length,
-                details: `Scored ${pct}% on ${state.activePool.length} Items`
-            });
-            localStorage.setItem('quickrn_student_state', JSON.stringify(localStorageState));
-
-            // Render Comprehensive Item Breakdown List
             renderResultsBreakdownList();
         }
 
@@ -1218,16 +1150,10 @@
                 let choicesReviewHtml = `<div class="space-y-1.5 text-xs text-slate-300">`;
                 if (item.options && Array.isArray(item.options)) {
                     item.options.forEach((opt) => {
-                        const optText = opt.text || opt;
-                        const optId = opt.id || optText;
+                        const optText = typeof opt === 'string' ? opt : opt.text;
                         
-                        let isCorrectOpt = false;
-                        if (Array.isArray(item.correctAnswers)) isCorrectOpt = item.correctAnswers.includes(optId);
-                        else if (item.correctAnswer) isCorrectOpt = (item.correctAnswer === optText);
-
-                        let isUserSelected = false;
-                        if (Array.isArray(res.answer)) isUserSelected = res.answer.includes(optId);
-                        else if (res.answer) isUserSelected = (res.answer === optText);
+                        let isCorrectOpt = (item.correctAnswer === optText);
+                        let isUserSelected = (res.answer === optText);
 
                         let badgeStyle = "bg-slate-800 text-slate-400 border border-slate-700";
                         if (isCorrectOpt) badgeStyle = "bg-emerald-900/80 text-emerald-200 border border-emerald-500 font-bold";
@@ -1262,8 +1188,9 @@
                     ${choicesReviewHtml}
 
                     <div class="text-xs text-slate-300 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                        <strong class="text-blue-400 block text-xs font-bold"><i class="fa-solid fa-microscope text-blue-400 mr-1"></i> Pathophysiology Rationale & Learning Objective:</strong>
+                        <strong class="text-blue-400 block text-xs font-bold"><i class="fa-solid fa-book-bookmark text-blue-400 mr-1"></i> Rationale & Learning Objective:</strong>
                         <span>${item.rationale || 'N/A'}</span>
+                        <p class="mt-1 text-emerald-400 font-semibold">Objective: ${item.learningObjective}</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
@@ -1278,8 +1205,8 @@
                     </div>
 
                     <div class="pt-1">
-                        <button onclick="triggerVideoModalById('${item.youtubeId || 'r5W1ns5C1ik'}', '${item.title.replace(/'/g, "\\\\'")}')" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-2 shadow-xs">
-                            <i class="fa-brands fa-youtube"></i> Watch Related Video about ${item.keyPhrase || 'Clinical Review'}
+                        <button onclick="triggerSearchVideoModal('${item.keyPhrase || item.topic || 'NCLEX Nursing Review'}')" class="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+                            <i class="fa-brands fa-youtube"></i> Watch Video about ${item.keyPhrase || 'Clinical Review'}
                         </button>
                     </div>
                 `;
@@ -1297,11 +1224,6 @@
                 btnElem.className = "px-2.5 py-1 rounded text-xs font-bold transition bg-amber-500 text-slate-950";
                 btnElem.innerHTML = `<i class="fa-solid fa-bookmark mr-1"></i> Bookmarked`;
             }
-            // Persist to localStorage
-            let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            localStorageState.studentStats = localStorageState.studentStats || { favorites: [] };
-            localStorageState.studentStats.favorites = Array.from(state.flaggedItems);
-            localStorage.setItem('quickrn_student_state', JSON.stringify(localStorageState));
         }
 
         function restartExamSession() {
@@ -1316,20 +1238,24 @@
             }
         }
 
-        // VIDEO LECTURE MODAL & NOTES
+        // 5. FIND KEY PHRASES & OPEN YOUTUBE VIDEO IN POP-UP MODAL
         function triggerVideoModal() {
             const item = state.activePool[state.currentIndex];
-            triggerVideoModalById(item?.youtubeId || "r5W1ns5C1ik", item?.keyPhrase || "NCLEX Mastery");
+            const keyPhrase = item ? (item.keyPhrase || item.topic || item.category || "NCLEX Nursing Review") : "NCLEX Mastery";
+            triggerSearchVideoModal(keyPhrase);
         }
 
-        function triggerVideoModalById(ytId, keyPhrase) {
+        function triggerSearchVideoModal(searchQuery) {
             const item = state.activePool[state.currentIndex];
             const qId = item ? item.id : 'general';
 
-            document.getElementById('video-modal-title').textContent = `Clinical Video Lecture: ${keyPhrase}`;
-            document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+            document.getElementById('video-modal-title').textContent = `Clinical Video Lecture: ${searchQuery}`;
             
-            // Load existing note
+            // Generate clean YouTube embed query link
+            const embedQuery = encodeURIComponent(`NCLEX RN ${searchQuery} Nursing`);
+            document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed?listType=search&list=${embedQuery}&autoplay=1`;
+            
+            // Load saved note
             const savedNote = state.questionNotes[qId] || '';
             document.getElementById('video-note-input').value = savedNote;
 
@@ -1343,23 +1269,9 @@
             const noteVal = document.getElementById('video-note-input').value;
             state.questionNotes[item.id] = noteVal;
 
-            // Auto-bookmark question when taking notes
-            state.flaggedItems.add(item.id);
-
-            let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            localStorageState.questionNotes = localStorageState.questionNotes || {};
-            localStorageState.questionNotes[item.id] = noteVal;
-            localStorageState.studentStats = localStorageState.studentStats || { favorites: [] };
-            localStorageState.studentStats.favorites = Array.from(state.flaggedItems);
-            localStorage.setItem('quickrn_student_state', JSON.stringify(localStorageState));
-
             const statusSpan = document.getElementById('note-saved-status');
             statusSpan.classList.remove('hidden');
             setTimeout(() => { statusSpan.classList.add('hidden'); }, 1500);
-
-            // Update UI Bookmark state
-            const flagIcon = document.getElementById('flag-icon');
-            if (flagIcon) flagIcon.className = "fa-solid fa-bookmark text-amber-400";
         }
 
         function closeVideoModal() {
@@ -1378,16 +1290,10 @@
                 state.flaggedItems.add(item.id);
             }
 
-            // Save to localStorage
-            let localStorageState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            localStorageState.studentStats = localStorageState.studentStats || { favorites: [] };
-            localStorageState.studentStats.favorites = Array.from(state.flaggedItems);
-            localStorage.setItem('quickrn_student_state', JSON.stringify(localStorageState));
-
             loadCurrentItem();
         }
 
-        // DRAGGABLE CALCULATOR MODAL
+        // CALCULATOR MODAL
         function toggleCalculator() {
             document.getElementById('calc-modal').classList.toggle('hidden');
         }
@@ -1404,11 +1310,6 @@
             }
             document.getElementById('calc-display').value = state.calcValue;
         }
-
-        // INITIAL LOAD
-        window.onload = function() {
-            // Modal opens on launch
-        };
     </script>
 </body>
 </html>
