@@ -226,13 +226,6 @@
         let bookmarkedQuestions = {};
         let examTimerInterval = null;
         let totalSecondsRemaining = 0;
-        
-        // CAT (Computer Adaptive Testing) state tracking
-        let isCatExam = false;
-        let catMaxItems = 150;
-        let catMinItems = 85;
-        let studentAbilityEstimate = 0.0; // logit scale (-3 to +3)
-        let questionHistoryRecord = []; // logs { questionId, difficulty, isCorrect }
 
         const topicDualYouTubeMap = {
             "cardio": [
@@ -293,7 +286,6 @@
         function loadQuestionsFromJS() {
             let rawDataArray = [];
             try {
-                // Fetch questions directly from embeddedQuestionsData defined in questions.js
                 const rawData = typeof embeddedQuestionsData !== 'undefined' ? embeddedQuestionsData : [];
                 if (Array.isArray(rawData)) {
                     rawDataArray = rawData;
@@ -303,10 +295,9 @@
                     rawDataArray = questions;
                 }
             } catch (err) {
-                console.error("Error loading questions from questions.js:", err);
+                console.error("Error loading questions:", err);
             }
 
-            // Fallback sample questions if questions.js is missing or empty
             if (rawDataArray.length === 0) {
                 for (let i = 1; i <= 25; i++) {
                     rawDataArray.push({
@@ -355,32 +346,14 @@
             }
 
             let shuffled = shuffleArray(availablePool);
-            
-            // Check if CAT mode
-            isCatExam = (count === 85 || count === 150);
-            catMaxItems = count;
-            catMinItems = 85;
-            studentAbilityEstimate = 0.0;
-            questionHistoryRecord = [];
-
-            if (isCatExam) {
-                activeQuestions = shuffled.map((q, idx) => ({
-                    ...q,
-                    difficulty: q.difficulty !== undefined ? q.difficulty : ((idx % 5) - 2) * 0.7,
-                    options: shuffleArray(q.options)
-                }));
-                activeQuestions.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
-            } else {
-                // Cycle through pool if count is larger than available questions
-                let selected = [];
-                while (selected.length < count) {
-                    selected.push(...shuffleArray(shuffled));
-                }
-                activeQuestions = selected.slice(0, count).map(q => ({
-                    ...q,
-                    options: shuffleArray(q.options)
-                }));
+            let selected = [];
+            while (selected.length < count) {
+                selected.push(...shuffleArray(shuffled));
             }
+            activeQuestions = selected.slice(0, count).map(q => ({
+                ...q,
+                options: shuffleArray(q.options)
+            }));
 
             currentIndex = 0;
             selectedOptions = {};
@@ -520,13 +493,16 @@
             const q = activeQuestions[currentIndex];
             const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
             let isCorrect = false;
+            
+            // Normalize answer comparison cleanly
             if (isSATA) {
                 isCorrect = Array.isArray(sel) && sel.length > 0;
             } else {
-                isCorrect = (sel === q.correctAnswer);
+                const selectedText = q.options[sel.charCodeAt(0) - 65];
+                isCorrect = (sel === q.correctAnswer || selectedText === q.correctAnswer);
             }
 
-            // Update persistent student state per question
+            // Save question metrics locally
             if (!q._timedCounted) {
                 q._timedCounted = true;
                 let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -541,30 +517,6 @@
                     state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
                 }
                 localStorage.setItem('quickrn_student_state', JSON.stringify(state));
-            }
-
-            if (isCatExam) {
-                questionHistoryRecord.push({ id: q.id, difficulty: q.difficulty || 0, isCorrect });
-                studentAbilityEstimate += isCorrect ? 0.4 : -0.4;
-
-                if (currentIndex + 1 >= catMinItems) {
-                    if (currentIndex + 1 >= catMaxItems || Math.abs(studentAbilityEstimate) > 1.8) {
-                        finishExamSession();
-                        return;
-                    }
-                }
-
-                const askedIds = new Set(questionHistoryRecord.map(item => item.id));
-                const remainingPool = allQuestionsPool.filter(item => !askedIds.has(item.id)).map(item => ({
-                    ...item,
-                    difficulty: item.difficulty !== undefined ? item.difficulty : 0.0,
-                    options: shuffleArray(item.options)
-                }));
-
-                if (remainingPool.length > 0) {
-                    remainingPool.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
-                    activeQuestions.push(remainingPool[0]);
-                }
             }
 
             if (currentIndex >= activeQuestions.length - 1) {
@@ -589,9 +541,10 @@
                 if (userAns !== undefined) {
                     attempted++;
                     if (isSATA) {
-                        if (Array.isArray(userAns) && userAns.length > 0) isCorrect = true;
+                        isCorrect = Array.isArray(userAns) && userAns.length > 0;
                     } else {
-                        if (userAns === q.correctAnswer) isCorrect = true;
+                        const selectedText = q.options[userAns.charCodeAt(0) - 65];
+                        isCorrect = (userAns === q.correctAnswer || selectedText === q.correctAnswer);
                     }
                     if (isCorrect) correct++;
                 }
@@ -620,7 +573,7 @@
             stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
-            // Hide bottom footer in summary
+            // Hide bottom footer when viewing summary
             const footer = document.getElementById('exam-footer');
             if (footer) footer.style.display = 'none';
 
