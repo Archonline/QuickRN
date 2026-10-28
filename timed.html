@@ -355,20 +355,6 @@
 
             let shuffled = shuffleArray(availablePool);
             
-            // Generate padded fallback items dynamically if pool length is smaller than requested count (e.g. 20 items)
-            if (!isCatExam && shuffled.length < count) {
-                let generatedCount = shuffled.length;
-                while (shuffled.length < count) {
-                    generatedCount++;
-                    const template = allQuestionsPool[(generatedCount - 1) % allQuestionsPool.length] || allQuestionsPool[0];
-                    shuffled.push({
-                        ...template,
-                        id: `GEN-FALLBACK-${generatedCount}`,
-                        questionText: `[Item ${generatedCount}] ${template.questionText}`
-                    });
-                }
-            }
-            
             isCatExam = (count === 85 || count === 150);
             catMaxItems = count;
             catMinItems = 85;
@@ -383,20 +369,33 @@
                 }));
                 activeQuestions.sort((a, b) => Math.abs(a.difficulty - studentAbilityEstimate) - Math.abs(b.difficulty - studentAbilityEstimate));
             } else {
-                activeQuestions = shuffled.slice(0, Math.min(count, shuffled.length)).map(q => ({
-                    ...q,
-                    options: shuffleArray(q.options)
-                }));
+                // Dynamically build/cycle the required item count without breaking array indexes
+                let selectedPool = [];
+                let poolIdx = 0;
+                while (selectedPool.length < count && shuffled.length > 0) {
+                    const baseItem = shuffled[poolIdx % shuffled.length];
+                    const isDup = selectedPool.length >= shuffled.length;
+                    selectedPool.push({
+                        ...baseItem,
+                        id: isDup ? `${baseItem.id}-CYCLE-${selectedPool.length + 1}` : baseItem.id,
+                        options: shuffleArray(baseItem.options)
+                    });
+                    poolIdx++;
+                }
+                activeQuestions = selectedPool;
             }
 
             currentIndex = 0;
             selectedOptions = {};
             bookmarkedQuestions = {};
 
-            totalSecondsRemaining = count * 72;
+            totalSecondsRemaining = activeQuestions.length * 72;
             startTimerCountdown();
 
             document.getElementById('session-modal').classList.add('hidden');
+            const footer = document.getElementById('exam-footer');
+            if (footer) footer.style.display = 'block';
+
             renderCurrentQuestion();
         }
 
@@ -408,7 +407,10 @@
                     const hrs = String(Math.floor(totalSecondsRemaining / 3600)).padStart(2, '0');
                     const mins = String(Math.floor((totalSecondsRemaining % 3600) / 60)).padStart(2, '0');
                     const secs = String(totalSecondsRemaining % 60).padStart(2, '0');
-                    document.getElementById('exam-timer-display').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
+                    const timerElem = document.getElementById('exam-timer-display');
+                    if (timerElem) {
+                        timerElem.innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
+                    }
                 } else {
                     clearInterval(examTimerInterval);
                     finishExamSession();
@@ -427,14 +429,14 @@
             const isLastQuestion = currentIndex === activeQuestions.length - 1;
 
             if (isLastQuestion) {
-                btnText.innerText = "Finish Exam & View Summary";
-                btnIcon.className = "fa-solid fa-flag-checkered";
-                btnArrow.className = "fa-solid fa-chart-pie ml-1";
+                if (btnText) btnText.innerText = "Finish Exam & View Summary";
+                if (btnIcon) btnIcon.className = "fa-solid fa-flag-checkered";
+                if (btnArrow) btnArrow.className = "fa-solid fa-chart-pie ml-1";
                 btn.className = "px-8 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold rounded text-xs shadow-md border border-emerald-800 transition flex items-center gap-2 animate-pulse";
             } else {
-                btnText.innerText = "Submit & Proceed";
-                btnIcon.className = "fa-solid fa-check-double";
-                btnArrow.className = "fa-solid fa-chevron-right ml-1";
+                if (btnText) btnText.innerText = "Submit & Proceed";
+                if (btnIcon) btnIcon.className = "fa-solid fa-check-double";
+                if (btnArrow) btnArrow.className = "fa-solid fa-chevron-right ml-1";
                 btn.className = "px-8 py-2.5 bg-ncsbn-navy hover:bg-blue-900 text-white font-bold rounded text-xs shadow border border-blue-950 transition flex items-center gap-2";
             }
         }
@@ -449,11 +451,14 @@
             const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
             const isBookmarked = !!bookmarkedQuestions[q.id];
             
-            document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            document.getElementById('category-badge').innerText = `Category: ${q.category}`;
+            const pill = document.getElementById('session-info-pill');
+            if (pill) pill.innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
+            
+            const badge = document.getElementById('category-badge');
+            if (badge) badge.innerText = `Category: ${q.category}`;
             
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
-            topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
+            if (topBookmarkBtn) topBookmarkBtn.className = isBookmarked ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-slate-400";
 
             let html = `
                 <div class="space-y-6 animate-fadeIn">
@@ -571,11 +576,12 @@
                 }
             }
 
-            if (currentIndex < activeQuestions.length - 1) {
+            // Check if current question is the last question in the session
+            if (currentIndex >= activeQuestions.length - 1) {
+                finishExamSession();
+            } else {
                 currentIndex++;
                 renderCurrentQuestion();
-            } else {
-                finishExamSession();
             }
         }
 
@@ -600,15 +606,19 @@
 
             const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
 
-            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += attempted;
-            stateObj.studentStats.correctCount += correct;
-            stateObj.studentStats.mistakeCount += (attempted - correct);
-            stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
-            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
-            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+            try {
+                let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
+                stateObj.studentStats.testsTaken++;
+                stateObj.studentStats.totalAnswered += attempted;
+                stateObj.studentStats.correctCount += correct;
+                stateObj.studentStats.mistakeCount += (attempted - correct);
+                stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
+                stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
+                localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+            } catch(e) {
+                console.error("Error updating local state stats:", e);
+            }
 
             // Render Results Summary View
             let html = `
@@ -802,7 +812,8 @@
         }
 
         function updateBookmarkBadge() {
-            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
+            const badge = document.getElementById('saved-count-badge');
+            if (badge) badge.innerText = Object.keys(bookmarkedQuestions).length;
         }
 
         function openBookmarksModal() {
@@ -847,15 +858,19 @@
         }
 
         function persistBookmark(qId) {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            state.studentStats = state.studentStats || {};
-            state.studentStats.favorites = state.studentStats.favorites || [];
-            if (!state.studentStats.favorites.includes(qId)) {
-                state.studentStats.favorites.push(qId);
-            } else {
-                state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+            try {
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                state.studentStats = state.studentStats || {};
+                state.studentStats.favorites = state.studentStats.favorites || [];
+                if (!state.studentStats.favorites.includes(qId)) {
+                    state.studentStats.favorites.push(qId);
+                } else {
+                    state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+                }
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+            } catch(e) {
+                console.error("Error persisting bookmark:", e);
             }
-            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
         }
     
         window.onload = function() {
