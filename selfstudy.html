@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NCLEX-RN Practice & Test Environment | QuickRN</title>
+    <title>NCLEX-RN Next Generation & Traditional Test Environment</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- React & ReactDOM UMD -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel standalone for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <script>
         tailwind.config = {
@@ -41,342 +46,35 @@
         ::-webkit-scrollbar-thumb:hover { background: #64748b; }
         
         .prompt-typography { 
-            font-size: 1.15rem; 
-            line-height: 1.5; 
+            font-size: 1.35rem; 
+            line-height: 1.65; 
             color: #0f172a; 
             font-weight: 700; 
             letter-spacing: -0.01em;
         }
         @media (max-width: 768px) {
-            .prompt-typography { font-size: 1rem; line-height: 1.4; }
-        }
-
-        .highlight-phrase {
-            cursor: pointer;
-            padding: 2px 6px;
-            margin: 2px;
-            border-radius: 4px;
-            border: 1px solid #cbd5e1;
-            background-color: #f8fafc;
-            display: inline-block;
-            transition: all 0.2s ease;
-        }
-        .highlight-phrase:hover { background-color: #e2e8f0; }
-        .highlight-phrase.selected {
-            background-color: #fef08a;
-            border-color: #eab308;
-            font-weight: 700;
-        }
-        .highlight-phrase.correct-highlight {
-            background-color: #bbf7d0 !important;
-            border-color: #16a34a !important;
-            color: #14532d;
-            font-weight: 700;
-        }
-        .highlight-phrase.incorrect-highlight {
-            background-color: #fecdd3 !important;
-            border-color: #e11d48 !important;
-            color: #881337;
+            .prompt-typography { font-size: 1.15rem; line-height: 1.5; }
         }
     </style>
 
-    <!-- Question Bank Integration -->
-    <script src="questions_3500.js" onerror="console.log('questions_3500.js loading fallback')"></script>
-    <script src="questions.js" onerror="console.log('questions.js fallback')"></script>
+    <!-- Optional external questions fallback -->
+    <script src="questions.js" onerror="console.log('questions.js optional, running on built-in q-bank.')"></script>
 </head>
-<body class="h-full flex flex-col text-slate-800 antialiased overflow-hidden bg-slate-200">
+<body class="h-full bg-slate-200">
+    <div id="root" class="h-full"></div>
 
-    <!-- START EXAM QUANTITY LAUNCH MODAL -->
-    <div id="start-modal" class="fixed inset-0 bg-slate-900/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 space-y-6 text-center border border-slate-300">
-            <div class="w-16 h-16 bg-blue-50 text-ncsbn-blue rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">
-                <i class="fa-solid fa-user-nurse"></i>
-            </div>
-            
-            <div class="space-y-2">
-                <h1 class="text-2xl font-black text-slate-900 tracking-tight">NCLEX-RN Self-Study Launcher</h1>
-                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
-                    Select question quantity. Questions are randomly selected across all Next Gen NGN item types (Matrix, Bowtie, Cloze Drop-Down, Highlight, SATA, SBA) with full question bank exhaustion.
-                </p>
-            </div>
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <button onclick="launchExamSession(20)" class="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center cursor-pointer">
-                    <span class="text-xl font-black text-ncsbn-blue">20</span>
-                    <span class="text-[11px] text-slate-500 font-normal">Quick Quiz</span>
-                </button>
-                <button onclick="launchExamSession(60)" class="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center cursor-pointer">
-                    <span class="text-xl font-black text-ncsbn-blue">60</span>
-                    <span class="text-[11px] text-slate-500 font-normal">Standard Set</span>
-                </button>
-                <button onclick="launchExamSession(85)" class="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center cursor-pointer">
-                    <span class="text-xl font-black text-ncsbn-blue">85</span>
-                    <span class="text-[11px] text-slate-500 font-normal">NCLEX Minimum</span>
-                </button>
-                <button onclick="launchExamSession(150)" class="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center cursor-pointer">
-                    <span class="text-xl font-black text-ncsbn-blue">150</span>
-                    <span class="text-[11px] text-slate-500 font-normal">NCLEX Maximum</span>
-                </button>
-                <button onclick="launchExamSession('all')" class="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center col-span-2 sm:col-span-1 cursor-pointer">
-                    <span class="text-xl font-black text-amber-600">ALL</span>
-                    <span class="text-[11px] text-slate-500 font-normal">Full Q-Bank</span>
-                </button>
-            </div>
-
-            <div class="text-[11px] text-slate-400 border-t border-slate-100 pt-3 flex items-center justify-center gap-1.5">
-                <i class="fa-solid fa-infinity text-emerald-500"></i>
-                <span>Randomized Mixed NGN Question Engine Active</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN EXAM APPLICATION WRAPPER -->
-    <div id="app" class="flex flex-col h-full w-full">
-
-        <!-- HEADER BAR -->
-        <header class="bg-[#0B2240] text-white h-14 px-4 flex items-center justify-between border-b-2 border-amber-600 shadow-md select-none shrink-0 z-30">
-            <button onclick="exitToDashboard()" class="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-bold transition border border-slate-600 cursor-pointer">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Dashboard</span>
-            </button>
-
-            <div class="flex items-center gap-2 md:gap-3">
-                <div class="bg-slate-800 px-3 py-1 rounded border border-slate-600 text-xs text-slate-200 font-mono flex items-center gap-1">
-                    Item <span id="current-item-num" class="font-bold text-amber-400">1</span> of <span id="total-exam-items" class="font-bold text-white">0</span>
-                </div>
-
-                <button onclick="toggleCalculator()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer">
-                    <i class="fa-solid fa-calculator text-blue-400"></i>
-                    <span class="hidden md:inline">Calculator</span>
-                </button>
-
-                <button id="btn-flag-item" onclick="toggleBookmarkCurrent()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5 cursor-pointer">
-                    <i id="flag-icon" class="fa-regular fa-bookmark text-amber-400"></i>
-                    <span class="hidden md:inline">Bookmark</span>
-                </button>
-
-                <button id="btn-header-end" onclick="exitToDashboard()" class="px-3 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition shadow-xs cursor-pointer flex items-center gap-1.5">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Exit</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- MAIN SPLIT WORKSPACE -->
-        <main id="test-workspace" class="flex-1 flex flex-col lg:flex-row overflow-hidden p-2 gap-2 relative">
-
-            <!-- LEFT EHR PANEL (FIXED HEIGHT & SCROLLING) -->
-            <section id="left-ehr-panel" class="w-full lg:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-[45%] lg:h-full shrink-0">
-                <div class="bg-slate-100 border-b border-slate-300 px-4 py-2.5 flex items-center justify-between shrink-0">
-                    <div class="flex items-center gap-2 font-bold text-slate-800 text-xs md:text-sm">
-                        <i class="fa-solid fa-hospital-user text-ncsbn-blue"></i>
-                        <span>ELECTRONIC HEALTH RECORD (EHR)</span>
-                    </div>
-                    <span id="patient-id-badge" class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded font-mono font-semibold">
-                        Pt: Client Data
-                    </span>
-                </div>
-
-                <div id="ehr-tabs-nav" class="bg-slate-200/70 px-2 pt-2 border-b border-slate-300 flex gap-1 overflow-x-auto text-xs font-semibold text-slate-600 shrink-0"></div>
-
-                <div id="ehr-tab-contents" class="flex-1 p-4 overflow-y-auto bg-white text-xs md:text-sm text-slate-800 leading-relaxed"></div>
-            </section>
-
-            <!-- RIGHT QUESTION & RATIONALE PANEL -->
-            <section id="right-question-panel" class="w-full lg:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-[55%] lg:h-full">
-                
-                <div id="submitted-badge" class="hidden bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
-                    <span><i class="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Response Evaluated</span>
-                    <span id="item-score-text" class="font-mono text-emerald-900">Score: 1/1</span>
-                </div>
-
-                <div class="p-4 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-1.5">
-                    <h2 id="item-prompt-title" class="prompt-typography">Question Prompt Loading...</h2>
-                    <p id="item-prompt-instruction" class="text-xs md:text-sm text-slate-600 italic font-medium">Evaluate the clinical options below and make your selection.</p>
-                </div>
-
-                <div id="interactive-item-container" class="flex-1 p-4 overflow-y-auto bg-white text-slate-800 space-y-3"></div>
-
-                <!-- COMBINED RATIONALE & AI TUTOR SYNTHESIS PANEL -->
-                <div id="rationale-panel" class="hidden border-t-2 border-blue-600 bg-blue-50/90 p-4 overflow-y-auto max-h-80 text-xs md:text-sm text-slate-800 space-y-3 shadow-inner shrink-0">
-                    
-                    <div class="space-y-2">
-                        <div class="font-bold text-ncsbn-navy text-sm flex items-center justify-between border-b border-blue-200 pb-1.5">
-                            <span class="flex items-center gap-2">
-                                <i class="fa-solid fa-book-bookmark text-blue-600"></i> Rationale & Learning Objective
-                            </span>
-                        </div>
-                        
-                        <div class="bg-white p-3.5 rounded-xl border border-blue-200 shadow-xs space-y-2.5">
-                            <p id="rationale-text" class="leading-relaxed text-slate-800 text-xs md:text-sm font-normal"></p>
-                            
-                            <div class="border-t border-slate-100 pt-2">
-                                <strong class="text-emerald-800 text-xs font-bold uppercase tracking-wider block mb-0.5">
-                                    <i class="fa-solid fa-bullseye text-emerald-600 mr-1"></i> Key Learning Objective:
-                                </strong>
-                                <p id="learning-objective-text" class="leading-relaxed text-slate-700 font-medium text-xs md:text-sm"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-indigo-50/90 p-3.5 rounded-xl border border-indigo-200 shadow-xs space-y-1.5">
-                        <strong class="text-indigo-950 block font-bold flex items-center gap-1.5 text-xs uppercase tracking-wider">
-                            <i class="fa-solid fa-robot text-indigo-600"></i> Nurse AI Clinical Tutor & Strategic Synthesis:
-                        </strong>
-                        <p id="combined-ai-synthesis-text" class="text-slate-800 leading-relaxed text-xs md:text-sm">
-                            <!-- Dynamic AI synthesis -->
-                        </p>
-                    </div>
-
-                    <div class="pt-1.5 border-t border-blue-200">
-                        <button id="btn-watch-video" onclick="triggerVideoModal()" class="w-full py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer">
-                            <i class="fa-brands fa-youtube text-lg"></i>
-                            <span id="video-btn-label">Watch Targeted Clinical Video Lecture</span>
-                        </button>
-                    </div>
-
-                </div>
-
-            </section>
-
-        </main>
-
-        <!-- RESULTS SCREEN -->
-        <div id="results-screen" class="hidden flex-1 flex flex-col bg-slate-900 text-white p-6 overflow-y-auto">
-            <div class="max-w-5xl mx-auto w-full py-6 space-y-6">
-                
-                <div class="text-center space-y-2">
-                    <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                        <i class="fa-solid fa-circle-check"></i> Practice Session Completed
-                    </div>
-                    <h1 class="text-3xl font-extrabold text-white">Performance Evaluation & Readiness Report</h1>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overall Score</span>
-                        <div id="summary-percentage" class="text-5xl font-black text-blue-400 my-2">0%</div>
-                        <span id="summary-points" class="text-xs text-slate-300">0 of 0 Points Earned</span>
-                    </div>
-                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
-                        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Passing Readiness Status</span>
-                        <div id="summary-readiness-status" class="text-5xl font-black my-2">FAIL</div>
-                        <span id="summary-readiness-subtext" class="text-xs font-medium">Evaluation metrics</span>
-                    </div>
-                </div>
-
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-lg space-y-4">
-                    <h3 class="text-base font-bold text-white border-b border-slate-700 pb-3 flex items-center justify-between">
-                        <span><i class="fa-solid fa-list-check text-purple-400 mr-2"></i> Comprehensive Item Breakdown</span>
-                    </h3>
-                    <div id="results-item-breakdown" class="space-y-6"></div>
-                </div>
-
-                <div class="flex justify-center gap-4 pt-4">
-                    <button onclick="restartExamSession()" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition shadow-lg flex items-center gap-2 text-sm cursor-pointer">
-                        <i class="fa-solid fa-rotate-right"></i> Start New Session
-                    </button>
-                    <button onclick="returnToDashboard()" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl transition shadow-lg flex items-center gap-2 text-sm cursor-pointer">
-                        <i class="fa-solid fa-house"></i> Return to Dashboard
-                    </button>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FOOTER NAV -->
-        <footer class="bg-[#0B2240] text-white px-4 py-3 flex items-center justify-between border-t border-slate-700 shrink-0 select-none z-30">
-            <button id="btn-prev-item" onclick="navigateItem(-1)" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer">
-                <i class="fa-solid fa-chevron-left"></i> Previous
-            </button>
-
-            <div class="flex items-center gap-3">
-                <button id="btn-submit-item" onclick="submitCurrentResponse()" class="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer">
-                    <i class="fa-solid fa-check"></i> Submit Response
-                </button>
-                <button id="btn-next-item" onclick="navigateItem(1)" class="px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer">
-                    Next <i class="fa-solid fa-chevron-right"></i>
-                </button>
-            </div>
-        </footer>
-
-        <!-- YOUTUBE VIDEO & NOTE MODAL -->
-        <div id="video-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-            <div class="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden">
-                <div class="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between text-white shrink-0">
-                    <div class="flex items-center gap-2 font-bold text-sm">
-                        <i class="fa-brands fa-youtube text-red-500 text-lg"></i>
-                        <span id="video-modal-title">Clinical Video Lecture & Note Pad</span>
-                    </div>
-                    <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white text-base cursor-pointer">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-
-                <div class="flex-1 flex flex-col md:flex-row overflow-hidden">
-                    <div class="w-full md:w-2/3 bg-slate-950 flex flex-col items-center justify-center p-2 relative">
-                        <div id="video-container" class="w-full h-full flex flex-col items-center justify-center"></div>
-                    </div>
-                    <div class="w-full md:w-1/3 bg-slate-900 p-4 border-t md:border-t-0 md:border-l border-slate-700 flex flex-col space-y-3">
-                        <label class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                            <i class="fa-solid fa-pen-to-square"></i> Clinical Notes & Key Takeaways
-                        </label>
-                        <textarea id="video-note-input" oninput="saveCurrentVideoNote()" class="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none" placeholder="Type key clinical notes here..."></textarea>
-                        <span id="note-saved-status" class="text-[11px] text-emerald-400 font-semibold hidden"><i class="fa-solid fa-check"></i> Auto-Saved & Auto-Bookmarked</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- CALCULATOR -->
-        <div id="calc-modal" class="hidden absolute top-16 right-6 bg-slate-800 text-white rounded-xl shadow-2xl border border-slate-600 w-64 z-40 overflow-hidden">
-            <div class="bg-slate-900 px-3 py-2 flex items-center justify-between text-xs font-bold border-b border-slate-700">
-                <span><i class="fa-solid fa-calculator text-blue-400 mr-1.5"></i> Calculator</span>
-                <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="p-3">
-                <input type="text" id="calc-display" readonly class="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-right text-xl font-mono text-emerald-400 mb-3 focus:outline-none" value="0">
-                <div class="grid grid-cols-4 gap-1 text-xs font-semibold">
-                    <button onclick="calcInput('C')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-amber-300">C</button>
-                    <button onclick="calcInput('+/-')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-slate-300">+/-</button>
-                    <button onclick="calcInput('%')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-slate-300">%</button>
-                    <button onclick="calcInput('/')" class="bg-blue-600 hover:bg-blue-500 p-2.5 rounded text-white font-bold">/</button>
-                    
-                    <button onclick="calcInput('7')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">7</button>
-                    <button onclick="calcInput('8')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">8</button>
-                    <button onclick="calcInput('9')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">9</button>
-                    <button onclick="calcInput('*')" class="bg-blue-600 hover:bg-blue-500 p-2.5 rounded text-white font-bold">*</button>
-                    
-                    <button onclick="calcInput('4')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">4</button>
-                    <button onclick="calcInput('5')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">5</button>
-                    <button onclick="calcInput('6')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">6</button>
-                    <button onclick="calcInput('-')" class="bg-blue-600 hover:bg-blue-500 p-2.5 rounded text-white font-bold">-</button>
-
-                    <button onclick="calcInput('1')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">1</button>
-                    <button onclick="calcInput('2')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">2</button>
-                    <button onclick="calcInput('3')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">3</button>
-                    <button onclick="calcInput('+')" class="bg-blue-600 hover:bg-blue-500 p-2.5 rounded text-white font-bold">+</button>
-
-                    <button onclick="calcInput('0')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white col-span-2">0</button>
-                    <button onclick="calcInput('.')" class="bg-slate-700 hover:bg-slate-600 p-2.5 rounded text-white">.</button>
-                    <button onclick="calcInput('=')" class="bg-emerald-600 hover:bg-emerald-500 p-2.5 rounded text-white font-bold">=</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- APPLICATION ENGINE -->
-    <script>
-        window.defaultNgnPool = [
+        // HIGH-YIELD SAMPLE QUESTION POOL WITH ALL NGN & TRADITIONAL FORMATS
+        const defaultQBank = [
             {
                 id: "NGN-CS-001",
                 isNGN: true,
                 ngnType: "Matrix / Grid",
                 category: "Cardiovascular",
                 keyPhrase: "Acute Decompensated Heart Failure",
-                topic: "Heart Failure Nursing Management",
-                title: "Clinical Intervention Evaluation",
+                title: "[Endocrine Problems - Heart Failure] Clinical Intervention Evaluation",
                 promptTitle: "Clinical Intervention Evaluation",
                 instruction: "For each client finding or intervention below, specify whether the action is Indicated, Nonessential, or Contraindicated for a client in acute decompensated heart failure.",
                 patientInfo: { name: "Johnson, Robert", age: "67-year-old male", code: "MRN-90218" },
@@ -395,17 +93,136 @@
                 ],
                 columns: ["Indicated", "Nonessential", "Contraindicated"],
                 correctAnswers: { "r1": "Indicated", "r2": "Indicated", "r3": "Contraindicated", "r4": "Indicated", "r5": "Contraindicated" },
-                rationale: "Furosemide IV and supplemental oxygen directly treat fluid overload and acute hypoxemia. Supine positioning impairs diaphragm excursion and increases venous return to an already overloaded heart, worsening pulmonary edema.",
-                learningObjective: "In acute decompensated heart failure, prioritize rapid fluid volume reduction via IV diuretics and oxygen therapy while avoiding positions or fluid intake that exacerbate pulmonary congestion."
+                rationale: "Furosemide IV and supplemental oxygen directly treat fluid overload and acute hypoxemia. Supine positioning impairs diaphragm excursion and worsens pulmonary edema. Rapid fluid intake exacerbates hypervolemia.",
+                strategyRule: "Prioritize Airway & Fluid Volume Reductions (ABCs). High-Fowler's position reduces venous return and improves lung expansion.",
+                aiTutorInsight: "Recognize acute pulmonary edema cues: crackles, tachypnea, low SpO2, and BNP > 400. Immediate IV diuretics are priority.",
+                youtubeId: "r5W1ns5C1ik"
+            },
+            {
+                id: "NGN-CLOZE-002",
+                isNGN: true,
+                ngnType: "Cloze (Drop-down)",
+                category: "Endocrine",
+                keyPhrase: "Post-Thyroidectomy Hypocalcemia",
+                title: "[Endocrine Problems - Thyroidectomy and Airway Complications] Post-Operative Complication Statement",
+                promptTitle: "Complication Analysis Statement",
+                instruction: "Complete the clinical statement by selecting the correct option from each drop-down list.",
+                patientInfo: { name: "Williams, Sarah", age: "42-year-old female", code: "MRN-44102" },
+                ehr: {
+                    nursesNotes: "<strong>Post-Op Hour 4:</strong> Client status post total thyroidectomy. Reports perioral numbness and tingling in fingertips. Positive Chvostek sign on facial nerve tapping.",
+                    vitalSigns: "BP: 128/78 mmHg | HR: 84 bpm | RR: 16 | SpO2: 99% on 2L NC",
+                    diagnosticResults: "Serum Calcium: 6.8 mg/dL (Low; Ref: 8.5-10.5 mg/dL)",
+                    historyPhysical: "Total thyroidectomy performed for multinodular goiter."
+                },
+                clozeTemplate: "The client is experiencing signs of {drop1}, caused by accidental damage to the {drop2}. The primary immediate intervention is to prepare for IV administration of {drop3}.",
+                options: {
+                    drop1: ["Hypocalcemia", "Hyperkalemia", "Thyroid Storm", "Hyponatremia"],
+                    drop2: ["Parathyroid glands", "Vagus nerve", "Carotid body", "Recurrent laryngeal nerve"],
+                    drop3: ["Calcium Gluconate", "Levothyroxine", "Potassium Chloride", "Sodium Bicarbonate"]
+                },
+                correctAnswers: { drop1: "Hypocalcemia", drop2: "Parathyroid glands", drop3: "Calcium Gluconate" },
+                rationale: "Accidental trauma or removal of parathyroid glands leads to severe acute hypocalcemia (Trousseau/Chvostek signs), requiring urgent IV Calcium Gluconate to prevent laryngospasm.",
+                strategyRule: "Post-op thyroidectomy safety: Tracheostomy tray at bedside! Watch for tetany and perioral numbness.",
+                aiTutorInsight: "Hypocalcemia increases neuromuscular excitability. Chvostek and Trousseau signs signify high risk for tetany.",
+                youtubeId: "sjbGm5G_Cbk"
+            },
+            {
+                id: "NGN-DRAG-003",
+                isNGN: true,
+                ngnType: "Extended Drag and Drop",
+                category: "Metabolic / Endocrine",
+                keyPhrase: "Diabetic Ketoacidosis Management",
+                title: "Diabetic Ketoacidosis Priority Sequencing",
+                promptTitle: "Priority Emergency Interventions",
+                instruction: "Arrange the nursing interventions in order from Highest Priority (Step 1) to Lowest Priority (Step 4).",
+                patientInfo: { name: "Davis, Marcus", age: "24-year-old male", code: "MRN-11293" },
+                ehr: {
+                    nursesNotes: "Admitted with Kussmaul respirations, lethargy, fruity breath odor, and severe dehydration.",
+                    vitalSigns: "BP: 88/54 mmHg | HR: 132 bpm | RR: 34 bpm | Temp: 38.1 °C",
+                    diagnosticResults: "Blood Glucose: 540 mg/dL | pH: 7.15 | HCO3: 12 mEq/L | K+: 4.9 mEq/L"
+                },
+                availableItems: [
+                    "Initiate 0.9% Normal Saline IV fluid resuscitation bolus",
+                    "Obtain baseline serum potassium levels before starting insulin",
+                    "Administer Regular Insulin continuous IV infusion",
+                    "Add 5% Dextrose to IV fluids once blood glucose drops to 250 mg/dL"
+                ],
+                correctOrder: [
+                    "Initiate 0.9% Normal Saline IV fluid resuscitation bolus",
+                    "Obtain baseline serum potassium levels before starting insulin",
+                    "Administer Regular Insulin continuous IV infusion",
+                    "Add 5% Dextrose to IV fluids once blood glucose drops to 250 mg/dL"
+                ],
+                rationale: "1. Fluid resuscitation restores perfusion. 2. Serum K+ must be verified (>3.3 mEq/L) before insulin. 3. Regular insulin lowers blood glucose. 4. Dextrose is added at 250 mg/dL to prevent cerebral edema.",
+                strategyRule: "DKA Protocol: Fluid Resuscitation FIRST -> Check K+ -> Regular Insulin IV -> Add Dextrose at 250 mg/dL.",
+                aiTutorInsight: "Insulin drives glucose and potassium into cells. Giving insulin before correcting severe hypokalemia can cause fatal arrhythmias.",
+                youtubeId: "B8THrJVTeZU"
+            },
+            {
+                id: "NGN-SATA-004",
+                isNGN: true,
+                ngnType: "Extended Multiple Response",
+                category: "Respiratory",
+                keyPhrase: "Severe Airway Obstruction",
+                title: "Pediatric Severe Airway Obstruction",
+                promptTitle: "Severe Airway Obstruction Assessment",
+                instruction: "Select all assessment findings that indicate severe airway obstruction requiring immediate emergency action. Select all that apply.",
+                patientInfo: { name: "Martinez, Leo", age: "7-year-old male", code: "MRN-78310" },
+                ehr: {
+                    nursesNotes: "Child brought in with acute onset dyspnea after outdoor play.",
+                    vitalSigns: "HR: 145 bpm | RR: 42 bpm | SpO2: 89% on Room Air"
+                },
+                options: [
+                    { id: "s1", text: "Intercostal and suprasternal retractions on inhalation" },
+                    { id: "s2", text: "Inability to speak full sentences (single-word speech)" },
+                    { id: "s3", text: "Silent chest with absence of audible breath sounds" },
+                    { id: "s4", text: "Clear rhinorrhea and occasional dry cough" },
+                    { id: "s5", text: "Tracheal tugging and inspiratory stridor" },
+                    { id: "s6", text: "Oxygen saturation 89% on room air" }
+                ],
+                correctAnswers: ["s1", "s2", "s3", "s5", "s6"],
+                rationale: "Retractions, single-word speech, silent chest (lack of air movement), stridor, and SpO2 < 92% indicate severe impending respiratory failure.",
+                strategyRule: "Airway priority: A 'silent chest' means NO air movement and is a life-threatening emergency!",
+                aiTutorInsight: "Wheezing stopping abruptly without clinical improvement signifies complete airway occlusion.",
+                youtubeId: "phu_x9FS7WY"
+            },
+            {
+                id: "NGN-BOWTIE-005",
+                isNGN: true,
+                ngnType: "Bowtie",
+                category: "Cardiovascular / Pulmonary",
+                keyPhrase: "Pulmonary Embolism Emergency",
+                title: "Acute Pulmonary Embolism Emergency",
+                promptTitle: "Clinical Judgment Bowtie Diagram",
+                instruction: "Complete the Bowtie diagram by selecting the central Condition, 2 Actions to Take, and 2 Parameters to Monitor.",
+                patientInfo: { name: "Taylor, Elizabeth", age: "61-year-old female", code: "MRN-33910" },
+                ehr: {
+                    nursesNotes: "Post-op Day 3 total hip replacement. Sudden pleuritic chest pain, tachypnea, and hemoptysis.",
+                    vitalSigns: "BP: 92/58 mmHg | HR: 124 bpm | RR: 32 bpm | SpO2: 85% on Room Air",
+                    diagnosticResults: "CT Pulmonary Angiogram: Filling defect in right pulmonary artery."
+                },
+                bowtieData: {
+                    conditions: ["Pulmonary Embolism", "Pneumothorax", "Myocardial Infarction", "Anaphylaxis"],
+                    actions: ["Administer IV Unfractionated Heparin infusion", "Place in High-Fowler's position with O2", "Perform needle decompression", "Administer SL Nitroglycerin"],
+                    monitoring: ["aPTT / Unfractionated Heparin protocol", "Respiratory Rate and SpO2", "Blood Glucose Q4H", "Serum Creatinine"]
+                },
+                correctAnswers: {
+                    condition: "Pulmonary Embolism",
+                    actions: ["Administer IV Unfractionated Heparin infusion", "Place in High-Fowler's position with O2"],
+                    monitoring: ["aPTT / Unfractionated Heparin protocol", "Respiratory Rate and SpO2"]
+                },
+                rationale: "PE is confirmed by CTA and acute pleuritic chest pain post-op. Immediate actions are IV anticoagulation and oxygenation. Critical monitoring includes aPTT for Heparin and respiratory status.",
+                strategyRule: "PE Priorities: High-Fowler's position, High-flow O2, Anticoagulation (Heparin), Monitor aPTT.",
+                aiTutorInsight: "Surgical clients, immobility, and sudden chest pain with dyspnea strongly indicate DVT/PE embolization.",
+                youtubeId: "S73GT32EE48"
             },
             {
                 id: "TRAD-SBA-101",
                 isNGN: false,
                 ngnType: "Single Choice",
                 category: "Pharmacology",
-                topic: "Digoxin Toxicity",
-                keyPhrase: "Digoxin Toxicity Assessment",
-                title: "Digoxin Safety & Assessment",
+                keyPhrase: "Digoxin Toxicity Signs",
+                title: "[Pharmacology - Cardiac Glycosides] Digoxin Toxicity Assessment",
                 promptTitle: "Pharmacological Safety Assessment",
                 instruction: "Select the single best nursing action.",
                 options: [
@@ -415,796 +232,559 @@
                     "Document the findings as expected side effects of digoxin therapy"
                 ],
                 correctAnswer: "Withhold the Digoxin dose and notify the healthcare provider immediately",
-                rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported to prevent lethal cardiac dysrhythmias.",
-                learningObjective: "Identify early signs of cardiac glycoside toxicity (bradycardia, visual disturbances, GI distress) and withhold the dose while notifying the healthcare provider."
+                rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported.",
+                strategyRule: "Check apical pulse for 1 full minute prior to digoxin administration. Hold if HR < 60 bpm in adults.",
+                aiTutorInsight: "Hypokalemia increases the risk of digoxin toxicity even at normal serum digoxin levels.",
+                youtubeId: "LpVyqHeyTcA"
             }
         ];
 
-        const state = {
-            allPool: [],
-            activePool: [],
-            currentIndex: 0,
-            userAnswers: {},
-            flaggedItems: new Set(),
-            calcValue: '0',
-            questionNotes: {}
-        };
-
-        function cleanTitleText(str) {
-            if (!str) return '';
-            return str.replace(/\[.*?\]\s*/g, '').replace(/Do not /gi, '').trim();
+        // DEDUPLICATION & METADATA CLEANER
+        function cleanQuestionText(text) {
+            if (!text) return '';
+            let cleaned = text.replace(/\[.*?\]\s*/g, '').trim();
+            const sentences = cleaned.split(/(?<=[.?!])\s+/);
+            const unique = [];
+            sentences.forEach(s => {
+                const t = s.trim();
+                if (t && !unique.includes(t)) unique.push(t);
+            });
+            return unique.join(' ');
         }
 
         function shuffleArray(arr) {
-            for (let i = arr.length - 1; i > 0; i--) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+                [copy[i], copy[j]] = [copy[j], copy[i]];
             }
-            return arr;
+            return copy;
         }
 
-        function launchExamSession(count) {
-            let rawPool = [];
-            if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
-                rawPool = embeddedQuestionsData;
-            } else if (typeof questionsData !== 'undefined' && Array.isArray(questionsData)) {
-                rawPool = questionsData;
-            } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
-                rawPool = window.questions;
-            } else {
-                rawPool = window.defaultNgnPool;
-            }
+        // MAIN REACT APPLICATION COMPONENT
+        function App() {
+            const [showLaunchModal, setShowLaunchModal] = useState(true);
+            const [activePool, setActivePool] = useState([]);
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [userAnswers, setUserAnswers] = useState({});
+            const [flaggedItems, setFlaggedItems] = useState(new Set());
+            const [showCalculator, setShowCalculator] = useState(false);
+            const [calcDisplay, setCalcDisplay] = useState("0");
+            const [activeEhrTab, setActiveEhrTab] = useState("notes");
+            const [showResults, setShowResults] = useState(false);
+            const [activeVideoModal, setActiveVideoModal] = useState(null);
+            const [videoNotes, setVideoNotes] = useState({});
 
-            const cleanedList = rawPool.map((q, idx) => {
-                const itemType = q.ngnType || q.type || (q.isNGN ? "NGN Format" : "Single Choice");
-                return {
+            // Launch Exam Session
+            const launchSession = (count) => {
+                let rawPool = defaultQBank;
+                if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
+                    rawPool = embeddedQuestionsData;
+                } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
+                    rawPool = window.questions;
+                }
+
+                const normalized = rawPool.map((q, idx) => ({
                     ...q,
                     id: q.id || `Q-${idx + 1}`,
-                    title: cleanTitleText(q.question || q.title || q.promptTitle || `NCLEX Question #${idx + 1}`),
-                    instruction: cleanTitleText(q.instruction || "Evaluate clinical findings and select the appropriate response."),
-                    ngnType: itemType,
-                    options: q.options || [],
-                    correctAnswer: q.correctAnswer || q.correctAnswerText,
-                    keyPhrase: q.keyPhrase || q.topic || q.category || "Clinical Nursing Practice",
-                    learningObjective: q.learningObjective || q.studyNote || "Master priority nursing interventions and clinical reasoning."
-                };
-            });
-
-            state.allPool = cleanedList;
-
-            let seenIds = [];
-            try {
-                seenIds = JSON.parse(localStorage.getItem('quickrn_seen_questions') || '[]');
-            } catch(e) { seenIds = []; }
-
-            let unusedPool = state.allPool.filter(q => !seenIds.includes(q.id));
-            let targetCount = count === 'all' ? state.allPool.length : count;
-            if (unusedPool.length < targetCount) {
-                seenIds = [];
-                localStorage.setItem('quickrn_seen_questions', JSON.stringify([]));
-                unusedPool = [...state.allPool];
-            }
-
-            const shuffledPool = shuffleArray([...unusedPool]);
-            state.activePool = count === 'all' ? shuffledPool : shuffledPool.slice(0, Math.min(targetCount, shuffledPool.length));
-
-            const newSeen = [...seenIds, ...state.activePool.map(q => q.id)];
-            try { localStorage.setItem('quickrn_seen_questions', JSON.stringify(newSeen)); } catch(e){}
-
-            document.getElementById('total-exam-items').textContent = state.activePool.length;
-            document.getElementById('start-modal').classList.add('hidden');
-            
-            state.currentIndex = 0;
-            state.userAnswers = {};
-            loadCurrentItem();
-        }
-
-        function loadCurrentItem() {
-            const item = state.activePool[state.currentIndex];
-            if (!item) return;
-
-            document.getElementById('current-item-num').textContent = state.currentIndex + 1;
-            document.getElementById('item-prompt-title').textContent = item.title;
-            document.getElementById('item-prompt-instruction').textContent = item.instruction;
-
-            const flagIcon = document.getElementById('flag-icon');
-            flagIcon.className = state.flaggedItems.has(item.id) ? "fa-solid fa-bookmark text-amber-400" : "fa-regular fa-bookmark text-amber-400";
-
-            renderEHRPanel(item);
-            renderInteractiveItem(item);
-
-            const existingAnswer = state.userAnswers[state.currentIndex];
-            const subBadge = document.getElementById('submitted-badge');
-            const ratPanel = document.getElementById('rationale-panel');
-
-            if (existingAnswer && existingAnswer.submitted) {
-                subBadge.classList.remove('hidden');
-                document.getElementById('item-score-text').textContent = `Score: ${existingAnswer.score}/${existingAnswer.maxScore}`;
-                ratPanel.classList.remove('hidden');
-                
-                document.getElementById('rationale-text').textContent = item.rationale || "Clinical rationale provided for the scenario.";
-                document.getElementById('learning-objective-text').textContent = item.learningObjective || "Master core priority nursing interventions and safety standards.";
-
-                const combinedAIParagraph = generateDynamicAIParagraph(item, existingAnswer);
-                document.getElementById('combined-ai-synthesis-text').textContent = combinedAIParagraph;
-                document.getElementById('video-btn-label').textContent = `Watch Targeted Video: ${item.keyPhrase || item.topic || 'Clinical Review'}`;
-            } else {
-                subBadge.classList.add('hidden');
-                ratPanel.classList.add('hidden');
-            }
-
-            document.getElementById('btn-prev-item').disabled = (state.currentIndex === 0);
-            
-            const nextBtn = document.getElementById('btn-next-item');
-            const isLastItem = (state.currentIndex === state.activePool.length - 1);
-            if (isLastItem) {
-                nextBtn.innerHTML = `Finish Session <i class="fa-solid fa-flag-checkered ml-1"></i>`;
-                nextBtn.className = "px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer";
-            } else {
-                nextBtn.innerHTML = `Next <i class="fa-solid fa-chevron-right"></i>`;
-                nextBtn.className = "px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer";
-            }
-        }
-
-        function generateDynamicAIParagraph(item, answerState) {
-            const isCorrect = answerState.isCorrect;
-            const category = item.category || item.topic || "NCLEX Priority";
-            const keyPhrase = item.keyPhrase || "Clinical Scenario";
-
-            let synth = `When evaluating ${keyPhrase} within ${category}, clinical decision-making relies on strict prioritization frameworks like ABCs and Maslow's Hierarchy of Needs. `;
-            if (isCorrect) {
-                synth += `Your selection correctly identified critical cue triggers in the assessment data, properly prioritizing actionable physiological interventions. `;
-            } else {
-                synth += `A key NCLEX test-taking strategy is to isolate immediate physiological safety threats before addressing supportive tasks. Distractor options frequently represent correct actions executed at an inappropriate clinical sequence. `;
-            }
-            synth += `Always ensure priority nursing actions address immediate physiological client needs.`;
-            return synth;
-        }
-
-        function renderEHRPanel(item) {
-            const ehrNav = document.getElementById('ehr-tabs-nav');
-            const ehrContent = document.getElementById('ehr-tab-contents');
-            const patientBadge = document.getElementById('patient-id-badge');
-
-            ehrNav.innerHTML = '';
-            ehrContent.innerHTML = '';
-
-            if (item.patientInfo) {
-                patientBadge.textContent = `Pt: ${item.patientInfo.name} | ${item.patientInfo.age} | ID: ${item.patientInfo.code || 'NCLEX-CLIENT'}`;
-            } else {
-                patientBadge.textContent = `Pt: Standard NCLEX Client`;
-            }
-
-            if (!item.ehr) {
-                document.getElementById('left-ehr-panel').classList.add('hidden');
-                document.getElementById('right-question-panel').className = "w-full bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-full";
-                return;
-            }
-
-            document.getElementById('left-ehr-panel').classList.remove('hidden');
-            document.getElementById('right-question-panel').className = "w-full lg:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-[55%] lg:h-full";
-
-            const tabs = [
-                { id: 'notes', label: "Nurses' Notes", icon: 'fa-user-nurse', content: item.ehr.nursesNotes },
-                { id: 'vitals', label: 'Vital Signs', icon: 'fa-heart-pulse', content: item.ehr.vitalSigns },
-                { id: 'labs', label: 'Diagnostics / Labs', icon: 'fa-vial', content: item.ehr.diagnosticResults },
-                { id: 'hp', label: 'History & Physical', icon: 'fa-notes-medical', content: item.ehr.historyPhysical }
-            ];
-
-            let firstTab = true;
-
-            tabs.forEach(tab => {
-                if (tab.content) {
-                    const btn = document.createElement('button');
-                    const isTabActive = firstTab;
-                    if (firstTab) firstTab = false;
-
-                    btn.className = `px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${isTabActive ? 'bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-300/50'}`;
-                    btn.innerHTML = `<i class="fa-solid ${tab.icon}"></i> ${tab.label}`;
-
-                    btn.onclick = () => {
-                        document.querySelectorAll('#ehr-tabs-nav button').forEach(b => {
-                            b.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-300/50 cursor-pointer';
-                        });
-                        btn.className = 'px-3 py-1.5 rounded-t-lg font-semibold transition flex items-center gap-1.5 whitespace-nowrap bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue shadow-xs cursor-pointer';
-
-                        document.querySelectorAll('.ehr-pane').forEach(p => p.classList.add('hidden'));
-                        document.getElementById(`pane-${tab.id}`).classList.remove('hidden');
-                    };
-
-                    ehrNav.appendChild(btn);
-
-                    const pane = document.createElement('div');
-                    pane.id = `pane-${tab.id}`;
-                    pane.className = `ehr-pane ${isTabActive ? '' : 'hidden'} leading-relaxed space-y-2`;
-                    pane.innerHTML = tab.content;
-                    ehrContent.appendChild(pane);
-                }
-            });
-        }
-
-        function renderInteractiveItem(item) {
-            const container = document.getElementById('interactive-item-container');
-            container.innerHTML = '';
-
-            const savedState = state.userAnswers[state.currentIndex];
-            const isSubmitted = savedState && savedState.submitted;
-            const savedAns = savedState ? savedState.answer : null;
-
-            const t = item.ngnType || item.type || "";
-
-            if (t.includes("Hot Spot") || t.includes("Highlight") || (!item.options && !item.rows && !item.clozeTemplate && (item.text || item.passage))) {
-                renderHighlightHotspot(container, item, savedAns, isSubmitted);
-            } else if (t.includes("Matrix") || item.rows) {
-                renderMatrixGrid(container, item, savedAns, isSubmitted);
-            } else if (t.includes("Cloze") || t.includes("Drop") || item.clozeTemplate || item.template) {
-                renderClozeDropdown(container, item, savedAns, isSubmitted);
-            } else if (t.includes("Bowtie")) {
-                renderBowtie(container, item, savedAns, isSubmitted);
-            } else if (t.includes("Drag")) {
-                renderDragDrop(container, item, savedAns, isSubmitted);
-            } else if (t.includes("Multiple Response") || t.includes("SATA")) {
-                renderSATA(container, item, savedAns, isSubmitted);
-            } else {
-                renderSingleChoice(container, item, savedAns, isSubmitted);
-            }
-        }
-
-        function renderHighlightHotspot(container, item, savedAns, isSubmitted) {
-            const selectedSet = new Set(savedAns || []);
-            const correctSet = new Set(item.correctAnswers || item.correctHighlights || []);
-
-            const wrap = document.createElement('div');
-            wrap.className = "space-y-4 bg-slate-50 p-4 border border-slate-200 rounded-xl";
-
-            let tokens = item.highlightTokens || item.options;
-            if (!tokens || tokens.length === 0) {
-                const sampleText = item.text || item.passage || item.title || "";
-                tokens = sampleText.split(/(?<=[.?!])\s+/);
-            }
-
-            const headerLabel = document.createElement('div');
-            headerLabel.className = "text-xs font-bold text-slate-600 uppercase tracking-wider mb-2";
-            headerLabel.textContent = "Click directly on the clinical findings below to highlight/unhighlight:";
-            wrap.appendChild(headerLabel);
-
-            const passageBox = document.createElement('div');
-            passageBox.className = "leading-relaxed text-sm md:text-base space-y-2";
-
-            tokens.forEach((tok, idx) => {
-                const tokText = typeof tok === 'string' ? tok : (tok.text || tok.id);
-                const tokId = typeof tok === 'string' ? `token_${idx}` : (tok.id || `token_${idx}`);
-
-                const isSelected = selectedSet.has(tokId) || selectedSet.has(tokText);
-                const isCorrect = correctSet.has(tokId) || correctSet.has(tokText);
-
-                let tokenClass = "highlight-phrase";
-                if (isSubmitted) {
-                    if (isCorrect && isSelected) tokenClass += " correct-highlight";
-                    else if (isCorrect && !isSelected) tokenClass += " correct-highlight opacity-75 border-dashed";
-                    else if (!isCorrect && isSelected) tokenClass += " incorrect-highlight";
-                } else if (isSelected) {
-                    tokenClass += " selected";
-                }
-
-                const span = document.createElement('span');
-                span.className = tokenClass;
-                span.textContent = tokText;
-
-                if (!isSubmitted) {
-                    span.onclick = () => {
-                        const currentAns = state.userAnswers[state.currentIndex]?.answer || [];
-                        const set = new Set(currentAns);
-                        if (set.has(tokId)) set.delete(tokId);
-                        else set.add(tokId);
-
-                        state.userAnswers[state.currentIndex] = {
-                            ...(state.userAnswers[state.currentIndex] || {}),
-                            answer: Array.from(set)
-                        };
-                        renderHighlightHotspot(container, item, Array.from(set), false);
-                    };
-                }
-
-                passageBox.appendChild(span);
-                passageBox.appendChild(document.createTextNode(" "));
-            });
-
-            wrap.appendChild(passageBox);
-            container.appendChild(wrap);
-        }
-
-        function renderSingleChoice(container, item, savedAns, isSubmitted) {
-            const wrap = document.createElement('div');
-            wrap.className = "space-y-2.5";
-
-            (item.options || []).forEach((optText) => {
-                const isChecked = (savedAns === optText);
-                const isRight = (item.correctAnswer === optText || item.correctAnswerText === optText);
-
-                let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                if (isSubmitted) {
-                    if (isRight) {
-                        cardStyle = "bg-emerald-100/90 border-2 border-emerald-600 font-bold text-emerald-950 shadow-sm";
-                    } else if (isChecked && !isRight) {
-                        cardStyle = "bg-rose-100/90 border-2 border-rose-500 text-rose-950 font-medium shadow-sm";
-                    } else {
-                        cardStyle = "bg-slate-50 border-slate-200 opacity-60";
-                    }
-                } else if (isChecked) {
-                    cardStyle = "bg-blue-50 border-2 border-blue-500 text-blue-950 shadow-xs font-semibold";
-                }
-
-                const label = document.createElement('label');
-                label.className = `flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition ${cardStyle}`;
-                label.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <input type="radio" name="sba_opt" value="${optText}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
-                        <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
-                    </div>
-                    ${isSubmitted ? (isRight ? '<span class="text-xs font-black text-emerald-800 px-2.5 py-0.5 bg-emerald-200 rounded border border-emerald-400 flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>' : (isChecked ? '<span class="text-xs font-bold text-rose-800 px-2.5 py-0.5 bg-rose-200 rounded border border-rose-400 flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Your Selection</span>' : '')) : ''}
-                `;
-                wrap.appendChild(label);
-            });
-
-            container.appendChild(wrap);
-        }
-
-        function renderMatrixGrid(container, item, savedAns, isSubmitted) {
-            const table = document.createElement('table');
-            table.className = "w-full border-collapse border border-slate-300 text-xs md:text-sm";
-
-            let head = `<thead class="bg-slate-100 border-b border-slate-300"><tr><th class="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>`;
-            (item.columns || ["Indicated", "Nonessential", "Contraindicated"]).forEach(col => { head += `<th class="p-3 text-center font-bold text-slate-700 w-28 md:w-32">${col}</th>`; });
-            head += `</tr></thead>`;
-            table.innerHTML = head;
-
-            const tbody = document.createElement('tbody');
-            tbody.className = "divide-y divide-slate-200 bg-white";
-
-            (item.rows || []).forEach(row => {
-                const rowId = row.id || row;
-                const rowText = row.text || row;
-                const tr = document.createElement('tr');
-                const rightCol = item.correctAnswers ? item.correctAnswers[rowId] : null;
-                const userCol = savedAns ? savedAns[rowId] : null;
-
-                let rowHtml = `<td class="p-3 font-medium text-slate-800">${rowText}</td>`;
-
-                (item.columns || ["Indicated", "Nonessential", "Contraindicated"]).forEach(col => {
-                    const isChecked = (userCol === col);
-                    const isRight = (rightCol === col);
-
-                    let bgCell = "";
-                    if (isSubmitted) {
-                        if (isRight) bgCell = "bg-emerald-100/80 font-bold";
-                        else if (isChecked && !isRight) bgCell = "bg-rose-100/80";
-                    }
-
-                    rowHtml += `
-                        <td class="p-3 text-center ${bgCell}">
-                            <input type="radio" name="mat_${rowId}" value="${col}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500 cursor-pointer">
-                        </td>`;
-                });
-                tr.innerHTML = rowHtml;
-                tbody.appendChild(tr);
-            });
-
-            table.appendChild(tbody);
-            container.appendChild(table);
-        }
-
-        function renderClozeDropdown(container, item, savedAns, isSubmitted) {
-            const wrap = document.createElement('div');
-            wrap.className = "bg-slate-50 p-6 border border-slate-200 rounded-xl leading-loose text-sm md:text-base text-slate-800 space-y-3 font-medium";
-
-            let template = item.clozeTemplate || item.template || "";
-            const optionsMap = item.options || item.dropdownOptions || {};
-
-            if (optionsMap) {
-                Object.keys(optionsMap).forEach(key => {
-                    const opts = optionsMap[key];
-                    const selectedVal = savedAns ? savedAns[key] : "";
-                    const correctVal = item.correctAnswers ? item.correctAnswers[key] : "";
-
-                    let borderHighlight = "border-slate-300 text-ncsbn-blue";
-                    if (isSubmitted) {
-                        borderHighlight = (selectedVal === correctVal) ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-extrabold" : "border-rose-400 bg-rose-50 text-rose-900 font-bold";
-                    }
-
-                    let selectHtml = `<select id="select_${key}" ${isSubmitted ? 'disabled' : ''} class="inline-block bg-white border-2 ${borderHighlight} rounded px-3 py-1.5 mx-1 shadow-xs text-xs md:text-sm font-bold focus:ring-1 focus:ring-blue-500">`;
-                    selectHtml += `<option value="">-- Select Option --</option>`;
-                    if (Array.isArray(opts)) {
-                        opts.forEach(opt => {
-                            selectHtml += `<option value="${opt}" ${selectedVal === opt ? 'selected' : ''}>${opt}</option>`;
-                        });
-                    }
-                    selectHtml += `</select>`;
-
-                    template = template.replace(new RegExp(`\\{${key}\\}`, 'g'), selectHtml);
-                });
-            }
-
-            wrap.innerHTML = template;
-            container.appendChild(wrap);
-        }
-
-        function renderBowtie(container, item, savedAns, isSubmitted) {
-            const ans = savedAns || { condition: "", action1: "", action2: "", monitor1: "", monitor2: "" };
-            const wrap = document.createElement('div');
-            wrap.className = "bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4 text-xs md:text-sm";
-            wrap.innerHTML = `
-                <div class="font-bold text-ncsbn-navy border-b pb-2">Bowtie Clinical Reasoning Item</div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div class="bg-white p-3 rounded border border-slate-300">
-                        <span class="font-bold block text-slate-700 mb-1">Potential Condition</span>
-                        <input type="text" id="bowtie-cond" value="${ans.condition || ''}" ${isSubmitted ? 'disabled' : ''} placeholder="Enter condition..." class="w-full border rounded p-1.5 text-xs">
-                    </div>
-                    <div class="bg-white p-3 rounded border border-slate-300">
-                        <span class="font-bold block text-slate-700 mb-1">Actions to Take (2)</span>
-                        <input type="text" id="bowtie-act1" value="${ans.action1 || ''}" ${isSubmitted ? 'disabled' : ''} placeholder="Action 1" class="w-full border rounded p-1.5 text-xs mb-1.5">
-                        <input type="text" id="bowtie-act2" value="${ans.action2 || ''}" ${isSubmitted ? 'disabled' : ''} placeholder="Action 2" class="w-full border rounded p-1.5 text-xs">
-                    </div>
-                    <div class="bg-white p-3 rounded border border-slate-300">
-                        <span class="font-bold block text-slate-700 mb-1">Parameters to Monitor (2)</span>
-                        <input type="text" id="bowtie-mon1" value="${ans.monitor1 || ''}" ${isSubmitted ? 'disabled' : ''} placeholder="Monitor 1" class="w-full border rounded p-1.5 text-xs mb-1.5">
-                        <input type="text" id="bowtie-mon2" value="${ans.monitor2 || ''}" ${isSubmitted ? 'disabled' : ''} placeholder="Monitor 2" class="w-full border rounded p-1.5 text-xs">
-                    </div>
-                </div>
-            `;
-            container.appendChild(wrap);
-        }
-
-        function renderDragDrop(container, item, savedAns, isSubmitted) {
-            const currentOrder = savedAns || item.availableItems || item.options || [];
-            const wrap = document.createElement('div');
-            wrap.className = "space-y-2.5";
-
-            currentOrder.forEach((text, idx) => {
-                const isRightPos = isSubmitted && (text === (item.correctOrder ? item.correctOrder[idx] : null));
-                const row = document.createElement('div');
-                row.className = `flex items-center justify-between p-3.5 rounded-xl border text-xs md:text-sm font-medium shadow-xs transition ${isSubmitted ? (isRightPos ? 'bg-emerald-50 border-emerald-500 text-emerald-950 font-bold' : 'bg-rose-50 border-rose-300 text-rose-950') : 'bg-slate-50 border-slate-300'}`;
-                
-                row.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <span class="w-6 h-6 rounded-full ${isSubmitted ? (isRightPos ? 'bg-emerald-600' : 'bg-rose-600') : 'bg-ncsbn-navy'} text-white flex items-center justify-center font-bold text-xs font-mono">${idx + 1}</span>
-                        <span class="text-sm">${text}</span>
-                    </div>
-                `;
-                wrap.appendChild(row);
-            });
-            container.appendChild(wrap);
-        }
-
-        function renderSATA(container, item, savedAns, isSubmitted) {
-            const selectedSet = new Set(savedAns || []);
-            const correctSet = new Set(item.correctAnswers || []);
-            const wrap = document.createElement('div');
-            wrap.className = "space-y-2.5";
-
-            (item.options || []).forEach(opt => {
-                const optId = typeof opt === 'string' ? opt : (opt.id || opt.text);
-                const optText = typeof opt === 'string' ? opt : opt.text;
-
-                const isChecked = selectedSet.has(optId);
-                const isRight = correctSet.has(optId);
-
-                let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                if (isSubmitted) {
-                    if (isRight && isChecked) {
-                        cardStyle = "bg-emerald-100/90 border-2 border-emerald-500 font-bold text-emerald-950";
-                    } else if (isRight && !isChecked) {
-                        cardStyle = "bg-emerald-50 border border-emerald-400 font-semibold text-emerald-900";
-                    } else if (!isRight && isChecked) {
-                        cardStyle = "bg-rose-100/90 border-2 border-rose-400 text-rose-950 font-semibold";
-                    } else {
-                        cardStyle = "bg-slate-50 border-slate-200 opacity-60";
-                    }
-                } else if (isChecked) {
-                    cardStyle = "bg-blue-50 border-2 border-blue-500 shadow-xs";
-                }
-
-                const label = document.createElement('label');
-                label.className = `flex items-center justify-between p-3.5 rounded-xl border cursor-pointer transition ${cardStyle}`;
-                label.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <input type="checkbox" value="${optId}" ${isChecked ? 'checked' : ''} ${isSubmitted ? 'disabled' : ''} class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer">
-                        <span class="text-xs md:text-sm font-medium text-slate-800">${optText}</span>
-                    </div>
-                `;
-                wrap.appendChild(label);
-            });
-            container.appendChild(wrap);
-        }
-
-        function getCurrentUserAnswer() {
-            const item = state.activePool[state.currentIndex];
-            if (!item) return null;
-
-            const container = document.getElementById('interactive-item-container');
-            const t = item.ngnType || item.type || "";
-
-            if (t.includes("Hot Spot") || t.includes("Highlight")) {
-                return state.userAnswers[state.currentIndex]?.answer || [];
-            } else if (t.includes("Matrix") || item.rows) {
-                const ans = {};
-                (item.rows || []).forEach(r => {
-                    const rowId = r.id || r;
-                    const sel = container.querySelector(`input[name="mat_${rowId}"]:checked`);
-                    if (sel) ans[rowId] = sel.value;
-                });
-                return ans;
-            } else if (t.includes("Cloze") || t.includes("Drop") || item.clozeTemplate || item.template) {
-                const ans = {};
-                const selects = container.querySelectorAll('select');
-                selects.forEach(sel => {
-                    const key = sel.id.replace('select_', '');
-                    ans[key] = sel.value;
-                });
-                return ans;
-            } else if (t.includes("Bowtie")) {
-                return {
-                    condition: document.getElementById('bowtie-cond')?.value || '',
-                    action1: document.getElementById('bowtie-act1')?.value || '',
-                    action2: document.getElementById('bowtie-act2')?.value || '',
-                    monitor1: document.getElementById('bowtie-mon1')?.value || '',
-                    monitor2: document.getElementById('bowtie-mon2')?.value || ''
-                };
-            } else if (t.includes("Multiple Response") || t.includes("SATA")) {
-                const ans = [];
-                const checked = container.querySelectorAll('input[type="checkbox"]:checked');
-                checked.forEach(c => ans.push(c.value));
-                return ans;
-            } else {
-                return container.querySelector('input[name="sba_opt"]:checked')?.value || null;
-            }
-        }
-
-        function submitCurrentResponse() {
-            const answer = getCurrentUserAnswer();
-            const item = state.activePool[state.currentIndex];
-            const scoreRes = evaluateItemScore(item, answer);
-
-            state.userAnswers[state.currentIndex] = {
-                answer,
-                submitted: true,
-                score: scoreRes.earned,
-                maxScore: scoreRes.max,
-                isCorrect: scoreRes.earned === scoreRes.max
+                    cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
+                    cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s)."),
+                    ngnType: q.ngnType || (q.isNGN ? "NGN Format" : "Single Choice"),
+                    keyPhrase: q.keyPhrase || q.category || "Clinical Nursing Concept"
+                }));
+
+                const shuffled = shuffleArray(normalized);
+                const selected = (count === 'all' || count >= shuffled.length) ? shuffled : shuffled.slice(0, count);
+
+                setActivePool(selected);
+                setCurrentIndex(0);
+                setUserAnswers({});
+                setShowLaunchModal(false);
+                setShowResults(false);
             };
 
-            loadCurrentItem();
-        }
+            const currentItem = activePool[currentIndex];
+            const currentSavedState = userAnswers[currentIndex];
+            const isSubmitted = currentSavedState?.submitted;
 
-        function evaluateItemScore(item, userAns) {
-            if (!userAns) return { earned: 0, max: 1 };
-            const t = item.ngnType || item.type || "";
+            // Handle Navigation
+            const handlePrev = () => {
+                if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+            };
 
-            if (t.includes("Matrix") || item.rows) {
-                let correctCount = 0;
-                const totalRows = (item.rows || []).length;
-                const correctMap = item.correctAnswers || {};
-                Object.keys(correctMap).forEach(k => {
-                    if (userAns[k] === correctMap[k]) correctCount++;
+            const handleNext = () => {
+                if (currentIndex < activePool.length - 1) {
+                    setCurrentIndex(currentIndex + 1);
+                } else {
+                    finishExam();
+                }
+            };
+
+            const exitToDashboard = () => {
+                if (confirm("Exit test session and return to Dashboard?")) {
+                    window.location.href = "dashboard.html";
+                }
+            };
+
+            const toggleBookmark = (id) => {
+                setFlaggedItems(prev => {
+                    const next = new Set(prev);
+                    if (next.has(id)) next.delete(id);
+                    else next.add(id);
+                    return next;
                 });
-                return { earned: correctCount === totalRows ? 1 : 0, max: 1 };
-            } else if (t.includes("Cloze") || item.clozeTemplate) {
-                let correctCount = 0;
-                const correctMap = item.correctAnswers || {};
-                const keys = Object.keys(correctMap);
-                keys.forEach(k => {
-                    if (userAns[k] === correctMap[k]) correctCount++;
-                });
-                return { earned: correctCount === keys.length ? 1 : 0, max: 1 };
-            } else if (t.includes("SATA")) {
-                const userSet = new Set(userAns);
-                const correctSet = new Set(item.correctAnswers || []);
-                let matches = true;
-                correctSet.forEach(c => { if (!userSet.has(c)) matches = false; });
-                userSet.forEach(u => { if (!correctSet.has(u)) matches = false; });
-                return { earned: matches ? 1 : 0, max: 1 };
-            } else {
-                const isRight = userAns === item.correctAnswer || userAns === item.correctAnswerText;
-                return { earned: isRight ? 1 : 0, max: 1 };
-            }
-        }
+            };
 
-        function navigateItem(dir) {
-            const nextIdx = state.currentIndex + dir;
-            if (nextIdx >= 0 && nextIdx < state.activePool.length) {
-                state.currentIndex = nextIdx;
-                loadCurrentItem();
-            } else if (nextIdx >= state.activePool.length) {
-                confirmEndExam();
-            }
-        }
+            // Calculate item score
+            const evaluateScore = (item, ans) => {
+                if (!ans) return { earned: 0, max: 1 };
+                switch (item.ngnType) {
+                    case "Matrix / Grid": {
+                        let earned = 0, max = item.rows.length;
+                        item.rows.forEach(r => { if (ans[r.id] === item.correctAnswers[r.id]) earned++; });
+                        return { earned, max };
+                    }
+                    case "Cloze (Drop-down)": {
+                        let earned = 0, max = Object.keys(item.correctAnswers).length;
+                        Object.keys(item.correctAnswers).forEach(k => { if (ans[k] === item.correctAnswers[k]) earned++; });
+                        return { earned, max };
+                    }
+                    case "Extended Drag and Drop": {
+                        let earned = 0, max = item.correctOrder.length;
+                        (ans || []).forEach((v, idx) => { if (v === item.correctOrder[idx]) earned++; });
+                        return { earned, max };
+                    }
+                    case "Extended Multiple Response": {
+                        let correctCount = 0, incorrectCount = 0;
+                        const correctSet = new Set(item.correctAnswers);
+                        (ans || []).forEach(id => {
+                            if (correctSet.has(id)) correctCount++;
+                            else incorrectCount++;
+                        });
+                        return { earned: Math.max(0, correctCount - incorrectCount), max: item.correctAnswers.length };
+                    }
+                    case "Bowtie": {
+                        let earned = 0;
+                        if (ans.condition === item.correctAnswers.condition) earned++;
+                        (ans.actions || []).forEach(a => { if (item.correctAnswers.actions.includes(a)) earned++; });
+                        (ans.monitoring || []).forEach(m => { if (item.correctAnswers.monitoring.includes(m)) earned++; });
+                        return { earned, max: 5 };
+                    }
+                    default: {
+                        return { earned: ans === item.correctAnswer ? 1 : 0, max: 1 };
+                    }
+                }
+            };
 
-        function exitToDashboard() {
-            if (confirm("Exit self-study session and return to Dashboard?")) {
-                window.location.href = "dashboard.html";
-            }
-        }
+            const handleSubmitAnswer = (rawAnswer) => {
+                const scoreRes = evaluateScore(currentItem, rawAnswer);
+                const isCorrect = scoreRes.earned === scoreRes.max;
 
-        function confirmEndExam() {
-            if (confirm("Finish session and generate readiness report?")) {
-                finishExamAndShowResults();
-            }
-        }
+                setUserAnswers(prev => ({
+                    ...prev,
+                    [currentIndex]: {
+                        answer: rawAnswer,
+                        submitted: true,
+                        score: scoreRes.earned,
+                        maxScore: scoreRes.max,
+                        isCorrect
+                    }
+                }));
 
-        function finishExamAndShowResults() {
-            document.getElementById('test-workspace').classList.add('hidden');
-            document.getElementById('results-screen').classList.remove('hidden');
+                // Sync to localStorage
+                let localState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                localState.studentStats = localState.studentStats || { totalAnswered: 0, correctCount: 0, mistakeCount: 0 };
+                localState.studentStats.totalAnswered = (localState.studentStats.totalAnswered || 0) + 1;
+                if (isCorrect) localState.studentStats.correctCount = (localState.studentStats.correctCount || 0) + 1;
+                else localState.studentStats.mistakeCount = (localState.studentStats.mistakeCount || 0) + 1;
+                localStorage.setItem('quickrn_student_state', JSON.stringify(localState));
+            };
 
-            let totalEarned = 0, totalMax = 0;
-            state.activePool.forEach((item, idx) => {
-                const res = state.userAnswers[idx] || { score: 0, maxScore: 1 };
-                totalEarned += res.score || 0;
-                totalMax += res.maxScore || 1;
-            });
+            const finishExam = () => {
+                setShowResults(true);
+            };
 
-            const pct = totalMax > 0 ? Math.round((totalEarned / totalMax) * 100) : 0;
-            document.getElementById('summary-percentage').textContent = `${pct}%`;
-            document.getElementById('summary-points').textContent = `${totalEarned} of ${totalMax} Points`;
+            // Calculator Input
+            const handleCalc = (val) => {
+                if (val === 'C') setCalcDisplay('0');
+                else if (val === '=') {
+                    try { setCalcDisplay(eval(calcDisplay.replace(/%/g, '/100')).toString()); }
+                    catch { setCalcDisplay('Error'); }
+                } else {
+                    setCalcDisplay(prev => prev === '0' || prev === 'Error' ? val : prev + val);
+                }
+            };
 
-            const statusElem = document.getElementById('summary-readiness-status');
-            const subtextElem = document.getElementById('summary-readiness-subtext');
-
-            if (pct >= 85) {
-                statusElem.textContent = "HIGH PASS";
-                statusElem.className = "text-5xl font-black text-emerald-400 my-2";
-                subtextElem.textContent = "Exceeds standard NCLEX RN passing threshold.";
-            } else if (pct >= 75) {
-                statusElem.textContent = "PASS";
-                statusElem.className = "text-5xl font-black text-emerald-500 my-2";
-                subtextElem.textContent = "Meets minimum NCLEX passing standards.";
-            } else if (pct >= 65) {
-                statusElem.textContent = "MARGINAL PASS";
-                statusElem.className = "text-5xl font-black text-amber-400 my-2";
-                subtextElem.textContent = "Borderline result. Additional review required.";
-            } else {
-                statusElem.textContent = "FAIL";
-                statusElem.className = "text-5xl font-black text-rose-500 my-2";
-                subtextElem.textContent = "Below required NCLEX passing standard. Retake suggested.";
-            }
-
-            renderResultsBreakdownList();
-        }
-
-        function renderResultsBreakdownList() {
-            const list = document.getElementById('results-item-breakdown');
-            list.innerHTML = '';
-
-            state.activePool.forEach((item, idx) => {
-                const res = state.userAnswers[idx] || { score: 0, maxScore: 1, isCorrect: false, answer: null };
-                const isBookmarked = state.flaggedItems.has(item.id);
-
-                const card = document.createElement('div');
-                card.className = `p-5 rounded-2xl border ${res.isCorrect ? 'bg-emerald-950/20 border-emerald-800/50' : 'bg-rose-950/20 border-rose-800/50'} space-y-4`;
-
-                card.innerHTML = `
-                    <div class="flex items-center justify-between text-xs md:text-sm border-b border-slate-700 pb-3">
-                        <span class="font-bold text-white flex items-center gap-2">
-                            <i class="fa-solid ${res.isCorrect ? 'fa-check-circle text-emerald-400' : 'fa-xmark-circle text-rose-400'}"></i>
-                            Item #${idx + 1}: ${item.title}
-                        </span>
-                        <button onclick="toggleSummaryBookmark('${item.id}', this)" class="px-2.5 py-1 rounded text-xs font-bold transition ${isBookmarked ? 'bg-amber-500 text-slate-950' : 'bg-slate-700 text-slate-300'}">
-                            <i class="fa-solid fa-bookmark mr-1"></i> ${isBookmarked ? 'Bookmarked' : 'Bookmark'}
-                        </button>
-                    </div>
-
-                    <div class="text-xs text-slate-300 leading-relaxed bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                        <span>${item.rationale || 'N/A'}</span>
-                        <p class="mt-1 text-emerald-400 font-semibold">Objective: ${item.learningObjective}</p>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function toggleSummaryBookmark(itemId, btnElem) {
-            if (state.flaggedItems.has(itemId)) {
-                state.flaggedItems.delete(itemId);
-                btnElem.className = "px-2.5 py-1 rounded text-xs font-bold transition bg-slate-700 text-slate-300";
-                btnElem.innerHTML = `<i class="fa-solid fa-bookmark mr-1"></i> Bookmark`;
-            } else {
-                state.flaggedItems.add(itemId);
-                btnElem.className = "px-2.5 py-1 rounded text-xs font-bold transition bg-amber-500 text-slate-950";
-                btnElem.innerHTML = `<i class="fa-solid fa-bookmark mr-1"></i> Bookmarked`;
-            }
-        }
-
-        function triggerVideoModal() {
-            const item = state.activePool[state.currentIndex];
-            const query = item ? (item.keyPhrase || item.topic || "NCLEX Nursing Review") : "NCLEX RN";
-
-            document.getElementById('video-modal-title').textContent = `Clinical Video Lecture: ${query}`;
-            const container = document.getElementById('video-container');
-            const encodedQuery = encodeURIComponent(`NCLEX ${query}`);
-            const searchUrl = `https://www.youtube.com/results?search_query=${encodedQuery}`;
-
-            container.innerHTML = `
-                <div class="w-full h-full flex flex-col items-center justify-center p-4 text-center space-y-4">
-                    <div class="w-full h-64 md:h-80 bg-slate-900 rounded-xl border border-slate-700 flex flex-col items-center justify-center p-6 shadow-inner space-y-3">
-                        <div class="w-16 h-16 bg-red-600/20 text-red-500 rounded-full flex items-center justify-center text-3xl">
-                            <i class="fa-brands fa-youtube"></i>
+            return (
+                <div className="flex flex-col h-full w-full select-none">
+                    
+                    {/* START LAUNCH MODAL */}
+                    {showLaunchModal && (
+                        <div className="fixed inset-0 bg-slate-900/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 space-y-6 text-center border border-slate-300">
+                                <div className="w-16 h-16 bg-blue-50 text-ncsbn-blue rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+                                    <i className="fa-solid fa-user-nurse"></i>
+                                </div>
+                                <div className="space-y-2">
+                                    <h1 className="text-2xl font-black text-slate-900">NCLEX-RN Practice Launch</h1>
+                                    <p className="text-xs md:text-sm text-slate-600">Select the number of questions to load. Includes SATA, Matrix Grids, Cloze, Drag & Drop, Bowtie, and Case Studies.</p>
+                                </div>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {[20, 60, 85, 150].map(cnt => (
+                                        <button key={cnt} onclick={() => launchSession(cnt)} className="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center">
+                                            <span className="text-xl font-black text-ncsbn-blue">{cnt}</span>
+                                            <span className="text-[11px] text-slate-500 font-normal">Question Set</span>
+                                        </button>
+                                    ))}
+                                    <button onclick={() => launchSession('all')} className="p-3.5 bg-slate-50 hover:bg-blue-50 border-2 border-slate-200 hover:border-blue-500 rounded-xl font-bold text-slate-800 text-sm transition shadow-xs flex flex-col items-center col-span-2 sm:col-span-1">
+                                        <span className="text-xl font-black text-amber-600">ALL</span>
+                                        <span className="text-[11px] text-slate-500 font-normal">Full Q-Bank</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-white font-bold text-base md:text-lg max-w-md">${query}</h3>
-                        <p class="text-xs text-slate-400 max-w-sm">Watch targeted clinical lectures and rationales on YouTube for deeper understanding.</p>
-                        <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl transition shadow-lg cursor-pointer">
-                            <i class="fa-solid fa-play"></i>
-                            <span>Watch Video Lecture on YouTube</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
-                        </a>
-                    </div>
+                    )}
+
+                    {/* TOP NAVIGATION HEADER */}
+                    <header className="bg-[#0B2240] text-white h-14 px-4 flex items-center justify-between border-b-2 border-amber-600 shadow-md shrink-0 z-30">
+                        <button onclick={exitToDashboard} className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-bold transition border border-slate-600">
+                            <i className="fa-solid fa-arrow-left"></i>
+                            <span>Back to Dashboard</span>
+                        </button>
+
+                        <div className="flex items-center gap-2 md:gap-3">
+                            <div className="bg-slate-800 px-3 py-1 rounded border border-slate-600 text-xs text-slate-200 font-mono">
+                                Item <span className="font-bold text-amber-400">{currentIndex + 1}</span> of <span className="font-bold text-white">{activePool.length}</span>
+                            </div>
+                            <button onclick={() => setShowCalculator(!showCalculator)} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5">
+                                <i className="fa-solid fa-calculator text-blue-400"></i>
+                                <span className="hidden md:inline">Calculator</span>
+                            </button>
+                            <button onclick={() => currentItem && toggleBookmark(currentItem.id)} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5">
+                                <i className={`fa-solid fa-bookmark ${currentItem && flaggedItems.has(currentItem.id) ? 'text-amber-400' : 'text-slate-400'}`}></i>
+                                <span className="hidden md:inline">Bookmark</span>
+                            </button>
+                            <button onclick={exitToDashboard} className="px-3 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <span>Exit Exam</span>
+                            </button>
+                        </div>
+                    </header>
+
+                    {/* MAIN TEST WORKSPACE */}
+                    {!showResults && currentItem && (
+                        <main className="flex-1 flex flex-col md:flex-row overflow-hidden p-2 gap-2 relative">
+                            
+                            {/* LEFT EHR PANEL (IF PRESENT) */}
+                            {currentItem.ehr && (
+                                <section className="w-full md:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-1/2 md:h-full">
+                                    <div className="bg-slate-100 border-b border-slate-300 px-4 py-2 flex items-center justify-between shrink-0 text-xs md:text-sm font-bold text-slate-800">
+                                        <div className="flex items-center gap-2">
+                                            <i className="fa-solid fa-hospital-user text-ncsbn-blue"></i>
+                                            <span>ELECTRONIC HEALTH RECORD (EHR)</span>
+                                        </div>
+                                        <span className="bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono font-semibold text-xs">
+                                            Pt: {currentItem.patientInfo?.name || "Standard Client"}
+                                        </span>
+                                    </div>
+                                    <div className="bg-slate-200/70 px-2 pt-2 border-b border-slate-300 flex gap-1 text-xs font-semibold text-slate-600 shrink-0">
+                                        {[
+                                            { id: 'notes', label: "Nurses' Notes", icon: 'fa-user-nurse', val: currentItem.ehr.nursesNotes },
+                                            { id: 'vitals', label: 'Vital Signs', icon: 'fa-heart-pulse', val: currentItem.ehr.vitalSigns },
+                                            { id: 'labs', label: 'Diagnostics', icon: 'fa-vial', val: currentItem.ehr.diagnosticResults },
+                                            { id: 'hp', label: 'H&P', icon: 'fa-notes-medical', val: currentItem.ehr.historyPhysical }
+                                        ].map(tab => tab.val && (
+                                            <button key={tab.id} onclick={() => setActiveEhrTab(tab.id)} className={`px-3 py-1.5 rounded-t-lg transition flex items-center gap-1.5 ${activeEhrTab === tab.id ? 'bg-white text-ncsbn-blue border-t-2 border-ncsbn-blue font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-300/50'}`}>
+                                                <i className={`fa-solid ${tab.icon}`}></i> {tab.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="flex-1 p-4 overflow-y-auto text-xs md:text-sm text-slate-800 leading-relaxed bg-white" dangerouslySetInnerHTML={{ __html: currentItem.ehr[activeEhrTab === 'notes' ? 'nursesNotes' : (activeEhrTab === 'vitals' ? 'vitalSigns' : (activeEhrTab === 'labs' ? 'diagnosticResults' : 'historyPhysical'))] }}></div>
+                                </section>
+                            )}
+
+                            {/* RIGHT QUESTION & RATIONALE PANEL */}
+                            <section className={`w-full ${currentItem.ehr ? 'md:w-1/2' : 'w-full'} bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-full`}>
+                                
+                                {isSubmitted && (
+                                    <div className="bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
+                                        <span><i className="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Answer Submitted & Evaluated</span>
+                                        <span className="font-mono text-emerald-900">Score: {currentSavedState.score}/{currentSavedState.maxScore}</span>
+                                    </div>
+                                )}
+
+                                <div className="p-6 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-2">
+                                    <h2 className="prompt-typography">{currentItem.cleanTitle}</h2>
+                                    <p className="text-xs md:text-sm text-slate-600 italic font-medium">{currentItem.cleanInstruction}</p>
+                                </div>
+
+                                {/* QUESTION INTERACTIVE CONTENT */}
+                                <div className="flex-1 p-6 overflow-y-auto bg-white text-slate-800 space-y-4">
+                                    <QuestionRenderer 
+                                        item={currentItem} 
+                                        savedState={currentSavedState} 
+                                        onSubmit={handleSubmitAnswer}
+                                    />
+                                </div>
+
+                                {/* RATIONALE CARD */}
+                                {isSubmitted && (
+                                    <div className="border-t-2 border-blue-600 bg-blue-50/90 p-5 overflow-y-auto max-h-80 text-xs md:text-sm text-slate-800 space-y-4 shadow-inner shrink-0">
+                                        <div className="space-y-2">
+                                            <div className="font-bold text-ncsbn-navy text-sm flex items-center justify-between border-b border-blue-200 pb-2">
+                                                <span className="flex items-center gap-2">
+                                                    <i className="fa-solid fa-microscope text-blue-600"></i> Clinical Pathophysiology Rationale
+                                                </span>
+                                                <button onclick={() => setActiveVideoModal({ id: currentItem.youtubeId || "r5W1ns5C1ik", title: currentItem.keyPhrase })} className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-xs">
+                                                    <i className="fa-brands fa-youtube"></i> Watch Video Lecture
+                                                </button>
+                                            </div>
+                                            <div className="leading-relaxed bg-white p-4 rounded-xl border border-blue-200 shadow-xs">{currentItem.rationale}</div>
+                                        </div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                                            <div className="bg-white p-4 rounded-xl border border-amber-300 shadow-xs space-y-1.5">
+                                                <strong className="text-amber-900 font-bold block"><i className="fa-solid fa-lightbulb text-amber-500 mr-1"></i> NCLEX Strategy Rule:</strong>
+                                                <span className="text-slate-700 leading-relaxed block">{currentItem.strategyRule || "Prioritize acute physiological risks using ABCs and Maslow's Hierarchy of Needs."}</span>
+                                            </div>
+                                            <div className="bg-indigo-50/90 p-4 rounded-xl border border-indigo-200 shadow-xs space-y-1.5">
+                                                <strong className="text-indigo-950 font-bold block"><i className="fa-solid fa-robot text-indigo-600 mr-1"></i> Nurse AI Tutor Insight:</strong>
+                                                <span className="text-slate-800 leading-relaxed block">{currentItem.aiTutorInsight || "Recognize early subtle cues of decompensation."}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </section>
+                        </main>
+                    )}
+
+                    {/* RESULTS SUMMARY SCREEN */}
+                    {showResults && (
+                        <div className="flex-1 bg-slate-900 text-white p-6 overflow-y-auto">
+                            <div className="max-w-5xl mx-auto space-y-6 py-6">
+                                <div className="text-center space-y-2">
+                                    <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                                        <i className="fa-solid fa-circle-check"></i> Session Completed
+                                    </div>
+                                    <h1 className="text-3xl font-extrabold">Exam Evaluation & Summary Report</h1>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Overall Score</span>
+                                        <div className="text-5xl font-black text-blue-400 my-2">
+                                            {Math.round((Object.values(userAnswers).reduce((acc, curr) => acc + (curr.score || 0), 0) / Math.max(1, Object.values(userAnswers).reduce((acc, curr) => acc + (curr.maxScore || 1), 0))) * 100)}%
+                                        </div>
+                                        <span className="text-xs text-slate-300">Total Points Earned</span>
+                                    </div>
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Passing Probability</span>
+                                        <div className="text-5xl font-black text-emerald-400 my-2">High</div>
+                                        <span className="text-xs text-emerald-400 font-medium">Correlates with exam readiness</span>
+                                    </div>
+                                </div>
+                                <div className="flex justify-center gap-4 pt-4">
+                                    <button onclick={() => setShowLaunchModal(true)} className="px-6 py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-sm flex items-center gap-2">
+                                        <i className="fa-solid fa-rotate-right"></i> Start New Session
+                                    </button>
+                                    <button onclick={exitToDashboard} className="px-6 py-3 bg-slate-700 hover:bg-slate-600 font-bold rounded-xl text-sm flex items-center gap-2">
+                                        <i className="fa-solid fa-house"></i> Return to Dashboard
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* FOOTER CONTROL BAR */}
+                    {!showResults && (
+                        <footer className="bg-[#0B2240] text-white px-4 py-3 flex items-center justify-between border-t border-slate-700 shrink-0 select-none z-30">
+                            <button onclick={handlePrev} disabled={currentIndex === 0} className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-40">
+                                <i className="fa-solid fa-chevron-left"></i> Previous
+                            </button>
+                            <button onclick={handleNext} className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                                {currentIndex === activePool.length - 1 ? 'Finish Exam' : 'Next'} <i className="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </footer>
+                    )}
+
+                    {/* CALCULATOR MODAL */}
+                    {showCalculator && (
+                        <div className="absolute top-16 right-6 bg-slate-800 text-white rounded-xl shadow-2xl border border-slate-600 w-64 z-40 overflow-hidden">
+                            <div className="bg-slate-900 px-3 py-2 flex items-center justify-between text-xs font-bold border-b border-slate-700">
+                                <span><i className="fa-solid fa-calculator text-blue-400 mr-1.5"></i> Calculator</span>
+                                <button onclick={() => setShowCalculator(false)}><i className="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div className="p-3">
+                                <input type="text" readOnly value={calcDisplay} className="w-full bg-slate-900 border border-slate-700 rounded px-3 py-2 text-right text-xl font-mono text-emerald-400 mb-3 focus:outline-none"/>
+                                <div className="grid grid-cols-4 gap-1 text-xs font-semibold">
+                                    {['C','+/-','%','/','7','8','9','*','4','5','6','-','1','2','3','+','0','.','='].map((btn, idx) => (
+                                        <button key={idx} onclick={() => handleCalc(btn)} className={`p-2.5 rounded ${btn === '=' ? 'bg-emerald-600 text-white col-span-1' : (btn === '0' ? 'bg-slate-700 text-white col-span-2' : 'bg-slate-700 hover:bg-slate-600 text-white')}`}>
+                                            {btn}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* YOUTUBE VIDEO & NOTES MODAL */}
+                    {activeVideoModal && (
+                        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+                            <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden">
+                                <div className="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between text-white shrink-0">
+                                    <div className="flex items-center gap-2 font-bold text-sm">
+                                        <i className="fa-brands fa-youtube text-red-500 text-lg"></i>
+                                        <span>Clinical Video Lecture: {activeVideoModal.title}</span>
+                                    </div>
+                                    <button onclick={() => setActiveVideoModal(null)} className="text-slate-400 hover:text-white"><i className="fa-solid fa-xmark"></i></button>
+                                </div>
+                                <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+                                    <div className="w-full md:w-2/3 bg-black">
+                                        <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${activeVideoModal.id}?autoplay=1`} allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    </div>
+                                    <div className="w-full md:w-1/3 bg-slate-900 p-4 border-l border-slate-700 flex flex-col space-y-3">
+                                        <label className="text-xs font-bold text-amber-400 flex items-center gap-1.5"><i className="fa-solid fa-pen-to-square"></i> Clinical Notes & Key Takeaways</label>
+                                        <textarea value={videoNotes[currentItem?.id] || ''} onChange={(e) => setVideoNotes(prev => ({ ...prev, [currentItem?.id]: e.target.value }))} className="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none resize-none" placeholder="Type key clinical notes here..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                 </div>
-            `;
-
-            const savedNote = state.questionNotes[item.id] || '';
-            document.getElementById('video-note-input').value = savedNote;
-            document.getElementById('video-modal').classList.remove('hidden');
+            );
         }
 
-        function saveCurrentVideoNote() {
-            const item = state.activePool[state.currentIndex];
-            if (!item) return;
+        // DYNAMIC QUESTION RENDERER COMPONENT
+        function QuestionRenderer({ item, savedState, onSubmit }) {
+            const isSubmitted = savedState?.submitted;
+            const [selectedSATA, setSelectedSATA] = useState(savedState?.answer || []);
+            const [selectedSingle, setSelectedSingle] = useState(savedState?.answer || null);
+            const [matrixState, setMatrixState] = useState(savedState?.answer || {});
+            const [clozeState, setClozeState] = useState(savedState?.answer || {});
+            const [dragOrder, setDragOrder] = useState(savedState?.answer || item.availableItems || []);
+            const [bowtieState, setBowtieState] = useState(savedState?.answer || { condition: "", actions: [], monitoring: [] });
 
-            const noteVal = document.getElementById('video-note-input').value;
-            state.questionNotes[item.id] = noteVal;
+            useEffect(() => {
+                setSelectedSATA(savedState?.answer || []);
+                setSelectedSingle(savedState?.answer || null);
+                setMatrixState(savedState?.answer || {});
+                setClozeState(savedState?.answer || {});
+                setDragOrder(savedState?.answer || item.availableItems || []);
+                setBowtieState(savedState?.answer || { condition: "", actions: [], monitoring: [] });
+            }, [item, savedState]);
 
-            if (noteVal.trim().length > 0) {
-                state.flaggedItems.add(item.id);
-                document.getElementById('flag-icon').className = "fa-solid fa-bookmark text-amber-400";
+            // Render Single Choice
+            if (item.ngnType === "Single Choice" || !item.isNGN) {
+                return (
+                    <div className="space-y-3">
+                        {item.options.map((opt, idx) => {
+                            const text = opt.text || opt;
+                            const isChecked = selectedSingle === text;
+                            const isRight = item.correctAnswer === text;
+
+                            let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
+                            if (isSubmitted) {
+                                if (isRight) style = "bg-emerald-100 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
+                                else if (isChecked && !isRight) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
+                                else style = "bg-slate-50 border-slate-200 opacity-60";
+                            } else if (isChecked) style = "bg-blue-50 border-blue-500 shadow-xs";
+
+                            return (
+                                <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="radio" name="sba" checked={isChecked} disabled={isSubmitted} onChange={() => { setSelectedSingle(text); onSubmit(text); }} className="w-4 h-4 text-blue-600"/>
+                                        <span className="text-xs md:text-sm font-medium">{text}</span>
+                                    </div>
+                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct Answer</span>}
+                                </label>
+                            );
+                        })}
+                    </div>
+                );
             }
 
-            const statusSpan = document.getElementById('note-saved-status');
-            statusSpan.classList.remove('hidden');
-            setTimeout(() => { statusSpan.classList.add('hidden'); }, 1500);
-        }
+            // Render SATA
+            if (item.ngnType === "Extended Multiple Response") {
+                const handleToggle = (optId) => {
+                    const next = selectedSATA.includes(optId) ? selectedSATA.filter(x => x !== optId) : [...selectedSATA, optId];
+                    setSelectedSATA(next);
+                    onSubmit(next);
+                };
+                return (
+                    <div className="space-y-3">
+                        {item.options.map((opt, idx) => {
+                            const optId = opt.id || opt.text || opt;
+                            const optText = opt.text || opt;
+                            const isChecked = selectedSATA.includes(optId);
+                            const isRight = item.correctAnswers.includes(optId);
 
-        function closeVideoModal() {
-            document.getElementById('video-modal').classList.add('hidden');
-        }
+                            let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
+                            if (isSubmitted) {
+                                if (isRight && isChecked) style = "bg-emerald-100 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
+                                else if (isRight && !isChecked) style = "bg-emerald-50 border-emerald-400 font-semibold text-emerald-900";
+                                else if (!isRight && isChecked) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
+                                else style = "bg-slate-50 border-slate-200 opacity-60";
+                            } else if (isChecked) style = "bg-blue-50 border-blue-500 shadow-xs";
 
-        function toggleBookmarkCurrent() {
-            const item = state.activePool[state.currentIndex];
-            if (!item) return;
-
-            if (state.flaggedItems.has(item.id)) {
-                state.flaggedItems.delete(item.id);
-            } else {
-                state.flaggedItems.add(item.id);
+                            return (
+                                <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
+                                    <div className="flex items-center gap-3">
+                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleToggle(optId)} className="w-4 h-4 text-blue-600 rounded"/>
+                                        <span className="text-xs md:text-sm font-medium">{optText}</span>
+                                    </div>
+                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
+                                </label>
+                            );
+                        })}
+                    </div>
+                );
             }
-            loadCurrentItem();
-        }
 
-        function toggleCalculator() {
-            document.getElementById('calc-modal').classList.toggle('hidden');
-        }
-
-        function calcInput(val) {
-            if (val === 'C') {
-                state.calcValue = '0';
-            } else if (val === '=') {
-                try { state.calcValue = eval(state.calcValue.replace(/%/g, '/100')).toString(); }
-                catch { state.calcValue = 'Error'; }
-            } else {
-                if (state.calcValue === '0' || state.calcValue === 'Error') state.calcValue = val;
-                else state.calcValue += val;
+            // Render Matrix Grid
+            if (item.ngnType === "Matrix / Grid") {
+                const handleMatrixChange = (rowId, colVal) => {
+                    const next = { ...matrixState, [rowId]: colVal };
+                    setMatrixState(next);
+                    onSubmit(next);
+                };
+                return (
+                    <table className="w-full border-collapse border border-slate-300 text-xs md:text-sm">
+                        <thead className="bg-slate-100 border-b border-slate-300">
+                            <tr>
+                                <th className="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>
+                                {item.columns.map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 bg-white">
+                            {item.rows.map(row => {
+                                const rightCol = item.correctAnswers[row.id];
+                                const userCol = matrixState[row.id];
+                                return (
+                                    <tr key={row.id}>
+                                        <td className="p-3 font-medium text-slate-800">{row.text}</td>
+                                        {item.columns.map((col, cIdx) => {
+                                            const isChecked = userCol === col;
+                                            const isRight = rightCol === col;
+                                            let bgCell = isSubmitted ? (isRight ? "bg-emerald-100 font-bold" : (isChecked ? "bg-rose-100" : "")) : "";
+                                            return (
+                                                <td key={cIdx} className={`p-3 text-center ${bgCell}`}>
+                                                    <input type="radio" name={`mat_${row.id}`} checked={isChecked} disabled={isSubmitted} onChange={() => handleMatrixChange(row.id, col)} className="w-4 h-4 text-blue-600"/>
+                                                    {isSubmitted && isRight && <span className="block text-[10px] text-emerald-800 font-extrabold mt-0.5"><i className="fa-solid fa-check"></i> Correct</span>}
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                );
             }
-            document.getElementById('calc-display').value = state.calcValue;
+
+            return <div className="text-slate-500 text-sm">Interactive NGN Item Loaded.</div>;
         }
 
-        function restartExamSession() {
-            document.getElementById('results-screen').classList.add('hidden');
-            document.getElementById('test-workspace').classList.remove('hidden');
-            document.getElementById('start-modal').classList.remove('hidden');
-        }
-
-        function returnToDashboard() {
-            if (confirm("Return to Dashboard?")) {
-                window.location.href = "dashboard.html";
-            }
-        }
+        // MOUNT APP
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
     </script>
 </body>
 </html>
