@@ -221,6 +221,7 @@
     <script>
         let allQuestionsPool = [];
         let activeQuestions = [];
+        let savedExamQuestions = []; // Preserves exact question set for Retake
         let currentIndex = 0;
         let selectedOptions = {};
         let bookmarkedQuestions = {};
@@ -335,25 +336,39 @@
         function startTimedSession(count) {
             loadQuestionsFromJS();
             
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            let answeredIds = new Set(state.answeredQuestionIds || []);
+            try {
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                let answeredIds = new Set(state.answeredQuestionIds || []);
 
-            let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
-            if (availablePool.length < count) {
-                state.answeredQuestionIds = [];
-                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
-                availablePool = [...allQuestionsPool];
-            }
+                let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
+                if (availablePool.length < count) {
+                    state.answeredQuestionIds = [];
+                    localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                    availablePool = [...allQuestionsPool];
+                }
 
-            let shuffled = shuffleArray(availablePool);
-            let selected = [];
-            while (selected.length < count) {
-                selected.push(...shuffleArray(shuffled));
+                let shuffled = shuffleArray(availablePool);
+                let selected = [];
+                while (selected.length < count) {
+                    selected.push(...shuffleArray(shuffled));
+                }
+                activeQuestions = selected.slice(0, count).map(q => ({
+                    ...q,
+                    options: shuffleArray(q.options || []),
+                    _timedCounted: false
+                }));
+
+                // Clone exact question configuration for retake feature
+                savedExamQuestions = JSON.parse(JSON.stringify(activeQuestions));
+
+            } catch(e) {
+                console.error("Session start error fallback:", e);
+                activeQuestions = shuffleArray(allQuestionsPool).slice(0, count).map(q => ({
+                    ...q,
+                    _timedCounted: false
+                }));
+                savedExamQuestions = JSON.parse(JSON.stringify(activeQuestions));
             }
-            activeQuestions = selected.slice(0, count).map(q => ({
-                ...q,
-                options: shuffleArray(q.options)
-            }));
 
             currentIndex = 0;
             selectedOptions = {};
@@ -369,6 +384,30 @@
             renderCurrentQuestion();
         }
 
+        function retakeSameExam() {
+            if (!savedExamQuestions || savedExamQuestions.length === 0) {
+                startTimedSession(20);
+                return;
+            }
+
+            // Reset active questions to saved exact question set
+            activeQuestions = JSON.parse(JSON.stringify(savedExamQuestions)).map(q => ({
+                ...q,
+                _timedCounted: false
+            }));
+
+            currentIndex = 0;
+            selectedOptions = {};
+
+            totalSecondsRemaining = activeQuestions.length * 72;
+            startTimerCountdown();
+
+            const footer = document.getElementById('exam-footer');
+            if (footer) footer.style.display = 'block';
+
+            renderCurrentQuestion();
+        }
+
         function startTimerCountdown() {
             if (examTimerInterval) clearInterval(examTimerInterval);
             examTimerInterval = setInterval(() => {
@@ -377,7 +416,8 @@
                     const hrs = String(Math.floor(totalSecondsRemaining / 3600)).padStart(2, '0');
                     const mins = String(Math.floor((totalSecondsRemaining % 3600) / 60)).padStart(2, '0');
                     const secs = String(totalSecondsRemaining % 60).padStart(2, '0');
-                    document.getElementById('exam-timer-display').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
+                    const display = document.getElementById('exam-timer-display');
+                    if (display) display.innerHTML = `<i class="fa-solid fa-clock mr-1"></i> ${hrs}:${mins}:${secs}`;
                 } else {
                     clearInterval(examTimerInterval);
                     finishExamSession();
@@ -418,7 +458,7 @@
             const isBookmarked = !!bookmarkedQuestions[q.id];
             
             document.getElementById('session-info-pill').innerHTML = `<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            document.getElementById('category-badge').innerText = `Category: ${q.category}`;
+            document.getElementById('category-badge').innerText = `Category: ${q.category || 'General Nursing'}`;
             
             const topBookmarkBtn = document.getElementById('top-bookmark-icon');
             if (topBookmarkBtn) {
@@ -429,7 +469,7 @@
                 <div class="space-y-6 animate-fadeIn">
                     <div class="border-b border-slate-200 pb-4">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">${q.topic} &bull; ${q.type}</span>
+                            <span class="text-xs font-bold text-ncsbn-blue uppercase tracking-wider">${q.topic || 'Clinical Judgment'} &bull; ${q.type || 'Single Choice'}</span>
                             ${isSATA ? '<span class="text-xs font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded border border-amber-300">Select All That Apply</span>' : ''}
                         </div>
                         <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">${q.questionText}</h2>
@@ -494,29 +534,38 @@
             const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
             let isCorrect = false;
             
-            // Normalize answer comparison cleanly
-            if (isSATA) {
-                isCorrect = Array.isArray(sel) && sel.length > 0;
-            } else {
-                const selectedText = q.options[sel.charCodeAt(0) - 65];
-                isCorrect = (sel === q.correctAnswer || selectedText === q.correctAnswer);
+            try {
+                if (isSATA) {
+                    isCorrect = Array.isArray(sel) && sel.length > 0;
+                } else {
+                    const optIndex = typeof sel === 'string' ? sel.charCodeAt(0) - 65 : -1;
+                    const selectedText = (optIndex >= 0 && q.options && q.options[optIndex]) ? q.options[optIndex] : '';
+                    isCorrect = (sel === q.correctAnswer || selectedText === q.correctAnswer || selectedText === q.correctAnswerText);
+                }
+            } catch(e) {
+                console.error("Evaluation error:", e);
+                isCorrect = false;
             }
 
             // Save question metrics locally
-            if (!q._timedCounted) {
-                q._timedCounted = true;
-                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
-                state.studentStats.totalAnswered = (state.studentStats.totalAnswered || 0) + 1;
+            try {
+                if (!q._timedCounted) {
+                    q._timedCounted = true;
+                    let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                    if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
+                    state.studentStats.totalAnswered = (state.studentStats.totalAnswered || 0) + 1;
 
-                state.answeredQuestionIds = state.answeredQuestionIds || [];
-                if (!state.answeredQuestionIds.includes(q.id)) {
-                    state.answeredQuestionIds.push(q.id);
+                    state.answeredQuestionIds = state.answeredQuestionIds || [];
+                    if (!state.answeredQuestionIds.includes(q.id)) {
+                        state.answeredQuestionIds.push(q.id);
+                    }
+                    if (isCorrect) {
+                        state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
+                    }
+                    localStorage.setItem('quickrn_student_state', JSON.stringify(state));
                 }
-                if (isCorrect) {
-                    state.studentStats.correctCount = (state.studentStats.correctCount || 0) + 1;
-                }
-                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+            } catch(e) {
+                console.error("LocalStorage write error:", e);
             }
 
             if (currentIndex >= activeQuestions.length - 1) {
@@ -528,200 +577,233 @@
         }
 
         function finishExamSession() {
-            if (examTimerInterval) clearInterval(examTimerInterval);
-            
-            let correct = 0;
-            let attempted = 0;
+            try {
+                if (examTimerInterval) clearInterval(examTimerInterval);
+                
+                let correct = 0;
+                let attempted = 0;
 
-            const evaluatedItems = activeQuestions.map((q, idx) => {
-                const userAns = selectedOptions[idx];
-                const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
-                let isCorrect = false;
+                const evaluatedItems = activeQuestions.map((q, idx) => {
+                    const userAns = selectedOptions[idx];
+                    const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+                    let isCorrect = false;
 
-                if (userAns !== undefined) {
-                    attempted++;
-                    if (isSATA) {
-                        isCorrect = Array.isArray(userAns) && userAns.length > 0;
-                    } else {
-                        const selectedText = q.options[userAns.charCodeAt(0) - 65];
-                        isCorrect = (userAns === q.correctAnswer || selectedText === q.correctAnswer);
+                    if (userAns !== undefined && userAns !== null) {
+                        attempted++;
+                        if (isSATA) {
+                            isCorrect = Array.isArray(userAns) && userAns.length > 0;
+                        } else {
+                            const optIndex = typeof userAns === 'string' ? userAns.charCodeAt(0) - 65 : -1;
+                            const selectedText = (optIndex >= 0 && q.options && q.options[optIndex]) ? q.options[optIndex] : '';
+                            isCorrect = (userAns === q.correctAnswer || selectedText === q.correctAnswer || selectedText === q.correctAnswerText);
+                        }
+                        if (isCorrect) correct++;
                     }
-                    if (isCorrect) correct++;
+
+                    return {
+                        question: q,
+                        originalIndex: idx + 1,
+                        userAns: userAns || 'None',
+                        isCorrect
+                    };
+                });
+
+                // Sort: Incorrect items first, then correct items
+                evaluatedItems.sort((a, b) => (a.isCorrect === b.isCorrect) ? 0 : a.isCorrect ? 1 : -1);
+
+                const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+                // Save stats to localStorage for dashboard synchronization
+                try {
+                    let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                    stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
+                    stateObj.studentStats.testsTaken++;
+                    stateObj.studentStats.totalAnswered += attempted;
+                    stateObj.studentStats.correctCount += correct;
+                    stateObj.studentStats.mistakeCount += (attempted - correct);
+                    stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
+                    
+                    stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
+                    stateObj.studentStats.examHistory.unshift({ 
+                        date: new Date().toLocaleString(), 
+                        mode: `Timed Exam (${activeQuestions.length} Items)`, 
+                        total: activeQuestions.length, 
+                        attempted, 
+                        scorePercent, 
+                        questions: activeQuestions, 
+                        userAnswers: selectedOptions 
+                    });
+                    localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+                } catch(e) {
+                    console.error("LocalStorage summary sync error:", e);
                 }
 
-                return {
-                    question: q,
-                    originalIndex: idx + 1,
-                    userAns,
-                    isCorrect
-                };
-            });
+                // Hide bottom footer when viewing summary
+                const footer = document.getElementById('exam-footer');
+                if (footer) footer.style.display = 'none';
 
-            // Sort: Incorrect items first, then correct items
-            evaluatedItems.sort((a, b) => (a.isCorrect === b.isCorrect) ? 0 : a.isCorrect ? 1 : -1);
-
-            const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
-
-            // Save stats to localStorage for dashboard synchronization
-            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += attempted;
-            stateObj.studentStats.correctCount += correct;
-            stateObj.studentStats.mistakeCount += (attempted - correct);
-            stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
-            stateObj.studentStats.examHistory.unshift({ date: new Date().toLocaleString(), mode: `Timed Exam (${activeQuestions.length} Items)`, total: activeQuestions.length, attempted, scorePercent, questions: activeQuestions, userAnswers: selectedOptions });
-            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
-
-            // Hide bottom footer when viewing summary
-            const footer = document.getElementById('exam-footer');
-            if (footer) footer.style.display = 'none';
-
-            // Render Summary View
-            let html = `
-                <div class="space-y-6 animate-fadeIn">
-                    <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-2">
-                        <h2 class="text-2xl font-black">Exam Session Completed</h2>
-                        <p class="text-xs text-slate-300">Review your performance below. Incorrect items are highlighted first for focused review.</p>
-                        <div class="flex justify-center gap-6 pt-2">
-                            <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
-                                <span class="text-xl font-extrabold text-amber-400">${scorePercent}%</span>
+                // Render Summary View with Retake Exam Option
+                let html = `
+                    <div class="space-y-6 animate-fadeIn">
+                        <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-3">
+                            <h2 class="text-2xl font-black">Exam Session Completed</h2>
+                            <p class="text-xs text-slate-300">Review your performance below. Incorrect items are highlighted first for focused review.</p>
+                            
+                            <div class="flex justify-center gap-6 pt-1">
+                                <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
+                                    <span class="text-xl font-extrabold text-amber-400">${scorePercent}%</span>
+                                </div>
+                                <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct</span>
+                                    <span class="text-xl font-extrabold text-emerald-400">${correct} / ${attempted}</span>
+                                </div>
                             </div>
-                            <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
-                                <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct</span>
-                                <span class="text-xl font-extrabold text-emerald-400">${correct} / ${attempted}</span>
+
+                            <div class="pt-2 flex flex-wrap justify-center gap-3">
+                                <button onclick="retakeSameExam()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-lg text-xs shadow transition flex items-center gap-2">
+                                    <i class="fa-solid fa-rotate-right"></i> Retake This Exact Exam
+                                </button>
+                                <button onclick="exitToDashboard()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg text-xs border border-slate-600 transition flex items-center gap-2">
+                                    <i class="fa-solid fa-house"></i> Return to Dashboard
+                                </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="space-y-4">
-                        <h3 class="font-bold text-slate-900 text-base border-b pb-2 flex items-center justify-between">
-                            <span>Detailed Item Review & Rationales</span>
-                            <span class="text-xs font-normal text-slate-500">Sorted: Incorrect First (${activeQuestions.length} Items)</span>
-                        </h3>
-            `;
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-slate-900 text-base border-b pb-2 flex items-center justify-between">
+                                <span>Detailed Item Review & Rationales</span>
+                                <span class="text-xs font-normal text-slate-500">Sorted: Incorrect First (${activeQuestions.length} Items)</span>
+                            </h3>
+                `;
 
-            evaluatedItems.forEach((item) => {
-                const q = item.question;
-                const idx = item.originalIndex;
-                const userAns = item.userAns;
-                const isCorrect = item.isCorrect;
-                const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
+                evaluatedItems.forEach((item) => {
+                    const q = item.question;
+                    const idx = item.originalIndex;
+                    const userAns = item.userAns;
+                    const isCorrect = item.isCorrect;
+                    const isSATA = Array.isArray(q.correctAnswer) || (q.type && q.type.includes('SATA'));
 
-                const strategy = getNCLEXStrategy(q);
-                const videos = getTwoYouTubeVideos(q.topic, q.category);
-                const isBookmarked = !!bookmarkedQuestions[q.id];
+                    const strategy = getNCLEXStrategy(q);
+                    const videos = getTwoYouTubeVideos(q.topic, q.category);
+                    const isBookmarked = !!bookmarkedQuestions[q.id];
 
-                // Build choices breakdown with color badges
-                let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Responses:</span>';
-                let qOpts = q.options || [];
-                qOpts.forEach((optText, oIdx) => {
-                    const optLetter = String.fromCharCode(65 + oIdx);
-                    const isUserSelected = isSATA ? (Array.isArray(userAns) && userAns.includes(optLetter)) : (userAns === optLetter);
-                    const isRightAnswer = isSATA ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optLetter)) : (q.correctAnswer === optLetter || q.correctAnswerText === optText);
-                    
-                    let bgStyle = "bg-white border-slate-200 text-slate-800";
-                    if (isRightAnswer) {
-                        bgStyle = "bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold";
-                    } else if (isUserSelected && !isRightAnswer) {
-                        bgStyle = "bg-rose-50 border-rose-300 text-rose-950 font-semibold";
-                    }
+                    // Build choices breakdown with color badges
+                    let choicesHtml = '<div class="space-y-1.5 mt-2"><span class="text-[11px] font-bold text-slate-700 uppercase">All Choices & Responses:</span>';
+                    let qOpts = q.options || [];
+                    qOpts.forEach((optText, oIdx) => {
+                        const optLetter = String.fromCharCode(65 + oIdx);
+                        const isUserSelected = isSATA ? (Array.isArray(userAns) && userAns.includes(optLetter)) : (userAns === optLetter);
+                        const isRightAnswer = isSATA ? (Array.isArray(q.correctAnswer) && q.correctAnswer.includes(optLetter)) : (q.correctAnswer === optLetter || q.correctAnswerText === optText || q.correctAnswer === optText);
+                        
+                        let bgStyle = "bg-white border-slate-200 text-slate-800";
+                        if (isRightAnswer) {
+                            bgStyle = "bg-emerald-50 border-emerald-300 text-emerald-950 font-semibold";
+                        } else if (isUserSelected && !isRightAnswer) {
+                            bgStyle = "bg-rose-50 border-rose-300 text-rose-950 font-semibold";
+                        }
 
-                    choicesHtml += `
-                        <div class="p-2.5 rounded-lg border text-xs flex items-center justify-between ${bgStyle}">
-                            <div class="flex items-center gap-2">
-                                <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">${optLetter}</span>
-                                <span>${optText}</span>
+                        choicesHtml += `
+                            <div class="p-2.5 rounded-lg border text-xs flex items-center justify-between ${bgStyle}">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center font-bold text-[10px] shrink-0">${optLetter}</span>
+                                    <span>${optText}</span>
+                                </div>
+                                <div class="flex items-center gap-1.5">
+                                    ${isUserSelected ? `<span class="text-[10px] ${isRightAnswer ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'} px-1.5 py-0.5 rounded font-bold">Your Choice ${isRightAnswer ? '(Correct)' : '(Incorrect)'}</span>` : ''}
+                                    ${isRightAnswer && !isUserSelected ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">Correct Answer</span>' : ''}
+                                </div>
                             </div>
-                            <div class="flex items-center gap-1.5">
-                                ${isUserSelected ? `<span class="text-[10px] ${isRightAnswer ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-200 text-rose-900'} px-1.5 py-0.5 rounded font-bold">Your Choice ${isRightAnswer ? '(Correct)' : '(Incorrect)'}</span>` : ''}
-                                ${isRightAnswer && !isUserSelected ? '<span class="text-[10px] bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded font-bold">Correct Answer</span>' : ''}
+                        `;
+                    });
+                    choicesHtml += '</div>';
+
+                    // Inline AI Tutor Breakdown
+                    const aiTutorContentHtml = `
+                        <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
+                            <div class="flex items-center space-x-2 text-indigo-900 font-bold text-xs">
+                                <i class="fa-solid fa-robot text-indigo-600"></i>
+                                <span>AI Clinical Tutor Deep-Dive Rationale (${q.topic || 'Clinical Mastery'})</span>
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                <strong>Pathophysiology & Clinical Judgment:</strong> When evaluating <em>${q.topic || 'this scenario'}</em>, prioritize immediate physiological stability and client safety. Rationales emphasize recognizing subtle early signs of clinical decompensation before acute failure occurs.
+                            </p>
+                            <div class="p-2.5 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
+                                <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> NCLEX Strategy: ${strategy.title}</strong>
+                                <span>${strategy.rule} <span class="font-bold text-indigo-900">${strategy.mnemonic}</span></span>
+                            </div>
+                        </div>
+                    `;
+
+                    html += `
+                        <div class="bg-slate-50 border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-300'} rounded-xl p-5 space-y-4 shadow-xs">
+                            <div class="flex items-start justify-between gap-4">
+                                <div class="space-y-1">
+                                    <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                        Question ${idx} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
+                                    </span>
+                                    <h4 class="font-bold text-sm text-slate-900 mt-1">${q.questionText}</h4>
+                                </div>
+                                <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
+                                    <i class="${isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}"></i>
+                                    <span>${isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
+                                </button>
+                            </div>
+
+                            ${choicesHtml}
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                                <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
+                                    <span class="text-[11px] font-bold text-ncsbn-blue block flex items-center gap-1.5">
+                                        <i class="fa-solid fa-lightbulb text-amber-500"></i> Clinical Rationale
+                                    </span>
+                                    <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
+                                </div>
+                                <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
+                                    <span class="text-[11px] font-bold text-amber-700 block flex items-center gap-1.5">
+                                        <i class="fa-solid fa-shield-halved"></i> NCLEX Strategy: ${strategy.title}
+                                    </span>
+                                    <p class="text-xs text-slate-700 leading-relaxed">${strategy.rule} <strong class="text-ncsbn-navy font-semibold">${strategy.mnemonic}</strong></p>
+                                </div>
+                            </div>
+
+                            ${aiTutorContentHtml}
+
+                            <div class="bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+                                <span class="text-xs font-semibold text-ncsbn-navy flex items-center gap-1.5">
+                                    <i class="fa-brands fa-youtube text-rose-600 text-base"></i> Recommended Video Review:
+                                </span>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <a href="${videos[0].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                        <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[0].channel}
+                                    </a>
+                                    <a href="${videos[1].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                        <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[1].channel}
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     `;
                 });
-                choicesHtml += '</div>';
-
-                // Inline AI Tutor Breakdown
-                const aiTutorContentHtml = `
-                    <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
-                        <div class="flex items-center space-x-2 text-indigo-900 font-bold text-xs">
-                            <i class="fa-solid fa-robot text-indigo-600"></i>
-                            <span>AI Clinical Tutor Deep-Dive Rationale (${q.topic || 'Clinical Mastery'})</span>
-                        </div>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>Pathophysiology & Clinical Judgment:</strong> When evaluating <em>${q.topic || 'this scenario'}</em>, prioritize immediate physiological stability and client safety. Rationales emphasize recognizing subtle early signs of clinical decompensation before acute failure occurs.
-                        </p>
-                        <div class="p-2.5 bg-white rounded-lg border border-indigo-100 text-[11px] text-slate-700 space-y-1">
-                            <strong class="text-indigo-950 block"><i class="fa-solid fa-shield-halved text-amber-600 mr-1"></i> NCLEX Strategy: ${strategy.title}</strong>
-                            <span>${strategy.rule} <span class="font-bold text-indigo-900">${strategy.mnemonic}</span></span>
-                        </div>
-                    </div>
-                `;
 
                 html += `
-                    <div class="bg-slate-50 border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-300'} rounded-xl p-5 space-y-4 shadow-xs">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="space-y-1">
-                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
-                                    Question ${idx} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
-                                </span>
-                                <h4 class="font-bold text-sm text-slate-900 mt-1">${q.questionText}</h4>
-                            </div>
-                            <button onclick="toggleBookmarkFromSummary('${q.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition flex items-center gap-1.5 ${isBookmarked ? 'bg-amber-500 text-slate-950 border-amber-600 shadow-xs' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}">
-                                <i class="${isBookmarked ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'}"></i>
-                                <span>${isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
+                        </div>
+                        <div class="text-center pt-4 flex justify-center gap-3">
+                            <button onclick="retakeSameExam()" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-xl text-xs shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-rotate-right"></i> Retake This Exact Exam
                             </button>
-                        </div>
-
-                        ${choicesHtml}
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
-                            <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
-                                <span class="text-[11px] font-bold text-ncsbn-blue block flex items-center gap-1.5">
-                                    <i class="fa-solid fa-lightbulb text-amber-500"></i> Clinical Rationale
-                                </span>
-                                <p class="text-xs text-slate-700 leading-relaxed">${q.rationale}</p>
-                            </div>
-                            <div class="bg-white p-3.5 rounded-lg border border-slate-200 space-y-1">
-                                <span class="text-[11px] font-bold text-amber-700 block flex items-center gap-1.5">
-                                    <i class="fa-solid fa-shield-halved"></i> NCLEX Strategy: ${strategy.title}
-                                </span>
-                                <p class="text-xs text-slate-700 leading-relaxed">${strategy.rule} <strong class="text-ncsbn-navy font-semibold">${strategy.mnemonic}</strong></p>
-                            </div>
-                        </div>
-
-                        ${aiTutorContentHtml}
-
-                        <div class="bg-blue-50/70 p-3 rounded-lg border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-3">
-                            <span class="text-xs font-semibold text-ncsbn-navy flex items-center gap-1.5">
-                                <i class="fa-brands fa-youtube text-rose-600 text-base"></i> Recommended Video Review:
-                            </span>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <a href="${videos[0].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[0].channel}
-                                </a>
-                                <a href="${videos[1].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
-                                    <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[1].channel}
-                                </a>
-                            </div>
+                            <button onclick="exitToDashboard()" class="px-8 py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-extrabold rounded-xl text-xs shadow-md">
+                                Return to Dashboard
+                            </button>
                         </div>
                     </div>
                 `;
-            });
 
-            html += `
-                    </div>
-                    <div class="text-center pt-4">
-                        <button onclick="exitToDashboard()" class="px-8 py-3 bg-ncsbn-navy hover:bg-blue-900 text-white font-extrabold rounded-xl text-xs shadow-md">
-                            Return to Dashboard
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('exam-container').innerHTML = html;
+                document.getElementById('exam-container').innerHTML = html;
+            } catch(err) {
+                console.error("Summary render error:", err);
+                document.getElementById('exam-container').innerHTML = `<div class="p-8 text-center text-rose-600 font-bold">Error rendering summary. Please return to dashboard.</div>`;
+            }
         }
 
         function exitToDashboard() {
@@ -759,7 +841,8 @@
         }
 
         function updateBookmarkBadge() {
-            document.getElementById('saved-count-badge').innerText = Object.keys(bookmarkedQuestions).length;
+            const badge = document.getElementById('saved-count-badge');
+            if (badge) badge.innerText = Object.keys(bookmarkedQuestions).length;
         }
 
         function openBookmarksModal() {
@@ -774,7 +857,7 @@
                     html += `
                         <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
                             <div class="space-y-0.5">
-                                <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category}</span>
+                                <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category || 'General'}</span>
                                 <p class="text-xs font-semibold text-slate-800 line-clamp-1">${item.questionText}</p>
                             </div>
                         </div>
@@ -804,15 +887,19 @@
         }
 
         function persistBookmark(qId) {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-            state.studentStats = state.studentStats || {};
-            state.studentStats.favorites = state.studentStats.favorites || [];
-            if (!state.studentStats.favorites.includes(qId)) {
-                state.studentStats.favorites.push(qId);
-            } else {
-                state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+            try {
+                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+                state.studentStats = state.studentStats || {};
+                state.studentStats.favorites = state.studentStats.favorites || [];
+                if (!state.studentStats.favorites.includes(qId)) {
+                    state.studentStats.favorites.push(qId);
+                } else {
+                    state.studentStats.favorites = state.studentStats.favorites.filter(id => id !== qId);
+                }
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+            } catch(e) {
+                console.error("Bookmark persist error:", e);
             }
-            localStorage.setItem('quickrn_student_state', JSON.stringify(state));
         }
     
         window.onload = function() {
