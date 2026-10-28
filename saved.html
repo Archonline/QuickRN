@@ -130,12 +130,14 @@
                                     <strong class="text-ncsbn-navy">Correct Answer:</strong> ${q.correctAnswerText || q.correctAnswer}<br>
                                     <strong class="text-ncsbn-navy">Rationale:</strong> ${q.rationale || 'N/A'}
                                 </div>
-                                <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
-                                    <label class="text-[10px] font-bold text-slate-700 uppercase flex items-center gap-1">
-                                        <i class="fa-solid fa-pen text-amber-600"></i> Personal Note
-                                    </label>
-                                    <textarea id="note-${q.id}" oninput="saveQuestionNote('${q.id}')" rows="2" placeholder="Add clinical note or mnemonic..." class="w-full bg-white border border-slate-300 rounded p-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600">${qNote}</textarea>
-                                </div>
+        
+                        <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 space-y-1">
+                            <label class="text-[10px] font-bold text-slate-700 uppercase flex items-center justify-between">
+                                <span class="flex items-center gap-1.5"><i class="fa-solid fa-pen text-amber-600"></i> Clinical Notes & Video Takeaways (Combined Numerically)</span>
+                            </label>
+                            <textarea id="note-${q.id}" oninput="saveQuestionNote('${q.id}')" rows="3" placeholder="Notes from watched videos are combined here..." class="w-full bg-white border border-slate-300 rounded p-2 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-600">${qNote}</textarea>
+                        </div>
+
                             </div>
                         </div>
                     `;
