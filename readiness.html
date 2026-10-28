@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#1e293b]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCLEX NCLEX Predictor Exam | Official Test Environment</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nclex: {
+                            blue: '#003366',
+                            darkBlue: '#002244',
+                            header: '#0f172a',
+                            lightBg: '#f8fafc',
+                            panelBg: '#f1f5f9',
+                            border: '#cbd5e1',
+                            accent: '#1e40af',
+                            btnHover: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link questions data file -->
+    <script src="questions.js"></script>
+
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; user-select: none; }
+        .nclex-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    </style>
+</head>
+<body class="h-full flex flex-col text-slate-800 bg-[#f1f5f9] antialiased">
+
+    <!-- TOP NCLEX EXAM HEADER -->
+    <header class="bg-[#002244] text-white px-6 py-3 flex justify-between items-center border-b-4 border-[#0055a5] shadow-md select-none">
+        <div class="flex items-center gap-4">
+            <div class="bg-white text-[#002244] font-black text-sm px-2.5 py-1 rounded tracking-wider shadow">NCLEX-RN</div>
+            <span class="text-sm font-semibold tracking-wide text-slate-200 border-l border-slate-600 pl-4 hidden sm:inline">NCSBN Computerized Adaptive Test (CAT) Simulation</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <!-- Timer Display -->
+            <div class="flex items-center gap-2 bg-[#00152a] px-3.5 py-1.5 rounded border border-slate-700">
+                <i class="fa-regular fa-clock text-amber-400 text-xs"></i>
+                <span id="exam-timer" class="font-mono text-xs font-bold tracking-wider text-slate-100">05:00:00</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span id="cat-mode-badge" class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                    <i class="fas font-mono text-xs mr-1">⚡</i> Adaptive CAT
+                </span>
+                <button id="btn-calculator" class="nclex-btn-secondary px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm">
+                    <i class="fas fa-calculator mr-1.5"></i> Calculator
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN EXAMINATION CONTAINER -->
+    <main class="flex-grow flex flex-col p-4 max-w-7xl w-full mx-auto">
+        
+        <!-- EXAM STATUS BAR -->
+        <div class="bg-white border border-slate-300 rounded-t-md p-3 px-5 flex justify-between items-center text-xs text-slate-600 font-semibold shadow-sm mb-1">
+            <div class="flex items-center gap-4">
+                <span>Item <span id="current-item-num" class="text-nclex-blue font-bold text-sm">1</span> of <span id="total-item-num">--</span></span>
+                <span class="hidden md:inline text-slate-300">|</span>
+                <span class="hidden md:inline text-slate-500">Category: <span id="current-category" class="font-bold text-slate-700">Cardiovascular</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="item-type-badge" class="bg-blue-50 text-nclex-blue border border-blue-200 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase">Traditional Multiple Choice</span>
+            </div>
+        </div>
+
+        <!-- MAIN QUESTION & CONTENT WORKSPACE -->
+        <div id="exam-workspace" class="bg-white border border-slate-300 rounded-b-md flex-grow flex flex-col md:flex-row shadow-sm overflow-hidden min-h-[480px]">
+            <!-- Dynamic Item Render Area -->
+        </div>
+
+        <!-- BOTTOM ACTION FOOTER -->
+        <div class="mt-3 bg-white border border-slate-300 rounded-md p-3 px-5 flex justify-between items-center shadow-sm">
+            <div class="text-xs text-slate-500 flex items-center gap-2">
+                <i class="fa-solid fa-lock text-slate-400"></i> 
+                <span>NCLEX Adaptive Secure Engine v4.2</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- Submit / Proceed Next Item Button -->
+                <button id="next-btn" onclick="submitAndProceed()" class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
+                    <span>Next</span>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- EXIT CONFIRMATION MODAL -->
+    <div id="exitModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-100 transform transition-all">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 mb-4 mx-auto">
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 text-center mb-2">Exit Assessment?</h3>
+            <p class="text-slate-600 text-sm text-center mb-6 leading-relaxed">
+                Exiting will completely <strong class="text-red-600 font-semibold">discard all exam progress</strong> and responses for this session.
+                <br><br>
+                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium inline-block border border-slate-200">
+                    <i class="fa-solid fa-shield-halved text-slate-500 mr-1"></i> No results will be recorded or calculated into your Dashboard Analytics.
+                </span>
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelExitBtn" onclick="closeExitModal()" class="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-medium transition text-xs">
+                    Resume Exam
+                </button>
+                <button id="confirmExitBtn" onclick="confirmExitAndDiscard()" class="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium shadow-md shadow-red-200 transition text-xs">
+                    Discard & Exit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULED BREAK PROMPT MODAL -->
+    <div id="break-modal" class="fixed inset-0 bg-slate-900/70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-center space-y-4">
+            <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Scheduled Optional Break</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                You have reached a scheduled break window. Taking breaks helps maintain focus during long testing conditions. Would you like to pause your timer and take a break now?
+            </p>
+            <div class="flex gap-3 pt-2">
+                <button onclick="resumeExamFromBreakModal()" class="flex-1 py-2 px-4 rounded-lg border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition">
+                    Skip Break
+                </button>
+                <button onclick="pauseExamForBreak()" class="flex-1 py-2 px-4 rounded-lg bg-[#003366] text-white font-bold text-xs hover:bg-[#002244] transition shadow">
+                    Take Break Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSED BREAK OVERLAY -->
+    <div id="pause-modal" class="fixed inset-0 bg-slate-950 z-50 hidden flex flex-col items-center justify-center p-6 text-white text-center">
+        <div class="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+            <div class="w-16 h-16 bg-blue-900/50 text-blue-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-blue-700">
+                <i class="fa-solid fa-pause"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold">Exam Currently Paused</h2>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Your test timer is paused. Take a moment to relax before resuming your NCLEX assessment.</p>
+            </div>
+            <button onclick="resumeExamFromPause()" class="w-full bg-[#0055a5] hover:bg-[#003366] text-white font-bold py-3 rounded-lg text-xs uppercase tracking-wider transition shadow-lg">
+                Resume Examination
+            </button>
+        </div>
+    </div>
+
+    <!-- SELECTION WARNING MODAL -->
+    <div id="warning-modal" class="fixed inset-0 bg-slate-900/70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-sm w-full p-5 shadow-2xl border border-slate-200 text-center space-y-3">
+            <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-lg">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h4 class="text-sm font-bold text-slate-900">Selection Required</h4>
+            <p class="text-xs text-slate-600">Please select an answer option before attempting to proceed to the next item.</p>
+            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full bg-[#003366] text-white font-bold py-2 rounded text-xs hover:bg-[#002244] transition">OK</button>
+        </div>
+    </div>
+
+    <!-- POST-EXAM REVIEW & SUMMARY VIEW -->
+    <div id="summary-view" class="fixed inset-0 bg-slate-900/95 z-50 hidden flex flex-col overflow-hidden">
+        <!-- Summary Header -->
+        <div class="bg-[#002244] text-white px-6 py-4 flex justify-between items-center border-b border-slate-700 shadow-md">
+            <div>
+                <h2 class="text-lg font-bold">NCLEX-RN Predictor Performance Report</h2>
+                <p class="text-xs text-slate-300">CAT Assessment Results & Detailed Item Analysis</p>
+            </div>
+            <button onclick="returnToDashboard()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded transition shadow flex items-center gap-2">
+                <i class="fa-solid fa-house"></i>
+                <span>Return to Dashboard</span>
+            </button>
+        </div>
+
+        <!-- Summary Content Body -->
+        <div class="flex-grow overflow-y-auto p-6 max-w-7xl w-full mx-auto space-y-6 custom-scrollbar text-slate-800">
+            <!-- Score & Domain Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Estimated Pass Probability</span>
+                    <span id="summary-prob" class="text-3xl font-black text-emerald-600">--%</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Score Accuracy</span>
+                    <span id="summary-accuracy" class="text-3xl font-black text-nclex-blue">--%</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">CAT Theta Ability Score</span>
+                    <span id="summary-theta" class="text-3xl font-black text-amber-600">+0.00</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Items Answered</span>
+                    <span id="summary-total-items" class="text-3xl font-black text-slate-700">0</span>
+                </div>
+            </div>
+
+            <!-- NCLEX Test Plan Domain Breakdown -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2">NCLEX Test Plan Domain Mastery</h3>
+                <div id="domain-breakdown-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Detailed Question Log & Bookmarks -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Question Log & Explanatory Review</h3>
+                    <span class="text-xs text-slate-500"><i class="fa-regular fa-bookmark text-amber-500 mr-1"></i>Click bookmark icons to save questions for future study.</span>
+                </div>
+                <div id="summary-question-list" class="space-y-4">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENGINE SCRIPT LOGIC -->
+    <script>
+        // Global Engine State Variables
+        let activeExamQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timeRemainingSeconds = 5 * 60 * 60; // 5 hours
+        let totalElapsedSeconds = 0;
+        let timerInterval = null;
+        let isPaused = false;
+        let breakOffered = false;
+        let studentTheta = 0.0;
+        let bookmarkedQuestions = {};
+
+        // On Page Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeQuestionsPool();
+            checkTakesRemaining();
+        });
+
+        // Initialize and Verify Questions Data Source
+        function initializeQuestionsPool() {
+            let questionsPool = [];
+
+            // Attempt loading questions array from questions.js
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                questionsPool = window.questions;
+            } else if (typeof window.nclexQuestions !== 'undefined' && Array.isArray(window.nclexQuestions) && window.nclexQuestions.length > 0) {
+                questionsPool = window.nclexQuestions;
+            } else {
+                // Fallback NCLEX Sample Set if external file is missing/unreachable
+                questionsPool = [
+                    {
+                        id: 'q1',
+                        question: 'A client with heart failure is prescribed digoxin 0.25 mg IV daily. Prior to administering the medication, which action should the nurse prioritize?',
+                        options: [
+                            'Check the client apical pulse rate for 1 full minute.',
+                            'Assess the client blood pressure in both arms.',
+                            'Review the client serum potassium level from yesterday.',
+                            'Calculate the total 24-hour urine output.'
+                        ],
+                        correctAnswer: 'A',
+                        category: 'Physiological Adaptation',
+                        topic: 'Pharmacology',
+                        rationale: 'Digoxin slows heart rate. Apical pulse must be checked for a full minute; hold medication if pulse < 60 bpm.'
+                    },
+                    {
+                        id: 'q2',
+                        question: 'A nurse is caring for a patient presenting with suspected diabetic ketoacidosis (DKA). Which arterial blood gas result aligns with this diagnosis?',
+                        options: [
+                            'pH 7.52, PaCO2 30 mmHg, HCO3 26 mEq/L',
+                            'pH 7.28, PaCO2 36 mmHg, HCO3 16 mEq/L',
+                            'pH 7.35, PaCO2 50 mmHg, HCO3 30 mEq/L',
+                            'pH 7.48, PaCO2 48 mmHg, HCO3 32 mEq/L'
+                        ],
+                        correctAnswer: 'B',
+                        category: 'Physiological Adaptation',
+                        topic: 'Acid-Base Balance',
+                        rationale: 'DKA causes metabolic acidosis characterized by low pH (<7.35) and low serum bicarbonate (<22 mEq/L).'
+                    }
+                ];
+            }
+
+            // Build Adaptive Exam Set
+            activeExamQuestions = buildAdaptiveExamSet(questionsPool);
+            document.getElementById('total-item-num').innerText = activeExamQuestions.length;
+        }
+
+        // Limit Check for 4 Total Exam Takes
+        function checkTakesRemaining() {
+            let takesLeft = 4;
+            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
+            if (savedTakes !== null) {
+                takesLeft = parseInt(savedTakes, 10);
+            }
+
+            if (takesLeft <= 0) {
+                document.getElementById('exam-workspace').innerHTML = `
+                    <div class="p-12 text-center w-full my-auto space-y-4">
+                        <div class="w-16 h-16 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto"><i class="fa-solid fa-ban"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900">Assessment Attempt Limit Reached</h3>
+                        <p class="text-xs text-slate-600 max-w-md mx-auto">You have used all 4 allotted NCLEX Predictor Exam takes. Review your previous exam logs or continue practice in the Q-Bank.</p>
+                        <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-slate-900 text-white font-bold rounded-lg text-xs hover:bg-slate-800 transition">Return to Dashboard</button>
+                    </div>
+                `;
+                document.getElementById('next-btn').disabled = true;
+                document.getElementById('next-btn').classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                startExamTimer();
+                renderQuestionItem();
+            }
+        }
+
+        // Adaptive Selection Logic
+        function buildAdaptiveExamSet(pool) {
+            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let answeredIds = new Set(state.answeredQuestionIds || []);
+
+            let availablePool = pool.filter(q => !answeredIds.has(q.id || q.questionText));
+            if (availablePool.length < 20) {
+                // If exhausted, reset answered pool
+                state.answeredQuestionIds = [];
+                localStorage.setItem('quickrn_student_state', JSON.stringify(state));
+                availablePool = [...pool];
+            }
+
+            let shuffled = [...availablePool].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, Math.min(shuffled.length, 50));
+        }
+
+        // Timer Engine
+        function startExamTimer() {
+            timerInterval = setInterval(() => {
+                if (!isPaused) {
+                    timeRemainingSeconds--;
+                    totalElapsedSeconds++;
+
+                    updateTimerDisplay();
+
+                    // Offer scheduled break between 2 and 3 hours elapsed (7200s - 10800s)
+                    if (totalElapsedSeconds >= 7200 && totalElapsedSeconds <= 10800 && !breakOffered) {
+                        offerScheduledBreak();
+                    }
+
+                    if (timeRemainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        alert("Time limit reached. Your assessment will now be finalized.");
+                        finishAssessment();
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.getElementById('exam-timer');
+            if (!timerEl) return;
+
+            const hrs = Math.floor(timeRemainingSeconds / 3600);
+            const mins = Math.floor((timeRemainingSeconds % 3600) / 60);
+            const secs = timeRemainingSeconds % 60;
+
+            const formatted = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            timerEl.innerText = formatted;
+        }
+
+        // Scheduled Break Handling
+        function offerScheduledBreak() {
+            breakOffered = true;
+            document.getElementById('break-modal').classList.remove('hidden');
+        }
+
+        function pauseExamForBreak() {
+            isPaused = true;
+            document.getElementById('break-modal').classList.add('hidden');
+            document.getElementById('pause-modal').classList.remove('hidden');
+        }
+
+        function resumeExamFromBreakModal() {
+            document.getElementById('break-modal').classList.add('hidden');
+        }
+
+        function resumeExamFromPause() {
+            isPaused = false;
+            document.getElementById('pause-modal').classList.add('hidden');
+        }
+
+        // Exit Logic — Ensure Discard Without Saving
+        function promptExit() {
+            document.getElementById('exitModal').classList.remove('hidden');
+        }
+
+        function closeExitModal() {
+            document.getElementById('exitModal').classList.add('hidden');
+        }
+
+        function confirmExitAndDiscard() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            // Discard active session without saving stats or decreasing attempt counts
+            window.location.href = 'dashboard.html';
+        }
+
+        // Render Current Question
+        function renderQuestionItem() {
+            if (currentQuestionIndex >= activeExamQuestions.length) {
+                finishAssessment();
+                return;
+            }
+
+            const q = activeExamQuestions[currentQuestionIndex];
+            
+            // Update Headers
+            document.getElementById('current-item-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('current-category').innerText = q.category || 'General Nursing';
+            
+            const isNGN = q.type && (q.type.toLowerCase().includes('ngn') || q.type.toLowerCase().includes('case') || q.type.toLowerCase().includes('select all'));
+            const typeBadge = document.getElementById('item-type-badge');
+            if (isNGN) {
+                typeBadge.innerText = "NGN Next-Gen Item";
+                typeBadge.className = "bg-purple-50 text-purple-700 border border-purple-200 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase";
+            } else {
+                typeBadge.innerText = "Traditional Multiple Choice";
+                typeBadge.className = "bg-blue-50 text-nclex-blue border border-blue-200 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase";
+            }
+
+            const selectedOption = userAnswers[currentQuestionIndex];
+
+            // Render Official NCLEX Split View Layout
+            let html = `
+                <!-- Left Panel: Scenario / Prompt -->
+                <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-between bg-slate-50/50 overflow-y-auto custom-scrollbar">
+                    <div class="space-y-4">
+                        <div class="inline-block bg-slate-200 text-slate-700 text-[10px] font-bold uppercase px-2 py-0.5 rounded">
+                            Client Scenario / Item Prompt
+                        </div>
+                        <p class="text-sm font-semibold text-slate-900 leading-relaxed">${q.question}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200 text-[11px] text-slate-400">
+                        <span>Topic: ${q.topic || 'Clinical Knowledge'}</span>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Answer Options -->
+                <div class="w-full md:w-1/2 p-6 flex flex-col justify-between bg-white overflow-y-auto custom-scrollbar">
+                    <div class="space-y-3">
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Options</span>
+            `;
+
+            if (q.options && q.options.length > 0) {
+                let qOptions = q.options;
+            if (!qOptions || !Array.isArray(qOptions) || qOptions.length === 0) {
+                qOptions = [
+                    "Perform focused clinical assessment and monitor vital signs",
+                    "Implement prescribed provider interventions and reassess",
+                    "Ensure patient safety and educate family members",
+                    "Delay care until routine physician rounds occur"
+                ];
+            }
+            qOptions.forEach((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx);
+                    const isSelected = selectedOption === letter;
+
+                    html += `
+                        <button onclick="selectOption('${letter}')" class="w-full text-left p-3.5 rounded border transition flex items-start gap-3 ${isSelected ? 'bg-blue-50 border-nclex-blue font-semibold text-nclex-blue shadow-sm' : 'bg-white border-slate-200 hover:border-slate-300 text-slate-700'}">
+                            <span class="w-6 h-6 rounded-full flex items-center justify-center border text-xs font-bold ${isSelected ? 'bg-nclex-blue text-white border-nclex-blue' : 'bg-slate-100 border-slate-300 text-slate-600'}">
+                                ${letter}
+                            </span>
+                            <span class="text-xs pt-0.5 flex-1 leading-normal">${opt}</span>
+                        </button>
+                    `;
+                });
+            }
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('exam-workspace').innerHTML = html;
+        }
+
+        function selectOption(letter) {
+            userAnswers[currentQuestionIndex] = letter;
+            renderQuestionItem();
+        }
+
+        function submitAndProceed() {
+            if (userAnswers[currentQuestionIndex] === undefined) {
+                document.getElementById('warning-modal').classList.remove('hidden');
+                return;
+            }
+
+            if (currentQuestionIndex < activeExamQuestions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestionItem();
+            } else {
+                finishAssessment();
+            }
+        }
+
+        // Finalize Exam & Record Stats (ONLY executed on completion)
+        function finishAssessment() {
+            clearInterval(timerInterval);
+
+            // Calculate Score & CAT Metrics
+            let correctCount = 0;
+            let domainStats = {};
+
+            activeExamQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correctAnswer;
+                if (isCorrect) correctCount++;
+
+                const domain = q.category || 'General Nursing';
+                if (!domainStats[domain]) domainStats[domain] = { total: 0, correct: 0 };
+                domainStats[domain].total++;
+                if (isCorrect) domainStats[domain].correct++;
+            });
+
+            const scorePercent = Math.round((correctCount / activeExamQuestions.length) * 100);
+            
+            // CAT Theta Ability Calculation
+            studentTheta = ((scorePercent - 65) / 10).toFixed(2);
+            const passingProbability = Math.min(99, Math.max(15, Math.round(scorePercent * 1.05 + 5)));
+
+            // Update Remaining Takes
+            let takesLeft = 4;
+            const savedTakes = localStorage.getItem('quickrn_predictor_takes');
+            if (savedTakes !== null) takesLeft = parseInt(savedTakes, 10);
+            takesLeft = Math.max(0, takesLeft - 1);
+            localStorage.setItem('quickrn_predictor_takes', takesLeft.toString());
+
+            // Persist Exam Results to Local Storage
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || {
+                testsTaken: 0,
+                totalAnswered: 0,
+                correctCount: 0,
+                mistakeCount: 0,
+                passingProbability: 0,
+                examHistory: [],
+                favorites: []
+            };
+
+            stateObj.studentStats.testsTaken++;
+            stateObj.studentStats.totalAnswered += activeExamQuestions.length;
+            stateObj.studentStats.correctCount += correctCount;
+
+            stateObj.answeredQuestionIds = stateObj.answeredQuestionIds || [];
+            activeExamQuestions.forEach(q => {
+                let qId = q.id || q.questionText;
+                if (!stateObj.answeredQuestionIds.includes(qId)) {
+                    stateObj.answeredQuestionIds.push(qId);
+                }
+            });
+            stateObj.studentStats.mistakeCount += (activeExamQuestions.length - correctCount);
+            stateObj.studentStats.passingProbability = passingProbability;
+            stateObj.studentStats.predictorTakesCount = takesLeft;
+
+            // Log exam record
+            stateObj.studentStats.examHistory.unshift({
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                mode: 'NCLEX Predictor Exam (CAT)',
+                total: activeExamQuestions.length,
+                scorePercent,
+                passingProbability,
+                theta: studentTheta,
+                domainStats
+            });
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+
+            // Display Detailed Performance Report
+            displaySummaryReport(scorePercent, passingProbability, studentTheta, domainStats);
+        }
+
+        function displaySummaryReport(scorePercent, passingProb, theta, domainStats) {
+            document.getElementById('summary-prob').innerText = `${passingProb}%`;
+            document.getElementById('summary-accuracy').innerText = `${scorePercent}%`;
+            document.getElementById('summary-theta').innerText = (theta > 0 ? `+${theta}` : theta);
+            document.getElementById('summary-total-items').innerText = activeExamQuestions.length;
+
+            // Domain List Breakdown
+            let domainHtml = '';
+            for (const [dom, data] of Object.entries(domainStats)) {
+                const domPct = Math.round((data.correct / data.total) * 100);
+                domainHtml += `
+                    <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                        <div class="flex justify-between font-semibold mb-1">
+                            <span class="text-slate-700">${dom}</span>
+                            <span class="${domPct >= 70 ? 'text-emerald-600' : 'text-rose-600'} font-bold">${domPct}% (${data.correct}/${data.total})</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full ${domPct >= 70 ? 'bg-emerald-500' : 'bg-rose-500'}" style="width: ${domPct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('domain-breakdown-list').innerHTML = domainHtml;
+
+            // Question Log & Review Area
+            let qHtml = '';
+            activeExamQuestions.forEach((q, idx) => {
+                const uAns = userAnswers[idx];
+                const isCorrect = uAns === q.correctAnswer;
+                const isBookmarked = bookmarkedQuestions[q.id] || false;
+
+                qHtml += `
+                    <div class="p-4 rounded-lg border ${isCorrect ? 'border-emerald-200 bg-emerald-50/30' : 'border-rose-200 bg-rose-50/30'} space-y-3">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                    Item ${idx + 1}: ${isCorrect ? 'Correct' : 'Incorrect'}
+                                </span>
+                                <h4 class="text-xs font-bold text-slate-900 pt-1">${q.question}</h4>
+                            </div>
+                            <button onclick="toggleBookmark('${q.id}', this)" class="text-slate-400 hover:text-amber-500 transition text-sm">
+                                <i class="${isBookmarked ? 'fa-solid fa-bookmark text-amber-500' : 'fa-regular fa-bookmark'}"></i>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                            <div><span class="text-slate-500">Your Selection:</span> <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${uAns || 'None'}</strong></div>
+                            <div><span class="text-slate-500">Correct Answer:</span> <strong class="text-emerald-700">${q.correctAnswer}</strong></div>
+                        </div>
+                        <div class="text-xs bg-white p-3 rounded border border-slate-200 text-slate-600 leading-relaxed">
+                            <strong class="text-slate-800">Rationale:</strong> ${q.rationale || 'N/A'}
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('summary-question-list').innerHTML = qHtml;
+
+            document.getElementById('summary-view').classList.remove('hidden');
+        }
+
+        function toggleBookmark(questionId, btn) {
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || {};
+            stateObj.studentStats.favorites = stateObj.studentStats.favorites || [];
+
+            const idx = stateObj.studentStats.favorites.indexOf(questionId);
+            const icon = btn.querySelector('i');
+
+            if (idx > -1) {
+                stateObj.studentStats.favorites.splice(idx, 1);
+                icon.className = 'fa-regular fa-bookmark';
+                btn.classList.remove('text-amber-500');
+            } else {
+                stateObj.studentStats.favorites.push(questionId);
+                icon.className = 'fa-solid fa-bookmark text-amber-500';
+            }
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+        }
+
+        function returnToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+</html>
