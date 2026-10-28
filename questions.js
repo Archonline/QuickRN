@@ -10,7 +10,6 @@ const CLIENT_NEEDS_CATEGORIES = [
     { id: 'basic_care', name: 'Basic Care and Comfort', weight: 5 }
 ];
 
-// Default Roadmap Study Plan Schedule (14-Day Structured Sprint)
 const DEFAULT_ROADMAP_PLAN = [
     { day: 1, title: 'Foundations & Delegation', topic: 'Management of Care: Prioritization & Scope of Practice', type: 'study', completed: false },
     { day: 2, title: 'Infection Control & Precautions', topic: 'Airborne, Droplet, Contact Precautions, & PPE', type: 'study', completed: false },

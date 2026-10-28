@@ -86,7 +86,7 @@
                 </div>
                 <div>
                     <span class="text-xl font-black tracking-tight text-white">Quick<span class="text-indigo-400">RN</span></span>
-                    <span class="text-xs block text-slate-400 font-medium">NCLEX Adaptive Engine v2.5</span>
+                    <span class="text-xs block text-slate-400 font-medium">NCLEX Adaptive Engine v2.7</span>
                 </div>
             </div>
 
@@ -94,6 +94,10 @@
                 <button onclick="app.switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition">Dashboard</button>
                 <button onclick="app.switchTab('practice')" id="nav-practice" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition">Practice Exams</button>
                 <button onclick="app.switchTab('cat')" id="nav-cat" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition">CAT Simulation</button>
+                <button onclick="app.switchTab('predictor')" id="nav-predictor" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center space-x-1">
+                    <span class="bg-emerald-500/20 text-emerald-400 text-[10px] px-1.5 py-0.5 rounded font-black mr-1 uppercase">Unlimited</span>
+                    <span>Predictor Exam</span>
+                </button>
                 <button onclick="app.switchTab('analytics')" id="nav-analytics" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition">Client Needs</button>
                 <button onclick="app.switchTab('calendar')" id="nav-calendar" class="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-700 transition flex items-center space-x-1.5 text-indigo-300 font-semibold">
                     <i class="fa-solid fa-calendar-days"></i>
@@ -127,7 +131,7 @@
                             <span>NCLEX-RN Prep Suite</span>
                         </div>
                         <h1 class="text-3xl font-bold text-white tracking-tight">Welcome Back, Future RN!</h1>
-                        <p class="text-slate-400 mt-1 max-w-xl">Your adaptive readiness score is calculated based on recent CAT exams and NGN case study performance.</p>
+                        <p class="text-slate-400 mt-1 max-w-xl">Your adaptive readiness score is updated with answered questions even from unfinished sessions.</p>
                     </div>
                     <div class="flex items-center space-x-4 bg-slate-900/80 border border-slate-700 p-4 rounded-xl">
                         <div class="text-center px-4 border-r border-slate-700">
@@ -142,43 +146,69 @@
                 </div>
             </div>
 
-            <!-- WHAT'S NEW IN VERSION 2.5 SECTION -->
+            <!-- UNFINISHED EXAM BANNER (DASHBOARD RESUME / RETAKE) -->
+            <div id="unfinished-exam-banner" class="hidden bg-gradient-to-r from-amber-950/80 via-slate-800 to-slate-800 border border-amber-500/40 rounded-2xl p-6 shadow-xl space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                        </div>
+                        <div>
+                            <span class="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded font-black uppercase">Unfinished Session Saved</span>
+                            <h3 id="unfinished-exam-title" class="text-lg font-bold text-white mt-0.5">NCLEX Predictor Exam - In Progress</h3>
+                            <p id="unfinished-exam-progress" class="text-xs text-slate-400">Answered questions count toward dashboard mastery. Final score is pending completion.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
+                        <button onclick="app.resumeUnfinishedExam()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-play"></i>
+                            <span>Resume Exam</span>
+                        </button>
+                        <button onclick="app.restartUnfinishedExam()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Retake Fresh Exam</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT'S NEW IN VERSION 2.7 SECTION -->
             <div class="bg-slate-800/90 border border-indigo-500/30 rounded-2xl p-6 space-y-4 shadow-lg">
                 <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
                     <div class="flex items-center space-x-3">
-                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded-md uppercase tracking-wider">v2.5 Released</span>
+                        <span class="bg-indigo-600 text-white text-xs font-black px-2.5 py-1 rounded-md uppercase tracking-wider">v2.7 Released</span>
                         <h2 class="text-lg font-bold text-white flex items-center">
                             <i class="fa-solid fa-sparkles text-amber-400 mr-2"></i>What's New in QuickRN
                         </h2>
                     </div>
-                    <span class="text-xs text-slate-400 font-medium">Free Online Reading & References Update</span>
+                    <span class="text-xs text-slate-400 font-medium">Unfinished Exam Dashboard Integration</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                     <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-700/80 space-y-1.5">
-                        <div class="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase">
-                            <i class="fa-solid fa-book-open"></i>
-                            <span>Free References in Rationale</span>
+                        <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs uppercase">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Return to Dashboard</span>
                         </div>
-                        <h4 class="text-white font-semibold">Self-Study Topic Reading</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Direct links to NIH/StatPearls, CDC guidelines, and open-access nursing PDFs dynamically generated per question.</p>
+                        <h4 class="text-white font-semibold">Exit & Save Progress Anytime</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">Return to the dashboard at any point during the Predictor exam without losing submitted question data.</p>
                     </div>
 
                     <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-700/80 space-y-1.5">
                         <div class="flex items-center space-x-2 text-emerald-400 font-bold text-xs uppercase">
-                            <i class="fa-solid fa-file-invoice"></i>
-                            <span>Post-Exam Reference Hub</span>
+                            <i class="fa-solid fa-chart-line"></i>
+                            <span>Partial Score Tracking</span>
                         </div>
-                        <h4 class="text-white font-semibold">Exam Summary Reading List</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Comprehensive list of online reference materials categorized by key phrases after completing an exam.</p>
+                        <h4 class="text-white font-semibold">Mastery Updated live</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">No final score is recorded until completion, but all answered items instantly update dashboard readiness charts.</p>
                     </div>
 
                     <div class="bg-slate-900/70 p-4 rounded-xl border border-slate-700/80 space-y-1.5">
-                        <div class="flex items-center space-x-2 text-amber-400 font-bold text-xs uppercase">
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <span>Roadmap & Security Suite</span>
+                        <div class="flex items-center space-x-2 text-indigo-400 font-bold text-xs uppercase">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Resume or Retake</span>
                         </div>
-                        <h4 class="text-white font-semibold">14-Day Calendar & Protection</h4>
-                        <p class="text-slate-400 text-xs leading-relaxed">Interactive task ticking, dynamic exam countdown, anti-copying, and screenshot watermark protection.</p>
+                        <h4 class="text-white font-semibold">Dashboard Session Hub</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">Choose to resume where you left off or start a fresh set directly from the dashboard banner.</p>
                     </div>
                 </div>
             </div>
@@ -199,16 +229,19 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-indigo-500/50 transition cursor-pointer flex flex-col justify-between" onclick="app.switchTab('practice')">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 hover:border-emerald-500/50 transition cursor-pointer flex flex-col justify-between" onclick="app.switchTab('predictor')">
                     <div>
                         <div class="w-12 h-12 rounded-lg bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-xl mb-4">
-                            <i class="fa-solid fa-clipboard-list"></i>
+                            <i class="fa-solid fa-infinity"></i>
                         </div>
-                        <h3 class="text-lg font-bold text-white">Practice Bank</h3>
-                        <p class="text-sm text-slate-400 mt-1">Targeted NGN case studies and clinical drills.</p>
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-lg font-bold text-white">Predictor Exam</h3>
+                            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded font-black uppercase">Unlimited</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mt-1">Comprehensive readiness assessment with infinite retakes.</p>
                     </div>
                     <div class="mt-6 flex items-center text-emerald-400 text-sm font-semibold">
-                        <span>Browse Bank</span>
+                        <span>Start Predictor</span>
                         <i class="fa-solid fa-arrow-right ml-2"></i>
                     </div>
                 </div>
@@ -286,6 +319,38 @@
             </div>
         </section>
 
+        <!-- PREDICTOR EXAM TAB -->
+        <section id="tab-predictor" class="hidden space-y-6">
+            <div class="max-w-2xl mx-auto bg-slate-800 border border-slate-700 rounded-2xl p-8 text-center space-y-6 shadow-xl">
+                <div class="w-20 h-20 rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-3xl mx-auto shadow-inner">
+                    <i class="fa-solid fa-infinity"></i>
+                </div>
+                <div>
+                    <span class="inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-2">Unlimited Access Enabled</span>
+                    <h2 class="text-2xl font-bold text-white">NCLEX Predictor Exam</h2>
+                    <p class="text-slate-400 mt-2 text-sm">Comprehensive multi-category assessment calculating your overall pass probability. All attempt restrictions have been removed—take as many practice attempts as needed.</p>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-left bg-slate-900/60 p-4 rounded-xl border border-slate-700 text-sm">
+                    <div>
+                        <span class="block text-slate-500 text-xs font-semibold">Attempts Allowed</span>
+                        <span class="text-emerald-400 font-black">UNLIMITED <i class="fa-solid fa-check text-xs ml-1"></i></span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-500 text-xs font-semibold">Security</span>
+                        <span class="text-emerald-400 font-bold">Active Watermark</span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-500 text-xs font-semibold">Format</span>
+                        <span class="text-white font-bold">Full Board Assessment</span>
+                    </div>
+                </div>
+                <button onclick="app.startPredictorExam()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/40 transition text-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Begin NCLEX Predictor Exam</span>
+                </button>
+            </div>
+        </section>
+
         <!-- PRACTICE EXAM TAB -->
         <section id="tab-practice" class="hidden space-y-6">
             <div class="flex justify-between items-center">
@@ -336,12 +401,16 @@
 
         <!-- ACTIVE EXAM INTERFACE -->
         <section id="exam-interface" class="hidden space-y-6">
-            <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-center">
+            <div class="bg-slate-800 border border-slate-700 rounded-xl p-4 flex justify-between items-center flex-wrap gap-3">
                 <div class="flex items-center space-x-4">
                     <span id="exam-title-badge" class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-xs font-bold">CAT EXAM</span>
                     <span id="exam-progress-label" class="text-sm font-semibold text-slate-300">Question 1 of 85</span>
                 </div>
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3">
+                    <button onclick="app.returnToDashboardFromExam()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 border border-slate-600 rounded-lg text-xs font-bold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Return to Dashboard</span>
+                    </button>
                     <div class="flex items-center space-x-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-lg text-amber-300 text-xs font-bold">
                         <i class="fa-solid fa-shield-halved"></i>
                         <span>Secure Mode ON</span>
@@ -364,21 +433,22 @@
                     </div>
                     <p id="rationale-text" class="text-sm text-slate-300 leading-relaxed"></p>
 
-                    <!-- NEW: Free Online Reading & References Area (After Rationale) -->
+                    <!-- Free Online Reading & References Area -->
                     <div class="pt-4 border-t border-slate-800 space-y-3">
                         <div class="flex items-center space-x-2 text-indigo-300 text-xs font-bold uppercase tracking-wider">
                             <i class="fa-solid fa-book-open"></i>
                             <span>Free Online Reading & Clinical References (NIH / CDC / Open-Access)</span>
                         </div>
-                        <div id="question-references-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                            <!-- Populated via JS -->
-                        </div>
+                        <div id="question-references-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"></div>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-between items-center pt-4">
-                <button onclick="app.quitExam()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-sm font-semibold transition">Quit Exam</button>
+                <button onclick="app.returnToDashboardFromExam()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 rounded-xl text-sm font-semibold transition flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Return to Dashboard</span>
+                </button>
                 <button id="exam-submit-btn" onclick="app.submitOrNextQuestion()" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-600/30 transition">Submit Answer</button>
             </div>
         </section>
@@ -408,16 +478,14 @@
                     </div>
                 </div>
 
-                <!-- NEW: Post-Exam Free Online Reading & References Section -->
+                <!-- Post-Exam Free Online Reading & References Section -->
                 <div class="bg-slate-900/90 border border-slate-700 text-left rounded-xl p-6 space-y-4 max-w-3xl mx-auto mt-6">
                     <div class="flex items-center space-x-2 text-indigo-400 font-bold text-sm uppercase tracking-wide">
                         <i class="fa-solid fa-graduation-cap text-lg"></i>
                         <span>Recommended Free Online Reading & Clinical Guidelines</span>
                     </div>
                     <p class="text-xs text-slate-400">Based on the key topics in this exam session, review these open-access evidence-based references from NIH StatPearls and CDC:</p>
-                    <div id="summary-references-list" class="space-y-2 text-xs">
-                        <!-- Dynamic exam summary references populated via JS -->
-                    </div>
+                    <div id="summary-references-list" class="space-y-2 text-xs"></div>
                 </div>
 
                 <div class="flex justify-center space-x-4 pt-4">

@@ -1,8 +1,9 @@
-// QuickRN Core Application Logic & Roadmap Calendar Management
+// QuickRN Core Application Logic & Unfinished Exam Handler
 class QuickRNApp {
     constructor() {
         this.currentTab = 'dashboard';
         this.activeExam = null;
+        this.unfinishedExam = null;
         this.clientNeedsChart = null;
         this.init();
     }
@@ -66,12 +67,26 @@ class QuickRNApp {
 
         const savedExamDate = localStorage.getItem('quickrn_exam_date');
         this.exactExamDate = savedExamDate || '';
+
+        const savedUnfinished = localStorage.getItem('quickrn_unfinished_exam');
+        this.unfinishedExam = savedUnfinished ? JSON.parse(savedUnfinished) : null;
+
+        const savedAnsweredItems = localStorage.getItem('quickrn_answered_items');
+        this.answeredItems = savedAnsweredItems ? JSON.parse(savedAnsweredItems) : [];
     }
 
     saveUserData() {
         localStorage.setItem('quickrn_history', JSON.stringify(this.examHistory));
         localStorage.setItem('quickrn_roadmap', JSON.stringify(this.roadmap));
         localStorage.setItem('quickrn_exam_date', JSON.stringify(this.exactExamDate));
+        
+        if (this.unfinishedExam) {
+            localStorage.setItem('quickrn_unfinished_exam', JSON.stringify(this.unfinishedExam));
+        } else {
+            localStorage.removeItem('quickrn_unfinished_exam');
+        }
+
+        localStorage.setItem('quickrn_answered_items', JSON.stringify(this.answeredItems));
     }
 
     updateExamDate(dateStr) {
@@ -82,12 +97,13 @@ class QuickRNApp {
 
     switchTab(tabId) {
         if (this.activeExam) {
-            if (!confirm('An active exam is in progress. Are you sure you want to quit?')) return;
-            this.quitExam();
+            if (!confirm('You are currently in an active exam session. Return to dashboard and save your answered questions?')) return;
+            this.returnToDashboardFromExam();
+            return;
         }
 
         this.currentTab = tabId;
-        const tabs = ['dashboard', 'practice', 'cat', 'analytics', 'calendar'];
+        const tabs = ['dashboard', 'practice', 'cat', 'predictor', 'analytics', 'calendar'];
         tabs.forEach(t => {
             const el = document.getElementById(`tab-${t}`);
             const btn = document.getElementById(`nav-${t}`);
@@ -111,7 +127,14 @@ class QuickRNApp {
     renderDashboard() {
         let readiness = 78;
         let passProb = "High (98.2%)";
-        if (this.examHistory.length > 0) {
+
+        // Calculate readiness including submitted questions from finished and unfinished exams
+        const totalItemsCount = this.answeredItems.length;
+        if (totalItemsCount > 0) {
+            const correctItems = this.answeredItems.filter(i => i.isCorrect).length;
+            readiness = Math.round((correctItems / totalItemsCount) * 100);
+            passProb = readiness >= 75 ? "Very High (99.1%)" : readiness >= 60 ? "Moderate (84.2%)" : "Needs Review (68.0%)";
+        } else if (this.examHistory.length > 0) {
             const totalScore = this.examHistory.reduce((acc, curr) => acc + curr.pct, 0);
             readiness = Math.round(totalScore / this.examHistory.length);
             passProb = readiness >= 75 ? "Very High (99.1%)" : "Moderate (82.4%)";
@@ -120,13 +143,43 @@ class QuickRNApp {
         document.getElementById('dash-readiness-pct').textContent = readiness + '%';
         document.getElementById('dash-pass-prob').textContent = passProb;
 
+        // Render Unfinished Exam Banner
+        const unfinishedBanner = document.getElementById('unfinished-exam-banner');
+        if (this.unfinishedExam) {
+            unfinishedBanner.classList.remove('hidden');
+            const answeredCount = Object.keys(this.unfinishedExam.submitted).length;
+            const totalCount = this.unfinishedExam.questions.length;
+            document.getElementById('unfinished-exam-title').textContent = `${this.unfinishedExam.title} - Unfinished Session`;
+            document.getElementById('unfinished-exam-progress').textContent = `${answeredCount} of ${totalCount} questions submitted. Progress saved to dashboard mastery. No final score recorded yet.`;
+        } else {
+            unfinishedBanner.classList.add('hidden');
+        }
+
         const container = document.getElementById('recent-sessions-container');
-        if (this.examHistory.length === 0) {
-            container.innerHTML = `<p class="text-sm text-slate-400">No recent exam sessions recorded yet. Start your first CAT or practice session!</p>`;
+        if (this.examHistory.length === 0 && !this.unfinishedExam) {
+            container.innerHTML = `<p class="text-sm text-slate-400">No completed exam sessions recorded yet. Start your first CAT or Predictor session!</p>`;
             return;
         }
 
         let html = `<div class="space-y-3">`;
+
+        if (this.unfinishedExam) {
+            const answeredCount = Object.keys(this.unfinishedExam.submitted).length;
+            html += `
+                <div class="flex justify-between items-center bg-amber-950/30 p-4 rounded-xl border border-amber-500/40">
+                    <div>
+                        <span class="text-xs font-black text-amber-400 uppercase">UNFINISHED SESSION</span>
+                        <h4 class="text-sm font-semibold text-white mt-0.5">${this.unfinishedExam.title}</h4>
+                        <p class="text-xs text-slate-400">${answeredCount} items answered • No score recorded yet</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="app.resumeUnfinishedExam()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg text-xs transition">Resume</button>
+                        <button onclick="app.restartUnfinishedExam()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-xs border border-slate-700 transition">Retake</button>
+                    </div>
+                </div>
+            `;
+        }
+
         this.examHistory.slice(-3).reverse().forEach(ex => {
             html += `
                 <div class="flex justify-between items-center bg-slate-900/60 p-4 rounded-xl border border-slate-700">
@@ -161,10 +214,10 @@ class QuickRNApp {
                 </div>
             </div>
             <div class="bg-slate-900/80 p-3.5 rounded-xl border border-emerald-500/30 flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-square-poll-vertical"></i></div>
+                <div class="w-10 h-10 rounded-lg bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-bold text-lg"><i class="fa-solid fa-infinity"></i></div>
                 <div>
-                    <h4 class="text-xs font-bold text-white uppercase">Readiness Predictor Exam</h4>
-                    <p class="text-xs text-slate-400 mt-0.5">Scheduled on Day 7 (Mid-term) & Day 14 (Final).</p>
+                    <h4 class="text-xs font-bold text-white uppercase">Readiness Predictor Exam (Unlimited)</h4>
+                    <p class="text-xs text-slate-400 mt-0.5">Retake anytime. Return to dashboard saves answered items without scoring.</p>
                 </div>
             </div>
         `;
@@ -244,6 +297,28 @@ class QuickRNApp {
         this.startExamSession('CAT Simulation', QUESTION_BANK);
     }
 
+    startPredictorExam() {
+        if (this.unfinishedExam) {
+            if (confirm('You have an unfinished NCLEX Predictor Exam session. Would you like to resume it? Click OK to resume, or Cancel to start a fresh exam.')) {
+                this.resumeUnfinishedExam();
+                return;
+            }
+        }
+        this.startExamSession('NCLEX Predictor Exam', QUESTION_BANK);
+    }
+
+    resumeUnfinishedExam() {
+        if (!this.unfinishedExam) return;
+        this.activeExam = this.unfinishedExam;
+        this.launchExamView();
+    }
+
+    restartUnfinishedExam() {
+        this.unfinishedExam = null;
+        this.saveUserData();
+        this.startExamSession('NCLEX Predictor Exam', QUESTION_BANK);
+    }
+
     startExamSession(title, questions) {
         this.activeExam = {
             title: title,
@@ -254,11 +329,16 @@ class QuickRNApp {
             score: 0
         };
 
-        ['dashboard', 'practice', 'cat', 'analytics', 'calendar'].forEach(t => {
-            document.getElementById(`tab-${t}`).classList.add('hidden');
+        this.launchExamView();
+    }
+
+    launchExamView() {
+        ['dashboard', 'practice', 'cat', 'predictor', 'analytics', 'calendar'].forEach(t => {
+            const el = document.getElementById(`tab-${t}`);
+            if (el) el.classList.add('hidden');
         });
         document.getElementById('exam-interface').classList.remove('hidden');
-        document.getElementById('exam-title-badge').textContent = title.toUpperCase();
+        document.getElementById('exam-title-badge').textContent = this.activeExam.title.toUpperCase();
 
         this.enableWatermark("Candidate - SECURE");
         this.loadQuestion();
@@ -308,7 +388,6 @@ class QuickRNApp {
             rationaleBox.classList.remove('hidden');
             document.getElementById('rationale-text').textContent = q.rationale;
 
-            // Render Free Online References for current question
             const refContainer = document.getElementById('question-references-container');
             refContainer.innerHTML = '';
             const refs = q.references || [
@@ -348,10 +427,24 @@ class QuickRNApp {
                 alert('Please select an option before submitting.');
                 return;
             }
+            
+            // Mark question as submitted
             exam.submitted[exam.currentIndex] = true;
-            if (exam.selectedAnswers[exam.currentIndex] === exam.questions[exam.currentIndex].correctIndex) {
+            const q = exam.questions[exam.currentIndex];
+            const isCorrect = exam.selectedAnswers[exam.currentIndex] === q.correctIndex;
+            if (isCorrect) {
                 exam.score++;
             }
+
+            // Immediately mark answer in persistent answeredItems list to update dashboard readiness
+            this.answeredItems.push({
+                questionId: q.id,
+                category: q.category,
+                isCorrect: isCorrect,
+                timestamp: new Date().toISOString()
+            });
+
+            this.saveUserData();
             this.loadQuestion();
         } else {
             if (exam.currentIndex < exam.questions.length - 1) {
@@ -363,10 +456,19 @@ class QuickRNApp {
         }
     }
 
-    quitExam() {
-        this.activeExam = null;
+    returnToDashboardFromExam() {
+        if (this.activeExam) {
+            // Save active session as unfinished without adding a final score log
+            this.unfinishedExam = this.activeExam;
+            this.activeExam = null;
+            this.saveUserData();
+        }
         this.disableWatermark();
         this.switchTab('dashboard');
+    }
+
+    quitExam() {
+        this.returnToDashboardFromExam();
     }
 
     finishExam() {
@@ -376,6 +478,7 @@ class QuickRNApp {
         const pct = Math.round((score / total) * 100);
         const passStatus = pct >= 70 ? 'PASS' : 'FAIL';
 
+        // Exam completed -> Add official final score to examHistory & clear unfinished state
         this.examHistory.push({
             type: exam.title,
             date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -384,6 +487,8 @@ class QuickRNApp {
             pct: pct,
             status: passStatus
         });
+
+        this.unfinishedExam = null;
         this.saveUserData();
         this.disableWatermark();
 
@@ -394,7 +499,6 @@ class QuickRNApp {
         document.getElementById('summary-pass-status').textContent = passStatus;
         document.getElementById('summary-pass-status').className = `text-xl font-black ${pct >= 70 ? 'text-emerald-400' : 'text-rose-400'}`;
 
-        // Populate Summary Free Online Reading & References List
         const summaryRefList = document.getElementById('summary-references-list');
         summaryRefList.innerHTML = '';
         
