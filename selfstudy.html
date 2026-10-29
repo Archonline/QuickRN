@@ -287,13 +287,12 @@
 
         // Detect correct NGN type from item properties if not explicitly specified
         function detectNGNType(q) {
-            // Check explicit format flags from various Q-Bank schemas
             const rawType = (q.ngnType || q.type || q.format || q.questionType || q.itemType || "").toString().toLowerCase();
 
             if (rawType.includes("matrix") || rawType.includes("grid") || (q.rows && q.columns) || q.matrixData) {
                 return "Matrix / Grid";
             }
-            if (rawType.includes("cloze") || rawType.includes("drop") || q.clozeTemplate || q.dropdowns) {
+            if (rawType.includes("cloze") || rawType.includes("drop") || q.clozeTemplate || q.dropdowns || (q.options && !Array.isArray(q.options) && typeof q.options === 'object')) {
                 return "Cloze (Drop-down)";
             }
             if (rawType.includes("drag") || rawType.includes("order") || q.availableItems || q.correctOrder) {
@@ -308,7 +307,7 @@
                 rawType.includes("select all") || 
                 Array.isArray(q.correctAnswers) || 
                 (Array.isArray(q.correctAnswer) && q.correctAnswer.length > 1) ||
-                (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object' && q.options[0].id)
+                (Array.isArray(q.options) && q.options.length > 0 && typeof q.options[0] === 'object' && q.options[0].id)
             ) {
                 return "Extended Multiple Response";
             }
@@ -336,10 +335,10 @@
             // Launch Exam Session
             const launchSession = (count) => {
                 let rawPool = defaultQBank;
-                if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
-                    rawPool = embeddedQuestionsData;
-                } else if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
                     rawPool = window.questions;
+                } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
+                    rawPool = embeddedQuestionsData;
                 }
 
                 const normalized = rawPool.map((q, idx) => {
@@ -352,7 +351,7 @@
                         cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
                         cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s)."),
                         ngnType: detectedType,
-                        keyPhrase: q.keyPhrase || q.category || "Clinical Nursing Concept"
+                        keyPhrase: q.keyPhrase || q.category || q.topic || "Clinical Nursing Concept"
                     };
                 });
 
@@ -430,38 +429,43 @@
                 if (!ans) return { earned: 0, max: 1 };
                 switch (item.ngnType) {
                     case "Matrix / Grid": {
-                        let earned = 0, max = item.rows.length;
-                        item.rows.forEach(r => { if (ans[r.id] === item.correctAnswers[r.id]) earned++; });
-                        return { earned, max };
+                        let earned = 0, max = (item.rows || []).length;
+                        (item.rows || []).forEach(r => { if (ans[r.id] === (item.correctAnswers || {})[r.id]) earned++; });
+                        return { earned, max: max || 1 };
                     }
                     case "Cloze (Drop-down)": {
-                        let earned = 0, max = Object.keys(item.correctAnswers).length;
-                        Object.keys(item.correctAnswers).forEach(k => { if (ans[k] === item.correctAnswers[k]) earned++; });
-                        return { earned, max };
+                        const correctKeys = Object.keys(item.correctAnswers || {});
+                        let earned = 0, max = correctKeys.length;
+                        correctKeys.forEach(k => { if (ans[k] === item.correctAnswers[k]) earned++; });
+                        return { earned, max: max || 1 };
                     }
                     case "Extended Drag and Drop": {
-                        let earned = 0, max = item.correctOrder.length;
-                        (ans || []).forEach((v, idx) => { if (v === item.correctOrder[idx]) earned++; });
-                        return { earned, max };
+                        const correctSeq = item.correctOrder || [];
+                        let earned = 0, max = correctSeq.length;
+                        (ans || []).forEach((v, idx) => { if (v === correctSeq[idx]) earned++; });
+                        return { earned, max: max || 1 };
                     }
                     case "Extended Multiple Response": {
                         let correctCount = 0, incorrectCount = 0;
-                        const correctSet = new Set(item.correctAnswers);
+                        const correctArray = item.correctAnswers || item.correctAnswer || [];
+                        const correctSet = new Set(Array.isArray(correctArray) ? correctArray : [correctArray]);
                         (ans || []).forEach(id => {
                             if (correctSet.has(id)) correctCount++;
                             else incorrectCount++;
                         });
-                        return { earned: Math.max(0, correctCount - incorrectCount), max: item.correctAnswers.length };
+                        return { earned: Math.max(0, correctCount - incorrectCount), max: correctSet.size || 1 };
                     }
                     case "Bowtie": {
                         let earned = 0;
-                        if (ans.condition === item.correctAnswers.condition) earned++;
-                        (ans.actions || []).forEach(a => { if (item.correctAnswers.actions.includes(a)) earned++; });
-                        (ans.monitoring || []).forEach(m => { if (item.correctAnswers.monitoring.includes(m)) earned++; });
+                        const correctObj = item.correctAnswers || {};
+                        if (ans.condition === correctObj.condition) earned++;
+                        (ans.actions || []).forEach(a => { if ((correctObj.actions || []).includes(a)) earned++; });
+                        (ans.monitoring || []).forEach(m => { if ((correctObj.monitoring || []).includes(m)) earned++; });
                         return { earned, max: 5 };
                     }
                     default: {
-                        return { earned: ans === item.correctAnswer ? 1 : 0, max: 1 };
+                        const targetKey = item.correctAnswer || item.correctAnswerText;
+                        return { earned: (ans === targetKey || ans === item.correctAnswer) ? 1 : 0, max: 1 };
                     }
                 }
             };
@@ -519,7 +523,6 @@
                         totalEarned += ansState.score || 0;
                         totalMax += ansState.maxScore || 1;
                     } else {
-                        // Strict scoring: unanswered questions score 0
                         const defaultMax = q.rows ? q.rows.length : (q.correctOrder ? q.correctOrder.length : 1);
                         totalMax += defaultMax;
                     }
@@ -779,7 +782,7 @@
                                                 <div className="bg-slate-900/60 p-3 rounded-lg text-xs space-y-1.5 border border-slate-700">
                                                     <div>
                                                         <strong className="text-slate-400 block">Correct Answer Key:</strong>
-                                                        <span className="text-emerald-400 font-semibold">{JSON.stringify(question.correctAnswer || question.correctAnswers || question.correctOrder)}</span>
+                                                        <span className="text-emerald-400 font-semibold">{JSON.stringify(question.correctAnswer || question.correctAnswerText || question.correctAnswers || question.correctOrder)}</span>
                                                     </div>
                                                     <div>
                                                         <strong className="text-slate-400 block">Pathophysiology Rationale:</strong>
@@ -977,12 +980,14 @@
 
             // Render Single Choice
             if (item.ngnType === "Single Choice" || !item.isNGN) {
+                const optionsList = item.options || [];
                 return (
                     <div className="space-y-3">
-                        {item.options.map((opt, idx) => {
+                        {optionsList.map((opt, idx) => {
                             const text = opt.text || opt;
-                            const isChecked = draftAnswer === text;
-                            const isRight = item.correctAnswer === text;
+                            const isChecked = draftAnswer === text || draftAnswer === String.fromCharCode(65 + idx);
+                            const correctTarget = item.correctAnswerText || item.correctAnswer;
+                            const isRight = correctTarget === text || item.correctAnswer === String.fromCharCode(65 + idx);
 
                             let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                             if (isSubmitted) {
@@ -1008,17 +1013,22 @@
             // Render SATA
             if (item.ngnType === "Extended Multiple Response") {
                 const currentSATA = Array.isArray(draftAnswer) ? draftAnswer : [];
+                const optionsList = item.options || [];
+                const correctList = item.correctAnswers || item.correctAnswer || [];
+                const correctSet = new Set(Array.isArray(correctList) ? correctList : [correctList]);
+
                 const handleToggle = (optId) => {
                     const next = currentSATA.includes(optId) ? currentSATA.filter(x => x !== optId) : [...currentSATA, optId];
                     onUpdateDraft(next);
                 };
+
                 return (
                     <div className="space-y-3">
-                        {item.options.map((opt, idx) => {
+                        {optionsList.map((opt, idx) => {
                             const optId = opt.id || opt.text || opt;
                             const optText = opt.text || opt;
                             const isChecked = currentSATA.includes(optId);
-                            const isRight = item.correctAnswers.includes(optId);
+                            const isRight = correctSet.has(optId);
 
                             let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                             if (isSubmitted) {
@@ -1042,6 +1052,188 @@
                 );
             }
 
+            // Render Cloze (Drop-down)
+            if (item.ngnType === "Cloze (Drop-down)") {
+                const draftObj = draftAnswer || {};
+                const template = item.clozeTemplate || item.template || "";
+                const optionsObj = item.options || {};
+                const parts = template.split(/(\{.*?\})/g);
+
+                const handleSelectChange = (key, val) => {
+                    onUpdateDraft({ ...draftObj, [key]: val });
+                };
+
+                return (
+                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 leading-relaxed text-sm md:text-base space-y-4">
+                        <div className="font-medium text-slate-800">
+                            {parts.map((part, pIdx) => {
+                                if (part.startsWith('{') && part.endsWith('}')) {
+                                    const key = part.slice(1, -1).trim();
+                                    const choices = optionsObj[key] || [];
+                                    const userVal = draftObj[key] || "";
+                                    const rightVal = (item.correctAnswers || {})[key];
+
+                                    let borderStyle = "border-slate-300 bg-white";
+                                    if (isSubmitted) {
+                                        borderStyle = userVal === rightVal ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold" : "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                                    }
+
+                                    return (
+                                        <span key={pIdx} className="inline-block mx-1">
+                                            <select 
+                                                value={userVal} 
+                                                disabled={isSubmitted} 
+                                                onChange={(e) => handleSelectChange(key, e.target.value)}
+                                                className={`px-3 py-1 rounded-lg border text-xs md:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 ${borderStyle}`}
+                                            >
+                                                <option value="">-- Select Option --</option>
+                                                {choices.map((cOpt, cIdx) => (
+                                                    <option key={cIdx} value={cOpt}>{cOpt}</option>
+                                                ))}
+                                            </select>
+                                        </span>
+                                    );
+                                }
+                                return <span key={pIdx}>{part}</span>;
+                            })}
+                        </div>
+                    </div>
+                );
+            }
+
+            // Render Extended Drag and Drop
+            if (item.ngnType === "Extended Drag and Drop") {
+                const currentOrder = draftAnswer || item.availableItems || [];
+                const correctOrder = item.correctOrder || [];
+
+                const moveItem = (fromIdx, toIdx) => {
+                    if (isSubmitted) return;
+                    const updated = [...currentOrder];
+                    const [moved] = updated.splice(fromIdx, 1);
+                    updated.splice(toIdx, 0, moved);
+                    onUpdateDraft(updated);
+                };
+
+                return (
+                    <div className="space-y-3">
+                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Reorder items into correct priority (Step 1 to Step {currentOrder.length}):</p>
+                        {currentOrder.map((stepText, idx) => {
+                            const isRight = correctOrder[idx] === stepText;
+                            let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
+                            if (isSubmitted) {
+                                cardStyle = isRight ? "bg-emerald-100 border-emerald-500 text-emerald-950 font-bold" : "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
+                            }
+
+                            return (
+                                <div key={idx} className={`p-3.5 rounded-xl border flex items-center justify-between transition ${cardStyle}`}>
+                                    <div className="flex items-center gap-3">
+                                        <span className="w-6 h-6 rounded-full bg-slate-800 text-white font-mono text-xs flex items-center justify-center shrink-0">
+                                            {idx + 1}
+                                        </span>
+                                        <span className="text-xs md:text-sm font-medium">{stepText}</span>
+                                    </div>
+                                    {!isSubmitted && (
+                                        <div className="flex items-center gap-1 shrink-0">
+                                            <button disabled={idx === 0} onClick={() => moveItem(idx, idx - 1)} className="p-1 px-2 bg-slate-200 hover:bg-slate-300 rounded text-xs text-slate-700 disabled:opacity-30">
+                                                <i className="fa-solid fa-arrow-up"></i>
+                                            </button>
+                                            <button disabled={idx === currentOrder.length - 1} onClick={() => moveItem(idx, idx + 1)} className="p-1 px-2 bg-slate-200 hover:bg-slate-300 rounded text-xs text-slate-700 disabled:opacity-30">
+                                                <i className="fa-solid fa-arrow-down"></i>
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            }
+
+            // Render Bowtie
+            if (item.ngnType === "Bowtie") {
+                const bowtieData = item.bowtieData || {};
+                const currentDraft = draftAnswer || { condition: "", actions: [], monitoring: [] };
+                const correctObj = item.correctAnswers || {};
+
+                const setCondition = (val) => onUpdateDraft({ ...currentDraft, condition: val });
+
+                const toggleAction = (act) => {
+                    const current = currentDraft.actions || [];
+                    const next = current.includes(act) ? current.filter(x => x !== act) : [...current, act].slice(0, 2);
+                    onUpdateDraft({ ...currentDraft, actions: next });
+                };
+
+                const toggleMonitoring = (mon) => {
+                    const current = currentDraft.monitoring || [];
+                    const next = current.includes(mon) ? current.filter(x => x !== mon) : [...current, mon].slice(0, 2);
+                    onUpdateDraft({ ...currentDraft, monitoring: next });
+                };
+
+                return (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+                        {/* ACTIONS TO TAKE */}
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                            <h3 className="font-bold text-ncsbn-blue uppercase tracking-wider text-center border-b pb-2">Actions to Take (Select 2)</h3>
+                            {(bowtieData.actions || []).map((act, idx) => {
+                                const isChecked = (currentDraft.actions || []).includes(act);
+                                const isRight = (correctObj.actions || []).includes(act);
+                                let itemStyle = isChecked ? "bg-blue-100 border-blue-500 font-semibold" : "bg-white border-slate-200";
+                                if (isSubmitted) {
+                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
+                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
+                                }
+                                return (
+                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
+                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => toggleAction(act)} className="w-4 h-4 text-blue-600 rounded"/>
+                                        <span>{act}</span>
+                                    </label>
+                                );
+                            })}
+                        </div>
+
+                        {/* POTENTIAL CONDITION */}
+                        <div className="bg-blue-50/50 p-3 rounded-xl border-2 border-ncsbn-blue space-y-2">
+                            <h3 className="font-bold text-ncsbn-navy uppercase tracking-wider text-center border-b border-blue-200 pb-2">Potential Condition</h3>
+                            {(bowtieData.conditions || []).map((cond, idx) => {
+                                const isChecked = currentDraft.condition === cond;
+                                const isRight = correctObj.condition === cond;
+                                let itemStyle = isChecked ? "bg-blue-200 border-blue-600 font-bold" : "bg-white border-slate-200";
+                                if (isSubmitted) {
+                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
+                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
+                                }
+                                return (
+                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
+                                        <input type="radio" name="bowtie_cond" checked={isChecked} disabled={isSubmitted} onChange={() => setCondition(cond)} className="w-4 h-4 text-blue-600"/>
+                                        <span>{cond}</span>
+                                    </label>
+                                );
+                            })}
+                        </div>
+
+                        {/* PARAMETERS TO MONITOR */}
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+                            <h3 className="font-bold text-ncsbn-blue uppercase tracking-wider text-center border-b pb-2">Parameters to Monitor (Select 2)</h3>
+                            {(bowtieData.monitoring || []).map((mon, idx) => {
+                                const isChecked = (currentDraft.monitoring || []).includes(mon);
+                                const isRight = (correctObj.monitoring || []).includes(mon);
+                                let itemStyle = isChecked ? "bg-blue-100 border-blue-500 font-semibold" : "bg-white border-slate-200";
+                                if (isSubmitted) {
+                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
+                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
+                                }
+                                return (
+                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
+                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => toggleMonitoring(mon)} className="w-4 h-4 text-blue-600 rounded"/>
+                                        <span>{mon}</span>
+                                    </label>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            }
+
             // Render Matrix Grid
             if (item.ngnType === "Matrix / Grid") {
                 const matrixState = draftAnswer || {};
@@ -1053,17 +1245,17 @@
                         <thead className="bg-slate-100 border-b border-slate-300">
                             <tr>
                                 <th className="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>
-                                {item.columns.map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
+                                {(item.columns || []).map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-200 bg-white">
-                            {item.rows.map(row => {
-                                const rightCol = item.correctAnswers[row.id];
+                            {(item.rows || []).map(row => {
+                                const rightCol = (item.correctAnswers || {})[row.id];
                                 const userCol = matrixState[row.id];
                                 return (
                                     <tr key={row.id}>
                                         <td className="p-3 font-medium text-slate-800">{row.text}</td>
-                                        {item.columns.map((col, cIdx) => {
+                                        {(item.columns || []).map((col, cIdx) => {
                                             const isChecked = userCol === col;
                                             const isRight = rightCol === col;
                                             let bgCell = isSubmitted ? (isRight ? "bg-emerald-100 font-bold" : (isChecked ? "bg-rose-100" : "")) : "";
