@@ -252,14 +252,10 @@
                     "Document the findings as expected side effects of digoxin therapy"
                 ],
                 correctAnswer: "Withhold the Digoxin dose and notify the healthcare provider immediately",
-                rationale: "Visual disturbances (yellow-green halos or blurry vision), gastrointestinal signs (nausea, vomiting, anorexia), and bradycardia (apical pulse < 60 bpm) are classic indicators of Digoxin toxicity. The nurse must withhold the medication immediately and contact the provider to request serum digoxin and potassium levels and evaluate for Digoxin immune fab (Digibind) administration.",
-                learningObjectives: "Identify clinical manifestations of digoxin toxicity, execute nursing safety protocols prior to cardiac glycoside administration, and take immediate reporting actions.",
-                strategyRule: "Always check apical pulse for 1 full minute prior to giving Digoxin. Hold dose if HR < 60 bpm in adults or if toxic symptoms occur.",
-                aiTutorInsight: "Hypokalemia (< 3.5 mEq/L) significantly increases the risk of digoxin toxicity even when digoxin levels are within normal range.",
-                videos: [
-                    { title: "Digoxin Pharmacology & Toxicity Signs", id: "LpVyqHeyTcA", provider: "RegisteredNurseRN" },
-                    { title: "NCLEX Cardiac Pharmacology Review", id: "4j3W09G_L4o", provider: "Simple Nursing" }
-                ]
+                rationale: "Visual halos (yellow-green), gastrointestinal distress (nausea/vomiting), and bradycardia (<60 bpm) are classic signs of Digoxin toxicity. The dose must be held immediately and reported.",
+                strategyRule: "Check apical pulse for 1 full minute prior to digoxin administration. Hold if HR < 60 bpm in adults.",
+                aiTutorInsight: "Hypokalemia increases the risk of digoxin toxicity even at normal serum digoxin levels.",
+                youtubeId: "LpVyqHeyTcA"
             }
         ];
 
@@ -267,6 +263,10 @@
         function cleanQuestionText(text) {
             if (!text) return '';
             let cleaned = text.replace(/\[.*?\]\s*/g, '').trim();
+            const parts = cleaned.split(':');
+            if (parts.length > 2) {
+                cleaned = parts.slice(-2).join(':').trim();
+            }
             const sentences = cleaned.split(/(?<=[.?!])\s+/);
             const unique = [];
             sentences.forEach(s => {
@@ -285,40 +285,17 @@
             return copy;
         }
 
-        // DYNAMIC GEMINI AI API CALL FUNCTION WITH EXPONENTIAL BACKOFF
-        async function fetchGeminiTutorResponse(prompt, systemInstruction = "") {
-            const apiKey = ""; // Canvas runtime environment automatically supplies API key
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: {
-                    parts: [{
-                        text: systemInstruction || "You are an expert NCLEX-RN Nurse Educator and Clinical Tutor. Provide concise, clear, evidence-based, encouraging advice tailored for nursing students."
-                    }]
-                }
-            };
-
-            let delay = 1000;
-            for (let i = 0; i < 3; i++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    if (response.ok) {
-                        const data = await response.json();
-                        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                        if (reply) return reply;
-                    }
-                } catch (e) {
-                    // Retry silently
-                }
-                await new Promise(r => setTimeout(r, delay));
-                delay *= 2;
+        // Detect correct NGN type from item properties if not explicitly specified
+        function detectNGNType(q) {
+            if (q.ngnType) return q.ngnType;
+            if (q.rows && q.columns) return "Matrix / Grid";
+            if (q.clozeTemplate) return "Cloze (Drop-down)";
+            if (q.availableItems || q.correctOrder) return "Extended Drag and Drop";
+            if (q.bowtieData) return "Bowtie";
+            if (Array.isArray(q.correctAnswers) || (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object' && q.options[0].id)) {
+                return "Extended Multiple Response";
             }
-            return "I am currently analyzing your clinical scenario. Remember to focus on ABCs (Airway, Breathing, Circulation), safety priorities, and acute vs. chronic physiological changes!";
+            return "Single Choice";
         }
 
         // MAIN REACT APPLICATION COMPONENT
@@ -336,6 +313,7 @@
             const [activeVideoModal, setActiveVideoModal] = useState(null);
             const [showReportModal, setShowReportModal] = useState(false);
             const [videoNotes, setVideoNotes] = useState({});
+            const [isRationaleCollapsed, setIsRationaleCollapsed] = useState(false);
 
             // Launch Exam Session
             const launchSession = (count) => {
@@ -346,60 +324,55 @@
                     rawPool = window.questions;
                 }
 
-                const normalized = rawPool.map((q, idx) => ({
-                    ...q,
-                    id: q.id || `Q-${idx + 1}`,
-                    cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
-                    cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s)."),
-                    ngnType: q.ngnType || (q.isNGN ? "NGN Format" : "Single Choice"),
-                    keyPhrase: q.keyPhrase || q.category || "Clinical Nursing Concept"
-                }));
+                const normalized = rawPool.map((q, idx) => {
+                    const detectedType = detectNGNType(q);
+                    const isNGNItem = q.isNGN || detectedType !== "Single Choice";
+                    return {
+                        ...q,
+                        id: q.id || `Q-${idx + 1}`,
+                        isNGN: isNGNItem,
+                        cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
+                        cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s)."),
+                        ngnType: detectedType,
+                        keyPhrase: q.keyPhrase || q.category || "Clinical Nursing Concept"
+                    };
+                });
 
                 // Load previously answered question IDs to avoid repeats
                 let usedIds = JSON.parse(localStorage.getItem('quickrn_used_q_ids') || '[]');
-                let uncompleted = normalized.filter(q => !usedIds.includes(q.id));
+                let available = normalized.filter(q => !usedIds.includes(q.id));
 
-                // If pool is fully exhausted or remaining items aren't enough for the requested count, reset pool
-                if (uncompleted.length === 0 || (count !== 'all' && uncompleted.length < count)) {
-                    alert(usedIds.length > 0 
-                        ? `You have completed all ${usedIds.length} questions in the question bank! Re-shuffling and resetting the question pool.`
-                        : "Preparing fresh question set."
-                    );
-                    localStorage.setItem('quickrn_used_q_ids', JSON.stringify([]));
-                    uncompleted = normalized;
+                if (available.length < 5) {
+                    alert("You have exhausted all available questions in the question bank! Resetting history for a fresh attempt.");
+                    localStorage.removeItem('quickrn_used_q_ids');
+                    usedIds = [];
+                    available = normalized;
                 }
 
-                // Partition uncompleted pool into NGN and Traditional
-                const uncompletedNGN = shuffleArray(uncompleted.filter(q => q.isNGN));
-                const uncompletedTrad = shuffleArray(uncompleted.filter(q => !q.isNGN));
+                // Balance pool to ensure NGN items are present
+                const ngnItems = available.filter(q => q.isNGN);
+                const tradItems = available.filter(q => !q.isNGN);
 
                 let selected = [];
+                const targetCount = (count === 'all' || count >= available.length) ? available.length : count;
 
                 if (count === 'all') {
-                    selected = shuffleArray(uncompleted);
+                    selected = shuffleArray(available);
                 } else {
-                    // Guarantee at least 30% NGN items or all available NGN items in small sets
-                    const targetNGNCount = Math.max(1, Math.min(uncompletedNGN.length, Math.round(count * 0.35)));
-                    const ngnSelected = uncompletedNGN.slice(0, targetNGNCount);
-                    
-                    const remainingNeeded = count - ngnSelected.length;
-                    const remainingPool = shuffleArray([
-                        ...uncompletedNGN.slice(targetNGNCount),
-                        ...uncompletedTrad
-                    ]);
-                    
-                    const tradSelected = remainingPool.slice(0, remainingNeeded);
-                    selected = shuffleArray([...ngnSelected, ...tradSelected]);
-                }
+                    const minNGN = Math.min(ngnItems.length, Math.ceil(targetCount * 0.35));
+                    const selectedNGN = shuffleArray(ngnItems).slice(0, minNGN);
+                    const remainingNeeded = targetCount - selectedNGN.length;
 
-                // Record newly selected question IDs into used history
-                const newlyUsedIds = selected.map(q => q.id);
-                const updatedUsedIds = Array.from(new Set([...usedIds, ...newlyUsedIds]));
-                localStorage.setItem('quickrn_used_q_ids', JSON.stringify(updatedUsedIds));
+                    const remainingPool = [...tradItems, ...ngnItems.filter(q => !selectedNGN.includes(q))];
+                    const selectedOther = shuffleArray(remainingPool).slice(0, remainingNeeded);
+
+                    selected = shuffleArray([...selectedNGN, ...selectedOther]);
+                }
 
                 setActivePool(selected);
                 setCurrentIndex(0);
                 setUserAnswers({});
+                setCurrentDraftAnswer({});
                 setShowLaunchModal(false);
                 setShowResults(false);
             };
@@ -421,8 +394,8 @@
             };
 
             const exitToDashboard = () => {
-                if (confirm("Exit test session and return to Dashboard?")) {
-                    window.location.href = "dashboard.html";
+                if (confirm("Exit Self Study session and return to main screen?")) {
+                    setShowLaunchModal(true);
                 }
             };
 
@@ -435,7 +408,6 @@
                 });
             };
 
-            // Calculate item score
             const evaluateScore = (item, ans) => {
                 if (!ans) return { earned: 0, max: 1 };
                 switch (item.ngnType) {
@@ -476,14 +448,20 @@
                 }
             };
 
-            const handleSubmitAnswer = (rawAnswer) => {
-                const scoreRes = evaluateScore(currentItem, rawAnswer);
+            const handleSubmitAnswer = () => {
+                const draft = currentDraftAnswer[currentIndex];
+                if (!draft) {
+                    alert("Please select or enter an answer before submitting.");
+                    return;
+                }
+
+                const scoreRes = evaluateScore(currentItem, draft);
                 const isCorrect = scoreRes.earned === scoreRes.max;
 
                 setUserAnswers(prev => ({
                     ...prev,
                     [currentIndex]: {
-                        answer: rawAnswer,
+                        answer: draft,
                         submitted: true,
                         score: scoreRes.earned,
                         maxScore: scoreRes.max,
@@ -491,12 +469,12 @@
                     }
                 }));
 
-                let localState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                localState.studentStats = localState.studentStats || { totalAnswered: 0, correctCount: 0, mistakeCount: 0 };
-                localState.studentStats.totalAnswered = (localState.studentStats.totalAnswered || 0) + 1;
-                if (isCorrect) localState.studentStats.correctCount = (localState.studentStats.correctCount || 0) + 1;
-                else localState.studentStats.mistakeCount = (localState.studentStats.mistakeCount || 0) + 1;
-                localStorage.setItem('quickrn_student_state', JSON.stringify(localState));
+                // Record used question ID
+                let usedIds = JSON.parse(localStorage.getItem('quickrn_used_q_ids') || '[]');
+                if (!usedIds.includes(currentItem.id)) {
+                    usedIds.push(currentItem.id);
+                    localStorage.setItem('quickrn_used_q_ids', JSON.stringify(usedIds));
+                }
             };
 
             const finishExam = () => {
@@ -513,19 +491,55 @@
                 }
             };
 
+            // Summary Evaluation Data
+            const summaryStats = useMemo(() => {
+                let totalEarned = 0;
+                let totalMax = 0;
+                activePool.forEach((q, idx) => {
+                    const ansState = userAnswers[idx];
+                    if (ansState && ansState.submitted) {
+                        totalEarned += ansState.score || 0;
+                        totalMax += ansState.maxScore || 1;
+                    } else {
+                        // Strict scoring: unanswered questions score 0
+                        const defaultMax = q.rows ? q.rows.length : (q.correctOrder ? q.correctOrder.length : 1);
+                        totalMax += defaultMax;
+                    }
+                });
+                const percentage = totalMax > 0 ? Math.round((totalEarned / totalMax) * 100) : 0;
+                const passed = percentage >= 75;
+                return { totalEarned, totalMax, percentage, passed };
+            }, [activePool, userAnswers]);
+
+            // Sorted list of questions for review (incorrect/unanswered first)
+            const sortedQuestionsForReview = useMemo(() => {
+                return activePool.map((q, idx) => ({
+                    question: q,
+                    index: idx,
+                    savedState: userAnswers[idx]
+                })).sort((a, b) => {
+                    const aCorrect = a.savedState?.isCorrect ? 1 : 0;
+                    const bCorrect = b.savedState?.isCorrect ? 1 : 0;
+                    return aCorrect - bCorrect;
+                });
+            }, [activePool, userAnswers]);
+
             return (
                 <div className="flex flex-col h-full w-full select-none">
                     
-                    {/* START LAUNCH MODAL */}
+                    {/* LAUNCH / ITEM COUNT SELECTION MODAL */}
                     {showLaunchModal && (
                         <div className="fixed inset-0 bg-slate-900/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 space-y-6 text-center border border-slate-300">
+                            <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 md:p-8 space-y-6 text-center border border-slate-300 relative">
+                                <button onClick={() => setShowLaunchModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition">
+                                    <i className="fa-solid fa-xmark text-xl"></i>
+                                </button>
                                 <div className="w-16 h-16 bg-blue-50 text-ncsbn-blue rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">
                                     <i className="fa-solid fa-user-nurse"></i>
                                 </div>
                                 <div className="space-y-2">
                                     <h1 className="text-2xl font-black text-slate-900">QuickRN Self Study Mode</h1>
-                                    <p className="text-xs md:text-sm text-slate-600">Select the number of questions to load. Includes SATA, Matrix Grids, Cloze, Drag & Drop, Bowtie, and Case Studies.</p>
+                                    <p className="text-xs md:text-sm text-slate-600">Select the number of questions to load. Includes Matrix Grids, Cloze, Drag & Drop, Bowtie, SATA, and Single Choice.</p>
                                 </div>
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                     {[20, 60, 85, 150].map(cnt => (
@@ -539,6 +553,9 @@
                                         <span className="text-[11px] text-slate-500 font-normal">Full Q-Bank</span>
                                     </button>
                                 </div>
+                                <button onClick={() => setShowLaunchModal(false)} className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+                                    Exit Simulator
+                                </button>
                             </div>
                         </div>
                     )}
@@ -547,7 +564,7 @@
                     <header className="bg-[#0B2240] text-white h-14 px-4 flex items-center justify-between border-b-2 border-amber-600 shadow-md shrink-0 z-30">
                         <button onClick={exitToDashboard} className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-bold transition border border-slate-600">
                             <i className="fa-solid fa-user-nurse text-amber-400"></i>
-                            <span>QuickRN NCLEX Simulator</span>
+                            <span>QuickRN Self Study Mode</span>
                         </button>
 
                         <div className="flex items-center gap-2 md:gap-3">
@@ -562,8 +579,8 @@
                                 <i className={`fa-solid fa-bookmark ${currentItem && flaggedItems.has(currentItem.id) ? 'text-amber-400' : 'text-slate-400'}`}></i>
                                 <span className="hidden md:inline">Bookmark</span>
                             </button>
-                            <button onClick={() => setShowReportModal(true)} className="px-2.5 py-1 bg-amber-800/80 hover:bg-amber-700 border border-amber-600 text-amber-200 rounded text-xs transition flex items-center gap-1.5">
-                                <i className="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                            <button onClick={() => setShowReportModal(true)} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded border border-slate-600 text-xs text-slate-200 transition flex items-center gap-1.5">
+                                <i className="fa-solid fa-flag text-rose-400"></i>
                                 <span className="hidden md:inline">Report Item</span>
                             </button>
                             <button onClick={exitToDashboard} className="px-3 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
@@ -610,51 +627,75 @@
                                 
                                 {isSubmitted && (
                                     <div className="bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
-                                        <span><i className="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Answer Submitted & Evaluated</span>
+                                        <span><i className="fa-solid fa-check-circle mr-1 text-emerald-600"></i> Answer Evaluated</span>
                                         <span className="font-mono text-emerald-900">Score: {currentSavedState.score}/{currentSavedState.maxScore}</span>
                                     </div>
                                 )}
 
-                                <div className="p-5 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-1.5">
-                                    <span className="inline-block px-2.5 py-0.5 bg-blue-100 text-ncsbn-blue text-[11px] font-extrabold rounded-md uppercase tracking-wider">{currentItem.ngnType}</span>
+                                <div className="p-4 md:p-6 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[11px] font-black uppercase tracking-wider text-ncsbn-blue bg-blue-100/80 px-2 py-0.5 rounded">
+                                            {currentItem.ngnType}
+                                        </span>
+                                    </div>
                                     <h2 className="prompt-typography">{currentItem.cleanTitle}</h2>
                                     <p className="text-xs md:text-sm text-slate-600 italic font-medium">{currentItem.cleanInstruction}</p>
                                 </div>
 
-                                {/* QUESTION INTERACTIVE CONTENT */}
-                                <div className="flex-1 p-6 overflow-y-auto bg-white text-slate-800 space-y-4">
+                                {/* QUESTION INTERACTIVE CONTENT AREA */}
+                                <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-white text-slate-800 space-y-4">
                                     <QuestionRenderer 
                                         item={currentItem} 
-                                        savedState={currentSavedState} 
                                         draftAnswer={currentDraftAnswer[currentIndex]}
-                                        onDraftChange={(val) => setCurrentDraftAnswer(prev => ({ ...prev, [currentIndex]: val }))}
-                                        onSubmit={handleSubmitAnswer}
+                                        savedState={currentSavedState} 
+                                        onUpdateDraft={(ans) => setCurrentDraftAnswer(prev => ({ ...prev, [currentIndex]: ans }))}
                                     />
+
+                                    {/* SUBMIT BUTTON */}
+                                    {!isSubmitted && (
+                                        <div className="pt-4 border-t border-slate-200 flex justify-end">
+                                            <button onClick={handleSubmitAnswer} className="px-6 py-2.5 bg-ncsbn-blue hover:bg-blue-700 text-white rounded-xl text-xs md:text-sm font-bold shadow-md transition flex items-center gap-2">
+                                                <i className="fa-solid fa-paper-plane"></i> Submit Answer
+                                            </button>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* SUBMIT ANSWER ACTION BAR & COMBINED RATIONALE CARD */}
-                                {isSubmitted ? (
-                                    <RationaleCard 
-                                        item={currentItem} 
-                                        onOpenVideoModal={(videoList) => setActiveVideoModal({ videos: videoList, title: currentItem.keyPhrase })}
-                                    />
-                                ) : (
-                                    <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between shrink-0">
-                                        <span className="text-xs text-slate-500 font-medium">Select your response above and click Submit Answer to reveal rationales and AI insights.</span>
-                                        <button 
-                                            onClick={() => {
-                                                const draft = currentDraftAnswer[currentIndex];
-                                                if (draft === undefined || draft === null || (Array.isArray(draft) && draft.length === 0)) {
-                                                    alert("Please select or enter an answer before submitting.");
-                                                    return;
-                                                }
-                                                handleSubmitAnswer(draft);
-                                            }} 
-                                            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2 shrink-0"
-                                        >
-                                            <i className="fa-solid fa-paper-plane"></i>
-                                            <span>Submit Answer</span>
-                                        </button>
+                                {/* COMPACT COLLAPSIBLE RATIONALE PANEL */}
+                                {isSubmitted && (
+                                    <div className="border-t-2 border-blue-600 bg-blue-50/90 p-4 shrink-0 transition-all duration-300 max-h-[40vh] overflow-y-auto shadow-inner">
+                                        <div className="flex items-center justify-between border-b border-blue-200 pb-2 mb-3">
+                                            <span className="font-bold text-ncsbn-navy text-xs md:text-sm flex items-center gap-2">
+                                                <i className="fa-solid fa-microscope text-blue-600"></i> Clinical Rationale & Learning Objectives
+                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <button onClick={() => setIsRationaleCollapsed(!isRationaleCollapsed)} className="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded text-xs font-bold border border-slate-300 transition">
+                                                    <i className={`fa-solid ${isRationaleCollapsed ? 'fa-chevron-up' : 'fa-chevron-down'} mr-1`}></i>
+                                                    {isRationaleCollapsed ? 'Expand' : 'Collapse'}
+                                                </button>
+                                                <button onClick={() => setActiveVideoModal({ videos: currentItem.videos || [{ id: currentItem.youtubeId || "r5W1ns5C1ik", title: currentItem.keyPhrase }], title: currentItem.keyPhrase })} className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-bold transition flex items-center gap-1 shadow-xs">
+                                                    <i className="fa-brands fa-youtube"></i> Video Lectures
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {!isRationaleCollapsed && (
+                                            <div className="space-y-3 text-xs md:text-sm">
+                                                <div className="leading-relaxed bg-white p-3 rounded-lg border border-blue-200 text-slate-800">
+                                                    <strong>Pathophysiology Rationale:</strong> {currentItem.rationale}
+                                                </div>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                                    <div className="bg-white p-3 rounded-lg border border-amber-300 space-y-1">
+                                                        <strong className="text-amber-900 font-bold block"><i className="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Strategy Rule:</strong>
+                                                        <span className="text-slate-700">{currentItem.strategyRule || "Prioritize acute physiological risks using ABCs."}</span>
+                                                    </div>
+                                                    <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200 space-y-1">
+                                                        <strong className="text-indigo-950 font-bold block"><i className="fa-solid fa-robot text-indigo-600 mr-1"></i> AI Tutor Insight:</strong>
+                                                        <span className="text-slate-800">{currentItem.aiTutorInsight || "Recognize early subtle cues of clinical deterioration."}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </section>
@@ -663,160 +704,91 @@
 
                     {/* RESULTS SUMMARY SCREEN */}
                     {showResults && (
-                        <div className="flex-1 bg-slate-900 text-white p-6 overflow-y-auto">
-                            <div className="max-w-5xl mx-auto space-y-6 py-6">
+                        <div className="flex-1 bg-slate-900 text-white p-4 md:p-6 overflow-y-auto">
+                            <div className="max-w-5xl mx-auto space-y-6 py-4">
                                 <div className="text-center space-y-2">
-                                    <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-                                        <i className="fa-solid fa-circle-check"></i> Session Completed
+                                    <div className={`inline-flex items-center gap-2 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${summaryStats.passed ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'}`}>
+                                        <i className={`fa-solid ${summaryStats.passed ? 'fa-circle-check' : 'fa-circle-xmark'}`}></i> 
+                                        {summaryStats.passed ? 'EXAM PASSED (Strict 75% Cutoff)' : 'EXAM FAILED (Below 75% Cutoff)'}
                                     </div>
-                                    <h1 className="text-3xl font-extrabold">Exam Evaluation & Summary Report</h1>
+                                    <h1 className="text-2xl md:text-3xl font-extrabold">Evaluation & Summary Report</h1>
                                 </div>
 
-                                {/* SCORE & PERFORMANCE OVERVIEW */}
-                                {(() => {
-                                    const totalMax = activePool.reduce((acc, q, idx) => {
-                                        const evalRes = evaluateScore(q, userAnswers[idx]?.answer);
-                                        return acc + evalRes.max;
-                                    }, 0);
-                                    const totalEarned = activePool.reduce((acc, q, idx) => {
-                                        const evalRes = evaluateScore(q, userAnswers[idx]?.answer);
-                                        return acc + evalRes.earned;
-                                    }, 0);
-                                    const percentage = totalMax > 0 ? Math.round((totalEarned / totalMax) * 100) : 0;
-                                    const isPassed = percentage >= 75;
-
-                                    return (
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 text-center shadow-lg">
-                                                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overall Score</span>
-                                                <div className="text-5xl font-black text-blue-400 my-2">
-                                                    {percentage}%
-                                                </div>
-                                                <span className="text-xs text-slate-300 font-mono">{totalEarned} / {totalMax} Points Earned</span>
-                                            </div>
-                                            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 text-center shadow-lg">
-                                                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">NCLEX Pass / Fail Status</span>
-                                                <div className={`text-4xl font-black my-2 ${isPassed ? 'text-emerald-400' : 'text-rose-500'}`}>
-                                                    {isPassed ? 'PASSED' : 'FAILED'}
-                                                </div>
-                                                <span className={`text-xs font-medium ${isPassed ? 'text-emerald-400' : 'text-rose-400'}`}>
-                                                    {isPassed ? 'Meets NCLEX passing standard (≥75%)' : 'Below NCLEX passing standard (<75%)'}
-                                                </span>
-                                            </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Overall Performance</span>
+                                        <div className={`text-4xl md:text-5xl font-black my-2 ${summaryStats.passed ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                            {summaryStats.percentage}%
                                         </div>
-                                    );
-                                })()}
+                                        <span className="text-xs text-slate-300">Earned {summaryStats.totalEarned} / {summaryStats.totalMax} Points</span>
+                                    </div>
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Passing Benchmark Status</span>
+                                        <div className={`text-4xl md:text-5xl font-black my-2 ${summaryStats.passed ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                            {summaryStats.passed ? 'PASS' : 'FAIL'}
+                                        </div>
+                                        <span className="text-xs text-slate-400">Passing standard requires 75% mastery</span>
+                                    </div>
+                                </div>
 
                                 {/* FULL DETAILED QUESTION REVIEW LIST */}
                                 <div className="space-y-4 pt-4">
-                                    <div className="flex items-center justify-between border-b border-slate-700 pb-3">
-                                        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                                            <i className="fa-solid fa-list-check text-blue-400"></i>
-                                            <span>Detailed Question Review</span>
-                                        </h2>
-                                    </div>
+                                    <h2 className="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center justify-between">
+                                        <span>Full Question Review</span>
+                                        <span className="text-xs text-slate-400 font-normal">Review missed items below</span>
+                                    </h2>
 
-                                    {/* SORTED QUESTIONS: INCORRECT FIRST */}
-                                    {activePool
-                                        .map((q, originalIdx) => {
-                                            const ansState = userAnswers[originalIdx];
-                                            const scoreRes = evaluateScore(q, ansState?.answer);
-                                            const isCorrect = scoreRes.earned === scoreRes.max && ansState?.submitted;
-                                            return { q, originalIdx, ansState, scoreRes, isCorrect };
-                                        })
-                                        .sort((a, b) => (a.isCorrect === b.isCorrect ? 0 : a.isCorrect ? 1 : -1))
-                                        .map(({ q, originalIdx, ansState, scoreRes, isCorrect }) => {
-                                            return (
-                                                <div key={q.id} className="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4 shadow-md text-slate-100">
-                                                    
-                                                    {/* ITEM HEADER */}
-                                                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-3">
+                                    {sortedQuestionsForReview.map(({ question, index, savedState }) => {
+                                        const isCorrect = savedState?.isCorrect;
+                                        return (
+                                            <div key={question.id} className={`p-5 rounded-xl border ${isCorrect ? 'bg-slate-800/80 border-emerald-500/40' : 'bg-slate-800/90 border-rose-500/50'} space-y-3`}>
+                                                <div className="flex items-start justify-between gap-4">
+                                                    <div className="space-y-1">
                                                         <div className="flex items-center gap-2">
-                                                            <span className="px-2.5 py-1 bg-slate-700 text-amber-400 font-mono text-xs font-bold rounded-lg">
-                                                                Item #{originalIdx + 1}
+                                                            <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
+                                                                {isCorrect ? 'Correct' : 'Incorrect / Unanswered'}
                                                             </span>
-                                                            <span className="px-2.5 py-1 bg-blue-900/60 text-blue-300 text-xs font-bold rounded-lg uppercase">
-                                                                {q.ngnType}
-                                                            </span>
+                                                            <span className="text-xs text-slate-400 font-mono">Item #{index + 1} ({question.ngnType})</span>
                                                         </div>
-                                                        <div className="flex items-center gap-3">
-                                                            <button 
-                                                                onClick={() => toggleBookmark(q.id)} 
-                                                                className={`text-xs px-3 py-1 rounded-lg border font-semibold transition flex items-center gap-1.5 ${flaggedItems.has(q.id) ? 'bg-amber-500/20 text-amber-400 border-amber-500/40' : 'bg-slate-700 text-slate-300 border-slate-600 hover:bg-slate-600'}`}
-                                                            >
-                                                                <i className={`fa-solid fa-bookmark ${flaggedItems.has(q.id) ? 'text-amber-400' : ''}`}></i>
-                                                                <span>{flaggedItems.has(q.id) ? 'Bookmarked' : 'Bookmark'}</span>
-                                                            </button>
-                                                            <span className={`px-3 py-1 text-xs font-bold rounded-lg flex items-center gap-1.5 ${isCorrect ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'}`}>
-                                                                <i className={`fa-solid ${isCorrect ? 'fa-check-circle' : 'fa-xmark-circle'}`}></i>
-                                                                <span>{isCorrect ? 'Correct' : 'Incorrect / Unanswered'} ({scoreRes.earned}/{scoreRes.max} pts)</span>
-                                                            </span>
-                                                        </div>
+                                                        <h3 className="text-sm font-bold text-slate-100">{question.cleanTitle}</h3>
+                                                        <p className="text-xs text-slate-400 italic">{question.cleanInstruction}</p>
                                                     </div>
-
-                                                    {/* WHOLE QUESTION TITLE & INSTRUCTION */}
-                                                    <div className="space-y-1.5">
-                                                        <h3 className="text-base md:text-lg font-bold text-white leading-relaxed">{q.cleanTitle}</h3>
-                                                        <p className="text-xs md:text-sm text-slate-400 italic">{q.cleanInstruction}</p>
-                                                    </div>
-
-                                                    {/* ANSWERS COMPARISON SUMMARY */}
-                                                    <div className="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2 text-xs md:text-sm">
-                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                                                            <span className="text-slate-400 font-medium">Your Selected Answer:</span>
-                                                            <span className={`font-bold font-mono ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}`}>
-                                                                {ansState?.answer ? JSON.stringify(ansState.answer) : 'No Answer Submitted (0 pts)'}
-                                                            </span>
-                                                        </div>
-                                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-t border-slate-800 pt-2">
-                                                            <span className="text-slate-400 font-medium">Correct Key:</span>
-                                                            <span className="font-bold font-mono text-emerald-400">
-                                                                {q.correctAnswer || JSON.stringify(q.correctAnswers || q.correctOrder)}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* CLINICAL RATIONALE & LEARNING OBJECTIVES */}
-                                                    <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700 space-y-2 text-xs md:text-sm">
-                                                        <div className="font-bold text-amber-400 flex items-center gap-2">
-                                                            <i className="fa-solid fa-book-open"></i>
-                                                            <span>Clinical Rationale & Learning Objectives</span>
-                                                        </div>
-                                                        <p className="text-slate-200 leading-relaxed">
-                                                            {q.rationale} {q.learningObjectives ? `Core Learning Objective: ${q.learningObjectives}` : ''}
-                                                        </p>
-                                                    </div>
-
-                                                    {/* VIDEO LECTURE ACCESS BUTTON */}
-                                                    <div className="flex justify-end pt-1">
-                                                        <button 
-                                                            onClick={() => setActiveVideoModal({ videos: q.videos, title: q.keyPhrase })}
-                                                            className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2"
-                                                        >
-                                                            <i className="fa-brands fa-youtube"></i>
-                                                            <span>Watch Video Lecture</span>
-                                                        </button>
-                                                    </div>
-
+                                                    <button onClick={() => toggleBookmark(question.id)} className="p-2 bg-slate-700 hover:bg-slate-600 rounded text-slate-300">
+                                                        <i className={`fa-solid fa-bookmark ${flaggedItems.has(question.id) ? 'text-amber-400' : ''}`}></i>
+                                                    </button>
                                                 </div>
-                                            );
-                                        })}
+
+                                                <div className="bg-slate-900/60 p-3 rounded-lg text-xs space-y-1.5 border border-slate-700">
+                                                    <div>
+                                                        <strong className="text-slate-400 block">Correct Answer Key:</strong>
+                                                        <span className="text-emerald-400 font-semibold">{JSON.stringify(question.correctAnswer || question.correctAnswers || question.correctOrder)}</span>
+                                                    </div>
+                                                    <div>
+                                                        <strong className="text-slate-400 block">Pathophysiology Rationale:</strong>
+                                                        <p className="text-slate-300 leading-relaxed">{question.rationale}</p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex justify-end">
+                                                    <button onClick={() => setActiveVideoModal({ videos: question.videos || [{ id: question.youtubeId || "r5W1ns5C1ik", title: question.keyPhrase }], title: question.keyPhrase })} className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
+                                                        <i className="fa-brands fa-youtube"></i> Watch Video Lecture
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
 
-                                {/* RETURN / RESET BUTTONS */}
                                 <div className="flex justify-center gap-4 pt-6">
                                     <button onClick={() => setShowLaunchModal(true)} className="px-6 py-3 bg-blue-600 hover:bg-blue-500 font-bold rounded-xl text-sm flex items-center gap-2">
                                         <i className="fa-solid fa-rotate-right"></i> Start New Session
-                                    </button>
-                                    <button onClick={exitToDashboard} className="px-6 py-3 bg-slate-700 hover:bg-slate-600 font-bold rounded-xl text-sm flex items-center gap-2">
-                                        <i className="fa-solid fa-user-nurse text-amber-400"></i> QuickRN NCLEX Simulator
                                     </button>
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {/* FOOTER CONTROL BAR */}
+                    {/* FOOTER NAVIGATION */}
                     {!showResults && (
                         <footer className="bg-[#0B2240] text-white px-4 py-3 flex items-center justify-between border-t border-slate-700 shrink-0 select-none z-30">
                             <button onClick={handlePrev} disabled={currentIndex === 0} className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs font-bold transition flex items-center gap-1.5 disabled:opacity-40">
@@ -848,18 +820,18 @@
                         </div>
                     )}
 
-                    {/* DUAL YOUTUBE VIDEO SELECTOR MODAL */}
+                    {/* DUAL VIDEO LECTURES MODAL */}
                     {activeVideoModal && (
                         <DualVideoModal 
                             data={activeVideoModal} 
-                            itemId={currentItem?.id}
-                            notes={videoNotes}
-                            onSaveNotes={(id, text) => setVideoNotes(prev => ({ ...prev, [id]: text }))}
+                            currentItem={currentItem} 
+                            notes={videoNotes} 
+                            onUpdateNotes={(val) => setVideoNotes(prev => ({ ...prev, [currentItem?.id]: val }))} 
                             onClose={() => setActiveVideoModal(null)} 
                         />
                     )}
 
-                    {/* REPORT QUESTION MODAL */}
+                    {/* REPORT QUESTION PROBLEM MODAL */}
                     {showReportModal && (
                         <ReportQuestionModal 
                             item={currentItem} 
@@ -871,45 +843,41 @@
             );
         }
 
-        // DUAL VIDEO MODAL COMPONENT
-        function DualVideoModal({ data, itemId, notes, onSaveNotes, onClose }) {
+        // DUAL VIDEO LECTURE COMPONENT (SELECTION OF 2 VIDEOS)
+        function DualVideoModal({ data, currentItem, notes, onUpdateNotes, onClose }) {
             const videoList = data.videos || [
-                { title: `Clinical Overview: ${data.title}`, id: "r5W1ns5C1ik", provider: "RegisteredNurseRN" },
-                { title: `High Yield Review: ${data.title}`, id: "0IqA11A1WnE", provider: "Simple Nursing" }
+                { title: `Video Lecture 1: ${data.title}`, id: data.id || "r5W1ns5C1ik", provider: "RegisteredNurseRN" },
+                { title: `Video Lecture 2: High Yield ${data.title}`, id: "0IqA11A1WnE", provider: "NCLEX High Yield" }
             ];
-            const [selectedVidIndex, setSelectedVidIndex] = useState(0);
-            const currentVid = videoList[selectedVidIndex] || videoList[0];
+            const [selectedVid, setSelectedVid] = useState(videoList[0]);
 
             return (
                 <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
                     <div className="bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden">
                         <div className="bg-slate-900 px-4 py-3 border-b border-slate-700 flex items-center justify-between text-white shrink-0">
-                            <div className="flex items-center gap-2 font-bold text-sm">
+                            <div className="flex items-center gap-2 font-bold text-xs md:text-sm">
                                 <i className="fa-brands fa-youtube text-red-500 text-lg"></i>
-                                <span>Clinical Video Review: {data.title}</span>
+                                <span>Clinical Video Lectures: {data.title}</span>
                             </div>
                             <button onClick={onClose} className="text-slate-400 hover:text-white"><i className="fa-solid fa-xmark"></i></button>
                         </div>
-                        <div className="bg-slate-900/90 border-b border-slate-700 px-4 py-2 flex items-center gap-2 shrink-0">
-                            <span className="text-xs font-bold text-slate-400 mr-2">Select Video:</span>
-                            {videoList.map((v, idx) => (
-                                <button 
-                                    key={idx} 
-                                    onClick={() => setSelectedVidIndex(idx)} 
-                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${selectedVidIndex === idx ? 'bg-red-600 text-white' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'}`}
-                                >
-                                    <i className="fa-solid fa-play text-[10px]"></i>
-                                    <span>Video {idx + 1}: {v.provider}</span>
+                        
+                        {/* SELECTION TABS FOR 2 VIDEOS */}
+                        <div className="bg-slate-900/80 px-4 py-2 border-b border-slate-700 flex gap-2 shrink-0">
+                            {videoList.slice(0, 2).map((vid, idx) => (
+                                <button key={idx} onClick={() => setSelectedVid(vid)} className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-2 ${selectedVid.id === vid.id ? 'bg-red-600 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}`}>
+                                    <i className="fa-solid fa-play"></i> Option {idx + 1}: {vid.provider || 'Lecture'}
                                 </button>
                             ))}
                         </div>
+
                         <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
                             <div className="w-full md:w-2/3 bg-black">
-                                <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${currentVid.id}?autoplay=1`} allow="autoplay; encrypted-media" allowFullScreen></iframe>
+                                <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${selectedVid.id}?autoplay=1`} allow="autoplay; encrypted-media" allowFullScreen></iframe>
                             </div>
                             <div className="w-full md:w-1/3 bg-slate-900 p-4 border-l border-slate-700 flex flex-col space-y-3">
-                                <label className="text-xs font-bold text-amber-400 flex items-center gap-1.5"><i className="fa-solid fa-pen-to-square"></i> Clinical Notes & Key Takeaways</label>
-                                <textarea value={notes[itemId] || ''} onChange={(e) => onSaveNotes(itemId, e.target.value)} className="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none resize-none" placeholder="Type key clinical notes here..."></textarea>
+                                <label className="text-xs font-bold text-amber-400 flex items-center gap-1.5"><i className="fa-solid fa-pen-to-square"></i> Clinical Study Notes</label>
+                                <textarea value={notes[currentItem?.id] || ''} onChange={(e) => onUpdateNotes(e.target.value)} className="flex-1 bg-slate-800 border border-slate-700 rounded-xl p-3 text-xs text-white placeholder-slate-400 focus:outline-none resize-none" placeholder="Record key notes here..."></textarea>
                             </div>
                         </div>
                     </div>
@@ -917,206 +885,66 @@
             );
         }
 
-        // RATIONALE CARD WITH COMBINED SECTIONS & INTEGRATED REAL GEMINI AI TUTOR
-        function RationaleCard({ item, onOpenVideoModal }) {
-            const [aiResponse, setAiResponse] = useState("");
-            const [aiLoading, setAiLoading] = useState(false);
-            const [customQuestion, setCustomQuestion] = useState("");
-            const [chatHistory, setChatHistory] = useState([]);
-
-            const richKeyphrase = useMemo(() => {
-                const parts = [
-                    item.category || "",
-                    item.cleanTitle || "",
-                    item.keyPhrase || "",
-                    (item.rationale || "").slice(0, 100)
-                ].filter(Boolean).join(" ");
-                return parts.replace(/[^\w\s]/gi, '').slice(0, 120);
-            }, [item]);
-
-            const combinedRationaleParagraph = useMemo(() => {
-                const rat = item.rationale ? item.rationale.trim() : "Understanding the clinical rationale relies on identifying primary physiological risk factors.";
-                const obj = item.learningObjectives ? item.learningObjectives.trim() : "Focus on prioritizing acute safety and evidence-based interventions.";
-                return `${rat} Consequently, the primary learning objective is to ${obj.charAt(0).toLowerCase() + obj.slice(1)}`;
-            }, [item]);
-
-            const combinedStrategyParagraph = useMemo(() => {
-                const strat = item.strategyRule ? item.strategyRule.trim() : "Apply standard NCLEX prioritizations using ABCs and Maslow's hierarchy of needs.";
-                const insight = item.aiTutorInsight ? item.aiTutorInsight.trim() : "Recognize early cues of physiological instability.";
-                return `To master this clinical concept on the NCLEX-RN, ${strat.charAt(0).toLowerCase() + strat.slice(1)} Furthermore, from a clinical decision-making standpoint: ${insight}`;
-            }, [item]);
-
-            const handleAskAi = async (userPromptText) => {
-                setAiLoading(true);
-                const queryText = userPromptText || customQuestion || `Explain the core pathophysiology and critical nursing priorities for ${item.keyPhrase || item.cleanTitle}.`;
-                
-                const prompt = `Clinical Case Category: ${item.category}\nQuestion: ${item.cleanTitle}\nRationale Context: ${item.rationale}\nUser Query: ${queryText}`;
-                const systemPrompt = "You are a friendly, highly knowledgeable NCLEX-RN Nurse Educator. Answer the student's question clearly in 2-3 structured, actionable clinical bullet points or a concise paragraph. Focus on high-yield exam takeaways.";
-
-                const response = await fetchGeminiTutorResponse(prompt, systemPrompt);
-                
-                setAiResponse(response);
-                setChatHistory(prev => [...prev, { q: queryText, a: response }]);
-                setCustomQuestion("");
-                setAiLoading(false);
-            };
-
-            const videoOptions = item.videos || [
-                { title: `Clinical Video 1: ${item.keyPhrase}`, id: item.youtubeId || "r5W1ns5C1ik", provider: "RegisteredNurseRN" },
-                { title: `Clinical Video 2: ${item.keyPhrase} Review`, id: "0IqA11A1WnE", provider: "Simple Nursing" }
-            ];
-
-            return (
-                <div className="border-t-2 border-blue-600 bg-blue-50/90 p-5 overflow-y-auto max-h-96 text-xs md:text-sm text-slate-800 space-y-4 shadow-inner shrink-0">
-                    
-                    {/* COMBINED RATIONALE & LEARNING OBJECTIVES */}
-                    <div className="space-y-2">
-                        <div className="font-bold text-ncsbn-navy text-sm flex items-center gap-2 border-b border-blue-200 pb-2">
-                            <i className="fa-solid fa-book-open-reader text-blue-600"></i>
-                            <span>Clinical Rationale & Core Learning Objectives</span>
-                        </div>
-                        <p className="leading-relaxed bg-white p-4 rounded-xl border border-blue-200 shadow-xs text-slate-800 font-medium">
-                            {combinedRationaleParagraph}
-                        </p>
-                    </div>
-
-                    {/* COMBINED AI TUTOR INSIGHT & TEST TAKING STRATEGIES */}
-                    <div className="bg-gradient-to-r from-amber-50 to-indigo-50/80 p-4 rounded-xl border border-amber-300 shadow-xs space-y-2">
-                        <div className="font-bold text-slate-900 flex items-center gap-2">
-                            <i className="fa-solid fa-lightbulb text-amber-500"></i>
-                            <span>NCLEX Test-Taking Strategy & Clinical Insights</span>
-                        </div>
-                        <p className="text-slate-800 leading-relaxed font-medium">
-                            {combinedStrategyParagraph}
-                        </p>
-                    </div>
-
-                    {/* REAL INTERACTIVE GEMINI AI TUTOR SECTION */}
-                    <div className="bg-indigo-950 text-white p-4 rounded-xl shadow-md space-y-3">
-                        <div className="flex items-center justify-between border-b border-indigo-800 pb-2">
-                            <div className="flex items-center gap-2 font-bold text-xs md:text-sm text-indigo-200">
-                                <i className="fa-solid fa-robot text-indigo-400"></i>
-                                <span>Real-Time Gemini AI Nurse Tutor</span>
-                            </div>
-                            <span className="text-[10px] bg-indigo-800 text-indigo-200 px-2 py-0.5 rounded font-mono">Powered by Gemini AI</span>
-                        </div>
-
-                        {chatHistory.length > 0 && (
-                            <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-                                {chatHistory.map((chat, idx) => (
-                                    <div key={idx} className="bg-indigo-900/80 p-3 rounded-lg space-y-1 text-xs border border-indigo-800">
-                                        <p className="font-semibold text-amber-300">Q: {chat.q}</p>
-                                        <p className="text-indigo-100 whitespace-pre-line leading-relaxed">{chat.a}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <div className="flex gap-2">
-                            <input 
-                                type="text" 
-                                value={customQuestion} 
-                                onChange={(e) => setCustomQuestion(e.target.value)} 
-                                onKeyDown={(e) => e.key === 'Enter' && handleAskAi()} 
-                                placeholder="Ask AI Tutor: E.g., 'Why is option 3 contraindicated?'" 
-                                className="flex-1 bg-indigo-900 border border-indigo-700 rounded-lg px-3 py-2 text-xs text-white placeholder-indigo-400 focus:outline-none focus:border-indigo-400"
-                            />
-                            <button 
-                                onClick={() => handleAskAi()} 
-                                disabled={aiLoading} 
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-xs transition flex items-center gap-1.5 shrink-0 disabled:opacity-50"
-                            >
-                                {aiLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : <i className="fa-solid fa-paper-plane"></i>}
-                                <span>Ask AI</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* BOTTOM VIDEO SELECTION BUTTON */}
-                    <div className="pt-2 flex justify-end">
-                        <button 
-                            onClick={() => onOpenVideoModal(videoOptions)} 
-                            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-2"
-                        >
-                            <i className="fa-brands fa-youtube text-base"></i>
-                            <span>Watch Clinical Video Lectures (2 Options Available)</span>
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        // REPORT QUESTION MODAL COMPONENT
+        // QUESTION REPORTING MODAL
         function ReportQuestionModal({ item, onClose }) {
-            const [issueType, setIssueType] = useState("Typos or Formatting");
-            const [reportDetails, setReportDetails] = useState("");
+            const [reportReason, setReportReason] = useState("Typos / Grammatical Error");
+            const [details, setDetails] = useState("");
             const [submitted, setSubmitted] = useState(false);
 
-            const handleSubmitReport = (e) => {
+            const handleSendReport = (e) => {
                 e.preventDefault();
-                if (!reportDetails.trim()) return;
-
                 const newReport = {
                     id: `REP-${Date.now()}`,
-                    questionId: item.id,
-                    questionTitle: item.cleanTitle || item.title,
-                    issueType,
-                    details: reportDetails,
-                    timestamp: new Date().toLocaleString(),
-                    status: "Pending Review"
+                    itemId: item.id,
+                    itemTitle: item.cleanTitle,
+                    reason: reportReason,
+                    details: details,
+                    timestamp: new Date().toISOString()
                 };
 
-                const existingReports = JSON.parse(localStorage.getItem('quickrn_question_reports') || '[]');
-                existingReports.push(newReport);
-                localStorage.setItem('quickrn_question_reports', JSON.stringify(existingReports));
+                let existing = JSON.parse(localStorage.getItem('quickrn_question_reports') || '[]');
+                existing.push(newReport);
+                localStorage.setItem('quickrn_question_reports', JSON.stringify(existing));
 
                 setSubmitted(true);
                 setTimeout(() => {
                     onClose();
-                }, 1500);
+                }, 1200);
             };
 
             return (
                 <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl border border-slate-300 w-full max-w-md overflow-hidden">
-                        <div className="bg-slate-900 px-5 py-3 border-b border-slate-800 flex items-center justify-between text-white">
-                            <div className="flex items-center gap-2 font-bold text-sm">
-                                <i className="fa-solid fa-triangle-exclamation text-amber-400"></i>
-                                <span>Report Item Issue</span>
-                            </div>
-                            <button onClick={onClose} className="text-slate-400 hover:text-white"><i className="fa-solid fa-xmark"></i></button>
+                    <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4 text-slate-800">
+                        <div className="flex items-center justify-between border-b pb-3">
+                            <h3 className="font-bold text-slate-900 flex items-center gap-2">
+                                <i className="fa-solid fa-flag text-rose-600"></i> Report Question Problem
+                            </h3>
+                            <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><i className="fa-solid fa-xmark"></i></button>
                         </div>
+
                         {submitted ? (
-                            <div className="p-6 text-center space-y-3">
+                            <div className="py-8 text-center space-y-2">
                                 <i className="fa-solid fa-circle-check text-4xl text-emerald-500"></i>
-                                <h3 className="font-bold text-slate-800 text-lg">Report Submitted!</h3>
-                                <p className="text-xs text-slate-600">Thank you for helping improve our Q-bank. Report saved to report.html dataset.</p>
+                                <p className="font-bold text-sm text-slate-800">Report Logged Successfully!</p>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmitReport} className="p-5 space-y-4 text-xs text-slate-800">
-                                <div>
-                                    <label className="block font-bold text-slate-700 mb-1">Question ID & Title</label>
-                                    <input type="text" readOnly value={`[${item.id}] ${item.cleanTitle}`} className="w-full bg-slate-100 border border-slate-300 rounded-lg p-2 text-xs font-mono text-slate-700" />
-                                </div>
-                                <div>
-                                    <label className="block font-bold text-slate-700 mb-1">Type of Problem</label>
-                                    <select value={issueType} onChange={(e) => setIssueType(e.target.value)} className="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs font-semibold focus:outline-none focus:border-blue-500">
-                                        <option value="Typos or Formatting">Typos or Formatting Error</option>
-                                        <option value="Incorrect Answer Key">Incorrect Answer Key / Rationales</option>
-                                        <option value="Unclear EHR or Clinical Data">Unclear EHR / Clinical Data</option>
-                                        <option value="Other Technical Issue">Other Technical Issue</option>
+                            <form onSubmit={handleSendReport} className="space-y-4">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-slate-700">Problem Category</label>
+                                    <select value={reportReason} onChange={(e) => setReportReason(e.target.value)} className="w-full border border-slate-300 rounded-lg p-2 text-xs bg-slate-50 focus:outline-none">
+                                        <option>Typos / Grammatical Error</option>
+                                        <option>Incorrect Answer Key</option>
+                                        <option>Unclear Clinical Rationale</option>
+                                        <option>Formatting / Display Issue</option>
                                     </select>
                                 </div>
-                                <div>
-                                    <label className="block font-bold text-slate-700 mb-1">Detailed Description</label>
-                                    <textarea required rows="4" value={reportDetails} onChange={(e) => setReportDetails(e.target.value)} placeholder="Please explain the issue or suggested correction..." className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-slate-700">Description of Issue</label>
+                                    <textarea required value={details} onChange={(e) => setDetails(e.target.value)} className="w-full border border-slate-300 rounded-lg p-2 text-xs h-24 focus:outline-none" placeholder="Provide details..."></textarea>
                                 </div>
                                 <div className="flex justify-end gap-2 pt-2">
-                                    <button type="button" onClick={onClose} className="px-4 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg font-bold text-slate-700 transition">Cancel</button>
-                                    <button type="submit" className="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg transition flex items-center gap-1.5">
-                                        <i className="fa-solid fa-paper-plane"></i>
-                                        <span>Submit Report</span>
-                                    </button>
+                                    <button type="button" onClick={onClose} className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-bold text-slate-600">Cancel</button>
+                                    <button type="submit" className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold">Submit Report</button>
                                 </div>
                             </form>
                         )}
@@ -1125,24 +953,22 @@
             );
         }
 
-        // DYNAMIC QUESTION RENDERER COMPONENT SUPPORTING ALL ITEM TYPES
-        function QuestionRenderer({ item, savedState, draftAnswer, onDraftChange, onSubmit }) {
+        // DYNAMIC QUESTION RENDERER COMPONENT
+        function QuestionRenderer({ item, draftAnswer, savedState, onUpdateDraft }) {
             const isSubmitted = savedState?.submitted;
-            const currentVal = isSubmitted ? savedState.answer : (draftAnswer !== undefined ? draftAnswer : null);
 
-            // Single Choice (SBA)
+            // Render Single Choice
             if (item.ngnType === "Single Choice" || !item.isNGN) {
-                const selectedSingle = currentVal || null;
                 return (
                     <div className="space-y-3">
                         {item.options.map((opt, idx) => {
                             const text = opt.text || opt;
-                            const isChecked = selectedSingle === text;
+                            const isChecked = draftAnswer === text;
                             const isRight = item.correctAnswer === text;
 
                             let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                             if (isSubmitted) {
-                                if (isRight) style = "bg-emerald-100 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
+                                if (isRight) style = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
                                 else if (isChecked && !isRight) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
                                 else style = "bg-slate-50 border-slate-200 opacity-60";
                             } else if (isChecked) style = "bg-blue-50 border-blue-500 shadow-xs";
@@ -1150,14 +976,7 @@
                             return (
                                 <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
                                     <div className="flex items-center gap-3">
-                                        <input 
-                                            type="radio" 
-                                            name="sba" 
-                                            checked={isChecked} 
-                                            disabled={isSubmitted} 
-                                            onChange={() => onDraftChange(text)} 
-                                            className="w-4 h-4 text-blue-600"
-                                        />
+                                        <input type="radio" name="sba" checked={isChecked} disabled={isSubmitted} onChange={() => onUpdateDraft(text)} className="w-4 h-4 text-blue-600"/>
                                         <span className="text-xs md:text-sm font-medium">{text}</span>
                                     </div>
                                     {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
@@ -1168,25 +987,24 @@
                 );
             }
 
-            // Extended Multiple Response (SATA)
+            // Render SATA
             if (item.ngnType === "Extended Multiple Response") {
-                const selectedSATA = currentVal || [];
+                const currentSATA = Array.isArray(draftAnswer) ? draftAnswer : [];
                 const handleToggle = (optId) => {
-                    if (isSubmitted) return;
-                    const next = selectedSATA.includes(optId) ? selectedSATA.filter(x => x !== optId) : [...selectedSATA, optId];
-                    onDraftChange(next);
+                    const next = currentSATA.includes(optId) ? currentSATA.filter(x => x !== optId) : [...currentSATA, optId];
+                    onUpdateDraft(next);
                 };
                 return (
                     <div className="space-y-3">
                         {item.options.map((opt, idx) => {
                             const optId = opt.id || opt.text || opt;
                             const optText = opt.text || opt;
-                            const isChecked = selectedSATA.includes(optId);
+                            const isChecked = currentSATA.includes(optId);
                             const isRight = item.correctAnswers.includes(optId);
 
                             let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
                             if (isSubmitted) {
-                                if (isRight && isChecked) style = "bg-emerald-100 border-emerald-500 ring-1 ring-emerald-500 font-bold text-emerald-950";
+                                if (isRight && isChecked) style = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
                                 else if (isRight && !isChecked) style = "bg-emerald-50 border-emerald-400 font-semibold text-emerald-900";
                                 else if (!isRight && isChecked) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
                                 else style = "bg-slate-50 border-slate-200 opacity-60";
@@ -1198,7 +1016,7 @@
                                         <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleToggle(optId)} className="w-4 h-4 text-blue-600 rounded"/>
                                         <span className="text-xs md:text-sm font-medium">{optText}</span>
                                     </div>
-                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct Option</span>}
+                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
                                 </label>
                             );
                         })}
@@ -1206,201 +1024,43 @@
                 );
             }
 
-            // Matrix / Grid
+            // Render Matrix Grid
             if (item.ngnType === "Matrix / Grid") {
-                const matrixState = currentVal || {};
+                const matrixState = draftAnswer || {};
                 const handleMatrixChange = (rowId, colVal) => {
-                    if (isSubmitted) return;
-                    const next = { ...matrixState, [rowId]: colVal };
-                    onDraftChange(next);
+                    onUpdateDraft({ ...matrixState, [rowId]: colVal });
                 };
                 return (
-                    <div className="overflow-x-auto border border-slate-300 rounded-xl">
-                        <table className="w-full border-collapse text-xs md:text-sm">
-                            <thead className="bg-slate-100 border-b border-slate-300">
-                                <tr>
-                                    <th className="p-3 text-left font-bold text-slate-700">Clinical Action / Finding</th>
-                                    {item.columns.map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-200 bg-white">
-                                {item.rows.map(row => {
-                                    const rightCol = item.correctAnswers[row.id];
-                                    const userCol = matrixState[row.id];
-                                    return (
-                                        <tr key={row.id}>
-                                            <td className="p-3 font-medium text-slate-800">{row.text}</td>
-                                            {item.columns.map((col, cIdx) => {
-                                                const isChecked = userCol === col;
-                                                const isRight = rightCol === col;
-                                                let bgCell = isSubmitted ? (isRight ? "bg-emerald-100 font-bold" : (isChecked ? "bg-rose-100" : "")) : "";
-                                                return (
-                                                    <td key={cIdx} className={`p-3 text-center ${bgCell}`}>
-                                                        <input type="radio" name={`mat_${row.id}`} checked={isChecked} disabled={isSubmitted} onChange={() => handleMatrixChange(row.id, col)} className="w-4 h-4 text-blue-600"/>
-                                                        {isSubmitted && isRight && <span className="block text-[10px] text-emerald-800 font-extrabold mt-0.5"><i className="fa-solid fa-check"></i> Correct</span>}
-                                                    </td>
-                                                );
-                                            })}
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                );
-            }
-
-            // Cloze (Drop-down)
-            if (item.ngnType === "Cloze (Drop-down)") {
-                const clozeState = currentVal || {};
-                const parts = item.clozeTemplate.split(/(\{drop\d+\})/g);
-                const handleSelectChange = (key, val) => {
-                    if (isSubmitted) return;
-                    const next = { ...clozeState, [key]: val };
-                    onDraftChange(next);
-                };
-
-                return (
-                    <div className="bg-slate-50 p-5 rounded-2xl border border-slate-300 leading-loose text-xs md:text-base text-slate-900 font-medium space-y-4">
-                        <div className="flex flex-wrap items-center gap-2">
-                            {parts.map((part, idx) => {
-                                const match = part.match(/\{drop(\d+)\}/);
-                                if (match) {
-                                    const dropKey = `drop${match[1]}`;
-                                    const opts = item.options[dropKey] || [];
-                                    const userVal = clozeState[dropKey] || "";
-                                    const rightVal = item.correctAnswers[dropKey];
-
-                                    let borderStyle = "border-slate-300 bg-white text-slate-800";
-                                    if (isSubmitted) {
-                                        if (userVal === rightVal) borderStyle = "border-emerald-500 bg-emerald-100 text-emerald-950 font-bold";
-                                        else borderStyle = "border-rose-400 bg-rose-100 text-rose-950 font-bold";
-                                    }
-
-                                    return (
-                                        <div key={idx} className="inline-block my-1">
-                                            <select 
-                                                value={userVal} 
-                                                disabled={isSubmitted} 
-                                                onChange={(e) => handleSelectChange(dropKey, e.target.value)} 
-                                                className={`px-3 py-1.5 rounded-lg border-2 text-xs md:text-sm focus:outline-none focus:border-blue-500 font-bold ${borderStyle}`}
-                                            >
-                                                <option value="">-- Select Option --</option>
-                                                {opts.map((o, oIdx) => <option key={oIdx} value={o}>{o}</option>)}
-                                            </select>
-                                            {isSubmitted && userVal !== rightVal && (
-                                                <span className="block text-[10px] text-emerald-700 font-bold mt-0.5">Correct: {rightVal}</span>
-                                            )}
-                                        </div>
-                                    );
-                                }
-                                return <span key={idx}>{part}</span>;
-                            })}
-                        </div>
-                    </div>
-                );
-            }
-
-            // Extended Drag and Drop (Ordering)
-            if (item.ngnType === "Extended Drag and Drop") {
-                const dragOrder = currentVal || item.availableItems || [];
-                const moveItem = (fromIdx, toIdx) => {
-                    if (isSubmitted) return;
-                    const next = [...dragOrder];
-                    const [itemMoved] = next.splice(fromIdx, 1);
-                    next.splice(toIdx, 0, itemMoved);
-                    onDraftChange(next);
-                };
-
-                return (
-                    <div className="space-y-3">
-                        <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Use arrows to sequence steps from Highest Priority (1) to Lowest (4):</p>
-                        {dragOrder.map((txt, idx) => {
-                            const isRight = isSubmitted && item.correctOrder[idx] === txt;
-                            let style = "bg-slate-50 border-slate-300";
-                            if (isSubmitted) {
-                                style = isRight ? "bg-emerald-100 border-emerald-500 font-bold text-emerald-950" : "bg-rose-100 border-rose-400 text-rose-950 font-bold";
-                            }
-
-                            return (
-                                <div key={idx} className={`p-3 rounded-xl border flex items-center justify-between gap-3 shadow-xs transition ${style}`}>
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-7 h-7 bg-slate-800 text-white rounded-lg flex items-center justify-center font-bold text-xs shrink-0">{idx + 1}</span>
-                                        <span className="text-xs md:text-sm font-medium">{txt}</span>
-                                    </div>
-                                    {!isSubmitted && (
-                                        <div className="flex gap-1 shrink-0">
-                                            <button onClick={() => idx > 0 && moveItem(idx, idx - 1)} disabled={idx === 0} className="w-8 h-8 bg-slate-200 hover:bg-slate-300 rounded-lg text-slate-700 disabled:opacity-30"><i className="fa-solid fa-arrow-up text-xs"></i></button>
-                                            <button onClick={() => idx < dragOrder.length - 1 && moveItem(idx, idx + 1)} disabled={idx === dragOrder.length - 1} className="w-8 h-8 bg-slate-200 hover:bg-slate-300 rounded-lg text-slate-700 disabled:opacity-30"><i className="fa-solid fa-arrow-down text-xs"></i></button>
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            }
-
-            // Bowtie Diagram
-            if (item.ngnType === "Bowtie") {
-                const bowtieState = currentVal || { condition: "", actions: [], monitoring: [] };
-                const bData = item.bowtieData;
-                const handleBowtieChange = (category, val) => {
-                    if (isSubmitted) return;
-                    let next = { ...bowtieState };
-                    if (category === 'condition') {
-                        next.condition = val;
-                    } else {
-                        const currentArr = next[category] || [];
-                        next[category] = currentArr.includes(val) ? currentArr.filter(x => x !== val) : [...currentArr, val].slice(0, 2);
-                    }
-                    onDraftChange(next);
-                };
-
-                return (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        {/* ACTIONS (LEFT) */}
-                        <div className="bg-blue-50/70 p-4 rounded-xl border border-blue-200 space-y-2">
-                            <h4 className="font-bold text-xs text-ncsbn-blue uppercase">Actions to Take (Select 2)</h4>
-                            {bData.actions.map((act, idx) => {
-                                const isChecked = (bowtieState.actions || []).includes(act);
+                    <table className="w-full border-collapse border border-slate-300 text-xs md:text-sm">
+                        <thead className="bg-slate-100 border-b border-slate-300">
+                            <tr>
+                                <th className="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>
+                                {item.columns.map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-200 bg-white">
+                            {item.rows.map(row => {
+                                const rightCol = item.correctAnswers[row.id];
+                                const userCol = matrixState[row.id];
                                 return (
-                                    <label key={idx} className={`block p-2.5 rounded-lg border text-xs cursor-pointer ${isChecked ? 'bg-blue-600 text-white font-bold' : 'bg-white text-slate-800'}`}>
-                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleBowtieChange('actions', act)} className="hidden"/>
-                                        {act}
-                                    </label>
+                                    <tr key={row.id}>
+                                        <td className="p-3 font-medium text-slate-800">{row.text}</td>
+                                        {item.columns.map((col, cIdx) => {
+                                            const isChecked = userCol === col;
+                                            const isRight = rightCol === col;
+                                            let bgCell = isSubmitted ? (isRight ? "bg-emerald-100 font-bold" : (isChecked ? "bg-rose-100" : "")) : "";
+                                            return (
+                                                <td key={cIdx} className={`p-3 text-center ${bgCell}`}>
+                                                    <input type="radio" name={`mat_${row.id}`} checked={isChecked} disabled={isSubmitted} onChange={() => handleMatrixChange(row.id, col)} className="w-4 h-4 text-blue-600"/>
+                                                    {isSubmitted && isRight && <span className="block text-[10px] text-emerald-800 font-extrabold mt-0.5"><i className="fa-solid fa-check"></i> Correct</span>}
+                                                </td>
+                                            );
+                                        })}
+                                    </tr>
                                 );
                             })}
-                        </div>
-
-                        {/* CONDITION (CENTER) */}
-                        <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200 space-y-2">
-                            <h4 className="font-bold text-xs text-amber-900 uppercase">Potential Condition (Select 1)</h4>
-                            {bData.conditions.map((cond, idx) => {
-                                const isChecked = bowtieState.condition === cond;
-                                return (
-                                    <label key={idx} className={`block p-2.5 rounded-lg border text-xs cursor-pointer ${isChecked ? 'bg-amber-600 text-white font-bold' : 'bg-white text-slate-800'}`}>
-                                        <input type="radio" name="bowtieCond" checked={isChecked} disabled={isSubmitted} onChange={() => handleBowtieChange('condition', cond)} className="hidden"/>
-                                        {cond}
-                                    </label>
-                                );
-                            })}
-                        </div>
-
-                        {/* MONITORING (RIGHT) */}
-                        <div className="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200 space-y-2">
-                            <h4 className="font-bold text-xs text-emerald-900 uppercase">Parameters to Monitor (Select 2)</h4>
-                            {bData.monitoring.map((mon, idx) => {
-                                const isChecked = (bowtieState.monitoring || []).includes(mon);
-                                return (
-                                    <label key={idx} className={`block p-2.5 rounded-lg border text-xs cursor-pointer ${isChecked ? 'bg-emerald-600 text-white font-bold' : 'bg-white text-slate-800'}`}>
-                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleBowtieChange('monitoring', mon)} className="hidden"/>
-                                        {mon}
-                                    </label>
-                                );
-                            })}
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 );
             }
 
