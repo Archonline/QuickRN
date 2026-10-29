@@ -55,6 +55,25 @@
         @media (max-width: 768px) {
             .prompt-typography { font-size: 1.1rem; line-height: 1.45; }
         }
+    
+        /* NCLEX-style readable, viewport-aware layout */
+        html, body, #root { min-height: 100%; }
+        body { user-select: text; -webkit-user-select: text; }
+        .prompt-typography { font-size: clamp(1.05rem, 1.45vw, 1.35rem); line-height: 1.4; }
+        .ehr-readable { font-size: clamp(0.95rem, 1.05vw, 1.08rem) !important; line-height: 1.55 !important; }
+        .choice-readable { font-size: 1rem !important; line-height: 1.45 !important; }
+        @media (min-width: 769px) {
+          main.nclex-workspace { overflow-y: auto !important; min-height: 0; }
+          .nclex-question-panel { min-height: min-content; overflow: visible !important; }
+          .nclex-question-content { overflow: visible !important; }
+          .nclex-rationale { max-height: none !important; overflow: visible !important; }
+        }
+        @media (max-width: 768px) {
+          main.nclex-workspace { overflow-y: auto !important; }
+          .nclex-rationale { max-height: none !important; overflow: visible !important; }
+        }
+        .answer-correct { background:#dcfce7 !important; border-color:#16a34a !important; color:#14532d !important; }
+        .answer-wrong { background:#ffe4e6 !important; border-color:#e11d48 !important; color:#881337 !important; }
     </style>
 
     <!-- Optional external questions fallback -->
@@ -315,6 +334,24 @@
             return "Single Choice";
         }
 
+        function getStrategyRule(item) {
+            if (item.strategyRule) return item.strategyRule;
+            const text = `${item.category || ""} ${item.title || ""} ${item.keyPhrase || ""}`.toLowerCase();
+            if (/airway|respiratory|asthma|stridor|oxygen|copd/.test(text)) return "Strategy: prioritize airway patency and breathing first. Assess work of breathing, oxygen saturation, mental status, and signs of exhaustion; a silent chest or worsening hypoxemia is an emergency.";
+            if (/cardiac|heart failure|chest pain|pulmonary embol|digoxin|shock|hemodynamic/.test(text)) return "Strategy: assess circulation and perfusion. Look for hypotension, altered mentation, chest pain, dysrhythmias, and poor oxygenation. Stabilize ABCs, verify orders and contraindications, then reassess response.";
+            if (/diabetes|ketoacidosis|glucose|insulin|hypoglyc|hyperglyc/.test(text)) return "Strategy: check glucose and potassium before insulin decisions. In DKA, restore circulating volume first, assess potassium, then administer insulin per protocol and add dextrose as glucose falls while continuing to correct acidosis.";
+            if (/maternal|pregnan|placenta|labor|fetal|cord/.test(text)) return "Strategy: prioritize maternal stabilization and fetal oxygenation. For suspected cord prolapse, relieve pressure on the cord, call for emergency assistance, and prepare for urgent birth; do not leave the client alone.";
+            if (/electrolyte|thyroid|adrenal|addison|cushing|calcium|potassium/.test(text)) return "Strategy: connect the symptoms to the specific electrolyte or hormone imbalance, identify immediate threats (airway, cardiac rhythm, neurologic status), and verify critical laboratory values before giving high-risk medications.";
+            if (/infection|isolation|diphtheria|pertussis|sepsis/.test(text)) return "Strategy: recognize instability early, initiate the appropriate transmission-based precautions, obtain ordered cultures when this will not delay urgent treatment, and monitor for sepsis or respiratory compromise.";
+            if (/medication|pharmacology|digoxin|heparin|drug/.test(text)) return "Strategy: apply medication safety checks—right patient, drug, dose, route, time, allergies, relevant labs, vital signs, and contraindications. Hold and escalate when findings suggest toxicity or an unsafe parameter.";
+            return "Strategy: identify the most concerning cue, determine whether the problem is acute or life-threatening, prioritize ABCs and safety, choose the action that addresses the cause, and reassess whether the intervention worked.";
+        }
+        function getTutorInsight(item) {
+            if (item.aiTutorInsight) return `${item.aiTutorInsight} Apply clinical judgment by connecting the cue to its physiologic cause, deciding which complication is most dangerous if untreated, and choosing the intervention that changes the risk fastest. Recheck the relevant vital sign, assessment finding, or laboratory value after the intervention. For distractors, ask whether the option delays urgent care, treats a less important problem first, or could worsen the client’s condition.`;
+            const topic = item.keyPhrase || item.title || item.category || "this clinical concept";
+            return `Clinical reasoning focus for ${topic}: separate expected findings from red flags, then link each abnormal cue to the underlying physiology. Ask what can deteriorate first, which intervention prevents the greatest harm, and what parameter will show improvement or worsening. Eliminate options that delay stabilization, treat only a symptom while ignoring the cause, or introduce a contraindicated risk. After choosing, reassess the client and anticipate the next nursing action.`;
+        }
+
         // MAIN REACT APPLICATION COMPONENT
         function App() {
             const [showLaunchModal, setShowLaunchModal] = useState(true);
@@ -330,7 +367,6 @@
             const [activeVideoModal, setActiveVideoModal] = useState(null);
             const [showReportModal, setShowReportModal] = useState(false);
             const [videoNotes, setVideoNotes] = useState({});
-            const [isRationaleCollapsed, setIsRationaleCollapsed] = useState(false);
 
             // Launch Exam Session
             const launchSession = (count) => {
@@ -585,7 +621,7 @@
                     <header className="bg-[#0B2240] text-white h-14 px-4 flex items-center justify-between border-b-2 border-amber-600 shadow-md shrink-0 z-30">
                         <button onClick={exitToDashboard} className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-bold transition border border-slate-600">
                             <i className="fa-solid fa-user-nurse text-amber-400"></i>
-                            <span>QuickRN Self Study Mode</span>
+                            <span className="text-sm font-semibold tracking-wide">QuickRN Self Study Mode</span>
                         </button>
 
                         <div className="flex items-center gap-2 md:gap-3">
@@ -617,7 +653,7 @@
                             
                             {/* LEFT EHR PANEL (IF PRESENT) */}
                             {currentItem.ehr && (
-                                <section className="w-full md:w-1/2 bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-1/2 md:h-full">
+                                <section className="w-full md:w-[40%] bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden min-h-[280px] md:min-h-0 md:h-full">
                                     <div className="bg-slate-100 border-b border-slate-300 px-4 py-2 flex items-center justify-between shrink-0 text-xs md:text-sm font-bold text-slate-800">
                                         <div className="flex items-center gap-2">
                                             <i className="fa-solid fa-hospital-user text-ncsbn-blue"></i>
@@ -639,12 +675,12 @@
                                             </button>
                                         ))}
                                     </div>
-                                    <div className="flex-1 p-4 overflow-y-auto text-xs md:text-sm text-slate-800 leading-relaxed bg-white" dangerouslySetInnerHTML={{ __html: currentItem.ehr[activeEhrTab === 'notes' ? 'nursesNotes' : (activeEhrTab === 'vitals' ? 'vitalSigns' : (activeEhrTab === 'labs' ? 'diagnosticResults' : 'historyPhysical'))] }}></div>
+                                    <div className="ehr-readable flex-1 p-4 overflow-y-auto text-base text-slate-800 leading-relaxed bg-white" dangerouslySetInnerHTML={{ __html: currentItem.ehr[activeEhrTab === 'notes' ? 'nursesNotes' : (activeEhrTab === 'vitals' ? 'vitalSigns' : (activeEhrTab === 'labs' ? 'diagnosticResults' : 'historyPhysical'))] }}></div>
                                 </section>
                             )}
 
                             {/* RIGHT QUESTION & RATIONALE PANEL */}
-                            <section className={`w-full ${currentItem.ehr ? 'md:w-1/2' : 'w-full'} bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-hidden h-full`}>
+                            <section className={`nclex-question-panel w-full ${currentItem.ehr ? 'md:w-[60%]' : 'w-full'} bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col overflow-visible md:overflow-y-auto min-h-0`}>
                                 
                                 {isSubmitted && (
                                     <div className="bg-emerald-100 border-b border-emerald-200 px-4 py-1.5 text-xs text-emerald-800 font-bold flex items-center justify-between shrink-0">
@@ -664,7 +700,7 @@
                                 </div>
 
                                 {/* QUESTION INTERACTIVE CONTENT AREA */}
-                                <div className="flex-1 p-4 md:p-6 overflow-y-auto bg-white text-slate-800 space-y-4">
+                                <div className="nclex-question-content flex-1 p-4 md:p-6 overflow-visible bg-white text-slate-800 space-y-4">
                                     <QuestionRenderer 
                                         item={currentItem} 
                                         draftAnswer={currentDraftAnswer[currentIndex]}
@@ -684,39 +720,34 @@
 
                                 {/* COMPACT COLLAPSIBLE RATIONALE PANEL */}
                                 {isSubmitted && (
-                                    <div className="border-t-2 border-blue-600 bg-blue-50/90 p-4 shrink-0 transition-all duration-300 max-h-[40vh] overflow-y-auto shadow-inner">
+                                    <div className="nclex-rationale border-t-2 border-blue-600 bg-blue-50/90 p-4 shrink-0 shadow-inner">
                                         <div className="flex items-center justify-between border-b border-blue-200 pb-2 mb-3">
                                             <span className="font-bold text-ncsbn-navy text-xs md:text-sm flex items-center gap-2">
                                                 <i className="fa-solid fa-microscope text-blue-600"></i> Clinical Rationale & Learning Objectives
                                             </span>
                                             <div className="flex items-center gap-2">
-                                                <button onClick={() => setIsRationaleCollapsed(!isRationaleCollapsed)} className="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 rounded text-xs font-bold border border-slate-300 transition">
-                                                    <i className={`fa-solid ${isRationaleCollapsed ? 'fa-chevron-up' : 'fa-chevron-down'} mr-1`}></i>
-                                                    {isRationaleCollapsed ? 'Expand' : 'Collapse'}
-                                                </button>
+
                                                 <button onClick={() => setActiveVideoModal({ videos: currentItem.videos || [{ id: currentItem.youtubeId || "r5W1ns5C1ik", title: currentItem.keyPhrase }], title: currentItem.keyPhrase })} className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs font-bold transition flex items-center gap-1 shadow-xs">
                                                     <i className="fa-brands fa-youtube"></i> Video Lectures
                                                 </button>
                                             </div>
                                         </div>
-
-                                        {!isRationaleCollapsed && (
-                                            <div className="space-y-3 text-xs md:text-sm">
+                                            <div className="space-y-3 text-sm md:text-base">
                                                 <div className="leading-relaxed bg-white p-3 rounded-lg border border-blue-200 text-slate-800">
                                                     <strong>Pathophysiology Rationale:</strong> {currentItem.rationale}
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                                                     <div className="bg-white p-3 rounded-lg border border-amber-300 space-y-1">
                                                         <strong className="text-amber-900 font-bold block"><i className="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Strategy Rule:</strong>
-                                                        <span className="text-slate-700">{currentItem.strategyRule || "Prioritize acute physiological risks using ABCs."}</span>
+                                                        <span className="text-slate-800 leading-relaxed">{getStrategyRule(currentItem)}</span>
                                                     </div>
                                                     <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200 space-y-1">
                                                         <strong className="text-indigo-950 font-bold block"><i className="fa-solid fa-robot text-indigo-600 mr-1"></i> AI Tutor Insight:</strong>
-                                                        <span className="text-slate-800">{currentItem.aiTutorInsight || "Recognize early subtle cues of clinical deterioration."}</span>
+                                                        <span className="text-slate-800 leading-relaxed">{getTutorInsight(currentItem)}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        )}
+
                                     </div>
                                 )}
                             </section>
@@ -1000,7 +1031,7 @@
                                 <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
                                     <div className="flex items-center gap-3">
                                         <input type="radio" name="sba" checked={isChecked} disabled={isSubmitted} onChange={() => onUpdateDraft(text)} className="w-4 h-4 text-blue-600"/>
-                                        <span className="text-xs md:text-sm font-medium">{text}</span>
+                                        <span className="choice-readable text-base font-medium">{text}</span>
                                     </div>
                                     {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
                                 </label>
@@ -1042,7 +1073,7 @@
                                 <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
                                     <div className="flex items-center gap-3">
                                         <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleToggle(optId)} className="w-4 h-4 text-blue-600 rounded"/>
-                                        <span className="text-xs md:text-sm font-medium">{optText}</span>
+                                        <span className="choice-readable text-base font-medium">{optText}</span>
                                     </div>
                                     {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
                                 </label>
