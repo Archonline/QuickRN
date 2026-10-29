@@ -287,14 +287,32 @@
 
         // Detect correct NGN type from item properties if not explicitly specified
         function detectNGNType(q) {
-            if (q.ngnType) return q.ngnType;
-            if (q.rows && q.columns) return "Matrix / Grid";
-            if (q.clozeTemplate) return "Cloze (Drop-down)";
-            if (q.availableItems || q.correctOrder) return "Extended Drag and Drop";
-            if (q.bowtieData) return "Bowtie";
-            if (Array.isArray(q.correctAnswers) || (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object' && q.options[0].id)) {
+            // Check explicit format flags from various Q-Bank schemas
+            const rawType = (q.ngnType || q.type || q.format || q.questionType || q.itemType || "").toString().toLowerCase();
+
+            if (rawType.includes("matrix") || rawType.includes("grid") || (q.rows && q.columns) || q.matrixData) {
+                return "Matrix / Grid";
+            }
+            if (rawType.includes("cloze") || rawType.includes("drop") || q.clozeTemplate || q.dropdowns) {
+                return "Cloze (Drop-down)";
+            }
+            if (rawType.includes("drag") || rawType.includes("order") || q.availableItems || q.correctOrder) {
+                return "Extended Drag and Drop";
+            }
+            if (rawType.includes("bowtie") || q.bowtieData) {
+                return "Bowtie";
+            }
+            if (
+                rawType.includes("sata") || 
+                rawType.includes("multiple response") || 
+                rawType.includes("select all") || 
+                Array.isArray(q.correctAnswers) || 
+                (Array.isArray(q.correctAnswer) && q.correctAnswer.length > 1) ||
+                (q.options && Array.isArray(q.options) && typeof q.options[0] === 'object' && q.options[0].id)
+            ) {
                 return "Extended Multiple Response";
             }
+            
             return "Single Choice";
         }
 
