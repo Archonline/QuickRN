@@ -514,7 +514,7 @@ function renderQuestion() {
                             <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Wrong</span><span class="text-2xl font-black text-rose-600">${totalAnswered-correctCount}</span></div>
                             <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Chance Above Standard</span><span class="text-2xl font-black text-emerald-600">${finalDecision.passProbability}%</span></div>
                         </div>
-                        <p class="text-xs text-slate-500">Estimated probability that your ability is above the passing cut score (theta 0). This is a practice-model estimate, not an official NCLEX prediction.</p>
+                        <p class="text-xs text-slate-500">Estimated probability that your ability is above the practice passing standard (65% expected success on average-difficulty items). This is a simulation estimate, not an official NCLEX prediction.</p>
                         <div class="flex justify-center gap-4 pt-2">
                             <button onclick="window.location.reload()" class="px-6 py-2.5 bg-slate-800 text-white font-bold rounded-lg text-xs hover:bg-slate-700">Retake Exam</button>
                             <button onclick="window.location.href='dashboard.html'" class="px-6 py-2.5 bg-ncsbn-navy text-white font-bold rounded-lg text-xs hover:bg-blue-900">Return to Dashboard</button>
