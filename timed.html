@@ -763,7 +763,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
                     });
                     choicesHtml += '</div>';
 
-                    // Inline AI Tutor Breakdown
+                    // Shared local clinical study coach
                     const tutorInsight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight(q, isCorrect) : {domain:'Clinical review',guidance:'Prioritize the most urgent cue and reassess the client response.',outcome:'Review the rationale and distractors.'};
                     const aiTutorContentHtml = `
                         <div class="p-4 bg-indigo-50/70 rounded-xl border border-indigo-200 space-y-2">
@@ -954,5 +954,6 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
             loadQuestionsFromJS();
         };
     </script>
+    <script src="js/quickrn-coach.js"></script>
 </body>
 </html>
