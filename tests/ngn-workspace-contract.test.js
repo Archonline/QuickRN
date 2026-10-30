@@ -17,6 +17,18 @@ for(const page of pages){
  assert.ok(html.includes('quickrn-unified-nclex-split-screen'),page+' includes reference split-screen styles');
 }
 for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','quickrn_question_reports','quickrn_used_q_ids','quickrn_student_state','Retake same session'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
+const renderer=fs.readFileSync('js/shared-exam-renderer.js','utf8');
+const examHtml=fs.readFileSync('correct_view.html','utf8');
+const examCss=fs.readFileSync('css/quickrn-unified-exam.css','utf8');
+assert.ok(app.includes('question-only-panel'),'no-case items move the question stem into the left pane');
+assert.ok(app.includes("left.appendChild(prompt)"),'question prompt is physically moved into the left pane without a case');
+assert.ok(!app.includes('No additional clinical exhibits are attached'),'no-case items do not fabricate a Clinical Record');
+assert.ok(!renderer.includes('Report this item')&&!renderer.includes('qr-report-row'),'standalone report item action is removed from the renderer');
+assert.ok(examHtml.includes('id="feedback-category"')&&examHtml.includes('id="feedback-details"'),'feedback modal combines report categories and free-text details');
+assert.ok(app.includes("const reason=$('feedback-category')?.value")&&app.includes("questionSnapshot"),'feedback saves the selected issue category with question context');
+assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
+assert.ok(examCss.includes('#left-panel.question-only-panel #question-prompt'),'question-only left pane has dedicated layout styling');
+
 const dashboard=fs.readFileSync('dashboard.html','utf8');
 for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard links to '+page);
 for(const legacy of ['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn.html'])assert.ok(!dashboard.includes(legacy),'dashboard no longer links to '+legacy);
