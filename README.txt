@@ -213,3 +213,15 @@ SELF-STUDY REBUILD (2026-10-31)
 - Split topic-prefixed stems such as “Benzodiazepines/alcohol withdrawal: …” into a left-pane clinical narrative and the right-pane instruction, standardizing cue-review instructions when appropriate.
 - For the supplied “Developmental milestones” example, mirror the clinical stem in both panes as explicitly requested.
 - Targeted parser checks cover the supplied examples. JavaScript syntax checks pass; full browser/device visual QA remains outstanding.
+
+ 
+## Bank-wide clinical prompt normalization — October 31, 2026
+
+- Prompt cleanup now runs through the shared renderer and is consumed by the shared exam app, so it applies across every exam mode using the shared question renderer rather than only the supplied question examples.
+- Normalize visible prompts from the question, questionOnly, actualQuestion, stem, questionText, title, prompt, and instruction fields.
+- Normalize case content from scenario/clinicalScenario, patientInfo/patientInformation, patient history, caseStudy/case_study, caseStudyText, caseStudyContext, EHR, medical-record, chart, and clinical-record fields.
+- Remove display-only prefixes and labels, including NGN format/item codes, IDs, Topic/Category/Subject labels, Patient Information, Follow-up numbers, and numbered Case headings with their diagnosis/title. Remove repeated “clinical case · Item n of n” metadata while preserving adjacent clinical narrative.
+- Split topic-prefixed combined stems into the clinical narrative and their original cue-review instruction. Preserve the instruction wording supplied in the bank instead of replacing it with a generic sentence. Traditional follow-up question stems remain in the right pane.
+- Keep the Developmental milestones display exception previously requested: its cleaned clinical narrative is repeated in the response pane.
+- Added tests/clinical-prompt-normalizer.test.js and wired it into the NGN renderer validation workflow. It covers case metadata, inline footers, NGN title prefixes, topic-prefixed questions, follow-up numbers, and alternate patient-information fields.
+- Targeted runtime checks passed for the supplied examples and additional synthetic question shapes. The full GitHub Actions workflow must complete after this commit for CI confirmation; full browser visual QA remains separate.
