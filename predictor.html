@@ -94,7 +94,7 @@
                 <i class="fa-solid fa-graduation-cap"></i> QUICKRN EXAM
             </span>
             <span class="hidden md:inline text-cyan-100">|</span>
-            <span id="mode-label" class="hidden md:inline font-semibold text-xs bg-cyan-700/40 px-2 py-0.5 rounded text-cyan-50">Self-Study</span>
+            <span id="mode-label" class="hidden md:inline font-semibold text-xs bg-cyan-700/40 px-2 py-0.5 rounded text-cyan-50">Exam Mode</span><span id="mode-subtitle" class="hidden xl:inline text-[10px] text-cyan-100 max-w-[180px] truncate"></span>
         </div>
 
         <!-- Center Information -->
@@ -141,9 +141,8 @@
                 <i class="fa-solid fa-calculator"></i>
             </button>
 
-            <button id="mark-btn" onclick="toggleMarkQuestion()" title="Mark for Later" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white flex items-center gap-1">
-                <i id="mark-icon" class="fa-regular fa-bookmark"></i>
-            </button>
+            <button id="mark-btn" onclick="toggleMarkQuestion()" title="Mark for Later" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white flex items-center gap-1"><i id="mark-icon" class="fa-regular fa-bookmark"></i></button>
+            <button onclick="openBookmarksModal()" title="Saved questions" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white"><i class="fa-solid fa-list-check"></i></button>
 
             <button onclick="toggleNotesModal()" title="Notes" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white">
                 <i class="fa-regular fa-pen-to-square"></i>
