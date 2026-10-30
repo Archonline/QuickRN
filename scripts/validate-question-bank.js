@@ -17,6 +17,8 @@ if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
+ if(s.includes('numeric entry')||s.includes('numeric-entry')||q.numericAnswer!==undefined||q.correctNumericAnswer!==undefined||q.numericRange)return 'Numeric Entry';
+ if(s.includes('select n')||q.selectN!==undefined||q.numberToSelect!==undefined||q.requiredSelections!==undefined)return 'Select N';
  if(s.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(s.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns))return 'Matrix / Grid';
@@ -42,7 +44,7 @@ bank.forEach((q,index)=>{
  if(candidate!==q.id){q.id=candidate;duplicateIdsNormalized++;}
  usedQuestionIds.add(candidate);
 });
-const formats=['Single Choice','Multiple Response','Matrix / Grid','Cloze (Drop-down)','Extended Drag and Drop','Bowtie','Extended Multiple Response','Highlight','Trend'];
+const formats=['Single Choice','Numeric Entry','Select N','Multiple Response','Matrix / Grid','Cloze (Drop-down)','Extended Drag and Drop','Bowtie','Extended Multiple Response','Highlight','Trend'];
 const counts=Object.fromEntries(formats.map(x=>[x,0])),errors=[],qualityWarnings=[],samples={},caseGroups=new Set();
 for(let i=0;i<bank.length;i++){
  const q=bank[i]||{},f=format(q);counts[f]=(counts[f]||0)+1;
@@ -56,6 +58,8 @@ for(let i=0;i<bank.length;i++){
  }
  const options=Array.isArray(q.options)?q.options:[];
  const optionHas=value=>options.some(option=>(typeof option==='string'&&String(option)===String(value))||[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
+ if(f==='Numeric Entry'&&q.correctNumericAnswer===undefined&&q.numericAnswer===undefined&&q.correctAnswer===undefined)issue('MISSING_NUMERIC_KEY','Numeric entry item has no numeric answer key');
+ if(f==='Select N'&&(!Number.isInteger(Number(q.selectN??q.numberToSelect??q.requiredSelections))||Number(q.selectN??q.numberToSelect??q.requiredSelections)<1||!Array.isArray(q.correctAnswers)||q.correctAnswers.length!==Number(q.selectN??q.numberToSelect??q.requiredSelections)))issue('INVALID_SELECT_N_SCHEMA','Select-N item must define a positive selection count and matching answer array');
  if(f==='Single Choice'&&options.length){
   const key=q.correctAnswerText??q.correctAnswer;
   if(key!==undefined&&!optionHas(key))issue('ANSWER_NOT_IN_OPTIONS','Single-choice answer key does not match an option ID or text');
@@ -84,7 +88,7 @@ for(let i=0;i<bank.length;i++){
  }
 
  if(!String(q.title||q.questionText||q.question||q.cleanTitle||'').trim())issue('MISSING_PROMPT','No usable title or prompt');
- if(['Single Choice','Trend'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
+ if(['Single Choice','Trend','Select N'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
  if(['Multiple Response','Extended Multiple Response'].includes(f)&&(!Array.isArray(q.options)||!q.options.length||!(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))))issue('INVALID_MULTI_SCHEMA','Expected options and array answer key');
  if(f==='Matrix / Grid'&&(!(q.rows||q.matrixData?.rows)?.length||!(q.columns||q.matrixData?.columns)?.length||!q.correctAnswers))issue('INVALID_MATRIX_SCHEMA','Expected rows, columns, correctAnswers');
