@@ -86,7 +86,6 @@ function quickRNSplitPrompt(q){
  const rawSource=q.questionOnly||q.actualQuestion||q.question||q.stem||q.questionText||q.cleanTitle||q.title||q.prompt||'';
  const rawText=String(rawSource||'');
  const topicMatch=/^\s*([^:\n]{2,90}):\s+/.exec(rawText);
- const topic=String(q.topic||q.category||topicMatch?.[1]||'').trim();
  const hasFormatLead=/^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]/i.test(rawText);
  const sourceMeta=Object.assign({},q,{topic:hasFormatLead?'':(q.topic||q.category||topicMatch?.[1]||'')});
  let source=quickRNCleanClinicalText(rawSource,sourceMeta);
@@ -127,8 +126,8 @@ function quickRNSplitPrompt(q){
  if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
  let question=instruction||source||'';
- // This question family intentionally repeats the cleaned stem in the response pane.
- if(/^developmental milestones$/i.test(topic)&&scenario)question=scenario;
+ // Certain cue-review items intentionally repeat the cleaned stem in the response pane.
+ if(scenario&&!q.instruction&&!q.cleanInstruction&&/^Review the clinical cues and complete the clinical judgment item\.?$/i.test(instruction))question=scenario;
  return {scenario,question};
 }
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
