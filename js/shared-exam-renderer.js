@@ -125,7 +125,9 @@ function quickRNSplitPrompt(q){
  source=quickRNCleanClinicalText(source,q);
  if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
- // The item stem/question is the actual test prompt. The separate instruction field often contains only boilerplate such as 'Select the single best answer.'\n // Use the instruction as a fallback only when the stem was fully moved into the clinical scenario or is otherwise empty.\n let question=source||instruction||'';
+ // The item stem/question is the actual test prompt. The separate instruction field often contains only boilerplate such as 'Select the single best answer.'
+ // Use the instruction as a fallback only when the stem was fully moved into the clinical scenario or is otherwise empty.
+ let question=source||instruction||'';
  // Certain cue-review items intentionally repeat the cleaned stem in the response pane.
  if(scenario&&!q.instruction&&/^Review the clinical cues and complete the clinical judgment item\.?$/i.test(instruction))question=scenario;
  return {scenario,question};
