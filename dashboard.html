@@ -728,7 +728,8 @@
                 const links = subject.lessons.map(([label,terms]) =>
                     '<a class="flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition" href="selfstudy.html?topic='+encodeURIComponent(label)+'&q='+encodeURIComponent(terms)+'"><span>'+safe(label)+'</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i></a>'
                 ).join('');
-                return '<details class="group rounded-xl border border-slate-200 bg-white overflow-hidden" '+(index===0?'open':'')+'><summary class="cursor-pointer list-none flex items-center gap-3 p-3 hover:bg-slate-50"><span class="w-9 h-9 rounded-lg flex items-center justify-center border '+accents[subject.color]+'"><i class="fa-solid '+subject.icon+'"></i></span><span class="flex-1 min-w-0"><strong class="block text-sm text-slate-800">'+safe(subject.name)+'</strong><small class="text-[10px] text-slate-500">'+subject.lessons.length+' systems & lessons</small></span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="border-t border-slate-100 p-1.5 max-h-64 overflow-y-auto">'+links+'</div></details>';
+                const subjectTerms = subject.lessons.map(item=>item[1]).join('|');
+                return '<details class="group rounded-xl border border-slate-200 bg-white overflow-hidden" '+(index===0?'open':'')+'><summary class="cursor-pointer list-none flex items-center gap-2 p-2 hover:bg-slate-50"><span class="w-7 h-7 rounded-lg flex items-center justify-center border '+accents[subject.color]+'"><i class="fa-solid '+subject.icon+'"></i></span><span class="flex-1 min-w-0"><strong class="block text-xs text-slate-800">'+safe(subject.name)+'</strong><small class="text-[10px] text-slate-500">'+subject.lessons.length+' systems & lessons</small></span><i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i></summary><a class="block px-2.5 py-1.5 text-[10px] font-bold text-emerald-700 hover:bg-emerald-50" href="selfstudy.html?topic='+encodeURIComponent(subject.name)+'&q='+encodeURIComponent(subjectTerms)+'">Practice all '+safe(subject.name)+' questions <i class="fa-solid fa-arrow-right ml-1"></i></a><div class="border-t border-slate-100 p-1 max-h-56 overflow-y-auto">'+links+'</div></details>';
             }).join('');
         }
 
@@ -736,8 +737,9 @@
             document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
             
             const ledger = window.QuickRNQuestionMetrics && typeof window.QuickRNQuestionMetrics.totals === 'function' ? window.QuickRNQuestionMetrics.totals() : null;
-            const answered = ledger && Number.isFinite(Number(ledger.attempts)) ? Number(ledger.attempts) : Math.max(0, Number(studentStats.totalSolved) || 0);
-            const correct = ledger && Number.isFinite(Number(ledger.correct)) ? Number(ledger.correct) : Math.max(0, Number(studentStats.correctCount) || 0);
+            const hasLedgerAttempts = ledger && Number(ledger.attempts) > 0;
+            const answered = hasLedgerAttempts ? Number(ledger.attempts) : Math.max(0, Number(studentStats.totalSolved) || 0);
+            const correct = hasLedgerAttempts ? Number(ledger.correct) : Math.max(0, Number(studentStats.correctCount) || 0);
             studentStats.totalSolved = answered;
             studentStats.correctCount = Math.min(answered, correct);
             const accuracy = answered > 0 ? Math.round((studentStats.correctCount / answered) * 100) : 0;
