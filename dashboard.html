@@ -449,7 +449,8 @@
             { quote: "Mistakes are proof that you are trying and learning. Embrace every practice rationale.", author: "Learning Principle" },
             { quote: "Step by step, day by day, question by question—you are building your RN future.", author: "QuickRN Journey" },
             { quote: "When you put on that RN badge for the first time, all this hard work will be entirely worth it.", author: "Nurse Pride" },
-            { quote: "You've survived nursing school—the NCLEX is just your final victory lap. Go get it!", author: "QuickRN Staff" }
+            { quote: "You've survived nursing school—the NCLEX is just your final victory lap. Go get it!", author: "QuickRN Staff" },
+            { quote: "You do not have to master everything today. Learn one concept well, apply it safely, and return tomorrow ready to grow.", author: "QuickRN Daily Encouragement" }
         ];
 
         let studentStats = {
@@ -512,9 +513,11 @@
         }
 
         function rotateEncouragement() {
-            const randomIndex = Math.floor(Math.random() * encouragingQuotes.length);
-            const selected = encouragingQuotes[randomIndex];
-            
+            // Show a consistent inspiration message for each calendar day.
+            // The 31 entries cover every possible day in a month; shorter months use the matching dates.
+            const dayOfMonth = new Date().getDate();
+            const selected = encouragingQuotes[(dayOfMonth - 1) % encouragingQuotes.length];
+
             const passageElem = document.getElementById('encouraging-passage');
             const authorElem = document.getElementById('quote-author');
 
