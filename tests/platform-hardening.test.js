@@ -32,4 +32,5 @@ assert.equal(fallbackWindow.QuickRNPlatform.writeJSON('quickrn_offline',{kept:tr
 assert.deepEqual(JSON.parse(fallbackWindow.QuickRNPlatform.read('quickrn_offline','{}')),{kept:true});
 fallbackWindow.QuickRNPlatform.recordError('offline','storage fallback');
 assert.equal(fallbackWindow.QuickRNPlatform.errors().length,1);
-\nconsole.log('QuickRN platform safeguards: PASS');
+
+console.log('QuickRN platform safeguards: PASS');
