@@ -5,14 +5,14 @@
   'use strict';
 
   const DOMAINS = [
-    { id: 'management', name: 'Management of Care (17-23%)', color: 'bg-indigo-600', terms: /delegat|assignment|prioriti|leadership|care coordination|informed consent|advance directive|advocacy|scope of practice|ethical|legal|triage/ },
+    { id: 'management', name: 'Management of Care (17-23%)', color: 'bg-indigo-600', terms: /management|delegat|assignment|prioriti|leadership|care coordination|informed consent|advance directive|advocacy|scope of practice|ethical|legal|triage/ },
     { id: 'safety', name: 'Safety and Infection Control (9-15%)', color: 'bg-blue-600', terms: /infection|isolation|sterile|aseptic|ppe|fall risk|restraint|safety|transmission|hand hygiene/ },
     { id: 'health', name: 'Health Promotion and Maintenance (6-12%)', color: 'bg-emerald-600', terms: /pregnan|prenatal|labor|postpartum|newborn|immuniz|developmental|growth and development|screening|wellness|health promotion/ },
     { id: 'psychosocial', name: 'Psychosocial Integrity (6-12%)', color: 'bg-purple-600', terms: /anxiety|depress|suicid|grief|coping|therapeutic communication|psychosocial|mental health|substance use|abuse/ },
     { id: 'basic', name: 'Basic Care and Comfort (6-12%)', color: 'bg-amber-600', terms: /hygiene|nutrition|feeding|mobility|ambulat|pain|comfort|sleep|elimination|activities of daily living|positioning/ },
     { id: 'pharm', name: 'Pharmacological and Parenteral Therapies (12-18%)', color: 'bg-rose-600', terms: /pharmac|medication|drug|insulin|dosage|dose|anticoagulant|iv therapy|adverse effect|side effect|toxicity/ },
-    { id: 'risk', name: 'Reduction of Risk Potential (9-15%)', color: 'bg-orange-600', terms: /laboratory|lab value|diagnostic|postoperative|post-operative|complication|monitor|assessment|vital sign|electrolyte|ecg|screening/ },
-    { id: 'physio', name: 'Physiological Adaptation (11-17%)', color: 'bg-teal-600', terms: /respiratory|cardiac|heart failure|shock|stroke|neurolog|renal|kidney|diabetes|ketoacidosis|sepsis|perfusion|oxygenation|pathophysi|acute|disease/ }
+    { id: 'risk', name: 'Reduction of Risk Potential (9-15%)', color: 'bg-orange-600', terms: /risk|potential|laboratory|lab value|diagnostic|postoperative|post-operative|complication|monitor|assessment|vital sign|electrolyte|ecg|screening/ },
+    { id: 'physio', name: 'Physiological Adaptation (11-17%)', color: 'bg-teal-600', terms: /physiological adaptation|physiological|adaptation|respiratory|cardiac|heart failure|shock|stroke|neurolog|renal|kidney|diabetes|ketoacidosis|sepsis|perfusion|oxygenation|pathophysi|acute|disease/ }
   ];
 
   function textOf(question) {
@@ -33,6 +33,8 @@
     const exact = DOMAINS.find(domain => [explicit, category].some(value =>
       value.includes(domain.name.toLowerCase()) || value.includes(domain.id)));
     if (exact) return exact;
+    const explicitMatch = DOMAINS.find(domain => domain.terms.test(explicit));
+    if (explicitMatch) return explicitMatch;
     const categoryMatch = DOMAINS.find(domain => domain.terms.test(category));
     if (categoryMatch) return categoryMatch;
     const topicMatch = DOMAINS.find(domain => domain.terms.test(topic));
