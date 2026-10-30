@@ -839,13 +839,11 @@
             const detailedContainer = document.getElementById('analytics-detailed-list');
             if (container) container.innerHTML = '';
             if (detailedContainer) detailedContainer.innerHTML = '';
-            const weakAreas = [];
 
             studentStats.categories.forEach(cat => {
                 cat.solved = Math.max(0, Number(cat.solved) || 0);
                 cat.correct = Math.max(0, Math.min(cat.solved, Number(cat.correct) || 0));
                 cat.percentage = cat.solved ? Math.round(cat.correct / cat.solved * 100) : 0;
-                if (cat.solved > 0 && cat.percentage < 75) weakAreas.push(cat);
                 const status = cat.solved === 0 ? 'No data yet' : (cat.percentage < 75 ? 'Needs review' : 'On track');
 
                 if (container) {
