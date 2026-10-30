@@ -58,7 +58,7 @@ api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
 api.grade=grade;api.hasAnswer=has;
 api.answerSummary=(q,d)=>{const x=canon(q);return x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'?JSON.stringify(d.matrix||{},null,2):baseSummary(x,d);};
 api.renderReact=function(q,legacy,onUpdate,submitted){const x=canon(q);root.quickRNCurrentQuestion=x;quickRNCurrentItemId=x.id||null;const d=baseToDraft(x,legacy);quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(baseFromDraft(x,next));};return submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);};
-root.quickRNRenderClinicalItem=function(q,d,submitted){const item=canon(q);root.quickRNCurrentQuestion=item;quickRNCurrentItemId=item.id||null;return render(item,d||{},!!submitted);};
+root.quickRNRenderClinicalItem=function(q,d,submitted){const item=canon(q);root.quickRNCurrentQuestion=item;quickRNCurrentItemId=item.id||null;quickRNDraft=d||{};return render(item,quickRNDraft,!!submitted);};
 
 const style=document.createElement('style');style.id='quickrn-unified-ngn-layout';
 style.textContent=[
