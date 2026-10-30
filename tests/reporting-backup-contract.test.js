@@ -7,9 +7,9 @@ const reporter = read('js/quickrn-question-reporting.js');
 const backup = read('js/quickrn-data-backup.js');
 if (dashboard.includes('quickrn-export-backup') || dashboard.includes('quickrn-import-backup') || dashboard.includes('Protect your study data')) failures.push('Removed study-data backup panel is still present');
 if (dashboard.includes('quickrn-data-backup.js')) failures.push('Removed dashboard still loads the backup module');
-requireText(dashboard, 'Better question reporting', 'Latest question-reporting release note missing');
+requireText(dashboard, 'Platform reliability and recovery', 'Platform hardening release note missing');
 if (dashboard.includes('Data backup & restore')) failures.push("What's New still advertises the removed backup panel");
-requireText(dashboard, 'Clearer NCLEX readiness estimate', 'Updated readiness release note missing');
+requireText(dashboard, 'Safer clinical records', 'Clinical-record safety release note missing');
 requireText(dashboard, 'itemCount < 85', 'Readiness estimate must require at least 85 answered adaptive items');
 requireText(dashboard, 'latest completed CAT or Predictor adaptive ability estimate', 'Dashboard must use the adaptive exam estimate');
 if (dashboard.includes('questionVolumeWeight') || dashboard.includes('catAverageScore || 70') || dashboard.includes('predictorAverageScore || 70')) failures.push('Dashboard still uses the outdated weighted placeholder probability formula');
@@ -20,6 +20,7 @@ requireText(reporter, 'Saved locally — not yet submitted', 'Report submission 
 requireText(reporter, 'quickRNOpenReport', 'Shared renderer report handler missing');
 requireText(backup, 'formatVersion', 'Versioned backup format missing');
 requireText(backup, 'pre-restore-safety', 'Pre-restore safety backup missing');
+requireText(backup, 'rolled back', 'Backup restore rollback protection missing');
 requireText(backup, 'QuickRN', 'Backup app identity missing');
 for (const page of ['cat.html','predictor.html','timed.html']) {
   requireText(read(page), 'quickrn-question-reporting.js', page + ' does not load question reporting');
