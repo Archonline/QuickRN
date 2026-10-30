@@ -11,7 +11,7 @@ let bank=context.questions||context.embeddedQuestionsData||context.questionBank|
 if(!Array.isArray(bank)){for(const name of ['questions','embeddedQuestionsData','questionBank']){try{const candidate=vm.runInNewContext(name,context);if(Array.isArray(candidate)){bank=candidate;break;}}catch{}}}
 if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+file);process.exit(3);}
 function format(q){
- const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
+ const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(s.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(s.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns))return 'Matrix / Grid';
