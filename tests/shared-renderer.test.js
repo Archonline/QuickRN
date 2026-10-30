@@ -52,4 +52,14 @@ assert.equal(api.detect({type:'NGN Trend Item',trendData:{rows:[]},options:['A']
 assert.equal(api.detect({type:'Extended Multiple Response',options:['A'],correctAnswers:['A']}),'Extended Multiple Response');
 assert.equal(api.detect({ngnType:'not_applicable',type:'single_choice',correctAnswer:'D',correctAnswers:['D'],options:[{id:'A'},{id:'B'},{id:'C'},{id:'D'}]}),'Single Choice');
 
-console.log('PASS: '+fixtures.length+' format render/detection checks; answer-adapter round trips; highlight/trend grading checks.');
+const noRecord = {type:'Single Best Answer',options:['A','B'],correctAnswer:'A'};
+const noRecordHtml = api.renderReact(noRecord,undefined,()=>{},false);
+assert.ok(noRecordHtml.includes('question-only'),'items without exhibits render as a full-width question panel');
+assert.ok(!noRecordHtml.includes('class="qr-ehr"'),'items without exhibits do not render an empty clinical-record column');
+const caseFixture = {id:'CASE-TEST-1',type:'single_choice',ngnType:'case_study',caseTitle:'Acute case',patientInfo:'BP 88/54 mmHg; HR 122/min.',caseStudyContext:{title:'Acute case',summary:'BP 88/54 mmHg; HR 122/min.',stepIndex:2,stepCount:5},options:['A','B'],correctAnswer:'A'};
+const caseHtml = api.renderReact(caseFixture,undefined,()=>{},false);
+assert.ok(caseHtml.includes('Case overview'),'case-study patient information is rendered');
+assert.ok(caseHtml.includes('Item 2 of 5'),'case-study progress is rendered');
+const dragFixture = {id:'DND-TEST-1',type:'Drag and Drop',availableItems:['First','Second','Third'],correctOrder:['First','Second','Third']};
+assert.notDeepEqual(api.toDraft(dragFixture,undefined).order,dragFixture.correctOrder,'drag-and-drop does not expose the answer order on first render');
+console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
