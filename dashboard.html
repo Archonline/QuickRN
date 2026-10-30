@@ -108,7 +108,7 @@
 
                 <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Study & Testing</div>
 
-                <a href="selfstudy-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
+                <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
                     <i class="fa-solid fa-book-open w-5 text-center text-purple-600"></i>
                     <span>Self Study Mode</span>
                 </a>
@@ -120,17 +120,17 @@
 
 
 
-                <a href="timed-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
                     <span>Timed Practice Test</span>
                 </a>
 
-                <a href="predictor-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="predictor.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-clipboard-check w-5 text-center text-amber-600"></i>
                     <span>NCLEX Predictor Exam</span>
                 </a>
 
-                <a href="cat-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="cat.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-laptop-code w-5 text-center text-slate-800"></i>
                     <span>CAT Exam Simulator</span>
                 </a>
@@ -726,7 +726,7 @@
             const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
             root.innerHTML = quickRNSubjectLessons.map((subject,index) => {
                 const links = subject.lessons.map(([label,terms]) =>
-                    '<a class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition" href="selfstudy-ngn.html?lesson='+encodeURIComponent(label)+'&q='+encodeURIComponent(terms)+'"><span>'+safe(label)+'</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i></a>'
+                    '<a class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition" href="selfstudy.html?lesson='+encodeURIComponent(label)+'&q='+encodeURIComponent(terms)+'"><span>'+safe(label)+'</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i></a>'
                 ).join('');
                 return '<details class="group rounded-xl border border-slate-200 bg-white overflow-hidden" '+(index===0?'open':'')+'><summary class="cursor-pointer list-none flex items-center gap-3 p-3 hover:bg-slate-50"><span class="w-9 h-9 rounded-lg flex items-center justify-center border '+accents[subject.color]+'"><i class="fa-solid '+subject.icon+'"></i></span><span class="flex-1 min-w-0"><strong class="block text-sm text-slate-800">'+safe(subject.name)+'</strong><small class="text-[10px] text-slate-500">'+subject.lessons.length+' systems & lessons</small></span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="border-t border-slate-100 p-1.5 max-h-64 overflow-y-auto">'+links+'</div></details>';
             }).join('');
@@ -997,7 +997,7 @@
                         <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
                         <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
                         <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
-                        <a href="cat-ngn.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
+                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
                     </div>
                 `;
             } else {
@@ -1047,7 +1047,7 @@
                         <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-clipboard-check"></i></div>
                         <h4 class="font-bold text-slate-800 text-sm">No NCLEX Predictor Exams Completed Yet</h4>
                         <p class="text-xs text-slate-500">Take the Predictive Test to assess your readiness and record your score history here.</p>
-                        <a href="predictor-ngn.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
+                        <a href="predictor.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
                     </div>
                 `;
             } else {
