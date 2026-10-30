@@ -78,7 +78,10 @@
 
     <!-- Optional external questions fallback -->
     <script src="questions.js" onerror="console.error('questions.js could not be loaded; the built-in sample bank will be used.')"></script>
-</head>
+<style id="quickrn-report-layout-fix">
+html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.nclex-workspace{overflow-y:auto!important;min-height:0!important;height:auto!important}.nclex-question-panel,.nclex-question-content{overflow:visible!important;min-height:min-content!important}.ehr-readable{max-height:calc(100vh - 280px);overflow-y:auto!important}.prompt-typography{overflow-wrap:anywhere}
+@media(max-width:900px){main.nclex-workspace{display:flex;flex-direction:column}.nclex-question-panel{width:100%!important}}
+</style></head>
 <body class="h-full bg-slate-200">
     <div id="root" class="h-full"></div>
 
@@ -279,19 +282,13 @@
         ];
 
         // UTILITY FUNCTIONS
-        function cleanQuestionText(text) {
+        function cleanQuestionText(text, q = {}) {
             if (!text) return '';
-            let cleaned = text.replace(/\[.*?\]\s*/g, '').trim();
-            const parts = cleaned.split(':');
-            if (parts.length > 2) {
-                cleaned = parts.slice(-2).join(':').trim();
-            }
+            let cleaned = String(text).replace(/^\s*\[[^\]]+\]\s*/, '').replace(/^\s*(?:NGN|STANDARD|CATEGORY\s*:[^:]+)\s*[-:|]\s*/i, '').trim();
+            for (const prefix of [q.category, q.topic, q.ngnType, q.type]) { if (prefix && cleaned.toLowerCase().startsWith(String(prefix).toLowerCase())) { const rest=cleaned.slice(String(prefix).length); if (/^\s*[-:|]\s*/.test(rest)) cleaned=rest.replace(/^\s*[-:|]\s*/, ''); } }
             const sentences = cleaned.split(/(?<=[.?!])\s+/);
             const unique = [];
-            sentences.forEach(s => {
-                const t = s.trim();
-                if (t && !unique.includes(t)) unique.push(t);
-            });
+            sentences.forEach(sentence => { const t=sentence.trim(); if(t&&!unique.includes(t))unique.push(t); });
             return unique.join(' ');
         }
 
@@ -384,8 +381,8 @@
                         ...q,
                         id: q.id || `Q-${idx + 1}`,
                         isNGN: isNGNItem,
-                        cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`),
-                        cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s)."),
+                        cleanTitle: cleanQuestionText(q.title || q.promptTitle || q.question || `NCLEX Item ${idx + 1}`, q),
+                        cleanInstruction: cleanQuestionText(q.instruction || q.question || "Evaluate clinical findings and select the appropriate action(s).", q),
                         ngnType: detectedType,
                         keyPhrase: q.keyPhrase || q.category || q.topic || "Clinical Nursing Concept"
                     };
@@ -887,6 +884,7 @@
                     {showReportModal && (
                         <ReportQuestionModal 
                             item={currentItem} 
+                            draftAnswer={currentDraftAnswer[currentIndex]}
                             onClose={() => setShowReportModal(false)} 
                         />
                     )}
@@ -938,7 +936,7 @@
         }
 
         // QUESTION REPORTING MODAL
-        function ReportQuestionModal({ item, onClose }) {
+        function ReportQuestionModal({ item, draftAnswer, onClose }) {
             const [reportReason, setReportReason] = useState("Typos / Grammatical Error");
             const [details, setDetails] = useState("");
             const [submitted, setSubmitted] = useState(false);
@@ -949,6 +947,9 @@
                     id: `REP-${Date.now()}`,
                     itemId: item.id,
                     itemTitle: item.cleanTitle,
+                    questionSnapshot: item,
+                    userAnswer: draftAnswer || null,
+                    mode: 'Self Study',
                     reason: reportReason,
                     details: details,
                     timestamp: new Date().toISOString()
@@ -978,6 +979,7 @@
                             <div className="py-8 text-center space-y-2">
                                 <i className="fa-solid fa-circle-check text-4xl text-emerald-500"></i>
                                 <p className="font-bold text-sm text-slate-800">Report Logged Successfully!</p>
+                                <a href="saved.html" className="inline-block text-xs font-bold text-blue-700 underline">View in Saved Items</a>
                             </div>
                         ) : (
                             <form onSubmit={handleSendReport} className="space-y-4">

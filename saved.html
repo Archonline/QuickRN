@@ -46,6 +46,10 @@
             </div>
         </div>
 
+        <section class="bg-white rounded-xl shadow-sm border border-rose-200 p-4 space-y-3">
+            <div class="flex items-center justify-between gap-3"><div><h2 class="text-base font-black text-rose-800">Reported Question Items</h2><p class="text-xs text-slate-500">Submitted issue reports with the original question, clinical record, selected response, and report details.</p></div><span id="total-reports-badge" class="px-3 py-1 bg-rose-100 text-rose-800 rounded-lg text-xs font-bold">0 Reports</span></div>
+            <div id="reported-items-container" class="space-y-3"></div>
+        </section>
         <div id="mastery-categories-container" class="space-y-4">
             <!-- Dynamically populated per mastery category -->
         </div>
@@ -60,6 +64,7 @@
             let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             let favorites = state.studentStats && state.studentStats.favorites ? state.studentStats.favorites : [];
             let questionNotes = state.questionNotes || {};
+            renderReportedItems();
             
             let allPool = [];
             if (typeof embeddedQuestionsData !== 'undefined') allPool = embeddedQuestionsData;
@@ -148,6 +153,17 @@
 
             container.innerHTML = html;
         }
+
+
+        function renderReportedItems(){
+            let reports=[];try{reports=JSON.parse(localStorage.getItem('quickrn_question_reports')||'[]')}catch{}
+            const badge=document.getElementById('total-reports-badge');if(badge)badge.innerText=`${reports.length} Reports`;
+            const host=document.getElementById('reported-items-container');if(!host)return;
+            if(!reports.length){host.innerHTML='<p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-4">No reported questions yet. Use “Report this item” during an exam or study session.</p>';return;}
+            host.innerHTML=[...reports].reverse().map((r,i)=>{const q=r.questionSnapshot||{};const title=q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||r.itemTitle||r.itemId||'Reported item';const ehr=q.ehr||{};const ans=JSON.stringify(r.userAnswer||{},null,2);return `<article class="border border-rose-200 rounded-xl overflow-hidden"><div class="bg-rose-50 p-3 flex flex-wrap justify-between gap-2"><div><strong class="text-sm text-slate-900">${escapeSaved(title)}</strong><p class="text-[11px] text-slate-500">${escapeSaved(r.itemId||'')} · ${escapeSaved(r.mode||'Exam')} · ${new Date(r.timestamp).toLocaleString()}</p></div><span class="text-xs font-bold text-rose-800">${escapeSaved(r.reason||'Reported')}</span></div><div class="p-3 grid grid-cols-1 lg:grid-cols-2 gap-3 text-xs"><div class="space-y-2"><p><b>Question / Instruction:</b> ${escapeSaved(q.cleanInstruction||q.instruction||q.questionText||q.question||'')}</p><p><b>Category / Format:</b> ${escapeSaved(q.category||'')} · ${escapeSaved(q.ngnType||q.type||q.format||'Standard')}</p><p><b>Response choices / data:</b><pre class="whitespace-pre-wrap bg-slate-50 p-2 rounded">${escapeSaved(JSON.stringify(q.options||q.availableItems||q.bowtieData||q.rows||{},null,2))}</pre></p><p><b>Correct answer / key:</b><pre class="whitespace-pre-wrap bg-emerald-50 p-2 rounded">${escapeSaved(JSON.stringify(q.correctAnswers||q.correctOrder||q.correctAnswerText||q.correctAnswer||{},null,2))}</pre></p><p><b>Clinical rationale:</b> ${escapeSaved(q.rationale||'Not supplied')}</p><p><b>Report details:</b> ${escapeSaved(r.details||'')}</p><p><b>Submitted response:</b><pre class="whitespace-pre-wrap bg-slate-50 p-2 rounded">${escapeSaved(ans)}</pre></p></div><div class="space-y-2"><b>Clinical record</b>${Object.entries({'Nurses’ Notes':ehr.nursesNotes,'Vital Signs':ehr.vitalSigns,'Diagnostic Results':ehr.diagnosticResults,'History & Physical':ehr.historyPhysical}).filter(x=>x[1]).map(([k,v])=>`<div class="bg-slate-50 rounded p-2"><b>${k}</b><div>${v}</div></div>`).join('')||'<p class="text-slate-500">No EHR details supplied.</p>'}</div></div><div class="px-3 pb-3 flex justify-end"><button onclick="deleteQuestionReport('${String(r.id||'').replace(/'/g,'')}')" class="text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200 rounded px-3 py-1.5">Remove report</button></div></article>`}).join('');
+        }
+        function escapeSaved(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        function deleteQuestionReport(id){let a=[];try{a=JSON.parse(localStorage.getItem('quickrn_question_reports')||'[]')}catch{};localStorage.setItem('quickrn_question_reports',JSON.stringify(a.filter(x=>x.id!==id)));renderReportedItems();}
 
         function toggleCardDetail(id) {
             const detailPane = document.getElementById(`detail-${id}`);
