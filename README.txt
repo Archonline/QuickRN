@@ -49,3 +49,73 @@ GitHub Actions runs:
 - QuickRN Coach and UI Tests
 
 Review the workflow results and the question-bank validation artifact under the repository Actions tab. Before inviting beta testers, complete the manual and clinical-content checks in BETA_READINESS.md.
+
+## Platform hardening update — October 31, 2026
+
+A shared browser-only platform layer is now included on the landing page, dashboard, calendar, profile, saved items, reports, help, reference view, and all four exam modes. It provides storage-safe read/write helpers, bounded local diagnostics, runtime error capture, offline/online status notices, cross-tab storage notifications, tab visibility/resume events, and shared HTML escaping, IDs, and debounce utilities. No diagnostics are transmitted to a server.
+
+Clinical-record HTML is now allowlist-sanitized before rendering. Backup import validates the full restore set, limits its size, snapshots existing values, and attempts rollback if a storage write fails.
+
+### 50-point improvement register
+
+**Platform reliability**
+1. Detect browser storage availability before relying on persistence.
+2. Provide safe string reads with fallbacks.
+3. Provide safe JSON parsing for corrupted values.
+4. Provide guarded string writes.
+5. Provide guarded JSON serialization writes.
+6. Provide safe key removal.
+7. Keep a bounded diagnostic journal of the latest 30 errors.
+8. Capture uncaught JavaScript errors.
+9. Capture unhandled promise rejections.
+10. Keep diagnostic messages short and omit stack traces.
+
+**Connectivity and lifecycle**
+11. Show a visible offline notice.
+12. Show a connection-restored notice.
+13. Announce status changes through an accessible live region.
+14. Bridge cross-tab storage events into the QuickRN event layer.
+15. Emit a page-hide lifecycle event.
+16. Emit a visibility-change event.
+17. Emit a resume event when a tab becomes visible.
+18. Provide event subscriptions with unsubscribe callbacks.
+19. Prevent duplicate platform initialization.
+20. Attach page path context to local diagnostics.
+
+**Safe content and utilities**
+21. Expose a shared HTML-escaping helper.
+22. Sanitize markup in clinical-record panels.
+23. Remove script elements from clinical records.
+24. Remove style, iframe, object, and embed elements from clinical records.
+25. Remove inline event handlers and unapproved attributes.
+26. Retain only safe numeric table span attributes.
+27. Keep plain-text clinical content on the escaped rendering path.
+28. Sanitize the initial case-study tab.
+29. Sanitize subsequent case-study tab changes.
+30. Expose a shared unique-ID helper.
+
+**Backup and recovery**
+31. Make backup collection tolerate inaccessible storage.
+32. Reject restore payloads containing more than 500 entries.
+33. Reject malformed/oversized storage key names.
+34. Validate every restored value before writing.
+35. Snapshot existing values before restore begins.
+36. Track successfully applied restore keys.
+37. Roll back already-written keys if a later write fails.
+38. Remove newly-created keys during rollback.
+39. Explain when a restore was rolled back.
+40. Retain the pre-restore safety export.
+
+**Application coverage and quality**
+41. Load shared safeguards on the landing page.
+42. Load shared safeguards on the dashboard.
+43. Load shared safeguards on the calendar.
+44. Load shared safeguards on profile and help pages.
+45. Load shared safeguards on saved-items and reports pages.
+46. Load shared safeguards on Self-Study.
+47. Load shared safeguards on Timed Practice.
+48. Load shared safeguards on Predictor and CAT.
+49. Add a dedicated platform-hardening regression test.
+50. Run the new regression test in the NGN validation workflow.
+
+The register documents implemented safeguards and their subfeatures. It does not claim that browser/device QA, clinical educator review, or cross-device synchronization is complete.
