@@ -1,12 +1,17 @@
 /* Shared NCLEX-style renderer and interaction layer for all exam modes. */
 function quickRNDetectItemFormat(q){
- const raw=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
+ q=q&&typeof q==='object'?q:{};
+ const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
+ if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
+ if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(raw.includes('matrix')||raw.includes('grid')||(q.rows&&q.columns)||q.matrixData)return 'Matrix / Grid';
  if(raw.includes('cloze')||raw.includes('drop-down')||raw.includes('dropdown')||q.clozeTemplate||q.dropdowns||(q.options&&!Array.isArray(q.options)&&typeof q.options==='object'))return 'Cloze (Drop-down)';
  if(raw.includes('drag')||raw.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
  if(raw.includes('bowtie')||q.bowtieData)return 'Bowtie';
  if(raw.includes('extended multiple response'))return 'Extended Multiple Response';
- if(raw.includes('multiple response')||raw.includes('sata')||raw.includes('select all')||Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))return 'Multiple Response';
+ if(/single[_ -]?(?:choice|answer|best)|single best answer/.test(raw))return 'Single Choice';
+ if(raw.includes('multiple response')||raw.includes('sata')||raw.includes('select all')||raw.includes('select-n'))return 'Multiple Response';
+ if(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))return 'Multiple Response';
  return 'Single Choice';
 }
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
@@ -74,7 +79,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 /* NGN case-study extensions: Highlight and Trend. Existing formats continue through the base renderer. */
 const quickRNBaseDetect = quickRNDetectItemFormat;
 quickRNDetectItemFormat = function(q) {
- const raw=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
+ const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
  if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(raw.includes('extended multiple response'))return 'Extended Multiple Response';
