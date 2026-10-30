@@ -470,13 +470,14 @@ function renderQuestion() {
             const finalDecision = window.QuickRNCAT.evaluate(catHistory.map(h=>({q:h.question,correct:h.isCorrect})),forceFinalDecision);
             const isPassed = finalDecision.status === 'PASS' && totalAnswered >= 85;
             const isInconclusive = totalAnswered < 85 || finalDecision.status === 'CONTINUE';
+            const passingProbability = Math.round(100/(1+Math.exp(-finalDecision.theta)));
             const correctWrong = {correct:correctCount,wrong:totalAnswered-correctCount};
 
             // Save to LocalStorage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
             stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
-            stateObj.studentStats.passingProbability = isPassed ? 92 : 35;
+            stateObj.studentStats.passingProbability = passingProbability;
             stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
             stateObj.studentStats.examHistory.unshift({
                 date: new Date().toLocaleString(),
