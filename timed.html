@@ -662,10 +662,8 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
                 try {
                     let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
                     stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [], favorites: [] };
-                    stateObj.studentStats.testsTaken++;
-                    stateObj.studentStats.totalAnswered += attempted;
-                    stateObj.studentStats.correctCount += correct;
-                    stateObj.studentStats.mistakeCount += (attempted - correct);
+                    stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
+                    stateObj.studentStats.mistakeCount = (stateObj.studentStats.mistakeCount || 0) + (attempted - correct);
                     stateObj.studentStats.passingProbability = Math.min(95, Math.max(30, scorePercent + 5));
                     
                     stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
@@ -928,7 +926,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
         function calcEquals() {
             const display = document.getElementById('calc-display');
             try {
-                display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
+                display.value = window.QuickRNCoach.safeCalculate(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
             } catch (e) {
                 display.value = 'Error';
             }
