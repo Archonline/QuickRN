@@ -541,6 +541,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
             stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
             stateObj.studentStats.passingProbability = isPassed ? 92 : 35;
+            stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
             stateObj.studentStats.examHistory.unshift({
                 date: new Date().toLocaleString(),
                 mode: 'CAT Adaptive Exam',
@@ -859,23 +860,6 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 
     </script>
 
-
-    <!-- GOOGLE GEMINI SIDEBAR & CONDITIONAL AI TUTOR SCRIPT -->
-    <div id="gemini-sidebar" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col transform transition-transform duration-300 translate-x-full">
-        <div class="p-4 bg-ncsbn-navy text-white flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
-                <span class="font-bold text-sm">Google Gemini AI Tutor</span>
-            </div>
-            <button onclick="closeGeminiSidebar()" class="text-slate-300 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="flex-grow p-4 flex flex-col space-y-3 bg-slate-50">
-            <p class="text-xs text-slate-600">Automatically searching tips to master: <strong id="gemini-topic-label" class="text-slate-900"></strong></p>
-            <div class="flex-grow bg-white rounded-xl border border-slate-200 overflow-hidden shadow-inner flex flex-col">
-                <iframe id="gemini-iframe" class="w-full h-full border-0" src=""></iframe>
-            </div>
-        </div>
-    </div>
 
     <script src="js/quickrn-coach.js"></script>
     <script>
