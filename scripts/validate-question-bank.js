@@ -25,12 +25,15 @@ function format(q){
  return 'Single Choice';
 }
 // Mirror the client-side collision normalizer so reports describe the IDs the app will use.
+const reservedQuestionIds=new Set(bank.filter(q=>q&&q.id).map(q=>String(q.id).trim()));
 const usedQuestionIds=new Set();let duplicateIdsNormalized=0;
 bank.forEach((q,index)=>{
  if(!q||typeof q!=='object')return;
  const base=String(q.id||('Q-'+(index+1))).trim()||('Q-'+(index+1));
  let candidate=base,suffix=2;
- while(usedQuestionIds.has(candidate)){candidate=base+'-DUP'+suffix;suffix++;}
+ if(usedQuestionIds.has(candidate)){
+  do{candidate=base+'-DUP'+suffix;suffix++;}while(reservedQuestionIds.has(candidate)||usedQuestionIds.has(candidate));
+ }
  if(candidate!==q.id){q.id=candidate;duplicateIdsNormalized++;}
  usedQuestionIds.add(candidate);
 });
