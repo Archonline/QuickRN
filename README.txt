@@ -45,7 +45,7 @@ IMPORTANT LIMITATIONS
 
 TESTING
 GitHub Actions runs:
-- NGN renderer validation
+- NGN renderer validation, including the shared QuickRN brand-system contract
 - QuickRN Coach and UI Tests
 
 Review the workflow results and the question-bank validation artifact under the repository Actions tab. Before inviting beta testers, complete the manual and clinical-content checks in BETA_READINESS.md.
@@ -138,3 +138,5 @@ A shared stylesheet, `css/quickrn-brand-system.css`, now defines the visual lang
 - NCLEX split-screen exam layout, clinical-record readability, and meaningful success/warning/error feedback are preserved.
 
 When creating a new page, load `css/quickrn-brand-system.css` after page-specific stylesheets and inline styles so the shared brand layer remains consistent. Keep the brand palette in this file rather than introducing page-specific brand colors.
+
+Brand regression coverage: `tests/brand-system-contract.test.js` verifies that all 12 primary application pages load the shared theme and that the NCLEX split-screen stylesheet remains present. The test runs in the NGN renderer validation workflow.
