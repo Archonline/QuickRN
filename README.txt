@@ -170,3 +170,9 @@ Brand regression coverage: `tests/brand-system-contract.test.js` verifies that a
 - Automatic cross-device collection requires a configured shared backend such as Firebase Firestore, strict security rules, and a protected admin read path. No Firebase project credentials or Firestore rules are currently configured in this repository.
 
 Before inviting external testers, complete `BETA_READINESS.md`, including clinical educator review, deployed-site testing, and a decision on the private feedback channel.
+
+## Client Needs performance dashboard refinement — October 31, 2026
+
+- Merged the separate Priority Weak Areas and Client Needs Mastery panels into one category list to remove duplicate presentation.
+- Categories below 75% accuracy now receive a red border and red status label; categories at or above 75% retain a neutral border, while categories without attempts use a dashed border.
+- Added an inline legend explaining priority review, on-track, and no-data states, and documented the change in What's New.
