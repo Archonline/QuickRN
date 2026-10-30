@@ -9,7 +9,7 @@ const pages = [
 const stylesheet = path.join(root, 'css', 'quickrn-brand-system.css');
 assertFile(stylesheet);
 const css = fs.readFileSync(stylesheet, 'utf8');
-for (const token of ['--qr-brand-navy', '--qr-brand-teal', '--qr-brand-bg', '--qr-brand-border', 'font-family:Inter']) {
+for (const token of ['--qr-brand-navy', '--qr-brand-teal', '--qr-brand-plum', '--qr-brand-coral', '--qr-brand-bg', '--qr-brand-border', 'font-family:Inter']) {
   if (!css.includes(token)) throw new Error('Missing shared brand token: ' + token);
 }
 for (const page of pages) {
@@ -23,6 +23,7 @@ const examCss = fs.readFileSync(path.join(root, 'css', 'quickrn-unified-exam.css
 if (!examCss.includes('.qr-clinical-layout')) {
   throw new Error('Shared exam split-screen layout stylesheet is missing');
 }
+if (!css.includes('body:has(#app-shell) #app-shell>aside')) throw new Error('Reference-inspired dashboard navigation theme is missing');
 console.log('QuickRN brand contract passed: ' + pages.length + ' pages load the shared theme; exam layout stylesheet remains present.');
 
 function assertFile(file) {
