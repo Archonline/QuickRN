@@ -55,7 +55,7 @@ for(let i=0;i<bank.length;i++){
   qualityWarnings.push({index:i,id:q.id||null,format:f,code:'GENERIC_TEMPLATE_STEM',message:'Stem contains generic/template wording; requires clinical educator review before beta use.'});
  }
  const options=Array.isArray(q.options)?q.options:[];
- const optionHas=value=>options.some(option=>[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
+ const optionHas=value=>options.some(option=>(typeof option==='string'&&String(option)===String(value))||[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
  if(f==='Single Choice'&&options.length){
   const key=q.correctAnswerText??q.correctAnswer;
   if(key!==undefined&&!optionHas(key))issue('ANSWER_NOT_IN_OPTIONS','Single-choice answer key does not match an option ID or text');
