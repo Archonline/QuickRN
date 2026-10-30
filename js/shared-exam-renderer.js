@@ -112,7 +112,7 @@ quickRNNormalizeDraft = function(q,existing) {
  return quickRNBaseNormalize(q,existing);
 };
 const quickRNBaseRender = quickRNRenderClinicalItem;
-quickRNRenderClinicalItem = function(q,draft) {
+quickRNRenderClinicalItem = function(q,draft,submitted=false) {
  const f=quickRNDetectItemFormat(q);
  if(f==='Multiple Response')return quickRNBaseRender({...q,ngnType:'Extended Multiple Response'},draft);if(f!=='Highlight'&&f!=='Trend')return quickRNBaseRender(q,draft);
  const esc=quickRNEscape, patient=q.patientInfo||{}, ehr=q.ehr||{};
