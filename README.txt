@@ -36,7 +36,7 @@ QUALITY AND BETA STATUS
 The automated question-bank validator checks format schemas, answer-key references, and duplicate-ID normalization. The latest reviewed audit found 4,500 records, 100 case groups, 271 duplicate IDs handled deterministically at runtime, and no structural or answer-key validation errors. It also flagged 4,029 stems with generic/template wording for clinical educator review. See BETA_READINESS.md. A passing structural audit is not proof of clinical accuracy or natural-language quality.
 
 IMPORTANT LIMITATIONS
-- Study progress, question metrics, saved reports, and roadmap data are browser-local unless a shared backend is added. They do not automatically sync across devices or users.
+- Study progress, question metrics, saved reports, roadmap data, and exam recovery checkpoints are browser-local unless a shared backend is added. In-progress exams can be restored after a refresh; timed exams continue counting down while unpaused. They do not automatically sync across devices or users.
 - The study coach is a local rule-based helper; it does not call an external AI service.
 - YouTube recommendations open topic-specific YouTube search results; they are not verified endorsements of individual videos.
 - CAT/Predictor outcomes are educational simulations, not the official NCLEX adaptive algorithm and not a validated probability of passing the licensure exam.
@@ -119,3 +119,10 @@ Clinical-record HTML is now allowlist-sanitized before rendering. Backup import 
 50. Run the new regression test in the NGN validation workflow.
 
 The register documents implemented safeguards and their subfeatures. It does not claim that browser/device QA, clinical educator review, or cross-device synchronization is complete.
+
+
+### Exam session recovery and keyboard navigation
+
+Unfinished sessions now save the selected question IDs, current position, timer state, paused state, format filter, and scheduled-break markers alongside the existing response drafts, bookmarks, and notes. On reopening the same exam mode, the student is asked whether to restore the saved session. Completed exams clear the recovery checkpoint. An unpaused countdown continues against its saved wall-clock deadline while the page is closed.
+
+Keyboard shortcuts: Alt + Left/Right Arrow navigate between items; Ctrl/Command + Enter submits the current response. Shortcuts are ignored while a text input, textarea, select, or editable region has focus.
