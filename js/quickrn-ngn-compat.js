@@ -7,6 +7,7 @@ root.QuickRNNGNCompatLoaded=true;
 const baseRender=root.quickRNRenderClinicalItem,baseToDraft=api.toDraft,baseFromDraft=api.fromDraft,baseGrade=api.grade,baseHasAnswer=api.hasAnswer,baseSummary=api.answerSummary;
 const s=v=>String(v==null?'':v),ov=(o,i)=>typeof o==='string'?o:(o&&(o.id||o.value||o.text||o.label))||String.fromCharCode(65+i),ot=o=>typeof o==='string'?o:(o&&(o.text||o.label||o.value))||'';
 const same=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
+const esc=v=>root.quickRNEscape?root.quickRNEscape(v):s(v).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));
 function canon(src){
  if(!src||typeof src!=='object')return {};
  if(src.__quickRNCompat)return src;
@@ -22,7 +23,7 @@ function canon(src){
  else if(/ordered|drag|reorder/.test(raw)||q.items||q.availableItems||q.correctOrder)f='Extended Drag and Drop';
  else if(/sata|select all|multiple response/.test(raw)||Array.isArray(q.correctAnswers))f='Multiple Response';
  q.ngnType=f;q.title=q.title||q.promptTitle||q.questionText||q.question||q.prompt||'Clinical question';
- q.instruction=q.instruction||q.prompt||'';q.cleanTitle=q.cleanTitle||q.title;q.cleanInstruction=q.cleanInstruction||q.instruction;
+ q.instruction=q.instruction||(q.prompt&&q.prompt!==q.title?q.prompt:'');q.cleanTitle=q.cleanTitle||q.title;q.cleanInstruction=q.cleanInstruction||q.instruction;
  const tabs=q.caseStudy&&Array.isArray(q.caseStudy.tabs)?q.caseStudy.tabs:[];
  if(!q.ehr&&tabs.length){q.ehr={};['nursesNotes','vitalSigns','diagnosticResults','historyPhysical'].forEach((key,i)=>{if(tabs[i])q.ehr[key]=s(tabs[i].content||tabs[i].text);});}
  const opts=Array.isArray(q.options)?q.options:[];
@@ -43,9 +44,9 @@ function render(q,d,submitted){
  const x=canon(q);
  if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'){
   const multi=x.matrixMode==='multiple',m=d.matrix||{},cols=x.columns||[],rows=x.rows||[];
-  const h=cols.map(c=>'<th>'+api.cleanPrompt(c)+'</th>').join('');
-  const body=rows.map((r,i)=>{const id=r.id||String(i),v=m[id];return '<tr><td>'+api.cleanPrompt(r.text||r.label||r)+'</td>'+cols.map(c=>{const on=multi?Array.isArray(v)&&v.includes(c):v===c;return '<td><label class="qr-matrix-cell"><input type="'+(multi?'checkbox':'radio')+'" name="qr-matrix-'+api.cleanPrompt(id)+'" '+(on?'checked':'')+' onchange="quickRNCompatSetMatrixCell('+JSON.stringify(id)+','+JSON.stringify(c)+','+multi+')"><span class="sr-only">'+api.cleanPrompt(c)+'</span></label></td>';}).join('')+'</tr>';}).join('');
-  return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+api.cleanPrompt(x.title)+'</h2><p>'+api.cleanPrompt(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
+  const h=cols.map(c=>'<th>'+esc(c)+'</th>').join('');
+  const body=rows.map((r,i)=>{const id=r.id||String(i),v=m[id];return '<tr><td>'+esc(r.text||r.label||r)+'</td>'+cols.map(c=>{const on=multi?Array.isArray(v)&&v.includes(c):v===c;return '<td><label class="qr-matrix-cell"><input type="'+(multi?'checkbox':'radio')+'" name="qr-matrix-'+esc(id)+'" '+(on?'checked':'')+' onchange="quickRNCompatSetMatrixCell('+JSON.stringify(id)+','+JSON.stringify(c)+','+multi+')"><span class="sr-only">'+api.cleanPrompt(c)+'</span></label></td>';}).join('')+'</tr>';}).join('');
+  return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+esc(x.title)+'</h2><p>'+esc(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
  }
  return baseRender(x,d,submitted);
 }
@@ -78,7 +79,7 @@ style.textContent=[
 '.qr-numeric-entry{display:flex;flex-direction:column;gap:8px}.qr-numeric-entry label{font-size:12px;font-weight:800;color:#475569}.qr-numeric-entry input{width:min(260px,100%);padding:10px;border:1px solid #cbd5e1;border-radius:8px;font:600 16px ui-monospace,monospace}',
 '.qr-report-row{padding:0 18px 14px;display:flex;justify-content:flex-end;flex:0 0 auto}.qr-report-button{padding:7px 11px;border-radius:7px;border:1px solid #fecaca;background:#fff1f2;color:#9f1239;font-size:11px;font-weight:800}',
 '@media(max-width:900px){.qr-clinical-layout{grid-template-columns:minmax(0,1fr)!important;height:auto;min-height:0}.qr-ehr-body{max-height:38vh;min-height:120px}.qr-question-panel{min-height:360px}.qr-bowtie{grid-template-columns:1fr}}',
-'@media(min-width:901px){body{height:100vh;overflow:hidden}main{min-height:0!important;overflow:hidden!important}.qr-clinical-layout{max-height:calc(100vh - 150px)}}',
+'@media(min-width:901px){body:has(.qr-clinical-layout){height:100vh;overflow:hidden}main:has(.qr-clinical-layout){min-height:0!important;overflow:hidden!important}.qr-clinical-layout{max-height:calc(100vh - 150px)}}',
 'body.quickrn-selfstudy .qr-clinical-layout{display:block!important;height:auto!important;max-height:none!important}body.quickrn-selfstudy .qr-ehr,body.quickrn-selfstudy .qr-question-head{display:none!important}body.quickrn-selfstudy .qr-question-panel{border:0!important;display:block!important;overflow:visible!important}body.quickrn-selfstudy .qr-response-area{padding:0!important;overflow:visible!important}'
 ].join('\n');
 (document.head||document.documentElement).appendChild(style);
