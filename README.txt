@@ -166,3 +166,14 @@ Brand regression coverage: `tests/brand-system-contract.test.js` verifies that a
 - Students can switch between the updated QuickRN color scheme and an original NCLEX-inspired blue, white, and gray presentation without changing question content, scoring, timers, or exam behavior.
 - The selected view is saved in browser storage and is reused across the exam areas on the same device.
 - Added regression checks for selector availability, both view labels, and preference persistence.
+
+
+## Beta feedback collection — October 31, 2026
+
+- Exam Feedback saves structured reports in browser-local storage under `quickrn_question_reports`.
+- `reports.html` is the local Feedback Inbox. It supports filtering, marking reports new/reviewed/resolved, importing tester JSON bundles, and exporting JSON or CSV.
+- Reports are not automatically transmitted to the project owner and do not sync across devices. Testers must export their feedback JSON and send it through the private channel designated by the beta coordinator; the owner can import those bundles into the Feedback Inbox.
+- Do not treat the public GitHub issue tracker as a private feedback destination. Use it only for non-sensitive technical issues.
+- Automatic cross-device collection requires a configured shared backend such as Firebase Firestore, strict security rules, and a protected admin read path. No Firebase project credentials or Firestore rules are currently configured in this repository.
+
+Before inviting external testers, complete `BETA_READINESS.md`, including clinical educator review, deployed-site testing, and a decision on the private feedback channel.
