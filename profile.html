@@ -142,7 +142,7 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let state = {}; try { state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}') || {}; } catch (error) { console.warn('QuickRN profile data could not be parsed:', error); }
             document.getElementById('input-name').value = state.userName || localStorage.getItem('quickrn_user_name') || 'Future RN';
             document.getElementById('input-email').value = state.userEmail || localStorage.getItem('quickrn_user_email') || 'candidate@quickrn.com';
             document.getElementById('input-test-date').value = state.targetDate || '';
@@ -155,7 +155,7 @@
             let targetDate = document.getElementById('input-test-date').value;
             let school = document.getElementById('input-school').value;
 
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let state = {}; try { state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}') || {}; } catch (error) { console.warn('QuickRN profile data could not be parsed:', error); }
             state.userName = name;
             state.userEmail = email;
             state.targetDate = targetDate;
