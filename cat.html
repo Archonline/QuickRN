@@ -539,9 +539,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
             // Save to LocalStorage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += totalAnswered;
-            stateObj.studentStats.correctCount += correctCount;
+            stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
             stateObj.studentStats.passingProbability = isPassed ? 92 : 35;
             stateObj.studentStats.examHistory.unshift({
                 date: new Date().toLocaleString(),
