@@ -87,7 +87,9 @@ function quickRNSplitPrompt(q){
  const rawText=String(rawSource||'');
  const topicMatch=/^\s*([^:\n]{2,90}):\s+/.exec(rawText);
  const topic=String(q.topic||q.category||topicMatch?.[1]||'').trim();
- let source=quickRNCleanClinicalText(rawSource,Object.assign({},q,{topic:q.topic||q.category||topicMatch?.[1]||''}));
+ const hasFormatLead=/^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]/i.test(rawText);
+ const sourceMeta=Object.assign({},q,{topic:hasFormatLead?'':(q.topic||q.category||topicMatch?.[1]||'')});
+ let source=quickRNCleanClinicalText(rawSource,sourceMeta);
  let instruction=quickRNCleanClinicalText(q.instruction||'',q);
  if(!instruction&&q.cleanInstruction&&quickRNCleanClinicalText(q.cleanInstruction,q).toLowerCase()!==source.toLowerCase())instruction=quickRNCleanClinicalText(q.cleanInstruction,q);
  // Preserve the source wording of common NGN cue-review directions.
