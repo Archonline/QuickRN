@@ -186,7 +186,7 @@ quickRNRenderClinicalItem=function(q,draft,submitted){
  if(format==='Numeric Entry'){
   const value=draft.numericEntry??'',unit=q.unit||q.numericUnit||'';
   const field='<div class="qr-numeric-entry"><label for="qr-numeric-answer">Enter a numeric answer'+(unit?' ('+quickRNEscape(unit)+')':'')+'</label><input id="qr-numeric-answer" type="number" inputmode="decimal" step="'+quickRNEscape(q.step??'any')+'" value="'+quickRNEscape(value)+'" placeholder="'+quickRNEscape(q.placeholder||'Enter number')+'" oninput="quickRNSetDraft(\'numericEntry\',this.value)"></div>';
-  return html.replace(/<div class="qr-response-area">[\\s\\S]*?<\\/div>/, '<div class="qr-response-area">'+field+'</div>');
+  return html.replace(/<div class="qr-response-area">[\s\S]*?<\/div>/, '<div class="qr-response-area">'+field+'</div>');
  }
  if(format==='Select N'){
   const limit=Number(q.selectN??q.numberToSelect??q.requiredSelections??0);
