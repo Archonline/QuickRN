@@ -12,7 +12,7 @@ requireText(dashboard, 'Better question reporting', 'Latest question-reporting r
 requireText(dashboard, 'Data backup & restore', 'Latest backup release note missing');
 requireText(dashboard, 'not automatically sent', 'Local-only report limitation not disclosed');
 requireText(reporter, 'quickrn_question_reports', 'Question report queue key missing');
-requireText(reporter, 'question snapshot', 'Question context not included in report flow');
+requireText(reporter, 'function snapshot(q)', 'Question context snapshot function missing');
 requireText(reporter, 'Saved locally — not yet submitted', 'Report submission status not explicit');
 requireText(reporter, 'quickRNOpenReport', 'Shared renderer report handler missing');
 requireText(backup, 'formatVersion', 'Versioned backup format missing');
