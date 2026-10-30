@@ -11,7 +11,7 @@ let bank=context.questions||context.embeddedQuestionsData||context.questionBank|
 if(!Array.isArray(bank)){for(const name of ['questions','embeddedQuestionsData','questionBank']){try{const candidate=vm.runInNewContext(name,context);if(Array.isArray(candidate)){bank=candidate;break;}}catch{}}}
 if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+file);process.exit(3);}
 function format(q){
- const s=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
+ const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
  if(s.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(s.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns))return 'Matrix / Grid';
@@ -19,9 +19,21 @@ function format(q){
  if(s.includes('drag')||s.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
  if(s.includes('bowtie')||q.bowtieData)return 'Bowtie';
  if(s.includes('extended multiple response'))return 'Extended Multiple Response';
- if(s.includes('multiple response')||s.includes('select all')||s.includes('sata')||Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))return 'Multiple Response';
+ if(/single[_ -]?(?:choice|answer|best)|single best answer/.test(s))return 'Single Choice';
+ if(s.includes('multiple response')||s.includes('select all')||s.includes('sata')||s.includes('select-n'))return 'Multiple Response';
+ if(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))return 'Multiple Response';
  return 'Single Choice';
 }
+// Mirror the client-side collision normalizer so reports describe the IDs the app will use.
+const usedQuestionIds=new Set();let duplicateIdsNormalized=0;
+bank.forEach((q,index)=>{
+ if(!q||typeof q!=='object')return;
+ const base=String(q.id||('Q-'+(index+1))).trim()||('Q-'+(index+1));
+ let candidate=base,suffix=2;
+ while(usedQuestionIds.has(candidate)){candidate=base+'-DUP'+suffix;suffix++;}
+ if(candidate!==q.id){q.id=candidate;duplicateIdsNormalized++;}
+ usedQuestionIds.add(candidate);
+});
 const formats=['Single Choice','Multiple Response','Matrix / Grid','Cloze (Drop-down)','Extended Drag and Drop','Bowtie','Extended Multiple Response','Highlight','Trend'];
 const counts=Object.fromEntries(formats.map(x=>[x,0])),errors=[],samples={},caseGroups=new Set();
 for(let i=0;i<bank.length;i++){
@@ -40,9 +52,9 @@ for(let i=0;i<bank.length;i++){
  if(f==='Highlight'&&(!(q.highlightText||q.passage||q.caseStudyText||q.highlightSegments||q.segments)||!(q.correctHighlights||q.correctAnswers?.highlights)))issue('INVALID_HIGHLIGHT_SCHEMA','Expected highlightable text/segments and correctHighlights');
  if(f==='Trend'&&(!(q.trendData||q.trends||q.trendTable)||!Array.isArray(q.options)||!q.options.length))issue('INVALID_TREND_SCHEMA','Expected trend data and response options');
 }
-const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,errorSamples:errors.slice(0,500),sampleIds:samples};
+const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,duplicateIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
 fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/ngn-bank-validation.json',JSON.stringify(report,null,2));
-const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Distinct case groups: ${caseGroups.size}`,`- Validation errors: ${errors.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
+const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Distinct case groups: ${caseGroups.size}`,`- Duplicate IDs normalized: ${duplicateIdsNormalized}`,`- Validation errors: ${errors.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
 fs.writeFileSync('reports/ngn-bank-validation.md',md);
-console.log(JSON.stringify({totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length},null,2));
+console.log(JSON.stringify({totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,duplicateIdsNormalized,validationErrors:errors.length},null,2));
 if(errors.length)process.exitCode=1;
