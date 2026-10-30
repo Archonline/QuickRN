@@ -162,6 +162,79 @@ const quickRNBaseSummary=quickRNAnswerSummary;
 quickRNAnswerSummary=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Multiple Response')return quickRNBaseSummary({...q,ngnType:'Extended Multiple Response'},d);if(f==='Highlight')return (d.highlights||[]).join('; ')||'No highlights selected';if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]).join('; ')||'Unanswered':String(d.choice||'Unanswered');return quickRNBaseSummary(q,d);};
 function quickRNFromLegacyDraft(q,value){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return {choice:typeof value==='string'?value:''};if(f==='Multiple Response'||f==='Extended Multiple Response')return {choices:Array.isArray(value)?value:[]};if(f==='Extended Drag and Drop')return {order:Array.isArray(value)?value:quickRNInitialOrder(q)};if(f==='Highlight')return {highlights:Array.isArray(value)?value:[]};if(f==='Trend')return Array.isArray(q.correctAnswers)?{choices:Array.isArray(value)?value:[]}:{choice:typeof value==='string'?value:''};if(f==='Cloze (Drop-down)')return {cloze:value||{}};if(f==='Matrix / Grid')return {matrix:value||{}};if(f==='Bowtie')return value||{condition:'',actions:[],monitoring:[]};return value||{};}
 function quickRNToLegacyDraft(q,d){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return d.choice||'';if(f==='Multiple Response'||f==='Extended Multiple Response')return d.choices||[];if(f==='Extended Drag and Drop')return d.order||[];if(f==='Highlight')return d.highlights||[];if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]):(d.choice||'');if(f==='Cloze (Drop-down)')return d.cloze||{};if(f==='Matrix / Grid')return d.matrix||{};if(f==='Bowtie')return {condition:d.condition||'',actions:d.actions||[],monitoring:d.monitoring||[]};return d;}
+
+/* Numeric Entry and Select-N response support. */
+const quickRNDetectBase=quickRNDetectItemFormat;
+quickRNDetectItemFormat=function(q){
+ const raw=[q&&q.ngnType,q&&q.type,q&&q.format,q&&q.questionType,q&&q.itemType].filter(Boolean).join(' ').toLowerCase();
+ if(/numeric[ _-]?entry|number[ _-]?entry/.test(raw)||q&&(q.numericAnswer!==undefined||q.correctNumericAnswer!==undefined||q.numericRange))return 'Numeric Entry';
+ if(/select[ _-]?n/.test(raw)||q&&(q.selectN!==undefined||q.numberToSelect!==undefined||q.requiredSelections!==undefined))return 'Select N';
+ return quickRNDetectBase(q);
+};
+const quickRNBaseToggle=quickRNToggleDraft;
+quickRNToggleDraft=function(path,value){
+ const q=window.quickRNCurrentQuestion||{};
+ if(path==='choices'&&quickRNDetectItemFormat(q)==='Select N'){
+  const limit=Number(q.selectN??q.numberToSelect??q.requiredSelections??0),current=Array.isArray(quickRNDraft.choices)?quickRNDraft.choices:[];
+  if(limit>0&&!current.includes(value)&&current.length>=limit){if(typeof window.quickRNShowNotice==='function')window.quickRNShowNotice('Select exactly '+limit+' options.');return;}
+ }
+ quickRNBaseToggle(path,value);
+};
+const quickRNBaseRender=quickRNRenderClinicalItem;
+quickRNRenderClinicalItem=function(q,draft,submitted){
+ const html=quickRNBaseRender(q,draft,submitted),format=quickRNDetectItemFormat(q);
+ if(format==='Numeric Entry'){
+  const value=draft.numericEntry??'',unit=q.unit||q.numericUnit||'';
+  const field='<div class="qr-numeric-entry"><label for="qr-numeric-answer">Enter a numeric answer'+(unit?' ('+quickRNEscape(unit)+')':'')+'</label><input id="qr-numeric-answer" type="number" inputmode="decimal" step="'+quickRNEscape(q.step??'any')+'" value="'+quickRNEscape(value)+'" placeholder="'+quickRNEscape(q.placeholder||'Enter number')+'" oninput="quickRNSetDraft(\'numericEntry\',this.value)"></div>';
+  return html.replace(/<div class="qr-response-area">[\\s\\S]*?<\\/div>/, '<div class="qr-response-area">'+field+'</div>');
+ }
+ if(format==='Select N'){
+  const limit=Number(q.selectN??q.numberToSelect??q.requiredSelections??0);
+  const notice='<p class="qr-help qr-select-n-instruction">Select exactly '+limit+' '+(limit===1?'option':'options')+'. <span class="qr-select-n-count">'+(draft.choices||[]).length+'/'+limit+' selected</span></p>';
+  return html.replace('<div class="qr-response-area">','<div class="qr-response-area">'+notice);
+ }
+ return html;
+};
+const quickRNHasAnswerBase2=quickRNHasAnswer;
+quickRNHasAnswer=function(q,d){
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Numeric Entry')return d&&d.numericEntry!==undefined&&String(d.numericEntry).trim()!==''&&Number.isFinite(Number(d.numericEntry));
+ if(f==='Select N'){const n=Number(q.selectN??q.numberToSelect??q.requiredSelections??0);return n>0&&Array.isArray(d.choices)&&d.choices.length===n;}
+ return quickRNHasAnswerBase2(q,d);
+};
+const quickRNGradeBase2=quickRNGrade;
+quickRNGrade=function(q,d){
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Numeric Entry'){
+  const value=Number(d&&d.numericEntry),answer=Number(q.correctNumericAnswer??q.numericAnswer??q.correctAnswer);
+  if(!Number.isFinite(value)||!Number.isFinite(answer))return false;
+  const range=q.numericRange||{};
+  const min=range.min??q.acceptableMin,max=range.max??q.acceptableMax;
+  if(min!==undefined||max!==undefined)return value>=(min??-Infinity)&&value<=(max??Infinity);
+  const tolerance=Number(q.tolerance??q.numericTolerance??0);
+  return Math.abs(value-answer)<=tolerance;
+ }
+ if(f==='Select N'){
+  const correct=q.correctAnswers??q.correctAnswer??[],selected=d&&d.choices||[];
+  const opts=Array.isArray(q.options)?q.options:[];
+  const normalize=x=>{const found=opts.find((o,i)=>String(quickRNOptionValue(o,i))===String(x)||String(quickRNOptionText(o))===String(x));return found?quickRNOptionValue(found,opts.indexOf(found)):x;};
+  const a=selected.map(normalize),b=(Array.isArray(correct)?correct:[correct]).map(normalize);
+  return a.length===Number(q.selectN??q.numberToSelect??q.requiredSelections??b.length)&&a.length===b.length&&a.every(x=>b.includes(x));
+ }
+ return quickRNGradeBase2(q,d);
+};
+const quickRNAnswerSummaryBase2=quickRNAnswerSummary;
+quickRNAnswerSummary=function(q,d){
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Numeric Entry')return String(d&&d.numericEntry!==undefined&&d.numericEntry!==''?d.numericEntry:'Unanswered');
+ if(f==='Select N')return (d&&d.choices||[]).join('; ')||'Unanswered';
+ return quickRNAnswerSummaryBase2(q,d);
+};
+const quickRNFromLegacyBase2=quickRNFromLegacyDraft;
+quickRNFromLegacyDraft=function(q,value){const f=quickRNDetectItemFormat(q);if(f==='Numeric Entry')return {numericEntry:value===undefined||value===null?'':String(value)};if(f==='Select N')return {choices:Array.isArray(value)?value:[]};return quickRNFromLegacyBase2(q,value);};
+const quickRNToLegacyBase2=quickRNToLegacyDraft;
+quickRNToLegacyDraft=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Numeric Entry')return d.numericEntry??'';if(f==='Select N')return d.choices||[];return quickRNToLegacyBase2(q,d);};
+
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,
  toDraft:quickRNFromLegacyDraft,
