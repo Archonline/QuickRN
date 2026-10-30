@@ -31,7 +31,7 @@ This checklist defines the minimum release gate for a closed beta. A green autom
 - [ ] Provide a visible way to report a question, answer-key, wording, or technical issue.
 - [ ] Confirm the deployed site uses HTTPS and does not expose secrets or private keys in client-side files.
 
-## Automated checks
+## Platform hardening checks\n\n- [ ] Confirm offline/online notices are understandable and do not block exam controls.\n- [ ] Confirm storage-unavailable and quota-failure paths explain that browser-local progress may not persist.\n- [ ] Import a valid backup and verify restored data; test an invalid backup and a simulated storage-write failure.\n- [ ] Confirm clinical-record and rationale formatting remains readable after HTML sanitization.\n- [ ] Verify keyboard focus visibility and reduced-motion behavior in all four exam modes.\n- [ ] Verify diagnostic logs remain local to the browser and do not include stack traces or patient data.\n\n## Automated checks
 
 - [ ] NGN renderer validation workflow passes.
 - [ ] QuickRN Coach and UI Tests workflow passes.
