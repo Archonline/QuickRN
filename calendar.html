@@ -121,6 +121,7 @@
     const dateInput = document.getElementById('event-date');
     const titleInput = document.getElementById('event-title');
     const detailsInput = document.getElementById('event-details');
+    const typeInput = document.getElementById('event-type');
     const idInput = document.getElementById('event-id');
     let monthCursor = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
     let selectedDate = localDateKey(new Date());
@@ -141,6 +142,10 @@
     function saveEvents(events) {
       localStorage.setItem(EVENT_KEY, JSON.stringify(events));
     }
+    function daysUntil(key) { const a=parseDate(localDateKey(new Date())); const b=parseDate(key); return Math.round((b-a)/86400000); }
+    function urgency(key) { const d=daysUntil(key); return d<0?'past':d<=3?'urgent':d<=7?'soon':d<=30?'upcoming':'later'; }
+    function shortcut(type) { return type==='cat'?'cat.html':type==='predictor'?'predictor.html':''; }
+    function typeLabel(type) { return ({'test-date':'NCLEX TEST DATE',cat:'CAT PRACTICE',predictor:'PREDICTOR EXAM'})[type]||'STUDY ACTIVITY'; }
     function escapeHTML(value) {
       return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     }
@@ -179,9 +184,12 @@
         const dayEvents = events.filter(event => event.date === key);
         const sameMonth = date.getMonth() === month;
         const active = key === selectedDate;
+        const testEvent = dayEvents.find(event => event.type === 'test-date');
+        const level = testEvent ? urgency(key) : '';
+        const urgencyClass = level==='urgent'?'test-urgent':level==='soon'?'test-soon':level==='upcoming'?'test-upcoming':'';
         const todayClass = key === today ? 'border-brand-500' : 'border-slate-100';
         html += '<button type="button" data-date="' + key + '" aria-pressed="' + active + '" class="calendar-day min-w-0 rounded-lg border p-1.5 sm:p-2 text-left transition ' +
-          (active ? 'bg-brand-50 ring-2 ring-brand-500 ' : 'bg-white hover:bg-slate-50 ') + todayClass + ' ' + (sameMonth ? '' : 'opacity-40') + '">' +
+          (active ? 'bg-brand-50 ring-2 ring-brand-500 ' : 'bg-white hover:bg-slate-50 ') + urgencyClass + ' ' + todayClass + ' ' + (sameMonth ? '' : 'opacity-40') + '">' +
           '<span class="text-xs font-bold ' + (key === today ? 'text-brand-700' : 'text-slate-700') + '">' + date.getDate() + '</span>' +
           '<span class="mt-1 flex gap-1">' + dayEvents.slice(0,3).map(event => '<i title="' + escapeHTML(event.title) + '" class="w-2 h-2 rounded-full ' + (event.source === 'ai-roadmap' ? 'bg-indigo-500' : 'bg-emerald-500') + '"></i>').join('') + '</span>' +
           '<span class="calendar-event-chip mt-1 block truncate text-[9px] leading-tight text-slate-500">' + (dayEvents[0] ? escapeHTML(dayEvents[0].title) : '') + '</span></button>';
@@ -189,7 +197,9 @@
       grid.innerHTML = html;
       renderSelectedEvents();
       renderUpcomingEvents();
+      renderTestCountdown();
     }
+    function renderTestCountdown() { const panel=document.getElementById('test-countdown-section'); const next=loadEvents().filter(e=>e.type==='test-date'&&e.date>=localDateKey(new Date())).sort((a,b)=>a.date.localeCompare(b.date))[0]; if(!next){panel.classList.add('hidden');return;} const d=daysUntil(next.date),level=urgency(next.date); panel.className='rounded-2xl border p-4 sm:p-5 '+(level==='urgent'?'border-rose-300 bg-rose-50':level==='soon'?'border-amber-300 bg-amber-50':'border-blue-200 bg-blue-50'); document.getElementById('test-countdown-title').textContent=next.title; document.getElementById('test-countdown-copy').textContent=d===0?'Your test date is today. Prioritize rest, logistics, and a calm routine.':d===1?'1 day remaining · Keep review light and prepare your test-day essentials.':d+' days remaining · Pace focused review and practice.'; document.getElementById('test-countdown-edit').dataset.openDate=next.date; }
     function renderSelectedEvents() {
       document.getElementById('selected-date-label').textContent = parseDate(selectedDate).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
       const events = loadEvents().filter(event => event.date === selectedDate);
@@ -209,6 +219,7 @@
     }
     function resetForm() {
       idInput.value = '';
+      typeInput.value = 'activity';
       titleInput.value = '';
       detailsInput.value = '';
       dateInput.value = selectedDate;
@@ -223,6 +234,7 @@
       dateInput.value = event.date;
       titleInput.value = event.title;
       detailsInput.value = event.details || '';
+      typeInput.value = event.type || 'activity';
       document.getElementById('form-heading').textContent = 'Edit study activity';
       document.getElementById('cancel-edit').classList.remove('hidden');
       document.getElementById('form-source-note').textContent = event.source === 'ai-roadmap' ? 'This activity belongs to your generated roadmap. Your edits are saved to the calendar.' : 'Changes are saved to this browser.';
@@ -236,9 +248,9 @@
       const id = idInput.value;
       if (id) {
         const index = events.findIndex(item => item.id === id);
-        if (index >= 0) events[index] = {...events[index], date:dateInput.value, title, details:detailsInput.value.trim()};
+        if (index >= 0) events[index] = {...events[index], date:dateInput.value, title, details:detailsInput.value.trim(),type:typeInput.value};
       } else {
-        events.push({id:'personal-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,7),date:dateInput.value,title,details:detailsInput.value.trim(),source:'personal'});
+        events.push({id:'personal-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,7),date:dateInput.value,title,details:detailsInput.value.trim(),source:'personal',type:typeInput.value});
       }
       saveEvents(events);
       selectedDate = dateInput.value;
