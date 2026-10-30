@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | QuickRN NCLEX Prep</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com">        document.addEventListener('DOMContentLoaded', renderSubjectLessonLibrary);
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (typeof renderSubjectLessonLibrary === 'function') renderSubjectLessonLibrary(); });</script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -32,7 +32,10 @@
     <!-- Chart.js for Standard trajectory line graph -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External Questions Bank -->
-    <script src="questions.js"></script>
+    <script src="questions.js" onerror="console.error('questions.js could not be loaded.')"></script>
+    <script src="questions-ngn-supplement.js"></script>
+    <script src="js/quickrn-question-bank-normalizer.js"></script>
+    <script src="js/quickrn-question-id-normalizer.js"></script>
     <script src="js/quickrn-coach.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
