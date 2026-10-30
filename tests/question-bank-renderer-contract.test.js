@@ -2,6 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const context={console,window:{}};
 vm.runInNewContext(fs.readFileSync('questions.js','utf8'),context,{timeout:120000,filename:'questions.js'});
+vm.runInNewContext(fs.readFileSync('js/quickrn-question-bank-normalizer.js','utf8'),context);
 vm.runInNewContext(fs.readFileSync('js/quickrn-question-id-normalizer.js','utf8'),context);
 vm.runInNewContext(fs.readFileSync('js/shared-exam-renderer.js','utf8'),context,{timeout:120000,filename:'shared-exam-renderer.js'});
 const bank=context.window.questions,api=context.window.QuickRNSharedRenderer;
@@ -17,6 +18,12 @@ assert.deepEqual({...counts},{
  'Bowtie':300,
  'Extended Multiple Response':1300
 });
+assert.equal(context.window.quickRNQuestionBankNormalization.caseStudyGroups,100,'100 case-study groups normalized');
+assert.equal(context.window.quickRNQuestionBankNormalization.caseStudyItems,500,'all 500 case-study items receive shared context');
+const caseItems=bank.filter(q=>q.ngnType==='case_study');
+assert.ok(caseItems.every(q=>q.caseStudyContext&&q.caseStudyContext.summary&&q.caseStudyContext.stepIndex&&q.caseStudyContext.stepCount),'all case-study items have structured context');
+const dragItems=bank.filter(q=>api.detect(q)==='Extended Drag and Drop');
+assert.ok(dragItems.every(q=>JSON.stringify(api.toDraft(q,undefined).order)!==JSON.stringify(q.correctOrder)),'drag-and-drop initial order does not expose correct order');
 const ids=bank.map(q=>q.id);
 assert.equal(new Set(ids).size,bank.length,'all normalized question IDs are unique');
 assert.equal(context.window.quickRNQuestionIdNormalization.normalized,271,'expected duplicate-ID collision count');
