@@ -159,3 +159,10 @@ Brand regression coverage: `tests/brand-system-contract.test.js` verifies that a
 - Preserved the clinical navy/teal exam workspace so test-taking remains calm, high-contrast, and visually distinct from study planning.
 - Kept shared Inter typography, neutral content surfaces, accessible focus treatment, and semantic success/warning/error colors.
 - Extended the brand-system contract test to guard the new plum/coral tokens and dashboard navigation treatment.
+
+## Exam interface preference — October 31, 2026
+
+- Added a Test view selector to Self-Study, Timed Practice, NCLEX Predictor, CAT, and the reference exam page.
+- Students can switch between the updated QuickRN color scheme and an original NCLEX-inspired blue, white, and gray presentation without changing question content, scoring, timers, or exam behavior.
+- The selected view is saved in browser storage and is reused across the exam areas on the same device.
+- Added regression checks for selector availability, both view labels, and preference persistence.
