@@ -180,9 +180,9 @@ quickRNToggleDraft=function(path,value){
  }
  quickRNBaseToggle(path,value);
 };
-const quickRNBaseRender=quickRNRenderClinicalItem;
+const quickRNNumericBaseRender=quickRNRenderClinicalItem;
 quickRNRenderClinicalItem=function(q,draft,submitted){
- const html=quickRNBaseRender(q,draft,submitted),format=quickRNDetectItemFormat(q);
+ const html=quickRNNumericBaseRender(q,draft,submitted),format=quickRNDetectItemFormat(q);
  if(format==='Numeric Entry'){
   const value=draft.numericEntry??'',unit=q.unit||q.numericUnit||'';
   const field='<div class="qr-numeric-entry"><label for="qr-numeric-answer">Enter a numeric answer'+(unit?' ('+quickRNEscape(unit)+')':'')+'</label><input id="qr-numeric-answer" type="number" inputmode="decimal" step="'+quickRNEscape(q.step??'any')+'" value="'+quickRNEscape(value)+'" placeholder="'+quickRNEscape(q.placeholder||'Enter number')+'" oninput="quickRNSetDraft(\'numericEntry\',this.value)"></div>';
