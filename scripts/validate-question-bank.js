@@ -8,7 +8,7 @@ if(!fs.existsSync(file)){console.error('Question bank not found:',file);process.
 const context={console,window:{}};
 vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{timeout:120000,filename:file});
 let bank=context.questions||context.embeddedQuestionsData||context.questionBank||context.window.questions||context.window.embeddedQuestionsData;
-if(!Array.isArray(bank)){try{bank=vm.runInNewContext('questions',context);}catch{}}
+if(!Array.isArray(bank)){for(const name of ['questions','embeddedQuestionsData','questionBank']){try{const candidate=vm.runInNewContext(name,context);if(Array.isArray(candidate)){bank=candidate;break;}}catch{}}}
 if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+file);process.exit(3);}
 function format(q){
  const s=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
