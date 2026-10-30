@@ -315,10 +315,10 @@
                                 </div>
                                 <div>
                                     <div class="flex items-center space-x-2">
-                                        <h2 class="text-base font-bold text-white">QuikRN AI Study Coach & Remediation Generator</h2>
-                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">100% Free AI Engine</span>
+                                        <h2 class="text-base font-bold text-white">QuickRN Study Coach & Remediation Generator</h2>
+                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">Local rules · no API required</span>
                                     </div>
-                                    <p class="text-xs text-indigo-200">Analyzes your telemetry data, weak client needs domains, and missed items to build custom study plans.</p>
+                                    <p class="text-xs text-indigo-200">Uses your saved practice results and domain accuracy to build a focused remediation plan.</p>
                                 </div>
                             </div>
                             <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
@@ -615,9 +615,7 @@
 
             const name = localStorage.getItem('quickrn_user_name') || 'Future RN';
             const titleElem = document.getElementById('greeting-title');
-            if (titleElem) {
-                titleElem.innerHTML = `${greetingWord}, ${name}! 👋`;
-            }
+            if (titleElem) titleElem.textContent = `${greetingWord}, ${name}! 👋`;
         }
 
         function rotateEncouragement() {
@@ -892,6 +890,7 @@
 
 
         let quickRNCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        function localCalendarDate(date) { return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0'); }
         function getCalendarEvents() {
             try { const value = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); return Array.isArray(value) ? value : []; }
             catch (error) { return []; }
@@ -911,6 +910,7 @@
             const firstDay = new Date(year, month, 1).getDay();
             const days = new Date(year, month + 1, 0).getDate();
             const today = new Date(); today.setHours(0,0,0,0);
+            const todayKey = localCalendarDate(today);
             let html = '';
             for (let i=0; i<firstDay; i++) html += '<div class="min-h-16 rounded-lg bg-slate-50/60"></div>';
             for (let day=1; day<=days; day++) {
@@ -920,10 +920,10 @@
                 html += '<div class="min-h-16 rounded-lg border ' + (isToday ? 'border-brand-500 bg-brand-50' : 'border-slate-100 bg-white') + ' p-2 text-xs"><div class="font-bold ' + (isToday ? 'text-brand-700' : 'text-slate-700') + '">' + day + '</div>' + (hasEvent ? '<span class="mt-2 inline-block w-2 h-2 rounded-full bg-emerald-500" title="Study reminder"></span>' : '') + '</div>';
             }
             grid.innerHTML = html;
-            const upcoming = events.filter(event => event.date >= today.toISOString().slice(0,10)).sort((a,b) => a.date.localeCompare(b.date)).slice(0,8);
+            const upcoming = events.filter(event => event.date >= todayKey).sort((a,b) => a.date.localeCompare(b.date)).slice(0,8);
             list.innerHTML = upcoming.length ? upcoming.map(event => '<div class="flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-lg"><div><strong class="block text-xs text-slate-800">' + escapeCalendarText(event.title) + '</strong><span class="text-[10px] text-slate-500">' + event.date + '</span></div><button type="button" onclick="removeCalendarEvent(\'' + event.id + '\')" class="text-slate-400 hover:text-rose-600" aria-label="Remove reminder"><i class="fa-solid fa-trash"></i></button></div>').join('') : '<p class="text-xs text-slate-500">No upcoming reminders yet.</p>';
             const dateInput = document.getElementById('calendar-event-date');
-            if (dateInput && !dateInput.value) dateInput.value = today.toISOString().slice(0,10);
+            if (dateInput && !dateInput.value) dateInput.value = todayKey;
         }
         function escapeCalendarText(value) {
             return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
