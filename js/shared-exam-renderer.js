@@ -83,7 +83,7 @@ function quickRNSplitPrompt(q){
  const explicit=explicitFields.map(asText).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean);
  const scenarioParts=Array.from(new Set(explicit.map(v=>v.trim()).filter(Boolean)));
  let scenario=scenarioParts.join('\n\n');
- const rawSource=q.questionOnly||q.actualQuestion||q.question||q.stem||q.questionText||q.cleanTitle||q.title||q.prompt||'';
+ const rawSource=[q.questionOnly,q.actualQuestion,q.question,q.stem,q.questionText,q.cleanTitle,q.title,q.prompt].map(asText).find(value=>value.trim())||'';
  const rawText=String(rawSource||'');
  const topicMatch=/^\s*([^:\n]{2,90}):\s+/.exec(rawText);
  const hasFormatLead=/^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]/i.test(rawText);
@@ -125,7 +125,7 @@ function quickRNSplitPrompt(q){
  source=quickRNCleanClinicalText(source,q);
  if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
- let question=instruction||source||'';
+ // The item stem/question is the actual test prompt. The separate instruction field often contains only boilerplate such as 'Select the single best answer.'\n // Use the instruction as a fallback only when the stem was fully moved into the clinical scenario or is otherwise empty.\n let question=source||instruction||'';
  // Certain cue-review items intentionally repeat the cleaned stem in the response pane.
  if(scenario&&!q.instruction&&/^Review the clinical cues and complete the clinical judgment item\.?$/i.test(instruction))question=scenario;
  return {scenario,question};
