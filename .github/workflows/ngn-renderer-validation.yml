@@ -18,6 +18,7 @@ jobs:
           node --check js/quickrn-question-metrics.js
           node --check tests/cat-engine.test.js
           node --check js/shared-exam-renderer.js
+          node --check js/quickrn-ngn-compat.js
           node --check tests/shared-renderer.test.js
           node --check tests/question-id-normalizer.test.js
           node --check tests/question-bank-renderer-contract.test.js
