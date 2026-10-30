@@ -545,7 +545,7 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
             const handleCalc = (val) => {
                 if (val === 'C') setCalcDisplay('0');
                 else if (val === '=') {
-                    try { setCalcDisplay(eval(calcDisplay.replace(/%/g, '/100')).toString()); }
+                    try { setCalcDisplay(window.QuickRNCoach.safeCalculate(calcDisplay.replace(/%/g, '/100')).toString()); }
                     catch { setCalcDisplay('Error'); }
                 } else {
                     setCalcDisplay(prev => prev === '0' || prev === 'Error' ? val : prev + val);
