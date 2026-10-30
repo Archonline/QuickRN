@@ -22,13 +22,24 @@ function canon(src){
  else if(/numeric/.test(raw)||q.correctValue!==undefined||q.acceptedRange)f='Numeric Entry';
  else if(/ordered|drag|reorder/.test(raw)||q.items||q.availableItems||q.correctOrder)f='Extended Drag and Drop';
  else if(/extended multiple response/.test(raw))f='Extended Multiple Response';
- else if(/sata|select all|multiple response/.test(raw)||Array.isArray(q.correctAnswers))f='Multiple Response';
- q.ngnType=f;q.title=q.title||q.promptTitle||q.questionText||q.question||q.prompt||'Clinical question';
- q.instruction=q.instruction||(q.prompt&&q.prompt!==q.title?q.prompt:'');q.cleanTitle=q.cleanTitle||q.title;q.cleanInstruction=q.cleanInstruction||q.instruction;
+ else if(/sata|select all|multiple response/.test(raw))f='Multiple Response';
+ else if(/single|one best answer|one answer|multiple choice/.test(raw))f='Single Choice';
+ else if(Array.isArray(q.correctAnswers))f=q.correctAnswers.length>1?'Multiple Response':'Single Choice';
+ const cleanText=v=>api.cleanPrompt(s(v));
+ q.ngnType=f;
+ q.title=cleanText(q.title||q.promptTitle||q.questionText||q.question||q.prompt||'Clinical question');
+ q.instruction=cleanText(q.instruction||(q.prompt&&q.prompt!==q.title?q.prompt:''));
+ q.cleanTitle=cleanText(q.cleanTitle||q.title);
+ q.cleanInstruction=cleanText(q.cleanInstruction||q.instruction);
  const tabs=q.caseStudy&&Array.isArray(q.caseStudy.tabs)?q.caseStudy.tabs:[];
  if(!q.ehr&&tabs.length){q.ehr={};['nursesNotes','vitalSigns','diagnosticResults','historyPhysical'].forEach((key,i)=>{if(tabs[i])q.ehr[key]=s(tabs[i].content||tabs[i].text);});}
  const opts=Array.isArray(q.options)?q.options:[];
- if(f==='Single Choice'&&q.correctAnswer==null&&q.correctAnswerText==null){const x=opts.find(o=>o&&typeof o==='object'&&o.correct);if(x)q.correctAnswer=x.id||x.value||x.text||x.label;}
+ if(f==='Single Choice'){
+  const singleKey=q.correctAnswerText??q.correctAnswer??q.correctAnswers;
+  if(Array.isArray(singleKey)&&singleKey.length)q.correctAnswer=singleKey[0];
+  else if(q.correctAnswer==null&&q.correctAnswerText==null&&singleKey!==undefined)q.correctAnswer=singleKey;
+  if(q.correctAnswer==null&&q.correctAnswerText==null){const x=opts.find(o=>o&&typeof o==='object'&&o.correct);if(x)q.correctAnswer=x.id||x.value||x.text||x.label;}
+ }
  if((f==='Multiple Response'||f==='Select N')&&!Array.isArray(q.correctAnswers)){const a=opts.map((o,i)=>({o,i})).filter(x=>x.o&&typeof x.o==='object'&&x.o.correct).map(x=>ov(x.o,x.i));if(a.length)q.correctAnswers=a;}
  if(f==='Select N')q.selectN=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||0);
  if(f==='Bowtie'){const b=q.bowtieConfig||{},old=q.bowtieData||{},c=b.correct||q.correctAnswers||{};q.bowtieData={actions:old.actions||b.actionsPool||[],conditions:old.conditions||b.conditionsPool||[],monitoring:old.monitoring||old.params||b.paramsPool||b.parametersPool||[]};q.correctAnswers={condition:c.condition||'',actions:c.actions||[],monitoring:c.monitoring||c.params||c.parameters||[]};}
@@ -47,12 +58,26 @@ function render(q,d,submitted){
   const multi=x.matrixMode==='multiple',m=d.matrix||{},cols=x.columns||[],rows=x.rows||[];
   const h=cols.map(c=>'<th>'+esc(c)+'</th>').join('');
   const body=rows.map((r,i)=>{const id=r.id||String(i),v=m[id];return '<tr><td>'+esc(r.text||r.label||r)+'</td>'+cols.map(c=>{const on=multi?Array.isArray(v)&&v.includes(c):v===c;return '<td><label class="qr-matrix-cell"><input type="'+(multi?'checkbox':'radio')+'" name="qr-matrix-'+esc(id)+'" '+(on?'checked':'')+' onchange="quickRNCompatSetMatrixCell('+JSON.stringify(id)+','+JSON.stringify(c)+','+multi+')"><span class="sr-only">'+api.cleanPrompt(c)+'</span></label></td>';}).join('')+'</tr>';}).join('');
-  return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+esc(x.title)+'</h2><p>'+esc(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
+  return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+esc(x.title)+'</h2><p>'+esc(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section></div>';
  }
  return baseRender(x,d,submitted);
 }
 function grade(q,d){const x=canon(q);return root.QuickRNNgnScoring?.grade(x,d)||baseGrade(x,d);}
-function has(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single')return Object.values(d.matrix||{}).some(v=>Array.isArray(v)?v.length>0:!!v);if(x.ngnType==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(v=>String(v||'').trim()!=='');if(x.ngnType==='Bowtie')return !!d.condition||(d.actions||[]).length>0||(d.monitoring||d.params||[]).length>0;if(x.ngnType==='Numeric Entry')return String(d.numericEntry??d.value??'').trim()!==''&&Number.isFinite(Number(d.numericEntry??d.value));if(x.ngnType==='Highlight')return (d.highlights||[]).length>0;if(x.ngnType==='Select N')return (d.choices||[]).length>0;return baseHasAnswer(x,d);}
+function has(q,d){
+ const x=canon(q),a=d&&typeof d==='object'?d:{},value=v=>v!==undefined&&v!==null&&String(v).trim()!=='',nonempty=v=>Array.isArray(v)?v.length>0&&v.some(nonempty):v&&typeof v==='object'?Object.values(v).some(nonempty):value(v);
+ const f=x.ngnType;
+ if(f==='Single Choice')return value(a.choice??a.selectedOption??a.answer);
+ if(f==='Multiple Response'||f==='Extended Multiple Response')return Array.isArray(a.choices)&&a.choices.length>0;
+ if(f==='Select N'){const n=Number(x.selectN||x.nRequired||x.numberToSelect||x.requiredSelections||0);return n>0&&Array.isArray(a.choices)&&a.choices.length===n;}
+ if(f==='Matrix Multiple'||f==='Matrix Single')return nonempty(a.matrix||a);
+ if(f==='Cloze (Drop-down)')return nonempty(a.cloze||a);
+ if(f==='Bowtie')return value(a.condition)||(a.actions||[]).length>0||(a.monitoring||a.params||[]).length>0;
+ if(f==='Numeric Entry')return value(a.numericEntry??a.value??a.numeric)&&Number.isFinite(Number(a.numericEntry??a.value??a.numeric));
+ if(f==='Highlight')return nonempty(a.highlights??a.highlighted??a.tokens??a.selected);
+ if(f==='Trend')return nonempty(a.choice??a.choices??a.response??a.trend??a);
+ if(f==='Extended Drag and Drop')return Array.isArray(a.order)&&a.order.length>0;
+ return baseHasAnswer(x,a)||nonempty(a);
+}
 api.detect=q=>{const x=canon(q);return x.ngnType;};
 api.toDraft=(q,v)=>baseToDraft(canon(q),v);
 api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
