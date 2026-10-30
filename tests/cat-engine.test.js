@@ -13,8 +13,9 @@ assert.equal(cat.evaluate(make(false,85)).status,'FAIL','poor performance should
 assert.equal(cat.evaluate(make(false,84)).status,'CONTINUE','must not fail before checkpoint');
 assert.notEqual(cat.evaluate(make(true,150),true).status,'CONTINUE','final decision should be returned at maximum length');
 assert.ok(cat.evaluate(make(true,85)).passProbability > cat.evaluate(make(false,85)).passProbability,'pass likelihood must rise with stronger performance');
-assert.ok(cat.evaluate(make(true,85)).passProbability > 90,'strong performance should show high confidence above standard');
-assert.ok(cat.evaluate(make(false,85)).passProbability < 10,'poor performance should show low confidence above standard');
+assert.ok(cat.evaluate(make(true,85)).passProbability > 99,'strong performance should show high confidence above standard');
+assert.ok(cat.evaluate(make(false,85)).passProbability < 1,'poor performance should show low confidence above standard');
+assert.ok(cat.evaluate(Array.from({length:85},()=>({q:{difficulty:0,discrimination:1},correct:true})).slice(0,55).concat(Array.from({length:30},()=>({q:{difficulty:0,discrimination:1},correct:false})))).passProbability < 50,'performance below the practice standard should be below borderline probability');
 assert.equal(cat.evaluate(make(true,85)).passProbability, cat.evaluate(make(true,85)).passProbability,'probability should be deterministic');
 assert.equal(cat.MAX_ITEMS,150);
 assert.equal(cat.MIN_ITEMS,85);
