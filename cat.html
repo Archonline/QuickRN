@@ -869,16 +869,6 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
         }
 
         
-        function openGoogleGeminiSidebar(topic) {
-            const encodedQuery = encodeURIComponent(`NCLEX clinical judgment tips ${topic} core pathophysiology`);
-            window.open(`https://www.google.com/search?q=${encodedQuery}`, '_blank');
-        }
-
-        function closeGeminiSidebar() {
-            const sidebar = document.getElementById('gemini-sidebar');
-            if (sidebar) sidebar.classList.add('translate-x-full');
-        }
-
         function openBrowserAITutorModal(topic, rationale) {
             const modal = document.getElementById('ai-tutor-modal');
             const content = document.getElementById('ai-tutor-content');
