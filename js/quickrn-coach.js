@@ -27,10 +27,18 @@
   function classifyClientNeed(question) {
     const explicit = [question && question.clientNeeds, question && question.clientNeed, question && question.nclexCategory]
       .flat().filter(Boolean).join(' ').toLowerCase();
-    const text = explicit || textOf(question);
-    const exact = DOMAINS.find(domain => text.includes(domain.name.toLowerCase()) || text.includes(domain.id));
+    const category = String(question && question.category || '').toLowerCase();
+    const topic = [question && question.topic, question && question.title, question && question.keyPhrase]
+      .filter(Boolean).join(' ').toLowerCase();
+    const exact = DOMAINS.find(domain => [explicit, category].some(value =>
+      value.includes(domain.name.toLowerCase()) || value.includes(domain.id)));
     if (exact) return exact;
-    return DOMAINS.find(domain => domain.terms.test(text)) || null;
+    const categoryMatch = DOMAINS.find(domain => domain.terms.test(category));
+    if (categoryMatch) return categoryMatch;
+    const topicMatch = DOMAINS.find(domain => domain.terms.test(topic));
+    if (topicMatch) return topicMatch;
+    const fullText = textOf(question);
+    return DOMAINS.find(domain => domain.terms.test(fullText)) || null;
   }
 
   function recordClientNeedAttempt(question, isCorrect) {
