@@ -594,8 +594,11 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                     }
                 });
                 const percentage = totalMax > 0 ? Math.round((totalEarned / totalMax) * 100) : 0;
+                const submitted = Object.values(userAnswers).filter(x=>x && x.submitted);
+                const correctCount = submitted.filter(x=>x.isCorrect).length;
+                const wrongCount = submitted.length-correctCount;
                 const passed = percentage >= 75;
-                return { totalEarned, totalMax, percentage, passed };
+                return { totalEarned, totalMax, percentage, passed, answeredCount:submitted.length, correctCount, wrongCount };
             }, [activePool, userAnswers]);
 
             // Sorted list of questions for review (incorrect/unanswered first)
@@ -796,7 +799,17 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                                     <h1 className="text-2xl md:text-3xl font-extrabold">Evaluation & Summary Report</h1>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Questions Correct</span>
+                                        <div className="text-4xl font-black my-2 text-emerald-400">{summaryStats.correctCount}</div>
+                                        <span className="text-xs text-slate-300">Submitted answers</span>
+                                    </div>
+                                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
+                                        <span className="text-xs font-semibold text-slate-400 uppercase">Questions Wrong</span>
+                                        <div className="text-4xl font-black my-2 text-rose-400">{summaryStats.wrongCount}</div>
+                                        <span className="text-xs text-slate-300">Submitted answers</span>
+                                    </div>
                                     <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 text-center shadow-lg">
                                         <span className="text-xs font-semibold text-slate-400 uppercase">Overall Performance</span>
                                         <div className={`text-4xl md:text-5xl font-black my-2 ${summaryStats.passed ? 'text-emerald-400' : 'text-rose-400'}`}>
