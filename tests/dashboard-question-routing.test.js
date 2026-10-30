@@ -18,10 +18,11 @@ for(const page of pages){
  ];
  const indices=deps.map(([name,src])=>{const i=at(src);if(i<0)failures.push(page+': missing '+name);return i;});
  for(let i=1;i<indices.length;i++)if(indices[i-1]>=0&&indices[i]>=0&&indices[i-1]>=indices[i])failures.push(page+': incorrect load order: '+deps[i-1][0]+' must precede '+deps[i][0]);
- const layoutMarker=page==='selfstudy.html'?'nclex-question-panel':'qr-clinical-layout';
- if(!html.includes(layoutMarker))failures.push(page+': expected split-screen workspace marker '+layoutMarker);
- if(page==='selfstudy.html'&&!html.includes('QuickRNSharedRenderer'))failures.push(page+': shared renderer is not referenced');
- if(page!=='selfstudy.html'&&!html.includes('quickRNRenderClinicalItem'))failures.push(page+': shared clinical item renderer is not referenced');
+ const layoutMarker='quickrn-unified-nclex-split-screen';
+ if(!html.includes(layoutMarker))failures.push(page+': expected correct_view split-screen marker '+layoutMarker);
+ if(!html.includes('id="left-panel"')||!html.includes('id="right-panel"')||!html.includes('id="answer-workspace"'))failures.push(page+': correct_view panel structure is incomplete');
+ if(!html.includes('src="js/quickrn-exam-app.js"'))failures.push(page+': shared mode-aware exam application is not loaded');
+ if(!html.includes('data-exam-mode="'+page.replace('.html','')+'"'))failures.push(page+': page mode configuration is incorrect');
 }
 const dashboard=fs.readFileSync('dashboard.html','utf8');
 for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard routes to '+page);
