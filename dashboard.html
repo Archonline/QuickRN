@@ -660,6 +660,11 @@
                 seen.add(key);
                 return true;
             });
+            adaptiveResults.sort((a, b) => {
+                const dateA = Date.parse(a.timestamp || a.date || '') || 0;
+                const dateB = Date.parse(b.timestamp || b.date || '') || 0;
+                return dateB - dateA;
+            });
             const latestAdaptiveResult = adaptiveResults[0] || null;
             const calculatedProbability = latestAdaptiveResult
                 ? Math.round(Number(latestAdaptiveResult.passingProbability))
@@ -673,7 +678,7 @@
             if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability === null ? 0 : calculatedProbability}, 100`);
             if (statusText) {
                 statusText.textContent = latestAdaptiveResult
-                    ? (latestAdaptiveResult.status && /INCONCLUSIVE/i.test(latestAdaptiveResult.status) ? 'Limited evidence' : 'Latest adaptive result')
+                    ? (/INCONCLUSIVE/i.test(String(latestAdaptiveResult.status || latestAdaptiveResult.decision || '')) ? 'Limited evidence' : 'Latest adaptive result')
                     : 'Complete 85+ CAT/Predictor items';
             }
         }
