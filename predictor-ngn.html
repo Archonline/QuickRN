@@ -291,8 +291,9 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
                     <p id="summary-prob-note" class="text-[10px] text-slate-500 mt-2">Model-based estimate; improves as more items are answered.</p>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
-                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Score Accuracy</span>
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">NGN Score</span>
                     <span id="summary-accuracy" class="text-3xl font-black text-nclex-blue">--%</span>
+                    <span id="summary-points" class="block text-[10px] text-slate-500 mt-1">0 / 0 points earned</span>
                 </div>
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
                     <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">CAT Theta Ability Score</span>
@@ -646,10 +647,10 @@ function renderQuestionItem() {
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
             // Display Detailed Summary Report (Wrong Items First)
-            displaySummaryReport(scorePercent, passingProbability, studentTheta, domainStats);
+            displaySummaryReport(scorePercent, passingProbability, studentTheta, domainStats, scoreSummary);
         }
 
-        function displaySummaryReport(scorePercent, passingProb, theta, domainStats) {
+        function displaySummaryReport(scorePercent, passingProb, theta, domainStats, scoreSummary) {
             document.getElementById('summary-prob').innerText = `${passingProb}%`;
             const probNote = document.getElementById('summary-prob-note');
             if (probNote) {
@@ -660,6 +661,7 @@ function renderQuestionItem() {
                 probNote.innerText = `Ability estimate is ${position} the practice passing standard (theta ${cut.toFixed(2)}; distance ${gap.toFixed(2)}). Around 50% means borderline; higher values indicate stronger evidence above standard.`;
             }
             document.getElementById('summary-accuracy').innerText = `${scorePercent}%`;
+            document.getElementById('summary-points').innerText = `${scoreSummary.earned} / ${scoreSummary.max} points earned`;
             document.getElementById('summary-theta').innerText = (theta > 0 ? `+${theta}` : theta);
             document.getElementById('summary-total-items').innerText = activeExamQuestions.filter((q,i)=>userAnswers[i]!==undefined).length;
             const totalAnsweredNow = activeExamQuestions.filter((q,i)=>userAnswers[i]!==undefined).length;

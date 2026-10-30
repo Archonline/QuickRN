@@ -613,12 +613,13 @@ function renderCurrentQuestion() {
                     <div class="space-y-6 animate-fadeIn">
                         <div class="bg-gradient-to-r from-ncsbn-header to-ncsbn-navy text-white p-6 rounded-xl shadow text-center space-y-3">
                             <h2 class="text-2xl font-black">Exam Session Completed</h2>
-                            <p class="text-xs text-slate-300">Review your performance below. Incorrect items are highlighted first for focused review.</p>
+                            <p class="text-xs text-slate-300">NGN score includes partial credit across scored response elements. Fully correct and incorrect item counts are shown separately.</p>
                             
                             <div class="flex justify-center gap-6 pt-1">
                                 <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
-                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Score</span>
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">NGN Score</span>
                                     <span class="text-xl font-extrabold text-amber-400">${scorePercent}%</span>
+                                    <span class="block text-[10px] text-slate-300">${scoreSummary.earned} / ${scoreSummary.max} points earned</span>
                                 </div>
                                 <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
                                     <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct</span>
