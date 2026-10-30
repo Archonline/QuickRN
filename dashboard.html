@@ -36,6 +36,7 @@
     <script src="questions-ngn-supplement.js"></script>
     <script src="js/quickrn-question-bank-normalizer.js"></script>
     <script src="js/quickrn-question-id-normalizer.js"></script>
+    <script src="js/quickrn-question-metrics.js"></script>
     <script src="js/quickrn-coach.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -282,7 +283,7 @@
                     </div>
 
                     <!-- SUBJECT & LESSON LIBRARY -->
-                    <section class="lg:col-span-1 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
+                    <section class="lg:col-span-1 xl:col-start-1 xl:row-start-2 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div>
                                 <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
@@ -322,7 +323,7 @@
 
                     
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <div class="lg:col-start-2 xl:col-start-2 xl:col-span-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-2.5 text-white shadow-md space-y-2 relative overflow-hidden">
+                    <div class="lg:col-start-2 xl:col-start-2 xl:row-start-3 xl:col-span-2 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-2.5 text-white shadow-md space-y-2 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
                             <div class="flex items-center space-x-3">
@@ -346,13 +347,13 @@
                         </div>
                     </div>
 
-                    <section class="lg:col-start-1 xl:col-start-1 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-2.5 space-y-2">
+                    <section class="lg:col-start-1 xl:col-start-1 xl:row-start-3 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-2.5 space-y-2">
                         <div class="flex items-center justify-between gap-3"><div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Client Needs domains below the 75% accuracy target, based on submitted answers.</p></div><i class="fa-solid fa-bullseye text-amber-700 text-xl"></i></div>
                         <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
                     </section>
 
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
-                    <div class="lg:col-start-2 xl:col-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
+                    <div class="lg:col-start-2 xl:col-start-2 xl:row-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex items-center justify-between">
                             <div>
                                 <button type="button" onclick="switchTab('analytics')" class="text-left text-sm font-bold text-slate-900 hover:text-brand-700">NCLEX Client Needs Mastery Categories <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
