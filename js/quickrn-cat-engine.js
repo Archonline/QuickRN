@@ -22,13 +22,24 @@
     const se=1/Math.sqrt(information);
     return {theta,se,lower:theta-1.96*se,upper:theta+1.96*se,information};
   }
+  // Posterior probability that ability is above the passing cut score (theta = 0).
+  // This is a model-based estimate, not an official NCLEX pass prediction.
+  function normalCdf(z){
+    const x=Math.abs(z)/Math.sqrt(2);
+    const t=1/(1+0.3275911*x);
+    const erf=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
+    return Math.max(0,Math.min(1,0.5*(1+(z<0?-erf:erf))));
+  }
   function evaluate(responses,forceFinal){
     const n=(responses||[]).length, model=estimate(responses);
-    if(n<85)return {...model,status:'CONTINUE',items:n,checkpoint:false};
-    if(model.lower>0)return {...model,status:'PASS',items:n,checkpoint:true,reason:'95% confidence interval is above the passing standard'};
-    if(model.upper<0)return {...model,status:'FAIL',items:n,checkpoint:true,reason:'95% confidence interval is below the passing standard'};
-    if(n>=150||forceFinal)return {...model,status:model.theta>=0?'PASS':'FAIL',items:n,checkpoint:true,reason:'Maximum item limit reached; final ability estimate used'};
-    return {...model,status:'CONTINUE',items:n,checkpoint:true,reason:'Performance remains too close to the standard; continue testing'};
+    const passProbability=Math.round(normalCdf(model.theta/Math.max(model.se,0.0001))*100);
+    const distanceToStandard=Number(model.theta.toFixed(3));
+    const base={...model,passProbability,distanceToStandard,items:n};
+    if(n<85)return {...base,status:'CONTINUE',checkpoint:false,reason:'Minimum 85 items required before a CAT decision'};
+    if(model.lower>0)return {...base,status:'PASS',checkpoint:true,reason:'95% confidence interval is above the passing standard'};
+    if(model.upper<0)return {...base,status:'FAIL',checkpoint:true,reason:'95% confidence interval is below the passing standard'};
+    if(n>=150||forceFinal)return {...base,status:model.theta>=0?'PASS':'FAIL',checkpoint:true,reason:'Maximum item limit reached; final ability estimate used'};
+    return {...base,status:'CONTINUE',checkpoint:true,reason:'Performance remains too close to the standard; continue testing'};
   }
-  root.QuickRNCAT=Object.freeze({estimate,evaluate,MIN_ITEMS:85,MAX_ITEMS:150});
+  root.QuickRNCAT=Object.freeze({estimate,evaluate,normalCdf,MIN_ITEMS:85,MAX_ITEMS:150});
 })(typeof window!=='undefined'?window:globalThis);
