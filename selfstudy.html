@@ -320,31 +320,11 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
 
         // Detect correct NGN type from item properties if not explicitly specified
         function detectNGNType(q) {
-            const rawType = (q.ngnType || q.type || q.format || q.questionType || q.itemType || "").toString().toLowerCase();
-
-            if (rawType.includes("matrix") || rawType.includes("grid") || (q.rows && q.columns) || q.matrixData) {
-                return "Matrix / Grid";
+            // Keep Self Study aligned with CAT, Timed, and Predictor item classification.
+            // The shared renderer owns the canonical NGN format contract.
+            if (window.QuickRNSharedRenderer && typeof window.QuickRNSharedRenderer.detect === "function") {
+                return window.QuickRNSharedRenderer.detect(q || {});
             }
-            if (rawType.includes("cloze") || rawType.includes("drop") || q.clozeTemplate || q.dropdowns || (q.options && !Array.isArray(q.options) && typeof q.options === 'object')) {
-                return "Cloze (Drop-down)";
-            }
-            if (rawType.includes("drag") || rawType.includes("order") || q.availableItems || q.correctOrder) {
-                return "Extended Drag and Drop";
-            }
-            if (rawType.includes("bowtie") || q.bowtieData) {
-                return "Bowtie";
-            }
-            if (
-                rawType.includes("sata") || 
-                rawType.includes("multiple response") || 
-                rawType.includes("select all") || 
-                Array.isArray(q.correctAnswers) || 
-                (Array.isArray(q.correctAnswer) && q.correctAnswer.length > 1) ||
-                (Array.isArray(q.options) && q.options.length > 0 && typeof q.options[0] === 'object' && q.options[0].id)
-            ) {
-                return "Extended Multiple Response";
-            }
-            
             return "Single Choice";
         }
 
