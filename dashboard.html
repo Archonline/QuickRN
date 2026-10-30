@@ -668,34 +668,37 @@
         
         function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
-            const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
+            const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a,b) => a.percentage - b.percentage);
             if (!measured.length) {
-                container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">There is not enough recorded category data yet. Complete and submit practice questions to build a personalized remediation plan.</p>';
+                container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">Complete and submit practice questions to collect domain-level data before generating a personalized plan.</p>';
                 return;
             }
-            const focus = measured.filter(cat => cat.percentage < 75).slice(0, 3);
-            const priorities = focus.length ? focus : measured.slice(0, 2);
-            const first = priorities[0];
-            const second = priorities[1] || first;
-            const activities = [
-                { offset: 0, title: 'Review core concepts: ' + first.name, details: 'Review key cues, core concepts, and the rationale for missed questions.' },
-                { offset: 1, title: 'Targeted practice: ' + first.name, details: 'Complete a focused question set and explain why each distractor is unsafe or less appropriate.' },
-                { offset: 2, title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
-                { offset: 3, title: 'Second focus area: ' + second.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
-                { offset: 4, title: 'Timed practice: weakest areas', details: 'Complete a timed set, then review every missed item and record the reason for the error.' },
-                { offset: 5, title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
-                { offset: 6, title: 'Reassess Client Needs mastery', details: 'Retest both focus areas and compare your updated accuracy against the 75% target.' }
+            const weakAreas = measured.filter(cat => cat.percentage < 75).slice(0, 3);
+            const priorities = weakAreas.length ? weakAreas : measured.slice(0, 2);
+            const primary = priorities[0], secondary = priorities[1] || primary;
+            const tasks = [
+                { title: 'Review core concepts: ' + primary.name, details: 'Review key cues, core concepts, and rationales for missed questions.' },
+                { title: 'Targeted practice: ' + primary.name, details: 'Complete a focused question set and explain why each distractor is less appropriate.' },
+                { title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
+                { title: 'Second focus area: ' + secondary.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
+                { title: 'Timed practice: weakest areas', details: 'Complete a timed set, then review each missed question and identify the reason for the error.' },
+                { title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
+                { title: 'Reassess Client Needs mastery', details: 'Retest your focus areas and compare your updated accuracy against the 75% target.' }
             ];
-            const today = new Date();
-            const dateForOffset = offset => {
-                const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
-                return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+            const localDate = offset => {
+                const date = new Date(); date.setHours(12,0,0,0); date.setDate(date.getDate() + offset);
+                return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
             };
-            const makeId = () => 'roadmap-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
-            const events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]').filter(event => event.source !== 'ai-roadmap');
-            const roadmapEvents = activities.map(activity => ({
-                id: makeId(), date: dateForOffset(activity.offset), title: activity.title,
-                details: activity.details, source: 'ai-roadmap'
+            let events = [];
+            try { events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); } catch (error) { events = []; }
+            if (!Array.isArray(events)) events = [];
+            events = events.filter(event => event.source !== 'ai-roadmap');
+            const roadmapEvents = tasks.map((task,index) => ({
+                id: 'roadmap-' + Date.now().toString(36) + '-' + index,
+                date: localDate(index),
+                title: task.title,
+                details: task.details,
+                source: 'ai-roadmap'
             }));
             localStorage.setItem('quickrn_calendar_events', JSON.stringify(events.concat(roadmapEvents)));
             localStorage.setItem('quickrn_ai_study_roadmap', JSON.stringify({
@@ -703,7 +706,9 @@
                 focus: priorities.map(cat => ({ name: cat.name, percentage: cat.percentage, attempts: cat.solved })),
                 events: roadmapEvents
             }));
-            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance-based study coach</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + first.name + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (focus.length ? 'This is below the 75% target.' : 'Your measured areas are currently at or above the 75% target; keep consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day remediation plan</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + activities.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + item.title + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a></section></div>';
+            const escapeText = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance-based study coach</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(primary.name) + '</strong> (' + primary.percentage + '% across ' + primary.solved + ' attempts). ' + (weakAreas.length ? 'This is below the 75% target.' : 'Your measured areas are at or above the 75% target; continue to consolidate them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day remediation plan</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item,index) => '<li><strong>Day ' + (index+1) + ':</strong> ' + escapeText(item.title) + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The 7 activities were saved to your Calendar. Regenerating the plan replaces only previous roadmap activities, not personal reminders.</p></section></div>';
+            showToast('Study roadmap saved to Calendar.', 'success');
         }
 
         function renderDashboardStats() {
