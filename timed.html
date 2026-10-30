@@ -402,7 +402,8 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
                 let answeredIds = new Set(state.answeredQuestionIds || []);
 
                 let availablePool = allQuestionsPool.filter(q => !answeredIds.has(q.id));
-                if (availablePool.length < count) {
+                if (availablePool.length === 0) {
+                    // Only start a new cycle after every bank item has been used in prior sessions.
                     state.answeredQuestionIds = [];
                     localStorage.setItem('quickrn_student_state', JSON.stringify(state));
                     availablePool = [...allQuestionsPool];
