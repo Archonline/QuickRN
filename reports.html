@@ -56,7 +56,7 @@
         });
 
         function loadReports() {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let state = {}; try { state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}') || {}; } catch (error) { console.warn('QuickRN report history could not be parsed:', error); }
             let reports = state.reportedItems || [];
 
             document.getElementById('total-reports-badge').innerText = `${reports.length} Total Reports`;
