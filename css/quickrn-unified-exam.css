@@ -44,3 +44,19 @@ body.quickrn-exam .qr-report-row{padding:0 20px 14px;display:flex;justify-conten
 body.quickrn-exam .qr-report-button{padding:7px 11px;border:1px solid #fecaca;border-radius:7px;background:#fff1f2;color:#9f1239;font-size:11px;font-weight:800}
 @media(max-width:900px){body.quickrn-exam .qr-clinical-layout{grid-template-columns:minmax(0,1fr)!important;height:auto;max-height:none}body.quickrn-exam .qr-ehr-body{max-height:35vh;min-height:120px}body.quickrn-exam .qr-question-panel{min-height:420px}body.quickrn-exam .qr-bowtie{grid-template-columns:1fr}body.quickrn-exam main:has(.qr-clinical-layout){overflow:auto!important}}
 @media(min-width:901px){body.quickrn-exam:has(.qr-clinical-layout){height:100vh;overflow:hidden}body.quickrn-exam main:has(.qr-clinical-layout){min-height:0!important;overflow:hidden!important}}
+
+/* Shared exam chrome and responsive behavior */
+body.quickrn-exam>header,body.quickrn-exam header.exam-header{background:#102b4e!important;color:#fff!important;border-color:#294867!important}
+body.quickrn-exam header h1,body.quickrn-exam header h2,body.quickrn-exam header h3,body.quickrn-exam header p,body.quickrn-exam header span{color:inherit}
+body.quickrn-exam header button{border-radius:7px;font-weight:700;transition:background .15s ease,border-color .15s ease}
+body.quickrn-exam main{min-width:0}
+body.quickrn-exam .qr-clinical-layout{box-sizing:border-box}
+body.quickrn-exam .qr-clinical-layout *{box-sizing:border-box}
+body.quickrn-exam .qr-trend-panel{padding:14px 18px 0;flex:0 0 auto}
+body.quickrn-exam .qr-trend-panel h3{font-size:12px;font-weight:850;letter-spacing:.04em;text-transform:uppercase;color:#102b4e;margin-bottom:8px}
+body.quickrn-exam .qr-trend-panel>p{font-size:12px;color:#64748b;margin-bottom:8px}
+body.quickrn-exam .qr-highlight-instructions{padding:10px 12px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:9px;font-size:12px;color:#1e3a8a;font-weight:650}
+body.quickrn-exam .qr-highlight-segment.is-correct{border-color:#059669;background:#ecfdf5;color:#065f46}
+body.quickrn-exam .qr-highlight-segment.is-incorrect{border-color:#e11d48;background:#fff1f2;color:#9f1239}
+body.quickrn-exam .qr-missing{padding:12px;border:1px dashed #f59e0b;border-radius:8px;background:#fffbeb;color:#92400e;font-size:12px}
+@media(max-width:640px){body.quickrn-exam .qr-question-head{padding:14px!important}body.quickrn-exam .qr-response-area{padding:12px!important}body.quickrn-exam .qr-trend-panel{padding:12px 12px 0}body.quickrn-exam .qr-choice{padding:11px!important}}
