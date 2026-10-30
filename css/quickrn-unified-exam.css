@@ -67,3 +67,33 @@ body.quickrn-exam .qr-missing{padding:12px;border:1px dashed #f59e0b;border-radi
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 body.quickrn-exam button:disabled{cursor:not-allowed;opacity:.55}
 body.quickrn-exam .qr-choice:focus-visible,body.quickrn-exam .qr-highlight-segment:focus-visible{outline:3px solid #0e7490!important;outline-offset:3px}
+
+
+/* Question-only items: use the left pane for the stem and the right pane for responses. */
+body.quickrn-exam #left-panel.question-only-panel{
+  justify-content:flex-start;
+  background:#fff!important;
+  padding:clamp(18px,2vw,28px)!important;
+  overflow-y:auto!important;
+}
+body.quickrn-exam #left-panel.question-only-panel #question-prompt{
+  display:block!important;
+  width:100%;
+  color:var(--qr-ink)!important;
+  font-size:clamp(16px,1.35vw,21px)!important;
+  line-height:1.65!important;
+  font-weight:600!important;
+  padding:0!important;
+  margin:0!important;
+}
+body.quickrn-exam #left-panel.question-only-panel #case-study-tabs,
+body.quickrn-exam #left-panel.question-only-panel #case-study-content{
+  display:none!important;
+}
+body.quickrn-exam #left-panel.case-record-panel #question-prompt{display:none}
+body.quickrn-exam #right-panel{min-width:0}
+body.quickrn-exam #submit-btn{margin-left:auto}
+@media(max-width:767px){
+  body.quickrn-exam #left-panel.question-only-panel{min-height:160px!important;height:auto!important}
+  body.quickrn-exam #right-panel{min-height:55vh}
+}
