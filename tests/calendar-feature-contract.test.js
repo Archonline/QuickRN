@@ -15,5 +15,6 @@ requireText("download='quickrn-study-calendar.ics'", 'Calendar export missing');
 requireText('type:typeInput.value', 'Event type is not persisted');
 requireText("typeInput.value = event.type || 'activity'", 'Event type is not restored when editing');
 requireText('<script>', 'Calendar script not found');
+try { const start=html.lastIndexOf('<script>')+8; const end=html.lastIndexOf('</script>'); new Function(html.slice(start,end)); } catch (error) { failures.push('Calendar inline JavaScript syntax invalid: ' + error.message); }
 if (failures.length) { console.error('Calendar feature contract failed:\\n- ' + failures.join('\\n- ')); process.exit(1); }
 console.log('Calendar test-date, urgency, shortcuts, persistence, and export contract passed.');
