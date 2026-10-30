@@ -27,3 +27,7 @@ if (failures.length) {
   process.exit(1);
 }
 console.log('Help Center, disclaimer, navigation, and concise release notes contract passed.');
+
+const dashboardReleaseNotes = fs.readFileSync('dashboard.html', 'utf8');
+assert.match(dashboardReleaseNotes, /View all 50 documented improvements/);
+assert.match(dashboardReleaseNotes, /Additional exam workflow improvements/);
