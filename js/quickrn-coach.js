@@ -11,7 +11,7 @@
     { id: 'psychosocial', name: 'Psychosocial Integrity (6-12%)', color: 'bg-purple-600', terms: /anxiety|depress|suicid|grief|coping|therapeutic communication|psychosocial|mental health|substance use|abuse/ },
     { id: 'basic', name: 'Basic Care and Comfort (6-12%)', color: 'bg-amber-600', terms: /hygiene|nutrition|feeding|mobility|ambulat|pain|comfort|sleep|elimination|activities of daily living|positioning/ },
     { id: 'pharm', name: 'Pharmacological and Parenteral Therapies (12-18%)', color: 'bg-rose-600', terms: /pharmac|medication|drug|insulin|dosage|dose|anticoagulant|iv therapy|adverse effect|side effect|toxicity/ },
-    { id: 'risk', name: 'Reduction of Risk Potential (9-15%)', color: 'bg-orange-600', terms: /risk|potential|laboratory|lab value|diagnostic|postoperative|post-operative|complication|monitor|assessment|vital sign|electrolyte|ecg|screening/ },
+    { id: 'risk', name: 'Reduction of Risk Potential (9-15%)', color: 'bg-orange-600', terms: /laboratory|lab value|diagnostic|postoperative|post-operative|complication|monitor|assessment|vital sign|electrolyte|ecg|screening/ },
     { id: 'physio', name: 'Physiological Adaptation (11-17%)', color: 'bg-teal-600', terms: /physiological adaptation|physiological|adaptation|respiratory|cardiac|heart failure|shock|stroke|neurolog|renal|kidney|diabetes|ketoacidosis|sepsis|perfusion|oxygenation|pathophysi|acute|disease/ }
   ];
 
@@ -30,13 +30,16 @@
     const category = String(question && question.category || '').toLowerCase();
     const topic = [question && question.topic, question && question.title, question && question.keyPhrase]
       .filter(Boolean).join(' ').toLowerCase();
-    const exact = DOMAINS.find(domain => [explicit, category].some(value =>
-      value.includes(domain.name.toLowerCase()) || value.includes(domain.id)));
+    const exact = DOMAINS.find(domain => {
+      const label = domain.name.split(' (')[0].toLowerCase();
+      return [explicit, category].some(value => value.includes(label) || value.includes(domain.id));
+    });
     if (exact) return exact;
     const explicitMatch = DOMAINS.find(domain => domain.terms.test(explicit));
     if (explicitMatch) return explicitMatch;
     const categoryMatch = DOMAINS.find(domain => domain.terms.test(category));
     if (categoryMatch) return categoryMatch;
+    if (/risk|potential/.test(category)) return DOMAINS.find(domain => domain.id === 'risk');
     const topicMatch = DOMAINS.find(domain => domain.terms.test(topic));
     if (topicMatch) return topicMatch;
     const fullText = textOf(question);
