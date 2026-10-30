@@ -75,7 +75,17 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  }
  return `<div class="qr-clinical-layout ${hasRecord?"has-record":"question-only"}">${record}<section class="qr-question-panel"><div class="qr-question-head"><h2>${quickRNEscape(title)}</h2>${prompt?`<p>${quickRNEscape(prompt)}</p>`:''}</div><div class="qr-response-area">${response}</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()"><i class="fa-solid fa-flag"></i> Report this item</button></div></section></div>`;
 }
-function quickRNHasAnswer(q,d){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return !!d.choice;if(f==='Extended Multiple Response'||f==='Multiple Response')return (d.choices||[]).length>0;if(f==='Matrix / Grid'){const rows=q.rows||q.matrixData?.rows||[];return rows.length>0&&Object.keys(d.matrix||{}).length===rows.length;}if(f==='Cloze (Drop-down)'){const keys=Object.keys(q.correctAnswers||q.options||{});return keys.length>0&&keys.every(k=>!!d.cloze?.[k]);}if(f==='Extended Drag and Drop')return (d.order||[]).length>0;if(f==='Bowtie')return !!d.condition&&(d.actions||[]).length===2&&(d.monitoring||[]).length===2;return false;}
+function quickRNHasAnswer(q,d){
+ q=q||{};d=d&&typeof d==='object'?d:{};
+ const f=quickRNDetectItemFormat(q),hasValue=v=>v!==undefined&&v!==null&&String(v).trim()!=='';
+ if(f==='Single Choice')return hasValue(d.choice);
+ if(f==='Extended Multiple Response'||f==='Multiple Response')return Array.isArray(d.choices)&&d.choices.length>0;
+ if(f==='Matrix / Grid')return Object.values(d.matrix||{}).some(hasValue);
+ if(f==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(hasValue);
+ if(f==='Extended Drag and Drop')return Array.isArray(d.order)&&d.order.length>0;
+ if(f==='Bowtie')return hasValue(d.condition)||(Array.isArray(d.actions)&&d.actions.length>0)||(Array.isArray(d.monitoring)&&d.monitoring.length>0);
+ return false;
+}
 function quickRNGrade(q,d){const f=quickRNDetectItemFormat(q), opts=Array.isArray(q.options)?q.options:[];const eq=(a,b)=>String(a??'')===String(b??'');const sameSet=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
  if(f==='Single Choice'){const c=q.correctAnswerText??q.correctAnswer;const v=d.choice;const ix=opts.findIndex((o,i)=>eq(quickRNOptionValue(o,i),v));const txt=ix>=0?quickRNOptionText(opts[ix]):v;return eq(v,c)||eq(txt,c)||eq(v,String.fromCharCode(65+ix));}
  if(f==='Extended Multiple Response'||f==='Multiple Response'){const correct=q.correctAnswers??q.correctAnswer??[];const norm=x=>Array.isArray(x)?x:[x];const ids=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionValue(found,opts.indexOf(found));if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionValue(opts[x.charCodeAt(0)-65],x.charCodeAt(0)-65);return x});const textCorrect=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionText(found);if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionText(opts[x.charCodeAt(0)-65]);return x});return sameSet(d.choices||[],ids)||sameSet((d.choices||[]).map(v=>{const i=opts.findIndex((o,j)=>eq(quickRNOptionValue(o,j),v));return i>=0?quickRNOptionText(opts[i]):v}),textCorrect);}
