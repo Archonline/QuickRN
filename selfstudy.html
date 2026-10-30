@@ -81,11 +81,25 @@
 <style id="quickrn-report-layout-fix">
 html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.nclex-workspace{overflow-y:auto!important;min-height:0!important;height:auto!important}.nclex-question-panel,.nclex-question-content{overflow:visible!important;min-height:min-content!important}.ehr-readable{max-height:calc(100vh - 280px);overflow-y:auto!important}.prompt-typography{overflow-wrap:anywhere}
 @media(max-width:900px){main.nclex-workspace{display:flex;flex-direction:column}.nclex-question-panel{width:100%!important}}
-</style></head>
+</style><style id="quickrn-shared-renderer-styles">
+.qr-highlight-instructions{padding:12px 14px;margin-bottom:12px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;font-size:13px;color:#1e3a8a;font-weight:600}
+.qr-highlight-list{display:flex;flex-direction:column;gap:8px}
+.qr-highlight-segment{display:flex;align-items:flex-start;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#1e293b;font-size:14px;line-height:1.5}
+.qr-highlight-segment.is-selected{background:#fef3c7;border:2px solid #d97706;color:#78350f}
+.qr-highlight-check{display:inline-flex;flex:0 0 22px;width:22px;height:22px;align-items:center;justify-content:center;border-radius:6px;background:#e2e8f0;font-weight:900}
+.qr-highlight-segment.is-selected .qr-highlight-check{background:#f59e0b;color:#422006}
+.qr-trend-panel{margin:14px 0;padding:14px;border:1px solid #94a3b8;border-radius:12px;background:#f8fafc}
+.qr-trend-panel h3{font-weight:900;color:#0f2c59;margin-bottom:6px}
+.qr-trend-table{width:100%;border-collapse:collapse;font-size:12px;background:white}
+.qr-trend-table th,.qr-trend-table td{padding:9px;border:1px solid #cbd5e1;text-align:left;vertical-align:top}
+.qr-trend-table th{background:#e2e8f0;font-weight:800}
+</style>
+</head>
 <body class="h-full bg-slate-200">
     <div id="root" class="h-full"></div>
 
-    <script type="text/babel">
+    <script src="js/shared-exam-renderer.js"></script>
+<script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
         // COMPREHENSIVE HIGH-YIELD SAMPLE QUESTION POOL INCLUDING ALL NCLEX & NGN ITEM TYPES
@@ -460,6 +474,15 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
 
             const evaluateScore = (item, ans) => {
                 if (!ans) return { earned: 0, max: 1 };
+                const sharedFormat = window.QuickRNSharedRenderer?.detect(item);
+                if (sharedFormat === "Highlight" || sharedFormat === "Trend" || sharedFormat === "Multiple Response") {
+                    const draft = window.QuickRNSharedRenderer.toDraft
+                        ? window.QuickRNSharedRenderer.toDraft(item, ans)
+                        : (sharedFormat === "Highlight" ? { highlights: Array.isArray(ans) ? ans : [] } :
+                           (sharedFormat === "Multiple Response" || Array.isArray(item.correctAnswers) ? { choices: Array.isArray(ans) ? ans : [] } : { choice: ans }));
+                    const correct = window.QuickRNSharedRenderer.grade(item, draft);
+                    return { earned: correct ? 1 : 0, max: 1 };
+                }
                 switch (item.ngnType) {
                     case "Matrix / Grid": {
                         let earned = 0, max = (item.rows || []).length;
@@ -1009,305 +1032,13 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
 
         // DYNAMIC QUESTION RENDERER COMPONENT
         function QuestionRenderer({ item, draftAnswer, savedState, onUpdateDraft }) {
-            const isSubmitted = savedState?.submitted;
-
-            // Render Single Choice
-            if (item.ngnType === "Single Choice" || !item.isNGN) {
-                const optionsList = item.options || [];
-                return (
-                    <div className="space-y-3">
-                        {optionsList.map((opt, idx) => {
-                            const text = opt.text || opt;
-                            const isChecked = draftAnswer === text || draftAnswer === String.fromCharCode(65 + idx);
-                            const correctTarget = item.correctAnswerText || item.correctAnswer;
-                            const isRight = correctTarget === text || item.correctAnswer === String.fromCharCode(65 + idx);
-
-                            let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                            if (isSubmitted) {
-                                if (isRight) style = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
-                                else if (isChecked && !isRight) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
-                                else style = "bg-slate-50 border-slate-200 opacity-60";
-                            } else if (isChecked) style = "bg-blue-50 border-blue-500 shadow-xs";
-
-                            return (
-                                <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
-                                    <div className="flex items-center gap-3">
-                                        <input type="radio" name="sba" checked={isChecked} disabled={isSubmitted} onChange={() => onUpdateDraft(text)} className="w-4 h-4 text-blue-600"/>
-                                        <span className="choice-readable text-base font-medium">{text}</span>
-                                    </div>
-                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
-                                </label>
-                            );
-                        })}
-                    </div>
-                );
-            }
-
-            // Render SATA
-            if (item.ngnType === "Extended Multiple Response") {
-                const currentSATA = Array.isArray(draftAnswer) ? draftAnswer : [];
-                const optionsList = item.options || [];
-                const correctList = item.correctAnswers || item.correctAnswer || [];
-                const correctSet = new Set(Array.isArray(correctList) ? correctList : [correctList]);
-
-                const handleToggle = (optId) => {
-                    const next = currentSATA.includes(optId) ? currentSATA.filter(x => x !== optId) : [...currentSATA, optId];
-                    onUpdateDraft(next);
-                };
-
-                return (
-                    <div className="space-y-3">
-                        {optionsList.map((opt, idx) => {
-                            const optId = opt.id || opt.text || opt;
-                            const optText = opt.text || opt;
-                            const isChecked = currentSATA.includes(optId);
-                            const isRight = correctSet.has(optId);
-
-                            let style = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                            if (isSubmitted) {
-                                if (isRight && isChecked) style = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
-                                else if (isRight && !isChecked) style = "bg-emerald-50 border-emerald-400 font-semibold text-emerald-900";
-                                else if (!isRight && isChecked) style = "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
-                                else style = "bg-slate-50 border-slate-200 opacity-60";
-                            } else if (isChecked) style = "bg-blue-50 border-blue-500 shadow-xs";
-
-                            return (
-                                <label key={idx} className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition ${style}`}>
-                                    <div className="flex items-center gap-3">
-                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => handleToggle(optId)} className="w-4 h-4 text-blue-600 rounded"/>
-                                        <span className="choice-readable text-base font-medium">{optText}</span>
-                                    </div>
-                                    {isSubmitted && isRight && <span className="text-xs font-extrabold text-emerald-800 px-2 py-0.5 bg-emerald-200 rounded"><i className="fa-solid fa-check"></i> Correct</span>}
-                                </label>
-                            );
-                        })}
-                    </div>
-                );
-            }
-
-            // Render Cloze (Drop-down)
-            if (item.ngnType === "Cloze (Drop-down)") {
-                const draftObj = draftAnswer || {};
-                const template = item.clozeTemplate || item.template || "";
-                const optionsObj = item.options || {};
-                const parts = template.split(/(\{.*?\})/g);
-
-                const handleSelectChange = (key, val) => {
-                    onUpdateDraft({ ...draftObj, [key]: val });
-                };
-
-                return (
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 leading-relaxed text-sm md:text-base space-y-4">
-                        <div className="font-medium text-slate-800">
-                            {parts.map((part, pIdx) => {
-                                if (part.startsWith('{') && part.endsWith('}')) {
-                                    const key = part.slice(1, -1).trim();
-                                    const choices = optionsObj[key] || [];
-                                    const userVal = draftObj[key] || "";
-                                    const rightVal = (item.correctAnswers || {})[key];
-
-                                    let borderStyle = "border-slate-300 bg-white";
-                                    if (isSubmitted) {
-                                        borderStyle = userVal === rightVal ? "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold" : "border-rose-500 bg-rose-50 text-rose-900 font-bold";
-                                    }
-
-                                    return (
-                                        <span key={pIdx} className="inline-block mx-1">
-                                            <select 
-                                                value={userVal} 
-                                                disabled={isSubmitted} 
-                                                onChange={(e) => handleSelectChange(key, e.target.value)}
-                                                className={`px-3 py-1 rounded-lg border text-xs md:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 ${borderStyle}`}
-                                            >
-                                                <option value="">-- Select Option --</option>
-                                                {choices.map((cOpt, cIdx) => (
-                                                    <option key={cIdx} value={cOpt}>{cOpt}</option>
-                                                ))}
-                                            </select>
-                                        </span>
-                                    );
-                                }
-                                return <span key={pIdx}>{part}</span>;
-                            })}
-                        </div>
-                    </div>
-                );
-            }
-
-            // Render Extended Drag and Drop
-            if (item.ngnType === "Extended Drag and Drop") {
-                const currentOrder = draftAnswer || item.availableItems || [];
-                const correctOrder = item.correctOrder || [];
-
-                const moveItem = (fromIdx, toIdx) => {
-                    if (isSubmitted) return;
-                    const updated = [...currentOrder];
-                    const [moved] = updated.splice(fromIdx, 1);
-                    updated.splice(toIdx, 0, moved);
-                    onUpdateDraft(updated);
-                };
-
-                return (
-                    <div className="space-y-3">
-                        <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Reorder items into correct priority (Step 1 to Step {currentOrder.length}):</p>
-                        {currentOrder.map((stepText, idx) => {
-                            const isRight = correctOrder[idx] === stepText;
-                            let cardStyle = "bg-slate-50 border-slate-200 hover:bg-slate-100";
-                            if (isSubmitted) {
-                                cardStyle = isRight ? "bg-emerald-100 border-emerald-500 text-emerald-950 font-bold" : "bg-rose-100 border-rose-400 text-rose-950 font-semibold";
-                            }
-
-                            return (
-                                <div key={idx} className={`p-3.5 rounded-xl border flex items-center justify-between transition ${cardStyle}`}>
-                                    <div className="flex items-center gap-3">
-                                        <span className="w-6 h-6 rounded-full bg-slate-800 text-white font-mono text-xs flex items-center justify-center shrink-0">
-                                            {idx + 1}
-                                        </span>
-                                        <span className="text-xs md:text-sm font-medium">{stepText}</span>
-                                    </div>
-                                    {!isSubmitted && (
-                                        <div className="flex items-center gap-1 shrink-0">
-                                            <button disabled={idx === 0} onClick={() => moveItem(idx, idx - 1)} className="p-1 px-2 bg-slate-200 hover:bg-slate-300 rounded text-xs text-slate-700 disabled:opacity-30">
-                                                <i className="fa-solid fa-arrow-up"></i>
-                                            </button>
-                                            <button disabled={idx === currentOrder.length - 1} onClick={() => moveItem(idx, idx + 1)} className="p-1 px-2 bg-slate-200 hover:bg-slate-300 rounded text-xs text-slate-700 disabled:opacity-30">
-                                                <i className="fa-solid fa-arrow-down"></i>
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
-                            );
-                        })}
-                    </div>
-                );
-            }
-
-            // Render Bowtie
-            if (item.ngnType === "Bowtie") {
-                const bowtieData = item.bowtieData || {};
-                const currentDraft = draftAnswer || { condition: "", actions: [], monitoring: [] };
-                const correctObj = item.correctAnswers || {};
-
-                const setCondition = (val) => onUpdateDraft({ ...currentDraft, condition: val });
-
-                const toggleAction = (act) => {
-                    const current = currentDraft.actions || [];
-                    const next = current.includes(act) ? current.filter(x => x !== act) : [...current, act].slice(0, 2);
-                    onUpdateDraft({ ...currentDraft, actions: next });
-                };
-
-                const toggleMonitoring = (mon) => {
-                    const current = currentDraft.monitoring || [];
-                    const next = current.includes(mon) ? current.filter(x => x !== mon) : [...current, mon].slice(0, 2);
-                    onUpdateDraft({ ...currentDraft, monitoring: next });
-                };
-
-                return (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
-                        {/* ACTIONS TO TAKE */}
-                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
-                            <h3 className="font-bold text-ncsbn-blue uppercase tracking-wider text-center border-b pb-2">Actions to Take (Select 2)</h3>
-                            {(bowtieData.actions || []).map((act, idx) => {
-                                const isChecked = (currentDraft.actions || []).includes(act);
-                                const isRight = (correctObj.actions || []).includes(act);
-                                let itemStyle = isChecked ? "bg-blue-100 border-blue-500 font-semibold" : "bg-white border-slate-200";
-                                if (isSubmitted) {
-                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
-                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
-                                }
-                                return (
-                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
-                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => toggleAction(act)} className="w-4 h-4 text-blue-600 rounded"/>
-                                        <span>{act}</span>
-                                    </label>
-                                );
-                            })}
-                        </div>
-
-                        {/* POTENTIAL CONDITION */}
-                        <div className="bg-blue-50/50 p-3 rounded-xl border-2 border-ncsbn-blue space-y-2">
-                            <h3 className="font-bold text-ncsbn-navy uppercase tracking-wider text-center border-b border-blue-200 pb-2">Potential Condition</h3>
-                            {(bowtieData.conditions || []).map((cond, idx) => {
-                                const isChecked = currentDraft.condition === cond;
-                                const isRight = correctObj.condition === cond;
-                                let itemStyle = isChecked ? "bg-blue-200 border-blue-600 font-bold" : "bg-white border-slate-200";
-                                if (isSubmitted) {
-                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
-                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
-                                }
-                                return (
-                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
-                                        <input type="radio" name="bowtie_cond" checked={isChecked} disabled={isSubmitted} onChange={() => setCondition(cond)} className="w-4 h-4 text-blue-600"/>
-                                        <span>{cond}</span>
-                                    </label>
-                                );
-                            })}
-                        </div>
-
-                        {/* PARAMETERS TO MONITOR */}
-                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
-                            <h3 className="font-bold text-ncsbn-blue uppercase tracking-wider text-center border-b pb-2">Parameters to Monitor (Select 2)</h3>
-                            {(bowtieData.monitoring || []).map((mon, idx) => {
-                                const isChecked = (currentDraft.monitoring || []).includes(mon);
-                                const isRight = (correctObj.monitoring || []).includes(mon);
-                                let itemStyle = isChecked ? "bg-blue-100 border-blue-500 font-semibold" : "bg-white border-slate-200";
-                                if (isSubmitted) {
-                                    if (isRight) itemStyle = "bg-emerald-100 border-emerald-500 font-bold text-emerald-950";
-                                    else if (isChecked && !isRight) itemStyle = "bg-rose-100 border-rose-400 text-rose-950";
-                                }
-                                return (
-                                    <label key={idx} className={`p-2.5 rounded-lg border flex items-center gap-2 cursor-pointer transition ${itemStyle}`}>
-                                        <input type="checkbox" checked={isChecked} disabled={isSubmitted} onChange={() => toggleMonitoring(mon)} className="w-4 h-4 text-blue-600 rounded"/>
-                                        <span>{mon}</span>
-                                    </label>
-                                );
-                            })}
-                        </div>
-                    </div>
-                );
-            }
-
-            // Render Matrix Grid
-            if (item.ngnType === "Matrix / Grid") {
-                const matrixState = draftAnswer || {};
-                const handleMatrixChange = (rowId, colVal) => {
-                    onUpdateDraft({ ...matrixState, [rowId]: colVal });
-                };
-                return (
-                    <table className="w-full border-collapse border border-slate-300 text-xs md:text-sm">
-                        <thead className="bg-slate-100 border-b border-slate-300">
-                            <tr>
-                                <th className="p-3 text-left font-bold text-slate-700">Clinical Finding / Intervention</th>
-                                {(item.columns || []).map((col, idx) => <th key={idx} className="p-3 text-center font-bold text-slate-700 w-32">{col}</th>)}
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-200 bg-white">
-                            {(item.rows || []).map(row => {
-                                const rightCol = (item.correctAnswers || {})[row.id];
-                                const userCol = matrixState[row.id];
-                                return (
-                                    <tr key={row.id}>
-                                        <td className="p-3 font-medium text-slate-800">{row.text}</td>
-                                        {(item.columns || []).map((col, cIdx) => {
-                                            const isChecked = userCol === col;
-                                            const isRight = rightCol === col;
-                                            let bgCell = isSubmitted ? (isRight ? "bg-emerald-100 font-bold" : (isChecked ? "bg-rose-100" : "")) : "";
-                                            return (
-                                                <td key={cIdx} className={`p-3 text-center ${bgCell}`}>
-                                                    <input type="radio" name={`mat_${row.id}`} checked={isChecked} disabled={isSubmitted} onChange={() => handleMatrixChange(row.id, col)} className="w-4 h-4 text-blue-600"/>
-                                                    {isSubmitted && isRight && <span className="block text-[10px] text-emerald-800 font-extrabold mt-0.5"><i className="fa-solid fa-check"></i> Correct</span>}
-                                                </td>
-                                            );
-                                        })}
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                );
-            }
-
-            return <div className="text-slate-500 text-sm">Interactive NGN Item Loaded.</div>;
+            const html = window.QuickRNSharedRenderer.renderReact(
+                item,
+                draftAnswer,
+                onUpdateDraft,
+                !!savedState?.submitted
+            );
+            return <div className="quickrn-shared-question" dangerouslySetInnerHTML={{ __html: html }} />;
         }
 
         // MOUNT APP
