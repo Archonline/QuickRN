@@ -176,3 +176,16 @@ Before inviting external testers, complete `BETA_READINESS.md`, including clinic
 - Merged the separate Priority Weak Areas and Client Needs Mastery panels into one category list to remove duplicate presentation.
 - Categories below 75% accuracy now receive a red border and red status label; categories at or above 75% retain a neutral border, while categories without attempts use a dashed border.
 - Added an inline legend explaining priority review, on-track, and no-data states, and documented the change in What's New.
+
+
+SELF-STUDY REBUILD (2026-10-31)
+--------------------------------
+- Rebuilt selfstudy.html from the approved correct_view.html NCLEX split-screen layout.
+- Reconnected the page to the shared question bank, shared NCLEX/NGN renderer, scoring layer, Clinical Study Coach, question metrics, and video recommendations.
+- Restored setup flow, question-count selection, question-format filtering, bookmarks, notes, calculator, feedback form, navigation, session summary, and saved-session support.
+- Self-Study remains untimed; the header clock now tracks elapsed learning time.
+- Added answer teaching review with the keyed response, per-option or per-row feedback when the question bank supplies it, the overall clinical rationale, and a clinical principle/takeaway.
+- Added confidence self-rating, daily study-streak tracking, and a retry session for missed questions.
+- Added structured review rendering for choice, matrix, cloze, ordered-response, and highlight items.
+- Feedback and study progress are currently browser-local. Cloud synchronization and automatic central feedback delivery require an authenticated Firebase/backend configuration and are not represented as active features.
+- Automated checks completed: JavaScript syntax validation, required DOM-ID checks, duplicate-ID checks, and referenced-script existence checks. Full browser interaction and visual QA remain required before beta release.
