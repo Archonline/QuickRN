@@ -383,11 +383,9 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
                     };
                 });
 
-                let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                let answeredIds = new Set(state.answeredQuestionIds || []);
-                
-                // Pre-populate usedQuestionIds with previously answered question IDs
-                usedQuestionIds = answeredIds;
+                // A new exam session starts with a fresh session-level set. Historical
+                // attempts remain in analytics but never prevent a new CAT attempt.
+                usedQuestionIds = new Set();
 
                 rawQuestionPool = shuffleArray(rawQuestionPool);
                 selectNextCATQuestion();
@@ -455,6 +453,7 @@ function renderQuestion() {
             state.answeredQuestionIds=state.answeredQuestionIds||[];
             if(!state.answeredQuestionIds.includes(currentQuestion.id))state.answeredQuestionIds.push(currentQuestion.id);
             if(isCorrect)state.studentStats.correctCount=(state.studentStats.correctCount||0)+1;
+            else state.studentStats.mistakeCount=(state.studentStats.mistakeCount||0)+1;
             localStorage.setItem('quickrn_student_state',JSON.stringify(state));
             const buttons=document.querySelectorAll('#exam-container button,#exam-container input,#exam-container select');buttons.forEach(btn=>btn.disabled=true);
             setTimeout(()=>selectNextCATQuestion(),1000);
