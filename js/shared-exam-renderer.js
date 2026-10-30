@@ -127,7 +127,7 @@ function quickRNSplitPrompt(q){
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
  let question=instruction||source||'';
  // Certain cue-review items intentionally repeat the cleaned stem in the response pane.
- if(scenario&&!q.instruction&&!q.cleanInstruction&&/^Review the clinical cues and complete the clinical judgment item\.?$/i.test(instruction))question=scenario;
+ if(scenario&&!q.instruction&&/^Review the clinical cues and complete the clinical judgment item\.?$/i.test(instruction))question=scenario;
  return {scenario,question};
 }
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
