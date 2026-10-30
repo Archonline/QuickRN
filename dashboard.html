@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | QuickRN NCLEX Prep</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">        document.addEventListener('DOMContentLoaded', renderSubjectLessonLibrary);
+    </script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -280,6 +281,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- SUBJECT & LESSON LIBRARY -->
+                    <section class="lg:col-span-2 xl:col-span-3 bg-white rounded-xl border border-slate-200 p-3 lg:p-4 shadow-sm space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
+                                <p class="text-xs text-slate-500">Choose a nursing subject, then select a body system or lesson to start a focused Self Study session.</p>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 rounded-full px-3 py-1">7 core subjects</span>
+                        </div>
+                        <div id="quickrn-subject-library" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2"></div>
+                        <p class="text-[10px] text-slate-400">Focused sessions use matching question-bank topics. If a lesson has no matching questions yet, QuickRN will let you know rather than silently starting an unrelated session.</p>
+                    </section>
 
                     <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
                     <div class="lg:col-start-1 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-3 shadow-sm space-y-2">
@@ -631,6 +645,91 @@
             const first = weakAreas[0] || primary;
             container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance review</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'This is below the 75% accuracy target.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + escapeText(item.title) + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
             showToast('Study roadmap saved to Calendar.', 'success');
+        }
+
+        // Subject and lesson taxonomy for focused Self Study sessions.
+        const quickRNSubjectLessons = [
+            {name:'Adult Health',icon:'fa-heart-pulse',color:'blue',lessons:[
+                ['Cardiovascular System','cardiovascular|cardiac|heart failure|hypertension|dysrhythmia'],
+                ['Respiratory System','respiratory|pulmonary|copd|asthma|pneumonia'],
+                ['Endocrine System','endocrine|diabetes|thyroid|adrenal|dka'],
+                ['Renal & Urinary System','renal|kidney|urinary|acute kidney|dialysis'],
+                ['Gastrointestinal System','gastrointestinal|gi|bowel|liver|pancreatitis'],
+                ['Neurological System','neurologic|neurological|stroke|seizure|intracranial'],
+                ['Hematology & Oncology','hematology|oncology|anemia|leukemia|cancer'],
+                ['Musculoskeletal System','musculoskeletal|orthopedic|fracture|joint'],
+                ['Integumentary & Wound Care','integumentary|skin|wound|burn'],
+                ['Perioperative & Postoperative Care','perioperative|postoperative|post-op|surgical']
+            ]},
+            {name:'Child Health',icon:'fa-child-reaching',color:'pink',lessons:[
+                ['Growth & Development','growth|development|developmental|milestone'],
+                ['Pediatric Respiratory','pediatric respiratory|child respiratory|croup|bronchiolitis|asthma'],
+                ['Pediatric Cardiac','pediatric cardiac|congenital heart|heart defect'],
+                ['Pediatric Endocrine & Metabolic','pediatric endocrine|type 1 diabetes|pediatric dka'],
+                ['Pediatric GI & Nutrition','pediatric gi|dehydration|pediatric nutrition'],
+                ['Pediatric Neurology','pediatric neuro|febrile seizure|meningitis'],
+                ['Pediatric Safety & Emergencies','pediatric emergency|child safety|poisoning']
+            ]},
+            {name:'Critical Care',icon:'fa-truck-medical',color:'rose',lessons:[
+                ['Shock & Hemodynamic Instability','shock|hemodynamic|hypovolemic|cardiogenic'],
+                ['Sepsis & Infection','sepsis|septic|infection|sirs'],
+                ['Acute Respiratory Failure','respiratory failure|ventilator|ards|airway emergency'],
+                ['Cardiac Emergencies','cardiac emergency|myocardial infarction|acute coronary|pulmonary embolism'],
+                ['Neurological Emergencies','neurological emergency|increased intracranial|status epilepticus'],
+                ['Emergency Prioritization & Triage','emergency|triage|prioritization|rapid response']
+            ]},
+            {name:'Fundamentals',icon:'fa-book-open',color:'emerald',lessons:[
+                ['Nursing Process & Clinical Judgment','nursing process|clinical judgment|assessment|implementation'],
+                ['Safety & Infection Control','safety|infection control|isolation|standard precautions'],
+                ['Vital Signs & Basic Assessment','vital signs|assessment|physical examination'],
+                ['Mobility, Hygiene & Skin Integrity','mobility|hygiene|pressure injury|skin integrity'],
+                ['Fluids, Electrolytes & Acid-Base','fluid|electrolyte|acid-base|potassium|sodium'],
+                ['Nutrition & Elimination','nutrition|elimination|enteral|parenteral'],
+                ['Oxygenation & Basic Procedures','oxygenation|suctioning|specimen|catheter']
+            ]},
+            {name:'Leadership & Management',icon:'fa-people-group',color:'amber',lessons:[
+                ['Delegation & Assignment','delegation|assignment|scope of practice'],
+                ['Prioritization & Time Management','prioritization|priority|time management'],
+                ['Legal & Ethical Practice','legal|ethical|informed consent|confidentiality'],
+                ['Quality Improvement & Safety','quality improvement|risk management|patient safety'],
+                ['Leadership & Conflict Resolution','leadership|conflict|management|teamwork'],
+                ['Care Coordination & Discharge','care coordination|discharge|case management']
+            ]},
+            {name:'Mental Health',icon:'fa-brain',color:'violet',lessons:[
+                ['Therapeutic Communication','therapeutic communication|communication|interpersonal'],
+                ['Anxiety, Mood & Depression','anxiety|depression|bipolar|mood disorder'],
+                ['Psychosis & Schizophrenia','psychosis|schizophrenia|delusion|hallucination'],
+                ['Substance Use & Withdrawal','substance|withdrawal|alcohol|opioid'],
+                ['Personality & Behavioral Disorders','personality disorder|behavioral|eating disorder'],
+                ['Crisis Intervention & Suicide Safety','suicide|self-harm|crisis|violence']
+            ]},
+            {name:'Pharmacology',icon:'fa-pills',color:'indigo',lessons:[
+                ['Cardiovascular Medications','cardiac medication|cardiovascular medication|digoxin|antihypertensive|anticoagulant'],
+                ['Endocrine & Diabetes Medications','insulin|antidiabetic|thyroid medication|endocrine medication'],
+                ['Antibiotics & Anti-infectives','antibiotic|anti-infective|antimicrobial'],
+                ['Respiratory Medications','bronchodilator|respiratory medication|inhaler'],
+                ['Neurological & Psychiatric Medications','psychotropic|antidepressant|anticonvulsant|neurological medication'],
+                ['Pain Management & Opioids','analgesic|opioid|pain medication'],
+                ['Medication Safety & Calculations','medication safety|dosage calculation|drug calculation|pharmacology']
+            ]}
+        ];
+
+        function renderSubjectLessonLibrary() {
+            const root = document.getElementById('quickrn-subject-library');
+            if (!root) return;
+            const accents = {
+                blue:'border-blue-200 bg-blue-50 text-blue-700', pink:'border-pink-200 bg-pink-50 text-pink-700',
+                rose:'border-rose-200 bg-rose-50 text-rose-700', emerald:'border-emerald-200 bg-emerald-50 text-emerald-700',
+                amber:'border-amber-200 bg-amber-50 text-amber-700', violet:'border-violet-200 bg-violet-50 text-violet-700',
+                indigo:'border-indigo-200 bg-indigo-50 text-indigo-700'
+            };
+            const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            root.innerHTML = quickRNSubjectLessons.map((subject,index) => {
+                const links = subject.lessons.map(([label,terms]) =>
+                    '<a class="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-xs text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition" href="selfstudy-ngn.html?lesson='+encodeURIComponent(label)+'&q='+encodeURIComponent(terms)+'"><span>'+safe(label)+'</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i></a>'
+                ).join('');
+                return '<details class="group rounded-xl border border-slate-200 bg-white overflow-hidden" '+(index===0?'open':'')+'><summary class="cursor-pointer list-none flex items-center gap-3 p-3 hover:bg-slate-50"><span class="w-9 h-9 rounded-lg flex items-center justify-center border '+accents[subject.color]+'"><i class="fa-solid '+subject.icon+'"></i></span><span class="flex-1 min-w-0"><strong class="block text-sm text-slate-800">'+safe(subject.name)+'</strong><small class="text-[10px] text-slate-500">'+subject.lessons.length+' systems & lessons</small></span><i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform group-open:rotate-180"></i></summary><div class="border-t border-slate-100 p-1.5 max-h-64 overflow-y-auto">'+links+'</div></details>';
+            }).join('');
         }
 
         function renderDashboardStats() {
