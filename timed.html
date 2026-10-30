@@ -281,6 +281,7 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
 
     <!-- INCLUDE QUESTIONS.JS -->
     <script src="questions.js"></script>
+    <script src="js/youtube-recommendations.js"></script>
 
     <script src="js/shared-exam-renderer.js"></script>
     <script>
@@ -293,40 +294,8 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
         let examTimerInterval = null;
         let totalSecondsRemaining = 0;
 
-        const topicDualYouTubeMap = {
-            "cardio": [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Myocardial Infarction & ECG Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: "Heart Failure Pathophysiology", channel: "RegisteredNurseRN" }
-            ],
-            "respiratory": [
-                { url: "https://www.youtube.com/watch?v=phu_x9FS7WY", title: "Tracheostomy Care & Emergency Safety", channel: "RegisteredNurseRN" },
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: "Airway & Respiratory Priority NCLEX", channel: "SimpleNursing" }
-            ],
-            "pharmacology": [
-                { url: "https://www.youtube.com/watch?v=S73GT32EE48", title: "Pharmacology High Yield Medications", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", title: "Safe Med Administration & Toxicity", channel: "RegisteredNurseRN" }
-            ],
-            "pediatric": [
-                { url: "https://www.youtube.com/watch?v=LpVyqHeyTcA", title: "Pediatric Milestones & Nursing Care", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=si67310XO80", title: "Common Pediatric Disorders NCLEX", channel: "RegisteredNurseRN" }
-            ]
-        };
-
-        function getTwoYouTubeVideos(topic, category) {
-            const searchKey = `${topic || ''} ${category || ''}`.toLowerCase();
-            if (searchKey.includes('heart') || searchKey.includes('cardio') || searchKey.includes('infarction') || searchKey.includes('pulse')) {
-                return topicDualYouTubeMap["cardio"];
-            } else if (searchKey.includes('resp') || searchKey.includes('asthma') || searchKey.includes('trach') || searchKey.includes('oxygen') || searchKey.includes('lung')) {
-                return topicDualYouTubeMap["respiratory"];
-            } else if (searchKey.includes('med') || searchKey.includes('drug') || searchKey.includes('dose') || searchKey.includes('pharmacology') || searchKey.includes('digoxin') || searchKey.includes('insulin')) {
-                return topicDualYouTubeMap["pharmacology"];
-            } else if (searchKey.includes('child') || searchKey.includes('peds') || searchKey.includes('infant') || searchKey.includes('newborn')) {
-                return topicDualYouTubeMap["pediatric"];
-            }
-            return [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", title: `${topic || 'Core Concept'} Clinical Review`, channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", title: `${category || 'Nursing'} Priority Judgment`, channel: "RegisteredNurseRN" }
-            ];
+        function getTwoYouTubeVideos(questionObj) {
+            return window.QuickRNYoutube.getTwoVideos(questionObj);
         }
 
         function getNCLEXStrategy(questionObj) {
@@ -673,7 +642,7 @@ function renderCurrentQuestion() {
                     const isSATA = quickRNDetectItemFormat(q)==='Extended Multiple Response';
 
                     const strategy = getNCLEXStrategy(q);
-                    const videos = getTwoYouTubeVideos(q.topic, q.category);
+                    const videos = getTwoYouTubeVideos(q);
                     const isBookmarked = !!bookmarkedQuestions[q.id];
 
                     // Build choices breakdown with color badges
@@ -765,10 +734,10 @@ function renderCurrentQuestion() {
                                     <i class="fa-brands fa-youtube text-rose-600 text-base"></i> Recommended Video Review:
                                 </span>
                                 <div class="flex items-center gap-2 flex-wrap">
-                                    <a href="${videos[0].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                    <a href="${videos[0].url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
                                         <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[0].channel}
                                     </a>
-                                    <a href="${videos[1].url}" target="_blank" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
+                                    <a href="${videos[1].url}" target="_blank" rel="noopener noreferrer" class="px-3 py-1 bg-white hover:bg-slate-100 text-ncsbn-navy font-bold rounded text-xs border border-blue-300 shadow-2xs flex items-center gap-1.5">
                                         <i class="fa-solid fa-play text-[10px] text-rose-600"></i> ${videos[1].channel}
                                     </a>
                                 </div>

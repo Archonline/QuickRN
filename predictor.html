@@ -31,6 +31,7 @@
     
     <!-- Link questions data file -->
     <script src="questions.js"></script>
+    <script src="js/youtube-recommendations.js"></script>
 
     <style>
         body { font-family: 'Inter', Arial, sans-serif; user-select: none; }
@@ -688,6 +689,8 @@ function renderQuestionItem() {
             sortedItems.forEach(({ q, idx, uAns, isCorrect }) => {
                 const isBookmarked = bookmarkedQuestions[q.id] || false;
                 const topicName = q.topic || q.category || 'Clinical Nursing';
+                const videoTopicName = window.QuickRNYoutube.getDisplayTopic(q);
+                const videoUrl = window.QuickRNYoutube.getVideoSearchUrl(q, 'review');
                 const tutorInsight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight(q, isCorrect) : {domain:'Clinical review',guidance:'Prioritize client safety and reassess the response.',outcome:'Review the rationale and distractors.'};
 
                 qHtml += `
@@ -729,10 +732,10 @@ function renderQuestionItem() {
                                     <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center"><i class="fa-brands fa-youtube"></i></div>
                                     <div>
                                         <span class="block font-bold text-slate-900">Video Masterclass</span>
-                                        <span class="block text-[10px] text-slate-500">NCLEX Review: ${topicName}</span>
+                                        <span class="block text-[10px] text-slate-500">NCLEX Review: ${videoTopicName}</span>
                                     </div>
                                 </div>
-                                <a href="https://www.youtube.com/results?search_query=nclex+rn+${encodeURIComponent(topicName)}" target="_blank" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Watch</a>
+                                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Watch</a>
                             </div>
 
                             <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">

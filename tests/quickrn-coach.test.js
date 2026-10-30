@@ -59,6 +59,55 @@ const insight = coach.buildTutorInsight({
 assert.equal(insight.domain, 'Pharmacological and Parenteral Therapies (12-18%)');
 assert.match(insight.guidance, /medication/i);
 
+// YouTube recommendations must vary with the actual question content.
+const youtubeWindow = {};
+vm.runInNewContext(fs.readFileSync('js/youtube-recommendations.js', 'utf8'), {
+  window: youtubeWindow,
+  globalThis: youtubeWindow,
+  encodeURIComponent
+});
+const youtube = youtubeWindow.QuickRNYoutube;
+const insulinQuestion = {
+  category: 'Pharmacology',
+  topic: 'Insulin Administration',
+  title: 'Rapid-Acting Insulin and Meal Timing',
+  questionText: 'A client receives rapid-acting insulin before breakfast. Which teaching point prevents hypoglycemia?',
+  learningObjective: 'Coordinate rapid-acting insulin with food intake and glucose monitoring.',
+  rationale: 'Rapid-acting insulin lowers blood glucose quickly when meals are delayed.'
+};
+const insulinVideos = youtube.getTwoVideos(insulinQuestion);
+assert.equal(insulinVideos.length, 2);
+assert.match(insulinVideos[0].url, /^https:\/\/www\.youtube\.com\/results\?search_query=/);
+assert.match(decodeURIComponent(insulinVideos[0].url), /Insulin Administration/i);
+assert.match(decodeURIComponent(insulinVideos[0].url), /Rapid-Acting Insulin/i);
+assert.match(decodeURIComponent(insulinVideos[0].url), /hypoglycemia/i);
+assert.match(decodeURIComponent(insulinVideos[1].url), /clinical judgment nursing interventions/i);
+assert.notEqual(insulinVideos[0].url, insulinVideos[1].url);
+const respiratoryQuestion = {
+  topic: 'Tracheostomy Emergency Care',
+  category: 'Physiological Adaptation',
+  stem: 'A client with a tracheostomy develops stridor and respiratory distress.'
+};
+const respiratoryUrl = youtube.getVideoSearchUrl(respiratoryQuestion, 'review');
+assert.match(decodeURIComponent(respiratoryUrl), /Tracheostomy Emergency Care/i);
+assert.notEqual(respiratoryUrl, youtube.getVideoSearchUrl(insulinQuestion, 'review'));
+
+// All exam modes load the shared question-aware getter instead of fixed-ID maps.
+for (const page of ['cat.html', 'timed.html', 'predictor.html', 'selfstudy.html']) {
+  const source = fs.readFileSync(page, 'utf8');
+  assert.match(source, /js\/youtube-recommendations\.js/, page + ' YouTube helper import');
+}
+for (const page of ['cat.html', 'timed.html']) {
+  const source = fs.readFileSync(page, 'utf8');
+  assert.doesNotMatch(source, /topicDualYouTubeMap/, page + ' must not use a fixed video map');
+}
+assert.match(fs.readFileSync('cat.html', 'utf8'), /getTwoYouTubeVideos\(q\)/);
+assert.match(fs.readFileSync('timed.html', 'utf8'), /getTwoYouTubeVideos\(q\)/);
+assert.match(fs.readFileSync('predictor.html', 'utf8'), /getVideoSearchUrl\(q, 'review'\)/);
+assert.match(fs.readFileSync('selfstudy.html', 'utf8'), /QuickRNYoutube\.getTwoVideos\(currentItem\)/);
+assert.match(fs.readFileSync('selfstudy.html', 'utf8'), /QuickRNYoutube\.getTwoVideos\(question\)/);
+assert.doesNotMatch(fs.readFileSync('selfstudy.html', 'utf8'), /youtubeId \|\| "r5W1ns5C1ik"/);
+
 // Dashboard -> dedicated calendar flow and roadmap persistence hooks.
 const dashboard = fs.readFileSync('dashboard.html', 'utf8');
 const calendar = fs.readFileSync('calendar.html', 'utf8');
