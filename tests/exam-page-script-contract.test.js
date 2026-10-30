@@ -1,3 +1,6 @@
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const root = process.cwd();
 const fs = require('fs');
 const pages = ['selfstudy.html', 'timed.html', 'predictor.html', 'cat.html'];
 const failures = [];
