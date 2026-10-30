@@ -60,3 +60,10 @@ body.quickrn-exam .qr-highlight-segment.is-correct{border-color:#059669;backgrou
 body.quickrn-exam .qr-highlight-segment.is-incorrect{border-color:#e11d48;background:#fff1f2;color:#9f1239}
 body.quickrn-exam .qr-missing{padding:12px;border:1px dashed #f59e0b;border-radius:8px;background:#fffbeb;color:#92400e;font-size:12px}
 @media(max-width:640px){body.quickrn-exam .qr-question-head{padding:14px!important}body.quickrn-exam .qr-response-area{padding:12px!important}body.quickrn-exam .qr-trend-panel{padding:12px 12px 0}body.quickrn-exam .qr-choice{padding:11px!important}}
+
+
+/* Accessibility and motion preferences shared by all exam modes */
+:focus-visible{outline:3px solid #0e7490!important;outline-offset:2px!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+body.quickrn-exam button:disabled{cursor:not-allowed;opacity:.55}
+body.quickrn-exam .qr-choice:focus-visible,body.quickrn-exam .qr-highlight-segment:focus-visible{outline:3px solid #0e7490!important;outline-offset:3px}
