@@ -31,6 +31,7 @@
     
     <!-- Link questions data file -->
     <script src="questions.js"></script>
+    <script src="js/quickrn-question-bank-normalizer.js"></script>
     <script src="js/quickrn-question-id-normalizer.js"></script>
     <script src="js/youtube-recommendations.js"></script>
 
@@ -107,46 +108,51 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
 </style>
 
 <style id="quickrn-unified-nclex-split-screen">
-/* Unified NCLEX split-screen shell across all exam modes */
-:root{--qr-workspace-height:calc(100dvh - 132px)}
-html,body{min-height:100%;}
-body{background:#e2e8f0!important}
-.qr-clinical-layout{display:grid!important;grid-template-columns:minmax(300px,40%) minmax(0,60%)!important;gap:12px!important;align-items:stretch!important;width:100%!important;min-width:0!important;min-height:0!important}
-.qr-clinical-layout{height:100%!important;flex:1 1 auto!important}
-.qr-ehr,.qr-question-panel{min-width:0!important;min-height:0!important;height:100%!important;background:#fff!important;border:1px solid #cbd5e1!important;border-radius:10px!important;overflow:hidden!important}
-.qr-ehr{display:flex!important;flex-direction:column!important}
+/* Shared NCLEX-style exam shell. Clinical records are shown only when real context exists. */
+:root{--qr-exam-gap:12px}
+.qr-clinical-layout{display:grid!important;grid-template-columns:minmax(260px,40%) minmax(0,60%)!important;gap:var(--qr-exam-gap)!important;align-items:stretch!important;width:100%!important;min-width:0!important;min-height:0!important;height:100%!important;flex:1 1 auto!important;overflow:hidden!important}
+.qr-clinical-layout.question-only{grid-template-columns:minmax(0,1fr)!important}
+.qr-clinical-layout.question-only>.qr-question-panel{grid-column:1/-1!important;width:100%!important}
+.qr-ehr,.qr-question-panel{min-width:0!important;min-height:0!important;height:100%!important;background:#fff!important;border:1px solid #cbd5e1!important;border-radius:10px!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
 .qr-ehr-body{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overscroll-behavior:contain}
-.qr-question-panel{display:flex!important;flex-direction:column!important;overflow-y:auto!important;overscroll-behavior:contain}
-.qr-question-head{position:sticky;top:0;z-index:2}
-.qr-response-area{min-width:0}
-/* Legacy Self Study renderer uses its own EHR/question sections. */
-main.nclex-workspace{display:grid!important;grid-template-columns:minmax(300px,40%) minmax(0,60%)!important;gap:12px!important;height:var(--qr-workspace-height)!important;max-height:var(--qr-workspace-height)!important;overflow:hidden!important;align-items:stretch!important}
-main.nclex-workspace>section{width:auto!important;min-width:0!important;height:100%!important;min-height:0!important}
-main.nclex-workspace>section:first-of-type{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+.qr-question-panel{overflow-y:auto!important;overscroll-behavior:contain}
+.qr-question-head{flex:0 0 auto;position:sticky;top:0;z-index:2}
+.qr-response-area{min-width:0!important;flex:1 0 auto}
+.qr-table-wrap{max-width:100%;overflow-x:auto}
+.qr-matrix,.qr-trend-table{width:100%;border-collapse:collapse}
+.qr-matrix th,.qr-matrix td,.qr-trend-table th,.qr-trend-table td{padding:9px 10px;border:1px solid #cbd5e1;vertical-align:middle}
+.qr-matrix th,.qr-trend-table th{background:#f1f5f9;font-weight:800;text-align:left}
+.qr-choice,.qr-highlight-segment{max-width:100%;overflow-wrap:anywhere}
+.qr-sort-item{min-width:0}
+.qr-sort-text{min-width:0;overflow-wrap:anywhere}
+body:has(#root){height:100dvh!important;min-height:0!important;overflow:hidden!important}
+#root{height:100%!important;min-height:0!important;display:flex!important;flex-direction:column!important}
+main.nclex-workspace{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:var(--qr-exam-gap)!important;flex:1 1 auto!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:hidden!important;align-items:stretch!important}
+main.nclex-workspace:has(>section+section){grid-template-columns:minmax(260px,40%) minmax(0,60%)!important}
+main.nclex-workspace>section{width:auto!important;min-width:0!important;height:100%!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
 main.nclex-workspace>section:first-of-type .ehr-readable{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important}
 main.nclex-workspace>.nclex-question-panel{overflow-y:auto!important}
-/* The dynamic exam containers must use the available page width. */
-main:has(#exam-container),main:has(#exam-workspace){width:100%!important;max-width:none!important;min-width:0!important}
-#exam-card,#exam-container,#exam-workspace{min-width:0!important;max-width:none!important}
-#exam-container{width:100%!important}
+.quickrn-shared-question{display:flex!important;flex:1 1 auto!important;min-height:0!important;flex-direction:column!important}
+.quickrn-shared-question .qr-clinical-layout{flex:1 1 auto!important}
+body:has(#exam-card),body:has(#exam-workspace){height:100dvh!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+body:has(#exam-card)>header,body:has(#exam-card)>footer,body:has(#exam-workspace)>header{flex:0 0 auto!important}
+body:has(#exam-card)>main{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;overflow:hidden!important;margin:0!important}
+#exam-card{display:flex!important;flex:1 1 auto!important;min-height:0!important;height:100%!important}
+#exam-container{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;width:100%!important;min-width:0!important;min-height:0!important;height:100%!important;max-height:none!important;overflow:hidden!important}
+body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;width:100%!important;max-width:none!important;min-height:0!important;height:auto!important;overflow:hidden!important;margin:0!important}
+#exam-workspace{display:flex!important;flex:1 1 auto!important;min-width:0!important;min-height:0!important;height:100%!important;overflow:hidden!important}
 @media(max-width:900px){
- :root{--qr-workspace-height:auto}
- body{height:auto!important;overflow-y:auto!important}
- main.nclex-workspace{display:flex!important;flex-direction:column!important;height:auto!important;max-height:none!important;overflow:visible!important}
- main.nclex-workspace>section{width:100%!important;height:auto!important;min-height:0!important}
- main.nclex-workspace>section:first-of-type{min-height:300px!important}
- main.nclex-workspace>section:first-of-type .ehr-readable{max-height:420px!important}
- .qr-clinical-layout{grid-template-columns:minmax(0,1fr)!important;align-items:stretch!important;height:auto!important;flex:none!important}
- .qr-ehr,.qr-question-panel{height:auto!important;max-height:none!important}
- .qr-ehr-body{max-height:420px!important}
- main:has(#exam-container),main:has(#exam-workspace){height:auto!important;max-height:none!important;overflow:visible!important}
-}
-@media(min-width:901px){
- body:has(#exam-container),body:has(#exam-workspace){height:100dvh!important;overflow:hidden!important}
- main:has(#exam-container),main:has(#exam-workspace){height:var(--qr-workspace-height)!important;max-height:var(--qr-workspace-height)!important;overflow:hidden!important;justify-content:stretch!important}
- #exam-card{height:100%!important;min-height:0!important}
- #exam-container{height:100%!important;min-height:0!important;overflow:hidden!important;padding:12px!important}
- #exam-workspace{height:100%!important;min-height:0!important;overflow:hidden!important}
+ body:has(#root),body:has(#exam-card),body:has(#exam-workspace){height:auto!important;min-height:100dvh!important;overflow-y:auto!important;display:block!important}
+ #root{height:auto!important;min-height:100dvh!important}
+ main.nclex-workspace,main.nclex-workspace:has(>section+section){display:flex!important;flex-direction:column!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ main.nclex-workspace>section{width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important}
+ main.nclex-workspace>section:first-of-type{min-height:260px!important}
+ .quickrn-shared-question{min-height:0!important;overflow:visible!important}
+ .qr-clinical-layout{display:flex!important;flex-direction:column!important;height:auto!important;max-height:none!important;flex:none!important;overflow:visible!important}
+ .qr-ehr,.qr-question-panel{width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ .qr-ehr-body{max-height:420px!important;overflow-y:auto!important}
+ body:has(#exam-card)>main,body:has(#exam-workspace)>main{height:auto!important;min-height:0!important;overflow:visible!important}
+ #exam-card,#exam-container,#exam-workspace{height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important}
 }
 </style>
 
