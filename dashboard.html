@@ -210,7 +210,7 @@
                                         NCLEX Passing Probability
                                     </h3>
                                     <p class="text-sm text-slate-300 leading-relaxed">
-                                        Calculated dynamically using adaptive weighting of reviewed questions volume, CAT scores trajectory, and NCLEX Predictor Exam benchmarks. Complete tests to generate prediction model.
+                                        Based on your latest completed CAT or Predictor adaptive ability estimate. An estimate appears after at least 85 answered items; question volume and placeholder scores do not inflate it.
                                     </p>
                                 </div>
 
@@ -221,8 +221,9 @@
                                         <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                     </svg>
                                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                        <span id="probability-value-text" class="text-3xl lg:text-4xl font-black text-white tracking-tight">0%</span>
-                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">PASS RATE</span>
+                                        <span id="probability-value-text" class="text-3xl lg:text-4xl font-black text-white tracking-tight">—</span>
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">EST. PASS LIKELIHOOD</span>
+                                        <span id="probability-status-text" class="text-[9px] text-slate-400 mt-1">Complete a CAT or Predictor exam</span>
                                     </div>
                                 </div>
 
@@ -382,8 +383,8 @@
                                 <p class="mt-2 text-xs leading-6 text-slate-600">Flag incorrect answers, unclear rationales, wording, NGN interactions, display issues, or duplicates. Reports include question context and are saved on this device until you export or share them.</p>
                             </article>
                             <article class="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-database text-sky-700"></i> Data backup & restore</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">Export a copy of your QuickRN study records and restore it later from a backup file. Your progress remains browser-local; backups are not automatically synced to an account.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line text-sky-700"></i> Clearer NCLEX readiness estimate</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">The dashboard now uses the latest completed CAT or Predictor adaptive ability estimate. It waits for at least 85 answered items and does not substitute placeholder scores when an exam result is missing.</p>
                             </article>
                         </div>
                         <div class="mt-4 flex flex-col gap-3 rounded-xl bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
@@ -636,22 +637,45 @@
             document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
             document.getElementById('stat-predictor-count').textContent = studentStats.predictorExamsCount;
 
-            let calculatedProbability = 0;
-
-            if (studentStats.totalSolved > 0 || studentStats.catExamsCount > 0 || studentStats.predictorExamsCount > 0) {
-                const questionVolumeWeight = Math.min(1.0, studentStats.totalSolved / 500) * 25;
-                const accuracyWeight = (accuracy / 100) * 35;
-                const catWeight = studentStats.catExamsCount > 0 ? (studentStats.catAverageScore || 70) * 0.20 : 0;
-                const predictorWeight = studentStats.predictorExamsCount > 0 ? (studentStats.predictorAverageScore || 70) * 0.20 : 0;
-                
-                calculatedProbability = Math.min(99, Math.round(questionVolumeWeight + accuracyWeight + catWeight + predictorWeight));
-            }
+            // Use the adaptive model's saved probability from a sufficiently long CAT/Predictor attempt.
+            // Never infer a passing probability from question volume, raw accuracy, or placeholder averages.
+            const savedState = (() => {
+                try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); }
+                catch (error) { return {}; }
+            })();
+            const stats = savedState.studentStats || {};
+            const history = [
+                ...(Array.isArray(stats.examHistory) ? stats.examHistory : []),
+                ...(Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [])
+            ];
+            const seen = new Set();
+            const adaptiveResults = history.filter(record => {
+                const mode = String(record.mode || record.type || '');
+                if (!/CAT|Predictor/i.test(mode)) return false;
+                const probability = Number(record.passingProbability);
+                const itemCount = Number(record.totalAnswered ?? record.total ?? record.attempted ?? 0);
+                if (!Number.isFinite(probability) || probability < 0 || probability > 100 || itemCount < 85) return false;
+                const key = [record.date || record.timestamp || '', mode, itemCount, probability].join('|');
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            const latestAdaptiveResult = adaptiveResults[0] || null;
+            const calculatedProbability = latestAdaptiveResult
+                ? Math.round(Number(latestAdaptiveResult.passingProbability))
+                : null;
 
             const probText = document.getElementById('probability-value-text');
             const gaugeCircle = document.getElementById('gauge-circle-path');
+            const statusText = document.getElementById('probability-status-text');
 
-            if (probText) probText.textContent = calculatedProbability + '%';
-            if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability}, 100`);
+            if (probText) probText.textContent = calculatedProbability === null ? '—' : calculatedProbability + '%';
+            if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability === null ? 0 : calculatedProbability}, 100`);
+            if (statusText) {
+                statusText.textContent = latestAdaptiveResult
+                    ? (latestAdaptiveResult.status && /INCONCLUSIVE/i.test(latestAdaptiveResult.status) ? 'Limited evidence' : 'Latest adaptive result')
+                    : 'Complete 85+ CAT/Predictor items';
+            }
         }
 
         function renderMasteryCategories() {
