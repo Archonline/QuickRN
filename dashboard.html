@@ -279,22 +279,18 @@
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                             <div>
-                                <h2 class="text-base font-bold text-slate-900">NCLEX Score Trajectory & Peer Benchmark Comparison</h2>
-                                <p class="text-xs text-slate-500">Performance curve plotting CAT scores, NCLEX Predictor Exams, and National Peer Averages (74%)</p>
+                                <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
+                                <p class="text-xs text-slate-500">Your recorded exam accuracy and model-estimated chance of being above the passing standard. Only actual saved attempts are plotted.</p>
                             </div>
                             <!-- Legend indicators -->
                             <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
                                 <div class="flex items-center space-x-1.5">
                                     <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
-                                    <span>CAT Exam Score</span>
+                                    <span>Exam accuracy</span>
                                 </div>
                                 <div class="flex items-center space-x-1.5">
                                     <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-                                    <span>NCLEX Predictor Exam</span>
-                                </div>
-                                <div class="flex items-center space-x-1.5">
-                                    <span class="w-3 h-3 rounded-full bg-slate-400 inline-block"></span>
-                                    <span>Peer Average (74%)</span>
+                                    <span>Estimated passing likelihood</span>
                                 </div>
                             </div>
                         </div>
@@ -302,6 +298,7 @@
                         <div class="h-72 w-full">
                             <canvas id="quickrnScoreChart"></canvas>
                         </div>
+                        <p id="quickrn-score-chart-note" class="text-[11px] text-slate-500" aria-live="polite">Loading saved exam history…</p>
                     </div>
 
                     
@@ -844,98 +841,47 @@
         }
 
         function initQuickRNScoreChart() {
-            const ctx = document.getElementById('quickrnScoreChart');
-            if (!ctx) return;
-
-            let labels = ['Test 1', 'Test 2', 'Test 3', 'Test 4', 'Test 5'];
-            let catScores = [0, 0, 0, 0, 0];
-            let predictorScores = [0, 0, 0, 0, 0];
-            const peerAverage = [74, 74, 74, 74, 74];
-
-            const savedState = localStorage.getItem('quickrn_student_state');
-            if (savedState) {
-                try {
-                    const parsed = JSON.parse(savedState);
-                    if (parsed.studentStats) {
-                        if (Array.isArray(parsed.studentStats.examHistory) && parsed.studentStats.examHistory.length > 0) {
-                            labels = [];
-                            catScores = [];
-                            predictorScores = [];
-                            
-                            parsed.studentStats.examHistory.forEach((ex, i) => {
-                                labels.push(`Attempt ${i + 1}`);
-                                catScores.push(ex.scorePercent || 0);
-                                predictorScores.push(ex.predictorScore || 0);
-                            });
-                        }
-                    }
-                } catch(e) {}
-            }
-
-            if (quickrnChartInstance) {
-                quickrnChartInstance.destroy();
-            }
-
-            quickrnChartInstance = new Chart(ctx, {
+            const canvas = document.getElementById('quickrnScoreChart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            const state = (() => { try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); } catch(e) { return {}; } })();
+            const stats = state.studentStats || {};
+            const history = Array.isArray(stats.examHistory) ? [...stats.examHistory] : [];
+            const predictorHistory = Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [];
+            const seen = new Set(history.map(x => String(x.date || '') + '|' + String(x.type || x.mode || '') + '|' + String(x.total || x.totalAnswered || '')));
+            predictorHistory.forEach(x => {
+                const key = String(x.date || '') + '|' + String(x.type || 'NCLEX Predictor Exam') + '|' + String(x.total || '');
+                if (!seen.has(key)) history.push(x);
+            });
+            const records = history
+                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp))
+                .map(x => ({...x, _date: new Date(x.timestamp || x.date), _score: Number(x.scorePercent ?? x.score), _prob: Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
+                .filter(x => !Number.isNaN(x._date.getTime()))
+                .sort((a,b) => a._date-b._date);
+            const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
+            const scores = records.map(x => x._score);
+            const probabilities = records.map(x => x._prob);
+            if (quickrnChartInstance) quickrnChartInstance.destroy();
+            quickrnChartInstance = new Chart(canvas, {
                 type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'CAT Exam Score (%)',
-                            data: catScores,
-                            borderColor: '#16a34a',
-                            backgroundColor: 'rgba(22, 163, 74, 0.08)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.35,
-                            pointRadius: 5,
-                            pointBackgroundColor: '#16a34a'
-                        },
-                        {
-                            label: 'Predictor Score (%)',
-                            data: predictorScores,
-                            borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
-                            borderWidth: 3,
-                            borderDash: [4, 4],
-                            fill: false,
-                            tension: 0.35,
-                            pointRadius: 5,
-                            pointBackgroundColor: '#f59e0b'
-                        },
-                        {
-                            label: 'National Peer Average (74%)',
-                            data: peerAverage.slice(0, labels.length),
-                            borderColor: '#94a3b8',
-                            borderWidth: 2,
-                            borderDash: [6, 6],
-                            fill: false,
-                            pointRadius: 0
-                        }
-                    ]
-                },
+                data: { labels, datasets: [
+                    { label: 'Exam accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 3, fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 3, borderDash: [5,4], fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false }
+                ]},
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
                     plugins: {
-                        legend: { display: false }
+                        legend: { display: true, position: 'bottom' },
+                        tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y === null ? 'Not recorded for this attempt' : ctx.parsed.y + '%'); } } }
                     },
                     scales: {
-                        y: {
-                            min: 0,
-                            max: 100,
-                            ticks: {
-                                callback: function(val) { return val + '%'; }
-                            },
-                            grid: { color: 'rgba(226, 232, 240, 0.6)' }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
+                        y: { min: 0, max: 100, ticks: { callback: val => val + '%' }, title: {display:true,text:'Percentage'} },
+                        x: { grid: { display: false }, title: {display:true,text:'Completed exam attempts'} }
                     }
                 }
             });
+            const note = document.getElementById('quickrn-score-chart-note');
+            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a CAT or Predictor exam to begin your performance trend. No sample or peer data is shown.';
         }
 
         function switchTab(tabId) {
