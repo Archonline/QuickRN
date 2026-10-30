@@ -15,6 +15,6 @@ requireText("download='quickrn-study-calendar.ics'", 'Calendar export missing');
 requireText('type:typeInput.value', 'Event type is not persisted');
 requireText("typeInput.value = event.type || 'activity'", 'Event type is not restored when editing');
 requireText('<script>', 'Calendar script not found');
-try { const scripts=[...html.matchAll(/<script([^>]*)>([\\s\\S]*?)<\\/script>/gi)].filter(m=>!/\\bsrc\\s*=/.test(m[1])).map(m=>m[2]).filter(s=>s.trim()); if(!scripts.length)throw new Error('No inline script found'); scripts.forEach(s=>new Function(s)); } catch (error) { failures.push('Calendar inline JavaScript syntax invalid: ' + error.message); }
-if (failures.length) { console.error('Calendar feature contract failed:\\n- ' + failures.join('\\n- ')); process.exit(1); }
+try { const scripts=[...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)].filter(m=>!/\bsrc\s*=/.test(m[1])).map(m=>m[2]).filter(s=>s.trim()); if(!scripts.length)throw new Error('No inline script found'); scripts.forEach(s=>new Function(s)); } catch (error) { failures.push('Calendar inline JavaScript syntax invalid: ' + error.message); }
+if (failures.length) { console.error('Calendar feature contract failed:\n- ' + failures.join('\n- ')); process.exit(1); }
 console.log('Calendar test-date, urgency, shortcuts, persistence, and export contract passed.');
