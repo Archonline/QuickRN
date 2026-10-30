@@ -29,6 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <!-- Questions Pool JS File -->
     <script src="questions.js"></script>
+    <script src="js/youtube-recommendations.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; user-select: none; }
         .font-mono-custom { font-family: 'JetBrains Mono', monospace; }
@@ -282,20 +283,8 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
             { id: 'cat-1', category: 'Pharmacology', topic: 'Insulin Administration', questionText: 'The nurse evaluates whether the current care plan remains appropriate. The topic is insulin administration. Which statement by the client shows understanding?', options: ['Skip glucose checks in all circumstances', 'Give rapid-acting insulin and then delay the meal indefinitely', 'Use another client\'s insulin pen if the dose matches', 'Verify the correct insulin and ensure meal/timing coordination'], correctAnswer: 'Verify the correct insulin and ensure meal/timing coordination', difficulty: 0.1, rationale: 'Rapid-acting insulins require food to be available promptly to prevent severe hypoglycemia.' }
         ];
 
-        // TOPIC YOUTUBE MAP HELPER
-        const topicDualYouTubeMap = {
-            "Insulin Administration": [
-                { url: "https://www.youtube.com/watch?v=S73GT32EE48", thumbnail: "https://img.youtube.com/vi/S73GT32EE48/hqdefault.jpg", title: "Insulin Pharmacology Nursing Review", channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=B8THrJVTeZU", thumbnail: "https://img.youtube.com/vi/B8THrJVTeZU/hqdefault.jpg", title: "Diabetes Management NCLEX Review", channel: "RegisteredNurseRN" }
-            ]
-        };
-
-        function getTwoYouTubeVideos(topic, category) {
-            if (topicDualYouTubeMap[topic]) return topicDualYouTubeMap[topic];
-            return [
-                { url: "https://www.youtube.com/watch?v=sjbGm5G_Cbk", thumbnail: "https://img.youtube.com/vi/sjbGm5G_Cbk/hqdefault.jpg", title: `${topic || category} Core Nursing Review`, channel: "SimpleNursing" },
-                { url: "https://www.youtube.com/watch?v=r5W1ns5C1ik", thumbnail: "https://img.youtube.com/vi/r5W1ns5C1ik/hqdefault.jpg", title: `${category} Clinical Judgment NCLEX`, channel: "RegisteredNurseRN" }
-            ];
+        function getTwoYouTubeVideos(questionObj) {
+            return window.QuickRNYoutube.getTwoVideos(questionObj);
         }
 
         function getNCLEXStrategy(questionObj) {
@@ -531,7 +520,7 @@ function renderQuestion() {
             catHistory.forEach((item, index) => {
                 const q = item.question;
                 const isCorrect = item.isCorrect;
-                const twoVideos = getTwoYouTubeVideos(q.topic, q.category);
+                const twoVideos = getTwoYouTubeVideos(q);
                 const strategy = getNCLEXStrategy(q);
                 const isBookmarked = !!bookmarkedQuestions[q.id];
 
@@ -607,8 +596,9 @@ function renderQuestion() {
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 ${twoVideos.map(vid => `
                                     <div class="bg-white border border-slate-200 rounded-lg overflow-hidden flex flex-col justify-between shadow-xs">
-                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="relative aspect-video bg-slate-900 overflow-hidden block">
-                                            <img src="${vid.thumbnail}" alt="${vid.title}" class="w-full h-full object-cover">
+                                        <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="relative aspect-video bg-slate-900 overflow-hidden flex flex-col items-center justify-center gap-2 text-white hover:bg-slate-800 transition">
+                                            <i class="fa-brands fa-youtube text-3xl text-red-500"></i>
+                                            <span class="text-[10px] font-bold uppercase tracking-wide">Search YouTube</span>
                                         </a>
                                         <div class="p-2.5 flex flex-col justify-between space-y-2">
                                             <div>
