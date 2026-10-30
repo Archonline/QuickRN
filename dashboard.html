@@ -871,7 +871,7 @@
                     responsive: true, maintainAspectRatio: false,
                     interaction: { mode: 'index', intersect: false },
                     plugins: {
-                        legend: { display: true, position: 'bottom' },
+                        legend: { display: false },
                         tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y === null ? 'Not recorded for this attempt' : ctx.parsed.y + '%'); } } }
                     },
                     scales: {
