@@ -38,12 +38,46 @@ bank.forEach((q,index)=>{
  usedQuestionIds.add(candidate);
 });
 const formats=['Single Choice','Multiple Response','Matrix / Grid','Cloze (Drop-down)','Extended Drag and Drop','Bowtie','Extended Multiple Response','Highlight','Trend'];
-const counts=Object.fromEntries(formats.map(x=>[x,0])),errors=[],samples={},caseGroups=new Set();
+const counts=Object.fromEntries(formats.map(x=>[x,0])),errors=[],qualityWarnings=[],samples={},caseGroups=new Set();
 for(let i=0;i<bank.length;i++){
  const q=bank[i]||{},f=format(q);counts[f]=(counts[f]||0)+1;
  if(!samples[f])samples[f]=[];if(samples[f].length<5)samples[f].push(q.id||'record-'+(i+1));
  if(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study)caseGroups.add(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study);
  const issue=(code,message)=>errors.push({index:i,id:q.id||null,format:f,code,message});
+ const stem=String(q.question||q.stem||q.title||'').trim();
+ if(/^(?:Traditional NCLEX practice|NGN (?:Matrix \/ Grid|Cloze \(Drop-down\)|Extended Drag and Drop|Bowtie|Extended Multiple Response)|SATA)\s+\d+\s*[—-]/i.test(stem) ||
+    /the client is alert and can answer questions|no written action plan is available|relevant medical history and several current assessment findings|reports a new symptom to the bedside nurse|vital signs have changed over the last hour/i.test(stem)){
+  qualityWarnings.push({index:i,id:q.id||null,format:f,code:'GENERIC_TEMPLATE_STEM',message:'Stem contains generic/template wording; requires clinical educator review before beta use.'});
+ }
+ const options=Array.isArray(q.options)?q.options:[];
+ const optionHas=value=>options.some(option=>[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
+ if(f==='Single Choice'&&options.length){
+  const key=q.correctAnswerText??q.correctAnswer;
+  if(key!==undefined&&!optionHas(key))issue('ANSWER_NOT_IN_OPTIONS','Single-choice answer key does not match an option ID or text');
+  if(Array.isArray(q.correctAnswers)&&!q.correctAnswers.every(optionHas))issue('ANSWER_IDS_NOT_IN_OPTIONS','Single-choice correctAnswers contains an unknown option');
+ }
+ if((f==='Multiple Response'||f==='Extended Multiple Response')&&Array.isArray(q.correctAnswers)&&options.length&&!q.correctAnswers.every(optionHas)){
+  issue('ANSWER_IDS_NOT_IN_OPTIONS','Multiple-response answer key contains an unknown option');
+ }
+ if(f==='Matrix / Grid'){
+  const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[],answers=q.correctAnswers||{};
+  if(rows.some((row,index)=>{const id=row.id||String(index);return !(id in answers)||!columns.includes(answers[id]);})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to a valid column');
+ }
+ if(f==='Cloze (Drop-down)'){
+  const answers=q.correctAnswers||{},choices=q.options||q.dropdowns||{};
+  if(Object.entries(answers).some(([key,value])=>!Array.isArray(choices[key])||!choices[key].some(choice=>String(choice)===String(value))))issue('CLOZE_KEY_MISMATCH','Cloze answer key does not match its dropdown choices');
+ }
+ if(f==='Extended Drag and Drop'){
+  const available=q.availableItems||[],order=q.correctOrder||[];
+  if(!order.length||order.length!==available.length||order.some(value=>!available.some(item=>String(item)===String(value))))issue('ORDER_KEY_MISMATCH','Ordered-response answer key must use every available item exactly once');
+ }
+ if(f==='Bowtie'){
+  const data=q.bowtieData||{},answers=q.correctAnswers||{};
+  if(!Array.isArray(data.conditions)||!data.conditions.some(value=>String(value)===String(answers.condition))||
+     !(answers.actions||[]).every(value=>(data.actions||[]).includes(value))||
+     !(answers.monitoring||[]).every(value=>(data.monitoring||[]).includes(value)))issue('BOWTIE_KEY_MISMATCH','Bowtie answer key contains a choice not present in its response groups');
+ }
+
  if(!String(q.title||q.questionText||q.question||q.cleanTitle||'').trim())issue('MISSING_PROMPT','No usable title or prompt');
  if(['Single Choice','Trend'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
@@ -55,9 +89,9 @@ for(let i=0;i<bank.length;i++){
  if(f==='Highlight'&&(!(q.highlightText||q.passage||q.caseStudyText||q.highlightSegments||q.segments)||!(q.correctHighlights||q.correctAnswers?.highlights)))issue('INVALID_HIGHLIGHT_SCHEMA','Expected highlightable text/segments and correctHighlights');
  if(f==='Trend'&&(!(q.trendData||q.trends||q.trendTable)||!Array.isArray(q.options)||!q.options.length))issue('INVALID_TREND_SCHEMA','Expected trend data and response options');
 }
-const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,duplicateIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
+const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,qualityWarnings:qualityWarnings.length,qualityWarningSamples:qualityWarnings.slice(0,500),duplicateIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
 fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/ngn-bank-validation.json',JSON.stringify(report,null,2));
-const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Distinct case groups: ${caseGroups.size}`,`- Duplicate IDs normalized: ${duplicateIdsNormalized}`,`- Validation errors: ${errors.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
+const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Distinct case groups: ${caseGroups.size}`,`- Duplicate IDs normalized: ${duplicateIdsNormalized}`,`- Validation errors: ${errors.length}`,`- Generic/template stems requiring educator review: ${qualityWarnings.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Quality warnings','',...(qualityWarnings.length?qualityWarnings.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No generic/template stem warnings detected.']),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
 fs.writeFileSync('reports/ngn-bank-validation.md',md);
-console.log(JSON.stringify({totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,duplicateIdsNormalized,validationErrors:errors.length},null,2));
+console.log(JSON.stringify({totalRecords:bank.length,formatCounts:counts,distinctCaseGroups:caseGroups.size,duplicateIdsNormalized,qualityWarnings:qualityWarnings.length,validationErrors:errors.length},null,2));
 if(errors.length)process.exitCode=1;
