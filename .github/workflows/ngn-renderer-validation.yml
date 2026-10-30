@@ -32,6 +32,7 @@ jobs:
           node --check tests/help-content-contract.test.js
           node --check tests/calendar-feature-contract.test.js
           node --check tests/reporting-backup-contract.test.js
+          node --check tests/feedback-inbox.test.js
           node --check js/quickrn-question-reporting.js
           node --check js/quickrn-data-backup.js
           node --check js/quickrn-question-id-normalizer.js
@@ -60,6 +61,7 @@ jobs:
         run: node tests/calendar-feature-contract.test.js
       - name: Verify question reporting and data backup
         run: node tests/reporting-backup-contract.test.js
+          node tests/feedback-inbox.test.js
       - name: Test CAT adaptive decision engine
         run: node tests/cat-engine.test.js
       - name: Test all supported question renderers
