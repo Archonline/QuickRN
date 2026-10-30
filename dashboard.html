@@ -32,6 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External Questions Bank -->
     <script src="questions.js"></script>
+    <script src="js/quickrn-coach.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -89,7 +90,10 @@
                     <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                
+                <a href="calendar.html" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-calendar-days w-5 text-center text-emerald-600"></i>
+                    <span>Calendar</span>
+                </a>
                 
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
@@ -301,7 +305,7 @@
                     </div>
 
                     
-                    <!-- 100% FREE CLIENT-SIDE AI STUDY COACH & REMEDIATION GENERATOR -->
+                    <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
                     <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl space-y-4 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-indigo-800/60 pb-4">
@@ -311,20 +315,25 @@
                                 </div>
                                 <div>
                                     <div class="flex items-center space-x-2">
-                                        <h2 class="text-base font-bold text-white">QuickRN AI Study Coach & Remediation Generator</h2>
-                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">100% Free AI Engine</span>
+                                        <h2 class="text-base font-bold text-white">QuickRN Clinical Study Coach & Remediation Planner</h2>
+                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">Local rules · no API required</span>
                                     </div>
-                                    <p class="text-xs text-indigo-200">Analyzes your telemetry data, weak client needs domains, and missed items to build custom study plans.</p>
+                                    <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
                                 </div>
                             </div>
-                            <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Study Roadmap
+                            <button onclick="generateStudyRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
                             </button>
                         </div>
                         <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate AI Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
+                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
                         </div>
                     </div>
+
+                    <section class="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
+                        <div class="flex items-center justify-between gap-3"><div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Client Needs domains below the 75% accuracy target, based on submitted answers.</p></div><i class="fa-solid fa-bullseye text-amber-700 text-xl"></i></div>
+                        <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-3"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
+                    </section>
 
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
@@ -351,7 +360,7 @@
                             <span class="px-3 py-1 bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">Simulated NCLEX Environment & Reviewer Guide</span>
                             <h2 class="text-3xl font-black tracking-tight text-white">QuickRN Feature Hub</h2>
                             <p class="text-indigo-200 text-sm leading-relaxed">
-                                Explore all built-in clinical review modules, AI tutoring systems, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
+                                Explore clinical review modules, the shared Clinical Study Coach, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
                             </p>
                         </div>
                     </div>
@@ -365,7 +374,7 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-slate-900 text-base">What's New in QuickRN</h3>
-                                    <p class="text-xs text-slate-500">Latest platform updates, AI integrations, and reviewer enhancements</p>
+                                    <p class="text-xs text-slate-500">Latest platform updates, clinical study tools, and reviewer enhancements</p>
                                 </div>
                             </div>
                             <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold">Latest: v5.4 Live</span>
@@ -387,6 +396,14 @@
                                 <div class="flex flex-wrap gap-2 pt-1" aria-label="Supported NCLEX question formats">
                                     <span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Single response</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Multiple response</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Extended multiple response</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Matrix / Grid</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Cloze / Drop-down</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Drag and Drop</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Bowtie</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Highlight</span><span class="px-2.5 py-1 rounded-full bg-white border border-indigo-200 text-indigo-800 text-[10px] font-bold">Trend</span>
                                 </div>
+                            </div>
+
+                            <div class="p-4 bg-emerald-50/90 rounded-xl border-2 border-emerald-200 space-y-2">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span><span>v5.5 — Study Calendar, Shared Clinical Coach & Client Needs Mastery</span></div>
+                                    <span class="text-emerald-700 text-[11px] font-bold">Current update</span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Added a dedicated editable Study Calendar, automatic seven-day roadmap scheduling, consistent topic-aware rule-based clinical guidance across all four practice modes, and per-domain attempt/correct tracking with prioritized weak-area reporting. The coach runs locally and does not connect to a generative AI provider.</p>
                             </div>
 
                             <!-- Update Item v5.3 (YouTube Modal Player & Self-Study Synchronization) -->
@@ -422,12 +439,12 @@
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2 font-bold text-slate-900">
                                         <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
-                                        <span>v5.0 — Unified AI Clinical Tutor & Advanced Rationale Card</span>
+                                        <span>v5.0 — Clinical Rationale & Study Guidance</span>
                                     </div>
                                     <span class="text-indigo-700 font-bold text-[11px] bg-indigo-100 px-2.5 py-0.5 rounded">Latest Release</span>
                                 </div>
                                 <p class="text-slate-700 leading-relaxed">
-                                    Combined the <strong>Nurse AI Clinical Tutor</strong>, core question rationale, test-taking strategies (ABCs/Maslow's), and <strong>free online reading & references</strong> (NIH/StatPearls, CDC guidelines, open-access nursing PDFs) into a single unified breakdown card directly beneath each question. Removed separate buttons for a streamlined review workflow.
+                                    Combined the <strong>clinical study guidance</strong>, core question rationale, test-taking strategies (ABCs/Maslow's), and <strong>free online reading & references</strong> (NIH/StatPearls, CDC guidelines, open-access nursing PDFs) into a single unified breakdown card directly beneath each question. Removed separate buttons for a streamlined review workflow.
                                 </p>
                             </div>
 
@@ -437,12 +454,12 @@
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2 font-bold text-slate-900">
                                         <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                                        <span>v4.3 — Conditional Google Gemini & Browser AI Tutor Integration</span>
+                                        <span>v4.3 — Legacy External Search Shortcut</span>
                                     </div>
                                     <span class="text-emerald-700 font-bold text-[11px] bg-emerald-100 px-2 py-0.5 rounded">New Feature</span>
                                 </div>
                                 <p class="text-slate-600 leading-relaxed">
-                                    Enhanced the AI Tutor feature to detect authentication providers: Gmail / Google logins automatically slide out the <strong>Google Gemini AI Tutor</strong> sidebar to search tips for mastering each question topic, while standard email logins trigger the built-in browser-based clinical AI modal.
+                                    This earlier version routed some Google sign-ins to a Google search page and other users to static in-app guidance. It was not a connected Gemini or generative AI integration and has been replaced by the shared Clinical Study Coach.
                                 </p>
                             </div>
 
@@ -465,12 +482,12 @@
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2 font-bold text-slate-900">
                                         <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
-                                        <span>v4.1 — 100% Free Client-Side AI Features & Coach</span>
+                                        <span>v4.1 — Initial Local Clinical Study Coach</span>
                                     </div>
                                     <span class="text-slate-400 text-[11px]">October 2026</span>
                                 </div>
                                 <p class="text-slate-600 leading-relaxed">
-                                    Deployed the <strong>Nurse AI Clinical Tutor</strong> in self-study question reviews and the <strong>QuickRN AI Study Coach & Remediation Roadmap Generator</strong> on the candidate dashboard ($0 cost, 100% browser-based).
+                                    Introduced the first browser-based clinical study guidance and dashboard remediation planner. These tools use local topic rules rather than a connected generative AI service.
                                 </p>
                             </div>
 
@@ -622,12 +639,18 @@
                     if (parsed.studentStats) {
                         studentStats.totalSolved = parsed.studentStats.totalAnswered || 0;
                         studentStats.correctCount = parsed.studentStats.correctCount || 0;
-                        studentStats.catExamsCount = parsed.studentStats.examHistory ? parsed.studentStats.examHistory.length : 0;
+                        studentStats.catExamsCount = Array.isArray(parsed.studentStats.examHistory) ? parsed.studentStats.examHistory.filter(item => /CAT/i.test(item.mode || item.type || '')).length : 0;
                         studentStats.predictorExamsCount = parsed.studentStats.predictorHistory ? parsed.studentStats.predictorHistory.length : 0;
                         
-                        if (parsed.studentStats.categories && Array.isArray(parsed.studentStats.categories)) {
-                            studentStats.categories = parsed.studentStats.categories;
-                        }
+                        const savedDomains = parsed.studentStats.clientNeeds || {};
+                        studentStats.categories = studentStats.categories.map(cat => {
+                            const domain = window.QuickRNCoach && window.QuickRNCoach.domains.find(item => item.name === cat.name);
+                            const metrics = domain ? (savedDomains[domain.id] || {}) : {};
+                            const legacy = (parsed.studentStats.categories || []).find(item => item.name === cat.name) || {};
+                            const solved = Math.max(0, Number(metrics.attempted ?? legacy.solved ?? 0) || 0);
+                            const correct = Math.max(0, Math.min(solved, Number(metrics.correct ?? legacy.correct ?? 0) || 0));
+                            return { ...cat, solved, correct, percentage: solved ? Math.round(correct / solved * 100) : 0 };
+                        });
                     }
                 } catch(e) {
                     console.error("Error reading saved state:", e);
@@ -667,50 +690,53 @@
         }
 
         
-        function generateAIAuditsAndRoadmap() {
+        function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
-            container.innerHTML = `
-                <div class="p-4 bg-indigo-900/40 border border-indigo-500/30 rounded-xl space-y-3 animate-pulse">
-                    <div class="flex items-center space-x-2 text-indigo-300">
-                        <i class="fa-solid fa-spinner fa-spin"></i>
-                        <span class="font-bold">AI Clinical Engine analyzing your performance metrics & client needs domains...</span>
-                    </div>
-                </div>
-            `;
+            const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
+            if (!measured.length) {
+                container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">Complete and submit questions in a practice mode to collect Client Needs data before generating a personalized study plan.</p>';
+                return;
+            }
 
-            setTimeout(() => {
-                // Find weakest category
-                let sortedCats = [...studentStats.categories].sort((a,b) => a.percentage - b.percentage);
-                let weakest = sortedCats[0] || { name: 'Pharmacological and Parenteral Therapies', percentage: 0 };
-                let weakest2 = sortedCats[1] || { name: 'Management of Care', percentage: 0 };
-
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2">
-                            <div class="flex items-center space-x-2 text-emerald-400 font-bold">
-                                <i class="fa-solid fa-circle-check"></i>
-                                <span>AI Readiness Audit</span>
-                            </div>
-                            <p class="text-indigo-200 text-[11px] leading-relaxed">
-                                Based on your current accuracy and solved volume, your primary focus should be reinforcing <strong>${weakest.name}</strong> and <strong>${weakest2.name}</strong> using high-yield rationales and NCJMM priority matrices.
-                            </p>
-                        </div>
-                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2 col-span-2">
-                            <div class="flex items-center space-x-2 text-amber-400 font-bold">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <span>Custom 7-Day AI Remediation Roadmap</span>
-                            </div>
-                            <ul class="space-y-1.5 text-indigo-200 text-[11px]">
-                                <li><strong>Days 1-2:</strong> Deep-dive into ${weakest.name} flashcards & video lectures.</li>
-                                <li><strong>Days 3-4:</strong> Timed practice sets focusing on safety prioritization and ABCs.</li>
-                                <li><strong>Days 5-6:</strong> CAT Exam Simulator session to test adaptive stamina under pressure.</li>
-                                <li><strong>Day 7:</strong> Full NCLEX Predictor Exam review and final rationale check.</li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-                showToast('AI Study Roadmap successfully generated!', 'success');
-            }, 800);
+            const weakAreas = measured.filter(cat => cat.percentage < 75).slice(0, 3);
+            const priorities = weakAreas.length ? weakAreas : measured.slice(0, 2);
+            const primary = priorities[0], secondary = priorities[1] || primary;
+            const tasks = [
+                { title: 'Review core concepts: ' + primary.name, details: 'Review key cues, core concepts, and rationales for missed questions.' },
+                { title: 'Targeted practice: ' + primary.name, details: 'Complete a focused question set and explain why each distractor is less appropriate.' },
+                { title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
+                { title: 'Second focus area: ' + secondary.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
+                { title: 'Timed practice: weak areas', details: 'Complete a timed set, then review missed questions and identify the reason for each error.' },
+                { title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
+                { title: 'Reassess Client Needs mastery', details: 'Retest the focus areas and compare accuracy with the 75% target.' }
+            ];
+            const localDate = offset => {
+                const date = new Date();
+                date.setHours(12, 0, 0, 0);
+                date.setDate(date.getDate() + offset);
+                return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+            };
+            let events = [];
+            try { events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); } catch (error) { events = []; }
+            if (!Array.isArray(events)) events = [];
+            events = events.filter(event => event.source !== 'ai-roadmap');
+            const roadmapEvents = tasks.map((task, index) => ({
+                id: 'roadmap-' + Date.now().toString(36) + '-' + index,
+                date: localDate(index),
+                title: task.title,
+                details: task.details,
+                source: 'ai-roadmap'
+            }));
+            localStorage.setItem('quickrn_calendar_events', JSON.stringify(events.concat(roadmapEvents)));
+            localStorage.setItem('quickrn_ai_study_roadmap', JSON.stringify({
+                generatedAt: new Date().toISOString(),
+                focus: priorities.map(cat => ({ name: cat.name, percentage: cat.percentage, attempts: cat.solved })),
+                events: roadmapEvents
+            }));
+            const escapeText = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+            const first = weakAreas[0] || primary;
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance review</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'This is below the 75% accuracy target.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + escapeText(item.title) + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
+            showToast('Study roadmap saved to Calendar.', 'success');
         }
 
         function renderDashboardStats() {
@@ -745,45 +771,46 @@
         function renderMasteryCategories() {
             const container = document.getElementById('mastery-categories-list');
             const detailedContainer = document.getElementById('analytics-detailed-list');
-            
+            const weakContainer = document.getElementById('weak-client-needs');
             if (container) container.innerHTML = '';
             if (detailedContainer) detailedContainer.innerHTML = '';
+            if (weakContainer) weakContainer.innerHTML = '';
+            const weakAreas = [];
 
             studentStats.categories.forEach(cat => {
-                cat.percentage = cat.solved > 0 ? Math.round((cat.correct / cat.solved) * 100) : 0;
+                cat.solved = Math.max(0, Number(cat.solved) || 0);
+                cat.correct = Math.max(0, Math.min(cat.solved, Number(cat.correct) || 0));
+                cat.percentage = cat.solved ? Math.round(cat.correct / cat.solved * 100) : 0;
+                if (cat.solved > 0 && cat.percentage < 75) weakAreas.push(cat);
+                const status = cat.solved === 0 ? 'No data yet' : (cat.percentage < 75 ? 'Needs review' : 'On track');
 
                 if (container) {
                     container.innerHTML += `
-                        <div class="space-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <div class="flex justify-between text-xs font-bold">
+                        <div class="space-y-2 p-3 bg-slate-50 rounded-xl border ${cat.solved > 0 && cat.percentage < 75 ? 'border-amber-200' : 'border-slate-100'}">
+                            <div class="flex justify-between gap-2 text-xs font-bold">
                                 <span class="text-slate-700">${cat.name}</span>
-                                <span class="text-slate-900">${cat.percentage}% <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} solved)</span></span>
+                                <span class="text-slate-900">${cat.solved ? cat.percentage + '%' : '—'} <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} correct)</span></span>
                             </div>
-                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
-                            </div>
-                        </div>
-                    `;
+                            <p class="text-[10px] font-semibold ${cat.solved > 0 && cat.percentage < 75 ? 'text-amber-700' : 'text-slate-400'}">${status}</p>
+                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div></div>
+                        </div>`;
                 }
-
                 if (detailedContainer) {
                     detailedContainer.innerHTML += `
                         <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-3">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-sm text-slate-800">${cat.name}</h4>
-                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.percentage}% Mastery</span>
-                            </div>
-                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
-                                <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
-                            </div>
-                            <div class="flex justify-between text-[11px] text-slate-500">
-                                <span>Questions Attempted: <strong class="text-slate-700">${cat.solved}</strong></span>
-                                <span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span>
-                            </div>
-                        </div>
-                    `;
+                            <div class="flex justify-between items-center gap-3"><h4 class="font-bold text-sm text-slate-800">${cat.name}</h4><span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.solved ? cat.percentage + '% Mastery' : 'No data yet'}</span></div>
+                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden"><div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div></div>
+                            <div class="flex justify-between text-[11px] text-slate-500"><span>Questions Attempted: <strong class="text-slate-700">${cat.solved}</strong></span><span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span></div>
+                        </div>`;
                 }
             });
+            if (weakContainer) {
+                weakContainer.innerHTML = weakAreas.length
+                    ? weakAreas.sort((a,b) => a.percentage - b.percentage).map(cat => `<div class="p-3 bg-white border border-amber-200 rounded-xl"><div class="flex justify-between gap-2 text-xs"><strong class="text-slate-800">${cat.name}</strong><strong class="text-amber-700">${cat.percentage}%</strong></div><p class="mt-1 text-[10px] text-slate-500">${cat.solved} attempts · ${cat.solved - cat.correct} missed · Target 75%</p></div>`).join('')
+                    : (studentStats.categories.some(cat => cat.solved > 0)
+                        ? '<p class="text-xs text-amber-900">No measured domain is currently below 75%. Continue practicing to confirm consistency.</p>'
+                        : '<p class="text-xs text-amber-900">No category data yet. Submit questions in CAT, Timed, Predictor, or Self Study to identify weak areas.</p>');
+            }
         }
 
         function initQuickRNScoreChart() {
