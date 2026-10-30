@@ -746,11 +746,6 @@ main.nclex-workspace>.nclex-question-panel{display:block!important;width:100%!im
                                 )}
 
                                 <div className="p-4 md:p-6 bg-slate-50/90 border-b border-slate-200 shrink-0 space-y-2">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[11px] font-black uppercase tracking-wider text-ncsbn-blue bg-blue-100/80 px-2 py-0.5 rounded">
-                                            {currentItem.ngnType}
-                                        </span>
-                                    </div>
                                     <h2 className="prompt-typography">{currentItem.cleanTitle}</h2>
                                     <p className="text-xs md:text-sm text-slate-600 italic font-medium">{currentItem.cleanInstruction}</p>
                                 </div>
@@ -867,7 +862,7 @@ main.nclex-workspace>.nclex-question-panel{display:block!important;width:100%!im
                                                             <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase ${isCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>
                                                                 {isCorrect ? 'Correct' : 'Incorrect / Unanswered'}
                                                             </span>
-                                                            <span className="text-xs text-slate-400 font-mono">Item #{index + 1} ({question.ngnType})</span>
+                                                            <span className="text-xs text-slate-400 font-mono">Item #{index + 1}</span>
                                                         </div>
                                                         <h3 className="text-sm font-bold text-slate-100">{question.cleanTitle}</h3>
                                                         <p className="text-[10px] text-slate-400 mt-1">Tracked attempts in this browser: <strong className="text-emerald-400">{qMetrics.correct} correct</strong> · <strong className="text-rose-400">{qMetrics.wrong} incorrect</strong></p>
