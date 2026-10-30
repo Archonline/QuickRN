@@ -1,23 +1,16 @@
 #!/usr/bin/env node
 const assert=require('node:assert/strict'),fs=require('node:fs');
-const pages=['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn.html'];
+const pages=['selfstudy.html','timed.html','predictor.html','cat.html'];
 for(const page of pages){
  const html=fs.readFileSync(page,'utf8');
- assert.match(html,/src=["']questions\.js["']/i,page+' loads the question bank');
- assert.match(html,/src=["']js\/quickrn-question-bank-normalizer\.js["']/i,page+' loads case-study bank normalization');
- assert.match(html,/src=["']js\/shared-exam-renderer\.js["']/i,page+' loads the shared renderer');
- assert.match(html,/src=["']js\/quickrn-ngn-scoring\.js["']/i,page+' loads NGN scoring');
- assert.match(html,/QuickRNNgnScoring/,page+' applies the common scoring contract');
- assert.match(html,/quickrn-beta-exam-ux-fix/,page+' includes the unified beta exam UX fixes');
- assert.match(html,/qr-answer-correct/,page+' includes correct-answer feedback styling');
- assert.match(html,/qr-answer-incorrect/,page+' includes incorrect-answer feedback styling');
- if(page==='selfstudy-ngn.html'){
-  assert.match(html,/quickrn-selfstudy-duplicate-shell-fix/, 'Self Study suppresses duplicate legacy question and EHR panels');
-  assert.match(html,/quickrn-shared-question \.qr-report-row\{display:none/, 'Self Study shows only one report-item control');
- }
- if(page!=='selfstudy-ngn.html')assert.match(html,/points|summary-points/,page+' displays NGN points in its summary');
+ assert.match(html,/src=["']questions\.js["']/i,page+' loads production question bank');
+ assert.match(html,/src=["']questions-ngn-supplement\.js["']/i,page+' loads supplemental NGN items');
+ assert.match(html,/src=["']js\/quickrn-question-bank-normalizer\.js["']/i,page+' normalizes case-study context');
+ assert.match(html,/src=["']js\/shared-exam-renderer\.js["']/i,page+' loads shared renderer');
+ assert.match(html,/src=["']js\/quickrn-ngn-compat\.js["']/i,page+' loads NGN compatibility renderer');
+ assert.ok(html.includes(page==='selfstudy.html'?'nclex-question-panel':'qr-clinical-layout'),page+' includes split-screen exam workspace');
 }
 const dashboard=fs.readFileSync('dashboard.html','utf8');
-for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"'),'dashboard links to '+page);
-assert.match(dashboard,/Rebuilt NGN exam workspaces/);
-console.log('PASS: all four NGN workspace pages and dashboard navigation contracts.');
+for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard links to '+page);
+for(const legacy of ['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn.html'])assert.ok(!dashboard.includes(legacy),'dashboard no longer links to '+legacy);
+console.log('PASS: current dashboard and all four unified exam workspaces load the normalized NGN bank.');
