@@ -403,7 +403,7 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
         // and alternate NGN/standard formats whenever both remain in the bank.
         function selectNextCatQuestion() {
             const unasked = questionPool.filter(q => !activeExamQuestions.some(aq => aq.id === q.id));
-            if (unasked.length === 0) { finishAssessment(); return; }
+            if (unasked.length === 0) { finishAssessment(); return false; }
 
             const answeredSoFar = activeExamQuestions.slice(0, currentQuestionIndex);
             const ngnAnswered = answeredSoFar.filter(isNGNQuestion).length;
@@ -421,6 +421,7 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
             const nextQuestion = candidates[Math.floor(Math.random() * bandSize)];
             activeExamQuestions.push(nextQuestion);
             document.getElementById('total-item-num').innerText = questionPool.length;
+            return true;
         }
 
         // Timer Engine
@@ -527,7 +528,10 @@ function renderQuestionItem() {
             }
             if (totalAnswered >= 150) { finishAssessment(); return; }
             currentQuestionIndex++;
-            if (currentQuestionIndex >= activeExamQuestions.length) selectNextCatQuestion();
+            if (currentQuestionIndex >= activeExamQuestions.length) {
+                const added = selectNextCatQuestion();
+                if (added === false) return;
+            }
             renderQuestionItem();
         }
 
@@ -616,9 +620,6 @@ function renderQuestionItem() {
 
             const examRecord = {
                 type: 'NCLEX Predictor Exam',
-                correctCount,
-                wrongCount: answeredCount-correctCount,
-                decision: answeredCount < 85 ? 'INCONCLUSIVE — QUESTION BANK TOO SMALL' : catDecision.status,
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                 total: answeredCount,
                 scorePercent,
