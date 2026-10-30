@@ -4,7 +4,7 @@
   const allowed=key=>key.startsWith('quickrn_')||EXACT_KEYS.includes(key);
   function collect(){const data={};try{for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&allowed(key)){data[key]=localStorage.getItem(key);}}}catch(error){console.warn('QuickRN backup could not read all browser data:',error);}return data;}
   function makeBackup(){return {app:APP,formatVersion:VERSION,createdAt:new Date().toISOString(),data:collect()};}
-  function download(obj,name){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+  function download(obj,name){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
   function status(message,bad){const el=document.getElementById('backup-status');if(el){el.textContent=message;el.className='mt-3 text-xs '+(bad?'text-rose-700':'text-emerald-700');}}
   function init(){
     const exportBtn=document.getElementById('quickrn-export-backup'),importInput=document.getElementById('quickrn-import-backup');
