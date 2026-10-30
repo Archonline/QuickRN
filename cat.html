@@ -878,7 +878,8 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
             const modal = document.getElementById('ai-tutor-modal');
             const content = document.getElementById('ai-tutor-content');
             
-            const insight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight({topic, rationale}) : {domain:'Clinical review',guidance:rationale||'Identify the most urgent cue, prioritize safety, and reassess the response.',outcome:'Review the rationale and explain why the safest action takes priority.'};
+            const question = (typeof currentQuestion !== 'undefined' && currentQuestion) || window.quickRNCurrentQuestion || {};
+            const insight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight({...question, topic: topic || question.topic, rationale: rationale || question.rationale}) : {domain:'Clinical review',guidance:rationale||'Identify the most urgent cue, prioritize safety, and reassess the response.',outcome:'Review the rationale and explain why the safest action takes priority.'};
             if (content) {
                 content.innerHTML = `
                     <div class="space-y-3">
