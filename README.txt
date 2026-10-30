@@ -189,3 +189,17 @@ SELF-STUDY REBUILD (2026-10-31)
 - Added structured review rendering for choice, matrix, cloze, ordered-response, and highlight items.
 - Feedback and study progress are currently browser-local. Cloud synchronization and automatic central feedback delivery require an authenticated Firebase/backend configuration and are not represented as active features.
 - Automated checks completed: JavaScript syntax validation, required DOM-ID checks, duplicate-ID checks, and referenced-script existence checks. Full browser interaction and visual QA remain required before beta release.
+
+
+## Self-Study NGN presentation, filtering, and review refinements — October 31, 2026
+
+- Remove question-bank prefixes such as NGN format codes, ID, Topic, Category, and Follow-up N from visible clinical stems.
+- Separate the clinical case narrative from NGN directions, standardizing the common instruction to “Review the clinical cues and complete the item as directed.”
+- Display NGN format in the question header and letter labels for single-choice and SATA options. Submitted choices are visually marked as correct or incorrect.
+- Move the rationale/review card to the bottom of the left clinical pane and keep video players in that same review card when a question includes a specific playable YouTube ID.
+- Remove the old separate video modal and the “Incorrect / partially correct” status message.
+- Correct Single Best Answer format detection and response validation so it accepts one answer only; Select N requires the specified number of choices.
+- Build question-type filter choices from the loaded bank and map aliases consistently, including Matrix variants and Cloze variants. Zero-count formats are disabled instead of silently returning unrelated questions.
+- Self-Study now prioritizes questions not previously seen, resets the seen set only after the selected pool is exhausted, and interleaves formats and topics when possible.
+- Inline YouTube playback requires a direct video ID or watch/embed URL in the question data. Generic YouTube search suggestions cannot be turned into embedded players; YouTube deprecated search-result embeds. Existing bank records without a video ID display a clear note instead of a broken player.
+- Validation completed: modified JavaScript files passed syntax parsing; duplicate HTML IDs and obsolete video-modal markup were checked. Real-browser visual testing and full question-bank content QA remain outstanding.
