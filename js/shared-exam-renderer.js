@@ -17,18 +17,46 @@ function quickRNDetectItemFormat(q){
  return 'Single Choice';
 }
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function quickRNCleanPrompt(v){
- let text=String(v||'').replace(/^\s*(?:\[[^\]]+\]\s*)/,'').trim();
- const patterns=[
-  /^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]\s*/i,
-  /^\s*(?:[A-Z]{2,10}[-_ ]\d{2,6}|(?:NGN\s+)?(?:EXTENDED\s+DRAG\s+AND\s+DROP|TRADITIONAL\s+NCLEX\s+PRACTICE|MULTIPLE\s+RESPONSE|SELECT\s+ALL\s+THAT\s+APPLY))\s*[-:|–—]\s*/i,
-  /^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,100}\s*(?:[—–|;]\s*|(?=\n)|$)/i,
-  /^\s*(?:NGN|STANDARD)\s*[-:|–—]\s*/i,
-  /^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i
- ];
- for(let i=0;i<6;i++){const before=text;for(const pattern of patterns)text=text.replace(pattern,'').trim();if(text===before)break;}
+function quickRNCleanClinicalText(value, metadata){
+ let text=String(value??'').replace(/\r/g,'').trim();
+ if(!text)return '';
+ const meta=metadata&&typeof metadata==='object'?metadata:{};
+ const labels=[meta.topic,meta.category,meta.subject,meta.caseTitle,meta.caseStudyTitle,meta.caseStudyContext?.title].filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim());
+ // Remove a numbered case heading together with its diagnosis/title, not just the number.
+ text=text.replace(/^\s*CASE\s*#?\d+\s*[—–:-]\s*([^.!?\n]{2,110})[.]\s*(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What)\b)/i,'');
+ for(let round=0;round<8;round++){
+  const before=text;
+  text=text.replace(/^\s*(?:\[[^\]]+\]\s*)+/,'');
+  text=text.replace(/^\s*PATIENT\s+INFORMATION\s*[:—–-]?\s*/i,'');
+  text=text.replace(/^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,110}\s*(?:[—–|;]\s*|(?=\n)|$)/i,'');
+  text=text.replace(/^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]\s*/i,'');
+  text=text.replace(/^\s*(?:[A-Z]{2,10}[-_ ]\d{2,6}|(?:NGN\s+)?(?:EXTENDED\s+DRAG\s+AND\s+DROP|TRADITIONAL\s+NCLEX\s+PRACTICE|MULTIPLE\s+RESPONSE|SELECT\s+ALL\s+THAT\s+APPLY))\s*[-:|–—]\s*/i,'');
+  text=text.replace(/^\s*(?:NGN|STANDARD)\s*[-:|–—]\s*/i,'');
+  text=text.replace(/^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i,'');
+  if(text===before)break;
+  text=text.trim();
+ }
+ // When the source stores its topic/case label as a prefix, remove the label only.
+ for(const label of labels){
+  if(!label)continue;
+  const prefix=text.slice(0,label.length);
+  const rest=text.slice(label.length);
+  if(prefix.toLowerCase()===label.toLowerCase()&&/^\s*[:—–|]/.test(rest)){
+   text=rest.replace(/^\s*[:—–|]\s*/,'').trim();
+   break;
+  }
+ }
+ // Also recognize a topic heading when the question bank did not store a separate topic field.
+ const heading=/^([^:\n]{2,90}):\s+(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify)\b)/i.exec(text);
+ if(heading&&!/^(?:which|what|when|where|who|why|how|follow[- ]?up|question|item|case|patient information|nurses?['’]? notes|vital signs|history|assessment|diagnostics|directions|instructions)$/i.test(heading[1].trim())){
+  text=text.slice(heading[0].length).trim();
+ }
+ // Repeated case footers are navigation metadata, not part of the clinical record.
+ text=text.split('\n').filter(line=>!/clinical\s+case\s+#?\d+.*\bitem\s+\d+\s+of\s+\d+/i.test(line)).join('\n').trim();
+ text=text.replace(/\s*[—–|·]\s*[^\n—–|·]{1,100}\s*[—–-]\s*clinical\s+case\s+#?\d+\s*[·|—–-]\s*item\s+\d+\s+of\s+\d+\s*$/i,'').trim();
  return text;
 }
+function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(v,metadata);}
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
@@ -253,6 +281,7 @@ window.QuickRNSharedRenderer={
  toDraft:quickRNFromLegacyDraft,
  fromDraft:quickRNToLegacyDraft,
  cleanPrompt:quickRNCleanPrompt,
+ cleanClinicalText:quickRNCleanClinicalText,
  renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft,submitted);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
  hasAnswer:quickRNHasAnswer,
  grade:quickRNGrade,
