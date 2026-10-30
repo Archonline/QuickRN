@@ -615,11 +615,13 @@
         }
 
         function handleSignOut() {
-            localStorage.setItem('quickrn_signed_out', 'true');
-            showToast('Successfully signed out of QuickRN active session.', 'info');
-            setTimeout(() => {
-                document.getElementById('auth-overlay').classList.remove('hidden');
-            }, 300);
+            // Mark the session as signed out, then leave the dashboard entirely.
+            try {
+                localStorage.setItem('quickrn_signed_out', 'true');
+            } catch (error) {
+                console.warn('Could not persist the signed-out state:', error);
+            }
+            window.location.replace('index.html');
         }
 
         function handleSignIn(e) {
