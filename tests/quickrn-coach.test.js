@@ -101,11 +101,9 @@ for (const page of ['cat.html', 'timed.html']) {
   const source = fs.readFileSync(page, 'utf8');
   assert.doesNotMatch(source, /topicDualYouTubeMap/, page + ' must not use a fixed video map');
 }
-assert.match(fs.readFileSync('cat.html', 'utf8'), /getTwoYouTubeVideos\(q\)/);
-assert.match(fs.readFileSync('timed.html', 'utf8'), /getTwoYouTubeVideos\(q\)/);
-assert.match(fs.readFileSync('predictor.html', 'utf8'), /getVideoSearchUrl\(q, 'review'\)/);
-assert.match(fs.readFileSync('selfstudy.html', 'utf8'), /QuickRNYoutube\.getTwoVideos\(currentItem\)/);
-assert.match(fs.readFileSync('selfstudy.html', 'utf8'), /QuickRNYoutube\.getTwoVideos\(question\)/);
+const examApp = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
+assert.match(examApp, /getTwoVideos\(q\)/, 'shared app requests topic-specific videos for the current question');
+assert.match(examApp, /renderLearningResources\(q\)/, 'video recommendations appear in answer review');
 assert.doesNotMatch(fs.readFileSync('selfstudy.html', 'utf8'), /youtubeId \|\| "r5W1ns5C1ik"/);
 
 // Dashboard -> dedicated calendar flow and roadmap persistence hooks.
@@ -123,7 +121,7 @@ assert.match(calendar, /data-action="edit"/);
 for (const page of ['cat.html', 'timed.html', 'predictor.html', 'selfstudy.html']) {
   const source = fs.readFileSync(page, 'utf8');
   assert.match(source, /js\/quickrn-coach\.js/, page + ' coach import');
-  assert.match(source, /QuickRNCoach\.recordClientNeedAttempt/, page + ' Client Needs tracker');
+  assert.match(fs.readFileSync('js/quickrn-exam-app.js', 'utf8'), /recordClientNeedAttempt/, page + ' Client Needs tracker');
   assert.doesNotMatch(source, /\beval\s*\(/, page + ' must not call eval');
   assert.match(source, /Clinical Study Coach/, page + ' study coach UI');
 }
