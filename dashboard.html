@@ -32,6 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External Questions Bank -->
     <script src="questions.js"></script>
+    <script src="js/quickrn-coach.js"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -89,7 +90,10 @@
                     <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                
+                <a href="#" onclick="switchTab('calendar')" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-calendar-days w-5 text-center text-emerald-600"></i>
+                    <span>Calendar</span>
+                </a>
                 
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
@@ -326,6 +330,14 @@
                         </div>
                     </div>
 
+                    <section class="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
+                        <div class="flex items-center justify-between gap-3">
+                            <div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Domains below 75% accuracy, based on recorded answers.</p></div>
+                            <i class="fa-solid fa-bullseye text-amber-700 text-xl"></i>
+                        </div>
+                        <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-3"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
+                    </section>
+
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
                         <div class="flex items-center justify-between">
@@ -474,6 +486,27 @@
                     </div>
 
 
+                <!-- CALENDAR TAB -->
+                <div id="tab-content-calendar" class="hidden space-y-6">
+                    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <div><h2 class="text-lg font-bold text-slate-900">Study Calendar</h2><p class="text-xs text-slate-500">Plan study sessions and keep track of your NCLEX preparation.</p></div>
+                            <div class="flex items-center gap-2"><button type="button" onclick="changeCalendarMonth(-1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button><strong id="calendar-month-label" class="min-w-36 text-center text-sm text-slate-800"></strong><button type="button" onclick="changeCalendarMonth(1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button></div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase text-slate-400"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+                        <div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
+                    </section>
+                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        <form onsubmit="addCalendarEvent(event)" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-3">
+                            <h3 class="font-bold text-slate-900">Add a study reminder</h3>
+                            <label class="block text-xs font-semibold text-slate-600">Date<input id="calendar-event-date" type="date" required class="mt-1 w-full border border-slate-200 rounded-lg p-2.5 text-sm"></label>
+                            <label class="block text-xs font-semibold text-slate-600">Study activity<input id="calendar-event-title" type="text" maxlength="100" required placeholder="e.g. Pharmacology review" class="mt-1 w-full border border-slate-200 rounded-lg p-2.5 text-sm"></label>
+                            <button type="submit" class="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold">Save reminder</button>
+                        </form>
+                        <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-3"><h3 class="font-bold text-slate-900">Upcoming study reminders</h3><div id="calendar-event-list" class="space-y-2 text-sm"></div></section>
+                    </section>
+                </div>
+
                 <!-- ANALYTICS TAB -->
                 <div id="tab-content-analytics" class="hidden space-y-6">
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
@@ -559,6 +592,7 @@
             renderDashboardStats();
             renderMasteryCategories();
             initQuickRNScoreChart();
+            renderCalendar();
         });
 
         function detectTotalQuestionsPool() {
@@ -608,9 +642,15 @@
                         studentStats.catExamsCount = parsed.studentStats.examHistory ? parsed.studentStats.examHistory.length : 0;
                         studentStats.predictorExamsCount = parsed.studentStats.predictorHistory ? parsed.studentStats.predictorHistory.length : 0;
                         
-                        if (parsed.studentStats.categories && Array.isArray(parsed.studentStats.categories)) {
-                            studentStats.categories = parsed.studentStats.categories;
-                        }
+                        const savedDomains = parsed.studentStats.clientNeeds || {};
+                        studentStats.categories = studentStats.categories.map(cat => {
+                            const domain = (window.QuickRNCoach && window.QuickRNCoach.domains.find(d => d.name === cat.name)) || null;
+                            const metrics = domain ? (savedDomains[domain.id] || {}) : {};
+                            const legacy = (parsed.studentStats.categories || []).find(item => item.name === cat.name) || {};
+                            const solved = Number(metrics.attempted ?? legacy.solved ?? 0);
+                            const correct = Number(metrics.correct ?? legacy.correct ?? 0);
+                            return { ...cat, solved, correct, percentage: solved ? Math.round(correct / solved * 100) : 0 };
+                        });
                     }
                 } catch(e) {
                     console.error("Error reading saved state:", e);
@@ -652,48 +692,22 @@
         
         function generateAIAuditsAndRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
-            container.innerHTML = `
-                <div class="p-4 bg-indigo-900/40 border border-indigo-500/30 rounded-xl space-y-3 animate-pulse">
-                    <div class="flex items-center space-x-2 text-indigo-300">
-                        <i class="fa-solid fa-spinner fa-spin"></i>
-                        <span class="font-bold">AI Clinical Engine analyzing your performance metrics & client needs domains...</span>
-                    </div>
-                </div>
-            `;
-
-            setTimeout(() => {
-                // Find weakest category
-                let sortedCats = [...studentStats.categories].sort((a,b) => a.percentage - b.percentage);
-                let weakest = sortedCats[0] || { name: 'Pharmacological and Parenteral Therapies', percentage: 0 };
-                let weakest2 = sortedCats[1] || { name: 'Management of Care', percentage: 0 };
-
-                container.innerHTML = `
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2">
-                            <div class="flex items-center space-x-2 text-emerald-400 font-bold">
-                                <i class="fa-solid fa-circle-check"></i>
-                                <span>AI Readiness Audit</span>
-                            </div>
-                            <p class="text-indigo-200 text-[11px] leading-relaxed">
-                                Based on your current accuracy and solved volume, your primary focus should be reinforcing <strong>${weakest.name}</strong> and <strong>${weakest2.name}</strong> using high-yield rationales and NCJMM priority matrices.
-                            </p>
-                        </div>
-                        <div class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2 col-span-2">
-                            <div class="flex items-center space-x-2 text-amber-400 font-bold">
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <span>Custom 7-Day AI Remediation Roadmap</span>
-                            </div>
-                            <ul class="space-y-1.5 text-indigo-200 text-[11px]">
-                                <li><strong>Days 1-2:</strong> Deep-dive into ${weakest.name} flashcards & video lectures.</li>
-                                <li><strong>Days 3-4:</strong> Timed practice sets focusing on safety prioritization and ABCs.</li>
-                                <li><strong>Days 5-6:</strong> CAT Exam Simulator session to test adaptive stamina under pressure.</li>
-                                <li><strong>Day 7:</strong> Full NCLEX Predictor Exam review and final rationale check.</li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-                showToast('AI Study Roadmap successfully generated!', 'success');
-            }, 800);
+            const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
+            if (!measured.length) {
+                container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">There is not enough recorded category data yet. Complete and submit practice questions to build a personalized remediation plan.</p>';
+                return;
+            }
+            const focus = measured.filter(cat => cat.percentage < 75).slice(0, 3);
+            const priorities = focus.length ? focus : measured.slice(0, 2);
+            const first = priorities[0];
+            const second = priorities[1] || first;
+            const plan = [
+                ['Days 1-2', 'Review core concepts, key cues, and rationales in ' + first.name + '.'],
+                ['Days 3-4', 'Complete focused practice and explain why each distractor is unsafe or less appropriate.'],
+                ['Days 5-6', 'Use a timed set and review every missed item in ' + second.name + '.'],
+                ['Day 7', 'Retest both focus areas and compare the updated mastery percentages.']
+            ];
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance-based study coach</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + first.name + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (focus.length ? 'This is below the 75% target.' : 'Your measured areas are currently at or above the 75% target; keep consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day remediation plan</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + plan.map(item => '<li><strong>' + item[0] + ':</strong> ' + item[1] + '</li>').join('') + '</ul></section></div>';
         }
 
         function renderDashboardStats() {
@@ -728,20 +742,27 @@
         function renderMasteryCategories() {
             const container = document.getElementById('mastery-categories-list');
             const detailedContainer = document.getElementById('analytics-detailed-list');
-            
+            const weakContainer = document.getElementById('weak-client-needs');
             if (container) container.innerHTML = '';
             if (detailedContainer) detailedContainer.innerHTML = '';
+            if (weakContainer) weakContainer.innerHTML = '';
+            const weakAreas = [];
 
             studentStats.categories.forEach(cat => {
+                cat.solved = Math.max(0, Number(cat.solved) || 0);
+                cat.correct = Math.max(0, Math.min(cat.solved, Number(cat.correct) || 0));
                 cat.percentage = cat.solved > 0 ? Math.round((cat.correct / cat.solved) * 100) : 0;
+                if (cat.solved > 0 && cat.percentage < 75) weakAreas.push(cat);
 
                 if (container) {
+                    const status = cat.solved === 0 ? 'No data yet' : (cat.percentage < 75 ? 'Needs review' : 'On track');
                     container.innerHTML += `
-                        <div class="space-y-2 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                            <div class="flex justify-between text-xs font-bold">
+                        <div class="space-y-2 p-3 bg-slate-50 rounded-xl border ${cat.solved > 0 && cat.percentage < 75 ? 'border-amber-200' : 'border-slate-100'}">
+                            <div class="flex justify-between text-xs font-bold gap-2">
                                 <span class="text-slate-700">${cat.name}</span>
-                                <span class="text-slate-900">${cat.percentage}% <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} solved)</span></span>
+                                <span class="text-slate-900">${cat.solved ? cat.percentage + '%' : '—'} <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} correct)</span></span>
                             </div>
+                            <p class="text-[10px] font-semibold ${cat.solved > 0 && cat.percentage < 75 ? 'text-amber-700' : 'text-slate-400'}">${status}</p>
                             <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                 <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
                             </div>
@@ -754,7 +775,7 @@
                         <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-3">
                             <div class="flex justify-between items-center">
                                 <h4 class="font-bold text-sm text-slate-800">${cat.name}</h4>
-                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.percentage}% Mastery</span>
+                                <span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.solved ? cat.percentage + '% Mastery' : 'No data yet'}</span>
                             </div>
                             <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                                 <div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div>
@@ -767,6 +788,11 @@
                     `;
                 }
             });
+            if (weakContainer) {
+                weakContainer.innerHTML = weakAreas.length
+                    ? weakAreas.sort((a,b) => a.percentage - b.percentage).map(cat => '<div class="p-3 bg-white border border-amber-200 rounded-xl"><div class="flex justify-between gap-2 text-xs"><strong class="text-slate-800">' + cat.name + '</strong><strong class="text-amber-700">' + cat.percentage + '%</strong></div><p class="mt-1 text-[10px] text-slate-500">' + cat.solved + ' attempts · ' + (cat.solved - cat.correct) + ' missed · Target 75%</p></div>').join('')
+                    : '<p class="text-xs text-amber-900">' + (studentStats.categories.some(cat => cat.solved > 0) ? 'No measured domain is currently below 75%. Keep practicing to confirm consistency.' : 'No category data yet. Submit questions in CAT, Timed, Predictor, or Self Study to identify weak areas.') + '</p>';
+            }
         }
 
         function initQuickRNScoreChart() {
@@ -864,8 +890,63 @@
             });
         }
 
+
+        let quickRNCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        function getCalendarEvents() {
+            try { const value = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); return Array.isArray(value) ? value : []; }
+            catch (error) { return []; }
+        }
+        function changeCalendarMonth(delta) {
+            quickRNCalendarMonth = new Date(quickRNCalendarMonth.getFullYear(), quickRNCalendarMonth.getMonth() + delta, 1);
+            renderCalendar();
+        }
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const label = document.getElementById('calendar-month-label');
+            const list = document.getElementById('calendar-event-list');
+            if (!grid || !label || !list) return;
+            const year = quickRNCalendarMonth.getFullYear(), month = quickRNCalendarMonth.getMonth();
+            label.textContent = quickRNCalendarMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+            const events = getCalendarEvents();
+            const firstDay = new Date(year, month, 1).getDay();
+            const days = new Date(year, month + 1, 0).getDate();
+            const today = new Date(); today.setHours(0,0,0,0);
+            let html = '';
+            for (let i=0; i<firstDay; i++) html += '<div class="min-h-16 rounded-lg bg-slate-50/60"></div>';
+            for (let day=1; day<=days; day++) {
+                const key = year + '-' + String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+                const hasEvent = events.some(event => event.date === key);
+                const date = new Date(year,month,day); const isToday = date.getTime() === today.getTime();
+                html += '<div class="min-h-16 rounded-lg border ' + (isToday ? 'border-brand-500 bg-brand-50' : 'border-slate-100 bg-white') + ' p-2 text-xs"><div class="font-bold ' + (isToday ? 'text-brand-700' : 'text-slate-700') + '">' + day + '</div>' + (hasEvent ? '<span class="mt-2 inline-block w-2 h-2 rounded-full bg-emerald-500" title="Study reminder"></span>' : '') + '</div>';
+            }
+            grid.innerHTML = html;
+            const upcoming = events.filter(event => event.date >= today.toISOString().slice(0,10)).sort((a,b) => a.date.localeCompare(b.date)).slice(0,8);
+            list.innerHTML = upcoming.length ? upcoming.map(event => '<div class="flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-lg"><div><strong class="block text-xs text-slate-800">' + escapeCalendarText(event.title) + '</strong><span class="text-[10px] text-slate-500">' + event.date + '</span></div><button type="button" onclick="removeCalendarEvent(\'' + event.id + '\')" class="text-slate-400 hover:text-rose-600" aria-label="Remove reminder"><i class="fa-solid fa-trash"></i></button></div>').join('') : '<p class="text-xs text-slate-500">No upcoming reminders yet.</p>';
+            const dateInput = document.getElementById('calendar-event-date');
+            if (dateInput && !dateInput.value) dateInput.value = today.toISOString().slice(0,10);
+        }
+        function escapeCalendarText(value) {
+            return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+        }
+        function addCalendarEvent(event) {
+            event.preventDefault();
+            const date = document.getElementById('calendar-event-date').value;
+            const title = document.getElementById('calendar-event-title').value.trim();
+            if (!date || !title) return;
+            const events = getCalendarEvents();
+            events.push({ id: 'evt-' + Date.now(), date, title });
+            localStorage.setItem('quickrn_calendar_events', JSON.stringify(events));
+            document.getElementById('calendar-event-title').value = '';
+            renderCalendar();
+            showToast('Study reminder saved.', 'success');
+        }
+        function removeCalendarEvent(id) {
+            localStorage.setItem('quickrn_calendar_events', JSON.stringify(getCalendarEvents().filter(event => event.id !== id)));
+            renderCalendar();
+        }
+
         function switchTab(tabId) {
-            ['dashboard', 'features', 'analytics'].forEach(t => {
+            ['dashboard', 'calendar', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if (content) content.classList.add('hidden');
@@ -886,6 +967,7 @@
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
                 features: 'QuikRN Feature Hub & NCLEX Tour',
+                calendar: 'Study Calendar',
                 analytics: 'Client Needs Mastery Analytics'
             };
             document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
