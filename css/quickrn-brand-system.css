@@ -93,3 +93,58 @@ header [class~="text-amber-400"],header [class~="text-amber-500"]{color:#a8e3e4!
 [class*="from-medical-600"][class*="to-clinical-600"]{
   background-image:linear-gradient(110deg,var(--qr-brand-teal),var(--qr-brand-navy))!important;
 }
+
+
+/* Reference-inspired learning shell: deep plum navigation and warm coral actions.
+   The exam workspace deliberately keeps its clinical navy/teal palette. */
+:root{
+  --qr-brand-plum:#30223f;
+  --qr-brand-plum-deep:#241a31;
+  --qr-brand-coral:#f06a4e;
+  --qr-brand-coral-dark:#d9573d;
+  --qr-brand-coral-soft:#fff0eb;
+}
+body:not(:has(#answer-workspace)) :where([class~="bg-brand-600"],[class~="bg-medical-600"]){
+  background-color:var(--qr-brand-coral)!important;
+}
+body:not(:has(#answer-workspace)) :where([class~="hover:bg-brand-700"],[class~="hover:bg-medical-700"]):hover{
+  background-color:var(--qr-brand-coral-dark)!important;
+}
+body:not(:has(#answer-workspace)) :where([class~="text-brand-600"],[class~="text-medical-600"]){
+  color:var(--qr-brand-coral)!important;
+}
+body:not(:has(#answer-workspace)) :where([class~="border-brand-500"],[class~="border-brand-600"]){
+  border-color:var(--qr-brand-coral)!important;
+}
+/* The dashboard's persistent navigation takes its cue from the supplied dark learning-dashboard reference. */
+body:has(#app-shell) #app-shell>aside{
+  background:var(--qr-brand-plum)!important;
+  border-color:var(--qr-brand-plum-deep)!important;
+  color:#f8f4fb!important;
+}
+body:has(#app-shell) #app-shell>aside :is(.text-slate-900,.text-slate-800,.text-slate-700,.text-slate-600,.text-slate-500,.text-slate-400){
+  color:#e5dced!important;
+}
+body:has(#app-shell) #app-shell>aside :is(.border-slate-100,.border-slate-200){
+  border-color:rgba(255,255,255,.12)!important;
+}
+body:has(#app-shell) #app-shell>aside nav a:hover{
+  background:rgba(255,255,255,.09)!important;
+  color:#fff!important;
+}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50{
+  background:rgba(240,106,78,.18)!important;
+  color:#ffad98!important;
+}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50 i{
+  color:#ffad98!important;
+}
+body:has(#app-shell) #app-shell>aside .bg-brand-600{
+  background:var(--qr-brand-coral)!important;
+}
+body:has(#app-shell) #app-shell>aside .text-brand-600{
+  color:#ffad98!important;
+}
+body:not(:has(#answer-workspace)) :where(.shadow-brand-500\\/20,.shadow-brand-500\\/30){
+  --tw-shadow-color:rgba(240,106,78,.18);
+}
