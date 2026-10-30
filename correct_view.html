@@ -102,29 +102,11 @@
 
         <!-- Center Information -->
         <div class="flex items-center space-x-3 font-medium text-xs md:text-sm">
-            <span id="qid-display" class="hidden"></span>
+            <span id="qid-display" class="text-xs font-bold tracking-wide bg-cyan-900/35 border border-cyan-100/30 rounded px-2 py-1"></span>
         </div>
 
         <!-- Right Tools & Controls -->
         <div class="flex items-center space-x-2 md:space-x-4">
-            <!-- Filter Dropdown for Formats -->
-            <div class="relative">
-                <select id="format-filter" onchange="switchFormatFilter(this.value)" class="bg-cyan-800/50 text-white text-xs rounded border border-cyan-300/40 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-white cursor-pointer">
-                    <option value="ALL">All Question Types (11)</option>
-                    <option value="single">1. Single Choice</option>
-                    <option value="sata">2. Select All That Apply (SATA)</option>
-                    <option value="select_n">3. Select N</option>
-                    <option value="bowtie">4. Bow Tie (NGN)</option>
-                    <option value="cloze">5. Dropdown Cloze (NGN)</option>
-                    <option value="dropdown_rationale">6. Dropdown Rationale (NGN)</option>
-                    <option value="highlight">7. Highlight Text (NGN)</option>
-                    <option value="matrix_multiple">8. Matrix Multiple</option>
-                    <option value="matrix_single">9. Matrix Single</option>
-                    <option value="numeric">10. Numeric Entry</option>
-                    <option value="ordered">11. Ordered Response</option>
-                </select>
-            </div>
-
             <!-- Stats Header -->
             <div id="timer-container" class="flex items-center gap-1 text-xs bg-cyan-800/40 px-2 py-1 rounded">
                 <i class="fa-regular fa-clock"></i>
