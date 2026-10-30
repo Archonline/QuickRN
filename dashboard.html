@@ -377,10 +377,33 @@
                                     <p class="text-xs text-slate-500">Latest platform updates, NCLEX exam improvements, and study tools</p>
                                 </div>
                             </div>
-                            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold whitespace-nowrap">Latest: v5.6</span>
+                            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold whitespace-nowrap">Latest: v5.7</span>
                         </div>
 
                         <div class="space-y-4 text-xs text-slate-700">
+                            <!-- v5.7: Adaptive CAT checkpoints and answer monitoring -->
+                            <div class="p-4 bg-emerald-50/90 rounded-xl border-2 border-emerald-200 space-y-3">
+                                <div class="flex items-center justify-between gap-3 flex-wrap">
+                                    <div class="flex items-center space-x-2 font-bold text-slate-900">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                                        <span>v5.7 — Adaptive CAT Checkpoint, Question Exhaustion & Answer Monitoring</span>
+                                    </div>
+                                    <span class="text-emerald-700 font-bold text-[11px] bg-emerald-100 px-2.5 py-0.5 rounded">Latest Release</span>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">
+                                    Added an 85-item minimum checkpoint and up-to-150-item IRT-style ability/uncertainty stopping model to the Predictor and CAT practice simulators. Adaptive item selection targets the learner's estimated ability, avoids repeats within a session, and reports an inconclusive result when the available bank cannot support the minimum item count. Timed Practice and Self Study now consume remaining unseen bank items before resetting for a new cycle.
+                                </p>
+                                <p class="text-slate-700 leading-relaxed">
+                                    Exam summaries now report answered, correct, and incorrect counts. A live question-metrics helper records each submitted answer with a timestamp and practice mode, and updates same-browser monitoring immediately. These metrics are browser-profile totals, not a cross-user community count; shared multi-user analytics requires a connected database and authenticated write/read rules.
+                                </p>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-emerald-800 text-[10px] font-bold">85-item checkpoint</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-emerald-800 text-[10px] font-bold">IRT-style CAT</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-emerald-800 text-[10px] font-bold">Correct / incorrect totals</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-white border border-emerald-200 text-emerald-800 text-[10px] font-bold">No repeats per session</span>
+                                </div>
+                            </div>
+
                             <!-- v5.6: NGN exam experience and learning workflow -->
                             <div class="p-4 bg-indigo-50/90 rounded-xl border-2 border-indigo-200 space-y-3">
                                 <div class="flex items-center justify-between gap-3 flex-wrap">
