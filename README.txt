@@ -29,7 +29,7 @@ Then open:
   http://localhost:8000/
 
 QUESTION BANK AND RENDERING
-The shared renderer supports Single Choice, Multiple Response, Extended Multiple Response, Matrix/Grid, Cloze/Drop-down, Extended Drag and Drop, Bowtie, Highlight, and Trend. The current production bank contains 4,500 records across six detected formats: 2,000 Single Choice, 300 Matrix/Grid, 300 Cloze, 300 Extended Drag and Drop, 300 Bowtie, and 1,300 Extended Multiple Response. Highlight and Trend are supported by the renderer but are not currently represented in the production bank.
+The shared renderer supports Single Choice, Multiple Response, Extended Multiple Response, Matrix/Grid, Cloze/Drop-down, Extended Drag and Drop, Bowtie, Highlight, and Trend. The core questions.js bank contains 4,500 records across six detected formats: 2,000 Single Choice, 300 Matrix/Grid, 300 Cloze, 300 Extended Drag and Drop, 300 Bowtie, and 1,300 Extended Multiple Response. The loaded questions-ngn-supplement.js adds 25 records (5 each for Multiple Response, Highlight, Trend, Numeric Entry, and Select N). All exam modes load the supplement, and the question-type selector counts the combined runtime bank.
 All exam modes should load questions.js before quickrn-question-id-normalizer.js and shared-exam-renderer.js. Keep this script order when adding new exam pages.
 
 QUALITY AND BETA STATUS
