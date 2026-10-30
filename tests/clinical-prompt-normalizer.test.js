@@ -28,6 +28,7 @@ assert.equal(inlineFooter, 'A client is admitted with symptoms.');
 
 const ngn = api.splitPrompt({
   type: 'Cloze (Drop-down)',
+  topic: 'Ethics informed consent',
   question: 'NGN Cloze (Drop-down) 0526 — Ethics informed consent: A client is being reassessed after an intervention and the nurse must determine the next step. The client is being evaluated before transfer to another unit. Review the clinical cues and complete the item as directed.'
 });
 assert.equal(
