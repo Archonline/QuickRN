@@ -156,6 +156,31 @@ body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;fl
 }
 </style>
 
+<style id="quickrn-beta-exam-ux-fix">
+/* Beta exam UX repair: clean prompts, visible response controls, feedback and stable split panes. */
+.qr-item-format{display:none!important}
+.qr-question-head h2{margin:0!important;font-size:clamp(1.05rem,1.35vw,1.3rem)!important;line-height:1.45!important;font-weight:800!important;color:#0f172a!important}
+.qr-question-head p{margin-top:8px!important}
+.qr-choice-mark.is-checkbox{width:20px!important;height:20px!important;flex:0 0 20px!important;border:2px solid #64748b!important;border-radius:4px!important;background:#fff!important;color:#fff!important}
+.qr-choice.selected .qr-choice-mark.is-checkbox{background:#1d4ed8!important;border-color:#1d4ed8!important;color:#fff!important}
+.qr-choice-mark.is-radio{width:25px!important;height:25px!important;flex:0 0 25px!important;border-radius:50%!important}
+.qr-choice.qr-answer-correct{background:#ecfdf5!important;border:2px solid #16a34a!important;color:#14532d!important}
+.qr-choice.qr-answer-correct .qr-choice-mark{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+.qr-choice.qr-answer-incorrect{background:#fff1f2!important;border:2px solid #e11d48!important;color:#881337!important}
+.qr-choice.qr-answer-incorrect .qr-choice-mark{background:#e11d48!important;border-color:#e11d48!important;color:#fff!important}
+.qr-clinical-layout{grid-template-columns:minmax(260px,40%) minmax(0,60%)!important;align-items:stretch!important;height:auto!important;min-height:min(70vh,720px)!important;overflow:visible!important}
+.qr-clinical-layout.question-only{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+.qr-ehr,.qr-question-panel{height:auto!important;min-height:0!important;overflow:hidden!important}
+.qr-ehr-body{max-height:min(66vh,680px)!important;overflow-y:auto!important}
+.qr-question-panel{overflow-y:auto!important}
+.qr-response-area{gap:10px!important}
+.qr-choice{min-height:54px!important;padding:13px 15px!important;border-width:1px!important}
+@media(max-width:900px){
+ .qr-clinical-layout,.qr-clinical-layout.question-only{display:flex!important;flex-direction:column!important;min-height:0!important}
+ .qr-ehr,.qr-question-panel{width:100%!important;max-height:none!important}
+ .qr-ehr-body{max-height:420px!important}
+}
+</style>
 </head>
 <body class="bg-slate-200 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
 
