@@ -15,8 +15,7 @@ assert.deepEqual({...counts},{
  'Cloze (Drop-down)':300,
  'Extended Drag and Drop':300,
  'Bowtie':300,
- 'Extended Multiple Response':300,
- 'Multiple Response':1000
+ 'Extended Multiple Response':1300
 });
 const ids=bank.map(q=>q.id);
 assert.equal(new Set(ids).size,bank.length,'all normalized question IDs are unique');
