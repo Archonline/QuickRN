@@ -30,16 +30,19 @@
     const erf=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);
     return Math.max(0,Math.min(1,0.5*(1+(z<0?-erf:erf))));
   }
+  // Approximate instructional cut score: 65% expected success on average-difficulty items.
+  // This is a simulation standard, not an NCSBN-published raw-score conversion.
+  const PASSING_THETA_THRESHOLD=Math.log(0.65/0.35);
   function evaluate(responses,forceFinal){
     const n=(responses||[]).length, model=estimate(responses);
-    const passProbability=Math.round(normalCdf(model.theta/Math.max(model.se,0.0001))*100);
-    const distanceToStandard=Number(model.theta.toFixed(3));
-    const base={...model,passProbability,distanceToStandard,items:n};
+    const distanceToStandard=model.theta-PASSING_THETA_THRESHOLD;
+    const passProbability=Math.round(normalCdf(distanceToStandard/Math.max(model.se,0.0001))*100);
+    const base={...model,passProbability,distanceToStandard:Number(distanceToStandard.toFixed(3)),passingTheta:PASSING_THETA_THRESHOLD,items:n};
     if(n<85)return {...base,status:'CONTINUE',checkpoint:false,reason:'Minimum 85 items required before a CAT decision'};
-    if(model.lower>0)return {...base,status:'PASS',checkpoint:true,reason:'95% confidence interval is above the passing standard'};
-    if(model.upper<0)return {...base,status:'FAIL',checkpoint:true,reason:'95% confidence interval is below the passing standard'};
-    if(n>=150||forceFinal)return {...base,status:model.theta>=0?'PASS':'FAIL',checkpoint:true,reason:'Maximum item limit reached; final ability estimate used'};
-    return {...base,status:'CONTINUE',checkpoint:true,reason:'Performance remains too close to the standard; continue testing'};
+    if(model.lower>PASSING_THETA_THRESHOLD)return {...base,status:'PASS',checkpoint:true,reason:'95% confidence interval is above the practice passing standard'};
+    if(model.upper<PASSING_THETA_THRESHOLD)return {...base,status:'FAIL',checkpoint:true,reason:'95% confidence interval is below the practice passing standard'};
+    if(n>=150||forceFinal)return {...base,status:model.theta>=PASSING_THETA_THRESHOLD?'PASS':'FAIL',checkpoint:true,reason:'Maximum item limit reached; final ability estimate used'};
+    return {...base,status:'CONTINUE',checkpoint:true,reason:'Performance remains too close to the practice passing standard; continue testing'};
   }
-  root.QuickRNCAT=Object.freeze({estimate,evaluate,normalCdf,MIN_ITEMS:85,MAX_ITEMS:150});
+  root.QuickRNCAT=Object.freeze({estimate,evaluate,normalCdf,MIN_ITEMS:85,MAX_ITEMS:150,PASSING_THETA_THRESHOLD});
 })(typeof window!=='undefined'?window:globalThis);
