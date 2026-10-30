@@ -3,7 +3,7 @@ const pages = ['selfstudy.html', 'timed.html', 'predictor.html', 'cat.html'];
 const failures = [];
 for (const page of pages) {
   const html = fs.readFileSync(page, 'utf8');
-  const tags = [...html.matchAll(/<script\\b[^>]*>/gi)].map(match => match[0]);
+  const tags = [...html.matchAll(/<script\b[^>]*>/gi)].map(match => match[0]);
   const indexOf = (src) => tags.findIndex(tag => tag.includes(src));
   const dependencies = [
     ['questions.js', 'src="questions.js"'],
@@ -31,11 +31,11 @@ for (const page of pages) {
     if (!html.includes('id="' + id + '"')) failures.push(page + ': missing reference interface region #' + id);
   }
   if (!html.includes('data-exam-mode="' + page.replace('.html', '') + '"')) failures.push(page + ': incorrect exam mode configuration');
-  if (/<script\\b[^>]*>\\s*<script\\b/i.test(html)) failures.push(page + ': nested script opening tags detected');
-  if (/<\\/script>\\s*<\\/script>/i.test(html)) failures.push(page + ': duplicate adjacent script closing tags detected');
+  if (/<script\b[^>]*>\s*<script\b/i.test(html)) failures.push(page + ': nested script opening tags detected');
+  if (/<\/script>\s*<\/script>/i.test(html)) failures.push(page + ': duplicate adjacent script closing tags detected');
 }
 if (failures.length) {
-  console.error('Rebuilt exam page contract failed:\\n- ' + failures.join('\\n- '));
+  console.error('Rebuilt exam page contract failed:\n- ' + failures.join('\n- '));
   process.exit(1);
 }
 console.log('PASS: all four rebuilt exam pages preserve the correct_view split-screen and load the shared question stack in dependency order.');
