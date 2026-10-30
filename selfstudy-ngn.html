@@ -484,15 +484,32 @@ main.nclex-workspace>.nclex-question-panel{display:block!important;width:100%!im
                     };
                 });
 
+                // Optional subject/lesson filter passed from the dashboard lesson library.
+                const params = new URLSearchParams(window.location.search);
+                const lessonQuery = params.get('q');
+                let lessonPool = normalized;
+                if (lessonQuery) {
+                    const terms = lessonQuery.split('|').map(term => term.trim().toLowerCase()).filter(Boolean);
+                    lessonPool = normalized.filter(q => {
+                        const searchable = [q.category, q.topic, q.title, q.promptTitle, q.keyPhrase, q.learningObjectives]
+                            .filter(Boolean).join(' ').toLowerCase();
+                        return terms.some(term => searchable.includes(term));
+                    });
+                    if (!lessonPool.length) {
+                        alert('No questions in the current question bank match "' + (params.get('lesson') || 'this lesson') + '". Please choose another lesson or use the full Self Study question bank.');
+                        return;
+                    }
+                }
+
                 // Load previously answered question IDs to avoid repeats
                 let usedIds = JSON.parse(localStorage.getItem('quickrn_used_q_ids') || '[]');
-                let available = normalized.filter(q => !usedIds.includes(q.id));
+                let available = lessonPool.filter(q => !usedIds.includes(q.id));
 
                 if (available.length === 0) {
-                    alert("You have exhausted all questions in this bank. Your question history has been reset for a new review cycle.");
+                    alert("You have completed the available questions for this lesson. Your question history has been reset for a new review cycle.");
                     localStorage.removeItem('quickrn_used_q_ids');
                     usedIds = [];
-                    available = normalized;
+                    available = lessonPool;
                 }
 
                 // Balance pool to ensure NGN items are present
