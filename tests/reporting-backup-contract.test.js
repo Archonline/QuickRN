@@ -25,7 +25,8 @@ for (const page of ['cat.html','predictor.html','timed.html']) {
   requireText(read(page), 'quickrn-question-reporting.js', page + ' does not load question reporting');
 }
 const selfStudy = read('selfstudy.html');
-requireText(selfStudy, 'quickrn_question_reports', 'Self Study report queue missing');
+const examApp = read('js/quickrn-exam-app.js');
+requireText(examApp, 'quickrn_question_reports', 'Shared exam report queue missing');
 requireText(selfStudy, 'Report saved on this device', 'Self Study local save disclosure missing');
 if (failures.length) { console.error('Reporting and backup contract failed:\\n- ' + failures.join('\\n- ')); process.exit(1); }
 console.log('Question reporting and dashboard-removal contract passed.');
