@@ -21,5 +21,23 @@ assert.equal(api.grade(highlight,{highlights:['s2']}),false);
 const trend=fixtures[8][1];
 assert.equal(api.hasAnswer(trend,{choice:'Notify provider'}),true);
 assert.equal(api.grade(trend,{choice:'Notify provider'}),true);
-for(const [format,q] of fixtures){const html=context.quickRNRenderClinicalItem(q,{});assert.ok(html.includes('qr-question-panel'),format+' markup');}
+const answerDrafts=[
+ {choice:'A'},
+ {choices:['A']},
+ {matrix:{r1:'Yes'}},
+ {cloze:{finding:'A'}},
+ {order:['A','B']},
+ {condition:'C',actions:['A','B'],monitoring:['M','N']},
+ {choices:['A']},
+ {highlights:['s1']},
+ {choice:'Notify provider'}
+];
+for(let i=0;i<fixtures.length;i++){
+ const [format,q]=fixtures[i],draft=answerDrafts[i];
+ assert.equal(api.hasAnswer(q,draft),true,format+' answer completeness');
+ assert.equal(api.grade(q,draft),true,format+' answer grading');
+ const html=context.quickRNRenderClinicalItem(q,draft);
+ assert.ok(html.includes('qr-question-panel'),format+' markup');
+}
+
 console.log('PASS: '+fixtures.length+' format render/detection checks; highlight/trend grading checks.');
