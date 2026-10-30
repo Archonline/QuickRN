@@ -475,11 +475,11 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
             const evaluateScore = (item, ans) => {
                 if (!ans) return { earned: 0, max: 1 };
                 const sharedFormat = window.QuickRNSharedRenderer?.detect(item);
-                if (sharedFormat === "Highlight" || sharedFormat === "Trend") {
+                if (sharedFormat === "Highlight" || sharedFormat === "Trend" || sharedFormat === "Multiple Response") {
                     const draft = window.QuickRNSharedRenderer.toDraft
                         ? window.QuickRNSharedRenderer.toDraft(item, ans)
                         : (sharedFormat === "Highlight" ? { highlights: Array.isArray(ans) ? ans : [] } :
-                           (Array.isArray(item.correctAnswers) ? { choices: Array.isArray(ans) ? ans : [] } : { choice: ans }));
+                           (sharedFormat === "Multiple Response" || Array.isArray(item.correctAnswers) ? { choices: Array.isArray(ans) ? ans : [] } : { choice: ans }));
                     const correct = window.QuickRNSharedRenderer.grade(item, draft);
                     return { earned: correct ? 1 : 0, max: 1 };
                 }
