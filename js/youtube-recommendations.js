@@ -10,16 +10,6 @@
     ];
     const NESTED_FIELDS = ['caseStudy', 'case', 'scenario'];
     const NESTED_TEXT_KEYS = ['title', 'name', 'summary', 'description', 'text', 'content', 'narrative', 'scenario'];
-    const GENERIC_QUERY_WORDS = new Set([
-        'the', 'and', 'for', 'with', 'from', 'that', 'this', 'which', 'what',
-        'when', 'where', 'who', 'why', 'how', 'does', 'should', 'would',
-        'could', 'will', 'can', 'may', 'must', 'select', 'choose', 'identify',
-        'best', 'most', 'appropriate', 'priority', 'nurse', 'nursing', 'client',
-        'patient', 'healthcare', 'provider', 'according', 'based', 'following',
-        'statement', 'action', 'response', 'finding', 'findings', 'correct',
-        'answer', 'question', 'explain', 'review', 'regarding', 'about'
-    ]);
-
     function plainText(value, depth) {
         if (value == null || depth > 2) return '';
         if (typeof value === 'string' || typeof value === 'number') {
