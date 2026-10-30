@@ -31,6 +31,19 @@ const domainLabels = [
 for (const [category, expected] of domainLabels) {
   assert.equal(coach.classifyClientNeed({ category }).id, expected, category + ' should map to its Client Needs domain');
 }
+const domainLabels = [
+  ['Management of Care', 'management'],
+  ['Safety and Infection Control', 'safety'],
+  ['Health Promotion and Maintenance', 'health'],
+  ['Psychosocial Integrity', 'psychosocial'],
+  ['Basic Care and Comfort', 'basic'],
+  ['Pharmacological and Parenteral Therapies', 'pharm'],
+  ['Reduction of Risk Potential', 'risk'],
+  ['Physiological Adaptation', 'physio']
+];
+for (const [category, expected] of domainLabels) {
+  assert.equal(coach.classifyClientNeed({ category }).id, expected, category + ' should map to its Client Needs domain');
+}
 
 assert.equal(coach.recordClientNeedAttempt({ category: 'Pharmacology', topic: 'Insulin' }, false), true);
 assert.equal(coach.recordClientNeedAttempt({ category: 'Pharmacology', topic: 'Insulin' }, true), true);
