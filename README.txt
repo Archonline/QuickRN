@@ -15,7 +15,7 @@ PROJECT STRUCTURE
 - js/shared-exam-renderer.js: shared NGN detection, rendering, answer adapters, and grading
 - js/quickrn-question-id-normalizer.js: deterministic handling of duplicate question IDs before session state is created
 - js/quickrn-question-metrics.js: browser-local per-question correctness metrics
-- js/quickrn-coach.js: transparent local rule-based study coach and Client Needs classification
+- js/quickrn-coach.js: transparent local rule-based study coach and Client Needs classification\n- js/quickrn-platform-hardening.js: shared local storage, diagnostics, connectivity, and lifecycle safeguards\n- js/quickrn-data-backup.js: validated browser-local backup export/import with rollback on partial restore
 - js/youtube-recommendations.js: contextual YouTube search recommendations
 - scripts/validate-question-bank.js: production-bank structural and content-quality audit
 - tests/: renderer, CAT engine, coach/UI, and question-ID regression tests
@@ -119,3 +119,14 @@ Clinical-record HTML is now allowlist-sanitized before rendering. Backup import 
 50. Run the new regression test in the NGN validation workflow.
 
 The register documents implemented safeguards and their subfeatures. It does not claim that browser/device QA, clinical educator review, or cross-device synchronization is complete.
+
+ 
+## Learning experience upgrade — October 31, 2026
+
+- Refreshed the landing page with a guided learning path, clear study workflow, and a three-pillar explanation of clinical cases, teaching rationales, and repeatable practice modes. The design takes broad inspiration from student-centered NCLEX review sites while keeping QuickRN branding and copy original.
+- Added six linked, synthetic NGN case-study items for acute decompensated heart failure. All six share a fictional patient profile and a clinical record containing nursing notes, vital signs, diagnostic results, and history/physical findings. The case sequence includes trend interpretation, highlight, matrix, bow-tie, numeric calculation, and multiple-response formats.
+- Added a shared Learning Companion to Self Study, Timed Practice, Predictor, and CAT. When rationale is shown it adds a clinical-judgment review sequence and topic-specific links to NCSBN, PubMed, and MedlinePlus. These are educational reference links, not a claim of live AI verification or educator approval.
+- Added an in-app video study room with an embedded topic player and question-linked local note-taking, copy, and download controls. Where the question bank supplies a specific YouTube video ID it embeds that video; otherwise it uses a topic-based player search fallback. Browser-local notes do not sync across devices.
+- The production questions.js file remains the original large source bank. New case items are appended at runtime by questions-ngn-supplement.js after the production bank loads, preserving the source bank and the existing normalization/scoring pipeline.
+
+Clinical case data are fictional. Clinical rationales and answer keys remain subject to qualified nursing-educator review before broad release; links to literature searches do not independently establish that every generated explanation is clinically verified.
