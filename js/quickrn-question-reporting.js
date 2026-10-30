@@ -34,9 +34,5 @@
   }
   window.quickRNOpenReport=open;
   window.QuickRNQuestionReporting={open,read,download:downloadReport};
-  document.addEventListener('DOMContentLoaded',()=>{
-    const button=document.createElement('button');button.type='button';button.id='quickrn-floating-report';button.textContent='⚑ Report this question';
-    button.style.cssText='position:fixed;right:16px;bottom:16px;z-index:900;background:#fff1f2;color:#9f1239;border:1px solid #fecaca;border-radius:999px;padding:10px 14px;font:700 12px system-ui;box-shadow:0 4px 14px #0f172a22';
-    button.addEventListener('click',open);document.body.appendChild(button);
-  });
+  // Reporting is exposed once inside the active question panel by the shared renderer.
 })();
