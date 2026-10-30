@@ -8,7 +8,7 @@ vm.runInNewContext(fs.readFileSync('js/quickrn-question-id-normalizer.js','utf8'
 vm.runInNewContext(fs.readFileSync('js/shared-exam-renderer.js','utf8'),context,{timeout:120000,filename:'shared-exam-renderer.js'});
 const bank=context.window.questions,api=context.window.QuickRNSharedRenderer;
 assert.ok(Array.isArray(bank),'production question bank loaded');
-assert.equal(bank.length,4525,'production question count including supplemental NCLEX formats');
+assert.equal(bank.length,4531,'production question count including supplemental NCLEX formats');
 const counts={};
 for(const q of bank){const format=api.detect(q);counts[format]=(counts[format]||0)+1;}
 assert.deepEqual({...counts},{
