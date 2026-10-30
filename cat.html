@@ -44,6 +44,44 @@
         }
         .animate-fadeIn { animation: fadeIn 0.25s ease-out forwards; }
     </style>
+    <style id="quickrn-shared-interface">
+/* QuickRN shared interface theme — visual-only overrides */
+:root { color-scheme: light; }
+html { min-height:100%; }
+body { font-family:'Inter',sans-serif !important; background:#e2e8f0 !important; color:#1e293b; }
+header { background:#0B2240 !important; color:#fff !important; border-bottom:2px solid #D97706 !important; box-shadow:0 4px 10px rgba(15,23,42,.14) !important; }
+header button, header a { transition:background-color .15s ease,border-color .15s ease; }
+main { min-width:0; }
+main section, main article, .question-card, .panel, .exam-panel, .card { border-radius:12px; }
+button { transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:3px solid #60a5fa; outline-offset:2px; }
+footer { background:#0B2240 !important; color:#fff !important; border-top:1px solid #334155 !important; }
+.prompt-typography, .question-text, .question-prompt { color:#0f172a; }
+@media(max-width:768px) {
+  header { padding-left:12px !important; padding-right:12px !important; }
+  main { max-width:100%; }
+}
+
+/* Self Study-aligned QuickRN exam shell */
+:root{--qr-navy:#0B2240;--qr-blue:#2563a6;--qr-amber:#d97706;--qr-bg:#e2e8f0;--qr-ink:#0f172a;--qr-border:#cbd5e1}
+html,body{min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body{background:#e2e8f0!important;color:#1e293b!important}
+header{height:56px;min-height:56px;padding:0 16px!important;display:flex;align-items:center;background:var(--qr-navy)!important;color:#fff!important;border-bottom:2px solid var(--qr-amber)!important;box-shadow:0 3px 10px #0f172a20!important}
+main{width:100%;max-width:1280px!important;margin:0 auto;padding:12px!important;min-width:0}
+#exam-container{background:#fff;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 2px 8px #0f172a0d;padding:20px;min-width:0}
+#exam-container h2,#exam-container h3{color:#0f172a;line-height:1.55}
+#exam-container button:not(:disabled){cursor:pointer}
+#exam-container button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #60a5fa!important;outline-offset:2px}
+#exam-container .qr-format-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+#exam-container .qr-format-tag.ngn{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe}
+#exam-container .qr-prompt{font-size:15px;font-weight:650;line-height:1.65;color:#0f172a}
+#exam-container .qr-option{width:100%;text-align:left;padding:14px 16px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;display:flex;align-items:flex-start;gap:12px;color:#1e293b;line-height:1.5}
+#exam-container .qr-option:hover{background:#eff6ff;border-color:#60a5fa}
+#exam-container .qr-option.selected{background:#eff6ff;border:2px solid #2563a6;color:#0B2240;font-weight:650}
+#exam-container .qr-option-key{width:25px;height:25px;flex:0 0 25px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e2e8f0;border:1px solid #cbd5e1;font-size:11px;font-weight:800}
+footer{background:#0B2240!important;color:#fff!important}
+@media(max-width:768px){header{padding:0 12px!important}main{padding:10px!important}#exam-container{padding:14px!important}}
+</style>
 </head>
 <body class="bg-slate-200 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
 
@@ -250,6 +288,26 @@
             return arr;
         }
 
+        // Identify NGN item formats while keeping ordinary SATA questions standard.
+        function isNGNQuestion(q) {
+            const type = String(q.type || q.questionType || q.format || '').toLowerCase();
+            return /\bngn\b|case study|bow[- ]?tie|matrix|cloze|drop[- ]?down|highlight|trend|extended drag|drag[- ]?and[- ]?drop|select[- ]?n/.test(type) || !!(q.caseStudy || q.case_study || q.ngn);
+        }
+
+        function chooseBalancedRandom(pool, answeredQuestions) {
+            if (!pool.length) return null;
+            const ngnCount = answeredQuestions.filter(isNGNQuestion).length;
+            const standardCount = answeredQuestions.length - ngnCount;
+            const hasNGN = pool.some(isNGNQuestion);
+            const hasStandard = pool.some(q => !isNGNQuestion(q));
+            let preferred = null;
+            if (hasNGN && hasStandard) preferred = ngnCount <= standardCount;
+            else if (hasNGN) preferred = true;
+            else if (hasStandard) preferred = false;
+            const balancedPool = preferred === null ? pool : pool.filter(q => isNGNQuestion(q) === preferred);
+            return balancedPool[Math.floor(Math.random() * balancedPool.length)];
+        }
+
         // TIMER
         function startTimer() {
             timerInterval = setInterval(() => {
@@ -344,12 +402,25 @@
                 return;
             }
 
-            currentQuestion = available[Math.floor(Math.random() * available.length)];
+            currentQuestion = chooseBalancedRandom(available, catHistory.map(item => item.question));
             usedQuestionIds.add(currentQuestion.id);
             selectedOption = null;
             isSubmitted = false;
             renderQuestion();
         }
+
+/* Shared item classification follows the Self Study question-bank conventions. */
+function quickRNDetectItemFormat(q){
+ const raw=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
+ if(raw.includes('matrix')||raw.includes('grid')||(q.rows&&q.columns)||q.matrixData)return 'Matrix / Grid';
+ if(raw.includes('cloze')||raw.includes('drop')||q.clozeTemplate||q.dropdowns||(q.options&&!Array.isArray(q.options)&&typeof q.options==='object'))return 'Cloze (Drop-down)';
+ if(raw.includes('drag')||raw.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
+ if(raw.includes('bowtie')||q.bowtieData)return 'Bowtie';
+ if(raw.includes('sata')||raw.includes('multiple response')||raw.includes('select all')||Array.isArray(q.correctAnswers)||(Array.isArray(q.correctAnswer)&&q.correctAnswer.length>1)||(Array.isArray(q.options)&&q.options[0]&&typeof q.options[0]==='object'&&q.options[0].id))return 'Extended Multiple Response';
+ return 'Single Choice';
+}
+function quickRNFormatBadge(q){const f=quickRNDetectItemFormat(q);const ngn=f!=='Single Choice'||q.isNGN===true;return `<span class="qr-format-tag ${ngn?'ngn':''}">${ngn?'NGN · ':''}${f}</span>`;}
+
 
         function renderQuestion() {
             
@@ -365,6 +436,7 @@
             let html = `
                 <div class="space-y-6 animate-fadeIn">
                     <div class="border-b border-slate-200 pb-4">
+                        <div class="mb-3">${quickRNFormatBadge(currentQuestion)}</div>
                         <h2 class="text-base md:text-lg font-bold text-slate-900 leading-relaxed">
                             ${currentQuestion.questionText}
                         </h2>
@@ -390,15 +462,11 @@
                         "Withhold all emergency assessments until shift change"
                     ];
                 } else {
-                    optionsList = [
-                        "Perform focused clinical assessment and monitor vital signs",
-                        "Implement prescribed provider interventions and reassess",
-                        "Ensure patient safety and educate family members",
-                        "Delay care until routine physician rounds occur"
-                    ];
+                    optionsList = [];
                 }
             }
 
+            if (optionsList.length === 0) { html += `<div class="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">This item is missing its format-specific response data in the question bank. It has not been converted into a standard multiple-choice question.</div>`; }
             optionsList.forEach((optText, idx) => {
                 const optLetter = String.fromCharCode(65 + idx);
                 const isChecked = selectedOption === optLetter;
