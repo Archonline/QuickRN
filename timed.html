@@ -283,6 +283,7 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
     <script src="questions.js"></script>
     <script src="js/youtube-recommendations.js"></script>
 
+    <script src="js/quickrn-question-metrics.js"></script>
     <script src="js/shared-exam-renderer.js"></script>
     <script>
         let allQuestionsPool = [];
@@ -516,6 +517,7 @@ function renderCurrentQuestion() {
 
             const q = activeQuestions[currentIndex];
             const isCorrect = quickRNGrade(q,sel);
+            if (window.QuickRNQuestionMetrics) window.QuickRNQuestionMetrics.record(q,isCorrect,'Timed Practice');
 
             // Save question metrics locally
             try {
@@ -571,6 +573,7 @@ function renderCurrentQuestion() {
                 evaluatedItems.sort((a, b) => (a.isCorrect === b.isCorrect) ? 0 : a.isCorrect ? 1 : -1);
 
                 const scorePercent = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+                const wrong = attempted-correct;
 
                 // Save stats to localStorage for dashboard synchronization
                 try {
@@ -613,7 +616,11 @@ function renderCurrentQuestion() {
                                 </div>
                                 <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
                                     <span class="text-[10px] uppercase font-bold text-slate-400 block">Correct</span>
-                                    <span class="text-xl font-extrabold text-emerald-400">${correct} / ${attempted}</span>
+                                    <span class="text-xl font-extrabold text-emerald-400">${correct}</span>
+                                </div>
+                                <div class="bg-blue-950/60 px-4 py-2 rounded-lg border border-blue-800">
+                                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Wrong</span>
+                                    <span class="text-xl font-extrabold text-rose-400">${wrong}</span>
                                 </div>
                             </div>
 
