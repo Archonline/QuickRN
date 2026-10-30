@@ -110,6 +110,50 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
 .qr-trend-table th,.qr-trend-table td{padding:9px;border:1px solid #cbd5e1;text-align:left;vertical-align:top}
 .qr-trend-table th{background:#e2e8f0;font-weight:800}
 </style>
+
+<style id="quickrn-unified-nclex-split-screen">
+/* Unified NCLEX split-screen shell across all exam modes */
+:root{--qr-workspace-height:calc(100dvh - 132px)}
+html,body{min-height:100%;}
+body{background:#e2e8f0!important}
+.qr-clinical-layout{display:grid!important;grid-template-columns:minmax(300px,40%) minmax(0,60%)!important;gap:12px!important;align-items:stretch!important;width:100%!important;min-width:0!important;min-height:0!important}
+.qr-ehr,.qr-question-panel{min-width:0!important;min-height:0!important;height:100%!important;background:#fff!important;border:1px solid #cbd5e1!important;border-radius:10px!important;overflow:hidden!important}
+.qr-ehr{display:flex!important;flex-direction:column!important}
+.qr-ehr-body{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overscroll-behavior:contain}
+.qr-question-panel{display:flex!important;flex-direction:column!important;overflow-y:auto!important;overscroll-behavior:contain}
+.qr-question-head{position:sticky;top:0;z-index:2}
+.qr-response-area{min-width:0}
+/* Legacy Self Study renderer uses its own EHR/question sections. */
+main.nclex-workspace{display:grid!important;grid-template-columns:minmax(300px,40%) minmax(0,60%)!important;gap:12px!important;height:var(--qr-workspace-height)!important;max-height:var(--qr-workspace-height)!important;overflow:hidden!important;align-items:stretch!important}
+main.nclex-workspace>section{width:auto!important;min-width:0!important;height:100%!important;min-height:0!important}
+main.nclex-workspace>section:first-of-type{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+main.nclex-workspace>section:first-of-type .ehr-readable{flex:1 1 auto!important;min-height:0!important;max-height:none!important;overflow-y:auto!important}
+main.nclex-workspace>.nclex-question-panel{overflow-y:auto!important}
+/* The dynamic exam containers must use the available page width. */
+main:has(#exam-container),main:has(#exam-workspace){width:100%!important;max-width:none!important;min-width:0!important}
+#exam-card,#exam-container,#exam-workspace{min-width:0!important;max-width:none!important}
+#exam-container{width:100%!important}
+@media(max-width:900px){
+ :root{--qr-workspace-height:auto}
+ body{height:auto!important;overflow-y:auto!important}
+ main.nclex-workspace{display:flex!important;flex-direction:column!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ main.nclex-workspace>section{width:100%!important;height:auto!important;min-height:0!important}
+ main.nclex-workspace>section:first-of-type{min-height:300px!important}
+ main.nclex-workspace>section:first-of-type .ehr-readable{max-height:420px!important}
+ .qr-clinical-layout{grid-template-columns:minmax(0,1fr)!important;align-items:stretch!important}
+ .qr-ehr,.qr-question-panel{height:auto!important;max-height:none!important}
+ .qr-ehr-body{max-height:420px!important}
+ main:has(#exam-container),main:has(#exam-workspace){height:auto!important;max-height:none!important;overflow:visible!important}
+}
+@media(min-width:901px){
+ body:has(#exam-container),body:has(#exam-workspace){height:100dvh!important;overflow:hidden!important}
+ main:has(#exam-container),main:has(#exam-workspace){height:var(--qr-workspace-height)!important;max-height:var(--qr-workspace-height)!important;overflow:hidden!important;justify-content:stretch!important}
+ #exam-card{height:100%!important;min-height:0!important}
+ #exam-container{height:100%!important;min-height:0!important;overflow:hidden!important;padding:12px!important}
+ #exam-workspace{height:100%!important;min-height:0!important;overflow:hidden!important}
+}
+</style>
+
 </head>
 <body class="bg-slate-200 text-slate-800 antialiased min-h-screen flex flex-col justify-between select-none">
 
