@@ -40,4 +40,15 @@ for(let i=0;i<fixtures.length;i++){
  assert.ok(html.includes('qr-question-panel'),format+' markup');
 }
 
-console.log('PASS: '+fixtures.length+' format render/detection checks; highlight/trend grading checks.');
+for(let i=0;i<fixtures.length;i++){
+ const [format,q]=fixtures[i],draft=answerDrafts[i];
+ const legacy=api.fromDraft(q,draft);
+ const restored=api.toDraft(q,legacy);
+ assert.equal(api.hasAnswer(q,restored),true,format+' legacy draft adapter');
+ assert.equal(api.grade(q,restored),true,format+' legacy draft grading');
+}
+assert.equal(api.detect({isNGN:true,highlightText:'Finding.',correctHighlights:['0']}),'Highlight');
+assert.equal(api.detect({type:'NGN Trend Item',trendData:{rows:[]},options:['A']}),'Trend');
+assert.equal(api.detect({type:'Extended Multiple Response',options:['A'],correctAnswers:['A']}),'Extended Multiple Response');
+
+console.log('PASS: '+fixtures.length+' format render/detection checks; answer-adapter round trips; highlight/trend grading checks.');
