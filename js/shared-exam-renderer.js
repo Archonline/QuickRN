@@ -99,7 +99,7 @@ function quickRNSplitPrompt(q){
   const directionStart=source.toLowerCase().lastIndexOf(direction.toLowerCase());
   const before=source.slice(0,directionStart).trim();
   if(before){
-   scenario=scenario||quickRNCleanClinicalText(before,q);
+   scenario=scenario||quickRNCleanClinicalText(before,sourceMeta);
    source='';
    if(!instruction)instruction=direction;
   }else if(!instruction)instruction=direction;
@@ -108,7 +108,7 @@ function quickRNSplitPrompt(q){
  if(!scenario){
   const blocks=source.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
   if(blocks.length>1&&/^(?:Review the|Use the|Analyze the|Examine the)\b/i.test(blocks[blocks.length-1])){
-   scenario=blocks.slice(0,-1).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean).join('\n\n');
+   scenario=blocks.slice(0,-1).map(v=>quickRNCleanClinicalText(v,sourceMeta)).filter(Boolean).join('\n\n');
    if(!instruction)instruction=blocks[blocks.length-1];
    source='';
   }
@@ -118,11 +118,11 @@ function quickRNSplitPrompt(q){
   const sentences=source.match(/[^.!?]+[.!?]+(?:[”’"']+)?|[^.!?]+$/g)||[source];
   const last=(sentences[sentences.length-1]||'').trim();
   if(sentences.length>1&&/^(?:which|what|when|where|who|how|select|identify|determine|calculate|complete|place|indicate|the nurse|the client)/i.test(last)){
-   scenario=sentences.slice(0,-1).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean).join(' ').trim();
+   scenario=sentences.slice(0,-1).map(v=>quickRNCleanClinicalText(v,sourceMeta)).filter(Boolean).join(' ').trim();
    source=last;
   }
  }
- scenario=quickRNCleanClinicalText(scenario,q);
+ scenario=quickRNCleanClinicalText(scenario,sourceMeta);
  source=quickRNCleanClinicalText(source,q);
  if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
