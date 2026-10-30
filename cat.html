@@ -262,12 +262,14 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
         </div>
     </div>
 
+    <script src="js/quickrn-cat-engine.js"></script>
+    <script src="js/quickrn-question-metrics.js"></script>
     <script src="js/shared-exam-renderer.js"></script>
     <script>
         // CONFIG & CAT STATE
         const MAX_ITEMS = 150;
         const TERMINATION_CHECK_ITEM = 85;
-        const PASSING_ACCURACY_THRESHOLD = 0.65; // 65% passing standard at item 85
+        const PASSING_ACCURACY_THRESHOLD = 0; // IRT theta standard; no raw-percent shortcut
         let timerSeconds = 5 * 60 * 60; // 5 hours timer
         let timerInterval = null;
 
@@ -400,28 +402,24 @@ main{overflow-y:auto!important;align-items:stretch!important;justify-content:fle
 
         // CAT ENGINE SELECTION & TERMINATION RULES
         function selectNextCATQuestion() {
-            if (catHistory.length >= MAX_ITEMS) {
-                finishExam('Maximum items threshold reached (150 Items)');
+            const decision = window.QuickRNCAT.evaluate(catHistory.map(h => ({q:h.question,correct:h.isCorrect})));
+            if (decision.status === 'PASS' || decision.status === 'FAIL') {
+                finishExam(decision.status === 'PASS' ? 'CAT decision: PASS — ability estimate is above the passing standard.' : 'CAT decision: FAIL — ability estimate is below the passing standard.');
                 return;
             }
-
-            // CAT Rule at Item 85
-            if (catHistory.length === TERMINATION_CHECK_ITEM) {
-                const correctCount = catHistory.filter(h => h.isCorrect).length;
-                const currentAccuracy = correctCount / catHistory.length;
-                if (currentAccuracy < PASSING_ACCURACY_THRESHOLD) {
-                    finishExam('Terminated at Item 85: Performance fell below the required passing standard.');
-                    return;
-                }
+            if (catHistory.length >= MAX_ITEMS) {
+                finishExam('Maximum item limit reached; final CAT estimate reported.');
+                return;
             }
-
             let available = rawQuestionPool.filter(q => !usedQuestionIds.has(q.id));
             if (available.length === 0) {
-                finishExam('Question pool exhausted');
+                finishExam('Question bank exhausted before a confident decision; result is inconclusive.');
                 return;
             }
-
-            currentQuestion = chooseBalancedRandom(available, catHistory.map(item => item.question));
+            const theta = decision.theta;
+            available.sort((a,b)=>Math.abs((Number(a.difficulty)||0)-theta)-Math.abs((Number(b.difficulty)||0)-theta));
+            const band = available.slice(0,Math.max(1,Math.ceil(available.length*0.25)));
+            currentQuestion = chooseBalancedRandom(band, catHistory.map(item => item.question));
             usedQuestionIds.add(currentQuestion.id);
             selectedOption = {};
             isSubmitted = false;
@@ -449,6 +447,7 @@ function renderQuestion() {
             isSubmitted=true;
             const isCorrect=quickRNGrade(currentQuestion,quickRNDraft);
             catHistory.push({question:currentQuestion,selectedOption:JSON.parse(JSON.stringify(quickRNDraft)),isCorrect});
+            if (window.QuickRNQuestionMetrics) window.QuickRNQuestionMetrics.record(currentQuestion,isCorrect,'CAT Simulator');
             if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(currentQuestion, isCorrect);
             let state=JSON.parse(localStorage.getItem('quickrn_student_state')||'{}');
             if(!state.studentStats)state.studentStats={totalAnswered:0,correctCount:0,categories:[]};
@@ -468,7 +467,9 @@ function renderQuestion() {
             const totalAnswered = catHistory.length;
             const correctCount = catHistory.filter(h => h.isCorrect).length;
             const scorePercent = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
-            const isPassed = scorePercent >= 65 && totalAnswered >= 15;
+            const finalDecision = window.QuickRNCAT.evaluate(catHistory.map(h=>({q:h.question,correct:h.isCorrect})),true);
+            const isPassed = finalDecision.status === 'PASS' && totalAnswered >= 85;
+            const correctWrong = {correct:correctCount,wrong:totalAnswered-correctCount};
 
             // Save to LocalStorage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
@@ -481,7 +482,11 @@ function renderQuestion() {
                 mode: 'CAT Adaptive Exam',
                 totalAnswered,
                 scorePercent,
-                status: isPassed ? 'PASSED' : 'DID NOT PASS'
+                correctCount: correctWrong.correct,
+                wrongCount: correctWrong.wrong,
+                theta: Number(finalDecision.theta.toFixed(3)),
+                standardError: Number(finalDecision.se.toFixed(3)),
+                status: totalAnswered < 85 ? 'INCONCLUSIVE — QUESTION BANK TOO SMALL' : (isPassed ? 'PASSED' : 'DID NOT PASS')
             });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
@@ -496,12 +501,14 @@ function renderQuestion() {
                             <i class="fa-solid ${isPassed ? 'fa-award' : 'fa-circle-xmark'}"></i>
                         </div>
                         <div class="space-y-1">
-                            <h3 class="text-2xl font-black text-slate-900">${isPassed ? 'CAT EXAM PASSED Successfully!' : 'EXAM COMPLETED - DID NOT PASS'}</h3>
+                            <h3 class="text-2xl font-black text-slate-900">${totalAnswered < 85 ? 'CAT RESULT INCONCLUSIVE' : (isPassed ? 'CAT EXAM PASSED Successfully!' : 'CAT EXAM DID NOT PASS')}</h3>
                             <p class="text-xs text-slate-500 font-medium">${reason}</p>
                         </div>
                         <div class="flex justify-center gap-8 py-3 bg-white rounded-xl border border-slate-200 max-w-md mx-auto">
                             <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Answered</span><span class="text-2xl font-black text-slate-800">${totalAnswered} / 150</span></div>
                             <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Accuracy</span><span class="text-2xl font-black text-ncsbn-blue">${scorePercent}%</span></div>
+                            <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Correct</span><span class="text-2xl font-black text-emerald-600">${correctCount}</span></div>
+                            <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Wrong</span><span class="text-2xl font-black text-rose-600">${totalAnswered-correctCount}</span></div>
                         </div>
                         <div class="flex justify-center gap-4 pt-2">
                             <button onclick="window.location.reload()" class="px-6 py-2.5 bg-slate-800 text-white font-bold rounded-lg text-xs hover:bg-slate-700">Retake Exam</button>
