@@ -225,3 +225,9 @@ SELF-STUDY REBUILD (2026-10-31)
 - For the specific instruction “Review the clinical cues and complete the clinical judgment item,” repeat the cleaned clinical stem in the response pane. This is matched by instruction pattern rather than by a topic name.
 - Added tests/clinical-prompt-normalizer.test.js and wired it into the NGN renderer validation workflow. It covers case metadata, inline footers, NGN title prefixes, topic-prefixed questions, follow-up numbers, and alternate patient-information fields.
 - Targeted runtime checks passed for the supplied examples and additional synthetic question shapes. The full GitHub Actions workflow must complete after this commit for CI confirmation; full browser visual QA remains separate.
+
+Exam prompt rendering fix (October 31, 2026)
+- The shared exam renderer now displays the actual item stem/final question before a separate boilerplate instruction such as “Select the single best answer.”
+- Separate instructions remain available as a fallback when the stem has been moved into the clinical scenario or no direct prompt remains.
+- Blank higher-priority fields (for example, questionOnly containing spaces) no longer prevent the renderer from using a valid question, stem, or title field.
+- This shared fix applies to Self-Study, Timed Practice, NCLEX Predictor, and CAT pages that load the common exam renderer.
