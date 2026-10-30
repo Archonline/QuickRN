@@ -171,31 +171,31 @@
             </header>
 
             <!-- Scrollable View Container -->
-            <main class="flex-1 overflow-y-auto p-6 space-y-6">
+            <main class="flex-1 overflow-y-auto p-3 lg:p-4 space-y-3">
 
                 <!-- DASHBOARD TAB -->
-                <div id="tab-content-dashboard" class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+                <div id="tab-content-dashboard" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-3">
                     
                     <!-- BANNER WITH NO CARD BORDERS AND ENLARGED PASS RATE ON THE RIGHTMOST SIDE -->
-                    <div class="lg:col-span-2 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-2xl p-4 lg:p-5 text-white shadow-xl relative overflow-hidden">
+                    <div class="lg:col-span-2 xl:col-span-3 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-xl p-3 lg:p-4 text-white shadow-md relative overflow-hidden">
                         <div class="absolute -right-10 -top-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="absolute -left-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
                             
                             <!-- LEFT SIDE: Greeting & Encouraging Passage -->
-                            <div class="lg:col-span-7 space-y-2">
+                            <div class="lg:col-span-7 space-y-1">
                                 <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                                     <i class="fa-solid fa-heart-pulse"></i>
                                     <span>Daily NCLEX Motivation</span>
                                 </div>
 
-                                <h2 id="greeting-title" class="text-2xl lg:text-3xl font-black tracking-tight text-white leading-tight">
+                                <h2 id="greeting-title" class="text-xl lg:text-2xl font-black tracking-tight text-white leading-tight">
                                     Welcome Back, Future RN! 👋
                                 </h2>
 
                                 <div class="pt-1">
-                                    <p id="encouraging-passage" class="text-sm lg:text-base text-slate-200 italic leading-snug font-normal">
+                                    <p id="encouraging-passage" class="text-xs lg:text-sm text-slate-200 italic leading-snug font-normal">
                                         "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name."
                                     </p>
                                     <p id="quote-author" class="mt-2 text-xs font-semibold text-emerald-400 tracking-wide">— QuickRN Motivation</p>
@@ -203,10 +203,10 @@
                             </div>
 
                             <!-- RIGHT SIDE: NCLEX Passing Probability Text & Rightmost Large Gauge Circle -->
-                            <div class="lg:col-span-5 flex items-center justify-between space-x-4">
+                            <div class="lg:col-span-5 flex items-center justify-between space-x-3">
                                 
-                                <div class="space-y-2 flex-1">
-                                    <h3 class="text-xl lg:text-2xl font-black text-white tracking-tight leading-snug">
+                                <div class="space-y-1 flex-1">
+                                    <h3 class="text-lg lg:text-xl font-black text-white tracking-tight leading-snug">
                                         NCLEX Passing Probability
                                     </h3>
                                     <p class="text-xs text-slate-300 leading-snug">
@@ -215,13 +215,13 @@
                                 </div>
 
                                 <!-- Rightmost Large Percentage Gauge Circle -->
-                                <div class="relative w-24 h-24 lg:w-28 lg:h-28 flex-shrink-0 flex items-center justify-center">
+                                <div class="relative w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 flex items-center justify-center">
                                     <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
                                         <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                         <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
                                     </svg>
                                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                        <span id="probability-value-text" class="text-3xl lg:text-4xl font-black text-white tracking-tight">—</span>
+                                        <span id="probability-value-text" class="text-2xl lg:text-3xl font-black text-white tracking-tight">—</span>
                                         <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">EST. PASS LIKELIHOOD</span>
                                         <span id="probability-status-text" class="text-[9px] text-slate-400 mt-1">Complete a CAT or Predictor exam</span>
                                     </div>
@@ -233,16 +233,16 @@
                     </div>
 
                     <!-- Quick Stats Grid (Initial State: All 0) -->
-                    <div class="lg:col-span-2 grid grid-cols-2 xl:grid-cols-4 gap-2">
+                    <div class="lg:col-span-2 xl:col-span-3 grid grid-cols-2 xl:grid-cols-4 gap-1.5">
                         
                         <!-- Questions Only Card (Clickable to show finished exams / test history) -->
-                        <div onclick="openFinishedTestsModal()" class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
+                        <div onclick="openFinishedTestsModal()" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
                             <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-brand-600 transition-colors">Questions only</p>
-                                <h3 id="stat-solved-display" class="text-2xl font-black text-slate-900 mt-1">0 <span id="stat-pool-total" class="text-sm font-semibold text-slate-400">/ 0</span></h3>
-                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view finished tests</p>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-brand-600 transition-colors">Questions only</p>
+                                <h3 id="stat-solved-display" class="text-xl font-black text-slate-900 mt-0.5">0 <span id="stat-pool-total" class="text-sm font-semibold text-slate-400">/ 0</span></h3>
+                                <p class="text-[9px] text-slate-500 mt-0.5"><i class="fa-regular fa-clock"></i> Click to view finished tests</p>
                             </div>
-                            <div class="w-9 h-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                            <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
                                 <i class="fa-solid fa-list-check"></i>
                             </div>
                         </div>
@@ -282,8 +282,8 @@
                     </div>
 
                     <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
-                    <div class="lg:col-start-1 bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-2">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div class="lg:col-start-1 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-3 shadow-sm space-y-2">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
                                 <p class="text-xs text-slate-500">Your recorded exam accuracy and model-estimated chance of being above the passing standard. Only actual saved attempts are plotted.</p>
@@ -301,7 +301,7 @@
                             </div>
                         </div>
 
-                        <div class="h-44 w-full">
+                        <div class="h-36 w-full">
                             <canvas id="quickrnScoreChart"></canvas>
                         </div>
                         <p id="quickrn-score-chart-note" class="text-[11px] text-slate-500" aria-live="polite">Loading saved exam history…</p>
@@ -309,9 +309,9 @@
 
                     
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <div class="lg:col-start-2 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-xl p-4 text-white shadow-xl space-y-3 relative overflow-hidden">
+                    <div class="lg:col-start-2 xl:col-span-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-3 text-white shadow-md space-y-2 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-indigo-800/60 pb-4">
+                        <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
                             <div class="flex items-center space-x-3">
                                 <div class="w-9 h-9 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl shadow-inner">
                                     <i class="fa-solid fa-brain"></i>
@@ -324,7 +324,7 @@
                                     <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
                                 </div>
                             </div>
-                            <button onclick="generateStudyRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                            <button onclick="generateStudyRoadmap()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
                             </button>
                         </div>
@@ -333,13 +333,13 @@
                         </div>
                     </div>
 
-                    <section class="lg:col-start-1 bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
+                    <section class="lg:col-start-1 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-3 space-y-2">
                         <div class="flex items-center justify-between gap-3"><div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Client Needs domains below the 75% accuracy target, based on submitted answers.</p></div><i class="fa-solid fa-bullseye text-amber-700 text-xl"></i></div>
-                        <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-3"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
+                        <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
                     </section>
 
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
-                    <div class="lg:col-start-2 bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-3">
+                    <div class="lg:col-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-3 shadow-sm space-y-2">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h2>
