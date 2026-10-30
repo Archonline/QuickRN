@@ -1,90 +1,19 @@
-/* Consistent QuickRN item-level NGN scoring for exam summaries. */
-(function(root){
- 'use strict';
- const own=(o,k)=>Object.prototype.hasOwnProperty.call(o||{},k);
- const str=v=>String(v==null?'':v).trim();
- const arr=v=>Array.isArray(v)?v:(v==null?[]:[v]);
- function format(q){
-  if(root.QuickRNSharedRenderer&&root.QuickRNSharedRenderer.detect)return root.QuickRNSharedRenderer.detect(q);
-  const raw=[q&&q.ngnType,q&&q.type,q&&q.format,q&&q.questionType,q&&q.itemType].filter(Boolean).join(' ').toLowerCase();
-  if(raw.includes('highlight'))return 'Highlight';if(raw.includes('trend'))return 'Trend';
-  if(raw.includes('matrix')||raw.includes('grid'))return 'Matrix / Grid';
-  if(raw.includes('cloze')||raw.includes('drop-down')||raw.includes('dropdown'))return 'Cloze (Drop-down)';
-  if(raw.includes('drag')||raw.includes('order'))return 'Extended Drag and Drop';
-  if(raw.includes('bowtie'))return 'Bowtie';
-  if(raw.includes('multiple response')||raw.includes('sata')||Array.isArray(q&&q.correctAnswers))return 'Multiple Response';
-  return 'Single Choice';
- }
- function optionValue(o,i){return typeof o==='string'?o:(o&& (o.id??o.value??o.text) || String.fromCharCode(65+i));}
- function optionText(o){return typeof o==='string'?o:(o&&(o.text??o.label??o.value)||'');}
- function canonical(q,v){
-  const opts=Array.isArray(q.options)?q.options:[];
-  const value=str(v);
-  const i=opts.findIndex((o,j)=>[optionValue(o,j),optionText(o),String.fromCharCode(65+j)].some(x=>str(x)===value));
-  return i>=0?str(optionValue(opts[i],i)):value;
- }
- function normalized(q,answer){
-  let a=answer;
-  if(a&&typeof a==='object'&&a.submitted&&own(a,'answer'))a=a.answer;
-  if(a&&typeof a==='object'&&own(a,'selectedOption'))a=a.selectedOption;
-  if(a==null)return {};
-  const f=format(q);
-  if(f==='Single Choice'||(f==='Trend'&&!Array.isArray(q.correctAnswers)))return typeof a==='object'&&!Array.isArray(a)?a:(typeof a==='string'?{choice:a}:{});
-  if(f==='Multiple Response'||f==='Extended Multiple Response'||(f==='Trend'&&Array.isArray(q.correctAnswers)))return Array.isArray(a)?{choices:a}:(a.choices?a:{choices:[]});
-  if(f==='Highlight')return Array.isArray(a)?{highlights:a}:(a.highlights?a:{highlights:[]});
-  if(f==='Matrix / Grid')return a.matrix?a:{matrix:a};
-  if(f==='Cloze (Drop-down)')return a.cloze?a:{cloze:a};
-  if(f==='Extended Drag and Drop')return Array.isArray(a)?{order:a}:(a.order?a:{order:[]});
-  if(f==='Bowtie')return a;
-  return a;
- }
- function setScore(selected,correct){
-  const c=arr(correct).map(str),s=arr(selected).map(str);
-  if(!c.length)return {earned:0,max:0};
-  const hits=s.filter(x=>c.includes(x)).length;
-  const misses=s.filter(x=>!c.includes(x)).length;
-  return {earned:Math.max(0,Math.min(c.length,hits-misses)),max:c.length};
- }
- function grade(q,answer){
-  q=q||{};const f=format(q),d=normalized(q,answer),c=q.correctAnswers||{};
-  let earned=0,max=0;
-  if(f==='Single Choice'||(f==='Trend'&&!Array.isArray(q.correctAnswers))){
-   const target=q.correctAnswerText??q.correctAnswer;const selected=d.choice??answer;
-   earned=(canonical(q,selected)===canonical(q,target)||str(selected)===str(target))?1:0;max=1;
-  }else if(f==='Multiple Response'||f==='Extended Multiple Response'||(f==='Trend'&&Array.isArray(q.correctAnswers))){
-   const correct=arr(q.correctAnswers??q.correctAnswer).map(v=>canonical(q,v));
-   const result=setScore(arr(d.choices).map(v=>canonical(q,v)),correct);earned=result.earned;max=result.max;
-  }else if(f==='Highlight'){
-   const result=setScore(d.highlights??[],q.correctHighlights??c.highlights??c.correctHighlights??[]);earned=result.earned;max=result.max;
-  }else if(f==='Matrix / Grid'){
-   const rows=q.rows||q.matrixData?.rows||[],answers=d.matrix||{},correct=c.matrix||c;
-   const ids=rows.length?rows.map((r,i)=>str(r.id??i)):Object.keys(correct);
-   max=ids.length;ids.forEach(id=>{if(str(answers[id])===str(correct[id]))earned++;});
-  }else if(f==='Cloze (Drop-down)'){
-   const correct=c.cloze||c,answers=d.cloze||{},keys=Object.keys(correct);max=keys.length;keys.forEach(k=>{if(str(answers[k])===str(correct[k]))earned++;});
-  }else if(f==='Extended Drag and Drop'){
-   const correct=q.correctOrder||c.order||[],selected=d.order||[];max=correct.length;correct.forEach((v,i)=>{if(str(selected[i])===str(v))earned++;});
-  }else if(f==='Bowtie'){
-   const correct=c.bowtie||c,selected=d||{};
-   if(own(correct,'condition')){max++;if(str(selected.condition)===str(correct.condition))earned++;}
-   const actions=setScore(selected.actions,correct.actions);earned+=actions.earned;max+=actions.max;
-   const monitoring=setScore(selected.monitoring,correct.monitoring);earned+=monitoring.earned;max+=monitoring.max;
-  }else{const target=q.correctAnswerText??q.correctAnswer;earned=str(answer)===str(target)?1:0;max=1;}
-  max=Math.max(1,max);earned=Math.max(0,Math.min(max,earned));
-  return {format:f,earned,max,isCorrect:earned===max,percentage:Math.round(earned/max*100)};
- }
- function summarize(records){
-  let earned=0,max=0,answered=0,fullyCorrect=0;
-  (records||[]).forEach(r=>{
-   if(!r)return;
-   const q=r.q||r.question||r.item;
-   const answer=own(r,'answer')?r.answer:(own(r,'draft')?r.draft:(own(r,'userAns')?r.userAns:(own(r,'selectedOption')?r.selectedOption:undefined)));
-   if(!q||answer===undefined||answer===null)return;
-   const result=grade(q,answer);earned+=result.earned;max+=result.max;answered++;if(result.isCorrect)fullyCorrect++;
-  });
-  return {earned,max,answered,fullyCorrect,partialOrIncorrect:answered-fullyCorrect,unanswered:Math.max(0,(records||[]).length-answered),percentage:max?Math.round(earned/max*100):0};
- }
- const api={format,normalize:normalized,grade,summarize};
- root.QuickRNNgnScoring=api;
- if(typeof module!=='undefined'&&module.exports)module.exports=api;
+/* QuickRN partial-credit scoring for NGN and traditional NCLEX item formats. */
+(function(root){'use strict';
+ const str=v=>String(v==null?'':v).trim(),arr=v=>Array.isArray(v)?v:(v==null?[]:[v]);
+ function format(q){const f=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/[_-]/g,' ').toLowerCase();if(f.includes('highlight'))return 'Highlight';if(f.includes('matrix')||f.includes('grid'))return 'Matrix';if(f.includes('cloze')||f.includes('drop down')||f.includes('dropdown'))return 'Cloze';if(f.includes('bowtie')||f.includes('bow tie'))return 'Bowtie';if(f.includes('numeric'))return 'Numeric';if(f.includes('select n')||f.includes('select exactly'))return 'Select N';if(f.includes('drag')||f.includes('order'))return 'Ordered';if(f.includes('multiple response')||f.includes('sata')||f.includes('select all')||Array.isArray(q.correctAnswers))return 'Multiple Response';return 'Single Choice';}
+ function canon(q,v){const opts=Array.isArray(q.options)?q.options:[],s=str(v),i=opts.findIndex((o,j)=>[typeof o==='string'?o:(o.id??o.value??o.text??o.label??''),typeof o==='string'?o:(o.text??o.label??o.value??''),String.fromCharCode(65+j)].some(x=>str(x)===s));return i<0?s:String(typeof opts[i]==='string'?opts[i]:(opts[i].id??opts[i].value??opts[i].text??opts[i].label));}
+ function setScore(selected,correct){const c=arr(correct).map(str),s=arr(selected).map(str);if(!c.length)return {earned:0,max:0};return {earned:Math.max(0,Math.min(c.length,s.filter(x=>c.includes(x)).length-s.filter(x=>!c.includes(x)).length)),max:c.length};}
+ function grade(q,a){q=q||{};const d=a&&typeof a==='object'?a:{},c=q.correctAnswers||{};let earned=0,max=0;const f=format(q);
+ if(f==='Single Choice'){const v=d.choice??d.selectedOption??a,t=q.correctAnswerText??q.correctAnswer;earned=canon(q,v)===canon(q,t)||str(v)===str(t)?1:0;max=1;}
+ else if(f==='Multiple Response'||f==='Select N'){const r=setScore(arr(d.choices??d.selected??a).map(v=>canon(q,v)),arr(q.correctAnswers??q.correctAnswer).map(v=>canon(q,v)));earned=r.earned;max=r.max;}
+ else if(f==='Highlight'){const r=setScore(d.highlights??d.highlighted??a,q.correctHighlights??c.highlights??c.correctHighlights??[]);earned=r.earned;max=r.max;}
+ else if(f==='Matrix'){const rows=q.rows||q.matrixData?.rows||[],correct=c.matrix||c,selected=d.matrix||d,ids=rows.length?rows.map((r,i)=>str(r.id??i)):Object.keys(correct);ids.forEach((id,i)=>{const t=correct[id]??rows[i]?.correct,v=selected[id];if(Array.isArray(t)){const r=setScore(v,t);earned+=r.earned;max+=r.max;}else{max++;if(str(v)===str(t))earned++;}});}
+ else if(f==='Cloze'){const correct=c.cloze||c,selected=d.cloze||d;Object.keys(correct).forEach(k=>{max++;if(str(selected[k])===str(correct[k]))earned++;});}
+ else if(f==='Bowtie'){const t=c.bowtie||c;if(t.condition!==undefined){max++;if(str(d.condition)===str(t.condition))earned++;}const x=setScore(d.actions,t.actions),y=setScore(d.monitoring??d.params,t.monitoring??t.params);earned+=x.earned+y.earned;max+=x.max+y.max;}
+ else if(f==='Ordered'){const t=q.correctOrder||c.order||[],v=d.order||d.orderedList||[];max=t.length;t.forEach((x,i)=>{if(str(v[i])===str(x))earned++;});}
+ else if(f==='Numeric'){const v=Number(d.value??d.numeric??a),r=q.numericRange||q.acceptedRange,t=Number(q.correctNumericAnswer??q.correctValue??q.numericAnswer??q.correctAnswer);max=1;earned=Array.isArray(r)&&r.length>1?(v>=Number(r[0])&&v<=Number(r[1])?1:0):(Number.isFinite(t)&&v===t?1:0);}
+ else{const t=q.correctAnswerText??q.correctAnswer;earned=str(d.choice??a)===str(t)?1:0;max=1;}
+ max=Math.max(1,max);earned=Math.max(0,Math.min(max,earned));return {format:f,earned,max,isCorrect:earned===max,percentage:Math.round(earned/max*100),partial:earned>0&&earned<max};}
+ root.QuickRNNgnScoring={format,grade};if(typeof module!=='undefined'&&module.exports)module.exports=root.QuickRNNgnScoring;
 })(typeof window!=='undefined'?window:globalThis);
