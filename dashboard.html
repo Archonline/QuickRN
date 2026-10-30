@@ -234,7 +234,7 @@
                     </div>
 
                     <!-- Quick Stats Grid (Initial State: All 0) -->
-                    <div class="lg:col-span-1 xl:col-span-2 grid grid-cols-2 gap-1.5">
+                    <div class="lg:col-span-1 xl:col-span-1 xl:row-start-2 grid grid-cols-2 gap-1.5">
                         
                         <!-- Questions Only Card (Clickable to show finished exams / test history) -->
                         <div onclick="openFinishedTestsModal()" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
@@ -283,7 +283,7 @@
                     </div>
 
                     <!-- SUBJECT & LESSON LIBRARY -->
-                    <section class="lg:col-span-1 xl:col-start-1 xl:row-start-2 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
+                    <section class="lg:col-start-1 lg:row-start-2 xl:col-start-1 xl:row-start-3 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div>
                                 <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
@@ -296,7 +296,7 @@
                     </section>
 
                     <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
-                    <div class="lg:col-start-2 xl:col-start-3 xl:col-span-1 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
+                    <div class="lg:col-start-2 lg:col-span-1 xl:col-start-2 xl:row-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
@@ -347,24 +347,32 @@
                         </div>
                     </div>
 
-                    <section class="lg:col-start-1 xl:col-start-1 xl:row-start-3 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-2.5 space-y-2">
-                        <div class="flex items-center justify-between gap-3"><div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Client Needs domains below the 75% accuracy target, based on submitted answers.</p></div><i class="fa-solid fa-bullseye text-amber-700 text-xl"></i></div>
-                        <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
-                    </section>
-
-                    <!-- NCLEX Client Needs Mastery Breakdown Grid -->
-                    <div class="lg:col-start-2 xl:col-start-2 xl:row-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
-                        <div class="flex items-center justify-between">
+                    <!-- COMBINED CLIENT NEEDS MASTERY & PRIORITY WEAK AREAS -->
+                    <section class="lg:col-span-2 lg:col-start-1 lg:row-start-3 xl:col-start-2 xl:row-start-3 xl:col-span-2 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
                             <div>
-                                <button type="button" onclick="switchTab('analytics')" class="text-left text-sm font-bold text-slate-900 hover:text-brand-700">NCLEX Client Needs Mastery Categories <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
-                                <p class="text-[10px] text-slate-500">Select a category to practice its questions · open analytics for the full breakdown</p>
+                                <h2 class="text-base font-extrabold text-slate-900">NCLEX Client Needs Performance</h2>
+                                <p class="text-[10px] text-slate-500">Mastery results and priority remediation areas, calculated from submitted answers.</p>
+                            </div>
+                            <button type="button" onclick="switchTab('analytics')" class="shrink-0 text-xs font-bold text-brand-700 hover:text-brand-900">Full analytics <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
+                        </div>
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
+                            <div class="min-w-0 space-y-2">
+                                <div class="flex items-center justify-between gap-2">
+                                    <h3 class="text-sm font-bold text-amber-950">Priority Weak Areas</h3>
+                                    <span class="text-[10px] text-amber-800">Below 75% accuracy</span>
+                                </div>
+                                <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-slate-500">Complete practice questions to identify areas for remediation.</p></div>
+                            </div>
+                            <div class="min-w-0 space-y-2">
+                                <h3 class="text-sm font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
+                                <p class="text-[10px] text-slate-500">Select a category to practice its questions.</p>
+                                <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                    <!-- Populated dynamically by JS -->
+                                </div>
                             </div>
                         </div>
-
-                        <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                            <!-- Populated dynamically by JS -->
-                        </div>
-                    </div>
+                    </section>
 
                 </div>
 
