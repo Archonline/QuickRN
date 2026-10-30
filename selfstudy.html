@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="js/quickrn-coach.js"></script>
     <!-- React & ReactDOM UMD -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -344,6 +345,10 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
             return "Strategy: identify the most concerning cue, determine whether the problem is acute or life-threatening, prioritize ABCs and safety, choose the action that addresses the cause, and reassess whether the intervention worked.";
         }
         function getTutorInsight(item) {
+            if (window.QuickRNCoach) {
+                const insight = window.QuickRNCoach.buildTutorInsight(item);
+                return insight.guidance + ' ' + insight.outcome;
+            }
             if (item.aiTutorInsight) return `${item.aiTutorInsight} Apply clinical judgment by connecting the cue to its physiologic cause, deciding which complication is most dangerous if untreated, and choosing the intervention that changes the risk fastest. Recheck the relevant vital sign, assessment finding, or laboratory value after the intervention. For distractors, ask whether the option delays urgent care, treats a less important problem first, or could worsen the client’s condition.`;
             const topic = item.keyPhrase || item.title || item.category || "this clinical concept";
             return `Clinical reasoning focus for ${topic}: separate expected findings from red flags, then link each abnormal cue to the underlying physiology. Ask what can deteriorate first, which intervention prevents the greatest harm, and what parameter will show improvement or worsening. Eliminate options that delay stabilization, treat only a symptom while ignoring the cause, or introduce a contraindicated risk. After choosing, reassess the client and anticipate the next nursing action.`;
@@ -512,6 +517,7 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
 
                 const scoreRes = evaluateScore(currentItem, draft);
                 const isCorrect = scoreRes.earned === scoreRes.max;
+                if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(currentItem, isCorrect);
 
                 setUserAnswers(prev => ({
                     ...prev,
@@ -739,7 +745,7 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                                                         <span className="text-slate-800 leading-relaxed">{getStrategyRule(currentItem)}</span>
                                                     </div>
                                                     <div className="bg-indigo-50 p-3 rounded-lg border border-indigo-200 space-y-1">
-                                                        <strong className="text-indigo-950 font-bold block"><i className="fa-solid fa-robot text-indigo-600 mr-1"></i> AI Tutor Insight:</strong>
+                                                        <strong className="text-indigo-950 font-bold block"><i className="fa-solid fa-book-medical text-indigo-600 mr-1"></i> Clinical Study Coach:</strong>
                                                         <span className="text-slate-800 leading-relaxed">{getTutorInsight(currentItem)}</span>
                                                     </div>
                                                 </div>
