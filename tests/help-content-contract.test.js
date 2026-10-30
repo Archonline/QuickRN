@@ -30,5 +30,5 @@ if (failures.length) {
 console.log('Help Center, disclaimer, navigation, and concise release notes contract passed.');
 
 const dashboardReleaseNotes = fs.readFileSync('dashboard.html', 'utf8');
-requireText(dashboardReleaseNotes, 'View all 50 documented improvements', 'Full improvement register is not available in What’s New');
-requireText(dashboardReleaseNotes, 'Additional exam workflow improvements', 'Additional exam workflow improvements are missing from What’s New');
+assert.ok(dashboardReleaseNotes.includes('View all 50 documented improvements'), 'Full improvement register is not available in What’s New');
+assert.ok(dashboardReleaseNotes.includes('Additional exam workflow improvements'), 'Additional exam workflow improvements are missing from What’s New');
