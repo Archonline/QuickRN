@@ -97,7 +97,7 @@
                 
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
-                    <span>QuikRN Feature Hub</span>
+                    <span>QuickRN Feature Hub</span>
                 </a>
 
                 <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
@@ -322,11 +322,11 @@
                                 </div>
                             </div>
                             <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Study Roadmap
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
                             </button>
                         </div>
                         <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate AI Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
+                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
                         </div>
                     </div>
 
@@ -361,7 +361,7 @@
                         <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="max-w-2xl space-y-3 relative z-10">
                             <span class="px-3 py-1 bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">Simulated NCLEX Environment & Reviewer Guide</span>
-                            <h2 class="text-3xl font-black tracking-tight text-white">QuikRN Feature Hub</h2>
+                            <h2 class="text-3xl font-black tracking-tight text-white">QuickRN Feature Hub</h2>
                             <p class="text-indigo-200 text-sm leading-relaxed">
                                 Explore all built-in clinical review modules, AI tutoring systems, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
                             </p>
@@ -376,7 +376,7 @@
                                     <i class="fa-solid fa-bullhorn"></i>
                                 </div>
                                 <div>
-                                    <h3 class="font-bold text-slate-900 text-base">What's New in QuikRN</h3>
+                                    <h3 class="font-bold text-slate-900 text-base">What's New in QuickRN</h3>
                                     <p class="text-xs text-slate-500">Latest platform updates, AI integrations, and reviewer enhancements</p>
                                 </div>
                             </div>
@@ -446,12 +446,12 @@
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center space-x-2 font-bold text-slate-900">
                                         <span class="w-2 h-2 rounded-full bg-brand-600"></span>
-                                        <span>v4.2 — QuikRN Feature Hub & What's New Live Feed</span>
+                                        <span>v4.2 — QuickRN Feature Hub & What's New Live Feed</span>
                                     </div>
                                     <span class="text-slate-400 text-[11px]">October 2026</span>
                                 </div>
                                 <p class="text-slate-600 leading-relaxed">
-                                    Added the dedicated <strong>QuikRN Feature Hub</strong> to the dashboard navigation and integrated this <strong>What's New</strong> changelog feed to track all platform upgrades, AI tutoring additions, and reviewer enhancements in real time.
+                                    Added the dedicated <strong>QuickRN Feature Hub</strong> to the dashboard navigation and integrated this <strong>What's New</strong> changelog feed to track all platform upgrades, AI tutoring additions, and reviewer enhancements in real time.
                                 </p>
                             </div>
 
@@ -465,7 +465,7 @@
                                     <span class="text-slate-400 text-[11px]">October 2026</span>
                                 </div>
                                 <p class="text-slate-600 leading-relaxed">
-                                    Deployed the <strong>Nurse AI Clinical Tutor</strong> in self-study question reviews and the <strong>QuikRN AI Study Coach & Remediation Roadmap Generator</strong> on the candidate dashboard ($0 cost, 100% browser-based).
+                                    Deployed the <strong>Nurse AI Clinical Tutor</strong> in self-study question reviews and the <strong>QuickRN AI Study Coach & Remediation Roadmap Generator</strong> on the candidate dashboard ($0 cost, 100% browser-based).
                                 </p>
                             </div>
 
@@ -637,7 +637,7 @@
                     if (parsed.studentStats) {
                         studentStats.totalSolved = parsed.studentStats.totalAnswered || 0;
                         studentStats.correctCount = parsed.studentStats.correctCount || 0;
-                        studentStats.catExamsCount = parsed.studentStats.examHistory ? parsed.studentStats.examHistory.length : 0;
+                        studentStats.catExamsCount = Array.isArray(parsed.studentStats.examHistory) ? parsed.studentStats.examHistory.filter(ex => /CAT/i.test(ex.mode || ex.type || '')).length : 0;
                         studentStats.predictorExamsCount = parsed.studentStats.predictorHistory ? parsed.studentStats.predictorHistory.length : 0;
                         
                         const savedDomains = parsed.studentStats.clientNeeds || {};
@@ -966,7 +966,7 @@
 
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
-                features: 'QuikRN Feature Hub & NCLEX Tour',
+                features: 'QuickRN Feature Hub & NCLEX Tour',
                 calendar: 'Study Calendar',
                 analytics: 'Client Needs Mastery Analytics'
             };
