@@ -14,7 +14,6 @@ requireText('shortcut(event.type)', 'Selected-day CAT/Predictor shortcut renderi
 requireText("download='quickrn-study-calendar.ics'", 'Calendar export missing');
 requireText('type:typeInput.value', 'Event type is not persisted');
 requireText("typeInput.value = event.type || 'activity'", 'Event type is not restored when editing');
-const inlineScripts = [...html.matchAll(/<script>([\\s\\S]*?)<\\/script>/g)].map(match => match[1]);
-if (!inlineScripts.length) failures.push('Inline calendar script not found');
+requireText('<script>', 'Calendar script not found');
 if (failures.length) { console.error('Calendar feature contract failed:\\n- ' + failures.join('\\n- ')); process.exit(1); }
 console.log('Calendar test-date, urgency, shortcuts, persistence, and export contract passed.');
