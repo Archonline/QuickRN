@@ -136,7 +136,8 @@
     }
     function loadEvents() {
       try {
-        const events = JSON.parse(localStorage.getItem(EVENT_KEY) || '[]');
+        const parsed = JSON.parse(localStorage.getItem(EVENT_KEY) || '[]');
+      const events = Array.isArray(parsed) ? parsed : [];
         return Array.isArray(events) ? events.filter(e => e && e.id && /^\d{4}-\d{2}-\d{2}$/.test(e.date) && e.title) : [];
       } catch (error) { console.error('Could not read calendar activities', error); return []; }
     }
