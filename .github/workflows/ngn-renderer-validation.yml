@@ -21,10 +21,13 @@ jobs:
           node --check tests/shared-renderer.test.js
           node --check tests/question-id-normalizer.test.js
           node --check tests/question-bank-renderer-contract.test.js
+          node --check tests/help-content-contract.test.js
           node --check js/quickrn-question-id-normalizer.js
           node --check scripts/validate-question-bank.js
       - name: Verify exam page script dependencies
         run: node tests/exam-page-script-contract.test.js
+      - name: Verify Help Center and release notes
+        run: node tests/help-content-contract.test.js
       - name: Test CAT adaptive decision engine
         run: node tests/cat-engine.test.js
       - name: Test all supported question renderers
