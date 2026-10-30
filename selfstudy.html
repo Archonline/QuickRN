@@ -444,9 +444,7 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
             };
 
             const exitToDashboard = () => {
-                if (confirm("Exit Self Study session and return to main screen?")) {
-                    setShowLaunchModal(true);
-                }
+                window.location.href = 'dashboard.html';
             };
 
             const toggleBookmark = (id) => {
@@ -607,8 +605,8 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                                         <span className="text-[11px] text-slate-500 font-normal">Full Q-Bank</span>
                                     </button>
                                 </div>
-                                <button onClick={() => setShowLaunchModal(false)} className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
-                                    Exit Simulator
+                                <button onClick={exitToDashboard} className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+                                    Exit to Dashboard
                                 </button>
                             </div>
                         </div>
