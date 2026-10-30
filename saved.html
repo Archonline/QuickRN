@@ -61,7 +61,7 @@
         });
 
         function loadSavedQuestions() {
-            let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            let state = {}; try { state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}') || {}; } catch (error) { console.warn('QuickRN saved-items data could not be parsed:', error); }
             let favorites = state.studentStats && state.studentStats.favorites ? state.studentStats.favorites : [];
             let questionNotes = state.questionNotes || {};
             renderReportedItems();
@@ -156,7 +156,7 @@
 
 
         function renderReportedItems(){
-            let reports=[];try{reports=JSON.parse(localStorage.getItem('quickrn_question_reports')||'[]')}catch{}
+            let reports=[];try{const parsed=JSON.parse(localStorage.getItem('quickrn_question_reports')||'[]');reports=Array.isArray(parsed)?parsed:[]}catch(error){console.warn('QuickRN question reports could not be parsed:',error)}
             const badge=document.getElementById('total-reports-badge');if(badge)badge.innerText=`${reports.length} Reports`;
             const host=document.getElementById('reported-items-container');if(!host)return;
             if(!reports.length){host.innerHTML='<p class="text-xs text-slate-500 bg-slate-50 rounded-lg p-4">No reported questions yet. Use “Report this item” during an exam or study session.</p>';return;}
