@@ -38,7 +38,7 @@ function canon(src){
  if(f==='Extended Drag and Drop'&&Array.isArray(q.items)){const ordered=[...q.items].sort((a,b)=>Number(a.correctOrder||0)-Number(b.correctOrder||0));q.availableItems=q.items.map(x=>typeof x==='string'?x:s(x.text||x.label||x.value));q.correctOrder=q.correctOrder||ordered.map(x=>typeof x==='string'?x:s(x.text||x.label||x.value));}
  q.__quickRNCompat=true;return q;
 }
-function setCell(id,col,multi){const m={...((root.quickRNDraft&&root.quickRNDraft.matrix)||{})};if(multi){const a=Array.isArray(m[id])?[...m[id]]:[];m[id]=a.includes(col)?a.filter(x=>x!==col):[...a,col];}else m[id]=col;root.quickRNSetDraft('matrix',m);}
+function setCell(id,col,multi){const m={...((quickRNDraft&&quickRNDraft.matrix)||{})};if(multi){const a=Array.isArray(m[id])?[...m[id]]:[];m[id]=a.includes(col)?a.filter(x=>x!==col):[...a,col];}else m[id]=col;root.quickRNSetDraft('matrix',m);}
 root.quickRNCompatSetMatrixCell=setCell;
 function render(q,d,submitted){
  const x=canon(q);
@@ -57,8 +57,8 @@ api.toDraft=(q,v)=>baseToDraft(canon(q),v);
 api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
 api.grade=grade;api.hasAnswer=has;
 api.answerSummary=(q,d)=>{const x=canon(q);return x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'?JSON.stringify(d.matrix||{},null,2):baseSummary(x,d);};
-api.renderReact=function(q,legacy,onUpdate,submitted){const x=canon(q);root.quickRNCurrentQuestion=x;root.quickRNCurrentItemId=x.id||null;const d=baseToDraft(x,legacy);root.quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(baseFromDraft(x,next));};return submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);};
-root.quickRNRenderClinicalItem=function(q,d,submitted){return render(q,d||{},!!submitted);};
+api.renderReact=function(q,legacy,onUpdate,submitted){const x=canon(q);root.quickRNCurrentQuestion=x;quickRNCurrentItemId=x.id||null;const d=baseToDraft(x,legacy);quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(baseFromDraft(x,next));};return submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);};
+root.quickRNRenderClinicalItem=function(q,d,submitted){const item=canon(q);root.quickRNCurrentQuestion=item;quickRNCurrentItemId=item.id||null;return render(item,d||{},!!submitted);};
 
 const style=document.createElement('style');style.id='quickrn-unified-ngn-layout';
 style.textContent=[
