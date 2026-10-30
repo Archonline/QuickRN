@@ -682,6 +682,7 @@ function renderQuestionItem() {
             let qHtml = '';
             sortedItems.forEach(({ q, idx, uAns, isCorrect }) => {
                 const isBookmarked = bookmarkedQuestions[q.id] || false;
+                const qMetrics = window.QuickRNQuestionMetrics ? window.QuickRNQuestionMetrics.get(q.id) : {correct:0,wrong:0,attempts:0};
                 const topicName = q.topic || q.category || 'Clinical Nursing';
                 const videoTopicName = window.QuickRNYoutube.getDisplayTopic(q);
                 const videoUrl = window.QuickRNYoutube.getVideoSearchUrl(q, 'review');
@@ -695,6 +696,7 @@ function renderQuestionItem() {
                                     Item ${idx + 1}: ${isCorrect ? 'Correct' : 'Incorrect (Prioritized Review)'}
                                 </span>
                                 <h4 class="text-sm font-bold text-slate-900 pt-1 leading-snug">${quickRNEscape(quickRNCleanPrompt(q.cleanTitle||q.title||q.questionText||q.question||''))}</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Tracked attempts in this browser: <strong class="text-emerald-700">${qMetrics.correct} correct</strong> · <strong class="text-rose-700">${qMetrics.wrong} incorrect</strong></p>
                             </div>
                             <button onclick="toggleBookmark('${q.id}', this)" class="text-slate-400 hover:text-amber-500 transition text-sm">
                                 <i class="${isBookmarked ? 'fa-solid fa-bookmark text-amber-500' : 'fa-regular fa-bookmark'}"></i>
