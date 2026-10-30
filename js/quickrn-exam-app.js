@@ -133,7 +133,8 @@ function buildTeachingRationale(q,r,result){
  const correctSet=new Set();
  opts.forEach((o,i)=>{if(o&&typeof o==='object'&&o.correct===true)correctSet.add(idOf(o,i));});
  const rawCorrect=q.correctAnswers??q.correctAnswer??q.correctAnswerText??q.correctOption??q.correct;
- (Array.isArray(rawCorrect)?rawCorrect:[rawCorrect]).filter(v=>v!==undefined&&v!==null).forEach(v=>correctSet.add(String(v)));
+ const keyedCorrect=renderer()?.detect(q)==='Single Choice'&&Array.isArray(rawCorrect)?rawCorrect.slice(0,1):rawCorrect;
+ (Array.isArray(keyedCorrect)?keyedCorrect:[keyedCorrect]).filter(v=>v!==undefined&&v!==null).forEach(v=>correctSet.add(String(v)));
  const selected=new Set([draft.choice,draft.selectedOption,...(Array.isArray(draft.choices)?draft.choices:[]),...(Array.isArray(draft.selected)?draft.selected:[]),...(Array.isArray(draft.selectedList)?draft.selectedList:[])].filter(v=>v!==undefined&&v!==null).map(String));
  const map=q.optionRationales||q.optionExplanations||q.answerRationales||{};
  const rationaleFor=(o,i)=>rationaleText(o&&typeof o==='object'?(o.rationale||o.explanation||o.feedback):'')||rationaleText(map[idOf(o,i)]??map[labelOf(o)]??map[String.fromCharCode(65+i)]);
