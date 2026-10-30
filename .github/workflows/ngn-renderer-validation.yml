@@ -1,7 +1,7 @@
 name: NGN renderer validation
 on:
   push:
-    branches: ["main", "feat/shared-ngn-renderer-highlight-trend"]
+    branches: ["main", "feat/shared-ngn-renderer-highlight-trend", "beta-exam-ui-repair"]
   pull_request:
     branches: ["main"]
 jobs:
