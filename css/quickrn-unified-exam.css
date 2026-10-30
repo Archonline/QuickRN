@@ -1,0 +1,46 @@
+
+/* QuickRN unified exam workspace — shared by Self-Study, Timed, Predictor and CAT */
+:root{--qr-ink:#172b4d;--qr-navy:#102b4e;--qr-blue:#1769aa;--qr-line:#cbd5e1;--qr-muted:#64748b;--qr-paper:#fff;--qr-wash:#f4f7fb}
+body.quickrn-exam{background:#eaf0f6!important;color:var(--qr-ink);font-family:Inter,system-ui,sans-serif}
+body.quickrn-exam header,body.quickrn-exam .exam-header{background:var(--qr-navy)!important;color:#fff}
+body.quickrn-exam .qr-clinical-layout{display:grid!important;grid-template-columns:minmax(280px,40%) minmax(0,60%);gap:12px;width:100%;height:100%;min-height:0;max-height:calc(100vh - 170px)}
+body.quickrn-exam .qr-clinical-layout.question-only{grid-template-columns:minmax(0,1fr)}
+body.quickrn-exam .qr-ehr,body.quickrn-exam .qr-question-panel{background:#fff!important;border:1px solid #cbd5e1!important;border-radius:12px!important;box-shadow:0 2px 8px #102b4e0b;min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+body.quickrn-exam .qr-ehr-head{background:#102b4e!important;color:#fff!important;padding:12px 16px!important;font-size:12px;font-weight:800;display:flex;justify-content:space-between;gap:8px}
+body.quickrn-exam .qr-ehr-body{padding:12px!important;overflow-y:auto!important;min-height:0;flex:1}
+body.quickrn-exam .qr-ehr-section{border:1px solid #dbe3ec;border-radius:9px;margin-bottom:10px;overflow:hidden}
+body.quickrn-exam .qr-ehr-section h4{background:#f1f5f9;padding:9px 11px;font-size:11px;text-transform:uppercase;font-weight:800;color:#102b4e}
+body.quickrn-exam .qr-ehr-section>div{padding:11px;font-size:13px;line-height:1.6;color:#26364a;overflow-wrap:anywhere}
+body.quickrn-exam .qr-question-head{background:#f8fafc!important;border-bottom:1px solid #dbe3ec;padding:18px 20px!important}
+body.quickrn-exam .qr-question-head h2{font-size:clamp(16px,1.4vw,21px)!important;line-height:1.45!important;font-weight:750!important;color:#152b47!important}
+body.quickrn-exam .qr-question-head p{font-size:13px!important;line-height:1.6!important;color:#52647a!important;margin-top:9px}
+body.quickrn-exam .qr-response-area{padding:18px 20px!important;display:flex;flex-direction:column;gap:10px;overflow-y:auto!important;min-height:0;flex:1}
+body.quickrn-exam .qr-choice{display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;padding:13px 15px!important;background:#fff!important;border:1px solid #cbd5e1!important;border-radius:10px!important;color:#26364a!important;font-size:13px!important;line-height:1.55}
+body.quickrn-exam .qr-choice.selected{border:2px solid #1769aa!important;background:#eff6ff!important;color:#102b4e!important;font-weight:700}
+body.quickrn-exam .qr-choice-mark{display:inline-flex;align-items:center;justify-content:center;flex:0 0 24px;width:24px;height:24px;border:1px solid #94a3b8;border-radius:50%;font-size:11px;font-weight:800}
+body.quickrn-exam .qr-choice-mark.is-checkbox{border-radius:5px}
+body.quickrn-exam .qr-table-wrap{width:100%;overflow-x:auto}
+body.quickrn-exam .qr-matrix{width:100%;border-collapse:collapse;font-size:12px}
+body.quickrn-exam .qr-matrix th,body.quickrn-exam .qr-matrix td{border:1px solid #cbd5e1;padding:10px;text-align:center;vertical-align:middle}
+body.quickrn-exam .qr-matrix th{background:#f1f5f9;font-weight:800}
+body.quickrn-exam .qr-matrix td:first-child,body.quickrn-exam .qr-matrix th:first-child{text-align:left;min-width:150px}
+body.quickrn-exam .qr-matrix input{width:17px;height:17px;accent-color:#1769aa}
+body.quickrn-exam .qr-cloze{font-size:14px;line-height:2.4;color:#26364a}
+body.quickrn-exam .qr-cloze select{margin:3px;padding:7px 10px;border:1px solid #94a3b8;border-radius:7px;background:#fff;max-width:100%}
+body.quickrn-exam .qr-bowtie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+body.quickrn-exam .qr-bowtie-group{background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:12px;min-width:0}
+body.quickrn-exam .qr-bowtie-group h4{font-size:12px;font-weight:800;color:#102b4e;margin-bottom:7px}
+body.quickrn-exam .qr-bowtie-option{display:flex;gap:8px;align-items:flex-start;padding:8px 2px;font-size:12px;line-height:1.5}
+body.quickrn-exam .qr-sort-list{display:flex;flex-direction:column;gap:8px}
+body.quickrn-exam .qr-sort-item{display:flex;align-items:center;gap:10px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:10px;min-width:0}
+body.quickrn-exam .qr-sort-text{flex:1;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+body.quickrn-exam .qr-highlight-list{display:flex;flex-direction:column;gap:8px}
+body.quickrn-exam .qr-highlight-segment{display:block;width:100%;text-align:left;padding:11px 13px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#26364a;font-size:13px;line-height:1.6}
+body.quickrn-exam .qr-highlight-segment.is-selected{background:#fff3c4;border:2px solid #d28b00;color:#704b00}
+body.quickrn-exam .qr-trend-table{width:100%;border-collapse:collapse;font-size:12px}
+body.quickrn-exam .qr-trend-table th,body.quickrn-exam .qr-trend-table td{padding:10px;border:1px solid #cbd5e1;text-align:left}
+body.quickrn-exam .qr-trend-table th{background:#f1f5f9;font-weight:800;color:#102b4e}
+body.quickrn-exam .qr-report-row{padding:0 20px 14px;display:flex;justify-content:flex-end}
+body.quickrn-exam .qr-report-button{padding:7px 11px;border:1px solid #fecaca;border-radius:7px;background:#fff1f2;color:#9f1239;font-size:11px;font-weight:800}
+@media(max-width:900px){body.quickrn-exam .qr-clinical-layout{grid-template-columns:minmax(0,1fr)!important;height:auto;max-height:none}body.quickrn-exam .qr-ehr-body{max-height:35vh;min-height:120px}body.quickrn-exam .qr-question-panel{min-height:420px}body.quickrn-exam .qr-bowtie{grid-template-columns:1fr}body.quickrn-exam main:has(.qr-clinical-layout){overflow:auto!important}}
+@media(min-width:901px){body.quickrn-exam:has(.qr-clinical-layout){height:100vh;overflow:hidden}body.quickrn-exam main:has(.qr-clinical-layout){min-height:0!important;overflow:hidden!important}}
