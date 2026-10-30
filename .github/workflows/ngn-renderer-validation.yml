@@ -36,9 +36,12 @@ jobs:
           node --check js/quickrn-ngn-scoring.js
           node --check tests/ngn-scoring.test.js
           node --check tests/ngn-workspace-contract.test.js
+          node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
       - name: Verify exam page script dependencies
         run: node tests/exam-page-script-contract.test.js
+      - name: Verify dashboard routing and normalized question bank loading
+        run: node tests/dashboard-question-routing.test.js
       - name: Test NGN partial-credit scoring
         run: node tests/ngn-scoring.test.js
       - name: Verify rebuilt NGN exam workspaces
