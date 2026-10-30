@@ -13,16 +13,16 @@ const counts={};
 for(const q of bank){const format=api.detect(q);counts[format]=(counts[format]||0)+1;}
 assert.deepEqual({...counts},{
  'Single Choice':2000,
- 'Numeric Entry':5,
+ 'Numeric Entry':6,
  'Select N':5,
  'Multiple Response':5,
- 'Matrix / Grid':300,
+ 'Matrix / Grid':301,
  'Cloze (Drop-down)':300,
  'Extended Drag and Drop':300,
- 'Bowtie':300,
- 'Extended Multiple Response':1300,
- 'Highlight':5,
- 'Trend':5
+ 'Bowtie':301,
+ 'Extended Multiple Response':1301,
+ 'Highlight':6,
+ 'Trend':6
 });
 assert.equal(context.window.quickRNQuestionBankNormalization.caseStudyGroups,100,'100 case-study groups normalized');
 assert.equal(context.window.quickRNQuestionBankNormalization.caseStudyItems,500,'all 500 case-study items receive shared context');
@@ -33,7 +33,7 @@ assert.ok(dragItems.every(q=>JSON.stringify(api.toDraft(q,undefined).order)!==JS
 const ids=bank.map(q=>q.id);
 assert.equal(new Set(ids).size,bank.length,'all normalized question IDs are unique');
 assert.equal(context.window.quickRNQuestionIdNormalization.normalized,271,'expected duplicate-ID collision count');
-console.log('PASS: all 4,525 production and supplemental items match the shared renderer contract; 271 duplicate IDs normalized.');
+console.log('PASS: all 4,531 production and supplemental items match the shared renderer contract; 271 duplicate IDs normalized.');
 
 const numeric=bank.find(q=>q.id==='QR-NE-0001');
 assert.equal(api.detect(numeric),'Numeric Entry');
