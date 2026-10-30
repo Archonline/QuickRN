@@ -12,10 +12,22 @@ function readJSON(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)
 function writeJSON(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true;}catch(e){notice('Your browser storage is full. Some progress may not be saved.');return false;}}
 answers=readJSON(ANSWER_KEY,{})||{};bookmarks=new Set(readJSON(BOOKMARK_KEY,[])||[]);notes=readJSON(NOTES_KEY,{})||{};
 function notice(message){let n=$('quickrn-notice');if(!n){n=document.createElement('div');n.id='quickrn-notice';n.className='fixed top-20 left-1/2 -translate-x-1/2 z-[90] bg-slate-900 text-white px-4 py-2 rounded-lg shadow-xl text-xs font-semibold';document.body.appendChild(n);}n.textContent=message;n.classList.remove('hidden');clearTimeout(notice._timer);notice._timer=setTimeout(()=>n.classList.add('hidden'),2600);}
-function stripQuestionLead(value){let text=String(value||'');text=text=text.replace(/^\s*CASE\s*#?\d+\s*[—–:-]\s*[^.!?\n]{2,100}[.]\s*/i,'');const fn=window.quickRNCleanPrompt||renderer()?.cleanPrompt;if(fn)text=fn(text);const patterns=[/^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]\s*/i,/^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,100}\s*(?:[—–|;]\s*|(?=\n)|$)/i,/^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i,/^\s*CASE\s*#?\d+\s*[—–:-]\s*[^.!?\n]{2,100}[.]\s*/i,/^\s*PATIENT\s+INFORMATION\s*[:—–-]?\s*/i];for(let i=0;i<6;i++){const before=text;for(const pattern of patterns)text=text.replace(pattern,'').trim();if(text===before)break;}return text.trim();}
-function splitTopicHeading(value){let text=stripQuestionLead(value),topic='';const match=/^([^:\n]{2,90}):\s+(?=[A-Z0-9])/.exec(text);if(match&&!/^(?:which|what|when|where|who|why|how|follow[- ]?up|question|item|case|patient information|directions|instructions)$/i.test(match[1].trim())){topic=match[1].trim();text=text.slice(match[0].length).trim();}return {topic,text};}
-function stripClinicalLead(value){let text=stripQuestionLead(value);text=splitTopicHeading(text).text;return text.trim();}
-function clean(value){return stripClinicalLead(String(value||''));}
+function stripQuestionLead(value, metadata){
+ const api=renderer(),cleaner=api?.cleanClinicalText||api?.cleanPrompt;
+ if(typeof cleaner==='function')return cleaner(String(value||''),metadata||{});
+ let text=String(value||'').trim();
+ const patterns=[/^\s*(?:\[[^\]]+\]\s*)+/i,/^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,110}\s*(?:[—–|;]\s*|(?=\n)|$)/i,/^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i,/^\s*PATIENT\s+INFORMATION\s*[:—–-]?\s*/i];
+ for(let i=0;i<8;i++){const before=text;patterns.forEach(p=>text=text.replace(p,'').trim());if(text===before)break;}
+ return text;
+}
+function splitTopicHeading(value, metadata){
+ const raw=String(value||''),meta=metadata||{};
+ const match=/^\s*([^:\n]{2,90}):\s+(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify)\b)/i.exec(raw);
+ const topic=String(meta.topic||meta.category||match?.[1]||'').trim();
+ return {topic,text:stripQuestionLead(raw,meta)};
+}
+function stripClinicalLead(value, metadata){return stripQuestionLead(value,metadata);}
+function clean(value, metadata){return stripQuestionLead(String(value||''),metadata);}
 function rawBank(){if(Array.isArray(window.questions))return window.questions;if(Array.isArray(window.embeddedQuestionsData))return window.embeddedQuestionsData;if(Array.isArray(window.externalQuestions))return window.externalQuestions;return [];}
 function normalizeQuestion(q,index){const item=Object.assign({},q||{});item.id=String(item.id||item.questionId||('QR-'+(index+1)));item.ngnType=renderer()?.detect(item)||item.ngnType||item.type||'Single Choice';const stripMeta=v=>clean(String(v||'').replace(/^\s*(?:topic|subject|category|question\s*(?:id|no\.?))\s*[:#-]\s*[^\n.]+[.:|—-]?\s*/i,'').replace(/^\s*\[(?:NGN|QID|ID)[^\]]*\]\s*/i,''));const titleSource=item.questionOnly||item.actualQuestion||item.question||item.stem||item.cleanTitle||item.title||item.promptTitle||item.questionText||('NCLEX Item '+(index+1));item.cleanTitle=stripMeta(titleSource);const promptParts=[...new Set([item.questionText,item.question,item.instruction,item.prompt].filter(v=>v!==undefined&&v!==null&&String(v).trim()).map(stripMeta).filter(v=>v&&v.toLowerCase()!==item.cleanTitle.toLowerCase()))];item.cleanInstruction=stripMeta(item.cleanInstruction||promptParts.join(' '));item.keyPhrase=item.keyPhrase||item.topic||item.category||'Clinical Nursing';if(typeof item.difficulty!=='number'){const rawDifficulty=String(item.difficulty??'').toLowerCase();const numericDifficulty=Number(rawDifficulty);item.difficulty=Number.isFinite(numericDifficulty)?numericDifficulty:(rawDifficulty.includes('easy')?-1:rawDifficulty.includes('hard')?1:0);}return item;}
 function loadBank(){const source=rawBank();bank=source.map(normalizeQuestion).filter(q=>q&&q.id);if(!bank.length){$('case-study-content').innerHTML='<div class="p-5 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg"><strong>Question bank could not be loaded.</strong><p class="mt-2">Check that questions.js is available and loads before the exam application.</p></div>';return false;}return true;}
@@ -66,29 +78,74 @@ function chooseFirstAdaptive(){const list=pool.slice();list.sort((a,b)=>Math.abs
 function startTimer(){clearInterval(timerInterval);if(mode==='selfstudy'){elapsedStartedAt=Date.now()-Math.max(0,elapsedSeconds||0)*1000;const tickStudy=()=>{if(!started||finished)return;elapsedSeconds=Math.max(0,Math.floor((Date.now()-elapsedStartedAt)/1000));updateTimerDisplay();};tickStudy();timerInterval=setInterval(tickStudy,1000);return;}if(!paused||!timerDeadlineMs)timerDeadlineMs=Date.now()+Math.max(0,timerSeconds)*1000;const tick=()=>{if(paused||finished)return;timerSeconds=Math.max(0,Math.ceil((timerDeadlineMs-Date.now())/1000));updateTimerDisplay();if(timerSeconds<=300&&timerSeconds>60&&!timerWarnings.has(300)){timerWarnings.add(300);notice('Five minutes remaining. Review unanswered items and pace your final responses.');}if(timerSeconds<=60&&timerSeconds>0&&!timerWarnings.has(60)){timerWarnings.add(60);notice('One minute remaining. Submit any response you want included in your results.');}if(timerSeconds<=0){clearInterval(timerInterval);finishExam('Time limit reached.');}};tick();timerInterval=setInterval(tick,250);}
 function updateTimerDisplay(){if(mode==='selfstudy'){if($('timer-display')?.parentElement)$('timer-display').parentElement.classList.remove('hidden');const s=elapsedSeconds||0;const h=String(Math.floor(s/3600)).padStart(2,'0'),m=String(Math.floor((s%3600)/60)).padStart(2,'0'),sec=String(s%60).padStart(2,'0');if($('timer-display'))$('timer-display').textContent=h+':'+m+':'+sec;return;}const s=timerSeconds;const h=String(Math.floor(s/3600)).padStart(2,'0'),m=String(Math.floor((s%3600)/60)).padStart(2,'0'),sec=String(s%60).padStart(2,'0');if($('timer-display'))$('timer-display').textContent=h+':'+m+':'+sec;}
 function promptSegments(q){
- const asText=v=>{if(typeof v==='string'||typeof v==='number')return String(v);if(Array.isArray(v))return v.map(asText).filter(Boolean).join('\n\n');if(v&&typeof v==='object')return String(v.summary||v.description||v.narrative||v.text||v.content||v.history||v.notes||'');return '';};
- const explicit=[q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,q.patientInfo,q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,typeof q.caseStudy==='string'?q.caseStudy:'',q.caseStudy?.scenario,q.caseStudy?.clinicalScenario,q.caseStudy?.summary,q.caseStudy?.description,q.caseStudy?.narrative,q.caseStudy?.history,q.ehr?.summary,q.ehr?.narrative].map(asText).map(stripClinicalLead).filter(Boolean);
- let source=stripQuestionLead(q.questionOnly||q.actualQuestion||q.question||q.stem||q.questionText||q.cleanTitle||q.title||q.prompt||'');
- const topicSplit=splitTopicHeading(source),topic=topicSplit.topic;source=topicSplit.text;
- let scenario=Array.from(new Set(explicit)).join('\n\n');
- let instruction=stripQuestionLead(q.instruction||'');
- if(!instruction&&q.cleanInstruction&&stripQuestionLead(q.cleanInstruction).toLowerCase()!==source.toLowerCase())instruction=stripQuestionLead(q.cleanInstruction);
- const standardInstruction='Review the clinical cues and complete the item as directed.';
- const normalizeInstruction=value=>/review the (?:clinical )?cues and complete the (?:clinical judgment )?item/i.test(value)?standardInstruction:value;
- instruction=normalizeInstruction(instruction);
- const embedded=/\s+(Review the (?:clinical )?cues and complete the (?:clinical judgment )?item(?: as directed)?\.?\s*)$/i.exec(source);
- if(embedded){scenario=scenario||source.slice(0,embedded.index).trim();source='';instruction=standardInstruction;}
- if(!scenario){const blocks=source.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);if(blocks.length>1&&/^(?:Review the (?:clinical )?cues and complete the (?:clinical judgment )?item|Review the clinical record and complete the item)/i.test(blocks[blocks.length-1])){scenario=blocks.slice(0,-1).join('\n\n');instruction=standardInstruction;source='';}}
- if(!scenario&&source){const sentences=source.match(/[^.!?]+[.!?]+(?:[”’"']+)?|[^.!?]+$/g)||[source],last=(sentences[sentences.length-1]||'').trim();if(sentences.length>1&&/^(?:which|what|when|where|who|how|select|identify|determine|calculate|complete|place|indicate|the nurse)/i.test(last)){source=last;scenario=sentences.slice(0,-1).join(' ').trim();}}
- scenario=stripClinicalLead(scenario);source=stripQuestionLead(source);
+ const asText=v=>{
+  if(v==null)return '';
+  if(typeof v==='string'||typeof v==='number')return String(v);
+  if(Array.isArray(v))return v.map(asText).filter(Boolean).join('\n\n');
+  if(typeof v==='object')return String(v.summary||v.description||v.narrative||v.text||v.content||v.history||v.notes||v.patientInformation||'');
+  return '';
+ };
+ const meta=q||{};
+ const explicitFields=[
+  q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+  q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
+  q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
+  q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
+  typeof q.caseStudy==='string'?q.caseStudy:'',
+  q.caseStudy?.scenario,q.caseStudy?.clinicalScenario,q.caseStudy?.summary,q.caseStudy?.description,
+  q.caseStudy?.narrative,q.caseStudy?.history,q.caseStudy?.patientInformation,
+  typeof q.case_study==='string'?q.case_study:'',
+  q.case_study?.scenario,q.case_study?.summary,q.case_study?.description,q.case_study?.narrative,
+  q.ehr?.summary,q.ehr?.narrative,q.ehr?.patientInformation,q.medicalRecord?.summary,
+  q.patientRecord?.summary,q.chart?.summary
+ ];
+ const explicit=explicitFields.map(asText).map(v=>stripClinicalLead(v,meta)).filter(Boolean);
+ const scenarioParts=Array.from(new Set(explicit.map(v=>v.trim()).filter(Boolean)));
+ let scenario=scenarioParts.join('\n\n');
+ const rawSource=q.questionOnly||q.actualQuestion||q.question||q.stem||q.questionText||q.cleanTitle||q.title||q.prompt||'';
+ const topicSplit=splitTopicHeading(rawSource,meta);
+ let source=topicSplit.text;
+ let instruction=stripQuestionLead(q.instruction||'',meta);
+ if(!instruction&&q.cleanInstruction&&stripQuestionLead(q.cleanInstruction,meta).toLowerCase()!==source.toLowerCase())instruction=stripQuestionLead(q.cleanInstruction,meta);
+ // Keep the actual direction wording from the question bank; do not replace one valid instruction with another.
+ const trailingInstruction=/(?:^|[.!?]\s+|\n)\s*((?:Review|Use|Analyze|Interpret|Examine|Compare|Complete|Select|Choose|Identify|Determine|Calculate|Document|Place|Indicate|Prioritize|Assess|Evaluate|Based on|After reviewing)\b[^.!?\n]*(?:[.!?]|$))\s*$/i.exec(source);
+ if(trailingInstruction){
+  const before=source.slice(0,trailingInstruction.index).trim();
+  const direction=trailingInstruction[1].trim();
+  if(before){scenario=scenario||stripClinicalLead(before,meta);source='';}
+  else if(!instruction)instruction=direction;
+  if(before&&!instruction)instruction=direction;
+  if(before&&instruction&&instruction.toLowerCase()===direction.toLowerCase())source='';
+  if(before)source='';
+ }
+ if(!scenario){
+  const blocks=source.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+  if(blocks.length>1){
+   const last=blocks[blocks.length-1];
+   if(/^(?:Review|Use|Analyze|Interpret|Examine|Compare|Complete|Select|Choose|Identify|Determine|Calculate|Document|Place|Indicate|Prioritize|Assess|Evaluate|Based on|After reviewing)\b/i.test(last)){
+    scenario=blocks.slice(0,-1).map(v=>stripClinicalLead(v,meta)).filter(Boolean).join('\n\n');
+    if(!instruction)instruction=last;
+    source='';
+   }
+  }
+ }
+ if(!scenario&&source){
+  const sentences=source.match(/[^.!?]+[.!?]+(?:[”’"']+)?|[^.!?]+$/g)||[source];
+  const last=(sentences[sentences.length-1]||'').trim();
+  if(sentences.length>1&&/^(?:which|what|when|where|who|how|select|identify|determine|calculate|complete|place|indicate|the nurse|the client)/i.test(last)){
+   source=last;
+   scenario=sentences.slice(0,-1).map(v=>stripClinicalLead(v,meta)).filter(Boolean).join(' ').trim();
+  }
+ }
+ scenario=stripClinicalLead(scenario,meta);
+ source=stripQuestionLead(source,meta);
  if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
- if(scenario&&!instruction&&!source)instruction=standardInstruction;
  if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
- let question=instruction||source||'';
- // The supplied Developmental milestones item intentionally uses the clinical stem in both panes.
- if(/^developmental milestones$/i.test(topic)&&scenario)question=scenario;
- return {scenario,question};
+ // Preserve the explicitly requested duplicate-stem treatment for this item family.
+ if(/^developmental milestones$/i.test(topicSplit.topic)&&scenario)source=scenario;
+ return {scenario,question:instruction||source||''};
 }
+
 function renderCurrent(){const q=currentQuestion();if(!q)return;window.quickRNCurrentQuestion=q;rememberQuestionSeen(q);activeTab=0;$('qid-display').textContent=q.id;$('qid-display').classList.remove('hidden');$('qid-display').className='text-xs font-bold tracking-wide bg-cyan-900/35 border border-cyan-100/30 rounded px-2 py-1';$('q-num-display').textContent=String(currentIndex+1);$('q-total-display').textContent=(mode==='predictor'||mode==='cat')?String(maxItems):String(session.length);const itemFormat=renderer()?.detect(q)||'Question';$('badge-item-type').textContent=(isNGN(q)?'NGN · ':'')+itemFormat;$('badge-item-type').classList.remove('hidden');const d=q.difficulty;$('badge-difficulty').textContent=typeof d==='string'?d.toUpperCase():(Number(d)<=-.5?'EASY':Number(d)>=.5?'HARD':'MEDIUM');$('client-need-display').textContent='';const parts=promptSegments(q);$('question-prompt').innerHTML=parts.question?'<div class="font-semibold text-slate-800">'+escapeHTML(parts.question)+'</div>':'';renderCasePanel(q,parts);renderAnswerArea(q);const rec=currentRecord(q);$('rationale-section').classList.add('hidden');if($('status-message')){$('status-message').textContent='';$('status-message').classList.add('hidden');}if(mode==='selfstudy'&&rec.submitted)showRationale(q,rec);$('submit-btn').parentElement.classList.toggle('hidden',mode!=='selfstudy'||!!rec.submitted);$('submit-btn').disabled=false;$('prev-btn').classList.toggle('hidden',mode!=='selfstudy');$('prev-btn').disabled=currentIndex===0;$('next-btn').disabled=false;$('next-btn').innerHTML=currentIndex===session.length-1&&mode!=='predictor'&&mode!=='cat'?'Finish <i class="fa-solid fa-flag-checkered"></i>':'Next <i class="fa-solid fa-chevron-right"></i>';$('mark-icon').className=bookmarks.has(q.id)?'fa-solid fa-bookmark':'fa-regular fa-bookmark';$('mark-btn').classList.toggle('text-yellow-200',bookmarks.has(q.id));if($('notes-textarea'))$('notes-textarea').value=notes[q.id]||'';updateProgress();saveState();}
 function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function asText(v){if(v==null)return '';if(typeof v==='string'||typeof v==='number')return String(v);if(Array.isArray(v))return v.map(asText).join('<br>');if(typeof v==='object')return Object.entries(v).map(x=>'<strong>'+escapeHTML(x[0])+':</strong> '+escapeHTML(asText(x[1]))).join('<br>');return String(v);}
@@ -111,16 +168,34 @@ function safeClinicalHTML(value){
 }
 
 function caseTabs(q){
- const tabs=[],seen=new Set();const add=(label,content)=>{if(content===undefined||content===null)return;const raw=typeof content==='string'?content:asText(content);const text=stripClinicalLead(String(raw||''));if(!text.trim())return;const key=(label+' '+text).replace(/\s+/g,' ').toLowerCase();if(seen.has(key))return;seen.add(key);tabs.push({label,content:text});};
- const cs=q.caseStudy;
- if(cs&&Array.isArray(cs.tabs))cs.tabs.forEach(t=>add(t.title||t.label||t.id||'Clinical Notes',t.content||t.text||t.value||t.summary));
- if(cs&&typeof cs==='object'){[['Clinical Scenario',cs.scenario||cs.clinicalScenario||cs.situation],['Case Overview',cs.summary||cs.description||cs.narrative],['Medical History',cs.medicalHistory||cs.history],['Nurses’ Notes',cs.nursesNotes||cs.notes],['Vital Signs',cs.vitalSigns],['Diagnostics',cs.diagnosticResults||cs.labResults],['History & Physical',cs.historyPhysical]].forEach(([l,v])=>add(l,v));['exhibits','records','tabs'].forEach(k=>{if(Array.isArray(cs[k]))cs[k].forEach((x,i)=>add(x.title||x.label||k+' '+(i+1),x.content||x.text||x.value||x.summary||x));});}
- const ehr=q.ehr||{};[['Nurses’ Notes',ehr.nursesNotes||q.nursesNotes],['Vital Signs',ehr.vitalSigns||q.vitalSigns],['Diagnostics',ehr.diagnosticResults||q.diagnosticResults||q.labResults],['History & Physical',ehr.historyPhysical||q.historyPhysical],['Medication Record',ehr.medicationRecord||q.medicationRecord],['Intake & Output',ehr.intakeOutput||q.intakeOutput]].forEach(([l,v])=>add(l,v));
- const patient=q.patientInfo;if(typeof patient==='string')add('Patient Information',patient);else if(patient&&typeof patient==='object')add('Patient Information',patient.summary||patient.description||patient.history||patient.notes||patient);
- const ctx=q.caseStudyContext;if(ctx?.summary)add('Case Overview',ctx.summary);
+ const tabs=[],seen=new Set();
+ const add=(label,content)=>{
+  if(content===undefined||content===null)return;
+  const raw=typeof content==='string'?content:asText(content);
+  const text=stripClinicalLead(String(raw||''),q);
+  if(!text.trim())return;
+  const key=(label+' '+text).replace(/\s+/g,' ').toLowerCase();
+  if(seen.has(key))return;
+  seen.add(key);tabs.push({label,content:text});
+ };
+ const addCollection=(collection,prefix)=>{
+  if(Array.isArray(collection))collection.forEach((item,index)=>add(item?.title||item?.label||prefix+' '+(index+1),item?.content||item?.text||item?.value||item?.summary||item));
+  else if(collection&&typeof collection==='object')Object.entries(collection).forEach(([label,value])=>add(label,value));
+ };
+ const cs=q.caseStudy||q.case_study;
+ if(cs&&Array.isArray(cs.tabs))addCollection(cs.tabs,'Clinical Notes');
+ if(cs&&typeof cs==='object'){
+  [['Clinical Scenario',cs.scenario||cs.clinicalScenario||cs.situation],['Case Overview',cs.summary||cs.description||cs.narrative],['Medical History',cs.medicalHistory||cs.history],['Patient Information',cs.patientInformation||cs.patientInfo],['Nurses’ Notes',cs.nursesNotes||cs.notes],['Vital Signs',cs.vitalSigns],['Diagnostics',cs.diagnosticResults||cs.labResults],['History & Physical',cs.historyPhysical]].forEach(([label,value])=>add(label,value));
+  ['exhibits','records','tabs','clinicalRecords'].forEach(key=>addCollection(cs[key],key));
+ }
+ const ehr=q.ehr||q.clinicalRecord||q.medicalRecord||{};
+ [['Nurses’ Notes',ehr.nursesNotes||ehr.notes||q.nursesNotes],['Vital Signs',ehr.vitalSigns||q.vitalSigns],['Diagnostics',ehr.diagnosticResults||ehr.labResults||q.diagnosticResults||q.labResults],['History & Physical',ehr.historyPhysical||q.historyPhysical],['Medication Record',ehr.medicationRecord||q.medicationRecord],['Intake & Output',ehr.intakeOutput||q.intakeOutput],['Patient Information',ehr.patientInformation||q.patientInfo||q.patientInformation||q.patient_information],['Clinical Scenario',q.scenario||q.clinicalScenario||q.patientScenario||q.situation||q.passage||q.stimulus||q.caseStudyText||q.case_study_text],['Patient History',q.patientHistory||q.medicalHistory],['Physical Assessment',q.physicalAssessment||q.assessmentFindings],['Clinical Data',q.clinicalData||q.chartData||q.emr]].forEach(([label,value])=>add(label,value));
  if(typeof cs==='string')add('Clinical Scenario',cs);
- [['Clinical Scenario',q.scenario||q.clinicalScenario||q.patientScenario||q.situation||q.passage||q.stimulus],['Patient History',q.patientHistory||q.medicalHistory],['Physical Assessment',q.physicalAssessment||q.assessmentFindings],['Clinical Data',q.clinicalData||q.chartData||q.emr]].forEach(([l,v])=>add(l,v));
- if(q.exhibits&&Array.isArray(q.exhibits))q.exhibits.forEach((x,i)=>add(x.title||'Exhibit '+(i+1),x.content||x.text||x.value||x));
+ const patient=q.patientInfo||q.patientInformation||q.patient_information;
+ if(typeof patient==='string')add('Patient Information',patient);
+ else if(patient&&typeof patient==='object')add('Patient Information',patient.summary||patient.description||patient.history||patient.notes||patient);
+ if(q.caseStudyContext?.summary)add('Case Overview',q.caseStudyContext.summary);
+ addCollection(q.exhibits,'Exhibit');
  return tabs;
 }
 function renderCasePanel(q,parts){const tabs=caseTabs(q),hasCase=tabs.length>0,left=$('left-panel'),right=$('right-panel'),tabHost=$('case-study-tabs'),content=$('case-study-content'),prompt=$('question-prompt');if(!left||!right||!prompt)return;if(prompt.parentElement!==right)right.insertBefore(prompt,$('answer-workspace'));tabHost.classList.toggle('hidden',!hasCase);content.classList.remove('hidden');left.classList.toggle('question-only-panel',!hasCase);left.classList.toggle('case-record-panel',hasCase);left.style.overflowY='auto';left.style.overflowX='hidden';content.style.flex='1 1 auto';content.style.minHeight='140px';content.style.overflowY='auto';const rationale=$('rationale-section');if(rationale){if(rationale.parentElement!==left)left.appendChild(rationale);rationale.style.flex='0 0 auto';rationale.style.maxHeight='45%';rationale.style.overflowY='auto';rationale.style.margin='12px';}if(hasCase){tabHost.innerHTML=tabs.map((t,i)=>'<button type="button" data-tab="'+i+'" onclick="switchCaseTab('+i+')" class="px-4 py-3 whitespace-nowrap border-b-2 '+(i===0?'border-cyan-600 text-cyan-800 bg-white':'border-transparent text-slate-500 hover:text-slate-800')+'">'+escapeHTML(t.label)+'</button>').join('');content.innerHTML='<div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">'+escapeHTML(tabs[0].label)+'</div><div class="leading-relaxed text-sm">'+(typeof tabs[0].content==='string'&&/<[a-z][\\s\\S]*>/i.test(tabs[0].content)?safeClinicalHTML(tabs[0].content):asText(tabs[0].content))+'</div>';}else{tabHost.innerHTML='';const scenario=parts?.scenario||'';content.innerHTML=scenario?'<div class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">Clinical Scenario</div><div class="leading-relaxed text-sm whitespace-pre-line">'+escapeHTML(scenario)+'</div>':'<div class="text-sm text-slate-400">No additional clinical scenario provided.</div>';}}
