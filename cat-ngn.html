@@ -245,9 +245,6 @@ body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;fl
                 <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
                     <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> CAT Item 1 of 150
                 </span>
-                <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
-                    Category: General Nursing
-                </span>
             </div>
             
             <div class="flex items-center gap-3">
@@ -513,7 +510,6 @@ function renderQuestion() {
             window.quickRNExamMode='CAT'; window.quickRNCurrentQuestion=currentQuestion;
             const itemNum=catHistory.length+1;
             document.getElementById('session-info-pill').innerHTML=`<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> CAT Item ${itemNum} of 150`;
-            document.getElementById('category-badge').innerText=currentQuestion.category||'General Nursing';
             const isBookmarked=!!bookmarkedQuestions[currentQuestion.id];
             document.getElementById('top-bookmark-icon').className=isBookmarked?"fa-solid fa-bookmark text-amber-400":"fa-regular fa-bookmark text-slate-400";
             quickRNInitDraft(currentQuestion,selectedOption);
