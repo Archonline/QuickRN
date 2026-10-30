@@ -1,7 +1,7 @@
 name: NGN renderer validation
 on:
   push:
-    branches: ["feat/shared-ngn-renderer-highlight-trend"]
+    branches: ["main", "feat/shared-ngn-renderer-highlight-trend"]
   pull_request:
     branches: ["main"]
 jobs:
@@ -14,9 +14,14 @@ jobs:
           node-version: 20
       - name: Syntax-check shared renderer and test scripts
         run: |
+          node --check js/quickrn-cat-engine.js
+          node --check js/quickrn-question-metrics.js
+          node --check tests/cat-engine.test.js
           node --check js/shared-exam-renderer.js
           node --check tests/shared-renderer.test.js
           node --check scripts/validate-question-bank.js
+      - name: Test CAT adaptive decision engine
+        run: node tests/cat-engine.test.js
       - name: Test all supported question renderers
         run: node tests/shared-renderer.test.js
       - name: Validate production question bank
