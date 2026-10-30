@@ -203,3 +203,13 @@ SELF-STUDY REBUILD (2026-10-31)
 - Self-Study now prioritizes questions not previously seen, resets the seen set only after the selected pool is exhausted, and interleaves formats and topics when possible.
 - Inline YouTube playback requires a direct video ID or watch/embed URL in the question data. Generic YouTube search suggestions cannot be turned into embedded players; YouTube deprecated search-result embeds. Existing bank records without a video ID display a clear note instead of a broken player.
 - Validation completed: modified JavaScript files passed syntax parsing; duplicate HTML IDs and obsolete video-modal markup were checked. Real-browser visual testing and full question-bank content QA remain outstanding.
+
+
+## Additional NGN case and topic prompt cleanup — October 31, 2026
+
+- Strip leading case identifiers and diagnosis labels such as “Case 090 — HELLP syndrome” from Patient Information / clinical exhibit text while retaining the clinical narrative.
+- Remove the repeated case title and “Item n of n” footer from the left clinical pane; case position remains available in session navigation.
+- Strip “Follow-up n:” from follow-up question stems.
+- Split topic-prefixed stems such as “Benzodiazepines/alcohol withdrawal: …” into a left-pane clinical narrative and the right-pane instruction, standardizing cue-review instructions when appropriate.
+- For the supplied “Developmental milestones” example, mirror the clinical stem in both panes as explicitly requested.
+- Targeted parser checks cover the supplied examples. JavaScript syntax checks pass; full browser/device visual QA remains outstanding.
