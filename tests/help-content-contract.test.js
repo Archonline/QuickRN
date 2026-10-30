@@ -1,4 +1,5 @@
 const fs = require('fs');
+const assert = require('assert');
 const failures = [];
 function read(path) {
   try { return fs.readFileSync(path, 'utf8'); }
