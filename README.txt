@@ -151,3 +151,11 @@ Brand regression coverage: `tests/brand-system-contract.test.js` verifies that a
 - When a question has no actual case-study or clinical-record exhibits, the Clinical Record tabs and empty placeholder are hidden. The question stem moves into the left pane; answer choices and response controls remain in the right pane.
 - Case-based items retain the clinical-record left pane and question/response right pane.
 - Added regression coverage for feedback consolidation, question-only layout, removal of the standalone report action, and right-aligned answer controls.
+
+
+## Reference-inspired visual refinement — October 31, 2026
+
+- Added deep plum navigation and warm coral primary-action accents to the learning/dashboard experience, based on the supplied visual references.
+- Preserved the clinical navy/teal exam workspace so test-taking remains calm, high-contrast, and visually distinct from study planning.
+- Kept shared Inter typography, neutral content surfaces, accessible focus treatment, and semantic success/warning/error colors.
+- Extended the brand-system contract test to guard the new plum/coral tokens and dashboard navigation treatment.
