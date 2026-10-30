@@ -572,7 +572,6 @@ function renderQuestionItem() {
                     answeredCount++;
                     const isCorrect = quickRNGrade(q, userAns||{});
                     if (isCorrect) correctCount++;
-                    if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(q, isCorrect);
                     const domain = (window.QuickRNCoach && window.QuickRNCoach.classifyClientNeed(q)?.name) || q.category || 'Other';
                     if (!domainStats[domain]) domainStats[domain] = { total: 0, correct: 0 };
                     domainStats[domain].total++;
@@ -617,6 +616,9 @@ function renderQuestionItem() {
 
             const examRecord = {
                 type: 'NCLEX Predictor Exam',
+                correctCount,
+                wrongCount: answeredCount-correctCount,
+                decision: answeredCount < 85 ? 'INCONCLUSIVE — QUESTION BANK TOO SMALL' : catDecision.status,
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
                 total: answeredCount,
                 scorePercent,
