@@ -547,6 +547,8 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                 else if (val === '=') {
                     try { setCalcDisplay(window.QuickRNCoach.safeCalculate(calcDisplay.replace(/%/g, '/100')).toString()); }
                     catch { setCalcDisplay('Error'); }
+                } else if (val === '+/-') {
+                    setCalcDisplay(prev => prev === '0' ? '0' : (prev.startsWith('-') ? prev.slice(1) : '-' + prev));
                 } else {
                     setCalcDisplay(prev => prev === '0' || prev === 'Error' ? val : prev + val);
                 }
