@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f2742">
+  <title>Help Center, FAQ & Disclaimer | QuickRN</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body{font-family:Inter,sans-serif}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    .faq-item{border:1px solid #e2e8f0;border-radius:14px;background:#fff}
+    .faq-item summary{cursor:pointer;list-style:none;padding:17px 19px;font-weight:650;color:#0f172a;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary:after{content:'+';font-size:20px;color:#64748b;font-weight:400}
+    .faq-item[open] summary:after{content:'−'}
+    .faq-answer{padding:0 19px 18px;color:#475569;font-size:14px;line-height:1.75}
+    a:focus-visible,summary:focus-visible{outline:3px solid #60a5fa;outline-offset:3px}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+  <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <a href="dashboard.html" class="flex items-center gap-3" aria-label="QuickRN dashboard">
+        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white"><i class="fa-solid fa-bolt-lightning"></i></span>
+        <span><strong class="text-lg text-slate-900">Quick<span class="text-emerald-600">RN</span></strong><small class="block text-[10px] font-bold uppercase tracking-widest text-slate-400">Help Center</small></span>
+      </a>
+      <a href="dashboard.html" class="rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-arrow-left mr-2"></i>Back to dashboard</a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl space-y-10 px-4 py-9 sm:px-6 sm:py-12">
+    <section class="overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-7 text-white shadow-lg sm:p-10">
+      <span class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-200">QuickRN Beta Help</span>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl">Help, answers & important information</h1>
+      <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">Find out how to use the study tools, understand your results, and learn the current limitations of this beta platform.</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="#faq" class="rounded-xl bg-white px-4 py-3 text-xs font-bold text-slate-900 hover:bg-slate-100">Browse FAQs</a>
+        <a href="#disclaimer" class="rounded-xl border border-white/30 px-4 py-3 text-xs font-bold text-white hover:bg-white/10">Read disclaimer</a>
+      </div>
+    </section>
+
+    <section id="faq" class="space-y-5">
+      <div><p class="text-xs font-bold uppercase tracking-widest text-emerald-700">Quick answers</p><h2 class="mt-1 text-2xl font-extrabold text-slate-900">Frequently asked questions</h2><p class="mt-2 text-sm text-slate-500">Answers about practice modes, progress, study guidance, and beta limitations.</p></div>
+      <div class="grid gap-3">
+        <details class="faq-item"><summary>What is QuickRN?</summary><div class="faq-answer">QuickRN is an independent NCLEX-RN preparation and practice platform. It provides practice questions, exam-style activities, study planning, and performance summaries to support learning. It is not an official NCLEX examination platform.</div></details>
+        <details class="faq-item"><summary>What is the difference between the practice modes?</summary><div class="faq-answer">Self Study is intended for flexible question practice and review. Timed Practice adds a time-focused workflow. Predictor and CAT modes provide adaptive-style practice and performance estimates. These are learning tools; their behavior and scoring should not be interpreted as an official NCLEX result.</div></details>
+        <details class="faq-item"><summary>Are all questions and NGN interactions fully validated?</summary><div class="faq-answer">QuickRN is in beta. Question formats and interactions are being tested across exam modes, and some items may contain wording, formatting, scoring, or rationale errors. Do not assume every question has been independently reviewed by a nursing educator. Please report any suspected issue with the question identifier or a brief description, without including personal or patient information.</div></details>
+        <details class="faq-item"><summary>Does a passing probability guarantee that I will pass the NCLEX?</summary><div class="faq-answer">No. Any readiness or passing-likelihood display is an educational estimate based on available practice data and the platform's current model. It is not a validated prediction, a psychometric assessment, or a guarantee of NCLEX performance. Estimates may be unavailable or unreliable when there is too little practice history.</div></details>
+        <details class="faq-item"><summary>How does Client Needs mastery work?</summary><div class="faq-answer">QuickRN groups recorded practice attempts into broad NCLEX Client Needs areas to help identify topics that may need more review. Classification depends on the information available in each question, so some items may be unclassified or assigned imperfectly. Use the results as a study guide, not as a formal competency assessment.</div></details>
+        <details class="faq-item"><summary>Is the Clinical Study Coach a live AI assistant?</summary><div class="faq-answer">The current shared Clinical Study Coach uses local, rule-based guidance. It does not connect to an external generative AI service. Its suggestions are general study prompts and should be checked against current textbooks, course materials, and authoritative clinical references.</div></details>
+        <details class="faq-item"><summary>Where are my study progress and calendar activities saved?</summary><div class="faq-answer">Several study features currently save data in browser storage on the device and browser you are using. This means progress, saved questions, and calendar activities may not automatically sync across devices or browsers. Clearing browser data, using private browsing, or changing devices may make locally stored information unavailable. Do not use QuickRN as the only copy of important study records.</div></details>
+        <details class="faq-item"><summary>Does QuickRN provide official NCLEX registration or NCSBN materials?</summary><div class="faq-answer">No. QuickRN is independent and is not affiliated with, endorsed by, or sponsored by the NCSBN or nursing regulatory bodies. For registration, current exam policies, and official test-plan information, consult the relevant nursing regulatory body and the official NCLEX resources.</div></details>
+        <details class="faq-item"><summary>How do I report a bug or incorrect question?</summary><div class="faq-answer">Use the <a class="font-semibold text-emerald-700 underline" href="https://github.com/Archonline/QuickRN/issues/new" target="_blank" rel="noopener noreferrer">QuickRN GitHub issue form</a> to report a reproducible problem. Include the page or practice mode, steps to reproduce, and a question ID if available. Never include passwords, account credentials, patient details, or other sensitive personal information.</div></details>
+        <details class="faq-item"><summary>Can I use QuickRN for real patient-care decisions?</summary><div class="faq-answer">No. QuickRN is for education and exam preparation only. It is not a clinical decision-support system and must not be used to diagnose, treat, triage, or make decisions about actual patients.</div></details>
+      </div>
+    </section>
+
+    <section id="disclaimer" class="space-y-5">
+      <div><p class="text-xs font-bold uppercase tracking-widest text-amber-700">Please read</p><h2 class="mt-1 text-2xl font-extrabold text-slate-900">Disclaimer & beta limitations</h2><p class="mt-2 text-sm text-slate-500">Important information about the intended use and current state of QuickRN.</p></div>
+      <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5 sm:p-6">
+        <div class="flex items-start gap-3"><i class="fa-solid fa-triangle-exclamation mt-1 text-amber-700"></i><div><h3 class="font-bold text-amber-950">Educational use only — not medical advice</h3><p class="mt-2 text-sm leading-7 text-amber-950/85">QuickRN is designed solely to support independent study and exam preparation. Its questions, explanations, suggested actions, study plans, scores, and estimates are not medical advice, clinical protocols, or a substitute for professional judgment, supervised clinical education, or authoritative references. Never use the platform to guide care for a real patient.</p></div></div>
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">Question and rationale accuracy</h3><p class="mt-2 text-sm leading-7 text-slate-600">Practice items and rationales may be incomplete, outdated, ambiguous, or incorrect. Clinical recommendations can change. Verify important information with current evidence-based sources, official exam materials, and qualified nursing educators.</p></article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">Scores and readiness estimates</h3><p class="mt-2 text-sm leading-7 text-slate-600">Practice scores and adaptive-style estimates are not official NCLEX scoring, pass/fail decisions, or validated forecasts. Performance depends on question quality, available data, and implementation limits.</p></article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">Beta software</h3><p class="mt-2 text-sm leading-7 text-slate-600">Features may change, be unavailable, or contain defects. Data may be lost or reset. Keep independent copies of important notes and study plans, and report problems when you encounter them.</p></article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">Privacy and browser storage</h3><p class="mt-2 text-sm leading-7 text-slate-600">Some study data is stored locally in your browser and may not sync between devices. Shared devices and browser profiles can expose locally saved information to other users of that device. Do not enter patient-identifying information, confidential clinical records, or sensitive personal data.</p></article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">Third-party resources</h3><p class="mt-2 text-sm leading-7 text-slate-600">External links, including videos and reference websites, are provided for convenience. QuickRN does not control third-party content, availability, privacy practices, or accuracy.</p></article>
+        <article class="rounded-2xl border border-slate-200 bg-white p-5"><h3 class="font-bold text-slate-900">No official affiliation</h3><p class="mt-2 text-sm leading-7 text-slate-600">QuickRN is an independent educational project and is not affiliated with or endorsed by the National Council of State Boards of Nursing (NCSBN), the NCLEX program, or any nursing regulatory authority.</p></article>
+      </div>
+      <p class="text-xs leading-6 text-slate-500">By using QuickRN, you acknowledge that this is a beta educational tool and agree to independently verify clinical and exam-related information. This notice does not replace applicable privacy terms or legal notices.</p>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 class="font-bold text-slate-900">Help improve QuickRN</h2><p class="mt-1 text-sm leading-6 text-slate-600">Found a broken interaction, confusing explanation, or incorrect question? Send a reproducible report to the project issue tracker.</p></div>
+        <a href="https://github.com/Archonline/QuickRN/issues/new" target="_blank" rel="noopener noreferrer" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-xs font-bold text-white hover:bg-slate-700"><i class="fa-brands fa-github"></i>Report a beta issue</a>
+      </div>
+    </section>
+    <footer class="border-t border-slate-200 pt-5 text-center text-xs text-slate-400">QuickRN · Independent NCLEX-RN preparation project · Beta</footer>
+  </main>
+</body>
+</html>
