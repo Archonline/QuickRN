@@ -2,7 +2,7 @@
   'use strict';
   const VERSION=1, APP='QuickRN', EXACT_KEYS=['quickrn_user_name'];
   const allowed=key=>key.startsWith('quickrn_')||EXACT_KEYS.includes(key);
-  function collect(){const data={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(allowed(key)){try{data[key]=JSON.parse(localStorage.getItem(key));}catch(_){data[key]=localStorage.getItem(key);}}}return data;}
+  function collect(){const data={};for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(allowed(key)){data[key]=localStorage.getItem(key);}}return data;}
   function makeBackup(){return {app:APP,formatVersion:VERSION,createdAt:new Date().toISOString(),data:collect()};}
   function download(obj,name){const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
   function status(message,bad){const el=document.getElementById('backup-status');if(el){el.textContent=message;el.className='mt-3 text-xs '+(bad?'text-rose-700':'text-emerald-700');}}
@@ -22,7 +22,8 @@
         const current=makeBackup();
         if(!confirm('Restore '+entries.length+' data entries from '+(parsed.createdAt||'this backup')+'? Current browser data for these keys will be replaced. A safety backup will download first.'))return;
         download(current,'quickrn-pre-restore-safety-'+new Date().toISOString().slice(0,10)+'.json');
-        entries.forEach(([key,value])=>localStorage.setItem(key,typeof value==='string'?value:JSON.stringify(value)));
+        entries.forEach(([key,value])=>{if(typeof value!=='string')throw new Error('Backup contains an invalid value for '+key+'.');});
+        entries.forEach(([key,value])=>localStorage.setItem(key,value));
         status('Backup restored. Reloading QuickRN…');setTimeout(()=>location.reload(),700);
       }catch(error){status(error.message||'Could not restore this backup.',true);}
       finally{importInput.value='';}
