@@ -18,7 +18,7 @@ This checklist defines the minimum release gate for a closed beta. A green autom
 ## Clinical-content quality gate
 
 - [ ] A qualified nursing educator reviews clinical accuracy, rationales, answer keys, and sentence construction.
-- [ ] Review the automated question-bank quality warnings before inviting testers. The current source-bank scan identifies approximately 3,400 records with generic/template-style stems; these must be reviewed or excluded from the beta question pool rather than assumed to be publication-ready.
+- [ ] Review the automated question-bank quality warnings before inviting testers. The current source-bank scan identifies approximately 4,000 records with generic/template-style stems; these must be reviewed or excluded from the beta question pool rather than assumed to be publication-ready.
 - [ ] Grammar edits preserve the clinical meaning, urgency, patient details, and answer key.
 - [ ] NGN item structures are internally consistent (for example, matrix rows/columns, bowtie selections, highlight targets, and ordered-response lists).
 - [ ] No item is advertised as an official NCSBN/NCLEX item unless licensed and authorized.
