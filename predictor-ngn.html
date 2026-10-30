@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#1e293b]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCLEX Predictor NGN Workspace | QuickRN</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nclex: {
+                            blue: '#003366',
+                            darkBlue: '#002244',
+                            header: '#0f172a',
+                            lightBg: '#f8fafc',
+                            panelBg: '#f1f5f9',
+                            border: '#cbd5e1',
+                            accent: '#1e40af',
+                            btnHover: '#1d4ed8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Link questions data file -->
+    <script src="questions.js"></script>
+    <script src="js/quickrn-question-id-normalizer.js"></script>
+    <script src="js/youtube-recommendations.js"></script>
+
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; user-select: none; }
+        .nclex-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    </style>
+    <style id="quickrn-shared-interface">
+/* QuickRN shared interface theme — visual-only overrides */
+:root { color-scheme: light; }
+html { min-height:100%; }
+body { font-family:'Inter',sans-serif !important; background:#e2e8f0 !important; color:#1e293b; }
+header { background:#0B2240 !important; color:#fff !important; border-bottom:2px solid #D97706 !important; box-shadow:0 4px 10px rgba(15,23,42,.14) !important; }
+header button, header a { transition:background-color .15s ease,border-color .15s ease; }
+main { min-width:0; }
+main section, main article, .question-card, .panel, .exam-panel, .card { border-radius:12px; }
+button { transition:background-color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .15s ease; }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:3px solid #60a5fa; outline-offset:2px; }
+footer { background:#0B2240 !important; color:#fff !important; border-top:1px solid #334155 !important; }
+.prompt-typography, .question-text, .question-prompt { color:#0f172a; }
+@media(max-width:768px) {
+  header { padding-left:12px !important; padding-right:12px !important; }
+  main { max-width:100%; }
+}
+
+/* Self Study-aligned QuickRN exam shell */
+:root{--qr-navy:#0B2240;--qr-blue:#2563a6;--qr-amber:#d97706;--qr-bg:#e2e8f0;--qr-ink:#0f172a;--qr-border:#cbd5e1}
+html,body{min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body{background:#e2e8f0!important;color:#1e293b!important}
+header{height:56px;min-height:56px;padding:0 16px!important;display:flex;align-items:center;background:var(--qr-navy)!important;color:#fff!important;border-bottom:2px solid var(--qr-amber)!important;box-shadow:0 3px 10px #0f172a20!important}
+main{width:100%;max-width:1280px!important;margin:0 auto;padding:12px!important;min-width:0}
+#exam-container{background:#fff;border:1px solid #cbd5e1;border-radius:12px;box-shadow:0 2px 8px #0f172a0d;padding:20px;min-width:0}
+#exam-container h2,#exam-container h3{color:#0f172a;line-height:1.55}
+#exam-container button:not(:disabled){cursor:pointer}
+#exam-container button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #60a5fa!important;outline-offset:2px}
+#exam-container .qr-format-tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+#exam-container .qr-format-tag.ngn{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe}
+#exam-container .qr-prompt{font-size:15px;font-weight:650;line-height:1.65;color:#0f172a}
+#exam-container .qr-option{width:100%;text-align:left;padding:14px 16px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;display:flex;align-items:flex-start;gap:12px;color:#1e293b;line-height:1.5}
+#exam-container .qr-option:hover{background:#eff6ff;border-color:#60a5fa}
+#exam-container .qr-option.selected{background:#eff6ff;border:2px solid #2563a6;color:#0B2240;font-weight:650}
+#exam-container .qr-option-key{width:25px;height:25px;flex:0 0 25px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e2e8f0;border:1px solid #cbd5e1;font-size:11px;font-weight:800}
+footer{background:#0B2240!important;color:#fff!important}
+@media(max-width:768px){header{padding:0 12px!important}main{padding:10px!important}#exam-container{padding:14px!important}}
+</style>
+<style id="quickrn-ngn-workspace">
+#exam-container,#exam-workspace{overflow:visible!important;min-height:0!important;height:auto!important}
+main{overflow-y:auto!important;align-items:stretch!important;justify-content:flex-start!important;min-height:0!important}
+.qr-clinical-layout{display:grid;grid-template-columns:minmax(280px,40%) minmax(0,60%);gap:12px;align-items:start;width:100%;min-width:0}
+.qr-ehr,.qr-question-panel{background:#fff;border:1px solid #cbd5e1;border-radius:10px;min-width:0;overflow:hidden}
+.qr-ehr-head{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#0B2240;color:white;padding:12px 14px;font-size:12px;font-weight:800}
+.qr-ehr-head span{font-weight:600;color:#fde68a;text-align:right}.qr-patient-meta{padding:8px 14px;background:#eff6ff;border-bottom:1px solid #bfdbfe;font-size:12px;color:#1e3a8a;font-weight:700}
+.qr-ehr-body{padding:12px;max-height:calc(100vh - 230px);overflow:auto}.qr-ehr-section{border:1px solid #dbe3ec;border-radius:8px;margin-bottom:10px;overflow:hidden}.qr-ehr-section h4{background:#f1f5f9;padding:8px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;color:#0B2240}.qr-ehr-section>div{padding:10px;font-size:13px;line-height:1.55;color:#1e293b;overflow-wrap:anywhere}
+.qr-question-head{padding:18px 20px;background:#f8fafc;border-bottom:1px solid #e2e8f0}.qr-item-format{display:inline-flex;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}.qr-question-head h2{font-size:clamp(16px,1.3vw,20px);font-weight:800;line-height:1.45;color:#0f172a}.qr-question-head p{margin-top:8px;font-size:14px;line-height:1.55;color:#475569}.qr-response-area{padding:16px 20px;display:flex;flex-direction:column;gap:10px}.qr-choice{width:100%;display:flex;align-items:flex-start;gap:12px;text-align:left;padding:13px 14px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:9px;color:#1e293b;font-size:14px;line-height:1.5}.qr-choice:hover{border-color:#60a5fa;background:#eff6ff}.qr-choice.selected{border:2px solid #2563a6;background:#eff6ff;color:#0B2240;font-weight:700}.qr-choice-mark{width:24px;height:24px;flex:0 0 24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e2e8f0;font-size:11px;font-weight:900}.qr-choice.selected .qr-choice-mark{background:#2563a6;color:white}.qr-missing{background:#fffbeb;border:1px solid #fcd34d;color:#92400e;padding:12px;border-radius:8px;font-size:13px}.qr-help{font-size:12px;color:#475569;font-weight:700}.qr-sort-list{display:flex;flex-direction:column;gap:8px}.qr-sort-item{display:flex;align-items:center;gap:10px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:9px;padding:10px;min-width:0}.qr-sort-item[draggable=true]{cursor:grab}.qr-drag-handle{color:#64748b;cursor:grab}.qr-sort-item b{white-space:nowrap;font-size:12px;color:#0B2240}.qr-sort-text{flex:1;font-size:13px;line-height:1.45;overflow-wrap:anywhere}.qr-sort-actions{display:flex;gap:4px}.qr-sort-actions button{padding:4px 9px;border:1px solid #cbd5e1;border-radius:6px;background:#e2e8f0;font-weight:800}.qr-sort-actions button:disabled{opacity:.3}.qr-table-wrap{overflow-x:auto}.qr-matrix{width:100%;border-collapse:collapse;font-size:13px}.qr-matrix th,.qr-matrix td{border:1px solid #cbd5e1;padding:9px;text-align:center}.qr-matrix th{background:#f1f5f9;font-weight:800}.qr-matrix td:first-child,.qr-matrix th:first-child{text-align:left;min-width:180px}.qr-matrix input{width:17px;height:17px}.qr-cloze{font-size:15px;line-height:2.2;color:#1e293b}.qr-cloze select{margin:3px;padding:6px 9px;border:1px solid #94a3b8;border-radius:7px;background:white;max-width:100%}.qr-bowtie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.qr-bowtie-group{background:#f8fafc;border:1px solid #cbd5e1;border-radius:9px;padding:10px;min-width:0}.qr-bowtie-group h4{text-align:center;font-size:11px;text-transform:uppercase;font-weight:900;color:#0B2240;border-bottom:1px solid #cbd5e1;padding-bottom:8px;margin-bottom:8px}.qr-bowtie-option{display:flex;gap:8px;align-items:flex-start;padding:8px 4px;font-size:12px;line-height:1.4}.qr-bowtie-option input{margin-top:2px;flex:0 0 auto}.qr-report-row{padding:0 20px 16px;display:flex;justify-content:flex-end}.qr-report-button{padding:7px 11px;border-radius:7px;border:1px solid #fecaca;background:#fff1f2;color:#9f1239;font-size:11px;font-weight:800}.qr-modal-backdrop{position:fixed;inset:0;z-index:1000;background:#0f172acc;display:flex;align-items:center;justify-content:center;padding:16px}.qr-report-modal{width:min(480px,100%);background:white;border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px #0005}.qr-report-modal h3{font-size:18px;font-weight:900;color:#0B2240}.qr-report-modal label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800}.qr-report-modal select,.qr-report-modal textarea{border:1px solid #cbd5e1;border-radius:8px;padding:9px;font-size:13px}.qr-report-modal>div,.qr-report-modal form>div{display:flex;justify-content:flex-end;gap:8px}.qr-report-modal button,.qr-report-modal a{padding:8px 12px;border-radius:7px;background:#0B2240;color:white;font-size:12px;font-weight:800}
+@media(max-width:900px){.qr-clinical-layout{grid-template-columns:1fr}.qr-ehr-body{max-height:none}.qr-bowtie{grid-template-columns:1fr}.qr-ehr{order:1}.qr-question-panel{order:2}}
+@media(min-width:901px){body{height:100vh;overflow:hidden}main{height:calc(100vh - 110px);overflow-y:auto!important}.qr-ehr-body{max-height:calc(100vh - 245px)}}
+.qr-review-ehr{background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:12px;font-size:12px;line-height:1.5}.qr-review-ehr h4{font-weight:900;color:#0B2240;margin-bottom:8px}.qr-review-ehr>div{padding:7px 0;border-top:1px solid #e2e8f0}.qr-review-ehr p{margin-top:3px}
+</style>
+<style id="quickrn-shared-renderer-styles">
+.qr-highlight-instructions{padding:12px 14px;margin-bottom:12px;border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;font-size:13px;color:#1e3a8a;font-weight:600}
+.qr-highlight-list{display:flex;flex-direction:column;gap:8px}
+.qr-highlight-segment{display:flex;align-items:flex-start;gap:10px;text-align:left;width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#1e293b;font-size:14px;line-height:1.5}
+.qr-highlight-segment.is-selected{background:#fef3c7;border:2px solid #d97706;color:#78350f}
+.qr-highlight-check{display:inline-flex;flex:0 0 22px;width:22px;height:22px;align-items:center;justify-content:center;border-radius:6px;background:#e2e8f0;font-weight:900}
+.qr-highlight-segment.is-selected .qr-highlight-check{background:#f59e0b;color:#422006}
+.qr-trend-panel{margin:14px 0;padding:14px;border:1px solid #94a3b8;border-radius:12px;background:#f8fafc}
+.qr-trend-panel h3{font-weight:900;color:#0f2c59;margin-bottom:6px}
+.qr-trend-table{width:100%;border-collapse:collapse;font-size:12px;background:white}
+.qr-trend-table th,.qr-trend-table td{padding:9px;border:1px solid #cbd5e1;text-align:left;vertical-align:top}
+.qr-trend-table th{background:#e2e8f0;font-weight:800}
+</style>
+</head>
+<body class="h-full flex flex-col text-slate-800 bg-[#f1f5f9] antialiased">
+
+    <!-- TOP NCLEX EXAM HEADER -->
+    <header class="bg-[#002244] text-white px-6 py-3 flex justify-between items-center border-b-4 border-[#0055a5] shadow-md select-none">
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 rounded-lg bg-blue-700 text-white flex items-center justify-center shadow"><i class="fa-solid fa-user-nurse"></i></div>
+                <div class="flex flex-col leading-tight"><span class="font-extrabold text-base tracking-wide text-white">QuickRN</span><span class="text-[9px] uppercase tracking-widest text-slate-400">NCLEX Prep</span></div>
+            </div>
+            <div class="bg-white text-[#002244] font-black text-sm px-2.5 py-1 rounded tracking-wider shadow">NCLEX-RN</div>
+            <span class="text-sm font-semibold tracking-wide text-slate-200 border-l border-slate-600 pl-4 hidden sm:inline">NCSBN Computerized Adaptive Test (CAT) Simulation</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <!-- Timer Display -->
+            <div class="flex items-center gap-2 bg-[#00152a] px-3.5 py-1.5 rounded border border-slate-700">
+                <i class="fa-regular fa-clock text-amber-400 text-xs"></i>
+                <span id="exam-timer" class="font-mono text-xs font-bold tracking-wider text-slate-100">05:00:00</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span id="cat-mode-badge" class="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300">
+                    <i class="fas font-mono text-xs mr-1">⚡</i> Adaptive CAT
+                </span>
+                <button id="btn-calculator" class="nclex-btn-secondary px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-slate-800 hover:bg-slate-700 text-white">
+                    <i class="fas fa-calculator mr-1.5"></i> Calculator
+                </button>
+                <!-- Exit Button -->
+                <button onclick="promptExit()" class="px-3 py-1.5 rounded text-xs font-medium flex items-center shadow-sm bg-red-600 hover:bg-red-700 text-white transition">
+                    <i class="fas fa-right-from-bracket mr-1.5"></i> Exit
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN EXAMINATION CONTAINER -->
+    <main class="flex-grow flex flex-col p-4 max-w-7xl w-full mx-auto">
+        
+        <!-- EXAM STATUS BAR -->
+        <div class="bg-white border border-slate-300 rounded-t-md p-3 px-5 flex justify-between items-center text-xs text-slate-600 font-semibold shadow-sm mb-1">
+            <div class="flex items-center gap-4">
+                <span>Item <span id="current-item-num" class="text-nclex-blue font-bold text-sm">1</span> of <span id="total-item-num">--</span></span>
+                <span class="hidden md:inline text-slate-300">|</span>
+                <span class="hidden md:inline text-slate-500">Category: <span id="current-category" class="font-bold text-slate-700">Cardiovascular</span></span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span id="item-type-badge" class="bg-blue-50 text-nclex-blue border border-blue-200 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase">Traditional Multiple Choice</span>
+            </div>
+        </div>
+
+        <!-- MAIN QUESTION & CONTENT WORKSPACE -->
+        <div id="exam-workspace" class="bg-white border border-slate-300 rounded-b-md flex-grow flex flex-col md:flex-row shadow-sm overflow-hidden min-h-[480px]">
+            <!-- Dynamic Item Render Area -->
+        </div>
+
+        <!-- BOTTOM ACTION FOOTER -->
+        <div class="mt-3 bg-white border border-slate-300 rounded-md p-3 px-5 flex justify-between items-center shadow-sm">
+            <div class="text-xs text-slate-500 flex items-center gap-2">
+                <i class="fa-solid fa-lock text-slate-400"></i> 
+                <span>NCLEX Adaptive Secure Engine v5.0 (Unlimited Practice Attempts)</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- Action Button: Dynamically toggles between Next & Finish Exam on last item -->
+                <button id="next-btn" onclick="submitAndProceed()" class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-2 rounded text-xs font-bold uppercase tracking-wider shadow transition flex items-center gap-2">
+                    <span id="next-btn-text">Next</span>
+                    <i id="next-btn-icon" class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- CAT AUTOMATIC TERMINATION ANNOUNCEMENT MODAL -->
+    <div id="cat-stop-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-center space-y-4">
+            <div id="cat-stop-icon" class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <h3 id="cat-stop-title" class="text-lg font-bold text-slate-900">CAT Standard Reached</h3>
+                <p id="cat-stop-desc" class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    The adaptive algorithm has determined your competency level with 95% statistical confidence.
+                </p>
+            </div>
+            <button onclick="closeCatModalAndShowSummary()" class="w-full bg-[#003366] hover:bg-[#002244] text-white font-bold py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow">
+                View Performance Report
+            </button>
+        </div>
+    </div>
+
+    <!-- EXIT CONFIRMATION MODAL -->
+    <div id="exitModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-slate-100 transform transition-all">
+            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 mb-4 mx-auto">
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 text-center mb-2">Exit Assessment?</h3>
+            <p class="text-slate-600 text-sm text-center mb-6 leading-relaxed">
+                Exiting will completely <strong class="text-red-600 font-semibold">discard current exam progress</strong> for this session.
+                <br><br>
+                <span class="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs font-medium inline-block border border-slate-200">
+                    <i class="fa-solid fa-shield-halved text-slate-500 mr-1"></i> Unfinished session stats will not be added to your score history.
+                </span>
+            </p>
+            <div class="flex gap-3">
+                <button id="cancelExitBtn" onclick="closeExitModal()" class="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-50 font-medium transition text-xs">
+                    Resume Exam
+                </button>
+                <button id="confirmExitBtn" onclick="confirmExitAndDiscard()" class="flex-1 py-2.5 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium shadow-md shadow-red-200 transition text-xs">
+                    Discard & Return to Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULED BREAK PROMPT MODAL -->
+    <div id="break-modal" class="fixed inset-0 bg-slate-900/70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-center space-y-4">
+            <div class="w-12 h-12 bg-blue-100 text-[#003366] rounded-full flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Scheduled Optional Break</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+                You have reached a scheduled break window. Taking breaks helps maintain focus during long testing conditions. Would you like to pause your timer and take a break now?
+            </p>
+            <div class="flex gap-3 pt-2">
+                <button onclick="resumeExamFromBreakModal()" class="flex-1 py-2 px-4 rounded-lg border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition">
+                    Skip Break
+                </button>
+                <button onclick="pauseExamForBreak()" class="flex-1 py-2 px-4 rounded-lg bg-[#003366] text-white font-bold text-xs hover:bg-[#002244] transition shadow">
+                    Take Break Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSED BREAK OVERLAY -->
+    <div id="pause-modal" class="fixed inset-0 bg-slate-950 z-50 hidden flex flex-col items-center justify-center p-6 text-white text-center">
+        <div class="max-w-md w-full bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl space-y-6">
+            <div class="w-16 h-16 bg-blue-900/50 text-blue-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-blue-700">
+                <i class="fa-solid fa-pause"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold">Exam Currently Paused</h2>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Your test timer is paused. Take a moment to relax before resuming your NCLEX assessment.</p>
+            </div>
+            <button onclick="resumeExamFromPause()" class="w-full bg-[#0055a5] hover:bg-[#003366] text-white font-bold py-3 rounded-lg text-xs uppercase tracking-wider transition shadow-lg">
+                Resume Examination
+            </button>
+        </div>
+    </div>
+
+    <!-- SELECTION WARNING MODAL -->
+    <div id="warning-modal" class="fixed inset-0 bg-slate-900/70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-sm w-full p-5 shadow-2xl border border-slate-200 text-center space-y-3">
+            <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-lg">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h4 class="text-sm font-bold text-slate-900">Selection Required</h4>
+            <p class="text-xs text-slate-600">Please select an answer option before attempting to proceed to the next item.</p>
+            <button onclick="document.getElementById('warning-modal').classList.add('hidden')" class="w-full bg-[#003366] text-white font-bold py-2 rounded text-xs hover:bg-[#002244] transition">OK</button>
+        </div>
+    </div>
+
+    <!-- POST-EXAM REVIEW & SUMMARY VIEW -->
+    <div id="summary-view" class="fixed inset-0 bg-slate-900/95 z-50 hidden flex flex-col overflow-hidden">
+        <!-- Summary Header -->
+        <div class="bg-[#002244] text-white px-6 py-4 flex justify-between items-center border-b border-slate-700 shadow-md">
+            <div>
+                <h2 class="text-lg font-bold">NCLEX-RN Predictor Performance Report</h2>
+                <p class="text-xs text-slate-300">CAT Assessment Results & Detailed Item Analysis (Wrong Items Prioritized)</p>
+            </div>
+            <button onclick="returnToDashboard()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 py-2 rounded transition shadow flex items-center gap-2">
+                <i class="fa-solid fa-house"></i>
+                <span>Return to Dashboard</span>
+            </button>
+        </div>
+
+        <!-- Summary Content Body -->
+        <div class="flex-grow overflow-y-auto p-6 max-w-7xl w-full mx-auto space-y-6 custom-scrollbar text-slate-800">
+            <!-- Score & Domain Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Estimated Chance Above Passing Standard</span>
+                    <span id="summary-prob" class="text-3xl font-black text-emerald-600">--%</span>
+                    <p id="summary-prob-note" class="text-[10px] text-slate-500 mt-2">Model-based estimate; improves as more items are answered.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Score Accuracy</span>
+                    <span id="summary-accuracy" class="text-3xl font-black text-nclex-blue">--%</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">CAT Theta Ability Score</span>
+                    <span id="summary-theta" class="text-3xl font-black text-amber-600">+0.00</span>
+                </div>
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm text-center">
+                    <span class="text-[11px] font-bold uppercase text-slate-400 block mb-1">Items Answered</span>
+                    <span id="summary-total-items" class="text-3xl font-black text-slate-700">0</span>
+                </div>
+            </div>
+
+            <!-- NCLEX Test Plan Domain Breakdown -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-2">NCLEX Test Plan Domain Mastery</h3>
+                <div id="domain-breakdown-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Detailed Question Log & Bookmarks (Wrong Items First with Clinical Study Coach, Videos, PDFs) -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider">Exam Summary & Remediation (Wrong Items First)</h3>
+                    <span class="text-xs text-slate-500"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i>Review missed questions with the Clinical Study Coach, video recommendations, and PDF sources.</span>
+                </div>
+                <div id="summary-question-list" class="space-y-6">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENGINE SCRIPT LOGIC -->
+    <script src="js/quickrn-cat-engine.js"></script>
+    <script src="js/quickrn-question-metrics.js"></script>
+    <script src="js/shared-exam-renderer.js"></script>
+<script src="js/quickrn-ngn-scoring.js"></script>
+    <script>
+        // Global Engine State Variables
+        let questionPool = [];
+        let activeExamQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timeRemainingSeconds = 5 * 60 * 60; // 5 hours
+        let totalElapsedSeconds = 0;
+        let timerInterval = null;
+        let isPaused = false;
+        let breakOffered = false;
+        let studentTheta = 0.0; // Ability estimate in Logits (-3.0 to +3.0)
+        let semStandardError = 1.0; // Initial standard error
+        let bookmarkedQuestions = {};
+
+        // CAT Parameters
+        const MIN_CAT_QUESTIONS = 85;
+        const PASSING_THETA_THRESHOLD = 0.50; // Theta required to pass
+        const FAIL_THETA_THRESHOLD = -0.80;  // Theta below which test stops & fails
+        const CONFIDENCE_SE = 0.35;           // Targeted standard error precision
+
+        // On Page Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeQuestionsPool();
+            startExamTimer();
+            selectNextCatQuestion();
+            renderQuestionItem();
+        });
+
+        // Initialize and Verify Questions Data Source from questions.js without limit
+        function initializeQuestionsPool() {
+            let pool = [];
+
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions) && window.questions.length > 0) {
+                pool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData) && embeddedQuestionsData.length > 0) {
+                pool = embeddedQuestionsData;
+            } else if (typeof window.nclexQuestions !== 'undefined' && Array.isArray(window.nclexQuestions) && window.nclexQuestions.length > 0) {
+                pool = window.nclexQuestions;
+            } else {
+                pool = [
+                    {
+                        id: 'q1',
+                        question: 'A client with heart failure is prescribed digoxin 0.25 mg IV daily. Prior to administering the medication, which action should the nurse prioritize?',
+                        options: [
+                            'Check the client apical pulse rate for 1 full minute.',
+                            'Assess the client blood pressure in both arms.',
+                            'Review the client serum potassium level from yesterday.',
+                            'Calculate the total 24-hour urine output.'
+                        ],
+                        correctAnswer: 'A',
+                        category: 'Physiological Adaptation',
+                        topic: 'Pharmacology',
+                        difficulty: 0.0,
+                        rationale: 'Digoxin slows heart rate. Apical pulse must be checked for a full minute; hold medication if pulse < 60 bpm.'
+                    }
+                ];
+            }
+
+            // Assign baseline difficulty logits if not defined
+            questionPool = pool.map((q, i) => ({
+                ...q,
+                questionText: q.questionText || q.question || q.title || '',
+                difficulty: typeof q.difficulty === 'number' ? q.difficulty : ((i % 5) - 2) * 0.5 // Range -1.0 to +1.0
+            }));
+        }
+
+        function isNGNQuestion(q) {
+            const type = String(q.ngnType || q.type || q.questionType || q.itemType || q.format || '').toLowerCase();
+            return /\bngn\b|case study|bow[- ]?tie|matrix|cloze|drop[- ]?down|highlight|trend|extended drag|drag[- ]?and[- ]?drop|select[- ]?n/.test(type) || !!(q.caseStudy || q.case_study || q.ngn || q.isNGN || q.ehr || q.bowtieData || q.rows || q.availableItems || q.clozeTemplate);
+        }
+
+        // CAT Item Selection Algorithm: preserve theta targeting, randomize close matches,
+        // and alternate NGN/standard formats whenever both remain in the bank.
+        function selectNextCatQuestion() {
+            const unasked = questionPool.filter(q => !activeExamQuestions.some(aq => aq.id === q.id));
+            if (unasked.length === 0) { finishAssessment(); return false; }
+
+            const answeredSoFar = activeExamQuestions.slice(0, currentQuestionIndex);
+            const ngnAnswered = answeredSoFar.filter(isNGNQuestion).length;
+            const standardAnswered = answeredSoFar.length - ngnAnswered;
+            const hasNGN = unasked.some(isNGNQuestion);
+            const hasStandard = unasked.some(q => !isNGNQuestion(q));
+            let candidates = unasked;
+            if (hasNGN && hasStandard) {
+                const preferNGN = ngnAnswered <= standardAnswered;
+                candidates = unasked.filter(q => isNGNQuestion(q) === preferNGN);
+            }
+            // Preserve adaptive difficulty: randomly choose among the closest 25% band.
+            candidates.sort((a, b) => Math.abs(a.difficulty - studentTheta) - Math.abs(b.difficulty - studentTheta));
+            const bandSize = Math.max(1, Math.ceil(candidates.length * 0.25));
+            const nextQuestion = candidates[Math.floor(Math.random() * bandSize)];
+            activeExamQuestions.push(nextQuestion);
+            document.getElementById('total-item-num').innerText = questionPool.length;
+            return true;
+        }
+
+        // Timer Engine
+        function startExamTimer() {
+            timerInterval = setInterval(() => {
+                if (!isPaused) {
+                    timeRemainingSeconds--;
+                    totalElapsedSeconds++;
+
+                    updateTimerDisplay();
+
+                    if (totalElapsedSeconds >= 7200 && totalElapsedSeconds <= 10800 && !breakOffered) {
+                        offerScheduledBreak();
+                    }
+
+                    if (timeRemainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        alert("Time limit reached. Your assessment will now be finalized.");
+                        finishAssessment();
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerEl = document.getElementById('exam-timer');
+            if (!timerEl) return;
+
+            const hrs = Math.floor(timeRemainingSeconds / 3600);
+            const mins = Math.floor((timeRemainingSeconds % 3600) / 60);
+            const secs = timeRemainingSeconds % 60;
+
+            const formatted = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            timerEl.innerText = formatted;
+        }
+
+        function offerScheduledBreak() {
+            breakOffered = true;
+            document.getElementById('break-modal').classList.remove('hidden');
+        }
+
+        function pauseExamForBreak() {
+            isPaused = true;
+            document.getElementById('break-modal').classList.add('hidden');
+            document.getElementById('pause-modal').classList.remove('hidden');
+        }
+
+        function resumeExamFromBreakModal() {
+            document.getElementById('break-modal').classList.add('hidden');
+        }
+
+        function resumeExamFromPause() {
+            isPaused = false;
+            document.getElementById('pause-modal').classList.add('hidden');
+        }
+
+        // Exit Logic — Discard active session without saving partial state
+        function promptExit() {
+            document.getElementById('exitModal').classList.remove('hidden');
+        }
+
+        function closeExitModal() {
+            document.getElementById('exitModal').classList.add('hidden');
+        }
+
+        function confirmExitAndDiscard() {
+            if (timerInterval) clearInterval(timerInterval);
+            window.location.href = 'dashboard.html';
+        }
+
+        // Render Current Question
+
+function renderQuestionItem() {
+            if(currentQuestionIndex>=activeExamQuestions.length)return;
+            const q=activeExamQuestions[currentQuestionIndex]; window.quickRNExamMode='Predictor';window.quickRNCurrentQuestion=q;
+            document.getElementById('session-info-pill').innerHTML=`<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentQuestionIndex+1} of ${activeExamQuestions.length}`;
+            document.getElementById('category-badge').innerText=q.category||'General Nursing';
+            const icon=document.getElementById('top-bookmark-icon');if(icon)icon.className=bookmarkedQuestions[q.id]?"fa-solid fa-bookmark text-amber-400":"fa-regular fa-bookmark text-slate-400";
+            quickRNInitDraft(q,userAnswers[currentQuestionIndex]);
+            window.quickRNOnDraftChange=(d)=>{userAnswers[currentQuestionIndex]=d;};window.quickRNRenderAgain=renderQuestionItem;
+            document.getElementById('exam-workspace').innerHTML=quickRNRenderClinicalItem(q,quickRNDraft);
+        }
+
+        function selectOption(letter) { quickRNSetDraft('choice',letter); }
+
+        function submitAndProceed() {
+            if (!quickRNHasAnswer(activeExamQuestions[currentQuestionIndex], userAnswers[currentQuestionIndex]||{})) {
+                document.getElementById('warning-modal').classList.remove('hidden');
+                return;
+            }
+
+            const currentQ = activeExamQuestions[currentQuestionIndex];
+            const isCorrect = quickRNGrade(currentQ, userAnswers[currentQuestionIndex]||{});
+            if (window.QuickRNQuestionMetrics) window.QuickRNQuestionMetrics.record(currentQ,isCorrect,'NCLEX Predictor');
+            if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(currentQ,isCorrect);
+            const totalAnswered = currentQuestionIndex + 1;
+            const responseLog = activeExamQuestions.slice(0,totalAnswered).map((q,i)=>({q,correct:quickRNGrade(q,userAnswers[i]||{})}));
+            const decision = window.QuickRNCAT.evaluate(responseLog);
+            studentTheta = decision.theta;
+            semStandardError = decision.se;
+            if (decision.status === 'PASS' || decision.status === 'FAIL') {
+                announceCatTermination(decision.status, decision.reason + '. CAT decision reached at item ' + totalAnswered + '.');
+                return;
+            }
+            if (totalAnswered >= 150) { finishAssessment(); return; }
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= activeExamQuestions.length) {
+                const added = selectNextCatQuestion();
+                if (added === false) return;
+            }
+            renderQuestionItem();
+        }
+
+        function announceCatTermination(status, message) {
+            if (timerInterval) clearInterval(timerInterval);
+
+            const modal = document.getElementById('cat-stop-modal');
+            const icon = document.getElementById('cat-stop-icon');
+            const title = document.getElementById('cat-stop-title');
+            const desc = document.getElementById('cat-stop-desc');
+
+            if (status === "Pass") {
+                icon.className = "w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl";
+                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                title.innerText = "CAT Adaptive Pass Standard Reached";
+            } else {
+                icon.className = "w-14 h-14 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto text-2xl";
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+                title.innerText = "CAT Adaptive Standard Concluded";
+            }
+
+            desc.innerText = message;
+            modal.classList.remove('hidden');
+        }
+
+        function closeCatModalAndShowSummary() {
+            document.getElementById('cat-stop-modal').classList.add('hidden');
+            finishAssessment();
+        }
+
+        // Finalize Exam & Record Stats & Update Dashboard
+        function finishAssessment() {
+            if (timerInterval) clearInterval(timerInterval);
+
+            let correctCount = 0;
+            let answeredCount = 0;
+            let domainStats = {};
+
+            activeExamQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                if (userAns !== undefined) {
+                    answeredCount++;
+                    const isCorrect = quickRNGrade(q, userAns||{});
+                    if (isCorrect) correctCount++;
+                    const domain = (window.QuickRNCoach && window.QuickRNCoach.classifyClientNeed(q)?.name) || q.category || 'Other';
+                    if (!domainStats[domain]) domainStats[domain] = { total: 0, correct: 0 };
+                    domainStats[domain].total++;
+                    if (isCorrect) domainStats[domain].correct++;
+                }
+            });
+
+            const answeredResponses = activeExamQuestions.map((q,idx)=>userAnswers[idx]!==undefined?({q,correct:quickRNGrade(q,userAnswers[idx]||{})}):null).filter(Boolean);
+            const scoreSummary = window.QuickRNNgnScoring.summarize(activeExamQuestions.map((q,idx)=>({q,answer:userAnswers[idx]})));
+            const scorePercent = scoreSummary.percentage;
+            const catDecision = window.QuickRNCAT.evaluate(answeredResponses,answeredCount >= 150);
+            studentTheta = catDecision.theta;
+            const passingProbability = catDecision.passProbability;
+
+            // Persist Exam Results to Local Storage for Dashboard & Analytics
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || {
+                testsTaken: 0,
+                totalAnswered: 0,
+                correctCount: 0,
+                mistakeCount: 0,
+                passingProbability: 0,
+                examHistory: [],
+                predictorHistory: [],
+                favorites: []
+            };
+
+            stateObj.studentStats.testsTaken++;
+            stateObj.studentStats.totalAnswered += answeredCount;
+            stateObj.studentStats.correctCount += correctCount;
+            stateObj.studentStats.mistakeCount += (answeredCount - correctCount);
+            stateObj.studentStats.passingProbability = passingProbability;
+
+            stateObj.answeredQuestionIds = stateObj.answeredQuestionIds || [];
+            activeExamQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] !== undefined) {
+                    let qId = q.id || q.questionText;
+                    if (!stateObj.answeredQuestionIds.includes(qId)) {
+                        stateObj.answeredQuestionIds.push(qId);
+                    }
+                }
+            });
+
+            const examRecord = {
+                type: 'NCLEX Predictor Exam',
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                total: answeredCount,
+                scorePercent,
+                earnedPoints: scoreSummary.earned,
+                possiblePoints: scoreSummary.max,
+                correctCount,
+                wrongCount: answeredCount-correctCount,
+                passingProbability,
+                theta: Number(studentTheta.toFixed(3)),
+                decision: answeredCount < 85 ? 'INCONCLUSIVE — FEWER THAN 85 ITEMS' : (catDecision.status === 'CONTINUE' ? 'INCONCLUSIVE — BORDERLINE AT BANK LIMIT' : catDecision.status),
+                domainStats
+            };
+
+            stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
+            stateObj.studentStats.examHistory.unshift(examRecord);
+
+            stateObj.studentStats.predictorHistory = stateObj.studentStats.predictorHistory || [];
+            stateObj.studentStats.predictorHistory.unshift(examRecord);
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+
+            // Display Detailed Summary Report (Wrong Items First)
+            displaySummaryReport(scorePercent, passingProbability, studentTheta, domainStats);
+        }
+
+        function displaySummaryReport(scorePercent, passingProb, theta, domainStats) {
+            document.getElementById('summary-prob').innerText = `${passingProb}%`;
+            const probNote = document.getElementById('summary-prob-note');
+            if (probNote) {
+                const cut = window.QuickRNCAT.PASSING_THETA_THRESHOLD;
+                const distance = Number(theta)-cut;
+                const gap = Math.abs(distance);
+                const position = distance > 0.01 ? 'above' : distance < -0.01 ? 'below' : 'at';
+                probNote.innerText = `Ability estimate is ${position} the practice passing standard (theta ${cut.toFixed(2)}; distance ${gap.toFixed(2)}). Around 50% means borderline; higher values indicate stronger evidence above standard.`;
+            }
+            document.getElementById('summary-accuracy').innerText = `${scorePercent}%`;
+            document.getElementById('summary-theta').innerText = (theta > 0 ? `+${theta}` : theta);
+            document.getElementById('summary-total-items').innerText = activeExamQuestions.filter((q,i)=>userAnswers[i]!==undefined).length;
+            const totalAnsweredNow = activeExamQuestions.filter((q,i)=>userAnswers[i]!==undefined).length;
+            const correctNow = activeExamQuestions.reduce((n,q,i)=>n+(userAnswers[i]!==undefined && quickRNGrade(q,userAnswers[i]||{})?1:0),0);
+            let counts = document.getElementById('summary-correct-wrong');
+            if (!counts) { counts=document.createElement('div'); counts.id='summary-correct-wrong'; counts.className='bg-white p-4 rounded-xl border border-slate-200 shadow-sm grid grid-cols-2 gap-3 text-center'; document.getElementById('summary-total-items').closest('.grid').after(counts); }
+            counts.innerHTML='<div><span class="block text-[10px] font-bold uppercase text-slate-400">Correct</span><strong class="text-2xl text-emerald-600">'+correctNow+'</strong></div><div><span class="block text-[10px] font-bold uppercase text-slate-400">Wrong</span><strong class="text-2xl text-rose-600">'+(totalAnsweredNow-correctNow)+'</strong></div>';
+
+            let domainHtml = '';
+            for (const [dom, data] of Object.entries(domainStats)) {
+                const domPct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
+                domainHtml += `
+                    <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                        <div class="flex justify-between font-semibold mb-1">
+                            <span class="text-slate-700">${dom}</span>
+                            <span class="${domPct >= 70 ? 'text-emerald-600' : 'text-rose-600'} font-bold">${domPct}% (${data.correct}/${data.total})</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                            <div class="h-full ${domPct >= 70 ? 'bg-emerald-500' : 'bg-rose-500'}" style="width: ${domPct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            document.getElementById('domain-breakdown-list').innerHTML = domainHtml;
+
+            // Sort questions: Wrong items first, then correct items
+            let sortedItems = activeExamQuestions.map((q, idx) => ({
+                q,
+                idx,
+                uAns: userAnswers[idx],
+                isCorrect: quickRNGrade(q,userAnswers[idx]||{})
+            })).sort((a, b) => (a.isCorrect === b.isCorrect ? 0 : a.isCorrect ? 1 : -1));
+
+            let qHtml = '';
+            sortedItems.forEach(({ q, idx, uAns, isCorrect }) => {
+                const isBookmarked = bookmarkedQuestions[q.id] || false;
+                const qMetrics = window.QuickRNQuestionMetrics ? window.QuickRNQuestionMetrics.get(q.id) : {correct:0,wrong:0,attempts:0};
+                const topicName = q.topic || q.category || 'Clinical Nursing';
+                const videoTopicName = window.QuickRNYoutube.getDisplayTopic(q);
+                const videoUrl = window.QuickRNYoutube.getVideoSearchUrl(q, 'review');
+                const tutorInsight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight(q, isCorrect) : {domain:'Clinical review',guidance:'Prioritize client safety and reassess the response.',outcome:'Review the rationale and distractors.'};
+
+                qHtml += `
+                    <div class="p-5 rounded-xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-rose-300 bg-rose-50/30'} space-y-4 shadow-xs">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800 font-extrabold'}">
+                                    Item ${idx + 1}: ${isCorrect ? 'Correct' : 'Incorrect (Prioritized Review)'}
+                                </span>
+                                <h4 class="text-sm font-bold text-slate-900 pt-1 leading-snug">${quickRNEscape(quickRNCleanPrompt(q.cleanTitle||q.title||q.questionText||q.question||''))}</h4>
+                                <p class="text-[10px] text-slate-500 mt-1">Tracked attempts in this browser: <strong class="text-emerald-700">${qMetrics.correct} correct</strong> · <strong class="text-rose-700">${qMetrics.wrong} incorrect</strong></p>
+                            </div>
+                            <button onclick="toggleBookmark('${q.id}', this)" class="text-slate-400 hover:text-amber-500 transition text-sm">
+                                <i class="${isBookmarked ? 'fa-solid fa-bookmark text-amber-500' : 'fa-regular fa-bookmark'}"></i>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                            <div class="p-2.5 rounded bg-white border border-slate-200"><span class="text-slate-500 block text-[10px] uppercase font-bold">Your Selection</span> <strong class="${isCorrect ? 'text-emerald-700' : 'text-rose-700'} text-sm whitespace-pre-wrap">${quickRNEscape(quickRNAnswerSummary(q,uAns||{}))}</strong></div>
+                            <div class="p-2.5 rounded bg-white border border-slate-200"><span class="text-slate-500 block text-[10px] uppercase font-bold">Correct Answer</span> <strong class="text-emerald-700 text-sm whitespace-pre-wrap">${quickRNEscape(JSON.stringify(q.correctAnswers||q.correctOrder||q.correctAnswerText||q.correctAnswer||{},null,2))}</strong></div>
+                        </div>
+
+                        ${quickRNReviewEHR(q)}
+                        <!-- Rationale -->
+                        <div class="text-xs bg-white p-4 rounded-xl border border-slate-200 text-slate-700 leading-relaxed space-y-1">
+                            <strong class="text-slate-900 block font-bold"><i class="fa-solid fa-circle-info text-blue-600 mr-1.5"></i> Clinical Rationale:</strong>
+                            <p>${quickRNEscape(q.rationale || q.learningObjective || 'Review core foundational pathophysiological principles for this topic.')}</p>
+                        </div>
+
+                        <!-- Shared Clinical Study Coach -->
+                        <div class="text-xs bg-indigo-50/70 p-4 rounded-xl border border-indigo-200 text-indigo-900 leading-relaxed space-y-1">
+                            <strong class="block font-bold text-indigo-950"><i class="fa-solid fa-book-medical text-indigo-600 mr-1.5"></i> Clinical Study Coach · ${quickRNEscape(tutorInsight.domain)}:</strong>
+                            <p>${quickRNEscape(tutorInsight.guidance)} ${quickRNEscape(tutorInsight.outcome)}</p>
+                        </div>
+
+                        <!-- Video Recommendation & PDF Sources -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+                            <div class="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center justify-between">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center"><i class="fa-brands fa-youtube"></i></div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900">Video Masterclass</span>
+                                        <span class="block text-[10px] text-slate-500">NCLEX Review: ${videoTopicName}</span>
+                                    </div>
+                                </div>
+                                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Watch</a>
+                            </div>
+
+                            <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-600 text-white flex items-center justify-center"><i class="fa-solid fa-file-pdf"></i></div>
+                                    <div>
+                                        <span class="block font-bold text-slate-900">PDF Study Source</span>
+                                        <span class="block text-[10px] text-slate-500">Open-Access Clinical Guide</span>
+                                    </div>
+                                </div>
+                                <a href="https://www.ncbi.nlm.nih.gov/pmc/?term=${encodeURIComponent(topicName)}" target="_blank" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-[11px] transition">Open PDF</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('summary-question-list').innerHTML = qHtml;
+
+            document.getElementById('summary-view').classList.remove('hidden');
+        }
+
+        function toggleBookmark(questionId, btn) {
+            let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
+            stateObj.studentStats = stateObj.studentStats || {};
+            stateObj.studentStats.favorites = stateObj.studentStats.favorites || [];
+
+            const idx = stateObj.studentStats.favorites.indexOf(questionId);
+            const icon = btn.querySelector('i');
+
+            if (idx > -1) {
+                stateObj.studentStats.favorites.splice(idx, 1);
+                icon.className = 'fa-regular fa-bookmark';
+                btn.classList.remove('text-amber-500');
+            } else {
+                stateObj.studentStats.favorites.push(questionId);
+                icon.className = 'fa-solid fa-bookmark text-amber-500';
+            }
+
+            localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
+        }
+
+        function returnToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+    <script src="js/quickrn-coach.js"></script>
+<script src="js/quickrn-question-reporting.js"></script>
+<script>
+(function(){
+ if(!window.QuickRNNgnScoring)return;
+ window.quickRNGrade=function(q,d){return window.QuickRNNgnScoring.grade(q,d).isCorrect;};
+ if(window.QuickRNSharedRenderer)window.QuickRNSharedRenderer.grade=window.quickRNGrade;
+})();
+</script>
+</body>
+</html>

@@ -111,7 +111,7 @@
 
                 <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Study & Testing</div>
 
-                <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
+                <a href="selfstudy-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
                     <i class="fa-solid fa-book-open w-5 text-center text-purple-600"></i>
                     <span>Self Study Mode</span>
                 </a>
@@ -123,17 +123,17 @@
 
 
 
-                <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="timed-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
                     <span>Timed Practice Test</span>
                 </a>
 
-                <a href="predictor.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="predictor-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-clipboard-check w-5 text-center text-amber-600"></i>
                     <span>NCLEX Predictor Exam</span>
                 </a>
 
-                <a href="cat.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="cat-ngn.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-laptop-code w-5 text-center text-slate-800"></i>
                     <span>CAT Exam Simulator</span>
                 </a>
@@ -385,6 +385,10 @@
                             <article class="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
                                 <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line text-sky-700"></i> Clearer NCLEX readiness estimate</div>
                                 <p class="mt-2 text-xs leading-6 text-slate-600">The dashboard now uses the latest completed CAT or Predictor adaptive ability estimate. It waits for at least 85 answered items and does not substitute placeholder scores when an exam result is missing.</p>
+                            </article>
+                            <article class="rounded-xl border border-violet-200 bg-violet-50/40 p-4">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-layer-group text-violet-700"></i> Rebuilt NGN exam workspaces</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">New Self Study, Timed Practice, Predictor, and CAT pages use the shared clinical-item renderer. Test summaries now calculate points across NGN response elements, including partial-credit formats, while adaptive pass decisions remain based on item-level correctness.</p>
                             </article>
                         </div>
                         <div class="mt-4 flex flex-col gap-3 rounded-xl bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
@@ -891,7 +895,7 @@
                         <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
                         <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
                         <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
-                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
+                        <a href="cat-ngn.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
                     </div>
                 `;
             } else {
@@ -941,7 +945,7 @@
                         <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-clipboard-check"></i></div>
                         <h4 class="font-bold text-slate-800 text-sm">No NCLEX Predictor Exams Completed Yet</h4>
                         <p class="text-xs text-slate-500">Take the Predictive Test to assess your readiness and record your score history here.</p>
-                        <a href="predictor.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
+                        <a href="predictor-ngn.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
                     </div>
                 `;
             } else {
