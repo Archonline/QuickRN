@@ -749,7 +749,12 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 
         function calcEquals() {
             const display = document.getElementById('calc-display');
-            try { display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/')); } catch (e) { display.value = 'Error'; }
+            try {
+                if (!window.QuickRNCoach) throw new Error('Calculator unavailable');
+                display.value = window.QuickRNCoach.safeCalculate(display.value.replace(/×/g, '*').replace(/÷/g, '/'));
+            } catch (e) {
+                display.value = 'Error';
+            }
         }
 
         
