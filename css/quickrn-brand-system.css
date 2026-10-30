@@ -145,6 +145,3 @@ body:has(#app-shell) #app-shell>aside .bg-brand-600{
 body:has(#app-shell) #app-shell>aside .text-brand-600{
   color:#ffad98!important;
 }
-body:not(:has(#answer-workspace)) :where(.shadow-brand-500\\/20,.shadow-brand-500\\/30){
-  --tw-shadow-color:rgba(240,106,78,.18);
-}
