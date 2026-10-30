@@ -52,7 +52,7 @@ function render(q,d,submitted){
  return baseRender(x,d,submitted);
 }
 function grade(q,d){const x=canon(q);return root.QuickRNNgnScoring?.grade(x,d)||baseGrade(x,d);}
-function has(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single')return Object.values(d.matrix||{}).some(v=>Array.isArray(v)?v.length>0:!!v);if(x.ngnType==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(v=>String(v||'').trim()!=='');if(x.ngnType==='Bowtie')return !!d.condition||(d.actions||[]).length>0||(d.monitoring||d.params||[]).length>0;if(x.ngnType==='Numeric Entry')return String(d.value??'').trim()!=='';if(x.ngnType==='Highlight')return (d.highlights||[]).length>0;if(x.ngnType==='Select N')return (d.choices||[]).length>0;return baseHasAnswer(x,d);}
+function has(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single')return Object.values(d.matrix||{}).some(v=>Array.isArray(v)?v.length>0:!!v);if(x.ngnType==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(v=>String(v||'').trim()!=='');if(x.ngnType==='Bowtie')return !!d.condition||(d.actions||[]).length>0||(d.monitoring||d.params||[]).length>0;if(x.ngnType==='Numeric Entry')return String(d.numericEntry??d.value??'').trim()!==''&&Number.isFinite(Number(d.numericEntry??d.value));if(x.ngnType==='Highlight')return (d.highlights||[]).length>0;if(x.ngnType==='Select N')return (d.choices||[]).length>0;return baseHasAnswer(x,d);}
 api.detect=q=>{const x=canon(q);return x.ngnType;};
 api.toDraft=(q,v)=>baseToDraft(canon(q),v);
 api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
