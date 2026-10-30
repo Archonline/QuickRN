@@ -584,7 +584,6 @@ function renderQuestionItem() {
             if(currentQuestionIndex>=activeExamQuestions.length)return;
             const q=activeExamQuestions[currentQuestionIndex]; window.quickRNExamMode='Predictor';window.quickRNCurrentQuestion=q;
             document.getElementById('session-info-pill').innerHTML=`<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentQuestionIndex+1} of ${activeExamQuestions.length}`;
-            document.getElementById('category-badge').innerText=q.category||'General Nursing';
             const icon=document.getElementById('top-bookmark-icon');if(icon)icon.className=bookmarkedQuestions[q.id]?"fa-solid fa-bookmark text-amber-400":"fa-regular fa-bookmark text-slate-400";
             quickRNInitDraft(q,userAnswers[currentQuestionIndex]);
             window.quickRNOnDraftChange=(d)=>{userAnswers[currentQuestionIndex]=d;};window.quickRNRenderAgain=renderQuestionItem;
