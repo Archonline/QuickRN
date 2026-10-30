@@ -649,9 +649,11 @@ function renderQuestionItem() {
             document.getElementById('summary-prob').innerText = `${passingProb}%`;
             const probNote = document.getElementById('summary-prob-note');
             if (probNote) {
-                const gap = Math.abs(Number(theta)||0);
-                const position = theta > 0 ? 'above' : theta < 0 ? 'below' : 'at';
-                probNote.innerText = `Ability estimate is ${position} the passing cut score (theta 0; gap ${gap.toFixed(2)}). 50% means borderline; higher values indicate stronger evidence above standard.`;
+                const cut = window.QuickRNCAT.PASSING_THETA_THRESHOLD;
+                const distance = Number(theta)-cut;
+                const gap = Math.abs(distance);
+                const position = distance > 0.01 ? 'above' : distance < -0.01 ? 'below' : 'at';
+                probNote.innerText = `Ability estimate is ${position} the practice passing standard (theta ${cut.toFixed(2)}; distance ${gap.toFixed(2)}). Around 50% means borderline; higher values indicate stronger evidence above standard.`;
             }
             document.getElementById('summary-accuracy').innerText = `${scorePercent}%`;
             document.getElementById('summary-theta').innerText = (theta > 0 ? `+${theta}` : theta);
