@@ -21,6 +21,15 @@ assert.equal(api.grade(highlight,{highlights:['s2']}),false);
 const trend=fixtures[8][1];
 assert.equal(api.hasAnswer(trend,{choice:'Notify provider'}),true);
 assert.equal(api.grade(trend,{choice:'Notify provider'}),true);
+// NGN responses may be submitted before every matrix cell, cloze blank, or bowtie section is complete.
+assert.equal(api.hasAnswer(fixtures[2][1],{matrix:{r1:'Yes'}}),true,'partial matrix response can be submitted');
+assert.equal(api.hasAnswer(fixtures[3][1],{cloze:{finding:'A'}}),true,'partial cloze response can be submitted');
+assert.equal(api.hasAnswer(fixtures[5][1],{condition:'C'}),true,'partial bowtie response can be submitted');
+assert.equal(api.hasAnswer(fixtures[5][1],{actions:['A']}),true,'partial bowtie action can be submitted');
+assert.equal(api.hasAnswer(fixtures[2][1],{matrix:{}}),false,'empty matrix response remains unanswered');
+assert.equal(api.hasAnswer(fixtures[3][1],{cloze:{}}),false,'empty cloze response remains unanswered');
+assert.equal(api.hasAnswer(fixtures[5][1],{}),false,'empty bowtie response remains unanswered');
+
 const answerDrafts=[
  {choice:'A'},
  {choices:['A']},
