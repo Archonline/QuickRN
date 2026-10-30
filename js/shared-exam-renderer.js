@@ -69,3 +69,62 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 
 
         
+
+
+/* NGN case-study extensions: Highlight and Trend. Existing formats continue through the base renderer. */
+const quickRNBaseDetect = quickRNDetectItemFormat;
+quickRNDetectItemFormat = function(q) {
+ const raw=String(q.ngnType||q.type||q.format||q.questionType||q.itemType||'').toLowerCase();
+ if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
+ if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
+ if(raw.includes('extended multiple response'))return 'Extended Multiple Response';
+ if(raw.includes('multiple response')||raw.includes('select all')||raw.includes('sata'))return 'Multiple Response';
+ return quickRNBaseDetect(q);
+};
+const quickRNBaseNormalize = quickRNNormalizeDraft;
+quickRNNormalizeDraft = function(q,existing) {
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Highlight')return {highlights:Array.isArray(existing)?existing:(existing?.highlights||[])};
+ if(f==='Trend')return Array.isArray(q.correctAnswers)?{choices:Array.isArray(existing)?existing:(existing?.choices||[])}:{choice:typeof existing==='string'?existing:(existing?.choice||'')};
+ return quickRNBaseNormalize(q,existing);
+};
+const quickRNBaseRender = quickRNRenderClinicalItem;
+quickRNRenderClinicalItem = function(q,draft) {
+ const f=quickRNDetectItemFormat(q);
+ if(f!=='Highlight'&&f!=='Trend')return quickRNBaseRender(q,draft);
+ const esc=quickRNEscape, patient=q.patientInfo||{}, ehr=q.ehr||{};
+ const title=esc(quickRNCleanPrompt(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question'));
+ const prompt=esc(quickRNCleanPrompt(q.cleanInstruction||q.instruction||''));
+ const record=(q.ehr||q.patientInfo||q.caseStudy||q.case_study)?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong>Clinical Record</strong><span>'+esc(patient.name||patient.patientName||'Patient')+'</span></div><div class="qr-ehr-body">'+[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]].filter(x=>x[1]).map(x=>'<section class="qr-ehr-section"><h4>'+x[0]+'</h4><div>'+x[1]+'</div></section>').join('')+(q.caseStudy||q.case_study?'<section class="qr-ehr-section"><h4>Case information</h4><div>'+esc(q.caseStudy||q.case_study)+'</div></section>':'')+'</div></aside>':'';
+ let response='',trendPanel='';
+ if(f==='Highlight'){
+   const raw=q.highlightSegments||q.segments;
+   const source=q.highlightText||q.passage||q.caseStudyText||q.textToHighlight||q.questionText||q.question||'';
+   const segments=Array.isArray(raw)&&raw.length?raw.map((x,i)=>({id:String(x.id??i),text:String(x.text??x.label??x)})):String(source).match(/[^.!?]+[.!?]?/g)?.map((text,i)=>({id:String(i),text:text.trim()}))||[];
+   response=segments.length?'<div class="qr-highlight-instructions">Select the symptoms and clinical information that require attention.</div><div class="qr-highlight-list">'+segments.map(seg=>{const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);return '<button type="button" class="qr-highlight-segment '+(on?'is-selected':'')+'" aria-pressed="'+on+'" onclick="quickRNToggleDraft(\\'highlights\\','+JSON.stringify(seg.id)+')"><span class="qr-highlight-check">'+(on?'✓':'+')+'</span>'+esc(seg.text)+'</button>';}).join('')+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
+ } else {
+   const data=q.trendData||q.trends||q.trendTable||{}, rows=Array.isArray(data)?data:(data.rows||data.observations||[]), headers=Array.isArray(data.headers)?data.headers:(rows.length?Object.keys(rows[0]):[]);
+   trendPanel='<section class="qr-trend-panel"><h3>Clinical Trends</h3>'+(data.title?'<p>'+esc(data.title)+'</p>':'')+(rows.length?'<div class="qr-table-wrap"><table class="qr-trend-table"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+headers.map(h=>'<td>'+esc(row[h]??'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<div class="qr-missing">Trend data is missing from this item.</div>')+'</section>';
+   const opts=Array.isArray(q.options)?q.options:[],multi=Array.isArray(q.correctAnswers),selected=multi?(draft.choices||[]):[draft.choice];
+   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),on=selected.includes(val);return '<button type="button" class="qr-choice '+(on?'selected':'')+'" onclick="'+(multi?'quickRNToggleDraft(\\'choices\\','+JSON.stringify(val)+')':'quickRNSetDraft(\\'choice\\','+JSON.stringify(val)+')')+'"><span class="qr-choice-mark">'+(multi?(on?'✓':'□'):String.fromCharCode(65+i))+'</span><span>'+esc(quickRNOptionText(o))+'</span></button>';}).join(''):'<div class="qr-missing">This trend item is missing its response options.</div>';
+ }
+ return '<div class="qr-clinical-layout">'+record+'<section class="qr-question-panel"><div class="qr-question-head"><div class="qr-item-format">NGN · '+f+'</div><h2>'+title+'</h2>'+(prompt?'<p>'+prompt+'</p>':'')+'</div>'+trendPanel+'<div class="qr-response-area">'+response+'</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
+};
+const quickRNBaseHasAnswer=quickRNHasAnswer;
+quickRNHasAnswer=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Highlight')return (d.highlights||[]).length>0;if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]).length>0:!!d.choice;return quickRNBaseHasAnswer(q,d);};
+const quickRNBaseGrade=quickRNGrade;
+quickRNGrade=function(q,d){
+ const f=quickRNDetectItemFormat(q),eq=(a,b)=>String(a??'')===String(b??''),same=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
+ if(f==='Highlight'){const correct=q.correctHighlights||q.correctAnswers?.highlights||[];return correct.length>0&&same((d.highlights||[]).map(String),correct.map(String));}
+ if(f==='Trend'){
+  const opts=Array.isArray(q.options)?q.options:[];
+  if(Array.isArray(q.correctAnswers)){const correct=q.correctAnswers.map(x=>{const i=opts.findIndex((o,j)=>eq(quickRNOptionValue(o,j),x)||eq(quickRNOptionText(o),x));return i>=0?quickRNOptionValue(opts[i],i):x;});return same(d.choices||[],correct);}
+  const v=d.choice,c=q.correctAnswerText??q.correctAnswer,i=opts.findIndex((o,j)=>eq(quickRNOptionValue(o,j),v));return eq(v,c)||eq(i>=0?quickRNOptionText(opts[i]):v,c)||eq(v,String.fromCharCode(65+i));
+ }
+ return quickRNBaseGrade(q,d);
+};
+const quickRNBaseSummary=quickRNAnswerSummary;
+quickRNAnswerSummary=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Highlight')return (d.highlights||[]).join('; ')||'No highlights selected';if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]).join('; ')||'Unanswered':String(d.choice||'Unanswered');return quickRNBaseSummary(q,d);};
+function quickRNFromLegacyDraft(q,value){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return {choice:typeof value==='string'?value:''};if(f==='Multiple Response'||f==='Extended Multiple Response')return {choices:Array.isArray(value)?value:[]};if(f==='Extended Drag and Drop')return {order:Array.isArray(value)?value:(q.availableItems||[])};if(f==='Highlight')return {highlights:Array.isArray(value)?value:[]};if(f==='Trend')return Array.isArray(q.correctAnswers)?{choices:Array.isArray(value)?value:[]}:{choice:typeof value==='string'?value:''};if(f==='Cloze (Drop-down)')return {cloze:value||{}};if(f==='Matrix / Grid')return {matrix:value||{}};if(f==='Bowtie')return value||{condition:'',actions:[],monitoring:[]};return value||{};}
+function quickRNToLegacyDraft(q,d){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return d.choice||'';if(f==='Multiple Response'||f==='Extended Multiple Response')return d.choices||[];if(f==='Extended Drag and Drop')return d.order||[];if(f==='Highlight')return d.highlights||[];if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]):(d.choice||'');if(f==='Cloze (Drop-down)')return d.cloze||{};if(f==='Matrix / Grid')return d.matrix||{};if(f==='Bowtie')return {condition:d.condition||'',actions:d.actions||[],monitoring:d.monitoring||[]};return d;}
+window.QuickRNSharedRenderer={detect:quickRNDetectItemFormat,renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},hasAnswer:quickRNHasAnswer,grade:quickRNGrade,answerSummary:quickRNAnswerSummary};
