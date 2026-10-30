@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCLEX Simulator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        archer: {
+                            cyan: '#00a8cc',
+                            cyanDark: '#008ba8',
+                            teal: '#139ec4',
+                            darkBlue: '#003b5c',
+                            navy: '#0b3a5d',
+                            grayBg: '#f4f7f9',
+                            cardBg: '#ffffff',
+                            border: '#e2e8f0',
+                            accentGreen: '#10b981',
+                            accentRed: '#ef4444',
+                            accentOrange: '#f59e0b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for Drag & Drop and Specialized NCLEX UI Elements */
+        body {
+            user-select: none;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+        }
+        .highlightable-text {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 1px;
+        }
+        .highlightable-text:hover {
+            background-color: #e0f2fe;
+        }
+        .highlightable-text.selected {
+            background-color: #fef08a;
+            border-bottom: 2px solid #ca8a04;
+            font-weight: 600;
+        }
+        .bow-tie-node {
+            min-height: 80px;
+            transition: all 0.2s;
+        }
+        .drop-target-active {
+            border-color: #00a8cc !important;
+            background-color: #ecfeff !important;
+        }
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden text-slate-800 antialiased">
+
+    <!-- ==================== TOP HEADER (CYAN BANNER) ==================== -->
+    <header class="bg-archer-cyan text-white px-4 py-2 flex flex-wrap items-center justify-between shadow-md z-20 shrink-0 text-sm">
+        <!-- Left Banner Info -->
+        <div class="flex items-center space-x-3">
+            <span class="font-bold tracking-wider text-base uppercase flex items-center gap-1.5">
+                <i class="fa-solid fa-graduation-cap"></i> NCLEX SIMULATOR
+            </span>
+            <span class="hidden md:inline text-cyan-100">|</span>
+            <span class="hidden md:inline font-medium text-xs bg-cyan-700/40 px-2 py-0.5 rounded text-cyan-50">
+                DEMO USER
+            </span>
+        </div>
+
+        <!-- Center Information -->
+        <div class="flex items-center space-x-3 font-medium text-xs md:text-sm">
+            <span class="bg-cyan-800/30 px-2.5 py-1 rounded text-cyan-50">
+                26396798 (Tutorial) / QID: <span id="qid-display" class="font-mono font-bold">1001</span>
+            </span>
+        </div>
+
+        <!-- Right Tools & Controls -->
+        <div class="flex items-center space-x-2 md:space-x-4">
+            <!-- Filter Dropdown for Formats -->
+            <div class="relative">
+                <select id="format-filter" onchange="switchFormatFilter(this.value)" class="bg-cyan-800/50 text-white text-xs rounded border border-cyan-300/40 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-white cursor-pointer">
+                    <option value="ALL">All Question Types (11)</option>
+                    <option value="single">1. Single Choice</option>
+                    <option value="sata">2. Select All That Apply (SATA)</option>
+                    <option value="select_n">3. Select N</option>
+                    <option value="bowtie">4. Bow Tie (NGN)</option>
+                    <option value="cloze">5. Dropdown Cloze (NGN)</option>
+                    <option value="dropdown_rationale">6. Dropdown Rationale (NGN)</option>
+                    <option value="highlight">7. Highlight Text (NGN)</option>
+                    <option value="matrix_multiple">8. Matrix Multiple</option>
+                    <option value="matrix_single">9. Matrix Single</option>
+                    <option value="numeric">10. Numeric Entry</option>
+                    <option value="ordered">11. Ordered Response</option>
+                </select>
+            </div>
+
+            <!-- Stats Header -->
+            <div class="flex items-center gap-1 text-xs bg-cyan-800/40 px-2 py-1 rounded">
+                <i class="fa-regular fa-clock"></i>
+                <span id="timer-display" class="font-mono font-semibold">00:00:00</span>
+            </div>
+
+            <div class="text-xs bg-cyan-800/40 px-2 py-1 rounded font-semibold">
+                <span id="q-num-display">1</span> of <span id="q-total-display">11</span>
+            </div>
+
+            <!-- Header Action Icons -->
+            <button onclick="toggleCalculator()" title="Calculator" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white">
+                <i class="fa-solid fa-calculator"></i>
+            </button>
+
+            <button id="mark-btn" onclick="toggleMarkQuestion()" title="Mark for Later" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white flex items-center gap-1">
+                <i id="mark-icon" class="fa-regular fa-bookmark"></i>
+            </button>
+
+            <button onclick="toggleNotesModal()" title="Notes" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+
+            <button onclick="toggleFeedbackModal()" title="Feedback" class="p-1.5 hover:bg-cyan-700/50 rounded transition text-cyan-100 hover:text-white">
+                <i class="fa-regular fa-comment-dots"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN CONTENT (SPLIT-SCREEN) ==================== -->
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+
+        <!-- LEFT PANEL: Case Study Tabs / Question Stem -->
+        <section id="left-panel" class="w-full md:w-1/2 bg-white border-r border-slate-200 flex flex-col overflow-hidden h-1/2 md:h-full">
+            <!-- Tab Headers for NGN Case Studies -->
+            <div id="case-study-tabs" class="flex border-b border-slate-200 bg-slate-50 text-xs font-semibold overflow-x-auto shrink-0">
+                <!-- Tabs injected dynamically if case study, or default stem tab -->
+            </div>
+
+            <!-- Tab Content / Clinical Information Panel -->
+            <div id="case-study-content" class="p-5 overflow-y-auto flex-1 text-sm leading-relaxed text-slate-700 space-y-4">
+                <!-- Clinical Scenario Content loaded here -->
+            </div>
+        </section>
+
+        <!-- RIGHT PANEL: Question Input / Options & Rationale Area -->
+        <section id="right-panel" class="w-full md:w-1/2 bg-slate-50 flex flex-col overflow-y-auto h-1/2 md:h-full p-4 md:p-6 space-y-6">
+
+            <!-- Question Type Badge & Client Need Header -->
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span id="badge-item-type" class="text-xs font-bold px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 uppercase tracking-wide">
+                        SINGLE CHOICE
+                    </span>
+                    <span id="badge-difficulty" class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-100 text-yellow-800 uppercase">
+                        MEDIUM
+                    </span>
+                </div>
+                <div class="text-xs text-slate-500 font-medium" id="client-need-display">
+                    Client Need: Physiological Integrity
+                </div>
+            </div>
+
+            <!-- Question Instruction/Prompt Header -->
+            <div id="question-prompt" class="text-slate-800 font-medium text-base leading-snug">
+                <!-- Question prompt injected here -->
+            </div>
+
+            <!-- Interactive Answer Workspace -->
+            <div id="answer-workspace" class="space-y-3 flex-1 min-h-[180px]">
+                <!-- Options, Bow Tie, Dropdowns, Matrix, etc. dynamically injected -->
+            </div>
+
+            <!-- Action Controls (Submit / Reveal Answer) -->
+            <div class="pt-2 border-t border-slate-200 flex items-center justify-between">
+                <button id="submit-btn" onclick="submitAnswer()" class="bg-archer-cyan hover:bg-archer-cyanDark text-white font-semibold px-6 py-2 rounded shadow transition text-sm flex items-center gap-2">
+                    <span>Submit Answer</span>
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+                <div id="status-message" class="text-xs font-semibold text-slate-500 hidden"></div>
+            </div>
+
+            <!-- ==================== EXPLANATION / RATIONALE PANEL ==================== -->
+            <div id="rationale-section" class="hidden bg-white border border-slate-200 rounded-lg p-5 shadow-sm space-y-4 mt-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div class="flex items-center gap-2">
+                        <span id="result-badge" class="px-3 py-1 rounded text-xs font-bold uppercase text-white bg-green-600">
+                            CORRECT
+                        </span>
+                        <span class="text-xs text-slate-500 font-semibold" id="score-earned">Score: 1/1</span>
+                    </div>
+                    <!-- Peer Performance Stat -->
+                    <div class="text-xs text-slate-600 font-medium bg-slate-100 px-2.5 py-1 rounded">
+                        Peer Success Rate: <span id="peer-stats" class="font-bold text-archer-darkBlue">68%</span>
+                    </div>
+                </div>
+
+                <!-- Detailed Explanation Text -->
+                <div>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Rationale & Detailed Explanation</h4>
+                    <div id="rationale-text" class="text-sm text-slate-700 leading-relaxed space-y-2">
+                        <!-- Explanation injected here -->
+                    </div>
+                </div>
+
+                <!-- Video Rationale Component Placeholder -->
+                <div class="bg-slate-900 rounded-lg p-4 text-white flex flex-col items-center justify-center space-y-2 relative overflow-hidden">
+                    <div class="flex items-center gap-2 text-archer-cyan font-bold text-xs uppercase tracking-wider">
+                        <i class="fa-solid fa-circle-play text-red-500 text-base"></i> Video Explanation
+                    </div>
+                    <div class="w-full h-32 bg-slate-800 rounded flex flex-col items-center justify-center border border-slate-700 cursor-pointer hover:border-archer-cyan transition group">
+                        <div class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center group-hover:scale-110 transition shadow-lg">
+                            <i class="fa-solid fa-play ml-0.5"></i>
+                        </div>
+                        <span class="text-xs text-slate-400 mt-2 font-medium">Watch Full Video Solution (2:45)</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- ==================== BOTTOM FOOTER (ARCHER DARK BLUE BAR) ==================== -->
+    <footer class="bg-archer-darkBlue text-white px-4 py-2.5 flex items-center justify-between shadow-lg z-20 shrink-0 text-sm">
+        <!-- Left Buttons -->
+        <div class="flex items-center space-x-3">
+            <button onclick="confirmEndTest()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-power-off"></i> End
+            </button>
+            <button onclick="pauseTest()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-pause"></i> Pause
+            </button>
+        </div>
+
+        <!-- Right Navigation Buttons -->
+        <div class="flex items-center space-x-3">
+            <button id="prev-btn" onclick="navigateQuestion(-1)" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed shadow">
+                <i class="fa-solid fa-chevron-left"></i> Previous
+            </button>
+            <button id="next-btn" onclick="navigateQuestion(1)" class="bg-archer-cyan hover:bg-archer-cyanDark text-white px-5 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 shadow">
+                Next <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- ==================== CALCULATOR MODAL ==================== -->
+    <div id="calc-modal" class="hidden fixed top-16 right-8 bg-slate-800 text-white rounded-lg shadow-2xl p-4 border border-slate-700 z-50 w-64">
+        <div class="flex justify-between items-center mb-2 border-b border-slate-700 pb-2">
+            <span class="text-xs font-bold text-slate-300">NCLEX Calculator</span>
+            <button onclick="toggleCalculator()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <input type="text" id="calc-screen" readonly class="w-full bg-slate-900 text-right text-xl font-mono text-green-400 p-2 rounded mb-3 border border-slate-700" value="0">
+        <div class="grid grid-cols-4 gap-1.5 text-center font-bold text-sm">
+            <button onclick="calcInput('C')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-red-400">C</button>
+            <button onclick="calcInput('(')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">(</button>
+            <button onclick="calcInput(')')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">)</button>
+            <button onclick="calcInput('/')" class="bg-amber-600 hover:bg-amber-500 p-2 rounded">÷</button>
+
+            <button onclick="calcInput('7')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">7</button>
+            <button onclick="calcInput('8')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">8</button>
+            <button onclick="calcInput('9')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">9</button>
+            <button onclick="calcInput('*')" class="bg-amber-600 hover:bg-amber-500 p-2 rounded">×</button>
+
+            <button onclick="calcInput('4')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">4</button>
+            <button onclick="calcInput('5')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">5</button>
+            <button onclick="calcInput('6')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">6</button>
+            <button onclick="calcInput('-')" class="bg-amber-600 hover:bg-amber-500 p-2 rounded">-</button>
+
+            <button onclick="calcInput('1')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">1</button>
+            <button onclick="calcInput('2')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">2</button>
+            <button onclick="calcInput('3')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">3</button>
+            <button onclick="calcInput('+')" class="bg-amber-600 hover:bg-amber-500 p-2 rounded">+</button>
+
+            <button onclick="calcInput('0')" class="col-span-2 bg-slate-700 hover:bg-slate-600 p-2 rounded">0</button>
+            <button onclick="calcInput('.')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">.</button>
+            <button onclick="calcEquals()" class="bg-archer-cyan hover:bg-archer-cyanDark p-2 rounded">=</button>
+        </div>
+    </div>
+
+    <!-- ==================== NOTES MODAL ==================== -->
+    <div id="notes-modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg overflow-hidden border border-slate-200">
+            <div class="bg-archer-darkBlue text-white px-4 py-3 flex justify-between items-center">
+                <h3 class="font-semibold text-sm">Personal Notes</h3>
+                <button onclick="toggleNotesModal()" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-4">
+                <textarea id="notes-textarea" class="w-full h-40 p-3 border border-slate-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-archer-cyan" placeholder="Type your personal clinical notes or reflections for this item..."></textarea>
+            </div>
+            <div class="bg-slate-50 px-4 py-2.5 flex justify-end gap-2">
+                <button onclick="toggleNotesModal()" class="px-4 py-1.5 bg-slate-200 text-slate-700 rounded text-xs font-semibold hover:bg-slate-300">Close</button>
+                <button onclick="saveNotes()" class="px-4 py-1.5 bg-archer-cyan text-white rounded text-xs font-semibold hover:bg-archer-cyanDark">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== FEEDBACK MODAL ==================== -->
+    <div id="feedback-modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden border border-slate-200">
+            <div class="bg-archer-darkBlue text-white px-4 py-3 flex justify-between items-center">
+                <h3 class="font-semibold text-sm">Submit Item Feedback</h3>
+                <button onclick="toggleFeedbackModal()" class="text-slate-300 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-4 space-y-3">
+                <p class="text-xs text-slate-600">Spotted an issue or have suggestions for Question ID <span id="fb-qid" class="font-bold"></span>?</p>
+                <textarea class="w-full h-28 p-2.5 border border-slate-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-archer-cyan" placeholder="Describe the issue..."></textarea>
+            </div>
+            <div class="bg-slate-50 px-4 py-2.5 flex justify-end gap-2">
+                <button onclick="toggleFeedbackModal()" class="px-4 py-1.5 bg-slate-200 text-slate-700 rounded text-xs font-semibold">Cancel</button>
+                <button onclick="submitFeedback()" class="px-4 py-1.5 bg-archer-cyan text-white rounded text-xs font-semibold">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT SIMULATOR ENGINE ==================== -->
+    <script>
+        // ==================== MOCK QUESTION BANK (ALL 11 FORMATS) ====================
+        const mockQuestions = [
+            // 1. SINGLE CHOICE
+            {
+                id: "1001",
+                type: "single",
+                typeLabel: "Single Choice",
+                difficulty: "MEDIUM",
+                clientNeed: "Physiological Integrity - Pharmacological Therapies",
+                peerStats: 74,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Question Stem", content: "<p class='font-medium text-slate-800'>A nurse is caring for a client with acute decompensated heart failure receiving an intravenous infusion of furosemide.</p><p class='mt-2'>Which assessment finding requires immediate intervention by the nurse?</p>" }
+                    ]
+                },
+                prompt: "Select the single best response below:",
+                options: [
+                    { id: "A", text: "Serum potassium level of 3.1 mEq/L (3.1 mmol/L)", stats: 74, correct: true },
+                    { id: "B", text: "Blood pressure of 118/76 mmHg", stats: 12, correct: false },
+                    { id: "C", text: "Urine output of 60 mL in the last hour", stats: 9, correct: false },
+                    { id: "D", text: "Serum sodium level of 138 mEq/L (138 mmol/L)", stats: 5, correct: false }
+                ],
+                rationale: "<strong>Correct Answer: A.</strong> Furosemide is a loop diuretic that causes hypokalemia. A serum potassium level of 3.1 mEq/L is significantly below normal (3.5 - 5.0 mEq/L) and places the client at risk for cardiac dysrhythmias."
+            },
+
+            // 2. SELECT ALL THAT APPLY (SATA)
+            {
+                id: "1002",
+                type: "sata",
+                typeLabel: "Select All That Apply",
+                difficulty: "HARD",
+                clientNeed: "Reduction of Risk Potential",
+                peerStats: 58,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Clinical Scenario", content: "<p class='font-medium text-slate-800'>A client is admitted with suspected pulmonary embolism. The nurse prepares to administer intravenous unfractionated heparin.</p><p class='mt-2'>Which actions should the nurse include in the plan of care?</p>" }
+                    ]
+                },
+                prompt: "Select all that apply:",
+                options: [
+                    { id: "A", text: "Monitor activated partial thromboplastin time (aPTT) regularly", correct: true },
+                    { id: "B", text: "Keep protamine sulfate readily available as an antidote", correct: true },
+                    { id: "C", text: "Assess for hematuria, epistaxis, and gingival bleeding", correct: true },
+                    { id: "D", text: "Encourage vigorous tooth brushing with a firm-bristle brush", correct: false },
+                    { id: "E", text: "Administer aspirin 325 mg orally daily for pain relief", correct: false }
+                ],
+                rationale: "<strong>Correct Answers: A, B, C.</strong> Heparin therapy requires close monitoring of aPTT. Protamine sulfate is the specific reversal agent. Assessing for bleeding signs is critical. Aspirin increases bleeding risk, and soft-bristled toothbrushes should be used."
+            },
+
+            // 3. SELECT N
+            {
+                id: "1003",
+                type: "select_n",
+                typeLabel: "Select N (Select 3)",
+                nRequired: 3,
+                difficulty: "MEDIUM",
+                clientNeed: "Safe and Effective Care Environment",
+                peerStats: 62,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Nurses' Notes", content: "<p class='font-medium text-slate-800'>A nurse is educating a client who was newly diagnosed with Type 1 Diabetes Mellitus regarding hypoglycemia recognition and management.</p>" }
+                    ]
+                },
+                prompt: "Select the EXACT 3 clinical findings that indicate hypoglycemia requiring prompt intervention:",
+                options: [
+                    { id: "A", text: "Diaphoresis and cool, clammy skin", correct: true },
+                    { id: "B", text: "Tremors and shakiness", correct: true },
+                    { id: "C", text: "Tachycardia and palpitations", correct: true },
+                    { id: "D", text: "Kussmaul breathing", correct: false },
+                    { id: "E", text: "Fruity breath odor", correct: false },
+                    { id: "F", text: "Polyuria and polydipsia", correct: false }
+                ],
+                rationale: "<strong>Correct Answers: A, B, C.</strong> Diaphoresis, tremors, and tachycardia are sympathetic activation symptoms of hypoglycemia. Kussmaul respirations and fruity breath are seen in Diabetic Ketoacidosis (hyperglycemia)."
+            },
+
+            // 4. BOW TIE (NGN)
+            {
+                id: "1004",
+                type: "bowtie",
+                typeLabel: "NGN Bow Tie",
+                difficulty: "HARD",
+                clientNeed: "Physiological Adaptation",
+                peerStats: 51,
+                caseStudy: {
+                    tabs: [
+                        { id: "history", title: "Medical History", content: "<p><strong>Client:</strong> 68-year-old male with COPD, Hypertension, and Heart Failure.</p><p class='mt-2'>Presents with sudden shortness of breath, pink frothy sputum, tachypnea (32/min), and crackles throughout lung fields.</p>" },
+                        { id: "vitals", title: "Vital Signs", content: "<p>BP: 178/96 mmHg | HR: 114 bpm | SpO2: 84% on room air | Temp: 37.0°C</p>" }
+                    ]
+                },
+                prompt: "Complete the bow tie diagram by selecting the potential condition, two actions to take, and two parameters to monitor.",
+                bowtieConfig: {
+                    actionsNeeded: 2,
+                    conditionNeeded: 1,
+                    paramsNeeded: 2,
+                    actionsPool: ["Administer IV Furosemide", "Place client in high-Fowler's position", "Administer nebulized Albuterol", "Initiate IV Normal Saline bolus"],
+                    conditionsPool: ["Acute Pulmonary Edema", "Pneumothorax", "Asthma Exacerbation"],
+                    paramsPool: ["Oxygen Saturation (SpO2)", "Urine Output", "Serum Calcium", "Blood Glucose"],
+                    correct: {
+                        actions: ["Administer IV Furosemide", "Place client in high-Fowler's position"],
+                        condition: "Acute Pulmonary Edema",
+                        params: ["Oxygen Saturation (SpO2)", "Urine Output"]
+                    }
+                },
+                rationale: "<strong>Rationale:</strong> The client shows classic manifestations of Acute Pulmonary Edema (pink frothy sputum, severe hypoxia, crackles). Interventions include high-Fowler's positioning to reduce venous return and IV diuretics (Furosemide). Oxygen saturation and urine output (diuretic response) must be closely monitored."
+            },
+
+            // 5. DROPDOWN CLOZE (NGN)
+            {
+                id: "1005",
+                type: "cloze",
+                typeLabel: "NGN Dropdown Cloze",
+                difficulty: "MEDIUM",
+                clientNeed: "Pharmacological Therapies",
+                peerStats: 66,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Nurses' Notes", content: "<p>The nurse evaluates a client 2 hours post-thyroidectomy. The client reports tingling in the fingertips and around the lips (paresthesia), and has a positive Trousseau's sign.</p>" }
+                    ]
+                },
+                prompt: "Complete the paragraph by choosing the options from the dropdown menus:",
+                templateText: "The client is displaying symptoms consistent with [drop1]. The nurse should anticipate administering [drop2] intravenously.",
+                dropdowns: [
+                    { id: "drop1", options: ["Hypocalcemia", "Hyperkalemia", "Thyrotoxicosis"], correct: "Hypocalcemia" },
+                    { id: "drop2", options: ["Calcium Gluconate", "Sodium Bicarbonate", "Potassium Chloride"], correct: "Calcium Gluconate" }
+                ],
+                rationale: "<strong>Rationale:</strong> Accidental removal or damage to the parathyroid glands during thyroidectomy leads to hypocalcemia, characterized by paresthesias and positive Trousseau's/Chvostek's signs. IV Calcium Gluconate is the immediate emergency treatment."
+            },
+
+            // 6. DROPDOWN RATIONALE (NGN)
+            {
+                id: "1006",
+                type: "dropdown_rationale",
+                typeLabel: "NGN Dropdown Rationale",
+                difficulty: "MEDIUM",
+                clientNeed: "Reduction of Risk Potential",
+                peerStats: 71,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Clinical Scenario", content: "<p>A client is receiving total parenteral nutrition (TPN) through a central venous catheter. The current TPN bag is empty, and the next ordered bag is delayed from the pharmacy.</p>" }
+                    ]
+                },
+                prompt: "Choose the correct options to complete the rationale statement:",
+                templateText: "The nurse should infuse [drop1] at the same rate because [drop2].",
+                dropdowns: [
+                    { id: "drop1", options: ["10% Dextrose in Water (D10W)", "0.9% Normal Saline", "Lactated Ringer's solution"], correct: "10% Dextrose in Water (D10W)" },
+                    { id: "drop2", options: ["it prevents rebound hypoglycemia", "it maintains central line patency", "it prevents fluid overload"], correct: "it prevents rebound hypoglycemia" }
+                ],
+                rationale: "<strong>Rationale:</strong> Abrupt cessation of high-dextrose TPN can cause severe rebound hypoglycemia due to circulating high insulin levels. Infusing D10W maintains blood glucose until the next TPN bag arrives."
+            },
+
+            // 7. HIGHLIGHT TEXT (NGN)
+            {
+                id: "1007",
+                type: "highlight",
+                typeLabel: "NGN Highlight Text",
+                difficulty: "HARD",
+                clientNeed: "Health Promotion and Maintenance",
+                peerStats: 54,
+                caseStudy: {
+                    tabs: [
+                        { id: "chart", title: "Nurses' Notes", content: "<p>Highlight the findings below that require immediate follow-up by the nurse.</p>" }
+                    ]
+                },
+                prompt: "Click on the specific text segments in the clinical record to highlight suspicious findings:",
+                tokens: [
+                    { text: "Client is a 54-year-old female admitted for elective cholecystectomy.", selectable: false },
+                    { text: "Vital signs: Temperature 38.9°C (102.0°F),", selectable: true, correct: true },
+                    { text: "Heart Rate 118/min,", selectable: true, correct: true },
+                    { text: "Respirations 18/min,", selectable: true, correct: false },
+                    { text: "Blood Pressure 122/78 mmHg.", selectable: true, correct: false },
+                    { text: "Surgical site dressing is dry and intact without drainage.", selectable: false },
+                    { text: "Client reports severe surgical site pain rated 9/10,", selectable: true, correct: true },
+                    { text: "and states she has not voided in 8 hours.", selectable: true, correct: true }
+                ],
+                rationale: "<strong>Rationale:</strong> Significant postoperative fever (38.9°C), tachycardia (118/min), severe uncontrolled pain (9/10), and urinary retention (>8 hours without voiding) require immediate nursing intervention and provider notification."
+            },
+
+            // 8. MATRIX MULTIPLE
+            {
+                id: "1008",
+                type: "matrix_multiple",
+                typeLabel: "Matrix Multiple Response",
+                difficulty: "HARD",
+                clientNeed: "Physiological Adaptation",
+                peerStats: 48,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Clinical Comparison", content: "<p>The nurse is evaluating clients with arterial and venous vascular disorders.</p>" }
+                    ]
+                },
+                prompt: "For each clinical finding, select whether it is characteristic of Peripheral Artery Disease (PAD), Peripheral Venous Disease (PVD), or Both:",
+                columns: ["PAD", "PVD", "Both"],
+                rows: [
+                    { text: "Diminished or absent peripheral pulses", correct: ["PAD"] },
+                    { text: "Edema around the ankles and lower legs", correct: ["PVD"] },
+                    { text: "Intermittent claudication pain relieved by rest", correct: ["PAD"] },
+                    { text: "Bronze-brown skin pigmentation around ankles", correct: ["PVD"] }
+                ],
+                rationale: "<strong>Rationale:</strong> PAD causes arterial ischemia resulting in absent pulses and claudication. PVD causes venous stasis leading to edema and hemosiderin staining (bronze-brown discoloration)."
+            },
+
+            // 9. MATRIX SINGLE
+            {
+                id: "1009",
+                type: "matrix_single",
+                typeLabel: "Matrix Single Choice",
+                difficulty: "MEDIUM",
+                clientNeed: "Psychosocial Integrity",
+                peerStats: 65,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Client Behaviors", content: "<p>The nurse is assessing defense mechanisms exhibited by psychiatric clients.</p>" }
+                    ]
+                },
+                prompt: "For each client statement, select the single defense mechanism being demonstrated:",
+                columns: ["Denial", "Projection", "Displacement"],
+                rows: [
+                    { text: "A client slams the door after a difficult meeting with his physician.", correct: "Displacement" },
+                    { text: "A client with alcoholism states, 'I don't have a drinking problem, I can quit anytime.'", correct: "Denial" },
+                    { text: "A hostile client accuses the nurse of being angry and aggressive.", correct: "Projection" }
+                ],
+                rationale: "<strong>Rationale:</strong> Displacement redirects emotions to a safer target (door). Denial refuses to acknowledge reality. Projection attributes one's own unacceptable feelings onto another person."
+            },
+
+            // 10. NUMERIC ENTRY
+            {
+                id: "1010",
+                type: "numeric",
+                typeLabel: "Numeric Entry",
+                difficulty: "MEDIUM",
+                clientNeed: "Pharmacological Therapies",
+                peerStats: 79,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Dosage Calculation", content: "<p><strong>Order:</strong> Administer Cefazolin 750 mg IV piggyback every 8 hours.</p><p class='mt-2'><strong>Available:</strong> Cefazolin 1 gram reconstituted in 100 mL 0.9% Normal Saline.</p>" }
+                    ]
+                },
+                prompt: "Calculate the volume in milliliters (mL) the nurse should administer per dose. (Round to the nearest whole number):",
+                unit: "mL",
+                correctValue: "75",
+                acceptedRange: [75, 75],
+                rationale: "<strong>Calculation Steps:</strong><br>1. Convert grams to milligrams: 1 g = 1000 mg.<br>2. Formula: (Desired / Available) × Volume = (750 mg / 1000 mg) × 100 mL = 0.75 × 100 = <strong>75 mL</strong>."
+            },
+
+            // 11. ORDERED RESPONSE
+            {
+                id: "1011",
+                type: "ordered",
+                typeLabel: "Ordered Response (Drag & Drop / Reorder)",
+                difficulty: "HARD",
+                clientNeed: "Safe and Effective Care Environment",
+                peerStats: 59,
+                caseStudy: {
+                    tabs: [
+                        { id: "stem", title: "Clinical Procedure", content: "<p class='font-medium text-slate-800'>A nurse is preparing to suction a client's tracheostomy tube using sterile technique.</p>" }
+                    ]
+                },
+                prompt: "Place the nursing actions in the correct chronological sequence from first (1) to last (5):",
+                items: [
+                    { id: "step1", text: "Hyperoxygenate the client with 100% oxygen", correctOrder: 1 },
+                    { id: "step2", text: "Gently insert suction catheter without applying suction until resistance is met", correctOrder: 2 },
+                    { id: "step3", text: "Apply intermittent suction while rotating catheter upon withdrawal", correctOrder: 3 },
+                    { id: "step4", text: "Limit suctioning attempt duration to 10–15 seconds", correctOrder: 4 },
+                    { id: "step5", text: "Re-assess lung sounds and pulse oximetry", correctOrder: 5 }
+                ],
+                rationale: "<strong>Correct Sequence:</strong> Hyperoxygenating prevents hypoxia. The catheter is inserted without suction to prevent tissue trauma. Intermittent suction with rotation is applied during withdrawal (max 10-15s). Afterwards, clinical response is evaluated."
+            }
+        ];
+
+        // ==================== STATE MANAGEMENT ====================
+        let currentQuestions = [...mockQuestions];
+        let currentIndex = 0;
+        let userAnswers = {}; // Keyed by question id
+        let userNotes = {};
+        let markedQuestions = new Set();
+        let timerSeconds = 0;
+        let timerInterval = null;
+
+        // ==================== INITIALIZATION ====================
+        window.onload = function() {
+            startTimer();
+            loadExternalQuestionsScript();
+            renderCurrentQuestion();
+        };
+
+        // Fallback or external questions.js dynamic loader
+        function loadExternalQuestionsScript() {
+            if (window.externalQuestions && Array.isArray(window.externalQuestions)) {
+                currentQuestions = window.externalQuestions;
+                document.getElementById('q-total-display').innerText = currentQuestions.length;
+                renderCurrentQuestion();
+            }
+        }
+
+        // ==================== TIMER LOGIC ====================
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const hrs = String(Math.floor(timerSeconds / 3600)).padStart(2, '0');
+                const mins = String(Math.floor((timerSeconds % 3600) / 60)).padStart(2, '0');
+                const secs = String(timerSeconds % 60).padStart(2, '0');
+                document.getElementById('timer-display').innerText = `${hrs}:${mins}:${secs}`;
+            }, 1000);
+        }
+
+        // ==================== QUESTION NAVIGATION ====================
+        function switchFormatFilter(filterVal) {
+            if (filterVal === "ALL") {
+                currentQuestions = [...mockQuestions];
+            } else {
+                currentQuestions = mockQuestions.filter(q => q.type === filterVal);
+            }
+            currentIndex = 0;
+            renderCurrentQuestion();
+        }
+
+        function navigateQuestion(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < currentQuestions.length) {
+                currentIndex = newIndex;
+                renderCurrentQuestion();
+            }
+        }
+
+        function toggleMarkQuestion() {
+            const q = currentQuestions[currentIndex];
+            const btn = document.getElementById('mark-btn');
+            const icon = document.getElementById('mark-icon');
+            if (markedQuestions.has(q.id)) {
+                markedQuestions.delete(q.id);
+                icon.className = 'fa-regular fa-bookmark';
+                btn.classList.remove('text-amber-300');
+            } else {
+                markedQuestions.add(q.id);
+                icon.className = 'fa-solid fa-bookmark text-amber-300';
+            }
+        }
+
+        // ==================== RENDER MAIN INTERFACE ====================
+        function renderCurrentQuestion() {
+            const q = currentQuestions[currentIndex];
+
+            // Update Header & Nav stats
+            document.getElementById('qid-display').innerText = q.id;
+            document.getElementById('q-num-display').innerText = currentIndex + 1;
+            document.getElementById('q-total-display').innerText = currentQuestions.length;
+
+            // Mark button state
+            const markIcon = document.getElementById('mark-icon');
+            if (markedQuestions.has(q.id)) {
+                markIcon.className = 'fa-solid fa-bookmark text-amber-300';
+            } else {
+                markIcon.className = 'fa-regular fa-bookmark';
+            }
+
+            // Prev / Next button state
+            document.getElementById('prev-btn').disabled = currentIndex === 0;
+            document.getElementById('next-btn').disabled = currentIndex === currentQuestions.length - 1;
+
+            // Badges
+            document.getElementById('badge-item-type').innerText = q.typeLabel || q.type.toUpperCase();
+            document.getElementById('badge-difficulty').innerText = q.difficulty || "MEDIUM";
+            document.getElementById('client-need-display').innerText = q.clientNeed || "NCLEX Practice Category";
+
+            // Render Left Case Study / Stem Tabs
+            renderCaseStudyPanel(q);
+
+            // Render Right Prompt
+            document.getElementById('question-prompt').innerHTML = q.prompt;
+
+            // Render Workspace according to question format
+            renderWorkspace(q);
+
+            // Reset/Load Rationale state
+            const savedAns = userAnswers[q.id];
+            if (savedAns && savedAns.submitted) {
+                showRationale(q, savedAns);
+            } else {
+                document.getElementById('rationale-section').classList.add('hidden');
+                document.getElementById('submit-btn').disabled = false;
+                document.getElementById('submit-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        // ==================== LEFT PANEL CASE STUDY RENDERER ====================
+        function renderCaseStudyPanel(q) {
+            const tabsContainer = document.getElementById('case-study-tabs');
+            const contentContainer = document.getElementById('case-study-content');
+
+            tabsContainer.innerHTML = '';
+            contentContainer.innerHTML = '';
+
+            if (q.caseStudy && q.caseStudy.tabs) {
+                q.caseStudy.tabs.forEach((tab, index) => {
+                    const tabBtn = document.createElement('button');
+                    tabBtn.className = `px-4 py-2.5 border-b-2 font-medium transition text-xs whitespace-nowrap flex items-center gap-1.5 ${
+                        index === 0 
+                            ? 'border-archer-cyan text-archer-darkBlue bg-white font-bold' 
+                            : 'border-transparent text-slate-500 hover:text-slate-700 bg-slate-100'
+                    }`;
+                    tabBtn.innerHTML = `<i class="fa-regular fa-folder-open text-xs"></i> ${tab.title}`;
+                    tabBtn.onclick = () => switchCaseTab(index, q.caseStudy.tabs.length);
+                    tabBtn.id = `case-tab-${index}`;
+                    tabsContainer.appendChild(tabBtn);
+
+                    const tabContent = document.createElement('div');
+                    tabContent.id = `case-content-${index}`;
+                    tabContent.className = index === 0 ? 'block space-y-3' : 'hidden space-y-3';
+                    tabContent.innerHTML = tab.content;
+                    contentContainer.appendChild(tabContent);
+                });
+            }
+        }
+
+        function switchCaseTab(activeIndex, totalTabs) {
+            for (let i = 0; i < totalTabs; i++) {
+                const btn = document.getElementById(`case-tab-${i}`);
+                const content = document.getElementById(`case-content-${i}`);
+                if (i === activeIndex) {
+                    btn.className = 'px-4 py-2.5 border-b-2 border-archer-cyan text-archer-darkBlue bg-white font-bold transition text-xs whitespace-nowrap flex items-center gap-1.5';
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    btn.className = 'px-4 py-2.5 border-b-2 border-transparent text-slate-500 hover:text-slate-700 bg-slate-100 font-medium transition text-xs whitespace-nowrap flex items-center gap-1.5';
+                    content.classList.remove('block');
+                    content.classList.add('hidden');
+                }
+            }
+        }
+
+        // ==================== RIGHT PANEL WORKSPACE BUILDER ====================
+        function renderWorkspace(q) {
+            const workspace = document.getElementById('answer-workspace');
+            workspace.innerHTML = '';
+
+            const saved = userAnswers[q.id] || {};
+
+            switch (q.type) {
+                case 'single':
+                    q.options.forEach(opt => {
+                        const isChecked = saved.selected === opt.id;
+                        const div = document.createElement('label');
+                        div.className = `flex items-center p-3 border rounded-lg cursor-pointer transition hover:bg-slate-100 ${isChecked ? 'border-archer-cyan bg-cyan-50/50 ring-1 ring-archer-cyan' : 'border-slate-200 bg-white'}`;
+                        div.innerHTML = `
+                            <input type="radio" name="opt_single" value="${opt.id}" ${isChecked ? 'checked' : ''} onchange="saveSelection('single', '${opt.id}')" class="w-4 h-4 text-archer-cyan focus:ring-archer-cyan">
+                            <span class="ml-3 text-sm text-slate-800"><strong class="mr-1">${opt.id}.</strong> ${opt.text}</span>
+                        `;
+                        workspace.appendChild(div);
+                    });
+                    break;
+
+                case 'sata':
+                case 'select_n':
+                    const selectedList = saved.selectedList || [];
+                    q.options.forEach(opt => {
+                        const isChecked = selectedList.includes(opt.id);
+                        const div = document.createElement('label');
+                        div.className = `flex items-center p-3 border rounded-lg cursor-pointer transition hover:bg-slate-100 ${isChecked ? 'border-archer-cyan bg-cyan-50/50 ring-1 ring-archer-cyan' : 'border-slate-200 bg-white'}`;
+                        div.innerHTML = `
+                            <input type="checkbox" value="${opt.id}" ${isChecked ? 'checked' : ''} onchange="toggleCheckboxSelection('${opt.id}', ${q.nRequired || null})" class="w-4 h-4 rounded text-archer-cyan focus:ring-archer-cyan">
+                            <span class="ml-3 text-sm text-slate-800"><strong class="mr-1">${opt.id}.</strong> ${opt.text}</span>
+                        `;
+                        workspace.appendChild(div);
+                    });
+                    if (q.nRequired) {
+                        const note = document.createElement('div');
+                        note.className = "text-xs text-amber-700 font-semibold bg-amber-50 p-2 rounded border border-amber-200";
+                        note.innerText = `Please select exactly ${q.nRequired} options. (${selectedList.length}/${q.nRequired} selected)`;
+                        workspace.appendChild(note);
+                    }
+                    break;
+
+                case 'bowtie':
+                    renderBowTieWorkspace(q, saved);
+                    break;
+
+                case 'cloze':
+                case 'dropdown_rationale':
+                    renderDropdownTextWorkspace(q, saved);
+                    break;
+
+                case 'highlight':
+                    renderHighlightWorkspace(q, saved);
+                    break;
+
+                case 'matrix_multiple':
+                case 'matrix_single':
+                    renderMatrixWorkspace(q, saved);
+                    break;
+
+                case 'numeric':
+                    const inputVal = saved.value || '';
+                    workspace.innerHTML = `
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 space-y-3">
+                            <label class="block text-xs font-bold text-slate-600 uppercase">Enter numerical answer below:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" step="any" id="numeric-input" value="${inputVal}" oninput="saveNumericInput(this.value)" class="w-48 p-2.5 border border-slate-300 rounded font-mono text-base focus:ring-1 focus:ring-archer-cyan focus:outline-none" placeholder="0">
+                                <span class="font-bold text-sm text-slate-600">${q.unit || ''}</span>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                case 'ordered':
+                    renderOrderedWorkspace(q, saved);
+                    break;
+            }
+        }
+
+        // ==================== BOW TIE RENDERER ====================
+        function renderBowTieWorkspace(q, saved) {
+            const workspace = document.getElementById('answer-workspace');
+            const cfg = q.bowtieConfig;
+            const bowtieState = saved.bowtieState || { actions: [], condition: null, params: [] };
+
+            workspace.innerHTML = `
+                <!-- Bow Tie Interactive Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                    <!-- Left: Actions to Take (2) -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-center bg-sky-100 text-sky-800 p-1.5 rounded uppercase">Actions to Take (2)</div>
+                        <div id="bt-node-action-0" onclick="clearBowTieSlot('actions', 0)" class="bow-tie-node border-2 border-dashed border-sky-300 rounded-lg p-2 text-center text-xs flex items-center justify-center cursor-pointer hover:bg-sky-50 bg-slate-50">
+                            ${bowtieState.actions[0] || '<span class="text-slate-400">Click card below to assign</span>'}
+                        </div>
+                        <div id="bt-node-action-1" onclick="clearBowTieSlot('actions', 1)" class="bow-tie-node border-2 border-dashed border-sky-300 rounded-lg p-2 text-center text-xs flex items-center justify-center cursor-pointer hover:bg-sky-50 bg-slate-50">
+                            ${bowtieState.actions[1] || '<span class="text-slate-400">Click card below to assign</span>'}
+                        </div>
+                    </div>
+
+                    <!-- Center: Potential Condition (1) -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-center bg-indigo-100 text-indigo-800 p-1.5 rounded uppercase">Potential Condition (1)</div>
+                        <div id="bt-node-condition" onclick="clearBowTieSlot('condition', 0)" class="bow-tie-node border-2 border-indigo-400 rounded-lg p-2 text-center text-xs font-semibold flex items-center justify-center cursor-pointer bg-indigo-50/50 shadow-inner">
+                            ${bowtieState.condition || '<span class="text-slate-400">Click card below to assign</span>'}
+                        </div>
+                    </div>
+
+                    <!-- Right: Parameters to Monitor (2) -->
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-center bg-teal-100 text-teal-800 p-1.5 rounded uppercase">Parameters to Monitor (2)</div>
+                        <div id="bt-node-param-0" onclick="clearBowTieSlot('params', 0)" class="bow-tie-node border-2 border-dashed border-teal-300 rounded-lg p-2 text-center text-xs flex items-center justify-center cursor-pointer hover:bg-teal-50 bg-slate-50">
+                            ${bowtieState.params[0] || '<span class="text-slate-400">Click card below to assign</span>'}
+                        </div>
+                        <div id="bt-node-param-1" onclick="clearBowTieSlot('params', 1)" class="bow-tie-node border-2 border-dashed border-teal-300 rounded-lg p-2 text-center text-xs flex items-center justify-center cursor-pointer hover:bg-teal-50 bg-slate-50">
+                            ${bowtieState.params[1] || '<span class="text-slate-400">Click card below to assign</span>'}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Option Pools -->
+                <div class="space-y-3 pt-2">
+                    <div class="text-xs font-bold text-slate-500 uppercase">Available Item Pools (Click to assign to corresponding Bow Tie node):</div>
+                    
+                    <div class="space-y-1">
+                        <span class="text-xs font-semibold text-sky-700">Actions Options:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${cfg.actionsPool.map(act => `
+                                <button onclick="assignBowTie('actions', '${act}')" ${bowtieState.actions.includes(act) ? 'disabled' : ''} class="text-xs bg-sky-50 border border-sky-200 text-sky-900 px-2.5 py-1.5 rounded hover:bg-sky-100 disabled:opacity-30 disabled:cursor-not-allowed">
+                                    ${act}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <span class="text-xs font-semibold text-indigo-700">Conditions Options:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${cfg.conditionsPool.map(cond => `
+                                <button onclick="assignBowTie('condition', '${cond}')" ${bowtieState.condition === cond ? 'disabled' : ''} class="text-xs bg-indigo-50 border border-indigo-200 text-indigo-900 px-2.5 py-1.5 rounded hover:bg-indigo-100 disabled:opacity-30 disabled:cursor-not-allowed">
+                                    ${cond}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <span class="text-xs font-semibold text-teal-700">Parameters Options:</span>
+                        <div class="flex flex-wrap gap-1.5">
+                            ${cfg.paramsPool.map(p => `
+                                <button onclick="assignBowTie('params', '${p}')" ${bowtieState.params.includes(p) ? 'disabled' : ''} class="text-xs bg-teal-50 border border-teal-200 text-teal-900 px-2.5 py-1.5 rounded hover:bg-teal-100 disabled:opacity-30 disabled:cursor-not-allowed">
+                                    ${p}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function assignBowTie(category, val) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { bowtieState: { actions: [], condition: null, params: [] } };
+            const state = userAnswers[q.id].bowtieState;
+
+            if (category === 'actions') {
+                if (state.actions.length < 2 && !state.actions.includes(val)) {
+                    state.actions.push(val);
+                }
+            } else if (category === 'condition') {
+                state.condition = val;
+            } else if (category === 'params') {
+                if (state.params.length < 2 && !state.params.includes(val)) {
+                    state.params.push(val);
+                }
+            }
+            renderWorkspace(q);
+        }
+
+        function clearBowTieSlot(category, index) {
+            const q = currentQuestions[currentIndex];
+            if (!userAnswers[q.id] || !userAnswers[q.id].bowtieState) return;
+            const state = userAnswers[q.id].bowtieState;
+
+            if (category === 'actions') {
+                state.actions.splice(index, 1);
+            } else if (category === 'condition') {
+                state.condition = null;
+            } else if (category === 'params') {
+                state.params.splice(index, 1);
+            }
+            renderWorkspace(q);
+        }
+
+        // ==================== DROPDOWN CLOZE & RATIONALE RENDERER ====================
+        function renderDropdownTextWorkspace(q, saved) {
+            const workspace = document.getElementById('answer-workspace');
+            const choices = saved.dropdownChoices || {};
+
+            let template = q.templateText;
+            q.dropdowns.forEach(d => {
+                const selectedVal = choices[d.id] || '';
+                const selectHtml = `
+                    <select onchange="saveDropdownChoice('${d.id}', this.value)" class="mx-1 border-b-2 border-archer-cyan bg-cyan-50 font-semibold text-archer-darkBlue text-xs rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-archer-cyan inline-block cursor-pointer">
+                        <option value="">-- Select --</option>
+                        ${d.options.map(opt => `<option value="${opt}" ${selectedVal === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                    </select>
+                `;
+                template = template.replace(`[${d.id}]`, selectHtml);
+            });
+
+            workspace.innerHTML = `
+                <div class="bg-white p-5 rounded-lg border border-slate-200 leading-loose text-sm font-medium text-slate-800 shadow-sm">
+                    ${template}
+                </div>
+            `;
+        }
+
+        function saveDropdownChoice(dropId, value) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { dropdownChoices: {} };
+            userAnswers[q.id].dropdownChoices = userAnswers[q.id].dropdownChoices || {};
+            userAnswers[q.id].dropdownChoices[dropId] = value;
+        }
+
+        // ==================== HIGHLIGHT TEXT RENDERER ====================
+        function renderHighlightWorkspace(q, saved) {
+            const workspace = document.getElementById('answer-workspace');
+            const highlightedIndexes = saved.highlighted || [];
+
+            const spansHtml = q.tokens.map((tok, idx) => {
+                if (!tok.selectable) {
+                    return `<span class="text-slate-700">${tok.text} </span>`;
+                }
+                const isSel = highlightedIndexes.includes(idx);
+                return `
+                    <span onclick="toggleHighlightToken(${idx})" class="highlightable-text ${isSel ? 'selected' : ''}">
+                        ${tok.text}
+                    </span>
+                `;
+            }).join('');
+
+            workspace.innerHTML = `
+                <div class="bg-white p-5 rounded-lg border border-slate-200 leading-relaxed text-sm shadow-sm space-y-2">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Interactive Clinical Transcript (Click text to highlight):</p>
+                    <div>${spansHtml}</div>
+                </div>
+            `;
+        }
+
+        function toggleHighlightToken(index) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { highlighted: [] };
+            userAnswers[q.id].highlighted = userAnswers[q.id].highlighted || [];
+
+            const list = userAnswers[q.id].highlighted;
+            const pos = list.indexOf(index);
+            if (pos > -1) {
+                list.splice(pos, 1);
+            } else {
+                list.push(index);
+            }
+            renderWorkspace(q);
+        }
+
+        // ==================== MATRIX RENDERER ====================
+        function renderMatrixWorkspace(q, saved) {
+            const workspace = document.getElementById('answer-workspace');
+            const matrixState = saved.matrixState || {}; // rowIdx -> option / array
+
+            const isMultiple = q.type === 'matrix_multiple';
+
+            const headerColsHtml = q.columns.map(c => `<th class="p-2 text-center text-xs font-bold text-slate-700 border-b border-slate-200 bg-slate-100">${c}</th>`).join('');
+
+            const rowsHtml = q.rows.map((row, rIdx) => {
+                const cols = q.columns.map(c => {
+                    let isChecked = false;
+                    if (isMultiple) {
+                        isChecked = (matrixState[rIdx] || []).includes(c);
+                    } else {
+                        isChecked = matrixState[rIdx] === c;
+                    }
+
+                    const inputType = isMultiple ? 'checkbox' : 'radio';
+
+                    return `
+                        <td class="p-2 text-center border-b border-slate-100">
+                            <input type="${inputType}" name="matrix_row_${rIdx}" ${isChecked ? 'checked' : ''} onchange="saveMatrixChoice(${rIdx}, '${c}', ${isMultiple})" class="w-4 h-4 text-archer-cyan focus:ring-archer-cyan rounded-${isMultiple ? 'sm' : 'full'}">
+                        </td>
+                    `;
+                }).join('');
+
+                return `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 text-xs font-medium text-slate-800 border-b border-slate-100">${row.text}</td>
+                        ${cols}
+                    </tr>
+                `;
+            }).join('');
+
+            workspace.innerHTML = `
+                <div class="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr>
+                                <th class="p-3 text-xs font-bold text-slate-600 border-b border-slate-200 bg-slate-100">Clinical Finding / Statement</th>
+                                ${headerColsHtml}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function saveMatrixChoice(rowIdx, colVal, isMultiple) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { matrixState: {} };
+            const state = userAnswers[q.id].matrixState;
+
+            if (isMultiple) {
+                state[rowIdx] = state[rowIdx] || [];
+                const idx = state[rowIdx].indexOf(colVal);
+                if (idx > -1) {
+                    state[rowIdx].splice(idx, 1);
+                } else {
+                    state[rowIdx].push(colVal);
+                }
+            } else {
+                state[rowIdx] = colVal;
+            }
+        }
+
+        // ==================== ORDERED RESPONSE RENDERER ====================
+        function renderOrderedWorkspace(q, saved) {
+            const workspace = document.getElementById('answer-workspace');
+            const items = saved.orderedList || [...q.items];
+
+            const itemsHtml = items.map((item, idx) => `
+                <div class="flex items-center justify-between p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="w-6 h-6 rounded-full bg-archer-darkBlue text-white text-xs font-bold flex items-center justify-center">${idx + 1}</span>
+                        <span class="text-xs font-medium text-slate-800">${item.text}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button onclick="moveOrderedItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="p-1.5 text-slate-500 hover:text-archer-cyan disabled:opacity-20"><i class="fa-solid fa-arrow-up"></i></button>
+                        <button onclick="moveOrderedItem(${idx}, 1)" ${idx === items.length - 1 ? 'disabled' : ''} class="p-1.5 text-slate-500 hover:text-archer-cyan disabled:opacity-20"><i class="fa-solid fa-arrow-down"></i></button>
+                    </div>
+                </div>
+            `).join('');
+
+            workspace.innerHTML = `
+                <div class="space-y-2">
+                    <p class="text-xs font-semibold text-slate-500">Reorder items into correct chronological sequence using arrows:</p>
+                    ${itemsHtml}
+                </div>
+            `;
+        }
+
+        function moveOrderedItem(idx, direction) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { orderedList: [...q.items] };
+            const list = userAnswers[q.id].orderedList;
+
+            const target = idx + direction;
+            if (target >= 0 && target < list.length) {
+                const temp = list[idx];
+                list[idx] = list[target];
+                list[target] = temp;
+                renderWorkspace(q);
+            }
+        }
+
+        // ==================== SELECTION HELPERS ====================
+        function saveSelection(type, val) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || {};
+            userAnswers[q.id].selected = val;
+            renderWorkspace(q);
+        }
+
+        function toggleCheckboxSelection(val, maxLimit) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || { selectedList: [] };
+            userAnswers[q.id].selectedList = userAnswers[q.id].selectedList || [];
+
+            const list = userAnswers[q.id].selectedList;
+            const idx = list.indexOf(val);
+            if (idx > -1) {
+                list.splice(idx, 1);
+            } else {
+                if (maxLimit && list.length >= maxLimit) {
+                    list.shift(); // rotate out oldest if exact N
+                }
+                list.push(val);
+            }
+            renderWorkspace(q);
+        }
+
+        function saveNumericInput(val) {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || {};
+            userAnswers[q.id].value = val;
+        }
+
+        // ==================== SUBMIT & VALIDATE ANSWER ====================
+        function submitAnswer() {
+            const q = currentQuestions[currentIndex];
+            userAnswers[q.id] = userAnswers[q.id] || {};
+            const saved = userAnswers[q.id];
+
+            saved.submitted = true;
+
+            // Evaluate correctness
+            let isCorrect = evaluateAnswer(q, saved);
+            saved.isCorrect = isCorrect;
+
+            showRationale(q, saved);
+        }
+
+        function evaluateAnswer(q, saved) {
+            switch (q.type) {
+                case 'single':
+                    return saved.selected === q.options.find(o => o.correct).id;
+
+                case 'sata':
+                    const correctSataIds = q.options.filter(o => o.correct).map(o => o.id);
+                    const userSata = saved.selectedList || [];
+                    return correctSataIds.length === userSata.length && correctSataIds.every(id => userSata.includes(id));
+
+                case 'select_n':
+                    const correctNIds = q.options.filter(o => o.correct).map(o => o.id);
+                    const userN = saved.selectedList || [];
+                    return correctNIds.length === userN.length && correctNIds.every(id => userN.includes(id));
+
+                case 'bowtie':
+                    const bt = saved.bowtieState || { actions: [], condition: null, params: [] };
+                    const corrBT = q.bowtieConfig.correct;
+                    const actMatch = corrBT.actions.length === bt.actions.length && corrBT.actions.every(a => bt.actions.includes(a));
+                    const condMatch = corrBT.condition === bt.condition;
+                    const paramMatch = corrBT.params.length === bt.params.length && corrBT.params.every(p => bt.params.includes(p));
+                    return actMatch && condMatch && paramMatch;
+
+                case 'cloze':
+                case 'dropdown_rationale':
+                    const choices = saved.dropdownChoices || {};
+                    return q.dropdowns.every(d => choices[d.id] === d.correct);
+
+                case 'highlight':
+                    const userHL = saved.highlighted || [];
+                    const correctHL = q.tokens.map((t, i) => t.correct ? i : null).filter(i => i !== null);
+                    return correctHL.length === userHL.length && correctHL.every(i => userHL.includes(i));
+
+                case 'matrix_multiple':
+                    const mStateM = saved.matrixState || {};
+                    return q.rows.every((row, rIdx) => {
+                        const uSel = mStateM[rIdx] || [];
+                        return row.correct.length === uSel.length && row.correct.every(c => uSel.includes(c));
+                    });
+
+                case 'matrix_single':
+                    const mStateS = saved.matrixState || {};
+                    return q.rows.every((row, rIdx) => mStateS[rIdx] === row.correct);
+
+                case 'numeric':
+                    const numVal = parseFloat(saved.value);
+                    return numVal >= q.acceptedRange[0] && numVal <= q.acceptedRange[1];
+
+                case 'ordered':
+                    const userOrd = saved.orderedList || [];
+                    return userOrd.every((item, idx) => item.correctOrder === (idx + 1));
+
+                default:
+                    return false;
+            }
+        }
+
+        function showRationale(q, saved) {
+            const ratSection = document.getElementById('rationale-section');
+            const resultBadge = document.getElementById('result-badge');
+            const scoreDisplay = document.getElementById('score-earned');
+            const peerStatsDisplay = document.getElementById('peer-stats');
+            const rationaleText = document.getElementById('rationale-text');
+
+            ratSection.classList.remove('hidden');
+
+            if (saved.isCorrect) {
+                resultBadge.className = 'px-3 py-1 rounded text-xs font-bold uppercase text-white bg-green-600';
+                resultBadge.innerText = 'CORRECT';
+                scoreDisplay.innerText = 'Score: 1/1';
+            } else {
+                resultBadge.className = 'px-3 py-1 rounded text-xs font-bold uppercase text-white bg-red-600';
+                resultBadge.innerText = 'INCORRECT';
+                scoreDisplay.innerText = 'Score: 0/1';
+            }
+
+            peerStatsDisplay.innerText = `${q.peerStats || 65}%`;
+            rationaleText.innerHTML = q.rationale;
+
+            // Scroll rationale into view
+            ratSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ==================== MODAL CONTROLS ====================
+        function toggleCalculator() {
+            const calc = document.getElementById('calc-modal');
+            calc.classList.toggle('hidden');
+        }
+
+        function calcInput(val) {
+            const screen = document.getElementById('calc-screen');
+            if (screen.value === '0' || screen.value === 'Error') {
+                screen.value = val;
+            } else if (val === 'C') {
+                screen.value = '0';
+            } else {
+                screen.value += val;
+            }
+        }
+
+        function calcEquals() {
+            const screen = document.getElementById('calc-screen');
+            try {
+                screen.value = eval(screen.value);
+            } catch (e) {
+                screen.value = 'Error';
+            }
+        }
+
+        function toggleNotesModal() {
+            const modal = document.getElementById('notes-modal');
+            modal.classList.toggle('hidden');
+            const q = currentQuestions[currentIndex];
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('notes-textarea').value = userNotes[q.id] || '';
+            }
+        }
+
+        function saveNotes() {
+            const q = currentQuestions[currentIndex];
+            userNotes[q.id] = document.getElementById('notes-textarea').value;
+            toggleNotesModal();
+        }
+
+        function toggleFeedbackModal() {
+            const modal = document.getElementById('feedback-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                document.getElementById('fb-qid').innerText = currentQuestions[currentIndex].id;
+            }
+        }
+
+        function submitFeedback() {
+            toggleFeedbackModal();
+            alert("Feedback submitted successfully. Thank you!");
+        }
+
+        function confirmEndTest() {
+            if (confirm("Are you sure you want to end this NCLEX practice test session?")) {
+                alert("Test ended. Summary results generated.");
+            }
+        }
+
+        function pauseTest() {
+            alert("Test paused. Click OK to resume.");
+        }
+    </script>
+</body>
+</html>
