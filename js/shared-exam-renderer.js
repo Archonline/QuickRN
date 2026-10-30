@@ -1,7 +1,7 @@
 /* Shared NCLEX-style renderer and interaction layer for all exam modes. */
 function quickRNDetectItemFormat(q){
  q=q&&typeof q==='object'?q:{};
- const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
+ const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(raw.includes('matrix')||raw.includes('grid')||(q.rows&&q.columns)||q.matrixData)return 'Matrix / Grid';
