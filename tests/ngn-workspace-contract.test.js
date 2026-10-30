@@ -31,6 +31,13 @@ assert.ok(app.includes("feedback-category")&&app.includes("snapshot:q?"),"feedba
 assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
 assert.ok(examCss.includes('#left-panel.question-only-panel #question-prompt'),'question-only left pane has dedicated layout styling');
 
+const switcher=fs.readFileSync('js/quickrn-interface-switcher.js','utf8');
+assert.ok(switcher.includes('Updated QuickRN')&&switcher.includes('Original NCLEX'),'interface selector offers both named exam views');
+assert.ok(switcher.includes('localStorage.setItem(KEY'),'interface preference persists between exam sessions');
+for(const page of [...pages,'correct_view.html']){
+ const pageHtml=fs.readFileSync(page,'utf8');
+ assert.ok(pageHtml.includes('js/quickrn-interface-switcher.js'),page+' loads the exam interface selector');
+}
 const dashboard=fs.readFileSync('dashboard.html','utf8');
 for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard links to '+page);
 for(const legacy of ['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn.html'])assert.ok(!dashboard.includes(legacy),'dashboard no longer links to '+legacy);
