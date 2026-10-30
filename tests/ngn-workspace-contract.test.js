@@ -8,6 +8,13 @@ for(const page of pages){
  assert.match(html,/src=["']js\/shared-exam-renderer\.js["']/i,page+' loads the shared renderer');
  assert.match(html,/src=["']js\/quickrn-ngn-scoring\.js["']/i,page+' loads NGN scoring');
  assert.match(html,/QuickRNNgnScoring/,page+' applies the common scoring contract');
+ assert.match(html,/quickrn-beta-exam-ux-fix/,page+' includes the unified beta exam UX fixes');
+ assert.match(html,/qr-answer-correct/,page+' includes correct-answer feedback styling');
+ assert.match(html,/qr-answer-incorrect/,page+' includes incorrect-answer feedback styling');
+ if(page==='selfstudy-ngn.html'){
+  assert.match(html,/quickrn-selfstudy-duplicate-shell-fix/, 'Self Study suppresses duplicate legacy question and EHR panels');
+  assert.match(html,/quickrn-shared-question \.qr-report-row\{display:none/, 'Self Study shows only one report-item control');
+ }
  if(page!=='selfstudy-ngn.html')assert.match(html,/points|summary-points/,page+' displays NGN points in its summary');
 }
 const dashboard=fs.readFileSync('dashboard.html','utf8');

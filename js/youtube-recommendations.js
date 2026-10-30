@@ -78,22 +78,38 @@
     }
 
     function getTwoVideos(question) {
-        const topic = getDisplayTopic(question);
-        const topicQuery = getSearchQuery(question, 'review');
-        const clinicalQuery = getSearchQuery(question, 'clinical');
+        const q = question && typeof question === 'object' ? question : {};
+        const topic = getDisplayTopic(q);
+        const topicQuery = getSearchQuery(q, 'review');
+        const clinicalQuery = getSearchQuery(q, 'clinical');
+        const rawVideos = Array.isArray(q.videos) ? q.videos : [];
+        const candidates = rawVideos.slice(0, 2);
+        if (!candidates.length) {
+            const id = q.youtubeId || q.videoId || q.youtubeVideoId;
+            if (id) candidates.push({ id, title: topic + ' — Nursing Topic Review', provider: 'Recommended lecture' });
+        }
+        const parseId = value => {
+            const v = String(value || '').trim();
+            if (/^[A-Za-z0-9_-]{11}$/.test(v)) return v;
+            const match = v.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+            return match ? match[1] : '';
+        };
+        const embedded = candidates.map((video, index) => {
+            const id = parseId(video && (video.id || video.videoId || video.youtubeId || video.url));
+            if (!id) return null;
+            return {
+                id,
+                url: 'https://www.youtube.com/watch?v=' + id,
+                embedUrl: 'https://www.youtube-nocookie.com/embed/' + id,
+                searchQuery: '',
+                title: video.title || (index ? topic + ' — Clinical Judgment Review' : topic + ' — Nursing Topic Review'),
+                channel: video.provider || video.channel || (index ? 'Clinical judgment' : 'Topic review')
+            };
+        }).filter(Boolean);
+        if (embedded.length) return embedded;
         return [
-            {
-                url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(topicQuery),
-                searchQuery: topicQuery,
-                title: topic + ' — Nursing Topic Review',
-                channel: 'Topic review'
-            },
-            {
-                url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(clinicalQuery),
-                searchQuery: clinicalQuery,
-                title: topic + ' — Clinical Judgment Review',
-                channel: 'Clinical judgment'
-            }
+            { url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(topicQuery), searchQuery: topicQuery, title: topic + ' — Nursing Topic Review', channel: 'Topic review', embedUrl: '' },
+            { url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(clinicalQuery), searchQuery: clinicalQuery, title: topic + ' — Clinical Judgment Review', channel: 'Clinical judgment', embedUrl: '' }
         ];
     }
 

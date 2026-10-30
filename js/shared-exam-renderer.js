@@ -15,7 +15,7 @@ function quickRNDetectItemFormat(q){
  return 'Single Choice';
 }
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function quickRNCleanPrompt(v){return String(v||'').replace(/^\s*(?:\[[^\]]+\]\s*)/,'').replace(/^\s*(?:NGN|STANDARD|CATEGORY\s*:[^:]+)\s*[-:|]\s*/i,'').trim();}
+function quickRNCleanPrompt(v){return String(v||'').replace(/^\s*(?:\[[^\]]+\]\s*)/,'').replace(/^\s*(?:[A-Z]{2,10}[-_ ]\d{2,6}|(?:NGN\s+)?(?:EXTENDED\s+DRAG\s+AND\s+DROP|TRADITIONAL\s+NCLEX\s+PRACTICE|MULTIPLE\s+RESPONSE|SELECT\s+ALL\s+THAT\s+APPLY))\s*[-:|–—]\s*/i,'').replace(/^\s*(?:NGN|STANDARD|CATEGORY\s*:[^:]+)\s*[-:|]\s*/i,'').trim();}
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
@@ -42,11 +42,12 @@ function quickRNToggleDraft(path,value){const a=Array.isArray(quickRNDraft[path]
 function quickRNMoveDraft(from,to){const a=[...(quickRNDraft.order||[])];if(from<0||to<0||from>=a.length||to>=a.length)return;const [v]=a.splice(from,1);a.splice(to,0,v);quickRNDraft={...quickRNDraft,order:a};quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
 function quickRNDragStart(e,i){quickRNDraggedIndex=i;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i));}
 function quickRNDrop(e,i){e.preventDefault();const from=quickRNDraggedIndex!==null?quickRNDraggedIndex:Number(e.dataTransfer.getData('text/plain'));quickRNDraggedIndex=null;quickRNMoveDraft(from,i);}
-function quickRNRenderClinicalItem(q,draft){
+function quickRNRenderClinicalItem(q,draft,submitted=false){
  const f=quickRNDetectItemFormat(q), ehr=q.ehr||{}, patient=q.patientInfo||{};
  const cleanField=v=>{let t=quickRNCleanPrompt(v);for(const prefix of [q.category,q.topic,q.ngnType,q.type]){if(prefix&&t.toLowerCase().startsWith(String(prefix).toLowerCase())){const rest=t.slice(String(prefix).length);if(/^\s*[-:|]\s*/.test(rest))t=rest.replace(/^\s*[-:|]\s*/,'');}}return t;};
  const title=cleanField(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question');
- const prompt=cleanField(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
+ const rawPrompt=cleanField(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
+ const prompt=rawPrompt&&rawPrompt.toLowerCase()!==title.toLowerCase()?rawPrompt:'';
  const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]];
  const caseContext=q.caseStudyContext||{};
  const patientSummary=typeof q.patientInfo==='string'?q.patientInfo:(patient.summary||patient.history||patient.notes||patient.description||caseContext.summary||q.caseStudy||q.case_study||'');
@@ -59,7 +60,9 @@ function quickRNRenderClinicalItem(q,draft){
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'){
    const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'; const selected=multi?(draft.choices||[]):[draft.choice];
-   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),on=selected.includes(val);const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';return "<button type='button' class='qr-choice "+(on?'selected':'')+"' onclick='"+action+"'><span class='qr-choice-mark'>"+(multi?(on?'✓':'□'):String.fromCharCode(65+i))+"</span><span>"+quickRNEscape(quickRNOptionText(o))+"</span></button>";}).join(''):'<div class="qr-missing">This trend item is missing its response options.</div>';
+   const correctRaw=multi?(q.correctAnswers??q.correctAnswer??[]):[q.correctAnswerText??q.correctAnswer];
+   const correctList=Array.isArray(correctRaw)?correctRaw:[correctRaw];
+   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),txt=quickRNOptionText(o),on=selected.includes(val);const isCorrect=correctList.some(x=>String(x)===String(val)||String(x)===String(txt)||String(x)===String.fromCharCode(65+i));const feedback=submitted?(isCorrect?' qr-answer-correct':(on?' qr-answer-incorrect':'')):'';const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';return "<button type='button' aria-pressed='"+on+"' class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+action+"'><span class='qr-choice-mark "+(multi?'is-checkbox':'is-radio')+"'>"+(multi?(on?'✓':''):String.fromCharCode(65+i))+"</span><span>"+quickRNEscape(txt)+"</span></button>";}).join(''):'<div class="qr-missing">This item is missing its response options.</div>';
  } else if(f==='Matrix / Grid'){
    const rows=q.rows||q.matrixData?.rows||[], cols=q.columns||q.matrixData?.columns||[]; response=rows.length&&cols.length?`<div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / intervention</th>${cols.map(c=>`<th>${quickRNEscape(c)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>{const id=r.id||String(i);return `<tr><td>${quickRNEscape(r.text||r.label||r)}</td>${cols.map(c=>`<td><label><input type="radio" name="qr-matrix-${quickRNEscape(id)}" ${draft.matrix?.[id]===c?'checked':''} onchange="quickRNSetDraft('matrix',{...(quickRNDraft.matrix||{}),${JSON.stringify(id)}:${JSON.stringify(c)}})"><span class="sr-only">${quickRNEscape(c)}</span></label></td>`).join('')}</tr>`}).join('')}</tbody></table></div>`:`<div class="qr-missing">Matrix rows or columns are missing from this item.</div>`;
  } else if(f==='Cloze (Drop-down)'){
@@ -70,7 +73,7 @@ function quickRNRenderClinicalItem(q,draft){
    const b=q.bowtieData||{}; const correctDraft=draft||{}; const group=(key,label,kind)=>`<section class="qr-bowtie-group"><h4>${label}</h4>${(b[key]||[]).map(v=>{const on=kind==='condition'?correctDraft.condition===v:(correctDraft[kind]||[]).includes(v);return `<label class="qr-bowtie-option"><input type="${kind==='condition'?'radio':'checkbox'}" name="qr-bowtie-${kind}" ${on?'checked':''} onchange="${kind==='condition'?`quickRNSetDraft('condition',${JSON.stringify(v)})`:`quickRNToggleDraft('${kind}',${JSON.stringify(v)})`}"><span>${quickRNEscape(v)}</span></label>`}).join('')}</section>`;
    response=`<div class="qr-bowtie">${group('actions','Actions to Take','actions')}${group('conditions','Potential Condition','condition')}${group('monitoring','Parameters to Monitor','monitoring')}</div>`;
  }
- return `<div class="qr-clinical-layout ${hasRecord?"has-record":"question-only"}">${record}<section class="qr-question-panel"><div class="qr-question-head"><div class="qr-item-format">${f==='Single Choice'&&!q.isNGN?'Standard':`NGN · ${f}`}</div><h2>${quickRNEscape(title)}</h2>${prompt?`<p>${quickRNEscape(prompt)}</p>`:''}</div><div class="qr-response-area">${response}</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()"><i class="fa-solid fa-flag"></i> Report this item</button></div></section></div>`;
+ return `<div class="qr-clinical-layout ${hasRecord?"has-record":"question-only"}">${record}<section class="qr-question-panel"><div class="qr-question-head"><h2>${quickRNEscape(title)}</h2>${prompt?`<p>${quickRNEscape(prompt)}</p>`:''}</div><div class="qr-response-area">${response}</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()"><i class="fa-solid fa-flag"></i> Report this item</button></div></section></div>`;
 }
 function quickRNHasAnswer(q,d){const f=quickRNDetectItemFormat(q);if(f==='Single Choice')return !!d.choice;if(f==='Extended Multiple Response'||f==='Multiple Response')return (d.choices||[]).length>0;if(f==='Matrix / Grid'){const rows=q.rows||q.matrixData?.rows||[];return rows.length>0&&Object.keys(d.matrix||{}).length===rows.length;}if(f==='Cloze (Drop-down)'){const keys=Object.keys(q.correctAnswers||q.options||{});return keys.length>0&&keys.every(k=>!!d.cloze?.[k]);}if(f==='Extended Drag and Drop')return (d.order||[]).length>0;if(f==='Bowtie')return !!d.condition&&(d.actions||[]).length===2&&(d.monitoring||[]).length===2;return false;}
 function quickRNGrade(q,d){const f=quickRNDetectItemFormat(q), opts=Array.isArray(q.options)?q.options:[];const eq=(a,b)=>String(a??'')===String(b??'');const sameSet=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
@@ -109,26 +112,27 @@ quickRNNormalizeDraft = function(q,existing) {
  return quickRNBaseNormalize(q,existing);
 };
 const quickRNBaseRender = quickRNRenderClinicalItem;
-quickRNRenderClinicalItem = function(q,draft) {
+quickRNRenderClinicalItem = function(q,draft,submitted=false) {
  const f=quickRNDetectItemFormat(q);
- if(f==='Multiple Response')return quickRNBaseRender({...q,ngnType:'Extended Multiple Response'},draft);if(f!=='Highlight'&&f!=='Trend')return quickRNBaseRender(q,draft);
+ if(f==='Multiple Response')return quickRNBaseRender({...q,ngnType:'Extended Multiple Response'},draft,submitted);if(f!=='Highlight'&&f!=='Trend')return quickRNBaseRender(q,draft,submitted);
  const esc=quickRNEscape, patient=q.patientInfo||{}, ehr=q.ehr||{};
- const title=esc(quickRNCleanPrompt(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question'));
- const prompt=esc(quickRNCleanPrompt(q.cleanInstruction||q.instruction||''));
+ const cleanTitle=quickRNCleanPrompt(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question');
+ const cleanPrompt=quickRNCleanPrompt(q.cleanInstruction||q.instruction||'');
+ const title=esc(cleanTitle), prompt=esc(cleanPrompt.toLowerCase()===cleanTitle.toLowerCase()?'':cleanPrompt);
  const record=(q.ehr||q.patientInfo||q.caseStudy||q.case_study)?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong>Clinical Record</strong><span>'+esc(patient.name||patient.patientName||'Patient')+'</span></div><div class="qr-ehr-body">'+[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]].filter(x=>x[1]).map(x=>'<section class="qr-ehr-section"><h4>'+x[0]+'</h4><div>'+x[1]+'</div></section>').join('')+(q.caseStudy||q.case_study?'<section class="qr-ehr-section"><h4>Case information</h4><div>'+esc(q.caseStudy||q.case_study)+'</div></section>':'')+'</div></aside>':'';
  let response='',trendPanel='';
  if(f==='Highlight'){
    const raw=q.highlightSegments||q.segments;
    const source=q.highlightText||q.passage||q.caseStudyText||q.textToHighlight||q.questionText||q.question||'';
    const segments=Array.isArray(raw)&&raw.length?raw.map((x,i)=>({id:String(x.id??i),text:String(x.text??x.label??x)})):String(source).match(/[^.!?]+[.!?]?/g)?.map((text,i)=>({id:String(i),text:text.trim()}))||[];
-   response=segments.length?'<div class="qr-highlight-instructions">Select the symptoms and clinical information that require attention.</div><div class="qr-highlight-list">'+segments.map(seg=>{const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);return "<button type='button' class='qr-highlight-segment "+(on?'is-selected':'')+"' aria-pressed='"+on+"' onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'><span class='qr-highlight-check'>"+(on?'✓':'+')+"</span>"+esc(seg.text)+"</button>";}).join('')+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
+   response=segments.length?'<div class="qr-highlight-instructions">Select the symptoms and clinical information that require attention.</div><div class="qr-highlight-list">'+segments.map(seg=>{const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);const correct=(q.correctHighlights||q.correctAnswers?.highlights||[]).some(x=>String(x)===String(seg.id)||String(x)===String(seg.text));const feedback=submitted?(correct?' is-correct':(on?' is-incorrect':'')):'';return "<button type='button' class='qr-highlight-segment "+(on?'is-selected':'')+feedback+"' aria-pressed='"+on+"' onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'><span class='qr-highlight-check'>"+(on?'✓':'+')+"</span>"+esc(seg.text)+"</button>";}).join('')+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
  } else {
    const data=q.trendData||q.trends||q.trendTable||{}, rows=Array.isArray(data)?data:(data.rows||data.observations||[]), headers=Array.isArray(data.headers)?data.headers:(rows.length?Object.keys(rows[0]):[]);
    trendPanel='<section class="qr-trend-panel"><h3>Clinical Trends</h3>'+(data.title?'<p>'+esc(data.title)+'</p>':'')+(rows.length?'<div class="qr-table-wrap"><table class="qr-trend-table"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+headers.map(h=>'<td>'+esc(row[h]??'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<div class="qr-missing">Trend data is missing from this item.</div>')+'</section>';
-   const opts=Array.isArray(q.options)?q.options:[],multi=Array.isArray(q.correctAnswers),selected=multi?(draft.choices||[]):[draft.choice];
-   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),on=selected.includes(val);const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';return "<button type='button' class='qr-choice "+(on?'selected':'')+"' onclick='"+action+"'><span class='qr-choice-mark'>"+(multi?(on?'✓':'□'):String.fromCharCode(65+i))+"</span><span>"+quickRNEscape(quickRNOptionText(o))+"</span></button>";}).join(''):'<div class="qr-missing">This trend item is missing its response options.</div>';
+   const opts=Array.isArray(q.options)?q.options:[],multi=Array.isArray(q.correctAnswers),selected=multi?(draft.choices||[]):[draft.choice],correctRaw=multi?q.correctAnswers:[q.correctAnswerText??q.correctAnswer],correctList=Array.isArray(correctRaw)?correctRaw:[correctRaw];
+   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),txt=quickRNOptionText(o),on=selected.includes(val),isCorrect=correctList.some(x=>String(x)===String(val)||String(x)===String(txt)||String(x)===String.fromCharCode(65+i)),feedback=submitted?(isCorrect?' qr-answer-correct':(on?' qr-answer-incorrect':'')):'';const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';return "<button type='button' aria-pressed='"+on+"' class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+action+"'><span class='qr-choice-mark "+(multi?'is-checkbox':'is-radio')+"'>"+(multi?(on?'✓':''):String.fromCharCode(65+i))+"</span><span>"+quickRNEscape(txt)+"</span></button>";}).join(''):'<div class="qr-missing">This item is missing its response options.</div>';
  }
- return '<div class="qr-clinical-layout '+(record? "has-record":"question-only")+'">'+record+'<section class="qr-question-panel"><div class="qr-question-head"><div class="qr-item-format">NGN · '+f+'</div><h2>'+title+'</h2>'+(prompt?'<p>'+prompt+'</p>':'')+'</div>'+trendPanel+'<div class="qr-response-area">'+response+'</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
+ return '<div class="qr-clinical-layout '+(record? "has-record":"question-only")+'">'+record+'<section class="qr-question-panel"><div class="qr-question-head"><h2>'+title+'</h2>'+(prompt?'<p>'+prompt+'</p>':'')+'</div>'+trendPanel+'<div class="qr-response-area">'+response+'</div><div class="qr-report-row"><button type="button" class="qr-report-button" onclick="quickRNOpenReport()">Report this item</button></div></section></div>';
 };
 const quickRNBaseHasAnswer=quickRNHasAnswer;
 quickRNHasAnswer=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Multiple Response')return quickRNBaseHasAnswer({...q,ngnType:'Extended Multiple Response'},d);if(f==='Highlight')return (d.highlights||[]).length>0;if(f==='Trend')return Array.isArray(q.correctAnswers)?(d.choices||[]).length>0:!!d.choice;return quickRNBaseHasAnswer(q,d);};
@@ -153,7 +157,7 @@ window.QuickRNSharedRenderer={
  toDraft:quickRNFromLegacyDraft,
  fromDraft:quickRNToLegacyDraft,
  cleanPrompt:quickRNCleanPrompt,
- renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
+ renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft,submitted);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
  hasAnswer:quickRNHasAnswer,
  grade:quickRNGrade,
  answerSummary:quickRNAnswerSummary

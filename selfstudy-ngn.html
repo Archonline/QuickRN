@@ -148,6 +148,48 @@ body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;fl
 }
 </style>
 
+<style id="quickrn-beta-exam-ux-fix">
+/* Beta exam UX repair: clean prompts, visible response controls, feedback and stable split panes. */
+.qr-item-format{display:none!important}
+.qr-question-head h2{margin:0!important;font-size:clamp(1.05rem,1.35vw,1.3rem)!important;line-height:1.45!important;font-weight:800!important;color:#0f172a!important}
+.qr-question-head p{margin-top:8px!important}
+.qr-choice-mark.is-checkbox{width:20px!important;height:20px!important;flex:0 0 20px!important;border:2px solid #64748b!important;border-radius:4px!important;background:#fff!important;color:#fff!important}
+.qr-choice.selected .qr-choice-mark.is-checkbox{background:#1d4ed8!important;border-color:#1d4ed8!important;color:#fff!important}
+.qr-choice-mark.is-radio{width:25px!important;height:25px!important;flex:0 0 25px!important;border-radius:50%!important}
+.qr-choice.qr-answer-correct{background:#ecfdf5!important;border:2px solid #16a34a!important;color:#14532d!important}
+.qr-choice.qr-answer-correct .qr-choice-mark{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+.qr-choice.qr-answer-incorrect{background:#fff1f2!important;border:2px solid #e11d48!important;color:#881337!important}
+.qr-choice.qr-answer-incorrect .qr-choice-mark{background:#e11d48!important;border-color:#e11d48!important;color:#fff!important}
+.qr-clinical-layout{grid-template-columns:minmax(260px,40%) minmax(0,60%)!important;align-items:stretch!important;height:auto!important;min-height:min(70vh,720px)!important;overflow:visible!important}
+.qr-clinical-layout.question-only{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+.qr-ehr,.qr-question-panel{height:auto!important;min-height:0!important;overflow:hidden!important}
+.qr-ehr-body{max-height:min(66vh,680px)!important;overflow-y:auto!important}
+.qr-question-panel{overflow-y:auto!important}
+.qr-response-area{gap:10px!important}
+.qr-choice{min-height:54px!important;padding:13px 15px!important;border-width:1px!important}
+@media(max-width:900px){
+ .qr-clinical-layout,.qr-clinical-layout.question-only{display:flex!important;flex-direction:column!important;min-height:0!important}
+ .qr-ehr,.qr-question-panel{width:100%!important;max-height:none!important}
+ .qr-ehr-body{max-height:420px!important}
+}
+</style><style id="quickrn-selfstudy-duplicate-shell-fix">
+/* Self Study already renders the full EHR/question split in QuestionRenderer. Hide its legacy duplicate shell. */
+main.nclex-workspace{display:block!important;overflow:visible!important;height:auto!important;min-height:0!important}
+main.nclex-workspace>section:not(.nclex-question-panel){display:none!important}
+main.nclex-workspace>.nclex-question-panel{display:block!important;width:100%!important;max-width:none!important;overflow:visible!important;border:0!important;background:transparent!important;box-shadow:none!important}
+.nclex-question-panel>div[class*="bg-slate-50/90"]{display:none!important}
+.nclex-question-content{padding:0!important;overflow:visible!important}
+.quickrn-shared-question{width:100%!important;min-height:0!important}
+.quickrn-shared-question .qr-clinical-layout{min-height:min(72vh,760px)!important}
+.quickrn-shared-question .qr-report-row{display:none!important}
+@media(max-width:900px){main.nclex-workspace{display:block!important}.quickrn-shared-question .qr-clinical-layout{min-height:0!important}}
+</style>
+<style id="quickrn-beta-answer-feedback">
+.qr-highlight-segment.is-correct{background:#ecfdf5!important;border:2px solid #16a34a!important;color:#14532d!important}
+.qr-highlight-segment.is-correct .qr-highlight-check{background:#16a34a!important;color:#fff!important}
+.qr-highlight-segment.is-incorrect{background:#fff1f2!important;border:2px solid #e11d48!important;color:#881337!important}
+.qr-highlight-segment.is-incorrect .qr-highlight-check{background:#e11d48!important;color:#fff!important}
+</style>
 </head>
 <body class="h-full bg-slate-200">
     <div id="root" class="h-full"></div>
@@ -942,12 +984,22 @@ body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;fl
                             <div className="w-full md:w-2/3 p-4 space-y-3">
                                 <p className="text-xs text-slate-300">These searches are built from this question's topic, stem, and learning points. Choose a relevant lecture from the results.</p>
                                 {videoList.map((vid, idx) => (
-                                    <a key={idx} href={vid.url} target="_blank" rel="noopener noreferrer" className="block p-4 rounded-xl border border-slate-600 bg-slate-700 hover:bg-slate-600 transition">
-                                        <span className="block text-[10px] uppercase tracking-wide font-bold text-red-300 mb-1">{vid.channel}</span>
-                                        <span className="block text-sm font-bold text-white">{vid.title}</span>
-                                        <span className="block text-[11px] text-slate-300 mt-2 break-words">{vid.searchQuery}</span>
-                                        <span className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 rounded-lg px-3 py-2 mt-3"><i className="fa-brands fa-youtube"></i> Open YouTube results <i className="fa-solid fa-arrow-up-right-from-square"></i></span>
-                                    </a>
+                                    <div key={idx} className="rounded-xl border border-slate-600 bg-slate-700 overflow-hidden">
+                                        <div className="px-3 py-2">
+                                            <span className="block text-[10px] uppercase tracking-wide font-bold text-red-300 mb-1">{vid.channel}</span>
+                                            <span className="block text-sm font-bold text-white">{vid.title}</span>
+                                        </div>
+                                        {vid.embedUrl ? (
+                                            <div className="aspect-video bg-black">
+                                                <iframe className="w-full h-full" src={vid.embedUrl} title={vid.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                            </div>
+                                        ) : (
+                                            <div className="p-3 border-t border-slate-600">
+                                                <p className="text-[11px] text-slate-300 mb-3">No verified video ID is attached to this question yet. Open the topic-matched YouTube results to choose a lecture.</p>
+                                                <a href={vid.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 rounded-lg px-3 py-2"><i className="fa-brands fa-youtube"></i> Find a matching lecture</a>
+                                            </div>
+                                        )}
+                                    </div>
                                 ))}
                             </div>
                             <div className="w-full md:w-1/3 bg-slate-900 p-4 border-t md:border-t-0 md:border-l border-slate-700 flex flex-col space-y-3 min-h-56">

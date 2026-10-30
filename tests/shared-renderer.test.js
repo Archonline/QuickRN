@@ -52,6 +52,16 @@ assert.equal(api.detect({type:'NGN Trend Item',trendData:{rows:[]},options:['A']
 assert.equal(api.detect({type:'Extended Multiple Response',options:['A'],correctAnswers:['A']}),'Extended Multiple Response');
 assert.equal(api.detect({ngnType:'not_applicable',type:'single_choice',correctAnswer:'D',correctAnswers:['D'],options:[{id:'A'},{id:'B'},{id:'C'},{id:'D'}]}),'Single Choice');
 
+const singleFeedback = api.renderReact(fixtures[0][1],'B',()=>{},true);
+assert.match(singleFeedback,/qr-answer-correct/,'submitted single-choice review marks the correct answer');
+assert.match(singleFeedback,/qr-answer-incorrect/,'submitted single-choice review marks the selected wrong answer');
+const multiFeedback = api.renderReact(fixtures[1][1],['B'],()=>{},true);
+assert.match(multiFeedback,/is-checkbox/,'multiple-response choices use checkbox controls');
+assert.match(multiFeedback,/qr-answer-correct/,'submitted SATA review marks correct options');
+assert.match(multiFeedback,/qr-answer-incorrect/,'submitted SATA review marks selected incorrect options');
+assert.doesNotMatch(api.renderReact(fixtures[0][1],'A',()=>{},false),/qr-item-format/,'question type labels are not printed above the question');
+assert.match(context.quickRNCleanPrompt('SATA-046: Select the correct intervention.'),/Select the correct intervention\./,'item IDs are removed from displayed prompt text');
+
 const noRecord = {type:'Single Best Answer',options:['A','B'],correctAnswer:'A'};
 const noRecordHtml = api.renderReact(noRecord,undefined,()=>{},false);
 assert.ok(noRecordHtml.includes('question-only'),'items without exhibits render as a full-width question panel');
