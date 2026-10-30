@@ -126,3 +126,15 @@ The register documents implemented safeguards and their subfeatures. It does not
 Unfinished sessions now save the selected question IDs, current position, timer state, paused state, format filter, and scheduled-break markers alongside the existing response drafts, bookmarks, and notes. On reopening the same exam mode, the student is asked whether to restore the saved session. Completed exams clear the recovery checkpoint. An unpaused countdown continues against its saved wall-clock deadline while the page is closed.
 
 Keyboard shortcuts: Alt + Left/Right Arrow navigate between items; Ctrl/Command + Enter submits the current response. Shortcuts are ignored while a text input, textarea, select, or editable region has focus.
+
+
+## Unified brand system — October 31, 2026
+
+A shared stylesheet, `css/quickrn-brand-system.css`, now defines the visual language across all application pages:
+- Clinical navy for structural chrome and teal for primary brand actions and active accents.
+- Consistent Inter typography, heading rhythm, focus indicators, form-control styling, and interaction transitions.
+- Cool neutral page surfaces and coordinated border treatments.
+- Shared brand tokens are applied to the landing page, dashboard, calendar, help, Self-Study, Timed Practice, CAT, Predictor, saved questions, profile, reports, and reference view.
+- NCLEX split-screen exam layout, clinical-record readability, and meaningful success/warning/error feedback are preserved.
+
+When creating a new page, load `css/quickrn-brand-system.css` after page-specific stylesheets and inline styles so the shared brand layer remains consistent. Keep the brand palette in this file rather than introducing page-specific brand colors.
