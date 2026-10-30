@@ -33,7 +33,9 @@ This checklist defines the minimum release gate for a closed beta. A green autom
 
 ## Platform hardening checks\n\n- [ ] Confirm offline/online notices are understandable and do not block exam controls.\n- [ ] Confirm storage-unavailable and quota-failure paths explain that browser-local progress may not persist.\n- [ ] Import a valid backup and verify restored data; test an invalid backup and a simulated storage-write failure.\n- [ ] Confirm clinical-record and rationale formatting remains readable after HTML sanitization.\n- [ ] Verify keyboard focus visibility and reduced-motion behavior in all four exam modes.
 - [ ] Refresh an unfinished exam in each mode and verify the restore prompt, question position, responses, and timer behavior.
-- [ ] Verify Alt + Arrow navigation and Ctrl/Command + Enter submission do not interfere with typing or browser controls.\n- [ ] Verify diagnostic logs remain local to the browser and do not include stack traces or patient data.\n\n## Automated checks
+- [ ] Verify Alt + Arrow navigation and Ctrl/Command + Enter submission do not interfere with typing or browser controls.
+- [ ] Verify the five-minute and one-minute countdown warnings appear once each and do not interrupt response entry.
+- [ ] Export a browser backup and a question report in supported browsers; confirm downloads complete before temporary URLs are released.\n- [ ] Verify diagnostic logs remain local to the browser and do not include stack traces or patient data.\n\n## Automated checks
 
 - [ ] NGN renderer validation workflow passes.
 - [ ] QuickRN Coach and UI Tests workflow passes.
