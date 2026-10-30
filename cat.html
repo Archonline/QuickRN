@@ -466,8 +466,10 @@ function renderQuestion() {
             const totalAnswered = catHistory.length;
             const correctCount = catHistory.filter(h => h.isCorrect).length;
             const scorePercent = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
-            const finalDecision = window.QuickRNCAT.evaluate(catHistory.map(h=>({q:h.question,correct:h.isCorrect})),true);
+            const forceFinalDecision = /maximum item limit/i.test(reason);
+            const finalDecision = window.QuickRNCAT.evaluate(catHistory.map(h=>({q:h.question,correct:h.isCorrect})),forceFinalDecision);
             const isPassed = finalDecision.status === 'PASS' && totalAnswered >= 85;
+            const isInconclusive = totalAnswered < 85 || finalDecision.status === 'CONTINUE';
             const correctWrong = {correct:correctCount,wrong:totalAnswered-correctCount};
 
             // Save to LocalStorage
@@ -485,7 +487,7 @@ function renderQuestion() {
                 wrongCount: correctWrong.wrong,
                 theta: Number(finalDecision.theta.toFixed(3)),
                 standardError: Number(finalDecision.se.toFixed(3)),
-                status: totalAnswered < 85 ? 'INCONCLUSIVE — QUESTION BANK TOO SMALL' : (isPassed ? 'PASSED' : 'DID NOT PASS')
+                status: isInconclusive ? 'INCONCLUSIVE — INSUFFICIENT ITEMS OR PRECISION' : (isPassed ? 'PASSED' : 'DID NOT PASS')
             });
             localStorage.setItem('quickrn_student_state', JSON.stringify(stateObj));
 
@@ -500,7 +502,7 @@ function renderQuestion() {
                             <i class="fa-solid ${isPassed ? 'fa-award' : 'fa-circle-xmark'}"></i>
                         </div>
                         <div class="space-y-1">
-                            <h3 class="text-2xl font-black text-slate-900">${totalAnswered < 85 ? 'CAT RESULT INCONCLUSIVE' : (isPassed ? 'CAT EXAM PASSED Successfully!' : 'CAT EXAM DID NOT PASS')}</h3>
+                            <h3 class="text-2xl font-black text-slate-900">${isInconclusive ? 'CAT RESULT INCONCLUSIVE' : (isPassed ? 'CAT EXAM PASSED Successfully!' : 'CAT EXAM DID NOT PASS')}</h3>
                             <p class="text-xs text-slate-500 font-medium">${reason}</p>
                         </div>
                         <div class="flex justify-center gap-8 py-3 bg-white rounded-xl border border-slate-200 max-w-md mx-auto">
