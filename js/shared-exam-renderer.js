@@ -9,13 +9,26 @@ function quickRNDetectItemFormat(q){
  if(raw.includes('drag')||raw.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
  if(raw.includes('bowtie')||q.bowtieData)return 'Bowtie';
  if(raw.includes('extended multiple response'))return 'Extended Multiple Response';
- if(/single[_ -]?(?:choice|answer|best)|single best answer/.test(raw))return 'Single Choice';
+ if(/select[ -]?n|select exactly/.test(raw))return 'Select N';
+ if(/single|one best answer|one answer|multiple choice/.test(raw))return 'Single Choice';
  if(raw.includes('multiple response')||raw.includes('sata')||raw.includes('select all')||raw.includes('select-n'))return 'Multiple Response';
- if(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))return 'Multiple Response';
+ const answerKey=Array.isArray(q.correctAnswers)?q.correctAnswers:(Array.isArray(q.correctAnswer)?q.correctAnswer:null);
+ if(answerKey)return answerKey.length>1?'Multiple Response':'Single Choice';
  return 'Single Choice';
 }
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function quickRNCleanPrompt(v){return String(v||'').replace(/^\s*(?:\[[^\]]+\]\s*)/,'').replace(/^\s*(?:[A-Z]{2,10}[-_ ]\d{2,6}|(?:NGN\s+)?(?:EXTENDED\s+DRAG\s+AND\s+DROP|TRADITIONAL\s+NCLEX\s+PRACTICE|MULTIPLE\s+RESPONSE|SELECT\s+ALL\s+THAT\s+APPLY))\s*[-:|–—]\s*/i,'').replace(/^\s*(?:NGN|STANDARD|CATEGORY\s*:[^:]+)\s*[-:|]\s*/i,'').trim();}
+function quickRNCleanPrompt(v){
+ let text=String(v||'').replace(/^\s*(?:\[[^\]]+\]\s*)/,'').trim();
+ const patterns=[
+  /^\s*(?:NGN\s+)?(?:Cloze(?:\s*\(Drop[- ]?down\))?|Matrix(?:\s*(?:\/|or)\s*Grid)?|Bow\s*Tie|Bowtie|Highlight(?:\s*Text)?|Trend|Numeric(?:\s*Entry)?|Extended\s+Drag\s+and\s+Drop|Extended\s+Multiple\s+Response|Select\s+N)\s+(?:Item\s*)?\d{3,8}\s*[—–:|]\s*/i,
+  /^\s*(?:[A-Z]{2,10}[-_ ]\d{2,6}|(?:NGN\s+)?(?:EXTENDED\s+DRAG\s+AND\s+DROP|TRADITIONAL\s+NCLEX\s+PRACTICE|MULTIPLE\s+RESPONSE|SELECT\s+ALL\s+THAT\s+APPLY))\s*[-:|–—]\s*/i,
+  /^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,100}\s*(?:[—–|;]\s*|(?=\n)|$)/i,
+  /^\s*(?:NGN|STANDARD)\s*[-:|–—]\s*/i,
+  /^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i
+ ];
+ for(let i=0;i<6;i++){const before=text;for(const pattern of patterns)text=text.replace(pattern,'').trim();if(text===before)break;}
+ return text;
+}
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
@@ -62,7 +75,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'; const selected=multi?(draft.choices||[]):[draft.choice];
    const correctRaw=multi?(q.correctAnswers??q.correctAnswer??[]):[q.correctAnswerText??q.correctAnswer];
    const correctList=Array.isArray(correctRaw)?correctRaw:[correctRaw];
-   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),txt=quickRNOptionText(o),on=selected.includes(val);const isCorrect=correctList.some(x=>String(x)===String(val)||String(x)===String(txt)||String(x)===String.fromCharCode(65+i));const feedback=submitted?(isCorrect?' qr-answer-correct':(on?' qr-answer-incorrect':'')):'';const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';return "<button type='button' aria-pressed='"+on+"' class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+action+"'><span class='qr-choice-mark "+(multi?'is-checkbox':'is-radio')+"'>"+(multi?(on?'✓':''):String.fromCharCode(65+i))+"</span><span>"+quickRNEscape(txt)+"</span></button>";}).join(''):'<div class="qr-missing">This item is missing its response options.</div>';
+   response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),txt=quickRNOptionText(o),on=selected.includes(val);const isCorrect=correctList.some(x=>String(x)===String(val)||String(x)===String(txt)||String(x)===String.fromCharCode(65+i));const feedback=submitted?(isCorrect?' qr-answer-correct':(on?' qr-answer-incorrect':'')):'';const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';const label=submitted?(isCorrect?(on?'Your correct choice':'Correct choice'):(on?'Your incorrect choice':'')):'';return "<button type='button' aria-pressed='"+on+"' class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+action+"'><span class='qr-choice-mark "+(multi?'is-checkbox':'is-radio')+"'>"+String.fromCharCode(65+i)+"</span><span class='qr-choice-copy'>"+quickRNEscape(txt)+(label?"<small class='qr-choice-feedback'>"+label+"</small>":"")+"</span></button>";}).join(''):'<div class="qr-missing">This item is missing its response options.</div>';
  } else if(f==='Matrix / Grid'){
    const rows=q.rows||q.matrixData?.rows||[], cols=q.columns||q.matrixData?.columns||[]; response=rows.length&&cols.length?`<div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / intervention</th>${cols.map(c=>`<th>${quickRNEscape(c)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>{const id=r.id||String(i);return `<tr><td>${quickRNEscape(r.text||r.label||r)}</td>${cols.map(c=>`<td><label><input type="radio" name="qr-matrix-${quickRNEscape(id)}" ${draft.matrix?.[id]===c?'checked':''} onchange="quickRNSetDraft('matrix',{...(quickRNDraft.matrix||{}),${JSON.stringify(id)}:${JSON.stringify(c)}})"><span class="sr-only">${quickRNEscape(c)}</span></label></td>`).join('')}</tr>`}).join('')}</tbody></table></div>`:`<div class="qr-missing">Matrix rows or columns are missing from this item.</div>`;
  } else if(f==='Cloze (Drop-down)'){
