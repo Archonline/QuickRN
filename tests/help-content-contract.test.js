@@ -21,7 +21,7 @@ for (const stale of ['v5.7 —', 'v5.6 —', 'v5.5 —', 'Legacy External Search
   if (dashboard.includes(stale)) failures.push('Dashboard: stale changelog entry remains: ' + stale);
 }
 if (!dashboard.includes('rule-based Clinical Study Coach')) failures.push('Dashboard: coach limitation disclosure missing from release notes');
-if (!dashboard.includes('browser-local')) failures.push('Dashboard: local storage limitation missing from What\\'s New');
+if (!dashboard.includes('browser-local')) failures.push('Dashboard: local storage limitation missing from release notes');
 if (failures.length) {
   console.error('Help and release-notes contract failed:\\n- ' + failures.join('\\n- '));
   process.exit(1);
