@@ -531,6 +531,7 @@ function renderQuestion() {
                 const twoVideos = getTwoYouTubeVideos(q);
                 const strategy = getNCLEXStrategy(q);
                 const isBookmarked = !!bookmarkedQuestions[q.id];
+                const qMetrics = window.QuickRNQuestionMetrics ? window.QuickRNQuestionMetrics.get(q.id) : {correct:0,wrong:0,attempts:0};
 
                 summaryHtml += `
                     <div class="bg-white border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-200'} rounded-xl p-6 space-y-4 shadow-sm">
@@ -541,6 +542,7 @@ function renderQuestion() {
                                     Question ${index + 1} &bull; ${isCorrect ? 'Correct' : 'Incorrect'}
                                 </span>
                                 <h5 class="text-sm font-bold text-slate-900 mt-1">${q.questionText}</h5>
+                                <p class="text-[10px] text-slate-500 mt-1">Tracked attempts in this browser: <strong class="text-emerald-700">${qMetrics.correct} correct</strong> · <strong class="text-rose-700">${qMetrics.wrong} incorrect</strong></p>
                             </div>
                             <button onclick="toggleSummaryBookmark('${q.id}')" class="px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 border transition ${isBookmarked ? 'bg-amber-50 text-amber-800 border-amber-300' : 'bg-slate-100 text-slate-600 border-slate-300 hover:bg-amber-50'}">
                                 <i class="fa-solid fa-bookmark ${isBookmarked ? 'text-amber-500' : 'text-slate-400'}"></i>
