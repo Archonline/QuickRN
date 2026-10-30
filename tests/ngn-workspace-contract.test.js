@@ -4,6 +4,7 @@ const pages=['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn
 for(const page of pages){
  const html=fs.readFileSync(page,'utf8');
  assert.match(html,/src=["']questions\.js["']/i,page+' loads the question bank');
+ assert.match(html,/src=["']js\/quickrn-question-bank-normalizer\.js["']/i,page+' loads case-study bank normalization');
  assert.match(html,/src=["']js\/shared-exam-renderer\.js["']/i,page+' loads the shared renderer');
  assert.match(html,/src=["']js\/quickrn-ngn-scoring\.js["']/i,page+' loads NGN scoring');
  assert.match(html,/QuickRNNgnScoring/,page+' applies the common scoring contract');
