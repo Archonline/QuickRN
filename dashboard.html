@@ -321,12 +321,12 @@
                                     <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
                                 </div>
                             </div>
-                            <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                            <button onclick="generateStudyRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
                             </button>
                         </div>
                         <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate AI Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
+                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
                         </div>
                     </div>
 
@@ -690,7 +690,7 @@
         }
 
         
-        function generateAIAuditsAndRoadmap() {
+        function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
             const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
             if (!measured.length) {
