@@ -27,6 +27,8 @@ jobs:
           node --check js/quickrn-question-reporting.js
           node --check js/quickrn-data-backup.js
           node --check js/quickrn-question-id-normalizer.js
+          node --check js/quickrn-question-bank-normalizer.js
+          node --check tests/exam-page-script-contract.test.js
           node --check js/quickrn-ngn-scoring.js
           node --check tests/ngn-scoring.test.js
           node --check tests/ngn-workspace-contract.test.js
