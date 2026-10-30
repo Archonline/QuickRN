@@ -14,6 +14,8 @@ for(const page of pages){
  assert.match(html,/src=["']js\/quickrn-exam-app\.js["']/i,page+' loads shared rebuilt exam app');
  assert.ok(html.includes('data-exam-mode="'+page.replace('.html','')+'"'),page+' selects its own exam mode');
  for(const id of ['left-panel','right-panel','case-study-tabs','case-study-content','question-prompt','answer-workspace','rationale-section','exam-footer'])assert.ok(html.includes('id="'+id+'"'),page+' preserves correct_view region #'+id);
+ assert.ok(html.includes('id="feedback-category"')&&html.includes('id="feedback-details"'),page+' combines reporting and feedback in one modal');
+ assert.match(html,/flex items-center justify-end gap-4/,page+' right-aligns the Check Answer action');
  assert.ok(html.includes('quickrn-unified-nclex-split-screen'),page+' includes reference split-screen styles');
 }
 for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','quickrn_question_reports','quickrn_used_q_ids','quickrn_student_state','Retake same session'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
