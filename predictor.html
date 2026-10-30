@@ -586,7 +586,8 @@ function renderQuestionItem() {
 
             const totalGraded = answeredCount > 0 ? answeredCount : 1;
             const scorePercent = Math.round((correctCount / totalGraded) * 100);
-            const catDecision = window.QuickRNCAT.evaluate(activeExamQuestions.map((q,idx)=>({q,correct:userAnswers[idx]!==undefined && quickRNGrade(q,userAnswers[idx]||{})})),true);
+            const answeredResponses = activeExamQuestions.map((q,idx)=>userAnswers[idx]!==undefined?({q,correct:quickRNGrade(q,userAnswers[idx]||{})}):null).filter(Boolean);
+            const catDecision = window.QuickRNCAT.evaluate(answeredResponses,answeredCount >= 150);
             studentTheta = catDecision.theta;
             const passingProbability = catDecision.passProbability;
 
@@ -628,7 +629,7 @@ function renderQuestionItem() {
                 wrongCount: answeredCount-correctCount,
                 passingProbability,
                 theta: Number(studentTheta.toFixed(3)),
-                decision: answeredCount < 85 ? 'INCONCLUSIVE — QUESTION BANK TOO SMALL' : catDecision.status,
+                decision: answeredCount < 85 ? 'INCONCLUSIVE — FEWER THAN 85 ITEMS' : (catDecision.status === 'CONTINUE' ? 'INCONCLUSIVE — BORDERLINE AT BANK LIMIT' : catDecision.status),
                 domainStats
             };
 
