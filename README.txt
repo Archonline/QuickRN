@@ -29,11 +29,11 @@ Then open:
   http://localhost:8000/
 
 QUESTION BANK AND RENDERING
-The shared renderer supports Single Choice, Multiple Response, Extended Multiple Response, Matrix/Grid, Cloze/Drop-down, Extended Drag and Drop, Bowtie, Highlight, and Trend. The current production bank contains 4,500 records across seven detected formats. Highlight and Trend are supported by the renderer but are not currently represented in the production bank.
+The shared renderer supports Single Choice, Multiple Response, Extended Multiple Response, Matrix/Grid, Cloze/Drop-down, Extended Drag and Drop, Bowtie, Highlight, and Trend. The current production bank contains 4,500 records across six detected formats: 2,000 Single Choice, 300 Matrix/Grid, 300 Cloze, 300 Extended Drag and Drop, 300 Bowtie, and 1,300 Extended Multiple Response. Highlight and Trend are supported by the renderer but are not currently represented in the production bank.
 All exam modes should load questions.js before quickrn-question-id-normalizer.js and shared-exam-renderer.js. Keep this script order when adding new exam pages.
 
 QUALITY AND BETA STATUS
-The automated question-bank validator checks format schemas, answer-key references, and duplicate-ID normalization. The latest reviewed audit found 4,500 records, 100 case groups, 271 duplicate IDs handled deterministically at runtime, and no structural or answer-key validation errors. It also flagged approximately 4,000 stems with generic/template wording for clinical educator review. See BETA_READINESS.md. A passing structural audit is not proof of clinical accuracy or natural-language quality.
+The automated question-bank validator checks format schemas, answer-key references, and duplicate-ID normalization. The latest reviewed audit found 4,500 records, 100 case groups, 271 duplicate IDs handled deterministically at runtime, and no structural or answer-key validation errors. It also flagged 4,029 stems with generic/template wording for clinical educator review. See BETA_READINESS.md. A passing structural audit is not proof of clinical accuracy or natural-language quality.
 
 IMPORTANT LIMITATIONS
 - Study progress, question metrics, saved reports, and roadmap data are browser-local unless a shared backend is added. They do not automatically sync across devices or users.
