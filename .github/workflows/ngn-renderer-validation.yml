@@ -1,7 +1,7 @@
 name: NGN renderer validation
 on:
   push:
-    branches: ["main", "feat/shared-ngn-renderer-highlight-trend", "beta-exam-ui-repair"]
+    branches: ["main", "feat/shared-ngn-renderer-highlight-trend", "beta-exam-ui-repair", "feature/learning-experience-upgrade"]
   pull_request:
     branches: ["main"]
 jobs:
@@ -14,6 +14,8 @@ jobs:
           node-version: 20
       - name: Syntax-check shared renderer and test scripts
         run: |
+          node --check js/quickrn-learning-companion.js
+          node --check tests/learning-companion-contract.test.js
           node --check js/quickrn-platform-hardening.js
           node --check tests/platform-hardening.test.js
           node --check js/quickrn-cat-engine.js
@@ -41,6 +43,8 @@ jobs:
           node --check tests/ngn-workspace-contract.test.js
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
+      - name: Verify learning companion and linked NGN case study
+        run: node tests/learning-companion-contract.test.js
       - name: Test shared platform safeguards
         run: node tests/platform-hardening.test.js
       - name: Verify exam page script dependencies

@@ -16,7 +16,9 @@
         if(file.size>10*1024*1024)throw new Error('Backup file is larger than 10 MB.');
         const parsed=JSON.parse(await file.text());
         if(!parsed||parsed.app!==APP||parsed.formatVersion!==VERSION||!parsed.data||typeof parsed.data!=='object'||Array.isArray(parsed.data))throw new Error('This is not a supported QuickRN backup.');
-        const entries=Object.entries(parsed.data);\n        if(entries.length>500)throw new Error('This backup contains too many entries to restore safely.');\n        if(entries.some(([key])=>key.length>160))throw new Error('Backup contains an invalid storage key.');
+        const entries=Object.entries(parsed.data);
+        if(entries.length>500)throw new Error('This backup contains too many entries to restore safely.');
+        if(entries.some(([key])=>key.length>160))throw new Error('Backup contains an invalid storage key.');
         if(!entries.length)throw new Error('The backup contains no QuickRN data.');
         if(entries.some(([key])=>!allowed(key)))throw new Error('The backup contains unsupported storage keys.');
         const current=makeBackup();
