@@ -14,6 +14,8 @@ jobs:
           node-version: 20
       - name: Syntax-check shared renderer and test scripts
         run: |
+          node --check js/quickrn-platform-hardening.js
+          node --check tests/platform-hardening.test.js
           node --check js/quickrn-cat-engine.js
           node --check js/quickrn-question-metrics.js
           node --check tests/cat-engine.test.js
@@ -39,6 +41,8 @@ jobs:
           node --check tests/ngn-workspace-contract.test.js
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
+      - name: Test shared platform safeguards
+        run: node tests/platform-hardening.test.js
       - name: Verify exam page script dependencies
         run: node tests/exam-page-script-contract.test.js
       - name: Verify dashboard routing and normalized question bank loading
