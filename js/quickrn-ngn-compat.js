@@ -7,7 +7,7 @@ root.QuickRNNGNCompatLoaded=true;
 const baseRender=root.quickRNRenderClinicalItem,baseToDraft=api.toDraft,baseFromDraft=api.fromDraft,baseGrade=api.grade,baseHasAnswer=api.hasAnswer,baseSummary=api.answerSummary;
 const s=v=>String(v==null?'':v),ov=(o,i)=>typeof o==='string'?o:(o&&(o.id||o.value||o.text||o.label))||String.fromCharCode(65+i),ot=o=>typeof o==='string'?o:(o&&(o.text||o.label||o.value))||'';
 const same=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
-const esc=v=>root.quickRNEscape?root.quickRNEscape(v):s(v).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));
+const esc=v=>root.quickRNEscape?root.quickRNEscape(v):s(v);
 function canon(src){
  if(!src||typeof src!=='object')return {};
  if(src.__quickRNCompat)return src;
