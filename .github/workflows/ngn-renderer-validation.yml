@@ -20,6 +20,7 @@ jobs:
           node --check js/shared-exam-renderer.js
           node --check tests/shared-renderer.test.js
           node --check tests/question-id-normalizer.test.js
+          node --check tests/question-bank-renderer-contract.test.js
           node --check js/quickrn-question-id-normalizer.js
           node --check scripts/validate-question-bank.js
       - name: Test CAT adaptive decision engine
@@ -28,6 +29,8 @@ jobs:
         run: node tests/shared-renderer.test.js
       - name: Test question ID collision normalization
         run: node tests/question-id-normalizer.test.js
+      - name: Verify production bank against shared renderer
+        run: node tests/question-bank-renderer-contract.test.js
       - name: Validate production question bank
         run: node scripts/validate-question-bank.js questions.js
       - name: Upload real-bank validation report
