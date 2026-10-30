@@ -227,9 +227,6 @@ body:has(#exam-workspace)>main{display:flex!important;flex:1 1 auto!important;fl
                 <span id="session-info-pill" class="bg-blue-900/80 px-2.5 py-1 rounded border border-blue-700 text-blue-100 font-semibold">
                     <i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question Loading...
                 </span>
-                <span id="category-badge" class="hidden md:inline-block px-2 py-1 bg-slate-800 rounded text-slate-300 font-mono-custom text-[11px]">
-                    Category: General Nursing
-                </span>
             </div>
             
             <div class="flex items-center gap-3">
@@ -585,7 +582,6 @@ function renderCurrentQuestion() {
             if(currentIndex>=activeQuestions.length){finishExamSession();return;}
             updateSubmitButtonState();const q=activeQuestions[currentIndex];window.quickRNExamMode='Timed';window.quickRNCurrentQuestion=q;
             document.getElementById('session-info-pill').innerHTML=`<i class="fa-solid fa-layer-group text-amber-400 mr-1"></i> Question ${currentIndex+1} of ${activeQuestions.length}`;
-            document.getElementById('category-badge').innerText=q.category||'General Nursing';
             const icon=document.getElementById('top-bookmark-icon');if(icon)icon.className=bookmarkedQuestions[q.id]?"fa-solid fa-bookmark text-amber-400":"fa-regular fa-bookmark text-slate-400";
             quickRNInitDraft(q,selectedOptions[currentIndex]);window.quickRNOnDraftChange=(d)=>{selectedOptions[currentIndex]=d;};window.quickRNRenderAgain=renderCurrentQuestion;
             document.getElementById('exam-container').innerHTML=quickRNRenderClinicalItem(q,quickRNDraft);
@@ -912,7 +908,7 @@ function renderCurrentQuestion() {
                     html += `
                         <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between">
                             <div class="space-y-0.5">
-                                <span class="text-[10px] font-bold text-ncsbn-blue uppercase">${item.category || 'General'}</span>
+                                
                                 <p class="text-xs font-semibold text-slate-800 line-clamp-1">${item.questionText}</p>
                             </div>
                         </div>
