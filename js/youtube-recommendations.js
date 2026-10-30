@@ -2,11 +2,10 @@
     'use strict';
 
     const TEXT_FIELDS = [
-        'topic', 'category', 'subcategory', 'subject', 'clientNeedDomain',
-        'domain', 'contentArea', 'concept', 'keyPhrase', 'cleanTitle',
-        'title', 'promptTitle', 'clinicalFocus', 'focusArea', 'questionText',
-        'question', 'stem', 'learningObjective', 'learningObjectives',
-        'objective', 'rationale'
+        'keyPhrase', 'clinicalFocus', 'focusArea', 'learningObjective', 'learningObjectives',
+        'concept', 'subcategory', 'topic', 'category', 'clientNeedDomain', 'domain',
+        'contentArea', 'subject', 'cleanTitle', 'title', 'promptTitle', 'questionOnly',
+        'actualQuestion', 'questionText', 'question', 'stem', 'objective'
     ];
     const NESTED_FIELDS = ['caseStudy', 'case', 'scenario'];
     const NESTED_TEXT_KEYS = ['title', 'name', 'summary', 'description', 'text', 'content', 'narrative', 'scenario'];
@@ -46,10 +45,11 @@
     }
 
     function getQuestionContext(question) {
-        const fragments = uniqueFragments(question);
-        let context = fragments.join(' ');
-        if (!context) context = 'clinical nursing fundamentals';
-        return Array.from(context).slice(0, 180).join('').trim();
+        const q=question&&typeof question==='object'?question:{};
+        const preferred=[q.keyPhrase,q.clinicalFocus,q.focusArea,q.learningObjective,q.concept,q.topic,q.subcategory,q.category,q.clientNeedDomain,q.questionOnly,q.actualQuestion,q.cleanTitle,q.title,q.questionText,q.question,q.stem].map(v=>plainText(v,0)).filter(Boolean);
+        const unique=preferred.filter((v,i,a)=>a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i);
+        let context=unique.join(' ')||uniqueFragments(q).join(' ')||'clinical nursing fundamentals';
+        return Array.from(context).slice(0,240).join('').trim();
     }
 
     function getDisplayTopic(question) {
