@@ -79,7 +79,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 /* NGN case-study extensions: Highlight and Trend. Existing formats continue through the base renderer. */
 const quickRNBaseDetect = quickRNDetectItemFormat;
 quickRNDetectItemFormat = function(q) {
- const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').toLowerCase();
+ const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
  if(raw.includes('extended multiple response'))return 'Extended Multiple Response';
