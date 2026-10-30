@@ -86,7 +86,57 @@
     };
   }
 
+
+  function safeCalculate(expression) {
+    const source = String(expression || '').replace(/\s+/g, '');
+    if (!source || !/^[0-9.+\-*/()]+$/.test(source)) throw new Error('Invalid expression');
+    const tokens = source.match(/(?:\d+(?:\.\d*)?|\.\d+)|[()+\-*/]/g) || [];
+    if (tokens.join('') !== source) throw new Error('Invalid expression');
+    const output = [], operators = [];
+    const rank = { '+': 1, '-': 1, '*': 2, '/': 2, 'u+': 3, 'u-': 3 };
+    let previous = 'start';
+    for (const token of tokens) {
+      if (/^(?:\d|\.)/.test(token)) { output.push(Number(token)); previous = 'number'; continue; }
+      if (token === '(') { operators.push(token); previous = '('; continue; }
+      if (token === ')') {
+        while (operators.length && operators[operators.length - 1] !== '(') output.push(operators.pop());
+        if (operators.pop() !== '(') throw new Error('Mismatched parentheses');
+        previous = 'number'; continue;
+      }
+      let op = token;
+      if ((op === '+' || op === '-') && ['start', '(', 'operator'].includes(previous)) op = op === '+' ? 'u+' : 'u-';
+      while (operators.length && operators[operators.length - 1] !== '(') {
+        const top = operators[operators.length - 1];
+        if (rank[top] > rank[op] || (rank[top] === rank[op] && !op.startsWith('u'))) output.push(operators.pop());
+        else break;
+      }
+      operators.push(op); previous = 'operator';
+    }
+    while (operators.length) {
+      const op = operators.pop();
+      if (op === '(') throw new Error('Mismatched parentheses');
+      output.push(op);
+    }
+    const stack = [];
+    for (const token of output) {
+      if (typeof token === 'number') { stack.push(token); continue; }
+      if (token === 'u+' || token === 'u-') {
+        if (!stack.length) throw new Error('Invalid expression');
+        const value = stack.pop(); stack.push(token === 'u-' ? -value : value); continue;
+      }
+      if (stack.length < 2) throw new Error('Invalid expression');
+      const b = stack.pop(), a = stack.pop();
+      if (token === '+') stack.push(a + b);
+      else if (token === '-') stack.push(a - b);
+      else if (token === '*') stack.push(a * b);
+      else if (token === '/') { if (b === 0) throw new Error('Cannot divide by zero'); stack.push(a / b); }
+    }
+    if (stack.length !== 1 || !Number.isFinite(stack[0])) throw new Error('Invalid expression');
+    return Number(stack[0].toFixed(8)).toString();
+  }
+
   root.QuickRNCoach = Object.freeze({
+    safeCalculate,
     domains: DOMAINS,
     classifyClientNeed,
     recordClientNeedAttempt,
