@@ -47,6 +47,26 @@ assert.equal(
 );
 assert.equal(topicPrefixed.question, 'Review the cues and complete the clinical judgment item.');
 
+const firstTraditionalItem = api.splitPrompt({
+  id: 'TRAD-0001',
+  topic: 'Acute myocardial infarction',
+  question: 'A client reports new crushing chest pressure with diaphoresis and nausea; acute coronary syndrome is suspected. Which nursing action should the nurse take first?',
+  stem: 'A client reports new crushing chest pressure with diaphoresis and nausea; acute coronary syndrome is suspected. Which nursing action should the nurse take first?',
+  instruction: 'Select the single best answer.'
+});
+assert.equal(
+  firstTraditionalItem.scenario,
+  'A client reports new crushing chest pressure with diaphoresis and nausea; acute coronary syndrome is suspected.'
+);
+assert.equal(firstTraditionalItem.question, 'Which nursing action should the nurse take first?');
+
+const whitespaceOverride = api.splitPrompt({
+  questionOnly: '   ',
+  actualQuestion: '',
+  question: 'Which assessment finding should the nurse report immediately?'
+});
+assert.equal(whitespaceOverride.question, 'Which assessment finding should the nurse report immediately?');
+
 const inferredTopic = api.splitPrompt({
   question: 'Stroke assessment: A client reports sudden unilateral weakness. The nurse reviews the history and current assessment. Which action should the nurse take first?'
 });
