@@ -10,7 +10,7 @@
   }
   function downloadReport(report){
     const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='quickrn-question-report-'+report.id+'.json';a.click();URL.revokeObjectURL(url);
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='quickrn-question-report-'+report.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }
   function open(){
     const q=window.quickRNCurrentQuestion;
