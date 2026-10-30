@@ -1,0 +1,23 @@
+name: NGN renderer validation
+on:
+  push:
+    branches: ["feat/shared-ngn-renderer-highlight-trend"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  renderer-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Syntax-check shared renderer and test scripts
+        run: |
+          node --check js/shared-exam-renderer.js
+          node --check tests/shared-renderer.test.js
+          node --check scripts/validate-question-bank.js
+      - name: Test all supported question renderers
+        run: node tests/shared-renderer.test.js
+      - name: Validate production question bank
+        run: node scripts/validate-question-bank.js questions.js
