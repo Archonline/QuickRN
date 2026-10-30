@@ -15,7 +15,7 @@ PROJECT STRUCTURE
 - js/shared-exam-renderer.js: shared NGN detection, rendering, answer adapters, and grading
 - js/quickrn-question-id-normalizer.js: deterministic handling of duplicate question IDs before session state is created
 - js/quickrn-question-metrics.js: browser-local per-question correctness metrics
-- js/quickrn-coach.js: transparent local rule-based study coach and Client Needs classification
+- js/quickrn-coach.js: transparent local rule-based study coach and Client Needs classification\n- js/quickrn-platform-hardening.js: shared local storage, diagnostics, connectivity, and lifecycle safeguards\n- js/quickrn-data-backup.js: validated browser-local backup export/import with rollback on partial restore
 - js/youtube-recommendations.js: contextual YouTube search recommendations
 - scripts/validate-question-bank.js: production-bank structural and content-quality audit
 - tests/: renderer, CAT engine, coach/UI, and question-ID regression tests
