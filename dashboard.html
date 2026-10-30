@@ -357,20 +357,20 @@
                             </div>
                             <button type="button" onclick="switchTab('analytics')" class="shrink-0 text-xs font-bold text-brand-700 hover:text-brand-900">Full analytics <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
                         </div>
-                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-3">
-                            <div class="min-w-0 space-y-2">
-                                <div class="flex items-center justify-between gap-2">
-                                    <h3 class="text-sm font-bold text-amber-950">Priority Weak Areas</h3>
-                                    <span class="text-[10px] text-amber-800">Below 75% accuracy</span>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div>
+                                    <h3 class="text-sm font-bold text-slate-900">Client Needs Categories</h3>
+                                    <p class="text-[10px] text-slate-500">Select any category to practice its questions. Priority areas are highlighted directly in the same list.</p>
                                 </div>
-                                <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-slate-500">Complete practice questions to identify areas for remediation.</p></div>
+                                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-slate-600" aria-label="Client Needs performance legend">
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border-2 border-red-500 bg-white"></span> Priority review: below 75%</span>
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-slate-200 bg-slate-50"></span> On track: 75% or higher</span>
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-dashed border-slate-400 bg-white"></span> No data yet</span>
+                                </div>
                             </div>
-                            <div class="min-w-0 space-y-2">
-                                <h3 class="text-sm font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h3>
-                                <p class="text-[10px] text-slate-500">Select a category to practice its questions.</p>
-                                <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                    <!-- Populated dynamically by JS -->
-                                </div>
+                            <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <!-- Populated dynamically by JS -->
                             </div>
                         </div>
                     </section>
@@ -408,6 +408,10 @@
 <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
                                 <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-palette text-teal-700"></i> Unified QuickRN design system</div>
                                 <p class="mt-2 text-xs leading-6 text-slate-600">A shared brand stylesheet now harmonizes typography, clinical navy and teal accents, focus states, form controls, and interface chrome across the landing page, dashboard, calendar, study modes, exam simulators, saved questions, reports, profile, help, and reference view. NCLEX split-screen layouts and clinical status feedback remain intact.</p>
+                            </article>
+                            <article class="rounded-xl border border-red-200 bg-red-50/30 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-column text-red-700"></i> Simplified Client Needs performance</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Combined the separate weak-area and mastery panels into one category list. Red borders identify areas below 75%; neutral borders indicate on-track areas, and dashed borders indicate categories with no attempts. A legend explains each status.</p>
                             </article>
                             <article class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-4 sm:col-span-2">
                                 <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-shield-halved text-emerald-700"></i> Platform reliability and recovery</div>
@@ -833,10 +837,8 @@
         function renderMasteryCategories() {
             const container = document.getElementById('mastery-categories-list');
             const detailedContainer = document.getElementById('analytics-detailed-list');
-            const weakContainer = document.getElementById('weak-client-needs');
             if (container) container.innerHTML = '';
             if (detailedContainer) detailedContainer.innerHTML = '';
-            if (weakContainer) weakContainer.innerHTML = '';
             const weakAreas = [];
 
             studentStats.categories.forEach(cat => {
@@ -848,12 +850,12 @@
 
                 if (container) {
                     container.innerHTML += `
-                        <a href="selfstudy.html?topic=${encodeURIComponent(cat.name)}&q=${encodeURIComponent(cat.name.replace(/\s*\([^)]*\)/g, ''))}" class="block space-y-2 p-2.5 bg-slate-50 rounded-xl border ${cat.solved > 0 && cat.percentage < 75 ? 'border-amber-200' : 'border-slate-100'} hover:border-brand-400 hover:bg-blue-50/40 transition cursor-pointer" title="Practice all questions in ${cat.name}">
+                        <a href="selfstudy.html?topic=${encodeURIComponent(cat.name)}&q=${encodeURIComponent(cat.name.replace(/\s*\([^)]*\)/g, ''))}" class="block space-y-2 p-2.5 bg-slate-50 rounded-xl border ${cat.solved > 0 && cat.percentage < 75 ? 'border-2 border-red-500 bg-red-50/30' : (cat.solved === 0 ? 'border border-dashed border-slate-300' : 'border border-slate-200')} hover:border-brand-400 hover:bg-blue-50/40 transition cursor-pointer" title="Practice all questions in ${cat.name}">
                             <div class="flex justify-between gap-2 text-xs font-bold">
                                 <span class="text-slate-700">${cat.name}</span>
                                 <span class="text-slate-900">${cat.solved ? cat.percentage + '%' : '—'} <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} correct)</span></span>
                             </div>
-                            <p class="text-[10px] font-semibold ${cat.solved > 0 && cat.percentage < 75 ? 'text-amber-700' : 'text-slate-400'}">${status}</p>
+                            <p class="text-[10px] font-semibold ${cat.solved > 0 && cat.percentage < 75 ? 'text-red-700' : 'text-slate-400'}">${status}</p>
                             <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div></div>
                         </a>`;
                 }
@@ -866,13 +868,6 @@
                         </a>`;
                 }
             });
-            if (weakContainer) {
-                weakContainer.innerHTML = weakAreas.length
-                    ? weakAreas.sort((a,b) => a.percentage - b.percentage).map(cat => `<div class="p-3 bg-white border border-amber-200 rounded-xl"><div class="flex justify-between gap-2 text-xs"><strong class="text-slate-800">${cat.name}</strong><strong class="text-amber-700">${cat.percentage}%</strong></div><p class="mt-1 text-[10px] text-slate-500">${cat.solved} attempts · ${cat.solved - cat.correct} missed · Target 75%</p></div>`).join('')
-                    : (studentStats.categories.some(cat => cat.solved > 0)
-                        ? '<p class="text-xs text-amber-900">No measured domain is currently below 75%. Continue practicing to confirm consistency.</p>'
-                        : '<p class="text-xs text-amber-900">No category data yet. Submit questions in CAT, Timed, Predictor, or Self Study to identify weak areas.</p>');
-            }
         }
 
         function initQuickRNScoreChart() {
