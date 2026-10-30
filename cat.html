@@ -460,6 +460,7 @@ function renderQuestion() {
             isSubmitted=true;
             const isCorrect=quickRNGrade(currentQuestion,quickRNDraft);
             catHistory.push({question:currentQuestion,selectedOption:JSON.parse(JSON.stringify(quickRNDraft)),isCorrect});
+            if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(currentQuestion, isCorrect);
             let state=JSON.parse(localStorage.getItem('quickrn_student_state')||'{}');
             if(!state.studentStats)state.studentStats={totalAnswered:0,correctCount:0,categories:[]};
             state.studentStats.totalAnswered=(state.studentStats.totalAnswered||0)+1;
@@ -483,10 +484,9 @@ function renderQuestion() {
             // Save to LocalStorage
             let stateObj = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
             stateObj.studentStats = stateObj.studentStats || { testsTaken: 0, totalAnswered: 0, correctCount: 0, mistakeCount: 0, passingProbability: 0, examHistory: [] };
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += totalAnswered;
-            stateObj.studentStats.correctCount += correctCount;
+            stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
             stateObj.studentStats.passingProbability = isPassed ? 92 : 35;
+            stateObj.studentStats.examHistory = stateObj.studentStats.examHistory || [];
             stateObj.studentStats.examHistory.unshift({
                 date: new Date().toLocaleString(),
                 mode: 'CAT Adaptive Exam',
@@ -694,7 +694,7 @@ function renderQuestion() {
 
         function calcEquals() {
             const display = document.getElementById('calc-display');
-            try { display.value = eval(display.value.replace(/×/g, '*').replace(/÷/g, '/')); } catch (e) { display.value = 'Error'; }
+            try { display.value = window.QuickRNCoach.safeCalculate(display.value.replace(/×/g, '*').replace(/÷/g, '/')); } catch (e) { display.value = 'Error'; }
         }
 
         
@@ -806,99 +806,37 @@ function renderQuestion() {
     </script>
 
 
-    <!-- GOOGLE GEMINI SIDEBAR & CONDITIONAL AI TUTOR SCRIPT -->
-    <div id="gemini-sidebar" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col transform transition-transform duration-300 translate-x-full">
-        <div class="p-4 bg-ncsbn-navy text-white flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
-                <span class="font-bold text-sm">Google Gemini AI Tutor</span>
-            </div>
-            <button onclick="closeGeminiSidebar()" class="text-slate-300 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <div class="flex-grow p-4 flex flex-col space-y-3 bg-slate-50">
-            <p class="text-xs text-slate-600">Automatically searching tips to master: <strong id="gemini-topic-label" class="text-slate-900"></strong></p>
-            <div class="flex-grow bg-white rounded-xl border border-slate-200 overflow-hidden shadow-inner flex flex-col">
-                <iframe id="gemini-iframe" class="w-full h-full border-0" src=""></iframe>
-            </div>
-        </div>
-    </div>
-
     <script>
+        function quickRNCoachEscape(value) {
+            return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+        }
         function handleAITutorClick(topic, rationale) {
-            let authProvider = localStorage.getItem('auth_provider') || 'email';
-            try {
-                const studentState = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
-                if (studentState.provider) {
-                    authProvider = studentState.provider;
-                }
-            } catch(e) {}
-
-            if (authProvider === 'google.com' || authProvider === 'google' || authProvider === 'gmail') {
-                openGoogleGeminiSidebar(topic || 'NCLEX Clinical Judgment');
-            } else {
-                openBrowserAITutorModal(topic, rationale);
-            }
-        }
-
-        
-        function openGoogleGeminiSidebar(topic) {
-            const encodedQuery = encodeURIComponent(`NCLEX clinical judgment tips ${topic} core pathophysiology`);
-            window.open(`https://www.google.com/search?q=${encodedQuery}`, '_blank');
-        }
-
-        function closeGeminiSidebar() {
-            const sidebar = document.getElementById('gemini-sidebar');
-            if (sidebar) sidebar.classList.add('translate-x-full');
-        }
-
-        function openBrowserAITutorModal(topic, rationale) {
+            const question = window.quickRNCurrentQuestion || (typeof currentQuestion !== 'undefined' ? currentQuestion : {});
+            const insight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight({...question, topic: topic || question.topic, rationale: rationale || question.rationale}) : {
+                topic: topic || 'Clinical review', domain: 'Clinical review',
+                guidance: rationale || 'Identify the most urgent cue, prioritize safety, and reassess the response.',
+                outcome: 'Review the rationale and explain why the safest action takes priority.', rationale
+            };
             const modal = document.getElementById('ai-tutor-modal');
             const content = document.getElementById('ai-tutor-content');
-            
-            const encodedTopic = encodeURIComponent(topic || 'NCLEX clinical judgment');
-            const freeResourcesHTML = `
-                <div class="mt-4 p-3 bg-white rounded-xl border border-indigo-200 space-y-2">
-                    <strong class="text-indigo-900 text-xs block"><i class="fa-solid fa-globe text-blue-600 mr-1"></i> Free Online Reading & References:</strong>
-                    <ul class="text-[11px] text-blue-700 space-y-1 list-disc pl-4 font-medium">
-                        <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK470438/" target="_blank" rel="noopener noreferrer" class="hover:underline">NCLEX Clinical Judgment Measurement Model (NCJMM) Overview - NIH / StatPearls</a></li>
-                        <li><a href="https://www.google.com/search?q=${encodedTopic}+nursing+intervention+guidelines+filetype:pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Free Clinical Practice Guidelines & PDFs (${topic || 'Core Nursing'})</a></li>
-                        <li><a href="https://www.cdc.gov" target="_blank" rel="noopener noreferrer" class="hover:underline">CDC Disease & Treatment Guidelines</a></li>
-                    </ul>
-                </div>
-            `;
-
-            if (content) {
-                content.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm border-b border-indigo-200 pb-2">
-                            <i class="fa-solid fa-robot animate-bounce"></i>
-                            <span>Nurse AI Deep-Dive Tutor: ${topic || 'Clinical Mastery'}</span>
-                        </div>
-                        
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            <strong>Advanced Pathophysiology & Priority Breakdown:</strong><br>
-                            When analyzing <em>${topic || 'this clinical concept'}</em> on the NCLEX, examine how physiological instability alters client outcomes. Focus on the underlying disease mechanisms, early subtle compensatory signs before decompensation occurs, and immediate nursing actions required under the Clinical Judgment Measurement Model (NCJMM).
-                        </p>
-
-                        <div class="p-3 bg-indigo-50/80 rounded-xl border border-indigo-200 space-y-1.5">
-                            <strong class="text-indigo-950 text-xs block"><i class="fa-solid fa-stethoscope text-indigo-600 mr-1"></i> Expanded Clinical Insights & Distractor Traps:</strong>
-                            <p class="text-slate-700 text-[11px] leading-relaxed">
-                                Test-takers frequently fall for distractor options that suggest routine nursing assessments when an immediate, life-saving intervention is required. Always remember that monitoring is secondary to direct airway, breathing, or hemodynamic stabilization when dealing with acute client distress.
-                            </p>
-                        </div>
-
-                        ${freeResourcesHTML}
-                    </div>
-                `;
-            }
+            if (content) content.innerHTML = `
+                <div class="space-y-3">
+                    <div class="text-indigo-700 font-bold text-sm border-b border-indigo-200 pb-2"><i class="fa-solid fa-book-medical mr-2"></i>Clinical Study Coach: ${quickRNCoachEscape(insight.topic)}</div>
+                    <p class="text-xs text-slate-600"><strong>Client Needs focus:</strong> ${quickRNCoachEscape(insight.domain)}</p>
+                    <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-200 text-xs text-slate-800 leading-relaxed">${quickRNCoachEscape(insight.guidance)}</div>
+                    <p class="text-xs text-slate-700 leading-relaxed">${quickRNCoachEscape(insight.outcome)}</p>
+                    ${insight.rationale ? '<div class="p-3 bg-white rounded-xl border text-xs text-slate-700"><strong>Question rationale</strong><p class="mt-1">' + quickRNCoachEscape(insight.rationale) + '</p></div>' : ''}
+                    <div class="p-3 bg-white rounded-xl border text-[11px] text-slate-500">This is locally generated, rule-based study guidance. No external generative AI service is connected.</div>
+                    <div class="flex flex-wrap gap-3 text-xs"><a href="https://www.cdc.gov" target="_blank" rel="noopener noreferrer" class="text-blue-700 underline">CDC guidance</a><a href="https://www.ncbi.nlm.nih.gov/books/" target="_blank" rel="noopener noreferrer" class="text-blue-700 underline">NCBI Bookshelf</a></div>
+                </div>`;
             if (modal) modal.classList.remove('hidden');
         }
         function closeAITutorModal() {
             const modal = document.getElementById('ai-tutor-modal');
             if (modal) modal.classList.add('hidden');
         }
-
     </script>
 
+    <script src="js/quickrn-coach.js"></script>
 </body>
 </html>
