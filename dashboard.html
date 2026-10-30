@@ -104,11 +104,7 @@
                     <span>QuickRN Feature Hub</span>
                 </a>
 
-                <a href="#" onclick="switchTab('analytics')" id="nav-analytics" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
-                    <i class="fa-solid fa-chart-line w-5 text-center"></i>
-                    <span>Client Needs Mastery</span>
-                </a>
-
+                
                 <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Study & Testing</div>
 
                 <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
@@ -237,7 +233,7 @@
                     </div>
 
                     <!-- Quick Stats Grid (Initial State: All 0) -->
-                    <div class="lg:col-span-2 xl:col-span-3 grid grid-cols-2 xl:grid-cols-4 gap-1.5">
+                    <div class="lg:col-span-1 xl:col-span-2 grid grid-cols-2 gap-1.5">
                         
                         <!-- Questions Only Card (Clickable to show finished exams / test history) -->
                         <div onclick="openFinishedTestsModal()" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
@@ -286,7 +282,7 @@
                     </div>
 
                     <!-- SUBJECT & LESSON LIBRARY -->
-                    <section class="lg:col-span-2 xl:col-span-3 bg-white rounded-xl border border-slate-200 p-3 lg:p-4 shadow-sm space-y-3">
+                    <section class="lg:col-span-1 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div>
                                 <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
@@ -299,7 +295,7 @@
                     </section>
 
                     <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
-                    <div class="lg:col-start-1 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-3 shadow-sm space-y-2">
+                    <div class="lg:col-start-2 xl:col-start-3 xl:col-span-1 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2">
                             <div>
                                 <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
@@ -326,7 +322,7 @@
 
                     
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <div class="lg:col-start-2 xl:col-span-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-3 text-white shadow-md space-y-2 relative overflow-hidden">
+                    <div class="lg:col-start-2 xl:col-start-2 xl:col-span-1 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-2.5 text-white shadow-md space-y-2 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
                             <div class="flex items-center space-x-3">
@@ -350,17 +346,17 @@
                         </div>
                     </div>
 
-                    <section class="lg:col-start-1 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-3 space-y-2">
+                    <section class="lg:col-start-1 xl:col-start-1 xl:col-span-1 bg-amber-50 border border-amber-200 rounded-lg p-2.5 space-y-2">
                         <div class="flex items-center justify-between gap-3"><div><h2 class="text-sm font-bold text-amber-950">Priority Weak Areas</h2><p class="text-xs text-amber-800">Client Needs domains below the 75% accuracy target, based on submitted answers.</p></div><i class="fa-solid fa-bullseye text-amber-700 text-xl"></i></div>
                         <div id="weak-client-needs" class="grid grid-cols-1 md:grid-cols-2 gap-2"><p class="text-xs text-amber-900">Complete practice questions to identify areas for remediation.</p></div>
                     </section>
 
                     <!-- NCLEX Client Needs Mastery Breakdown Grid -->
-                    <div class="lg:col-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-3 shadow-sm space-y-2">
+                    <div class="lg:col-start-2 xl:col-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
                         <div class="flex items-center justify-between">
                             <div>
-                                <h2 class="text-base font-bold text-slate-900">NCLEX Client Needs Mastery Categories</h2>
-                                <p class="text-xs text-slate-500">Dynamically updates as you complete practice questions & tests across all domains</p>
+                                <button type="button" onclick="switchTab('analytics')" class="text-left text-sm font-bold text-slate-900 hover:text-brand-700">NCLEX Client Needs Mastery Categories <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
+                                <p class="text-[10px] text-slate-500">Select a category to practice its questions · open analytics for the full breakdown</p>
                             </div>
                         </div>
 
@@ -738,10 +734,15 @@
         function renderDashboardStats() {
             document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
             
-            const accuracy = studentStats.totalSolved > 0 
-                ? Math.round((studentStats.correctCount / studentStats.totalSolved) * 100) 
-                : 0;
+            const ledger = window.QuickRNQuestionMetrics && typeof window.QuickRNQuestionMetrics.totals === 'function' ? window.QuickRNQuestionMetrics.totals() : null;
+            const answered = ledger && Number.isFinite(Number(ledger.attempts)) ? Number(ledger.attempts) : Math.max(0, Number(studentStats.totalSolved) || 0);
+            const correct = ledger && Number.isFinite(Number(ledger.correct)) ? Number(ledger.correct) : Math.max(0, Number(studentStats.correctCount) || 0);
+            studentStats.totalSolved = answered;
+            studentStats.correctCount = Math.min(answered, correct);
+            const accuracy = answered > 0 ? Math.round((studentStats.correctCount / answered) * 100) : 0;
             document.getElementById('stat-accuracy').textContent = accuracy + '%';
+            const solvedNode = document.getElementById('stat-solved-display');
+            if (solvedNode) solvedNode.innerHTML = answered + ' <span class="text-sm font-semibold text-slate-400">/ ' + totalQuestionsInPool + '</span>';
 
             document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
             document.getElementById('stat-predictor-count').textContent = studentStats.predictorExamsCount;
