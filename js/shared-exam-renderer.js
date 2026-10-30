@@ -57,6 +57,77 @@ function quickRNCleanClinicalText(value, metadata){
  return text;
 }
 function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(v,metadata);}
+function quickRNSplitPrompt(q){
+ q=q&&typeof q==='object'?q:{};
+ const asText=v=>{
+  if(v==null)return '';
+  if(typeof v==='string'||typeof v==='number')return String(v);
+  if(Array.isArray(v))return v.map(asText).filter(Boolean).join('\n\n');
+  if(typeof v==='object')return String(v.summary||v.description||v.narrative||v.text||v.content||v.history||v.notes||v.patientInformation||'');
+  return '';
+ };
+ const explicitFields=[
+  q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+  q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
+  q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
+  q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
+  typeof q.caseStudy==='string'?q.caseStudy:'',
+  q.caseStudy?.scenario,q.caseStudy?.clinicalScenario,q.caseStudy?.summary,q.caseStudy?.description,
+  q.caseStudy?.narrative,q.caseStudy?.history,q.caseStudy?.patientInformation,
+  typeof q.case_study==='string'?q.case_study:'',
+  q.case_study?.scenario,q.case_study?.summary,q.case_study?.description,q.case_study?.narrative,
+  q.ehr?.summary,q.ehr?.narrative,q.ehr?.patientInformation,q.medicalRecord?.summary,
+  q.patientRecord?.summary,q.chart?.summary
+ ];
+ const explicit=explicitFields.map(asText).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean);
+ const scenarioParts=Array.from(new Set(explicit.map(v=>v.trim()).filter(Boolean)));
+ let scenario=scenarioParts.join('\n\n');
+ const rawSource=q.questionOnly||q.actualQuestion||q.question||q.stem||q.questionText||q.cleanTitle||q.title||q.prompt||'';
+ const rawText=String(rawSource||'');
+ const topicMatch=/^\s*([^:\n]{2,90}):\s+/.exec(rawText);
+ const topic=String(q.topic||q.category||topicMatch?.[1]||'').trim();
+ let source=quickRNCleanClinicalText(rawSource,q);
+ let instruction=quickRNCleanClinicalText(q.instruction||'',q);
+ if(!instruction&&q.cleanInstruction&&quickRNCleanClinicalText(q.cleanInstruction,q).toLowerCase()!==source.toLowerCase())instruction=quickRNCleanClinicalText(q.cleanInstruction,q);
+ // Preserve the source wording of common NGN cue-review directions.
+ const cueInstruction=/(?:^|[.!?]\s+|\n)\s*((?:Review the (?:clinical )?(?:cues|clinical record|patient record|chart|exhibits|case information)|Use the clinical cues|Analyze the clinical cues|Examine the exhibits)\b[^.!?\n]*(?:[.!?]|$))\s*$/i.exec(source);
+ if(cueInstruction){
+  const direction=cueInstruction[1].trim();
+  const directionStart=source.toLowerCase().lastIndexOf(direction.toLowerCase());
+  const before=source.slice(0,directionStart).trim();
+  if(before){
+   scenario=scenario||quickRNCleanClinicalText(before,q);
+   source='';
+   if(!instruction)instruction=direction;
+  }else if(!instruction)instruction=direction;
+ }
+ // If the bank stores separate narrative paragraphs, retain the final direction as the right-pane prompt.
+ if(!scenario){
+  const blocks=source.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+  if(blocks.length>1&&/^(?:Review the|Use the|Analyze the|Examine the)\b/i.test(blocks[blocks.length-1])){
+   scenario=blocks.slice(0,-1).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean).join('\n\n');
+   if(!instruction)instruction=blocks[blocks.length-1];
+   source='';
+  }
+ }
+ // Traditional follow-up items keep the case narrative on the left and the final direct question on the right.
+ if(!scenario&&source){
+  const sentences=source.match(/[^.!?]+[.!?]+(?:[”’"']+)?|[^.!?]+$/g)||[source];
+  const last=(sentences[sentences.length-1]||'').trim();
+  if(sentences.length>1&&/^(?:which|what|when|where|who|how|select|identify|determine|calculate|complete|place|indicate|the nurse|the client)/i.test(last)){
+   scenario=sentences.slice(0,-1).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean).join(' ').trim();
+   source=last;
+  }
+ }
+ scenario=quickRNCleanClinicalText(scenario,q);
+ source=quickRNCleanClinicalText(source,q);
+ if(scenario&&source.toLowerCase().startsWith(scenario.toLowerCase()))source=source.slice(scenario.length).trim();
+ if(scenario&&instruction&&source&&source.toLowerCase()===instruction.toLowerCase())source='';
+ let question=instruction||source||'';
+ // This question family intentionally repeats the cleaned stem in the response pane.
+ if(/^developmental milestones$/i.test(topic)&&scenario)question=scenario;
+ return {scenario,question};
+}
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
@@ -282,6 +353,7 @@ window.QuickRNSharedRenderer={
  fromDraft:quickRNToLegacyDraft,
  cleanPrompt:quickRNCleanPrompt,
  cleanClinicalText:quickRNCleanClinicalText,
+ splitPrompt:quickRNSplitPrompt,
  renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft,submitted);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
  hasAnswer:quickRNHasAnswer,
  grade:quickRNGrade,
