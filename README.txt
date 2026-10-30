@@ -140,3 +140,14 @@ A shared stylesheet, `css/quickrn-brand-system.css`, now defines the visual lang
 When creating a new page, load `css/quickrn-brand-system.css` after page-specific stylesheets and inline styles so the shared brand layer remains consistent. Keep the brand palette in this file rather than introducing page-specific brand colors.
 
 Brand regression coverage: `tests/brand-system-contract.test.js` verifies that all 12 primary application pages load the shared theme and that the NCLEX split-screen stylesheet remains present. The test runs in the NGN renderer validation workflow.
+
+
+## Exam workspace feedback and question-only layout — October 31, 2026
+
+- Removed the standalone “Report this item” control from the shared exam question renderer.
+- Consolidated question issue reporting and general suggestions into the existing Feedback modal. Users can select a feedback category and add details; the saved local report includes the question ID, category/topic/type, prompt, relevant question snapshot, exam mode, and timestamp.
+- The modal clearly states that feedback is stored locally on the current device and is not automatically sent to the team.
+- Right-aligned the Check Answer / Submit Answer action in the exam workspace.
+- When a question has no actual case-study or clinical-record exhibits, the Clinical Record tabs and empty placeholder are hidden. The question stem moves into the left pane; answer choices and response controls remain in the right pane.
+- Case-based items retain the clinical-record left pane and question/response right pane.
+- Added regression coverage for feedback consolidation, question-only layout, removal of the standalone report action, and right-aligned answer controls.
