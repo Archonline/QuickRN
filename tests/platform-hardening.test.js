@@ -18,7 +18,9 @@ assert.deepEqual(JSON.parse(api.safeParse('{bad','{"fallback":true}')),{fallback
 assert.equal(api.escapeHTML('<script>'), '&lt;script&gt;');
 assert.match(api.uid('test'),/^test-/);
 api.recordError('test','sample error');
-assert.equal(api.errors().length,1);\nfor(let i=0;i<35;i++)api.recordError('bounded','event '+i);\nassert.equal(api.errors().length,30,'diagnostic journal should remain bounded');
+assert.equal(api.errors().length,1);
+for(let i=0;i<35;i++)api.recordError('bounded','event '+i);
+assert.equal(api.errors().length,30,'diagnostic journal should remain bounded');
 assert.equal(typeof api.on,'function');
 assert.equal(typeof api.debounce,'function');
 
