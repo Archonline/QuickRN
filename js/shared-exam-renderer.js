@@ -47,8 +47,13 @@ function quickRNCleanClinicalText(value, metadata){
   }
  }
  // Repeated case footers are navigation metadata, not part of the clinical record.
- text=text.split('\n').filter(line=>!/clinical\s+case\s+#?\d+.*\bitem\s+\d+\s+of\s+\d+/i.test(line)).join('\n').trim();
- text=text.replace(/\s*[—–|·]\s*[^\n—–|·]{1,100}\s*[—–-]\s*clinical\s+case\s+#?\d+\s*[·|—–-]\s*item\s+\d+\s+of\s+\d+\s*$/i,'').trim();
+ const footer= /\s*[—–|·]\s*[^\n—–|·]{1,100}\s*[—–-]\s*clinical\s+case\s+#?\d+\s*[·|—–-]\s*item\s+\d+\s+of\s+\d+\s*$/i;
+ text=text.split('\n').map(line=>{
+  line=line.replace(footer,'').trim();
+  line=line.replace(/([.!?])\s+[^.\n]{1,110}\s*[—–-]\s*clinical\s+case\s+#?\d+\s*[·|—–-]\s*item\s+\d+\s+of\s+\d+\s*$/i,'$1');
+  line=line.replace(/^[^.\n]{1,110}\s*[—–-]\s*clinical\s+case\s+#?\d+\s*[·|—–-]\s*item\s+\d+\s+of\s+\d+\s*$/i,'');
+  return line;
+ }).filter(Boolean).join('\n').trim();
  return text;
 }
 function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(v,metadata);}
