@@ -24,7 +24,7 @@ function canon(src){
  else if(/extended multiple response/.test(raw))f='Extended Multiple Response';
  else if(/sata|select all|multiple response/.test(raw))f='Multiple Response';
  else if(/single|one best answer|one answer|multiple choice/.test(raw))f='Single Choice';
- else if(Array.isArray(q.correctAnswers))f=q.correctAnswers.length>1?'Multiple Response':'Single Choice';
+ else if(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer)){const key=q.correctAnswers??q.correctAnswer;f=key.length>1?'Multiple Response':'Single Choice';}
  const cleanText=v=>api.cleanPrompt(s(v));
  q.ngnType=f;
  q.title=cleanText(q.title||q.promptTitle||q.questionText||q.question||q.prompt||'Clinical question');
