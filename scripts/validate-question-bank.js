@@ -10,6 +10,11 @@ vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{timeout:120000,filename
 let bank=context.questions||context.embeddedQuestionsData||context.questionBank||context.window.questions||context.window.embeddedQuestionsData;
 if(!Array.isArray(bank)){for(const name of ['questions','embeddedQuestionsData','questionBank']){try{const candidate=vm.runInNewContext(name,context);if(Array.isArray(candidate)){bank=candidate;break;}}catch{}}}
 if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+file);process.exit(3);}
+// Include the supplemental formats used by the live exam pages.
+context.window=context;context.questions=bank;
+const supplement=path.resolve(__dirname,'../questions-ngn-supplement.js');
+if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8'),context,{timeout:30000,filename:supplement});
+bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(s.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
