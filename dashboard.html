@@ -90,7 +90,7 @@
                     <i class="fa-solid fa-chart-pie w-5 text-center"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="#" onclick="switchTab('calendar')" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="calendar.html" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-calendar-days w-5 text-center text-emerald-600"></i>
                     <span>Calendar</span>
                 </a>
@@ -321,7 +321,7 @@
                                     <p class="text-xs text-indigo-200">Uses your saved practice results and domain accuracy to build a focused remediation plan.</p>
                                 </div>
                             </div>
-                            <button onclick="generateAIAuditsAndRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                            <button onclick="generateStudyRoadmap()" class="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
                             </button>
                         </div>
@@ -486,27 +486,6 @@
                     </div>
 
 
-                <!-- CALENDAR TAB -->
-                <div id="tab-content-calendar" class="hidden space-y-6">
-                    <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                            <div><h2 class="text-lg font-bold text-slate-900">Study Calendar</h2><p class="text-xs text-slate-500">Plan study sessions and keep track of your NCLEX preparation.</p></div>
-                            <div class="flex items-center gap-2"><button type="button" onclick="changeCalendarMonth(-1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50" aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button><strong id="calendar-month-label" class="min-w-36 text-center text-sm text-slate-800"></strong><button type="button" onclick="changeCalendarMonth(1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-50" aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button></div>
-                        </div>
-                        <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold uppercase text-slate-400"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-                        <div id="calendar-grid" class="grid grid-cols-7 gap-1"></div>
-                    </section>
-                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                        <form onsubmit="addCalendarEvent(event)" class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-3">
-                            <h3 class="font-bold text-slate-900">Add a study reminder</h3>
-                            <label class="block text-xs font-semibold text-slate-600">Date<input id="calendar-event-date" type="date" required class="mt-1 w-full border border-slate-200 rounded-lg p-2.5 text-sm"></label>
-                            <label class="block text-xs font-semibold text-slate-600">Study activity<input id="calendar-event-title" type="text" maxlength="100" required placeholder="e.g. Pharmacology review" class="mt-1 w-full border border-slate-200 rounded-lg p-2.5 text-sm"></label>
-                            <button type="submit" class="px-4 py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold">Save reminder</button>
-                        </form>
-                        <section class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-3"><h3 class="font-bold text-slate-900">Upcoming study reminders</h3><div id="calendar-event-list" class="space-y-2 text-sm"></div></section>
-                    </section>
-                </div>
-
                 <!-- ANALYTICS TAB -->
                 <div id="tab-content-analytics" class="hidden space-y-6">
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
@@ -592,7 +571,6 @@
             renderDashboardStats();
             renderMasteryCategories();
             initQuickRNScoreChart();
-            renderCalendar();
         });
 
         function detectTotalQuestionsPool() {
@@ -688,7 +666,7 @@
         }
 
         
-        function generateAIAuditsAndRoadmap() {
+        function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
             const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
             if (!measured.length) {
@@ -699,13 +677,33 @@
             const priorities = focus.length ? focus : measured.slice(0, 2);
             const first = priorities[0];
             const second = priorities[1] || first;
-            const plan = [
-                ['Days 1-2', 'Review core concepts, key cues, and rationales in ' + first.name + '.'],
-                ['Days 3-4', 'Complete focused practice and explain why each distractor is unsafe or less appropriate.'],
-                ['Days 5-6', 'Use a timed set and review every missed item in ' + second.name + '.'],
-                ['Day 7', 'Retest both focus areas and compare the updated mastery percentages.']
+            const activities = [
+                { offset: 0, title: 'Review core concepts: ' + first.name, details: 'Review key cues, core concepts, and the rationale for missed questions.' },
+                { offset: 1, title: 'Targeted practice: ' + first.name, details: 'Complete a focused question set and explain why each distractor is unsafe or less appropriate.' },
+                { offset: 2, title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
+                { offset: 3, title: 'Second focus area: ' + second.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
+                { offset: 4, title: 'Timed practice: weakest areas', details: 'Complete a timed set, then review every missed item and record the reason for the error.' },
+                { offset: 5, title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
+                { offset: 6, title: 'Reassess Client Needs mastery', details: 'Retest both focus areas and compare your updated accuracy against the 75% target.' }
             ];
-            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance-based study coach</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + first.name + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (focus.length ? 'This is below the 75% target.' : 'Your measured areas are currently at or above the 75% target; keep consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day remediation plan</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + plan.map(item => '<li><strong>' + item[0] + ':</strong> ' + item[1] + '</li>').join('') + '</ul></section></div>';
+            const today = new Date();
+            const dateForOffset = offset => {
+                const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() + offset);
+                return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+            };
+            const makeId = () => 'roadmap-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+            const events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]').filter(event => event.source !== 'ai-roadmap');
+            const roadmapEvents = activities.map(activity => ({
+                id: makeId(), date: dateForOffset(activity.offset), title: activity.title,
+                details: activity.details, source: 'ai-roadmap'
+            }));
+            localStorage.setItem('quickrn_calendar_events', JSON.stringify(events.concat(roadmapEvents)));
+            localStorage.setItem('quickrn_ai_study_roadmap', JSON.stringify({
+                generatedAt: new Date().toISOString(),
+                focus: priorities.map(cat => ({ name: cat.name, percentage: cat.percentage, attempts: cat.solved })),
+                events: roadmapEvents
+            }));
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance-based study coach</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + first.name + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (focus.length ? 'This is below the 75% target.' : 'Your measured areas are currently at or above the 75% target; keep consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day remediation plan</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + activities.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + item.title + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a></section></div>';
         }
 
         function renderDashboardStats() {
@@ -889,64 +887,8 @@
         }
 
 
-        let quickRNCalendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
-        function localCalendarDate(date) { return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0'); }
-        function getCalendarEvents() {
-            try { const value = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); return Array.isArray(value) ? value : []; }
-            catch (error) { return []; }
-        }
-        function changeCalendarMonth(delta) {
-            quickRNCalendarMonth = new Date(quickRNCalendarMonth.getFullYear(), quickRNCalendarMonth.getMonth() + delta, 1);
-            renderCalendar();
-        }
-        function renderCalendar() {
-            const grid = document.getElementById('calendar-grid');
-            const label = document.getElementById('calendar-month-label');
-            const list = document.getElementById('calendar-event-list');
-            if (!grid || !label || !list) return;
-            const year = quickRNCalendarMonth.getFullYear(), month = quickRNCalendarMonth.getMonth();
-            label.textContent = quickRNCalendarMonth.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-            const events = getCalendarEvents();
-            const firstDay = new Date(year, month, 1).getDay();
-            const days = new Date(year, month + 1, 0).getDate();
-            const today = new Date(); today.setHours(0,0,0,0);
-            const todayKey = localCalendarDate(today);
-            let html = '';
-            for (let i=0; i<firstDay; i++) html += '<div class="min-h-16 rounded-lg bg-slate-50/60"></div>';
-            for (let day=1; day<=days; day++) {
-                const key = year + '-' + String(month+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
-                const hasEvent = events.some(event => event.date === key);
-                const date = new Date(year,month,day); const isToday = date.getTime() === today.getTime();
-                html += '<div class="min-h-16 rounded-lg border ' + (isToday ? 'border-brand-500 bg-brand-50' : 'border-slate-100 bg-white') + ' p-2 text-xs"><div class="font-bold ' + (isToday ? 'text-brand-700' : 'text-slate-700') + '">' + day + '</div>' + (hasEvent ? '<span class="mt-2 inline-block w-2 h-2 rounded-full bg-emerald-500" title="Study reminder"></span>' : '') + '</div>';
-            }
-            grid.innerHTML = html;
-            const upcoming = events.filter(event => event.date >= todayKey).sort((a,b) => a.date.localeCompare(b.date)).slice(0,8);
-            list.innerHTML = upcoming.length ? upcoming.map(event => '<div class="flex items-center justify-between gap-3 p-3 bg-slate-50 rounded-lg"><div><strong class="block text-xs text-slate-800">' + escapeCalendarText(event.title) + '</strong><span class="text-[10px] text-slate-500">' + event.date + '</span></div><button type="button" onclick="removeCalendarEvent(\'' + event.id + '\')" class="text-slate-400 hover:text-rose-600" aria-label="Remove reminder"><i class="fa-solid fa-trash"></i></button></div>').join('') : '<p class="text-xs text-slate-500">No upcoming reminders yet.</p>';
-            const dateInput = document.getElementById('calendar-event-date');
-            if (dateInput && !dateInput.value) dateInput.value = todayKey;
-        }
-        function escapeCalendarText(value) {
-            return String(value || '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-        }
-        function addCalendarEvent(event) {
-            event.preventDefault();
-            const date = document.getElementById('calendar-event-date').value;
-            const title = document.getElementById('calendar-event-title').value.trim();
-            if (!date || !title) return;
-            const events = getCalendarEvents();
-            events.push({ id: 'evt-' + Date.now(), date, title });
-            localStorage.setItem('quickrn_calendar_events', JSON.stringify(events));
-            document.getElementById('calendar-event-title').value = '';
-            renderCalendar();
-            showToast('Study reminder saved.', 'success');
-        }
-        function removeCalendarEvent(id) {
-            localStorage.setItem('quickrn_calendar_events', JSON.stringify(getCalendarEvents().filter(event => event.id !== id)));
-            renderCalendar();
-        }
-
         function switchTab(tabId) {
-            ['dashboard', 'calendar', 'features', 'analytics'].forEach(t => {
+            ['dashboard', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if (content) content.classList.add('hidden');
@@ -967,7 +909,6 @@
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
                 features: 'QuickRN Feature Hub & NCLEX Tour',
-                calendar: 'Study Calendar',
                 analytics: 'Client Needs Mastery Analytics'
             };
             document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
