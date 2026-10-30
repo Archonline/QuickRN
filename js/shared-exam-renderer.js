@@ -22,10 +22,10 @@ function quickRNCleanClinicalText(value, metadata){
  if(!text)return '';
  const meta=metadata&&typeof metadata==='object'?metadata:{};
  const labels=[meta.topic,meta.category,meta.subject,meta.caseTitle,meta.caseStudyTitle,meta.caseStudyContext?.title].filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim());
- // Remove a numbered case heading together with its diagnosis/title, not just the number.
- text=text.replace(/^\s*CASE\s*#?\d+\s*[—–:-]\s*([^.!?\n]{2,110})[.]\s*(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What)\b)/i,'');
  for(let round=0;round<8;round++){
   const before=text;
+  // Remove a numbered case heading together with its diagnosis/title, not just the number.
+  text=text.replace(/^\s*CASE\s*#?\d+\s*[—–:-]\s*([^.!?\n]{2,110})[.]\s*(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What)\b)/i,'');
   text=text.replace(/^\s*(?:\[[^\]]+\]\s*)+/,'');
   text=text.replace(/^\s*PATIENT\s+INFORMATION\s*[:—–-]?\s*/i,'');
   text=text.replace(/^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,110}\s*(?:[—–|;]\s*|(?=\n)|$)/i,'');
@@ -45,11 +45,6 @@ function quickRNCleanClinicalText(value, metadata){
    text=rest.replace(/^\s*[:—–|]\s*/,'').trim();
    break;
   }
- }
- // Also recognize a topic heading when the question bank did not store a separate topic field.
- const heading=/^([^:\n]{2,90}):\s+(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify)\b)/i.exec(text);
- if(heading&&!/^(?:which|what|when|where|who|why|how|follow[- ]?up|question|item|case|patient information|nurses?['’]? notes|vital signs|history|assessment|diagnostics|directions|instructions)$/i.test(heading[1].trim())){
-  text=text.slice(heading[0].length).trim();
  }
  // Repeated case footers are navigation metadata, not part of the clinical record.
  text=text.split('\n').filter(line=>!/clinical\s+case\s+#?\d+.*\bitem\s+\d+\s+of\s+\d+/i.test(line)).join('\n').trim();
@@ -86,7 +81,7 @@ function quickRNSplitPrompt(q){
  const rawText=String(rawSource||'');
  const topicMatch=/^\s*([^:\n]{2,90}):\s+/.exec(rawText);
  const topic=String(q.topic||q.category||topicMatch?.[1]||'').trim();
- let source=quickRNCleanClinicalText(rawSource,q);
+ let source=quickRNCleanClinicalText(rawSource,Object.assign({},q,{topic:q.topic||q.category||topicMatch?.[1]||''}));
  let instruction=quickRNCleanClinicalText(q.instruction||'',q);
  if(!instruction&&q.cleanInstruction&&quickRNCleanClinicalText(q.cleanInstruction,q).toLowerCase()!==source.toLowerCase())instruction=quickRNCleanClinicalText(q.cleanInstruction,q);
  // Preserve the source wording of common NGN cue-review directions.
