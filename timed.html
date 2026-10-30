@@ -605,8 +605,7 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
 
             // Save question metrics locally
             try {
-                if (!q._timedCounted) {
-                    q._timedCounted = true;
+                {
                     if (window.QuickRNCoach) window.QuickRNCoach.recordClientNeedAttempt(q, isCorrect);
                     let state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}');
                     if (!state.studentStats) state.studentStats = { totalAnswered: 0, correctCount: 0, categories: [] };
