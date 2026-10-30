@@ -1,0 +1,15 @@
+name: QuickRN Coach Tests
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, feat/dashboard-calendar-ai-mastery-cleanup]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tests/quickrn-coach.test.js
