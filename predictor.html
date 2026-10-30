@@ -665,10 +665,10 @@ function quickRNOpenReport(){const q=window.quickRNCurrentQuestion;if(!q)return;
                 favorites: []
             };
 
-            stateObj.studentStats.testsTaken++;
-            stateObj.studentStats.totalAnswered += answeredCount;
-            stateObj.studentStats.correctCount += correctCount;
-            stateObj.studentStats.mistakeCount += (answeredCount - correctCount);
+            stateObj.studentStats.testsTaken = (stateObj.studentStats.testsTaken || 0) + 1;
+            stateObj.studentStats.totalAnswered = (stateObj.studentStats.totalAnswered || 0) + answeredCount;
+            stateObj.studentStats.correctCount = (stateObj.studentStats.correctCount || 0) + correctCount;
+            stateObj.studentStats.mistakeCount = (stateObj.studentStats.mistakeCount || 0) + (answeredCount - correctCount);
             stateObj.studentStats.passingProbability = passingProbability;
 
             stateObj.answeredQuestionIds = stateObj.answeredQuestionIds || [];
