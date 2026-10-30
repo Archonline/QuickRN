@@ -777,7 +777,8 @@ function renderQuestionItem() {
                 const qMetrics = window.QuickRNQuestionMetrics ? window.QuickRNQuestionMetrics.get(q.id) : {correct:0,wrong:0,attempts:0};
                 const topicName = q.topic || q.category || 'Clinical Nursing';
                 const videoTopicName = window.QuickRNYoutube.getDisplayTopic(q);
-                const videoUrl = window.QuickRNYoutube.getVideoSearchUrl(q, 'review');
+                const video = window.QuickRNYoutube.getTwoVideos(q)[0];
+                const videoUrl = video.url;
                 const tutorInsight = window.QuickRNCoach ? window.QuickRNCoach.buildTutorInsight(q, isCorrect) : {domain:'Clinical review',guidance:'Prioritize client safety and reassess the response.',outcome:'Review the rationale and distractors.'};
 
                 qHtml += `
@@ -823,7 +824,7 @@ function renderQuestionItem() {
                                         <span class="block text-[10px] text-slate-500">NCLEX Review: ${videoTopicName}</span>
                                     </div>
                                 </div>
-                                <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Watch</a>
+                                ${video.embedUrl ? `<iframe class="w-full sm:w-64 aspect-video rounded-lg bg-black" src="${video.embedUrl}" title="${quickRNEscape(video.title)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>` : `<a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-[11px] transition">Find video</a>`}
                             </div>
 
                             <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-between">
