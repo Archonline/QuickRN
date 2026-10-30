@@ -5,11 +5,10 @@ const requireText = (source, text, label) => { if (!source.includes(text)) failu
 const dashboard = read('dashboard.html');
 const reporter = read('js/quickrn-question-reporting.js');
 const backup = read('js/quickrn-data-backup.js');
-requireText(dashboard, 'quickrn-export-backup', 'Dashboard backup export control missing');
-requireText(dashboard, 'quickrn-import-backup', 'Dashboard backup restore control missing');
-requireText(dashboard, 'quickrn-data-backup.js', 'Dashboard backup module not loaded');
+if (dashboard.includes('quickrn-export-backup') || dashboard.includes('quickrn-import-backup') || dashboard.includes('Protect your study data')) failures.push('Removed study-data backup panel is still present');
+if (dashboard.includes('quickrn-data-backup.js')) failures.push('Removed dashboard still loads the backup module');
 requireText(dashboard, 'Better question reporting', 'Latest question-reporting release note missing');
-requireText(dashboard, 'Data backup & restore', 'Latest backup release note missing');
+if (dashboard.includes('Data backup & restore')) failures.push('What's New still advertises the removed backup panel');
 requireText(dashboard, 'not automatically sent', 'Local-only report limitation not disclosed');
 requireText(reporter, 'quickrn_question_reports', 'Question report queue key missing');
 requireText(reporter, 'function snapshot(q)', 'Question context snapshot function missing');
@@ -25,4 +24,4 @@ const selfStudy = read('selfstudy.html');
 requireText(selfStudy, 'quickrn_question_reports', 'Self Study report queue missing');
 requireText(selfStudy, 'Report saved on this device', 'Self Study local save disclosure missing');
 if (failures.length) { console.error('Reporting and backup contract failed:\\n- ' + failures.join('\\n- ')); process.exit(1); }
-console.log('Question reporting and data backup contract passed.');
+console.log('Question reporting and dashboard-removal contract passed.');
