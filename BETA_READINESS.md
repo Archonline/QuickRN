@@ -23,6 +23,16 @@ This checklist defines the minimum release gate for a closed beta. A green autom
 - [ ] NGN item structures are internally consistent (for example, matrix rows/columns, bowtie selections, highlight targets, and ordered-response lists).
 - [ ] No item is advertised as an official NCSBN/NCLEX item unless licensed and authorized.
 
+## Feedback collection and backend readiness
+
+- [ ] Publish a private feedback intake destination for testers.
+- [ ] Configure a shared backend (for example, Firebase Firestore) with security rules, abuse-resistant submission, retention policy, and admin-only read access before claiming automatic feedback delivery.
+- [ ] Verify reports from a second device/account appear in the admin inbox.
+- [ ] Verify export/import preserves question ID, exam mode, category, details, timestamp, and review status.
+- [ ] Do not collect passwords, patient-identifiable information, or unnecessary personal data.
+
+**Current behavior:** exam feedback is stored in `localStorage` under `quickrn_question_reports`. The Reports page is a browser-local inbox. It does not sync to the owner or other testers. Use JSON export/import to manually consolidate reports until a secured shared backend is configured.
+
 ## Beta safety and privacy
 
 - [ ] Display a clear beta notice: content and scoring are for educational practice, not diagnosis, treatment, or a guarantee of NCLEX results.
