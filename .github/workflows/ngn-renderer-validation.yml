@@ -16,6 +16,7 @@ jobs:
         run: |
           node --check js/quickrn-platform-hardening.js
           node --check tests/platform-hardening.test.js
+          node --check tests/brand-system-contract.test.js
           node --check js/quickrn-cat-engine.js
           node --check js/quickrn-question-metrics.js
           node --check tests/cat-engine.test.js
@@ -41,6 +42,8 @@ jobs:
           node --check tests/ngn-workspace-contract.test.js
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
+      - name: Verify shared QuickRN brand system across pages
+        run: node tests/brand-system-contract.test.js
       - name: Test shared platform safeguards
         run: node tests/platform-hardening.test.js
       - name: Verify exam page script dependencies
