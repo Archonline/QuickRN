@@ -27,6 +27,7 @@ jobs:
           node --check questions-ngn-supplement.js
           node --check js/quickrn-ngn-compat.js
           node --check tests/shared-renderer.test.js
+          node --check tests/clinical-prompt-normalizer.test.js
           node --check tests/question-id-normalizer.test.js
           node --check tests/question-bank-renderer-contract.test.js
           node --check tests/help-content-contract.test.js
@@ -67,6 +68,7 @@ jobs:
       - name: Test all supported question renderers
         run: |
           node tests/shared-renderer.test.js
+          node tests/clinical-prompt-normalizer.test.js
           node tests/quickrn-ngn-compat.test.js
       - name: Test question ID collision normalization
         run: node tests/question-id-normalizer.test.js
