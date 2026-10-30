@@ -21,4 +21,15 @@ api.recordError('test','sample error');
 assert.equal(api.errors().length,1);
 assert.equal(typeof api.on,'function');
 assert.equal(typeof api.debounce,'function');
-console.log('QuickRN platform safeguards: PASS');
+
+const fallbackValues=new Map();
+const fallbackDocument={readyState:'complete',documentElement:{classList:{add(){}}},body:{appendChild(){}},getElementById(){return null;},createElement(){return {style:{},setAttribute(){}};},addEventListener(){}};
+const fallbackWindow={document:fallbackDocument,location:{pathname:'/offline-test'},navigator:{onLine:false},localStorage:{setItem(){throw new Error('quota');},getItem(){throw new Error('blocked');},removeItem(){throw new Error('blocked');}},addEventListener(){},dispatchEvent(){}};
+fallbackWindow.window=fallbackWindow;
+vm.runInNewContext(source,{window:fallbackWindow,globalThis:fallbackWindow,Map,Set,Date,Math,JSON,String,Object,Array,Number,CustomEvent:function(type,init){this.type=type;this.detail=init&&init.detail;}});
+assert.equal(fallbackWindow.QuickRNPlatform.storageAvailable,false);
+assert.equal(fallbackWindow.QuickRNPlatform.writeJSON('quickrn_offline',{kept:true}),false);
+assert.deepEqual(JSON.parse(fallbackWindow.QuickRNPlatform.read('quickrn_offline','{}')),{kept:true});
+fallbackWindow.QuickRNPlatform.recordError('offline','storage fallback');
+assert.equal(fallbackWindow.QuickRNPlatform.errors().length,1);
+\nconsole.log('QuickRN platform safeguards: PASS');
