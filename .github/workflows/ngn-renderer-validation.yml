@@ -19,6 +19,7 @@ jobs:
           node --check tests/cat-engine.test.js
           node --check js/shared-exam-renderer.js
           node --check js/quickrn-ngn-compat.js
+          node --check tests/quickrn-ngn-compat.test.js
           node --check questions-ngn-supplement.js
           node --check js/quickrn-ngn-compat.js
           node --check tests/shared-renderer.test.js
@@ -51,7 +52,9 @@ jobs:
       - name: Test CAT adaptive decision engine
         run: node tests/cat-engine.test.js
       - name: Test all supported question renderers
-        run: node tests/shared-renderer.test.js
+        run: |
+          node tests/shared-renderer.test.js
+          node tests/quickrn-ngn-compat.test.js
       - name: Test question ID collision normalization
         run: node tests/question-id-normalizer.test.js
       - name: Verify production bank against shared renderer
