@@ -1036,7 +1036,8 @@ html,body,#root{min-height:100%;height:auto}body{overflow-y:auto!important}main.
                 item,
                 draftAnswer,
                 onUpdateDraft,
-                !!savedState?.submitted
+                !!savedState?.submitted,
+                !!item.ehr
             );
             return <div className="quickrn-shared-question" dangerouslySetInnerHTML={{ __html: html }} />;
         }
