@@ -51,8 +51,8 @@ function render(q,d,submitted){
  }
  return baseRender(x,d,submitted);
 }
-function grade(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'){const a=x.correctAnswers||{},m=d.matrix||{};return x.rows.length>0&&x.rows.every((r,i)=>{const id=r.id||String(i),e=a[id],v=m[id];return x.matrixMode==='multiple'||Array.isArray(e)?same(v||[],e||[]):s(v)===s(e);});}return baseGrade(x,d);}
-function has(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single')return x.rows.length>0&&x.rows.every((r,i)=>{const v=(d.matrix||{})[r.id||String(i)];return Array.isArray(v)?v.length>0:!!v;});if(x.ngnType==='Cloze (Drop-down)'){const keys=Object.keys(x.correctAnswers||x.options||{});return keys.length>0&&keys.every(k=>!!(d.cloze||{})[k]);}if(x.ngnType==='Bowtie'){const b=x.bowtieData||{};return !!(d.condition)&&((d.actions||[]).length>=Math.min(2,(b.actions||[]).length))&&((d.monitoring||[]).length>=Math.min(2,(b.monitoring||[]).length));}return baseHasAnswer(x,d);}
+function grade(q,d){const x=canon(q);return root.QuickRNNgnScoring?.grade(x,d)||baseGrade(x,d);}
+function has(q,d){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single')return Object.values(d.matrix||{}).some(v=>Array.isArray(v)?v.length>0:!!v);if(x.ngnType==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(v=>String(v||'').trim()!=='');if(x.ngnType==='Bowtie')return !!d.condition||(d.actions||[]).length>0||(d.monitoring||d.params||[]).length>0;if(x.ngnType==='Numeric Entry')return String(d.value??'').trim()!=='';if(x.ngnType==='Highlight')return (d.highlights||[]).length>0;if(x.ngnType==='Select N')return (d.choices||[]).length>0;return baseHasAnswer(x,d);}
 api.detect=q=>{const x=canon(q);return x.ngnType;};
 api.toDraft=(q,v)=>baseToDraft(canon(q),v);
 api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
