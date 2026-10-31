@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learning Center | QuickRN</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/quickrn-brand-system.css">
+<style>
+body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:18px}
+.lesson-link{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid #d9dde4;border-radius:10px;background:#fff;font-size:12px;color:#4a4a4a}
+.lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#6C4B9F;background:#f4f0f9}
+.subject-card[open]>summary{background:#f4f0f9;color:#6C4B9F}
+@media(max-width:850px){.learning-layout{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="min-h-screen">
+<div class="max-w-[1500px] mx-auto p-4 md:p-6 space-y-5">
+<header class="rounded-2xl px-5 py-5 text-white shadow-sm flex flex-wrap items-center justify-between gap-3">
+<div><p class="text-xs uppercase tracking-widest opacity-80">QuickRN / Study</p><h1 class="text-2xl font-extrabold">Learning Center</h1><p class="text-sm opacity-90 mt-1">Watch focused lessons, organize clinical notes, and review every major body system.</p></div>
+<a href="dashboard.html" class="rounded-xl bg-white/15 px-4 py-2 text-sm font-bold"><i class="fa-solid fa-arrow-left mr-2"></i>Dashboard</a>
+</header>
+<div class="flex flex-wrap gap-2" id="track-tabs">
+<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-purple-100 text-purple-900" data-track="child">Child Health</button>
+<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="adult">Adult Health</button>
+<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="pharm">Pharmacology</button>
+</div>
+<div class="learning-layout">
+<section class="space-y-4 min-w-0">
+<div class="rounded-2xl border bg-white p-4 space-y-3">
+<div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Choose a topic and a lesson phrase below.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
+<div class="aspect-video rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Select a lesson with a verified video to play it here.</p><p class="text-xs mt-1 text-white/50">YouTube videos are embedded only when a verified video ID is available.</p></div></div>
+<div><h3 class="text-sm font-bold mb-2">Topic search phrases</h3><div id="phrase-links" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div></div>
+<div class="flex gap-2"><input id="video-url" class="min-w-0 flex-1 rounded-lg border px-3 py-2 text-xs" placeholder="Paste a YouTube video URL to play it here"><button id="load-video" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#E39C14">Play</button></div>
+</div>
+<div class="rounded-2xl border bg-white p-4"><div class="flex items-center justify-between"><h2 class="font-extrabold">Browse body systems</h2><span class="text-xs text-slate-500" id="topic-count"></span></div><div id="system-list" class="mt-3 space-y-2"></div></div>
+</section>
+<aside class="rounded-2xl border bg-white p-4 space-y-3 min-w-0 h-fit">
+<div class="flex items-center justify-between gap-2"><div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">Study notebook</p><h2 id="notes-topic" class="text-xl font-extrabold">Select a topic</h2></div><span class="rounded-lg px-3 py-2 text-xs font-bold" style="background:#D3DDEB;color:#4A4A4A">AUTO-SAVED</span></div>
+<p class="text-xs text-slate-500">Write key findings, assessment cues, interventions, medications, and NCLEX reminders. Notes are saved in this browser.</p>
+<textarea id="topic-notes" rows="18" class="w-full rounded-xl border p-4 text-sm leading-6" placeholder="Start typing your notes here..."></textarea>
+<div class="flex flex-wrap items-center gap-2"><button id="save-notes" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F"><i class="fa-solid fa-floppy-disk mr-1"></i>Save notes</button><button id="voice-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-microphone mr-1"></i>Dictate notes</button><button id="export-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-download mr-1"></i>Export</button></div>
+<p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
+</aside>
+</div>
+</div>
+<script src="js/quickrn-learning-center.js"></script>
+<script src="js/quickrn-platform-hardening.js"></script>
+</body></html>
