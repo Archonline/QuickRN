@@ -96,6 +96,54 @@ function updateTimerDisplay(){if(mode==='selfstudy'){if($('timer-display')?.pare
  }
 function renderCurrent(){const q=currentQuestion();if(!q)return;window.quickRNCurrentQuestion=q;rememberQuestionSeen(q);$('qid-display').textContent=q.id;$('qid-display').classList.remove('hidden');$('qid-display').className='text-xs font-bold tracking-wide bg-cyan-900/35 border border-cyan-100/30 rounded px-2 py-1';$('q-num-display').textContent=String(currentIndex+1);$('q-total-display').textContent=isAdaptiveMode()?String(maxItems):String(session.length);const itemFormat=renderer()?.detect(q)||'Question';$('badge-item-type').textContent=(isNGN(q)?'NGN · ':'')+itemFormat;$('badge-item-type').classList.remove('hidden');const d=q.difficulty;$('badge-difficulty').textContent=typeof d==='string'?d.toUpperCase():(Number(d)<=-.5?'EASY':Number(d)>=.5?'HARD':'MEDIUM');$('client-need-display').textContent='';const parts=promptSegments(q);const visiblePrompt=parts.question||clean(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Review the clinical record and select the best response.',q);$('question-prompt').innerHTML='<div class="font-semibold text-slate-800">'+escapeHTML(visiblePrompt||'Review the clinical record and select the best response.')+'</div>';renderCasePanel(q,parts);renderAnswerArea(q);$('left-panel').scrollTop=0;$('right-panel').scrollTop=0;const rec=currentRecord(q);$('rationale-section').classList.add('hidden');$('rationale-section').style.display='none';clearSubmissionError();if((mode==='selfstudy'||reviewMode)&&rec.submitted)showRationale(q,rec);$('submit-btn').parentElement.classList.toggle('hidden',mode!=='selfstudy'||!!rec.submitted);$('submit-btn').disabled=false;$('prev-btn').classList.toggle('hidden',mode!=='selfstudy');$('prev-btn').disabled=currentIndex===0;$('next-btn').disabled=false;$('next-btn').innerHTML=currentIndex===session.length-1&&!isAdaptiveMode()?'Finish <i class="fa-solid fa-flag-checkered"></i>':'Next <i class="fa-solid fa-chevron-right"></i>';$('mark-icon').className=bookmarks.has(q.id)?'fa-solid fa-bookmark':'fa-regular fa-bookmark';$('mark-btn').classList.toggle('text-yellow-200',bookmarks.has(q.id));if($('notes-textarea'))$('notes-textarea').value=notes[q.id]||'';updateProgress();saveState();}
 function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function quickRNStandardLabRange(name,unit){
+ const n=String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+ const u=String(unit||'').toLowerCase().replace(/[µμ]/g,'u').replace(/\s+/g,'');
+ const match=p=>p.test(n),unitOk=p=>!u||p.test(u);
+ if(match(/^(sodium|na)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '135–145 mEq/L';
+ if(match(/^(potassium|k)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '3.5–5.0 mEq/L';
+ if(match(/^(chloride|cl)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '98–106 mEq/L';
+ if(match(/^(bicarbonate|co2|hco3)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '22–29 mEq/L';
+ if(match(/^(bun|blood urea nitrogen)$/)&&unitOk(/^mg\/dl$/))return '7–20 mg/dL';
+ if(match(/^(bun|blood urea nitrogen)$/)&&unitOk(/^mmol\/l$/))return '2.5–7.1 mmol/L';
+ if(match(/^(creatinine|creat)$/)&&unitOk(/^mg\/dl$/))return '0.6–1.3 mg/dL (adult; varies with age and sex)';
+ if(match(/^(creatinine|creat)$/)&&unitOk(/^umol\/l$/))return '53–115 µmol/L (adult; varies with age and sex)';
+ if(match(/^(glucose|blood glucose)$/)&&unitOk(/^mg\/dl$/))return '70–100 mg/dL (fasting)';
+ if(match(/^(glucose|blood glucose)$/)&&unitOk(/^mmol\/l$/))return '3.9–5.6 mmol/L (fasting)';
+ if(match(/^(calcium|ca)$/)&&unitOk(/^mg\/dl$/))return '8.5–10.5 mg/dL';
+ if(match(/^(magnesium|mg)$/)&&unitOk(/^mg\/dl$/))return '1.7–2.2 mg/dL';
+ if(match(/^(phosphorus|phosphate|phos)$/)&&unitOk(/^mg\/dl$/))return '2.5–4.5 mg/dL';
+ if(match(/^(wbc|white blood cells?|white blood cell count)$/))return '4,500–11,000/µL (4.5–11.0 × 10³/µL)';
+ if(match(/^(platelets?|platelet count)$/))return '150,000–400,000/µL (150–400 × 10³/µL)';
+ if(match(/^(pt|prothrombin time)$/)&&unitOk(/^(sec|seconds?)$/))return '11–13.5 seconds';
+ if(match(/^(inr|international normalized ratio)$/))return '0.8–1.1 (not receiving anticoagulants)';
+ if(match(/^(aptt|ptt|activated partial thromboplastin time)$/)&&unitOk(/^(sec|seconds?)$/))return '25–35 seconds';
+ if(match(/^(ph|arterial ph|abg ph)$/))return '7.35–7.45';
+ if(match(/^(paco2|pa co2|arterial co2)$/)&&unitOk(/^mmhg$/))return '35–45 mmHg';
+ if(match(/^(pao2|pa o2|arterial o2)$/)&&unitOk(/^mmhg$/))return '80–100 mmHg';
+ if(match(/^(lactate|lactic acid)$/)&&unitOk(/^mmol\/l$/))return '0.5–2.2 mmol/L';
+ if(match(/^albumin$/)&&unitOk(/^g\/dl$/))return '3.5–5.0 g/dL';
+ if(match(/^(ast|aspartate aminotransferase)$/)&&unitOk(/^(u\/l|iu\/l)$/))return '10–40 U/L';
+ if(match(/^(alt|alanine aminotransferase)$/)&&unitOk(/^(u\/l|iu\/l)$/))return '7–56 U/L';
+ if(match(/^(total bilirubin|bilirubin)$/)&&unitOk(/^mg\/dl$/))return '0.1–1.2 mg/dL';
+ if(match(/^(tsh|thyroid stimulating hormone)$/)&&unitOk(/^(miu\/l|uiu\/ml)$/))return '0.4–4.0 mIU/L';
+ return '';
+}
+function addLabReferenceRanges(value){
+ const raw=String(value||'');
+ if(/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(raw))return raw;
+ let matched=false;
+ const lines=raw.split('\n').map(line=>{
+  const m=line.match(/^\s*([A-Za-z][A-Za-z0-9 /()_-]{1,45})\s*[:=]\s*(-?\d+(?:\.\d+)?)\s*([A-Za-zµμ/%0-9.^/-]*)\s*$/);
+  if(!m)return line;
+  const range=quickRNStandardLabRange(m[1],m[3]);
+  if(!range)return line;
+  matched=true;
+  return line+'  (Typical adult reference range: '+range+')';
+ });
+ const result=lines.join('\n');
+ return matched?result+'\n\nTypical adult reference ranges are educational; age, pregnancy, units, and laboratory methods may change the applicable range.':result+'\n\nReference range not supplied in the source item; verify the age- and facility-specific laboratory range.';
+}
 function asText(v){
  if(v==null)return '';
  if(typeof v==='string'||typeof v==='number')return String(v);
@@ -104,9 +152,9 @@ function asText(v){
   const name=v.test||v.name||v.analyte||v.label||v.parameter||v.testName||'';
   const value=v.value??v.result??v.measurement??v.observedValue;
   const unit=v.unit||v.units||'';
-  const range=v.referenceRange??v.normalRange??v.normal??v.range??v.referenceValues;
+  const suppliedRange=v.referenceRange??v.normalRange??v.normal??v.range??v.referenceValues;const range=suppliedRange??quickRNStandardLabRange(name,unit);
   if(value!==undefined&&value!==null){
-   const rangeText=range!==undefined&&range!==null&&String(range).trim()?'<span class="qr-lab-reference-range"><strong>Reference range:</strong> '+escapeHTML(typeof range==='object'?JSON.stringify(range):range)+'</span>':'<span class="qr-lab-reference-missing">Reference range not supplied in source record</span>';
+   const rangeText=range!==undefined&&range!==null&&String(range).trim()?'<span class="qr-lab-reference-range"><strong>'+(suppliedRange?'Reference range:':'Typical adult reference range:')+'</strong> '+escapeHTML(typeof range==='object'?JSON.stringify(range):range)+'</span>':'<span class="qr-lab-reference-missing">Reference range not supplied in source record</span>';
    return '<div class="qr-lab-result"><strong>'+escapeHTML(name||'Result')+':</strong> '+escapeHTML(value)+' '+escapeHTML(unit)+' '+rangeText+'</div>';
   }
   if(Array.isArray(v.results)||Array.isArray(v.values))return asText(v.results||v.values);
@@ -139,7 +187,7 @@ function caseTabs(q){
   const raw=typeof content==='string'?content:asText(content);
   let text=stripClinicalLead(String(raw||''),q);
   if(!text.trim())return;
-  if(/diagnostic|lab result|laboratory/i.test(label)&&/\b\d+(?:\.\d+)?\b/.test(text)&&!/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(text))text+='\n\nReference range: not supplied in source item.';
+  if(/diagnostic|lab result|laboratory/i.test(label)&&/\b\d+(?:\.\d+)?\b/.test(text))text=addLabReferenceRanges(text);
   const key=(label+' '+text).replace(/\s+/g,' ').toLowerCase();
   if(seen.has(key))return;
   seen.add(key);tabs.push({label,content:text});
