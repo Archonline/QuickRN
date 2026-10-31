@@ -241,3 +241,12 @@ DASHBOARD REDESIGN — 2026-10-31
 - Preserved the existing detailed Client Needs analytics tab, exam history actions, CAT/Predictor history, browser-local metrics, and Firebase-related integration code.
 - Created backups/dashboard-pre-compact-redesign-2026-10-31.html before the dashboard changes.
 - Changes are on feat/compact-dashboard-line-chart pending review and merge; no deployment or live-browser verification is claimed.
+
+
+SELF-STUDY LINKED CASE STUDY FIX — 2026-10-31
+- Self-Study now treats linked NGN case questions as one selection unit instead of shuffling individual questions.
+- Case questions stay contiguous and are ordered by their case step/question sequence.
+- Selecting any linked question through a focused topic route restores the complete linked case rather than showing an isolated follow-up.
+- Previously seen questions do not cause a partially seen case to be split; the complete case is repeated as a unit.
+- Shared case overview, patient information, clinical scenario, EHR/clinical record, vital signs, laboratory/diagnostic results, and exhibits are inherited by follow-up questions when the follow-up does not provide its own value.
+- Added tests for case grouping, sequence preservation, focused-case expansion, and partial-seen cases.
