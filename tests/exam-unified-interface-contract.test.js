@@ -30,7 +30,7 @@ assert.match(app, /accuracyPercent:score\.accuracy/);
 assert.match(app, /score\.partialCorrect/);
 assert.match(app, /score\.wrong/);
 assert.match(app, /elapsedSeconds\/60/);
-assert.match(app, /v\.correct\/v\.attempted/);
+assert.match(app, /v\.correct\+'\\/'\+v\.attempted/);
 assert.match(app, /formatHtml\+judgmentHtml\+domainHtml/);
 assert.match(app, /renderer\(\)\.cleanClinicalText\(tabs\[index\]\.content,q\)/);
 assert.match(renderer, /quickRNGradeWithPolytomousScoring/);
