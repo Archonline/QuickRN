@@ -231,3 +231,13 @@ Exam prompt rendering fix (October 31, 2026)
 - Separate instructions remain available as a fallback when the stem has been moved into the clinical scenario or no direct prompt remains.
 - Blank higher-priority fields (for example, questionOnly containing spaces) no longer prevent the renderer from using a valid question, stem, or title field.
 - This shared fix applies to Self-Study, Timed Practice, NCLEX Predictor, and CAT pages that load the common exam renderer.
+
+
+DASHBOARD REDESIGN — 2026-10-31
+- Reorganized the dashboard into a compact overview with four concise study metrics, a smaller readiness indicator, a restrained performance trend graph, and a focused Client Needs priorities panel.
+- Added a dedicated Learning Center tab for the existing Subjects & Lesson Library and Clinical Study Coach / Remediation Planner; existing element IDs and study actions are preserved.
+- Reduced chart visual weight with thinner lines, smaller markers, lighter gridlines, and compact axis labels.
+- Included exam-history records saved with completedAt timestamps in the performance trend, and prevented missing passing-likelihood values from being plotted as zero.
+- Preserved the existing detailed Client Needs analytics tab, exam history actions, CAT/Predictor history, browser-local metrics, and Firebase-related integration code.
+- Created backups/dashboard-pre-compact-redesign-2026-10-31.html before the dashboard changes.
+- Changes are on feat/compact-dashboard-line-chart pending review and merge; no deployment or live-browser verification is claimed.
