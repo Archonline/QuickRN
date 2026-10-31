@@ -291,7 +291,7 @@ function showRationale(q,r){
  $('answer-workspace')?.querySelector('.qr-inline-option-rationale')?.remove();
  $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='block';
  $('result-badge').textContent=result.isCorrect?'CORRECT':'INCORRECT';$('result-badge').className='px-3 py-1 rounded text-xs font-bold uppercase text-white '+(result.isCorrect?'bg-green-600':'bg-red-600');
- $('score-earned').textContent='Score: '+result.earned+'/'+result.max;$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=template.innerHTML;
+ $('score-earned').textContent='Score: '+result.earned+'/'+result.max+(result.scoringMethod?' · '+result.scoringMethod:'');$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=template.innerHTML;
  const insight=window.QuickRNCoach?.buildTutorInsight(q,!!r.isCorrect);
  if($('coach-insight'))$('coach-insight').innerHTML=insight?'<div class="rounded-lg border border-cyan-100 bg-cyan-50 p-4"><div class="text-xs font-black uppercase tracking-wider text-cyan-900">Clinical Study Coach</div><p class="text-sm text-slate-700 mt-2">'+escapeHTML(insight.guidance)+'</p><p class="text-xs text-slate-600 mt-2">'+escapeHTML(insight.outcome)+'</p></div>':'';
  if($('confidence-saved'))$('confidence-saved').textContent=r.confidence?'Saved confidence: '+({1:'Guessing',2:'Somewhat sure',3:'Very sure'}[r.confidence]):'Optional · helps identify confidence gaps';
