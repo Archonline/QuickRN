@@ -40,6 +40,11 @@
     <script src="js/quickrn-coach.js"></script>
     <script src="js/quickrn-lesson-library.js"></script>
     <style>
+        .quickrn-flashcard.is-flipped .quickrn-card-front { display:none; }
+        .quickrn-flashcard.is-flipped .quickrn-card-back { display:block; }
+        .quickrn-flashcard.is-flipped .quickrn-flip-hint { display:none; }
+    </style>
+    <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
     <link rel="stylesheet" href="css/quickrn-brand-system.css">
@@ -266,7 +271,7 @@
                 <!-- LEARNING CENTER TAB -->
                 <div id="tab-content-learning" class="hidden space-y-3">
                     <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
-                        <div><h2 class="text-lg font-extrabold text-slate-900">Learning Center</h2><p class="text-xs text-slate-500">Focused lessons, clinical coaching, and remediation based on your practice history.</p></div>
+                        <p class="text-xs text-slate-500">Focused lessons, clinical coaching, videos, and remediation based on your practice history.</p>
                         <a href="selfstudy.html" class="text-xs font-bold text-brand-700">Open Self Study →</a>
                     </div>
                     <!-- SUBJECT & LESSON LIBRARY -->
@@ -280,6 +285,39 @@
                         </div>
                         <div id="quickrn-subject-library" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2"></div>
                         <p class="text-[10px] text-slate-400">Focused sessions use matching question-bank topics. If a lesson has no matching questions yet, QuickRN will let you know rather than silently starting an unrelated session.</p>
+                    </section>
+                    <!-- IN-PAGE VIDEO LESSONS -->
+                    <section class="bg-white rounded-xl border border-slate-200 p-4 space-y-3" aria-labelledby="quickrn-video-lessons-title">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <div><h2 id="quickrn-video-lessons-title" class="text-base font-extrabold text-slate-900"><i class="fa-brands fa-youtube text-red-600 mr-2"></i>Video lessons</h2><p class="text-xs text-slate-500">Find popular free nursing lessons by subject and topic. Play videos here without leaving QuickRN.</p></div>
+                            <span class="text-[10px] font-semibold text-slate-500">Up to 4 results · embedded playback</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] gap-2">
+                            <label class="text-[10px] font-bold text-slate-600">Subject<select id="quickrn-video-subject" onchange="updateVideoTopicOptions(true)" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs"><option>Adult Health</option></select></label>
+                            <label class="text-[10px] font-bold text-slate-600">Topic<select id="quickrn-video-topic" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs"></select></label>
+                            <button type="button" onclick="loadLearningVideos()" class="self-end rounded-lg bg-brand-600 px-4 py-2 text-xs font-bold text-white hover:bg-brand-700"><i class="fa-solid fa-magnifying-glass mr-1"></i> Find videos</button>
+                        </div>
+                        <div id="quickrn-video-status" class="text-[11px] text-slate-500" aria-live="polite">Choose a subject and topic to find free video lessons.</div>
+                        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] gap-3">
+                            <div class="rounded-xl overflow-hidden bg-slate-950 aspect-video"><iframe id="quickrn-video-player" class="w-full h-full" src="about:blank" title="QuickRN embedded lesson video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+                            <div id="quickrn-video-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 content-start"><p class="rounded-lg border border-dashed border-slate-300 p-4 text-xs text-slate-500">Your top video matches will appear here.</p></div>
+                        </div>
+                        <p class="text-[10px] text-slate-400">Videos are hosted by their original publishers and embedded from YouTube. Search availability and ranking depend on the public video index; views are used as a popularity signal, not a guarantee of clinical accuracy.</p>
+                    </section>
+
+                    <!-- PERSONALIZED PRINTABLE FLASHCARDS -->
+                    <section class="bg-white rounded-xl border border-slate-200 p-4 space-y-3" aria-labelledby="quickrn-flashcards-title">
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <div><h2 id="quickrn-flashcards-title" class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-layer-group text-violet-600 mr-2"></i>Weak-area flashcards</h2><p class="text-xs text-slate-500">Build a printable review deck from your lowest Client Needs scores and saved study notes.</p></div>
+                            <span class="text-[10px] font-semibold text-slate-500">Personalized · printable</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button type="button" onclick="generateWeakAreaFlashcards()" class="rounded-lg bg-violet-600 px-3 py-2 text-xs font-bold text-white hover:bg-violet-700"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate flashcards</button>
+                            <button type="button" onclick="printWeakAreaFlashcards()" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-print mr-1"></i> Print cards</button>
+                            <span id="quickrn-flashcard-status" class="text-[10px] text-slate-500" aria-live="polite">Cards are generated locally from your saved performance and notes.</span>
+                        </div>
+                        <div id="quickrn-flashcard-deck" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2"><p class="col-span-full rounded-lg border border-dashed border-slate-300 p-4 text-xs text-slate-500">Generate a deck to see your personalized flashcards here. Flip each card to reveal its answer.</p></div>
+                        <p class="text-[10px] text-slate-400">This version uses a local rules-based generator; it does not send notes to an AI service. Your notes stay in this browser.</p>
                     </section>
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
                     <section class="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-xl p-4 space-y-3 text-white">
@@ -469,6 +507,8 @@
             renderDashboardStats();
             renderMasteryCategories();
             initQuickRNScoreChart();
+            renderSubjectLessonLibrary();
+            initLearningVideoLibrary();
         });
 
         function detectTotalQuestionsPool() {
@@ -572,41 +612,33 @@
         
         function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
+            if (!container) return;
             const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
             if (!measured.length) {
                 container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">Complete and submit questions in a practice mode to collect Client Needs data before generating a personalized study plan.</p>';
                 return;
             }
-
-            const weakAreas = measured.filter(cat => cat.percentage < 75).slice(0, 3);
-            const priorities = weakAreas.length ? weakAreas : measured.slice(0, 2);
+            const weakAreas = measured.filter(cat => cat.percentage < 75);
+            const priorities = weakAreas.length ? weakAreas : measured;
             const primary = priorities[0], secondary = priorities[1] || primary;
             const tasks = [
-                { title: 'Review core concepts: ' + primary.name, details: 'Review key cues, core concepts, and rationales for missed questions.' },
+                { title: 'Review core concepts: ' + primary.name, details: 'Start with the weakest measured Client Needs domain. Review key cues, core concepts, and rationales for missed questions.' },
                 { title: 'Targeted practice: ' + primary.name, details: 'Complete a focused question set and explain why each distractor is less appropriate.' },
                 { title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
-                { title: 'Second focus area: ' + secondary.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
+                { title: 'Second focus area: ' + secondary.name, details: 'Review high-yield content and correct misunderstandings in the next-lowest domain.' },
                 { title: 'Timed practice: weak areas', details: 'Complete a timed set, then review missed questions and identify the reason for each error.' },
                 { title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
                 { title: 'Reassess Client Needs mastery', details: 'Retest the focus areas and compare accuracy with the 75% target.' }
             ];
             const localDate = offset => {
-                const date = new Date();
-                date.setHours(12, 0, 0, 0);
-                date.setDate(date.getDate() + offset);
+                const date = new Date(); date.setHours(12, 0, 0, 0); date.setDate(date.getDate() + offset);
                 return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
             };
             let events = [];
             try { events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); } catch (error) { events = []; }
             if (!Array.isArray(events)) events = [];
             events = events.filter(event => event.source !== 'ai-roadmap');
-            const roadmapEvents = tasks.map((task, index) => ({
-                id: 'roadmap-' + Date.now().toString(36) + '-' + index,
-                date: localDate(index),
-                title: task.title,
-                details: task.details,
-                source: 'ai-roadmap'
-            }));
+            const roadmapEvents = tasks.map((task, index) => ({ id: 'roadmap-' + Date.now().toString(36) + '-' + index, date: localDate(index), title: task.title, details: task.details, source: 'ai-roadmap' }));
             localStorage.setItem('quickrn_calendar_events', JSON.stringify(events.concat(roadmapEvents)));
             localStorage.setItem('quickrn_ai_study_roadmap', JSON.stringify({
                 generatedAt: new Date().toISOString(),
@@ -614,9 +646,13 @@
                 events: roadmapEvents
             }));
             const escapeText = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-            const first = weakAreas[0] || primary;
-            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance review</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'This is below the 75% accuracy target.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + escapeText(item.title) + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
-            showToast('Study roadmap saved to Calendar.', 'success');
+            const priorityCards = priorities.map((cat,index) => {
+                const weak = cat.percentage < 75;
+                return '<article class="rounded-xl border-2 ' + (weak ? 'border-red-400 bg-red-950/40' : 'border-indigo-700 bg-indigo-900/50') + ' p-3 space-y-1"><div class="flex items-center justify-between gap-2"><span class="text-[9px] font-bold uppercase tracking-wider ' + (weak ? 'text-red-200' : 'text-indigo-200') + '">' + (weak ? 'Priority ' + (index+1) + ' · Weak area' : 'On track · Continue review') + '</span><strong class="text-sm ' + (weak ? 'text-red-100' : 'text-white') + '">' + cat.percentage + '%</strong></div><h3 class="text-xs font-bold text-white leading-5">' + escapeText(cat.name) + '</h3><p class="text-[10px] text-indigo-200">' + cat.solved + ' answered items · ' + (weak ? 'Below 75% target' : 'At or above target') + '</p></article>';
+            }).join('');
+            const first = priorities[0];
+            container.innerHTML = '<section class="space-y-2"><div class="flex flex-wrap items-center justify-between gap-2"><div><strong class="text-emerald-300 text-xs">Your highest-priority areas</strong><p class="text-[10px] text-indigo-200">Sorted from lowest accuracy to highest. Weak areas appear first.</p></div><span class="rounded-full bg-red-500/15 px-2 py-1 text-[9px] font-bold text-red-200">' + weakAreas.length + ' below 75%</span></div><div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">' + priorityCards + '</div></section><div class="grid grid-cols-1 md:grid-cols-3 gap-3"><section class="p-3 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Start here</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'Prioritize remediation before moving to on-track areas.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-3 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item,index)=>'<li><strong>Day '+(index+1)+':</strong> '+escapeText(item.title)+'</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
+            showToast('Priority-first study roadmap saved to Calendar.', 'success');
         }
 
         // Subject and lesson taxonomy for focused Self Study sessions.
@@ -685,6 +721,140 @@
                 ['Medication Safety & Calculations','medication safety|dosage calculation|drug calculation|pharmacology']
             ]}
         ];
+
+        let quickRNFlashcards = [];
+
+        function updateVideoTopicOptions(searchAfterChange) {
+            const subjectSelect = document.getElementById('quickrn-video-subject');
+            const topicSelect = document.getElementById('quickrn-video-topic');
+            if (!subjectSelect || !topicSelect) return;
+            const subject = quickRNSubjectLessons.find(item => item.name === subjectSelect.value) || quickRNSubjectLessons[0];
+            topicSelect.innerHTML = '<option value="all">All ' + subject.name + ' topics</option>' + subject.lessons.map(item => '<option value="' + item[0].replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + item[0] + '</option>').join('');
+            if (searchAfterChange) loadLearningVideos();
+        }
+
+        function initLearningVideoLibrary() {
+            const subjectSelect = document.getElementById('quickrn-video-subject');
+            if (!subjectSelect) return;
+            subjectSelect.innerHTML = quickRNSubjectLessons.map(subject => '<option value="' + subject.name.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + subject.name + '</option>').join('');
+            updateVideoTopicOptions(false);
+        }
+
+        async function loadLearningVideos() {
+            const subjectSelect = document.getElementById('quickrn-video-subject');
+            const topicSelect = document.getElementById('quickrn-video-topic');
+            const status = document.getElementById('quickrn-video-status');
+            const results = document.getElementById('quickrn-video-results');
+            const player = document.getElementById('quickrn-video-player');
+            if (!subjectSelect || !topicSelect || !status || !results || !player) return;
+            const subject = quickRNSubjectLessons.find(item => item.name === subjectSelect.value) || quickRNSubjectLessons[0];
+            const topic = topicSelect.value === 'all' ? subject.name + ' nursing lessons' : topicSelect.value;
+            const query = topic + ' nursing lecture NCLEX free lesson';
+            status.textContent = 'Searching public video results…';
+            results.innerHTML = '<p class="text-xs text-slate-500 p-3">Loading video lessons…</p>';
+            const instances = ['https://inv.nadeko.net','https://invidious.nerdvpn.de','https://invidious.privacyredirect.com'];
+            let videos = [];
+            let lastError = null;
+            for (const host of instances) {
+                try {
+                    const response = await fetch(host + '/api/v1/search?q=' + encodeURIComponent(query) + '&type=video&sort_by=viewCount', { headers: { 'Accept': 'application/json' }, signal: AbortSignal.timeout(9000) });
+                    if (!response.ok) throw new Error('Video search returned ' + response.status);
+                    const data = await response.json();
+                    videos = (Array.isArray(data) ? data : []).filter(item => item.type === 'video' && item.videoId && !item.liveNow && !item.isUpcoming).slice(0, 4);
+                    if (videos.length) break;
+                } catch (error) { lastError = error; }
+            }
+            if (!videos.length) {
+                status.textContent = 'The free video index is temporarily unavailable. Please try again later.';
+                results.innerHTML = '<div class="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">Could not retrieve video results right now. This does not affect your lessons or practice questions.</div>';
+                return;
+            }
+            status.textContent = 'Showing ' + videos.length + ' popular free video matches for ' + topic + '. Select a result to play it here.';
+            results.innerHTML = videos.map((video, index) => {
+                const title = String(video.title || 'Nursing lesson').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+                const author = String(video.author || 'Video publisher').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+                const views = Number(video.viewCount || 0);
+                const viewLabel = views >= 1000000 ? (views/1000000).toFixed(1) + 'M views' : views >= 1000 ? (views/1000).toFixed(1) + 'K views' : (views ? views + ' views' : 'Free video');
+                return '<button type="button" onclick="playLearningVideo(' + index + ')" class="quickrn-video-result flex gap-2 text-left rounded-lg border border-slate-200 p-2 hover:border-brand-400 hover:bg-slate-50 transition" data-video-index="' + index + '"><img class="w-24 aspect-video object-cover rounded bg-slate-100" loading="lazy" src="https://i.ytimg.com/vi/' + encodeURIComponent(video.videoId) + '/mqdefault.jpg" alt=""><span class="min-w-0"><strong class="block text-[11px] leading-4 text-slate-800 line-clamp-2">' + title + '</strong><span class="block mt-1 text-[10px] text-slate-500">' + author + '</span><span class="block text-[10px] text-slate-400">' + viewLabel + '</span></span></button>';
+            }).join('');
+            window.quickRNCurrentVideos = videos;
+            playLearningVideo(0);
+        }
+
+        function playLearningVideo(index) {
+            const videos = window.quickRNCurrentVideos || [];
+            const video = videos[index];
+            const player = document.getElementById('quickrn-video-player');
+            if (!video || !player) return;
+            player.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(video.videoId) + '?autoplay=1&rel=0';
+            document.querySelectorAll('.quickrn-video-result').forEach((button, buttonIndex) => {
+                button.classList.toggle('border-brand-500', buttonIndex === index);
+                button.classList.toggle('bg-brand-50', buttonIndex === index);
+            });
+        }
+
+        function collectQuickRNStudyNotes() {
+            const notes = [];
+            try {
+                for (let index = 0; index < localStorage.length; index++) {
+                    const key = localStorage.key(index);
+                    if (!key || !/(note|study)/i.test(key)) continue;
+                    const raw = localStorage.getItem(key);
+                    if (!raw || raw.length > 12000) continue;
+                    try {
+                        const parsed = JSON.parse(raw);
+                        const visit = value => {
+                            if (typeof value === 'string' && value.trim().length > 24) notes.push(value.trim());
+                            else if (Array.isArray(value)) value.forEach(visit);
+                            else if (value && typeof value === 'object') Object.entries(value).forEach(([field, item]) => {
+                                if (/(note|text|content|body)/i.test(field)) visit(item);
+                            });
+                        };
+                        visit(parsed);
+                    } catch (_) { if (raw.trim().length > 24) notes.push(raw.trim()); }
+                }
+            } catch (error) { console.warn('Saved study notes could not be read:', error); }
+            return [...new Set(notes)].slice(0, 30);
+        }
+
+        function generateWeakAreaFlashcards() {
+            const deck = document.getElementById('quickrn-flashcard-deck');
+            const status = document.getElementById('quickrn-flashcard-status');
+            if (!deck || !status) return;
+            const weak = studentStats.categories.filter(item => item.solved > 0).sort((a,b) => a.percentage - b.percentage).slice(0, 5);
+            if (!weak.length) {
+                status.textContent = 'Complete practice questions first so QuickRN can identify your weak areas.';
+                deck.innerHTML = '<p class="col-span-full rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">No measured weak areas yet. Complete and submit practice questions to build a personalized deck.</p>';
+                return;
+            }
+            const notes = collectQuickRNStudyNotes();
+            const cards = [];
+            weak.forEach(area => {
+                cards.push({front:'What is the priority when reviewing ' + area.name + '?',back:'Your current accuracy is ' + area.percentage + '% across ' + area.solved + ' answered items. Review the clinical cues, safety risks, first nursing actions, and reassessment criteria for this Client Needs area.',source:'Your performance data'});
+                cards.push({front:'How should you approach an unfamiliar ' + area.name + ' question?',back:'Identify the client’s immediate risk, distinguish expected from unexpected findings, prioritize airway/breathing/circulation and safety when applicable, then choose the action supported by the assessment.',source:'NCLEX clinical-judgment review'});
+                cards.push({front:'What should you review to improve ' + area.name + '?',back:'Revisit missed-question rationales, key assessment findings, nursing interventions, expected outcomes, and why competing options are less appropriate.',source:'Your performance data'});
+            });
+            notes.slice(0, 12).forEach((note, index) => {
+                const clean = note.replace(/\s+/g, ' ').trim();
+                const sentences = clean.split(/(?<=[.!?])\s+/).filter(sentence => sentence.length > 18);
+                const excerpt = (sentences[0] || clean).slice(0, 520);
+                const topic = weak[index % weak.length].name;
+                cards.push({front:'What key point from your saved notes should you recall for ' + topic + '?',back:excerpt,source:'Your saved study notes'});
+            });
+            quickRNFlashcards = cards;
+            deck.innerHTML = cards.map((card,index) => '<button type="button" onclick="this.classList.toggle(\'is-flipped\')" class="quickrn-flashcard group min-h-32 rounded-xl border border-violet-200 bg-violet-50 p-3 text-left hover:border-violet-400 transition" aria-label="Flashcard ' + (index+1) + ', click to reveal answer"><span class="block text-[9px] font-bold uppercase tracking-wider text-violet-600">' + card.source + ' · Card ' + (index+1) + '</span><strong class="quickrn-card-front mt-2 block text-xs leading-5 text-slate-800">' + card.front.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) + '</strong><span class="quickrn-card-back mt-2 hidden border-t border-violet-200 pt-2 text-[11px] leading-5 text-slate-700">' + card.back.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) + '</span><span class="quickrn-flip-hint mt-2 block text-[9px] font-semibold text-violet-600">Click to reveal answer</span></button>').join('');
+            status.textContent = cards.length + ' cards ready · ' + weak.length + ' weak Client Needs areas' + (notes.length ? ' · includes saved notes' : ' · no saved notes found');
+        }
+
+        function printWeakAreaFlashcards() {
+            if (!quickRNFlashcards.length) generateWeakAreaFlashcards();
+            if (!quickRNFlashcards.length) return;
+            const escape = value => String(value).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            const printWindow = window.open('', '_blank', 'width=900,height=700');
+            if (!printWindow) { showToast('Allow pop-ups to print your flashcards.', 'error'); return; }
+            printWindow.document.write('<!doctype html><html><head><title>QuickRN Weak-Area Flashcards</title><style>body{font-family:Arial,sans-serif;margin:24px;color:#172033}h1{font-size:20px}p{font-size:11px;color:#64748b}.deck{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid #94a3b8;border-radius:8px;padding:14px;min-height:125px;break-inside:avoid}.label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#64748b}.front{font-weight:700;font-size:13px;margin:12px 0}.back{font-size:11px;line-height:1.5;border-top:1px dashed #cbd5e1;padding-top:9px}@media print{body{margin:12mm}.card{break-inside:avoid}}</style></head><body><h1>QuickRN · Personalized Weak-Area Flashcards</h1><p>Generated from your saved Client Needs performance and available study notes. Review both sides and verify clinical details against current course materials.</p><div class="deck">' + quickRNFlashcards.map((card,index)=>'<article class="card"><div class="label">Card '+(index+1)+' · '+escape(card.source)+'</div><div class="front">'+escape(card.front)+'</div><div class="back">'+escape(card.back)+'</div></article>').join('') + '</div><script>window.onload=function(){window.print()}<\/script></body></html>');
+            printWindow.document.close();
+        }
 
         function renderSubjectLessonLibrary() {
             const root = document.getElementById('quickrn-subject-library');
