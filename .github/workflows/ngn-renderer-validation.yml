@@ -38,6 +38,9 @@ jobs:
           node --check js/quickrn-data-backup.js
           node --check js/quickrn-question-id-normalizer.js
           node --check js/quickrn-question-bank-normalizer.js
+          node --check js/quickrn-case-study-sequencer.js
+          node --check tests/case-study-sequencer.test.js
+          node --check tests/selfstudy-lifecycle.test.js
           node --check tests/exam-page-script-contract.test.js
           node --check js/quickrn-ngn-scoring.js
           node --check tests/ngn-scoring.test.js
@@ -48,6 +51,10 @@ jobs:
         run: node tests/brand-system-contract.test.js
       - name: Test shared platform safeguards
         run: node tests/platform-hardening.test.js
+      - name: Test linked case sequencing and no-repeat exhaustion
+        run: node tests/case-study-sequencer.test.js
+      - name: Verify Self-Study finish, analytics reset, and no-repeat contracts
+        run: node tests/selfstudy-lifecycle.test.js
       - name: Verify exam page script dependencies
         run: node tests/exam-page-script-contract.test.js
       - name: Verify dashboard routing and normalized question bank loading
