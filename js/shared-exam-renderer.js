@@ -195,7 +195,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    let blankIndex=0;
    const renderBlank=token=>{
     const index=blankIndex++,tokenKey=token&&token!=='[blank]'&&!/^_+$/.test(token)?token.trim():'';
-    const matched=defs.find((d,i)=>String(d.id??d.key??d.name??i)===tokenKey),def=matched||defs[index]||{},key=matched?tokenKey:String(def.id??def.key??def.name??tokenKey||index);
+    const matched=defs.find((d,i)=>String(d.id??d.key??d.name??i)===tokenKey),def=matched||defs[index]||{},key=matched?tokenKey:String(def.id??def.key??def.name??(tokenKey||index));
     const choices=getOptions(key,index,def)||[],selected=String(draft.cloze?.[key]??'');
     const correct=def.correct??def.answer??correctMap[key]??(Array.isArray(q.correctAnswers)?q.correctAnswers[index]:undefined);
     const isCorrect=correct!==undefined&&correct!==null&&(String(correct)===selected||choices.some(v=>optionValue(v)===selected&&[optionValue(v),optionLabel(v)].includes(String(correct))));
