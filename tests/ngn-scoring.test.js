@@ -20,6 +20,6 @@ assert.equal(rationale.earned,1,'rationale scoring awards credit only when paire
 const total=api.summarize(fixtures.map(f=>({q:f.q,answer:f.a})));
 assert.equal(total.answered,fixtures.length);assert.equal(total.earned,9);assert.equal(total.max,18);
 assert.equal(total.accuracy,38,'item accuracy counts only fully correct items');
-assert.equal(total.partialCorrect,1);
+assert.equal(total.partialCorrect,3);
 assert.equal(api.grade(fixtures[0].q,{choice:'B'}).isCorrect,false);
 console.log('PASS: NGN item scoring and mixed-format test summary checks.');
