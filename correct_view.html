@@ -255,9 +255,7 @@
             <button onclick="confirmEndTest()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 shadow">
                 <i class="fa-solid fa-power-off"></i> End
             </button>
-            <button onclick="pauseTest()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-1.5 rounded font-semibold text-xs transition flex items-center gap-1.5 shadow">
-                <i class="fa-solid fa-pause"></i> Pause
-            </button>
+
         </div>
 
         <!-- Right Navigation Buttons -->
@@ -1334,10 +1332,6 @@
             if (confirm("Are you sure you want to end this NCLEX practice test session?")) {
                 alert("Test ended. Summary results generated.");
             }
-        }
-
-        function pauseTest() {
-            alert("Test paused. Click OK to resume.");
         }
     </script>
 </body>
