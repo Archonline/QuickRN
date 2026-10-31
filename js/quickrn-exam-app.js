@@ -96,7 +96,24 @@ function updateTimerDisplay(){if(mode==='selfstudy'){if($('timer-display')?.pare
  }
 function renderCurrent(){const q=currentQuestion();if(!q)return;window.quickRNCurrentQuestion=q;rememberQuestionSeen(q);activeTab=0;$('qid-display').textContent=q.id;$('qid-display').classList.remove('hidden');$('qid-display').className='text-xs font-bold tracking-wide bg-cyan-900/35 border border-cyan-100/30 rounded px-2 py-1';$('q-num-display').textContent=String(currentIndex+1);$('q-total-display').textContent=isAdaptiveMode()?String(maxItems):String(session.length);const itemFormat=renderer()?.detect(q)||'Question';$('badge-item-type').textContent=(isNGN(q)?'NGN · ':'')+itemFormat;$('badge-item-type').classList.remove('hidden');const d=q.difficulty;$('badge-difficulty').textContent=typeof d==='string'?d.toUpperCase():(Number(d)<=-.5?'EASY':Number(d)>=.5?'HARD':'MEDIUM');$('client-need-display').textContent='';const parts=promptSegments(q);const visiblePrompt=parts.question||clean(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Review the clinical record and select the best response.',q);$('question-prompt').innerHTML='<div class="font-semibold text-slate-800">'+escapeHTML(visiblePrompt||'Review the clinical record and select the best response.')+'</div>';renderCasePanel(q,parts);renderAnswerArea(q);$('left-panel').scrollTop=0;$('right-panel').scrollTop=0;const rec=currentRecord(q);$('rationale-section').classList.add('hidden');$('rationale-section').style.display='none';clearSubmissionError();if((mode==='selfstudy'||reviewMode)&&rec.submitted)showRationale(q,rec);$('submit-btn').parentElement.classList.toggle('hidden',mode!=='selfstudy'||!!rec.submitted);$('submit-btn').disabled=false;$('prev-btn').classList.toggle('hidden',mode!=='selfstudy');$('prev-btn').disabled=currentIndex===0;$('next-btn').disabled=false;$('next-btn').innerHTML=currentIndex===session.length-1&&!isAdaptiveMode()?'Finish <i class="fa-solid fa-flag-checkered"></i>':'Next <i class="fa-solid fa-chevron-right"></i>';$('mark-icon').className=bookmarks.has(q.id)?'fa-solid fa-bookmark':'fa-regular fa-bookmark';$('mark-btn').classList.toggle('text-yellow-200',bookmarks.has(q.id));if($('notes-textarea'))$('notes-textarea').value=notes[q.id]||'';updateProgress();saveState();}
 function escapeHTML(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function asText(v){if(v==null)return '';if(typeof v==='string'||typeof v==='number')return String(v);if(Array.isArray(v))return v.map(asText).join('<br>');if(typeof v==='object')return Object.entries(v).map(x=>'<strong>'+escapeHTML(x[0])+':</strong> '+escapeHTML(asText(x[1]))).join('<br>');return String(v);}
+function asText(v){
+ if(v==null)return '';
+ if(typeof v==='string'||typeof v==='number')return String(v);
+ if(Array.isArray(v))return v.map(asText).join('<br>');
+ if(typeof v==='object'){
+  const name=v.test||v.name||v.analyte||v.label||v.parameter||v.testName||'';
+  const value=v.value??v.result??v.measurement??v.observedValue;
+  const unit=v.unit||v.units||'';
+  const range=v.referenceRange??v.normalRange??v.normal??v.range??v.referenceValues;
+  if(value!==undefined&&value!==null){
+   const rangeText=range!==undefined&&range!==null&&String(range).trim()?'<span class="qr-lab-reference-range"><strong>Reference range:</strong> '+escapeHTML(typeof range==='object'?JSON.stringify(range):range)+'</span>':'<span class="qr-lab-reference-missing">Reference range not supplied in source record</span>';
+   return '<div class="qr-lab-result"><strong>'+escapeHTML(name||'Result')+':</strong> '+escapeHTML(value)+' '+escapeHTML(unit)+' '+rangeText+'</div>';
+  }
+  if(Array.isArray(v.results)||Array.isArray(v.values))return asText(v.results||v.values);
+  return Object.entries(v).map(([key,value])=>'<div><strong>'+escapeHTML(key)+':</strong> '+asText(value)+'</div>').join('');
+ }
+ return String(v);
+}
 
 function safeClinicalHTML(value){
  if(typeof value!=='string')return asText(value);
