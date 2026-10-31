@@ -10,7 +10,8 @@
             theme: {
                 extend: {
                     colors: {
-                        ncsbn: { navy: '#0F2C59', blue: '#1E40AF', light: '#EFF6FF', header: '#0B2240', accent: '#D97706', border: '#CBD5E1' }
+                        ncsbn: { navy: '#0F2C59', blue: '#1E40AF', light: '#EFF6FF', header: '#0B2240', accent: '#D97706', border: '#CBD5E1' },
+                        brand: { 50: '#e6f5f5', 100: '#ccebea', 500: '#0b8793', 600: '#087f8c', 700: '#066875' }
                     }
                 }
             }
@@ -22,21 +23,39 @@
     <style>body { font-family: 'Inter', sans-serif; }</style>
     <link rel="stylesheet" href="css/quickrn-brand-system.css">
 </head>
-<body class="h-full flex flex-col text-slate-800 antialiased">
-    <header class="bg-[#0B2240] text-white px-6 py-3 flex justify-between items-center shadow border-b-2 border-amber-600">
-        <div class="flex items-center gap-3">
-            <div class="bg-blue-950 px-3 py-1.5 rounded border border-blue-800 flex items-center gap-2">
-                <i class="fa-solid fa-user-nurse text-amber-400"></i>
-                <span class="font-extrabold text-base tracking-wider">QuickRN Saved Questions</span>
-            </div>
-            <span class="text-xs text-slate-300 hidden sm:inline">Compact View &bull; Unlimited Bookmarks & Notes</span>
-        </div>
-        <a href="dashboard.html" class="px-3.5 py-1.5 bg-rose-700 hover:bg-rose-600 text-white rounded text-xs font-bold transition flex items-center gap-1.5">
-            <i class="fa-solid fa-arrow-left"></i> Dashboard
-        </a>
-    </header>
-
-    <main class="flex-grow p-4 md:p-6 max-w-7xl mx-auto w-full space-y-4 overflow-y-auto">
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
+    <div class="min-h-screen flex">
+        <aside class="hidden md:flex w-64 shrink-0 flex-col bg-white border-r border-slate-200">
+            <a href="dashboard.html" class="p-6 border-b border-slate-100 flex items-center gap-3">
+                <span class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow"><i class="fa-solid fa-bolt-lightning"></i></span>
+                <span><strong class="text-lg tracking-tight text-slate-900">Quick<span class="text-brand-600">RN</span></strong><small class="block text-[10px] uppercase font-bold tracking-wider text-slate-400">NCLEX Prep Engine</small></span>
+            </a>
+            <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+                <div class="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Core Dashboard</div>
+                <a href="dashboard.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-chart-pie w-5 text-center"></i>Dashboard</a>
+                <a href="calendar.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-calendar-days w-5 text-center"></i>Calendar</a>
+                <div class="px-3 pt-4 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Study & Testing</div>
+                <a href="selfstudy.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-book-open w-5 text-center"></i>Self Study</a>
+                <a href="saved.html" aria-current="page" class="flex items-center gap-3 rounded-xl bg-brand-50 px-4 py-2.5 text-sm font-semibold text-brand-700"><i class="fa-solid fa-bookmark w-5 text-center"></i>Saved Questions</a>
+                <a href="timed.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-stopwatch w-5 text-center"></i>Timed Practice</a>
+                <a href="predictor.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-clipboard-check w-5 text-center"></i>NCLEX Predictor</a>
+                <a href="cat.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-laptop-code w-5 text-center"></i>CAT Simulator</a>
+                <a href="reports.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-inbox w-5 text-center"></i>Feedback Inbox</a>
+            </nav>
+            <div class="mt-auto p-4 border-t border-slate-100 text-[11px] text-slate-400">Bookmarks and notes are saved in this browser.</div>
+        </aside>
+        <div class="min-w-0 flex-1 flex flex-col">
+            <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                    <a href="dashboard.html" class="md:hidden text-slate-500" aria-label="Back to dashboard"><i class="fa-solid fa-arrow-left"></i></a>
+                    <div><p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">QuickRN / Study Library</p><h1 class="text-base font-bold text-slate-900">Saved Questions</h1></div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="selfstudy.html" class="rounded-xl bg-brand-600 px-3 py-2 text-xs font-bold text-white"><i class="fa-solid fa-book-open mr-1"></i>Practice</a>
+                    <a href="dashboard.html" class="rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-chart-pie mr-1"></i>Dashboard</a>
+                </div>
+            </header>
+            <main class="flex-1 min-w-0 p-4 md:p-6 max-w-none w-full space-y-4 overflow-y-auto">
         <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-col md:flex-row justify-between items-center gap-3">
             <div>
                 <h1 class="text-lg font-black text-slate-900">Bookmarked & Saved NCLEX Items</h1>
@@ -54,7 +73,9 @@
         <div id="mastery-categories-container" class="space-y-4">
             <!-- Dynamically populated per mastery category -->
         </div>
-    </main>
+            </main>
+        </div>
+    </div>
 
     <script>
         window.addEventListener('DOMContentLoaded', () => {
