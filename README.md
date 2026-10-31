@@ -23,7 +23,7 @@ The scoring method is surfaced in submitted-answer feedback. Item-level keys and
 
 ## CAT practice disclaimer
 
-The CAT mode uses an instructional ability-estimation model, difficulty matching, an 85-item minimum checkpoint, a 150-item maximum, and a five-hour time limit. It is a simulator, not the NCSBN/Pearson VUE operational CAT algorithm. Any readiness or passing-likelihood value is an educational estimate and must not be represented as an official NCLEX result.
+The CAT mode uses an instructional ability-estimation model, difficulty matching, an 85-item minimum checkpoint, a 150-item maximum, and a five-hour time limit. It is a simulator, not the NCSBN/Pearson VUE operational CAT algorithm. It does not model the 15 unscored pretest items, secure calibrated item pool, or proprietary operational decision algorithm. Any readiness or passing-likelihood value is an educational estimate and must not be represented as an official NCLEX result.
 
 ## Latest update — November 1, 2026
 
