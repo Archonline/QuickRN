@@ -58,6 +58,12 @@
       </header>
 
       <div class="max-w-7xl mx-auto p-4 sm:p-6 space-y-5">
+<section id="test-countdown-section" class="rounded-2xl border border-brand-100 bg-white p-4 shadow-sm">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="min-w-0"><p class="text-[10px] font-black uppercase tracking-wider text-brand-700">Your next exam milestone</p><h2 id="test-countdown-title" class="mt-1 text-lg font-black text-slate-900">No test date scheduled</h2><p id="test-countdown-detail" class="mt-1 text-xs text-slate-500">Add an NCLEX test date to see your countdown here.</p></div>
+    <div class="flex items-center gap-3"><div id="test-countdown-days" class="min-w-20 rounded-xl bg-brand-50 px-4 py-3 text-center text-2xl font-black text-brand-800">—</div><a id="test-countdown-shortcut" href="dashboard.html" class="hidden rounded-lg bg-brand-600 px-3 py-2 text-xs font-bold text-white hover:bg-brand-700">Open practice</a></div>
+  </div>
+</section>
 <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
             <div><h2 id="month-label" class="text-xl font-black text-slate-900"></h2><p class="text-xs text-slate-500 mt-1">Upcoming days and scheduled study activities. Select a date to view or edit.</p></div>
@@ -145,6 +151,19 @@
       window.clearTimeout(showToast.timer);
       showToast.timer = window.setTimeout(() => toast.classList.add('hidden'), 2400);
     }
+    function renderTestCountdown(events) {
+      const section=document.getElementById('test-countdown-section');
+      if(!section)return;
+      const upcoming=(events||loadEvents()).filter(event=>['test-date','cat','predictor'].includes(event.type)&&daysUntil(event.date)>=0).sort((a,b)=>a.date.localeCompare(b.date));
+      const title=document.getElementById('test-countdown-title'),detail=document.getElementById('test-countdown-detail'),days=document.getElementById('test-countdown-days'),link=document.getElementById('test-countdown-shortcut');
+      const event=upcoming[0];
+      if(!event){title.textContent='No test date scheduled';detail.textContent='Add an NCLEX test date, CAT practice day, or Predictor exam to see your countdown here.';days.textContent='—';link.classList.add('hidden');return;}
+      const remaining=daysUntil(event.date),date=parseDate(event.date).toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+      title.textContent=event.title;detail.textContent=typeLabel(event.type)+' · '+date+(remaining===0?' · Today is the day':remaining===1?' · Tomorrow':' · '+remaining+' days remaining');
+      days.innerHTML='<span class="block text-3xl leading-none">'+remaining+'</span><span class="mt-1 block text-[9px] font-bold uppercase tracking-wider">days left</span>';
+      const target=shortcut(event.type);
+      if(target){link.href=target;link.textContent=event.type==='cat'?'Open CAT practice':'Open Predictor';link.classList.remove('hidden');}else link.classList.add('hidden');
+    }
     function renderCalendar() {
       document.getElementById('month-label').textContent = monthCursor.toLocaleDateString(undefined, {month:'long',year:'numeric'});
       const year = monthCursor.getFullYear(), month = monthCursor.getMonth();
@@ -152,6 +171,7 @@
       const start = new Date(year, month, 1 - first.getDay());
       const todayKey = localDateKey(new Date());
       const events = loadEvents();
+      renderTestCountdown(events);
       const today = localDateKey(new Date());
       let html = '';
       for (let i = 0; i < 42; i++) {
