@@ -310,4 +310,4 @@ SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
 - Dashboard trend now plots item accuracy separately from any saved CAT practice passing estimate; older attempts fall back to the historical score field.
 - Clinical scenario typography is consistent across all EHR tabs, not only the first tab. Video lessons remain in the left pane; the rationale and per-option teaching explanations remain in the right pane without a collapse control.
 
-- Structured lab-result exhibits now display source-provided reference ranges beside values. If the question bank omits a range, the interface flags that omission rather than inventing a clinical reference interval; ranges vary by laboratory, population and method.
+- Structured lab-result exhibits now display source-provided reference ranges beside values. If the question bank omits a range, the interface flags that omission on numeric diagnostic/lab exhibits rather than inventing a clinical reference interval; ranges vary by laboratory, population and method.
