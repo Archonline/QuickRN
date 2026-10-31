@@ -233,9 +233,13 @@ function quickRNHasAnswer(q,d){
  if(f==='Single Choice')return hasValue(d.choice);
  if(f==='Extended Multiple Response'||f==='Multiple Response')return Array.isArray(d.choices)&&d.choices.length>0;
  if(f==='Matrix / Grid')return Object.values(d.matrix||{}).some(hasValue);
- if(f==='Cloze (Drop-down)'){const defs=Array.isArray(q.dropdowns)?q.dropdowns:Object.entries(q.dropdowns||{}).map(([id])=>({id}));const keys=defs.map((x,i)=>String(x.id??x.key??x.name??i));const required=keys.length?keys:Object.keys(q.correctAnswers||{});return required.length>0&&required.every(k=>hasValue(d.cloze?.[k]));}
+ if(f==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(hasValue);
  if(f==='Extended Drag and Drop')return Array.isArray(d.order)&&d.order.length>0;
  if(f==='Bowtie')return hasValue(d.condition)||(Array.isArray(d.actions)&&d.actions.length>0)||(Array.isArray(d.monitoring)&&d.monitoring.length>0);
+ if(f==='Highlight')return Array.isArray(d.highlights)&&d.highlights.length>0;
+ if(f==='Numeric Entry')return hasValue(d.numericEntry??d.value);
+ if(f==='Trend')return hasValue(d.choice)||hasValue(d.trendResponse)||hasValue(d.numericEntry);
+ if(f==='Select N')return Array.isArray(d.choices)&&d.choices.length>0;
  return false;
 }
 function quickRNGrade(q,d){const f=quickRNDetectItemFormat(q), opts=Array.isArray(q.options)?q.options:[];const eq=(a,b)=>String(a??'')===String(b??'');const sameSet=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
