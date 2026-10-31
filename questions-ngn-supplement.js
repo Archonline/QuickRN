@@ -3,8 +3,8 @@
  */
 (function(root){
  'use strict';
- const bank=Array.isArray(root.questions)?root.questions:(typeof questions!=='undefined'?questions:null);
- if(!Array.isArray(bank))return;
+ const bank=Array.isArray(root.questions)?root.questions:(typeof questions!=='undefined'?questions:[]);
+ if(!Array.isArray(root.questions))root.questions=bank;
  const items=[
   {id:'QR-MR-0001',type:'Multiple Response',ngnType:'Multiple Response',category:'Pharmacology',topic:'Digoxin toxicity',title:'Which findings should the nurse report before administering digoxin? Select all that apply.',options:['Apical pulse 54/min','Serum potassium 3.0 mEq/L','Blood pressure 128/76 mm Hg','New yellow-green halos around lights','Respiratory rate 16/min'],correctAnswers:['Apical pulse 54/min','Serum potassium 3.0 mEq/L','New yellow-green halos around lights'],rationale:'Bradycardia, hypokalemia, and visual disturbances are concerning for digoxin toxicity and increase the risk of dysrhythmias.'},
   {id:'QR-MR-0002',type:'Multiple Response',ngnType:'Multiple Response',category:'Adult Health',topic:'Heart failure',title:'A client with heart failure is preparing for discharge. Which instructions should the nurse include? Select all that apply.',options:['Weigh yourself every morning after voiding.','Report a gain of 2 lb (0.9 kg) in 24 hours.','Use a salt substitute freely.','Take the prescribed diuretic as directed.','Stop the diuretic when ankle swelling improves.'],correctAnswers:['Weigh yourself every morning after voiding.','Report a gain of 2 lb (0.9 kg) in 24 hours.','Take the prescribed diuretic as directed.'],rationale:'Daily weights identify fluid retention early. Rapid weight gain should be reported. Diuretics should be taken as prescribed; many salt substitutes contain potassium and require clinician guidance.'},
