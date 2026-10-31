@@ -176,3 +176,19 @@ body.quickrn-exam #rationale-text>section{margin:0 0 10px;padding:12px!important
 body.quickrn-exam #rationale-text>section:first-child,body.quickrn-exam #rationale-text>section:last-child{grid-column:auto}
 body.quickrn-exam .qr-cloze select{min-width:150px;min-height:42px;padding:9px 12px!important;font-size:14px!important;cursor:pointer;pointer-events:auto!important}
 @media(max-width:900px){body.quickrn-exam #rationale-section{max-height:42%!important}body.quickrn-exam .qr-choice{padding:13px!important}}
+
+
+/* Consistent question presentation across every NCLEX item format and exam mode */
+body.quickrn-exam #question-prompt{font-size:16px!important;line-height:1.7!important;color:#172b45!important;font-weight:650!important}
+body.quickrn-exam #answer-workspace .qr-response-area{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px!important;padding:4px 0!important;min-width:0!important}
+body.quickrn-exam #answer-workspace .qr-choice,body.quickrn-exam #answer-workspace .qr-matrix-row,body.quickrn-exam #answer-workspace .qr-cloze-blank,body.quickrn-exam #answer-workspace .qr-bowtie-group,body.quickrn-exam #answer-workspace .qr-sort-item,body.quickrn-exam #answer-workspace .qr-highlight-token{box-sizing:border-box;min-width:0;border-radius:10px}
+body.quickrn-exam #answer-workspace .qr-choice{display:flex;align-items:flex-start;gap:12px;padding:14px 16px!important;border:1px solid #d5dee9;background:#fff;line-height:1.6}
+body.quickrn-exam #answer-workspace .qr-choice:focus-within,body.quickrn-exam #answer-workspace select:focus,body.quickrn-exam #answer-workspace input:focus,body.quickrn-exam #answer-workspace textarea:focus{outline:2px solid #0891b2;outline-offset:2px}
+body.quickrn-exam #answer-workspace select,body.quickrn-exam #answer-workspace input:not([type=checkbox]):not([type=radio]),body.quickrn-exam #answer-workspace textarea{box-sizing:border-box;max-width:100%;min-height:40px;border:1px solid #aebdce;border-radius:8px;padding:9px 11px;font:inherit;line-height:1.45}
+body.quickrn-exam #answer-workspace .qr-table-wrap{width:100%;overflow-x:auto}
+body.quickrn-exam #answer-workspace .qr-bowtie{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+body.quickrn-exam #answer-workspace .qr-bowtie-group{padding:12px;border:1px solid #d5dee9;background:#f8fafc}
+body.quickrn-exam #answer-workspace .qr-help{margin:0 0 8px;color:#52657c;font-size:13px;line-height:1.55}
+body.quickrn-exam #summary-screen{position:fixed!important;inset:0!important;z-index:100!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+body.quickrn-exam #summary-screen.hidden{display:none!important}
+@media(max-width:767px){body.quickrn-exam #answer-workspace .qr-bowtie{grid-template-columns:1fr}body.quickrn-exam #answer-workspace .qr-choice{padding:12px!important}}
