@@ -22,7 +22,7 @@
   const sharedPatient=first.patientInfo||first.patientInformation||first.patient_information;
   items.forEach((item,index)=>{
    sharedFields.forEach(field=>{if((item[field]===undefined||item[field]===null||item[field]==='')&&first[field]!==undefined)item[field]=first[field];});
-   if(sharedCase){const own=item.caseStudy||item.case_study;item.caseStudy=mergeObject(sharedCase,own);}
+   if(sharedCase){const own=item.caseStudy||item.case_study;if(typeof sharedCase==='string'){if(!own)item.caseStudy=sharedCase;}else item.caseStudy=mergeObject(sharedCase,own);}
    if(sharedEhr){const own=item.ehr||item.clinicalRecord||item.medicalRecord;item.ehr=mergeObject(sharedEhr,own);}
    if(sharedPatient){
     if(typeof sharedPatient==='string'){if(!item.patientInfo)item.patientInfo=sharedPatient;}
@@ -36,7 +36,7 @@
     category:item.category||first.category||existing.category||'',
     topic:item.topic||first.topic||existing.topic||'',
     summary:summary||existing.summary||'',
-    stepIndex:Number(existing.stepIndex)||index+1,
+    stepIndex:Number(existing.stepIndex)||Number(item.caseQuestionNumber||item.caseQuestionIndex||item.questionSequence||item.sequenceNumber||item.stepNumber||item.questionNumber||item.questionIndex)||index+1,
     stepCount:items.length
    });
   });
