@@ -7,7 +7,7 @@ const descriptions={selfstudy:'Practice at your own pace with immediate clinical
 const $=id=>document.getElementById(id);
 const renderer=()=>window.QuickRNSharedRenderer;
 let bank=[],pool=[],session=[],originalSession=[],currentIndex=0,answers={},bookmarks=new Set(),notes={},timerSeconds=0,timerInterval=null,paused=false,started=false,finished=false,activeTab=0,formatFilter='ALL',maxItems=0,catDecision=null,reviewMode=false,elapsedSeconds=0,breaksOffered=new Set(),timerDeadlineMs=null,elapsedStartedAt=null,timerWarnings=new Set();
-const ANSWER_KEY='quickrn_exam_answers_'+mode+'_v2',BOOKMARK_KEY='quickrn_exam_bookmarks_v1',NOTES_KEY='quickrn_question_notes_v1',SESSION_KEY='quickrn_exam_session_'+mode+'_v1';
+const ANSWER_KEY='quickrn_exam_answers_'+mode+'_v2',BOOKMARK_KEY='quickrn_exam_bookmarks_v1',NOTES_KEY='quickrn_question_notes_v1';
 function readJSON(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v==null?fallback:v;}catch(e){return fallback;}}
 function writeJSON(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true;}catch(e){notice('Your browser storage is full. Some progress may not be saved.');return false;}}
 answers=readJSON(ANSWER_KEY,{})||{};bookmarks=new Set(readJSON(BOOKMARK_KEY,[])||[]);notes=readJSON(NOTES_KEY,{})||{};
@@ -39,30 +39,7 @@ function rememberQuestionSeen(q){if(mode!=='selfstudy'||!q)return;const ids=read
 function randomizedSelfStudyPick(list,count){const poolIds=new Set(list.map(q=>q.id));let seen=new Set([...(readJSON(SEEN_QUESTION_KEY,[])||[]),...(readJSON('quickrn_used_q_ids',[])||[])]);let fresh=list.filter(q=>!seen.has(q.id));if(!fresh.length){writeJSON(SEEN_QUESTION_KEY,(readJSON(SEEN_QUESTION_KEY,[])||[]).filter(id=>!poolIds.has(id)));writeJSON('quickrn_used_q_ids',(readJSON('quickrn_used_q_ids',[])||[]).filter(id=>!poolIds.has(id)));fresh=list.slice();}const chosen=diversityShuffle(fresh).slice(0,Math.max(0,count));if(chosen.length<count){const selected=new Set(chosen.map(q=>q.id));chosen.push(...diversityShuffle(list.filter(q=>!selected.has(q.id))).slice(0,count-chosen.length));}return chosen;}
 function currentQuestion(){return session[currentIndex]||null;}
 function currentRecord(q){if(!q)return {};if(!answers[q.id])answers[q.id]={draft:null,submitted:false};return answers[q.id];}
-function saveState(){writeJSON(ANSWER_KEY,answers);writeJSON(BOOKMARK_KEY,[...bookmarks]);writeJSON(NOTES_KEY,notes);if(started&&!finished&&session.length){writeJSON(SESSION_KEY,{questionIds:session.map(q=>q.id),currentIndex,timerSeconds,timerDeadlineMs,paused,elapsedSeconds,breaksOffered:[...breaksOffered],timerWarnings:[...timerWarnings],maxItems,formatFilter,savedAt:new Date().toISOString()});}else{try{localStorage.removeItem(SESSION_KEY);}catch(_){}}}
-
-function restoreSession(){
- const saved=readJSON(SESSION_KEY,null);
- if(!saved||!Array.isArray(saved.questionIds)||!saved.questionIds.length)return false;
- const byId=new Map(bank.map(q=>[q.id,q]));
- const restored=saved.questionIds.map(id=>byId.get(String(id))).filter(Boolean);
- if(restored.length!==saved.questionIds.length){try{localStorage.removeItem(SESSION_KEY);}catch(_){}notice('An older saved session no longer matches the question bank. Start a fresh session.');return false;}
- if(!confirm('An unfinished '+titles[mode]+' session was found. Resume where you left off?')){try{localStorage.removeItem(SESSION_KEY);}catch(_){}return false;}
- session=restored;originalSession=restored.slice();currentIndex=Math.max(0,Math.min(restored.length-1,Number(saved.currentIndex)||0));
- maxItems=Math.max(restored.length,Number(saved.maxItems)||restored.length);formatFilter=saved.formatFilter||'ALL';pool=filteredPool();if($('format-filter'))$('format-filter').value=formatFilter;paused=!!saved.paused;started=true;finished=false;
- elapsedSeconds=Math.max(0,Number(saved.elapsedSeconds)||0);timerSeconds=Math.max(0,Number(saved.timerSeconds)||0);
- timerDeadlineMs=paused?null:(Number(saved.timerDeadlineMs)||null);
- breaksOffered=new Set(Array.isArray(saved.breaksOffered)?saved.breaksOffered:[]);
- timerWarnings=new Set(Array.isArray(saved.timerWarnings)?saved.timerWarnings:[]);
- if(mode!=='selfstudy'&&!paused&&timerDeadlineMs)timerSeconds=Math.max(0,Math.ceil((timerDeadlineMs-Date.now())/1000));
- if(mode==='selfstudy')elapsedStartedAt=Date.now()-elapsedSeconds*1000;
- $('setup-modal').classList.add('hidden');$('summary-screen').classList.add('hidden');$('exam-footer').style.display='flex';
- renderCurrent();
- const pauseButton=document.querySelector('footer button[onclick="pauseTest()"]');
- if(pauseButton&&paused)pauseButton.innerHTML='<i class="fa-solid fa-play"></i> Resume';
- if(!paused){if(mode!=='selfstudy'&&timerSeconds<=0){finishExam('Time limit reached while the page was closed.');return true;}startTimer();}
- updateTimerDisplay();notice('Your in-progress session has been restored.');return true;
-}
+function saveState(){writeJSON(ANSWER_KEY,answers);writeJSON(BOOKMARK_KEY,[...bookmarks]);writeJSON(NOTES_KEY,notes);}
 
 function canonicalFormatFilter(value){const raw=String(value||'ALL'),key=raw.toLowerCase();const aliases={single:'Single Choice','single best answer':'Single Choice',sata:'Multiple Response','sata / multiple response':'Multiple Response',select_n:'Select N',matrix_multiple:'Matrix / Grid',matrix_single:'Matrix / Grid',matrix:'Matrix / Grid',cloze:'Cloze (Drop-down)',dropdown_rationale:'Cloze (Drop-down)',highlight:'Highlight',trend:'Trend',numeric:'Numeric Entry',ordered:'Extended Drag and Drop',bowtie:'Bowtie'};return aliases[key]||raw;}
 function formatFilterMatches(q,value){const selected=canonicalFormatFilter(value);if(selected==='ALL')return true;const f=String(renderer()?.detect(q)||q.ngnType||'');const raw=[q.type,q.format,q.questionType,q.itemType,q.ngnType].filter(Boolean).join(' ').toLowerCase();if(selected==='Matrix / Grid')return /^Matrix/.test(f)||f==='Matrix / Grid';if(selected==='Multiple Response')return f==='Multiple Response'||f==='Extended Multiple Response';if(selected==='Cloze (Drop-down)')return f==='Cloze (Drop-down)'||/dropdown rationale|dropdown cloze|cloze|drop down/.test(raw);if(selected==='Extended Drag and Drop')return f==='Extended Drag and Drop'||f==='Ordered Response';return f===selected;}
@@ -200,7 +177,7 @@ function installKeyboardShortcuts(){
  });
 }
 
-function init(){installKeyboardShortcuts();document.title='QuickRN | '+titles[mode];$('mode-label').textContent=titles[mode];if($('mode-subtitle'))$('mode-subtitle').textContent=descriptions[mode];if(!$('format-filter')){const fs=document.createElement('select');fs.id='format-filter';fs.onchange=()=>switchFormatFilter(fs.value);fs.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';($('setup-modal')||document.body).appendChild(fs);}if(!loadBank())return;buildFormatFilterOptions();setupOptions();$('session-info-pill').textContent=bank.length.toLocaleString()+' questions available';$('setup-modal').classList.remove('hidden');restoreSession();}
+function init(){installKeyboardShortcuts();document.title='QuickRN | '+titles[mode];$('mode-label').textContent=titles[mode];if($('mode-subtitle'))$('mode-subtitle').textContent=descriptions[mode];if(!$('format-filter')){const fs=document.createElement('select');fs.id='format-filter';fs.onchange=()=>switchFormatFilter(fs.value);fs.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';($('setup-modal')||document.body).appendChild(fs);}if(!loadBank())return;buildFormatFilterOptions();setupOptions();$('session-info-pill').textContent=bank.length.toLocaleString()+' questions available';$('setup-modal').classList.remove('hidden');}
 window.startExamSession=startExamSession;window.saveStudyConfidence=saveStudyConfidence;window.startMissedReview=startMissedReview;window.switchFormatFilter=switchFormatFilter;window.navigateQuestion=navigateQuestion;window.submitAnswer=submitAnswer;window.confirmEndTest=confirmEndTest;window.pauseTest=pauseTest;window.toggleMarkQuestion=toggleMarkQuestion;window.toggleCalculator=toggleCalculator;window.calcInput=calcInput;window.calcEquals=calcEquals;window.toggleNotesModal=toggleNotesModal;window.saveNotes=saveNotes;window.toggleFeedbackModal=toggleFeedbackModal;window.submitFeedback=submitFeedback;window.switchCaseTab=switchCaseTab;window.returnToDashboard=returnToDashboard;window.openBookmarksModal=openBookmarksModal;window.closeBookmarksModal=closeBookmarksModal;window.goToBookmarkedQuestion=goToBookmarkedQuestion;window.retakeExam=retakeExam;
 window.quickRNRenderAgain=function(){if(started&&!finished)renderAnswerArea(currentQuestion());};window.closeRationale=closeRationale;
 document.addEventListener('DOMContentLoaded',init);
