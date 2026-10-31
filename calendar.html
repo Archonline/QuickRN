@@ -171,7 +171,6 @@
       grid.innerHTML = html;
       renderSelectedEvents();
     }
-    function renderTestCountdown() { const panel=document.getElementById('test-countdown-section'); const next=loadEvents().filter(e=>e.type==='test-date'&&e.date>=localDateKey(new Date())).sort((a,b)=>a.date.localeCompare(b.date))[0]; if(!next){panel.classList.add('hidden');return;} const d=daysUntil(next.date),level=urgency(next.date); panel.className='rounded-2xl border p-4 sm:p-5 '+(level==='urgent'?'border-rose-300 bg-rose-50':level==='soon'?'border-amber-300 bg-amber-50':'border-blue-200 bg-blue-50'); document.getElementById('test-countdown-title').textContent=next.title; document.getElementById('test-countdown-copy').textContent=d===0?'Your test date is today. Prioritize rest, logistics, and a calm routine.':d===1?'1 day remaining · Keep review light and prepare your test-day essentials.':d+' days remaining · Pace focused review and practice.'; document.getElementById('test-countdown-edit').dataset.openDate=next.date; }
     function renderSelectedEvents() {
       document.getElementById('selected-date-label').textContent = parseDate(selectedDate).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
       const events = loadEvents().filter(event => event.date === selectedDate);
