@@ -191,7 +191,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    const getOptions=(key,index,def)=>def.options||def.choices||def.values||optionGroups[key]||(Array.isArray(q.options)?(defs.length===1?q.options:q.options[index]):[]);
    const optionValue=v=>typeof v==='object'&&v!==null?String(v.value??v.id??v.text??v.label??''):String(v);
    const optionLabel=v=>typeof v==='object'&&v!==null?String(v.text??v.label??v.value??v.id??''):String(v);
-   const tokenPattern=/\\{\\{([^}]+)\\}\\}|\\{([^}]+)\\}|\\[\\[([^\\]]+)\\]\\]|\\[blank\\]|_{2,}/gi;
+   const tokenPattern=/\{\{([^}]+)\}\}|\{([^}]+)\}|\[\[([^\]]+)\]\]|\[blank\]|_{2,}/gi;
    let blankIndex=0;
    const renderBlank=token=>{
     const index=blankIndex++,key=token&&token!=='[blank]'&&!/^_+$/.test(token)?token.trim():String(defs[index]?.id??defs[index]?.key??index);
@@ -199,7 +199,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
     const correct=def.correct??def.answer??correctMap[key]??(Array.isArray(q.correctAnswers)?q.correctAnswers[index]:undefined);
     const isCorrect=correct!==undefined&&correct!==null&&(String(correct)===selected||choices.some(v=>optionValue(v)===selected&&[optionValue(v),optionLabel(v)].includes(String(correct))));
     const indicator=submitted?'<span class="qr-cloze-result '+(isCorrect?'is-correct':'is-incorrect')+'" aria-label="'+(isCorrect?'Correct':'Incorrect')+'">'+(isCorrect?'✓':'✕')+'</span>':'';
-    return '<label class="qr-cloze-blank"><span class="sr-only">'+quickRNEscape(def.label||def.name||('Blank '+(index+1)))+'</span><select aria-label="'+quickRNEscape(def.label||key)+'" '+(submitted?'disabled':'')+' onchange="quickRNSetDraft(\\'cloze\\',{...(quickRNDraft.cloze||{}),'+JSON.stringify(key)+':this.value})"><option value="">Select…</option>'+choices.map(v=>'<option value="'+quickRNEscape(optionValue(v))+'" '+(selected===optionValue(v)?'selected':'')+'>'+quickRNEscape(optionLabel(v))+'</option>').join('')+'</select>'+indicator+'</label>';
+    return '<label class="qr-cloze-blank"><span class="sr-only">'+quickRNEscape(def.label||def.name||('Blank '+(index+1)))+'</span><select aria-label="'+quickRNEscape(def.label||key)+'" '+(submitted?'disabled':'')+' onchange="quickRNSetDraft(\'cloze\',{...(quickRNDraft.cloze||{}),'+JSON.stringify(key)+':this.value})"><option value="">Select…</option>'+choices.map(v=>'<option value="'+quickRNEscape(optionValue(v))+'" '+(selected===optionValue(v)?'selected':'')+'>'+quickRNEscape(optionLabel(v))+'</option>').join('')+'</select>'+indicator+'</label>';
    };
    let rendered=template.replace(tokenPattern,(match,a,b,c)=>renderBlank(a||b||c||''));
    if(blankIndex===0&&defs.length)rendered=quickRNEscape(template)+'<div class="qr-cloze-fields">'+defs.map((d,i)=>renderBlank(String(d.id??d.key??d.name??i))).join('')+'</div>';
