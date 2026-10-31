@@ -246,3 +246,30 @@ body:not(:has(#answer-workspace)) aside:not([role="dialog"]) nav a.is-active i{
 }
 #quickrn-unified-sidebar .qr-sidebar-mark{background:#087f8c!important;box-shadow:0 5px 16px rgba(8,127,140,.24)!important}
 #quickrn-unified-sidebar .qr-sidebar-link.is-active{background:rgba(8,127,140,.32)!important;border-color:rgba(141,232,246,.24)!important}
+
+
+/* QuickRN Amber & Amethyst palette — sampled from the approved swatch. */
+:root{--qr-purple:#6C4B9F;--qr-amber:#E39C14;--qr-mist:#D3DDEB;--qr-green:#1B5E43;--qr-text:#4A4A4A;--qr-purple-deep:#503477;--qr-amber-deep:#B87908;--qr-mist-soft:#F4F6FA;--qr-green-soft:#EAF3EE;--qr-brand-navy:var(--qr-purple);--qr-brand-navy-deep:var(--qr-purple-deep);--qr-brand-teal:var(--qr-amber);--qr-brand-teal-dark:var(--qr-amber-deep);--qr-brand-teal-soft:var(--qr-mist);--qr-brand-ink:var(--qr-text);--qr-brand-muted:#6B6B6B;--qr-brand-bg:#F7F7F8;--qr-brand-border:#D9DDE4;--qr-brand-focus:var(--qr-purple)}
+body{color:var(--qr-text)!important;background-color:#F7F7F8}
+body header{background:var(--qr-purple)!important;border-color:var(--qr-purple-deep)!important;color:#fff!important}
+body:not(:has(#answer-workspace)) :where([class~="bg-brand-500"],[class~="bg-brand-600"],[class~="bg-brand-700"],[class~="bg-medical-500"],[class~="bg-medical-600"],[class~="bg-medical-700"],[class~="bg-emerald-500"],[class~="bg-emerald-600"],[class~="bg-green-600"],[class~="bg-teal-600"],[class~="bg-cyan-600"],[class~="bg-blue-600"]){background-color:var(--qr-amber)!important;color:#241B10!important}
+body:not(:has(#answer-workspace)) :where([class~="text-brand-600"],[class~="text-brand-700"],[class~="text-medical-600"],[class~="text-emerald-600"],[class~="text-green-600"],[class~="text-teal-600"],[class~="text-cyan-600"],[class~="text-blue-600"]){color:var(--qr-purple)!important}
+body:not(:has(#answer-workspace)) :where([class~="border-brand-500"],[class~="border-brand-600"],[class~="border-emerald-500"],[class~="border-cyan-500"]){border-color:var(--qr-amber)!important}
+body:has(#app-shell) #app-shell>aside{background:var(--qr-purple)!important;border-color:var(--qr-purple-deep)!important}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50{background:rgba(227,156,20,.2)!important;color:#FFE0A0!important}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50 i{color:#FFE0A0!important}
+body:has(#answer-workspace) header{background:var(--qr-purple)!important}
+body:has(#answer-workspace) #left-panel{background:#fff!important}
+body:has(#answer-workspace) #right-panel{background:var(--qr-mist-soft)!important}
+body:has(#answer-workspace) #case-study-tabs{background:var(--qr-mist)!important}
+body:has(#answer-workspace) .qr-question-head{background:var(--qr-mist-soft)!important}
+body:has(#answer-workspace) .qr-choice.selected{border-color:var(--qr-purple)!important;background:#F3EFF8!important}
+body:has(#answer-workspace) .qr-ehr-head{background:var(--qr-purple)!important}
+body:has(#answer-workspace) .qr-answer-correct{border-color:var(--qr-green)!important;background:var(--qr-green-soft)!important}
+body:has(#answer-workspace) .qr-answer-incorrect{border-color:#B42318!important;background:#FEF0EF!important}
+:where(.qr-success,.status-success){color:var(--qr-green)!important}
+/* Exam modes occupy the viewport without the injected navigation rail. */
+body[data-exam-mode]{width:100vw!important;height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
+body[data-exam-mode]>main{width:100%!important;max-width:none!important}
+body[data-exam-mode] #left-panel,body[data-exam-mode] #right-panel{min-width:0!important;flex:1 1 50%!important;width:50%!important}
+@media(max-width:767px){body[data-exam-mode]>main{overflow:auto!important}body[data-exam-mode] #left-panel,body[data-exam-mode] #right-panel{width:100%!important;flex-basis:100%!important;min-height:45vh!important}}

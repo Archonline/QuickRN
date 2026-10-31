@@ -34,6 +34,7 @@
     <!-- External Questions Bank -->
     <script src="questions.js" onerror="console.error('questions.js could not be loaded.')"></script>
     <script src="questions-ngn-supplement.js"></script>
+
     <script src="js/quickrn-question-bank-normalizer.js"></script>
     <script src="js/quickrn-question-id-normalizer.js"></script>
     <script src="js/quickrn-question-metrics.js"></script>
@@ -82,7 +83,7 @@
                     <span>Calendar</span>
                 </a>
                 
-                <a href="#" onclick="switchTab('learning')" id="nav-learning" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="learning-center.html" id="nav-learning" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-book-open w-5 text-center text-emerald-600"></i><span>Learning Center</span>
                 </a>
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
@@ -142,13 +143,7 @@
                     <h1 id="page-title" class="text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <a href="profile.html" class="flex items-center space-x-2.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all">
-                        <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-[10px]">RN</div>
-                        <div class="text-left leading-tight hidden sm:block">
-                            <span class="block font-bold text-slate-800" id="top-user-name">Future RN</span>
-                            <span class="block text-[10px] text-slate-500 font-normal">View Profile</span>
-                        </div>
-                    </a>
+
                     <button onclick="handleSignOut()" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Sign Out</span>
@@ -233,14 +228,7 @@
                             <div id="mastery-categories-list" class="grid grid-cols-1 gap-1.5"></div>
                         </section>
                     </div>
-                    <section class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div><p class="text-xs font-bold text-slate-900">Keep your preparation moving</p><p class="text-[10px] text-slate-500">Open your study tools or start an exam when you're ready.</p></div>
-                        <div class="flex flex-wrap gap-2">
-                            <button type="button" onclick="switchTab('learning')" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Learning Center</button>
-                            <a href="selfstudy.html" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-[11px] font-bold hover:bg-brand-700">Start practice</a>
-                            <a href="timed.html" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Timed exam</a>
-                        </div>
-                    </section>
+
                 </div>
 
                 <!-- LEARNING CENTER TAB -->
@@ -294,30 +282,7 @@
                         <div id="quickrn-flashcard-deck" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2"><p class="col-span-full rounded-lg border border-dashed border-slate-300 p-4 text-xs text-slate-500">Generate a deck to see your personalized flashcards here. Flip each card to reveal its answer.</p></div>
                         <p class="text-[10px] text-slate-400">This version uses a local rules-based generator; it does not send notes to an AI service. Your notes stay in this browser.</p>
                     </section>
-                    <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <section class="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-xl p-4 space-y-3 text-white">
-                        <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl shadow-inner">
-                                    <i class="fa-solid fa-brain"></i>
-                                </div>
-                                <div>
-                                    <div class="flex items-center space-x-2">
-                                        <h2 class="text-base font-bold text-white">QuickRN Clinical Study Coach & Remediation Planner</h2>
-                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">Local rules · no API required</span>
-                                    </div>
-                                    <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
-                                </div>
-                            </div>
-                            <button onclick="generateStudyRoadmap()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
-                            </button>
-                        </div>
-                        <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
-                        </div>
-                    </section>
+
                 </div>
 
                 <!-- FEATURE HUB TAB -->
@@ -340,9 +305,13 @@
                                 <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700"><i class="fa-solid fa-sparkles"></i></div>
                                 <div><h3 id="whats-new-title" class="font-bold text-slate-900 text-base">What's New</h3><p class="text-xs text-slate-500">A short guide to what's currently available in the beta</p></div>
                             </div>
-                            <span class="inline-flex w-fit items-center rounded-full bg-amber-50 px-3 py-1 text-[11px] font-bold text-amber-800">Beta · October 31, 2026</span>
+                            <span class="inline-flex w-fit items-center rounded-full bg-amber-50 px-3 py-1 text-[11px] font-bold text-amber-800">Beta · November 1, 2026</span>
                         </div>
                         <div class="grid gap-3 pt-4 sm:grid-cols-2">
+                            <article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4 sm:col-span-2"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-graduation-cap text-cyan-700"></i> NGN rationale, scoring, and exam-summary improvements</div><p class="mt-2 text-xs leading-6 text-slate-600">After submission, each option's best-answer or not-best-answer explanation is shown in the right pane with the scoring method and partial-credit result. The clinical scenario is easier to read, leading topic labels are cleaned, and the selected EHR tab stays open across linked case questions. EHR tabs include Nurses’ Notes, Vital Signs, Lab Results, Orders, and other available records. Video lessons remain in the left pane.</p></article>
+                            <article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-book-open text-purple-700"></i> Dedicated Learning Center</div><p class="mt-2 text-xs leading-6 text-slate-600">Child Health, Adult Health, and Pharmacology are organized by body system. The split workspace pairs lesson search and video playback with an auto-saved notes area and browser speech dictation.</p></article><article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-calendar-days text-purple-700"></i> Calendar-based remediation planner</div><p class="mt-2 text-xs leading-6 text-slate-600">The Clinical Study Coach and seven-day remediation roadmap now live on the Calendar page, where generated activities are added to the study schedule.</p></article><article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-flask text-cyan-700"></i> Laboratory reference ranges</div><p class="mt-2 text-xs leading-6 text-slate-600">Structured lab results display source-provided reference ranges. Common adult results can display typical reference ranges; age-, pregnancy-, unit-, and facility-specific ranges must be checked where applicable. Missing source ranges are identified rather than silently invented.</p></article>
+                            <article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line text-cyan-700"></i> More complete exam analytics</div><p class="mt-2 text-xs leading-6 text-slate-600">Exam summaries now include difficulty-level and Clinical Judgment Measurement Model performance, client-needs results, item-format counts, partial-credit scoring, unanswered items, and average time per answered item. Dashboard accuracy history has a resilient line-graph fallback.</p></article>
+                            <article class="rounded-xl border border-cyan-200 bg-cyan-50/40 p-4 sm:col-span-2"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-laptop-medical text-cyan-700"></i> NGN scoring and CAT run-out-of-time handling</div><p class="mt-2 text-xs leading-6 text-slate-600">The simulator reports plus/minus, 0/1, and rationale scoring per item. CAT targets three sequential case-study groups by item 85, then applies the minimum-85, maximum-150, confidence-interval, and time-expiry checkpoints. QuickRN's adaptive result remains a practice estimate, not an official NCLEX pass/fail prediction.</p></article>
                             <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-rotate text-teal-700"></i> Reliable Self-Study ending and true analytics reset</div><p class="mt-2 text-xs leading-6 text-slate-600">Ending a Self-Study session now opens the results summary correctly. Reset Analytics clears dashboard answered counts, per-question performance metrics, exam history, and study streaks while preserving the separate no-repeat question history.</p></article>
                             <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2"><div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-notes-medical text-teal-700"></i> Complete, correctly ordered NGN case studies</div><p class="mt-2 text-xs leading-6 text-slate-600">Self-Study now keeps linked case questions together and in sequence. The opening case and shared clinical record, vital signs, and laboratory data remain available while learners work through every follow-up question. Selecting a linked question through a focused topic route also restores its full case.</p></article>
                             <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
@@ -897,9 +866,10 @@
             if (probText) probText.textContent = calculatedProbability === null ? '—' : calculatedProbability + '%';
             if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability === null ? 0 : calculatedProbability}, 100`);
             if (statusText) {
+                const adaptiveStatus = String(latestAdaptiveResult?.status || latestAdaptiveResult?.decision || '').toUpperCase();
                 statusText.textContent = latestAdaptiveResult
-                    ? (/INCONCLUSIVE/i.test(String(latestAdaptiveResult.status || latestAdaptiveResult.decision || '')) ? 'Limited evidence' : 'Latest adaptive result')
-                    : 'Complete 85+ CAT/Predictor items';
+                    ? (adaptiveStatus === 'PASS' ? 'Practice standard met · simulated' : adaptiveStatus === 'FAIL' ? 'Below practice standard · simulated' : /CONTINUE|INCONCLUSIVE/.test(adaptiveStatus) ? 'Inconclusive practice estimate' : 'Latest adaptive estimate')
+                    : 'Complete 85+ CAT items';
             }
         }
 
@@ -939,30 +909,59 @@
 
         function initQuickRNScoreChart() {
             const canvas = document.getElementById('quickrnScoreChart');
-            if (!canvas || typeof Chart === 'undefined') return;
+            const host = canvas && canvas.parentElement;
+            if (!host) return;
             const state = (() => { try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); } catch(e) { return {}; } })();
             const stats = state.studentStats || {};
             const history = Array.isArray(stats.examHistory) ? [...stats.examHistory] : [];
             const predictorHistory = Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [];
-            const seen = new Set(history.map(x => String(x.date || '') + '|' + String(x.type || x.mode || '') + '|' + String(x.total || x.totalAnswered || '')));
+            const seen = new Set(history.map(x => [x.completedAt || x.timestamp || x.date || '', x.type || x.mode || '', x.totalAnswered || x.total || ''].join('|')));
             predictorHistory.forEach(x => {
-                const key = String(x.date || '') + '|' + String(x.type || 'NCLEX Predictor Exam') + '|' + String(x.total || '');
+                const key = [x.completedAt || x.timestamp || x.date || '', x.type || x.mode || 'NCLEX Predictor Exam', x.totalAnswered || x.total || ''].join('|');
                 if (!seen.has(key)) history.push(x);
             });
-            const records = history
-                .filter(x => Number.isFinite(Number(x.accuracyPercent ?? x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
-                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.accuracyPercent ?? x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
-                .filter(x => !Number.isNaN(x._date.getTime()))
-                .sort((a,b) => a._date-b._date);
+            const accuracyOf = record => {
+                const direct = record.accuracyPercent ?? record.itemAccuracyPercent ?? record.accuracy;
+                if (direct !== undefined && direct !== null && direct !== '' && Number.isFinite(Number(direct))) return Math.max(0, Math.min(100, Number(direct)));
+                const correct = Number(record.correctCount ?? record.fullyCorrect ?? record.correct);
+                const total = Number(record.totalAnswered ?? record.itemsAnswered ?? record.total ?? record.attempted);
+                return Number.isFinite(correct) && Number.isFinite(total) && total > 0 ? Math.max(0, Math.min(100, correct / total * 100)) : null;
+            };
+            const records = history.map(x => {
+                const date = new Date(x.completedAt || x.timestamp || x.date || '');
+                const accuracy = accuracyOf(x);
+                const probability = x.passingProbability;
+                return {...x, _date: date, _score: accuracy, _prob: probability !== null && probability !== undefined && probability !== '' && Number.isFinite(Number(probability)) ? Math.max(0, Math.min(100, Number(probability))) : null};
+            }).filter(x => !Number.isNaN(x._date.getTime()) && x._score !== null).sort((a,b) => a._date-b._date);
             const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
-            const scores = records.map(x => x._score);
+            const scores = records.map(x => Number(x._score.toFixed(1)));
             const probabilities = records.map(x => x._prob);
+            const note = document.getElementById('quickrn-score-chart-note');
+            if (note) note.textContent = records.length
+                ? 'Showing ' + records.length + ' saved attempt(s), oldest to newest. Accuracy = fully correct items ÷ answered items. Older attempts without item-level accuracy are not plotted.'
+                : 'Complete and submit a practice session to begin your accuracy trend. No sample or peer data is shown.';
+            if (typeof Chart === 'undefined') {
+                const width = 680, height = 150, left = 34, right = 12, top = 10, bottom = 28;
+                const plotW = width-left-right, plotH = height-top-bottom;
+                const xAt = i => records.length < 2 ? left+plotW/2 : left+(i/(records.length-1))*plotW;
+                const yAt = value => top+(1-Math.max(0,Math.min(100,value))/100)*plotH;
+                const grid = [0,25,50,75,100].map(v => `<g><line x1="${left}" y1="${yAt(v)}" x2="${width-right}" y2="${yAt(v)}" stroke="#e2e8f0" stroke-width="1"/><text x="${left-7}" y="${yAt(v)+3}" text-anchor="end" font-size="9" fill="#64748b">${v}%</text></g>`).join('');
+                const points = scores.map((v,i) => `${xAt(i)},${yAt(v)}`).join(' ');
+                const dots = scores.map((v,i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="4" fill="#16a34a"><title>${labels[i]}: ${v}%</title></circle>`).join('');
+                const ticks = labels.length <= 6 ? labels.map((v,i) => `<text x="${xAt(i)}" y="${height-7}" text-anchor="middle" font-size="9" fill="#64748b">${v.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>`).join('') : [0,Math.round((labels.length-1)/2),labels.length-1].map(i => `<text x="${xAt(i)}" y="${height-7}" text-anchor="middle" font-size="9" fill="#64748b">${labels[i]}</text>`).join('');
+                host.innerHTML = records.length
+                    ? `<svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" role="img" aria-label="Line graph of item accuracy across completed exams">${grid}<polyline points="${points}" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${dots}${ticks}</svg>`
+                    : '<div class="h-full flex items-center justify-center text-xs text-slate-400">No saved accuracy results yet</div>';
+                return;
+            }
+            let activeCanvas = host.querySelector('#quickrnScoreChart');
+            if (!activeCanvas) { host.innerHTML = '<canvas id="quickrnScoreChart" role="img" aria-label="Line graph of saved exam accuracy and estimated passing likelihood"></canvas>'; activeCanvas = host.querySelector('#quickrnScoreChart'); }
             if (quickrnChartInstance) quickrnChartInstance.destroy();
-            quickrnChartInstance = new Chart(canvas, {
+            quickrnChartInstance = new Chart(activeCanvas, {
                 type: 'line',
                 data: { labels, datasets: [
-                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
-                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#f59e0b', spanGaps: false }
+                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2.5, fill: true, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, pointBackgroundColor: '#16a34a', spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.25, pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: '#f59e0b', spanGaps: false }
                 ]},
                 options: {
                     responsive: true, maintainAspectRatio: false,
@@ -978,10 +977,7 @@
                     }
                 }
             });
-            const note = document.getElementById('quickrn-score-chart-note');
-            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Accuracy is the percentage of items answered fully correctly. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a practice session to begin your item-accuracy trend. No sample or peer data is shown.';
         }
-
         function switchTab(tabId) {
             ['dashboard', 'learning', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);

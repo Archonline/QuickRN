@@ -58,6 +58,10 @@
       </header>
 
       <div class="max-w-7xl mx-auto p-4 sm:p-6 space-y-5">
+<section class="rounded-2xl border bg-white p-5 space-y-3">
+<div class="flex flex-wrap items-center justify-between gap-3"><div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">Personalized remediation</p><h2 class="text-lg font-extrabold">QuickRN Clinical Study Coach & Remediation Planner</h2><p class="text-xs text-slate-500">Use your saved practice performance to build a focused seven-day plan directly on this calendar.</p></div><button id="generate-calendar-roadmap" type="button" class="rounded-lg px-4 py-3 text-xs font-bold text-white" style="background:#6C4B9F"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Generate study roadmap</button></div>
+<div id="calendar-roadmap-summary" class="text-xs text-slate-500">Your generated review sessions will appear as calendar activities below.</div>
+</section>
 <section id="test-countdown-section" class="rounded-2xl border border-brand-100 bg-white p-4 shadow-sm">
   <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div class="min-w-0"><p class="text-[10px] font-black uppercase tracking-wider text-brand-700">Your next exam milestone</p><h2 id="test-countdown-title" class="mt-1 text-lg font-black text-slate-900">No test date scheduled</h2><p id="test-countdown-detail" class="mt-1 text-xs text-slate-500">Add an NCLEX test date to see your countdown here.</p></div>
@@ -281,9 +285,36 @@
     document.getElementById('cancel-edit').addEventListener('click', resetForm);
     document.getElementById('export-calendar').addEventListener('click', () => { const items=loadEvents().filter(e=>e.date>=localDateKey(new Date())).sort((a,b)=>a.date.localeCompare(b.date)); if(!items.length){showToast('No upcoming activities to export.');return;} const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//QuickRN//Study Calendar//EN','CALSCALE:GREGORIAN']; items.forEach(e=>lines.push('BEGIN:VEVENT','UID:'+e.id+'@quickrn','DTSTART;VALUE=DATE:'+e.date.replace(/-/g,''),'SUMMARY:'+String(e.title).replace(/,/g,'\\\\,'),'DESCRIPTION:'+String(e.details||typeLabel(e.type)).replace(/,/g,'\\\\,'),'END:VEVENT')); lines.push('END:VCALENDAR'); const blob=new Blob([lines.join(String.fromCharCode(13,10))],{type:'text/calendar;charset=utf-8'}); const url=URL.createObjectURL(blob); const link=document.createElement('a'); link.href=url; link.download='quickrn-study-calendar.ics'; link.click(); URL.revokeObjectURL(url); showToast('Calendar export downloaded.'); });
     dateInput.value = selectedDate;
+
+    document.getElementById('generate-calendar-roadmap')?.addEventListener('click', () => {
+      const summary=document.getElementById('calendar-roadmap-summary');
+      let state={};try{state=JSON.parse(localStorage.getItem('quickrn_student_state')||'{}');}catch(_){}
+      const stats=state.studentStats||{},raw=stats.clientNeeds||{};
+      const domains=(window.QuickRNCoach?.domains||[]).map(d=>{const v=raw[d.id]||{};const attempted=Number(v.attempted||0);return {name:d.name,id:d.id,attempted,correct:Number(v.correct||0),percentage:attempted?Math.round(Number(v.correct||0)/attempted*100):null};}).filter(d=>d.attempted>0).sort((a,b)=>a.percentage-b.percentage);
+      if(!domains.length){summary.textContent='Complete and submit practice questions first. Your Client Needs performance will then be used to personalize this plan.';return;}
+      const weak=domains.filter(d=>d.percentage<75),focus=weak.length?weak:domains;
+      const a=focus[0],b=focus[1]||a;
+      const tasks=[
+       ['Review: '+a.name,'Review key concepts, clinical cues, and rationales in your lowest-performing area.'],
+       ['Targeted questions: '+a.name,'Complete a focused question set and explain why each distractor is less appropriate.'],
+       ['Clinical judgment practice','Practice recognizing cues, analyzing cues, prioritizing hypotheses, taking action, and evaluating outcomes.'],
+       ['Second focus: '+b.name,'Review the next-lowest domain and create a short error log.'],
+       ['Timed practice: '+a.name,'Complete a timed question set and revisit missed concepts.'],
+       ['Mixed-system practice','Complete mixed questions and identify recurring knowledge gaps.'],
+       ['Reassess mastery','Retest the priority areas and compare your accuracy with the 75% target.']
+      ];
+      const dateKey=offset=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+offset);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+      let events=[];try{events=JSON.parse(localStorage.getItem('quickrn_calendar_events')||'[]');}catch(_){}
+      if(!Array.isArray(events))events=[];
+      events=events.filter(e=>e.source!=='ai-roadmap');
+      const created=tasks.map((t,i)=>({id:'roadmap-'+Date.now().toString(36)+'-'+i,date:dateKey(i),title:t[0],details:t[1],source:'ai-roadmap'}));
+      localStorage.setItem('quickrn_calendar_events',JSON.stringify(events.concat(created)));
+      localStorage.setItem('quickrn_ai_study_roadmap',JSON.stringify({generatedAt:new Date().toISOString(),focus,events:created}));
+      summary.innerHTML='<strong class="text-purple-800">7-day plan created.</strong> Focus: '+a.name+' ('+a.percentage+'%) and '+b.name+' ('+b.percentage+'%). Activities have been added to the calendar.';
+      renderCalendar();
+    });
     renderCalendar();
   </script>
-        <script src="js/quickrn-sidebar.js"></script>
 <script src="js/quickrn-platform-hardening.js"></script>
 </body>
 </html>

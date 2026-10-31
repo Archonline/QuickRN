@@ -406,7 +406,7 @@ quickRNGrade=function(q,d){
  const scoring=window.QuickRNNgnScoring;
  if(scoring&&typeof scoring.grade==='function'){
   const format=scoring.format(q);
-  if(['Multiple Response','Select N','Highlight','Matrix','Cloze','Bowtie','Ordered','Numeric'].includes(format))return scoring.grade(q,d);
+  if(['Single Choice','Multiple Response','Select N','Highlight','Matrix','Cloze','Bowtie','Ordered','Numeric'].includes(format))return scoring.grade(q,d);
  }
  return quickRNGradeWithPolytomousScoring(q,d);
 };
