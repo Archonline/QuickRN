@@ -949,7 +949,7 @@
                 if (!seen.has(key)) history.push(x);
             });
             const records = history
-                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
+                .filter(x => Number.isFinite(Number(x.accuracyPercent ?? x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
                 .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.accuracyPercent ?? x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
                 .filter(x => !Number.isNaN(x._date.getTime()))
                 .sort((a,b) => a._date-b._date);
