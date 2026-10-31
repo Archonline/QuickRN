@@ -260,3 +260,5 @@ SELF-STUDY END, ANALYTICS RESET, AND QUESTION EXHAUSTION — 2026-10-31
 - Linked NGN case studies are treated as indivisible units: if any question in a case has already been encountered, the remaining questions in that case are also excluded from future sessions to prevent partial case repeats.
 - The picker no longer falls back to previously seen questions when the fresh pool is empty. It reports when the current filter or the entire bank has been exhausted.
 - Regression tests cover case-level exhaustion, no fallback to used items, and selecting the remaining fresh questions.
+
+- Self-Study now loads the shared QuickRN brand stylesheet after its page-specific styles to keep the exam workspace aligned with the application-wide design system.
