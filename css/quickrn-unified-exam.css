@@ -227,3 +227,6 @@ body.quickrn-exam #rationale-section>div{width:100%!important;max-width:none!imp
 body.quickrn-exam #rationale-section #rationale-text{display:block!important}
 body.quickrn-exam #rationale-section .qr-option-rationale-section{display:none!important}
 @media(max-width:767px){body.quickrn-exam #video-resources{margin:12px;padding:12px}body.quickrn-exam #rationale-section{margin-top:14px!important}}
+
+/* Clinical scenario text remains bold and enlarged across every EHR tab. */
+body.quickrn-exam #case-study-content .qr-clinical-scenario-text,body.quickrn-exam #case-study-content .qr-clinical-scenario-text *{font-size:19px!important;line-height:1.75!important;font-weight:800!important;color:#24364b!important}
