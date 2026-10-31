@@ -131,18 +131,21 @@ function quickRNStandardLabRange(name,unit){
 }
 function addLabReferenceRanges(value){
  const raw=String(value||'');
- if(/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(raw))return raw;
- let matched=false;
+ if(/qr-lab-result|qr-lab-reference-range|qr-lab-reference-missing/i.test(raw))return raw;
+ let matched=false,missing=false;
  const lines=raw.split('\n').map(line=>{
+  if(/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(line))return line;
   const m=line.match(/^\s*([A-Za-z][A-Za-z0-9 /()_-]{1,45})\s*[:=]\s*(-?\d+(?:\.\d+)?)\s*([A-Za-zµμ/%0-9.^/-]*)\s*$/);
-  if(!m)return line;
+  if(!m){if(/\b\d+(?:\.\d+)?\b/.test(line))missing=true;return line;}
   const range=quickRNStandardLabRange(m[1],m[3]);
-  if(!range)return line;
+  if(!range){missing=true;return line;}
   matched=true;
   return line+'  (Typical adult reference range: '+range+')';
  });
- const result=lines.join('\n');
- return matched?result+'\n\nTypical adult reference ranges are educational; age, pregnancy, units, and laboratory methods may change the applicable range.':result+'\n\nReference range not supplied in the source item; verify the age- and facility-specific laboratory range.';
+ let result=lines.join('\n');
+ if(matched)result+='\n\nTypical adult reference ranges are educational; age, pregnancy, units, and laboratory methods may change the applicable range.';
+ if(missing)result+='\n\nA range for one or more other numeric results was not available in the source item; verify the age- and facility-specific laboratory range.';
+ return result;
 }
 function asText(v){
  if(v==null)return '';
