@@ -3,7 +3,8 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 const pages = [
   'index.html', 'dashboard.html', 'calendar.html', 'help.html',
-  'selfstudy.html', 'timed.html', 'saved.html', 'profile.html', 'reports.html', 'correct_view.html'
+  'selfstudy.html', 'timed.html', 'predictor.html', 'cat.html',
+  'saved.html', 'profile.html', 'reports.html', 'correct_view.html'
 ];
 const stylesheet = path.join(root, 'css', 'quickrn-brand-system.css');
 assertFile(stylesheet);
