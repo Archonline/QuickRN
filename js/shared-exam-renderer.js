@@ -182,7 +182,28 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  } else if(f==='Matrix / Grid'){
    const rows=q.rows||q.matrixData?.rows||[], cols=q.columns||q.matrixData?.columns||[]; response=rows.length&&cols.length?`<div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / intervention</th>${cols.map(c=>`<th>${quickRNEscape(c)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>{const id=r.id||String(i);return `<tr><td>${quickRNEscape(r.text||r.label||r)}</td>${cols.map(c=>`<td><label><input type="radio" name="qr-matrix-${quickRNEscape(id)}" ${draft.matrix?.[id]===c?'checked':''} onchange="quickRNSetDraft('matrix',{...(quickRNDraft.matrix||{}),${JSON.stringify(id)}:${JSON.stringify(c)}})"><span class="sr-only">${quickRNEscape(c)}</span></label></td>`).join('')}</tr>`}).join('')}</tbody></table></div>`:`<div class="qr-missing">Matrix rows or columns are missing from this item.</div>`;
  } else if(f==='Cloze (Drop-down)'){
-   const template=q.clozeTemplate||q.template||q.questionText||q.question||''; const opts=q.options||q.dropdowns||{}; const parts=String(template).split(/(\{[^}]+\})/g); response=`<div class="qr-cloze">${parts.map(p=>{if(/^\{[^}]+\}$/.test(p)){const k=p.slice(1,-1).trim(), choices=opts[k]||[];return `<select aria-label="${quickRNEscape(k)}" onchange="quickRNSetDraft('cloze',{...(quickRNDraft.cloze||{}),${JSON.stringify(k)}:this.value})"><option value="">Select…</option>${choices.map(c=>`<option ${draft.cloze?.[k]===c?'selected':''} value="${quickRNEscape(c)}">${quickRNEscape(c)}</option>`).join('')}</select>`}return `<span>${quickRNEscape(p)}</span>`}).join('')}</div>`;
+   const template=String(q.clozeTemplate||q.template||q.questionText||q.question||q.stem||'');
+   const rawDefs=q.dropdowns||q.clozeOptions||q.blankOptions||{};
+   const defs=Array.isArray(rawDefs)?rawDefs:Object.entries(rawDefs||{}).map(([id,value])=>({id,options:value}));
+   const optionGroups=q.options&&!Array.isArray(q.options)?q.options:{};
+   const correctMap=q.correctAnswers&&typeof q.correctAnswers==='object'?q.correctAnswers:{};
+   const getDef=(key,index)=>defs.find((d,i)=>String(d.id??d.key??d.name??i)===String(key))||defs[index]||{};
+   const getOptions=(key,index,def)=>def.options||def.choices||def.values||optionGroups[key]||(Array.isArray(q.options)?(defs.length===1?q.options:q.options[index]):[]);
+   const optionValue=v=>typeof v==='object'&&v!==null?String(v.value??v.id??v.text??v.label??''):String(v);
+   const optionLabel=v=>typeof v==='object'&&v!==null?String(v.text??v.label??v.value??v.id??''):String(v);
+   const tokenPattern=/\\{\\{([^}]+)\\}\\}|\\{([^}]+)\\}|\\[\\[([^\\]]+)\\]\\]|\\[blank\\]|_{2,}/gi;
+   let blankIndex=0;
+   const renderBlank=token=>{
+    const index=blankIndex++,key=token&&token!=='[blank]'&&!/^_+$/.test(token)?token.trim():String(defs[index]?.id??defs[index]?.key??index);
+    const def=getDef(key,index),choices=getOptions(key,index,def)||[],selected=String(draft.cloze?.[key]??'');
+    const correct=def.correct??def.answer??correctMap[key]??(Array.isArray(q.correctAnswers)?q.correctAnswers[index]:undefined);
+    const isCorrect=correct!==undefined&&correct!==null&&(String(correct)===selected||choices.some(v=>optionValue(v)===selected&&[optionValue(v),optionLabel(v)].includes(String(correct))));
+    const indicator=submitted?'<span class="qr-cloze-result '+(isCorrect?'is-correct':'is-incorrect')+'" aria-label="'+(isCorrect?'Correct':'Incorrect')+'">'+(isCorrect?'✓':'✕')+'</span>':'';
+    return '<label class="qr-cloze-blank"><span class="sr-only">'+quickRNEscape(def.label||def.name||('Blank '+(index+1)))+'</span><select aria-label="'+quickRNEscape(def.label||key)+'" '+(submitted?'disabled':'')+' onchange="quickRNSetDraft(\\'cloze\\',{...(quickRNDraft.cloze||{}),'+JSON.stringify(key)+':this.value})"><option value="">Select…</option>'+choices.map(v=>'<option value="'+quickRNEscape(optionValue(v))+'" '+(selected===optionValue(v)?'selected':'')+'>'+quickRNEscape(optionLabel(v))+'</option>').join('')+'</select>'+indicator+'</label>';
+   };
+   let rendered=template.replace(tokenPattern,(match,a,b,c)=>renderBlank(a||b||c||''));
+   if(blankIndex===0&&defs.length)rendered=quickRNEscape(template)+'<div class="qr-cloze-fields">'+defs.map((d,i)=>renderBlank(String(d.id??d.key??d.name??i))).join('')+'</div>';
+   response='<div class="qr-cloze">'+rendered+'</div>';
  } else if(f==='Extended Drag and Drop'){
    const items=draft.order||q.availableItems||[]; response=items.length?`<p class="qr-help">Drag items into the correct order. You can also use the arrow buttons.</p><div class="qr-sort-list">${items.map((v,i)=>`<div class="qr-sort-item" draggable="true" ondragstart="quickRNDragStart(event,${i})" ondragover="event.preventDefault()" ondrop="quickRNDrop(event,${i})"><span class="qr-drag-handle" aria-label="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span><b>Step ${i+1}</b><span class="qr-sort-text">${quickRNEscape(v)}</span><span class="qr-sort-actions"><button type="button" onclick="quickRNMoveDraft(${i},${i-1})" ${i===0?'disabled':''} aria-label="Move up">↑</button><button type="button" onclick="quickRNMoveDraft(${i},${i+1})" ${i===items.length-1?'disabled':''} aria-label="Move down">↓</button></span></div>`).join('')}</div>`:`<div class="qr-missing">This drag-and-drop item has no availableItems list.</div>`;
  } else if(f==='Bowtie'){
@@ -197,7 +218,7 @@ function quickRNHasAnswer(q,d){
  if(f==='Single Choice')return hasValue(d.choice);
  if(f==='Extended Multiple Response'||f==='Multiple Response')return Array.isArray(d.choices)&&d.choices.length>0;
  if(f==='Matrix / Grid')return Object.values(d.matrix||{}).some(hasValue);
- if(f==='Cloze (Drop-down)')return Object.values(d.cloze||{}).some(hasValue);
+ if(f==='Cloze (Drop-down)'){const defs=Array.isArray(q.dropdowns)?q.dropdowns:Object.entries(q.dropdowns||{}).map(([id])=>({id}));const keys=defs.map((x,i)=>String(x.id??x.key??x.name??i));const required=keys.length?keys:Object.keys(q.correctAnswers||{});return required.length>0&&required.every(k=>hasValue(d.cloze?.[k]));}
  if(f==='Extended Drag and Drop')return Array.isArray(d.order)&&d.order.length>0;
  if(f==='Bowtie')return hasValue(d.condition)||(Array.isArray(d.actions)&&d.actions.length>0)||(Array.isArray(d.monitoring)&&d.monitoring.length>0);
  return false;
@@ -206,7 +227,13 @@ function quickRNGrade(q,d){const f=quickRNDetectItemFormat(q), opts=Array.isArra
  if(f==='Single Choice'){const c=q.correctAnswerText??q.correctAnswer;const v=d.choice;const ix=opts.findIndex((o,i)=>eq(quickRNOptionValue(o,i),v));const txt=ix>=0?quickRNOptionText(opts[ix]):v;return eq(v,c)||eq(txt,c)||eq(v,String.fromCharCode(65+ix));}
  if(f==='Extended Multiple Response'||f==='Multiple Response'){const correct=q.correctAnswers??q.correctAnswer??[];const norm=x=>Array.isArray(x)?x:[x];const ids=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionValue(found,opts.indexOf(found));if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionValue(opts[x.charCodeAt(0)-65],x.charCodeAt(0)-65);return x});const textCorrect=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionText(found);if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionText(opts[x.charCodeAt(0)-65]);return x});return sameSet(d.choices||[],ids)||sameSet((d.choices||[]).map(v=>{const i=opts.findIndex((o,j)=>eq(quickRNOptionValue(o,j),v));return i>=0?quickRNOptionText(opts[i]):v}),textCorrect);}
  if(f==='Matrix / Grid'){const rows=q.rows||q.matrixData?.rows||[], c=q.correctAnswers||{};return rows.length>0&&rows.every((r,i)=>{const id=r.id||String(i);return eq(d.matrix?.[id],c[id]);});}
- if(f==='Cloze (Drop-down)'){const c=q.correctAnswers||{};const keys=Object.keys(c);return keys.length>0&&keys.every(k=>eq(d.cloze?.[k],c[k]));}
+ if(f==='Cloze (Drop-down)'){
+  const defs=Array.isArray(q.dropdowns)?q.dropdowns:Object.entries(q.dropdowns||{}).map(([id,value])=>({id,options:value}));
+  const correctMap=q.correctAnswers&&typeof q.correctAnswers==='object'?q.correctAnswers:{};
+  const keys=defs.length?defs.map((x,i)=>String(x.id??x.key??x.name??i)):Object.keys(correctMap);
+  const norm=(value,def)=>{if(value&&typeof value==='object')return String(value.value??value.id??value.text??value.label??'');const choices=def?.options||def?.choices||def?.values||[];const found=choices.find(v=>String(typeof v==='object'?(v.value??v.id??v.text??v.label??''):v)===String(value)||String(typeof v==='object'?(v.text??v.label??v.value??v.id??''):v)===String(value));return found?String(typeof found==='object'?(found.value??found.id??found.text??found.label??''):found):String(value??'');};
+  return keys.length>0&&keys.every((k,i)=>{const def=defs[i]||{};const expected=def.correct??def.answer??correctMap[k]??(Array.isArray(q.correctAnswers)?q.correctAnswers[i]:undefined);return expected!==undefined&&expected!==null&&norm(d.cloze?.[k],def)===norm(expected,def);});
+ }
  if(f==='Extended Drag and Drop'){const c=q.correctOrder||[];return c.length>0&&sameSet(d.order||[],c)&&c.every((v,i)=>eq((d.order||[])[i],v));}
  if(f==='Bowtie'){const c=q.correctAnswers||{},a=d.actions||[],m=d.monitoring||[];return eq(d.condition,c.condition)&&sameSet(a,c.actions||[])&&sameSet(m,c.monitoring||[]);}
  return false;
