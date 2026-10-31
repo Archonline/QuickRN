@@ -939,30 +939,59 @@
 
         function initQuickRNScoreChart() {
             const canvas = document.getElementById('quickrnScoreChart');
-            if (!canvas || typeof Chart === 'undefined') return;
+            const host = canvas && canvas.parentElement;
+            if (!host) return;
             const state = (() => { try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); } catch(e) { return {}; } })();
             const stats = state.studentStats || {};
             const history = Array.isArray(stats.examHistory) ? [...stats.examHistory] : [];
             const predictorHistory = Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [];
-            const seen = new Set(history.map(x => String(x.date || '') + '|' + String(x.type || x.mode || '') + '|' + String(x.total || x.totalAnswered || '')));
+            const seen = new Set(history.map(x => [x.completedAt || x.timestamp || x.date || '', x.type || x.mode || '', x.totalAnswered || x.total || ''].join('|')));
             predictorHistory.forEach(x => {
-                const key = String(x.date || '') + '|' + String(x.type || 'NCLEX Predictor Exam') + '|' + String(x.total || '');
+                const key = [x.completedAt || x.timestamp || x.date || '', x.type || x.mode || 'NCLEX Predictor Exam', x.totalAnswered || x.total || ''].join('|');
                 if (!seen.has(key)) history.push(x);
             });
-            const records = history
-                .filter(x => Number.isFinite(Number(x.accuracyPercent ?? x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
-                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.accuracyPercent ?? x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
-                .filter(x => !Number.isNaN(x._date.getTime()))
-                .sort((a,b) => a._date-b._date);
+            const accuracyOf = record => {
+                const direct = record.accuracyPercent ?? record.itemAccuracyPercent ?? record.accuracy;
+                if (direct !== undefined && direct !== null && direct !== '' && Number.isFinite(Number(direct))) return Math.max(0, Math.min(100, Number(direct)));
+                const correct = Number(record.correctCount ?? record.fullyCorrect ?? record.correct);
+                const total = Number(record.totalAnswered ?? record.itemsAnswered ?? record.total ?? record.attempted);
+                return Number.isFinite(correct) && Number.isFinite(total) && total > 0 ? Math.max(0, Math.min(100, correct / total * 100)) : null;
+            };
+            const records = history.map(x => {
+                const date = new Date(x.completedAt || x.timestamp || x.date || '');
+                const accuracy = accuracyOf(x);
+                const probability = x.passingProbability;
+                return {...x, _date: date, _score: accuracy, _prob: probability !== null && probability !== undefined && probability !== '' && Number.isFinite(Number(probability)) ? Math.max(0, Math.min(100, Number(probability))) : null};
+            }).filter(x => !Number.isNaN(x._date.getTime()) && x._score !== null).sort((a,b) => a._date-b._date);
             const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
-            const scores = records.map(x => x._score);
+            const scores = records.map(x => Number(x._score.toFixed(1)));
             const probabilities = records.map(x => x._prob);
+            const note = document.getElementById('quickrn-score-chart-note');
+            if (note) note.textContent = records.length
+                ? 'Showing ' + records.length + ' saved attempt(s), oldest to newest. Accuracy = fully correct items ÷ answered items. Older attempts without item-level accuracy are not plotted.'
+                : 'Complete and submit a practice session to begin your accuracy trend. No sample or peer data is shown.';
+            if (typeof Chart === 'undefined') {
+                const width = 680, height = 150, left = 34, right = 12, top = 10, bottom = 28;
+                const plotW = width-left-right, plotH = height-top-bottom;
+                const xAt = i => records.length < 2 ? left+plotW/2 : left+(i/(records.length-1))*plotW;
+                const yAt = value => top+(1-Math.max(0,Math.min(100,value))/100)*plotH;
+                const grid = [0,25,50,75,100].map(v => \`<g><line x1="\${left}" y1="\${yAt(v)}" x2="\${width-right}" y2="\${yAt(v)}" stroke="#e2e8f0" stroke-width="1"/><text x="\${left-7}" y="\${yAt(v)+3}" text-anchor="end" font-size="9" fill="#64748b">\${v}%</text></g>\`).join('');
+                const points = scores.map((v,i) => \`\${xAt(i)},\${yAt(v)}\`).join(' ');
+                const dots = scores.map((v,i) => \`<circle cx="\${xAt(i)}" cy="\${yAt(v)}" r="4" fill="#16a34a"><title>\${labels[i]}: \${v}%</title></circle>\`).join('');
+                const ticks = labels.length <= 6 ? labels.map((v,i) => \`<text x="\${xAt(i)}" y="\${height-7}" text-anchor="middle" font-size="9" fill="#64748b">\${v.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</text>\`).join('') : [0,Math.round((labels.length-1)/2),labels.length-1].map(i => \`<text x="\${xAt(i)}" y="\${height-7}" text-anchor="middle" font-size="9" fill="#64748b">\${labels[i]}</text>\`).join('');
+                host.innerHTML = records.length
+                    ? \`<svg viewBox="0 0 \${width} \${height}" width="100%" height="100%" role="img" aria-label="Line graph of item accuracy across completed exams">\${grid}<polyline points="\${points}" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>\${dots}\${ticks}</svg>\`
+                    : '<div class="h-full flex items-center justify-center text-xs text-slate-400">No saved accuracy results yet</div>';
+                return;
+            }
+            let activeCanvas = host.querySelector('#quickrnScoreChart');
+            if (!activeCanvas) { host.innerHTML = '<canvas id="quickrnScoreChart" role="img" aria-label="Line graph of saved exam accuracy and estimated passing likelihood"></canvas>'; activeCanvas = host.querySelector('#quickrnScoreChart'); }
             if (quickrnChartInstance) quickrnChartInstance.destroy();
-            quickrnChartInstance = new Chart(canvas, {
+            quickrnChartInstance = new Chart(activeCanvas, {
                 type: 'line',
                 data: { labels, datasets: [
-                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
-                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#f59e0b', spanGaps: false }
+                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2.5, fill: true, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, pointBackgroundColor: '#16a34a', spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.25, pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: '#f59e0b', spanGaps: false }
                 ]},
                 options: {
                     responsive: true, maintainAspectRatio: false,
@@ -978,10 +1007,7 @@
                     }
                 }
             });
-            const note = document.getElementById('quickrn-score-chart-note');
-            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Accuracy is the percentage of items answered fully correctly. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a practice session to begin your item-accuracy trend. No sample or peer data is shown.';
         }
-
         function switchTab(tabId) {
             ['dashboard', 'learning', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
