@@ -192,3 +192,26 @@ body.quickrn-exam #answer-workspace .qr-help{margin:0 0 8px;color:#52657c;font-s
 body.quickrn-exam #summary-screen{position:fixed!important;inset:0!important;z-index:100!important;overflow-y:auto!important;overscroll-behavior:contain!important}
 body.quickrn-exam #summary-screen.hidden{display:none!important}
 @media(max-width:767px){body.quickrn-exam #answer-workspace .qr-bowtie{grid-template-columns:1fr}body.quickrn-exam #answer-workspace .qr-choice{padding:12px!important}}
+
+/* Answer review: consistent correctness borders and corner indicators. */
+body.quickrn-exam #answer-workspace .qr-choice{position:relative;padding-right:48px!important}
+body.quickrn-exam #answer-workspace .qr-choice.qr-answer-correct{border:2px solid #16a34a!important;background:#f0fdf4!important}
+body.quickrn-exam #answer-workspace .qr-choice.qr-answer-incorrect{border:2px solid #dc2626!important;background:#fef2f2!important}
+body.quickrn-exam #answer-workspace .qr-choice-status{position:absolute;top:10px;right:12px;display:flex;align-items:center;justify-content:flex-end}
+body.quickrn-exam #answer-workspace .qr-choice-result{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;font-size:19px;font-weight:900;line-height:1}
+body.quickrn-exam #answer-workspace .qr-choice-feedback{display:none!important}
+body.quickrn-exam .qr-inline-option-rationale{margin:20px 0 12px!important;padding:18px!important}
+body.quickrn-exam .qr-inline-rationale-heading{margin:0 0 18px!important;padding:0 0 12px!important;border-bottom:1px solid #e2e8f0}
+body.quickrn-exam .qr-inline-rationale-options{padding-top:4px!important;gap:12px!important}
+body.quickrn-exam .qr-inline-rationale-options>div{padding:14px!important}
+body.quickrn-exam .qr-option-rationale-section{margin-top:24px!important;padding-top:22px!important;border-top:1px solid #e2e8f0}
+body.quickrn-exam .qr-option-rationale-heading{margin:0 0 18px!important;padding:0 0 14px!important}
+body.quickrn-exam .qr-option-rationale-list{padding:0 0 12px!important;display:grid;gap:12px!important}
+body.quickrn-exam .qr-rationale-option{position:relative;min-width:0;padding:14px 16px!important}
+body.quickrn-exam .qr-rationale-option-mark{position:absolute;top:10px;right:12px;display:flex;align-items:center;justify-content:center;width:26px;height:26px}
+body.quickrn-exam .qr-rationale-option>div{padding-right:34px}
+body.quickrn-exam #rationale-section.rationale-collapsed #rationale-text,
+body.quickrn-exam #rationale-section.rationale-collapsed #coach-insight,
+body.quickrn-exam #rationale-section.rationale-collapsed #video-resources,
+body.quickrn-exam #rationale-section.rationale-collapsed #confidence-saved,
+body.quickrn-exam #rationale-section.rationale-collapsed #peer-stats{display:none!important}
