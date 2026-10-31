@@ -282,7 +282,7 @@
                         <p class="text-[10px] text-slate-400">Focused sessions use matching question-bank topics. If a lesson has no matching questions yet, QuickRN will let you know rather than silently starting an unrelated session.</p>
                     </section>
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <section class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
+                    <section class="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-xl p-4 space-y-3 text-white">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
                             <div class="flex items-center space-x-3">
@@ -330,6 +330,11 @@
                             <span class="inline-flex w-fit items-center rounded-full bg-amber-50 px-3 py-1 text-[11px] font-bold text-amber-800">Beta · October 31, 2026</span>
                         </div>
                         <div class="grid gap-3 pt-4 sm:grid-cols-2">
+                            <article class="rounded-xl border border-sky-200 bg-sky-50/40 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line text-sky-700"></i> Cleaner, more focused dashboard</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">The dashboard now prioritizes compact study metrics, a restrained performance trend graph, and Client Needs priorities. Subjects, lessons, and the Clinical Study Coach are grouped in a dedicated Learning Center. Saved exam attempts with completedAt timestamps are included in the trend chart.</p>
+                            </article>
+
                             <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
                                 <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-comments text-teal-700"></i> Streamlined exam feedback and question layout</div>
                                 <p class="mt-2 text-xs leading-6 text-slate-600">Removed the separate “Report this item” action and combined issue reporting with the Feedback control, including issue categories and question context. The Check Answer action is right-aligned. Items without a case study no longer show an empty Clinical Record; their question stem moves to the left pane while answer choices remain on the right.</p>
@@ -811,7 +816,7 @@
             });
             const records = history
                 .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
-                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.scorePercent ?? x.score), _prob: Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
+                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
                 .filter(x => !Number.isNaN(x._date.getTime()))
                 .sort((a,b) => a._date-b._date);
             const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
