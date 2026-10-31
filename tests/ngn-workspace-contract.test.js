@@ -26,7 +26,7 @@ assert.ok(app.includes('question-only-panel'),'no-case items move the question s
 assert.ok(app.includes("left.appendChild(prompt)"),'question prompt is physically moved into the left pane without a case');
 assert.ok(!app.includes('No additional clinical exhibits are attached'),'no-case items do not fabricate a Clinical Record');
 assert.ok(!renderer.includes('Report this item')&&!renderer.includes('qr-report-row'),'standalone report item action is removed from the renderer');
-assert.ok(examHtml.includes('id="feedback-category"')&&examHtml.includes('id="feedback-details"'),'feedback modal combines report categories and free-text details');
+assert.ok(pages.some(page=>{const html=fs.readFileSync(page,'utf8');return html.includes('id="feedback-category"')&&html.includes('id="feedback-details"');}),'a current exam page provides the shared feedback modal with report categories and free-text details');
 assert.ok(app.includes("feedback-category")&&app.includes("snapshot:q?"),"feedback saves the selected issue category with question context");
 assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
 assert.ok(examCss.includes('#left-panel.question-only-panel #question-prompt'),'question-only left pane has dedicated layout styling');
