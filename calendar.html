@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: { extend: { colors: { brand: { 50:'#f0fdf4',100:'#dcfce7',500:'#22c55e',600:'#16a34a',700:'#15803d' } } } }
+      theme: { extend: { colors: { brand: { 50:'#e6f5f5',100:'#ccebea',500:'#0b8793',600:'#087f8c',700:'#066875' } } } }
     };
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -32,6 +32,8 @@
       <nav class="p-4 space-y-1">
         <a href="dashboard.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-chart-pie w-5 text-center"></i>Dashboard</a>
         <a href="calendar.html" aria-current="page" class="flex items-center gap-3 rounded-xl bg-brand-50 px-4 py-3 text-sm font-semibold text-brand-700"><i class="fa-solid fa-calendar-days w-5 text-center"></i>Calendar</a>
+        <a href="saved.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-bookmark w-5 text-center"></i>Saved Questions</a>
+        <a href="reports.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-inbox w-5 text-center"></i>Feedback Inbox</a>
         <a href="help.html" class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-circle-question w-5 text-center"></i>Help & Disclaimer</a>
         <div class="pt-4 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Study & Testing</div>
         <a href="selfstudy.html" class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-book-open w-5 text-center"></i>Self Study</a>
@@ -49,6 +51,7 @@
           <div><p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">QuickRN / Planning</p><h1 class="text-base font-bold text-slate-900">Study Calendar</h1></div>
         </div>
         <div class="flex items-center gap-2">
+          <a href="saved.html" aria-label="Saved questions" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-bookmark"></i><span class="hidden sm:inline">Saved</span></a>
           <a href="help.html" aria-label="Help and disclaimer" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-circle-question"></i><span class="hidden sm:inline">Help</span></a>
           <a href="dashboard.html" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"><i class="fa-solid fa-chart-pie"></i><span class="hidden sm:inline">Dashboard</span></a>
         </div>
