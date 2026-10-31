@@ -51,3 +51,15 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 - Reference ranges vary by laboratory, method, units, age, sex, pregnancy status, and clinical context. Verify the correct range before using an item for clinical teaching.
 - Never treat QuickRN's score, CAT estimate, or readiness probability as an official NCLEX result.
 - The simulator is an educational tool and does not replace clinical judgment, institutional policy, or current evidence-based references.
+
+
+## November 2026 interface and study workflow updates
+
+- Adopted the Amber & Amethyst palette from the supplied swatch: deep purple `#6C4B9F`, amber `#E39C14`, light mist `#D3DDEB`, status green `#1B5E43`, and text gray `#4A4A4A`.
+- Removed the injected duplicate sidebar from Calendar and removed the shared sidebar rail from Self-Study, Timed Practice, Predictor, and CAT so exam workspaces use the viewport.
+- Kept every exam question and answer workspace in the right pane; clinical records remain in the left pane. Timed Practice, Predictor, and CAT advance immediately after a submitted response and reserve rationales, remediation, and video links for the exam summary.
+- Removed redundant best-answer and generic clinical-principle / study-approach blocks from the per-item rationale display. Video recommendations no longer persist between question changes; review resources are collected in the final question review.
+- Restored the previously empty root `questions.js` with a canonical linked six-item NGN case-study group, shared EHR records, `caseGroupId`, `caseQuestionNumber`, and Clinical Judgment Measurement Model stages. Case-group key detection and EHR rendering accept common alternate schema names.
+- Added a dedicated Learning Center with Child Health, Adult Health, and Pharmacology body-system topic maps, four topic-specific search phrases, embedded playback for supplied/verified YouTube video IDs, a notes workspace with browser-local autosave, export, and browser speech dictation. Speech dictation is transcription, not a generative AI service. Search-result links open YouTube; to embed and autoplay a specific result, paste its video URL into the player because a YouTube Data API key / verified video ID is not configured.
+- Moved the Clinical Study Coach and seven-day remediation roadmap to Calendar. Generated roadmap activities are saved into the same calendar event store as personal reminders.
+- Removed the dashboard's preparation-prompt strip and profile shortcut beside Sign Out.
