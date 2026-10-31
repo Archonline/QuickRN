@@ -82,7 +82,7 @@
                     <span>Calendar</span>
                 </a>
                 
-                <a href="#" onclick="switchTab('learning')" id="nav-learning" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                <a href="learning-center.html" id="nav-learning" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-book-open w-5 text-center text-emerald-600"></i><span>Learning Center</span>
                 </a>
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
@@ -142,13 +142,7 @@
                     <h1 id="page-title" class="text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <a href="profile.html" class="flex items-center space-x-2.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all">
-                        <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-[10px]">RN</div>
-                        <div class="text-left leading-tight hidden sm:block">
-                            <span class="block font-bold text-slate-800" id="top-user-name">Future RN</span>
-                            <span class="block text-[10px] text-slate-500 font-normal">View Profile</span>
-                        </div>
-                    </a>
+
                     <button onclick="handleSignOut()" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
                         <i class="fa-solid fa-right-from-bracket"></i>
                         <span>Sign Out</span>
@@ -233,14 +227,7 @@
                             <div id="mastery-categories-list" class="grid grid-cols-1 gap-1.5"></div>
                         </section>
                     </div>
-                    <section class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                        <div><p class="text-xs font-bold text-slate-900">Keep your preparation moving</p><p class="text-[10px] text-slate-500">Open your study tools or start an exam when you're ready.</p></div>
-                        <div class="flex flex-wrap gap-2">
-                            <button type="button" onclick="switchTab('learning')" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Learning Center</button>
-                            <a href="selfstudy.html" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-[11px] font-bold hover:bg-brand-700">Start practice</a>
-                            <a href="timed.html" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Timed exam</a>
-                        </div>
-                    </section>
+
                 </div>
 
                 <!-- LEARNING CENTER TAB -->
@@ -294,30 +281,7 @@
                         <div id="quickrn-flashcard-deck" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2"><p class="col-span-full rounded-lg border border-dashed border-slate-300 p-4 text-xs text-slate-500">Generate a deck to see your personalized flashcards here. Flip each card to reveal its answer.</p></div>
                         <p class="text-[10px] text-slate-400">This version uses a local rules-based generator; it does not send notes to an AI service. Your notes stay in this browser.</p>
                     </section>
-                    <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <section class="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-xl p-4 space-y-3 text-white">
-                        <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-9 h-9 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl shadow-inner">
-                                    <i class="fa-solid fa-brain"></i>
-                                </div>
-                                <div>
-                                    <div class="flex items-center space-x-2">
-                                        <h2 class="text-base font-bold text-white">QuickRN Clinical Study Coach & Remediation Planner</h2>
-                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">Local rules · no API required</span>
-                                    </div>
-                                    <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
-                                </div>
-                            </div>
-                            <button onclick="generateStudyRoadmap()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
-                            </button>
-                        </div>
-                        <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
-                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
-                        </div>
-                    </section>
+
                 </div>
 
                 <!-- FEATURE HUB TAB -->
