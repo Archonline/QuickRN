@@ -927,7 +927,7 @@
                 const total = Number(record.totalAnswered ?? record.itemsAnswered ?? record.total ?? record.attempted);
                 return Number.isFinite(correct) && Number.isFinite(total) && total > 0 ? Math.max(0, Math.min(100, correct / total * 100)) : null;
             };
-            const records = history.map(x => {
+            const records = history.filter(x => x && x.completed !== false && String(x.completionStatus || '').toLowerCase() !== 'in_progress' && (x.completed === true || !!(x.completedAt || x.finishedAt)) && Number(x.totalItems || x.totalAnswered || x.total || 0) > 0).map(x => {
                 const date = new Date(x.completedAt || x.timestamp || x.date || '');
                 const accuracy = accuracyOf(x);
                 const probability = x.passingProbability;
@@ -938,7 +938,7 @@
             const probabilities = records.map(x => x._prob);
             const note = document.getElementById('quickrn-score-chart-note');
             if (note) note.textContent = records.length
-                ? 'Showing ' + records.length + ' saved attempt(s), oldest to newest. Accuracy = fully correct items ÷ answered items. Older attempts without item-level accuracy are not plotted.'
+                ? 'Showing ' + records.length + ' completed exam(s), oldest to newest. Only finished sessions are plotted; accuracy = fully correct items ÷ answered items.'
                 : 'Complete and submit a practice session to begin your accuracy trend. No sample or peer data is shown.';
             if (typeof Chart === 'undefined') {
                 const width = 680, height = 150, left = 34, right = 12, top = 10, bottom = 28;
