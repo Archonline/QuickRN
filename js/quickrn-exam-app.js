@@ -139,7 +139,7 @@ function caseTabs(q){
   const raw=typeof content==='string'?content:asText(content);
   let text=stripClinicalLead(String(raw||''),q);
   if(!text.trim())return;
-  if(/diagnostic|lab result/i.test(label)&&/(?:\b\d+(?:\.\d+)?\s*(?:mg\/dL|g\/dL|mmol\/L|mEq\/L|mm\s*Hg|K\/uL|fL|pg)\b)/i.test(text)&&!/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(text))text+='\n\nReference range: not supplied in source item.';
+  if(/diagnostic|lab result|laboratory/i.test(label)&&/\b\d+(?:\.\d+)?\b/.test(text)&&!/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(text))text+='\n\nReference range: not supplied in source item.';
   const key=(label+' '+text).replace(/\s+/g,' ').toLowerCase();
   if(seen.has(key))return;
   seen.add(key);tabs.push({label,content:text});
