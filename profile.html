@@ -168,25 +168,45 @@
         }
 
         function performEraseAnalytics() {
-            let currentState = localStorage.getItem('quickrn_student_state');
-            let state = JSON.parse(currentState || '{}');
+            let state = {};
+            try { state = JSON.parse(localStorage.getItem('quickrn_student_state') || '{}') || {}; }
+            catch (error) { console.warn('QuickRN analytics state could not be parsed; resetting performance data.', error); }
 
-            // Keep user credentials, reset test performance & metrics
-            let resetState = {
-                userName: state.userName || '',
-                userEmail: state.userEmail || '',
+            // Reset every performance source used by the dashboard and exam review.
+            // Deliberately preserve the global seen-question ledger so analytics resets
+            // never make previously encountered Self-Study items available again.
+            const resetState = {
+                userName: state.userName || localStorage.getItem('quickrn_user_name') || '',
+                userEmail: state.userEmail || localStorage.getItem('quickrn_user_email') || '',
                 targetDate: state.targetDate || '',
                 nursingSchool: state.nursingSchool || '',
                 totalQuestionsAnswered: 0,
                 correctAnswers: 0,
                 overallPassingPredictor: 0,
                 categoryScores: {},
-                testHistory: []
+                testHistory: [],
+                studentStats: {
+                    testsTaken: 0,
+                    totalAnswered: 0,
+                    correctCount: 0,
+                    mistakeCount: 0,
+                    passingProbability: null,
+                    examHistory: [],
+                    predictorHistory: [],
+                    clientNeeds: {},
+                    categories: []
+                }
             };
 
             localStorage.setItem('quickrn_student_state', JSON.stringify(resetState));
+            localStorage.removeItem('quickrn_question_metrics_v1');
+            localStorage.removeItem('quickrn_study_streak_v1');
+            ['selfstudy', 'timed', 'predictor', 'cat'].forEach(mode => {
+                localStorage.removeItem('quickrn_exam_answers_' + mode + '_v2');
+            });
+
             closeEraseModal();
-            window.location.href = 'dashboard.html';
+            window.location.replace('dashboard.html');
         }
     </script>
     <script src="js/quickrn-platform-hardening.js"></script>
