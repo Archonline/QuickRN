@@ -249,7 +249,7 @@ function showRationale(q,r){
  const rationaleMarkup=buildTeachingRationale(q,r,result),template=document.createElement('template');template.innerHTML=rationaleMarkup;
  const optionSection=[...template.content.querySelectorAll('section')].find(section=>/Why each option is right or not the best choice/i.test(section.querySelector('h4')?.textContent||''));
  const inlineHost=$('answer-workspace');inlineHost?.querySelector('.qr-inline-option-rationale')?.remove();
- if(optionSection&&inlineHost){const inline=document.createElement('section');inline.className='qr-inline-option-rationale';inline.innerHTML='<div class="qr-inline-rationale-heading">Why each option is right or not the best choice</div>'+optionSection.innerHTML.replace(/<h4[^>]*>[\\s\\S]*?<\\/h4>/i,'');inlineHost.appendChild(inline);optionSection.remove();}
+ if(optionSection&&inlineHost){const inline=document.createElement('section');inline.className='qr-inline-option-rationale';inline.innerHTML='<div class="qr-inline-rationale-heading">Why each option is right or not the best choice</div>'+optionSection.innerHTML;inline.querySelector('h4')?.remove();inlineHost.appendChild(inline);optionSection.remove();}
  $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='flex';
  $('result-badge').textContent=result.isCorrect?'CORRECT':'INCORRECT';$('result-badge').className='px-3 py-1 rounded text-xs font-bold uppercase text-white '+(result.isCorrect?'bg-green-600':'bg-red-600');
  $('score-earned').textContent='Score: '+result.earned+'/'+result.max;$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=template.innerHTML;
