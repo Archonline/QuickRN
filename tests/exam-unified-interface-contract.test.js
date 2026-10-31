@@ -20,7 +20,8 @@ assert.match(app, /else if\(mode==='cat'\)\{maxItems=Math\.min\(maxItems\|\|150,
 assert.match(app, /else\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=balancedPick\(pool,maxItems\);\}/);
 assert.match(app, /mode==='predictor'\?'Predictor score'/);
 assert.doesNotMatch(app, /function toggleRationale\(/);
-assert.match(app, /This is the best answer because it matches the keyed response/);
+assert.match(app, /This is the best answer/);
+assert.match(app, /question bank does not include an option-specific explanation/);
 assert.match(app, /This is not the best answer/);
 assert.match(app, /right\.insertBefore\(rationale,actionRow\)/);
 assert.match(app, /rationale\.classList\.add\('hidden'\)/);
