@@ -19,12 +19,18 @@ assert.ok(dashboard.includes('QuickRNQuestionMetrics.totals()'), 'Accuracy shoul
 assert.ok(dashboard.includes('selfstudy.html?topic=' + '$' + '{encodeURIComponent(cat.name)}'), 'Client Needs cards should open focused question sets');
 assert.ok(dashboard.includes('topic=\'+encodeURIComponent(label)'), 'Lesson links should preserve their selected topic');
 assert.ok(examApp.includes('new URLSearchParams(window.location.search||\'\')'), 'Self Study should read dashboard topic filters');
-assert.ok(examApp.includes('maxItems=pool.length;session=shuffle(pool.slice())'), 'Focused topic sessions should include every matching question');
+assert.ok(examApp.includes('maxItems=pool.length;session=diversityShuffle(pool.slice())'), 'Focused topic sessions should include every matching question');
 
-assert.ok(dashboard.includes('xl:row-start-2 grid grid-cols-2 gap-1.5'), 'Four stat cards should occupy the left side of the second dashboard row');
-assert.ok(dashboard.includes('xl:col-start-2 xl:row-start-2 xl:col-span-2'), 'Performance trend should sit beside the stats below the banner');
-assert.ok(dashboard.includes('NCLEX Client Needs Performance'), 'Weak areas and mastery should share one combined panel');
-assert.equal((dashboard.match(/id="weak-client-needs"/g) || []).length, 1, 'Combined panel should retain one weak-areas render target');
-assert.equal((dashboard.match(/id="mastery-categories-list"/g) || []).length, 1, 'Combined panel should retain one mastery render target');
-assert.ok(dashboard.includes('xl:col-start-2 xl:row-start-3 xl:col-span-2'), 'Combined Client Needs panel should sit beside the subject library');
-console.log('PASS: dashboard scripts compile; accuracy ledger and focused category/topic routing contracts are present.');
+assert.ok(dashboard.includes('id="tab-content-learning"'), 'Subjects and the study coach should live in a dedicated Learning Center tab');
+assert.ok(dashboard.includes('id="nav-learning"'), 'Learning Center should be available from the sidebar');
+assert.ok(dashboard.includes('id="quickrn-subject-library"'), 'Learning Center should retain the subject and lesson library render target');
+assert.ok(dashboard.includes('id="ai-roadmap-container"'), 'Learning Center should retain the remediation roadmap render target');
+assert.ok(dashboard.includes('id="quickrnScoreChart"'), 'Dashboard should retain the performance line graph');
+assert.ok(dashboard.includes('Performance trend'), 'Dashboard should label the compact trend graph clearly');
+assert.ok(dashboard.includes('xl:col-span-3'), 'Trend graph should receive the primary dashboard width');
+assert.ok(dashboard.includes('xl:col-span-2'), 'Client Needs priorities should remain visible beside the trend graph');
+assert.ok(dashboard.includes('borderWidth: 2') && dashboard.includes('pointRadius: 2'), 'Trend graph should use restrained line and marker weights');
+assert.ok(dashboard.includes('x.timestamp || x.date || x.completedAt'), 'Trend graph should include current completedAt exam records');
+assert.ok(dashboard.includes('x.passingProbability !== null'), 'Missing passing estimates should remain gaps, not zero-value points');
+assert.equal((dashboard.match(/id="mastery-categories-list"/g) || []).length, 1, 'Dashboard should retain one Client Needs render target');
+console.log('PASS: dashboard scripts compile; compact analytics, Learning Center, exam-history trend, and focused topic routing contracts are present.');
