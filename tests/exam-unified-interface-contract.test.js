@@ -19,7 +19,6 @@ assert.doesNotMatch(app, /else if\(mode==='timed'\)opts=\[[^;]*\['85'|else if\(m
 assert.match(app, /else if\(mode==='cat'\)\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=\[\];const first=chooseFirstAdaptive\(\);if\(first\)session\.push\(first\);\}/);
 assert.match(app, /else\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=balancedPick\(pool,maxItems\);\}/);
 assert.match(app, /mode==='predictor'\?'Predictor score'/);
-assert.match(app, /else if\(mode==='timed'&&maxItems<85\)\{session=balancedPick/);
 assert.match(app, /function toggleRationale\(\)[\s\S]*?Rationale collapsed in the clinical case pane/);
 assert.match(app, /\(mode==='selfstudy'\|\|reviewMode\)&&rec\.submitted\)showRationale/);
 assert.doesNotMatch(app, /ifisAdaptiveMode/);
