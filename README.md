@@ -6,7 +6,7 @@ QuickRN is a browser-based NCLEX-RN practice and NGN learning simulator. It incl
 
 - Shared question renderer and scoring layer are used by the exam modes.
 - NGN formats include matrix/grid, highlight text, cloze/drop-down, extended drag-and-drop, bowtie, numeric entry, and multiple-response formats.
-- Linked case-study questions use a split EHR/question layout. Clinical record tabs remain available while working through a linked case; video lessons remain in the left pane.
+- Linked case-study questions use a split EHR/question layout. Nurses’ Notes, Vital Signs, Lab Results, Orders, and other available clinical-record tabs remain available across linked questions; video lessons remain in the left pane. Fixed-length exams include sequential case-study groups, and CAT practice targets three linked groups by item 85 when the bank has sufficient groups.
 - Answer feedback distinguishes the best answer from distractors and reports the scoring method and points earned.
 - Exam summaries include item accuracy, partial-credit score, client-needs performance, clinical-judgment stage performance, difficulty breakdown, question-format counts, timing, and item review.
 - Dashboard accuracy history plots fully-correct item accuracy; it does not relabel partial-credit scores as item accuracy.
@@ -33,6 +33,8 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 - Increased clinical scenario typography to 18px and bolded the scenario text.
 - Preserved the selected EHR tab across linked NGN case-study questions; kept video lessons in the left pane.
 - Added typical adult reference ranges for recognized structured and line-based laboratory results; unknown ranges remain explicitly flagged.
+- Added explicit Lab Results and Orders tabs and retained the selected EHR tab across a linked case sequence.
+- Adjusted fixed-form NGN item selection to include sequential case-study groups and stand-alone clinical-judgment items; CAT targets three linked case groups by item 85 when the question bank supports them.
 - Exposed the per-item scoring method (plus/minus, 0/1, or rationale) in answer feedback.
 - Expanded test summaries with difficulty and Clinical Judgment Measurement Model performance, total items, and average time per answered item.
 - Reworked dashboard accuracy-history plotting and added a lightweight SVG fallback when Chart.js is unavailable.
