@@ -20,6 +20,8 @@ function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&
 function quickRNCleanClinicalText(value, metadata){
  let text=String(value??'').replace(/\r/g,'').trim();
  if(!text)return '';
+ // Remove short diagnosis/topic prefixes such as “Cystic fibrosis:” and “HELLP syndrome:”.
+ text=text.replace(/^\\s*((?:[A-Z][A-Za-z0-9-]*)(?:\\s+[A-Za-z][A-Za-z0-9-]*){0,4})\\s*:\\s*(?=(?:A|An|The|This|That|Client|Patient|Ages?\\b|\\d{1,3}[- ]year[- ]old)\\b)/,'');
  const meta=metadata&&typeof metadata==='object'?metadata:{};
  const labels=[meta.topic,meta.category,meta.subject,meta.caseTitle,meta.caseStudyTitle,meta.caseStudyContext?.title].filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim());
  for(let round=0;round<8;round++){
@@ -154,6 +156,7 @@ let quickRNDraft={}; let quickRNCurrentItemId=null; let quickRNDraggedIndex=null
 function quickRNInitDraft(q, existing){if(quickRNCurrentItemId!==q.id){quickRNCurrentItemId=q.id;quickRNDraft=quickRNNormalizeDraft(q,existing);}}
 function quickRNCommitDraft(){if(typeof window.quickRNOnDraftChange==='function')window.quickRNOnDraftChange(quickRNDraft);}
 function quickRNSetDraft(path,value){quickRNDraft={...(quickRNDraft||{})};quickRNDraft[path]=value;quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
+function quickRNSetClozeDraft(select){if(!select)return;const key=select.getAttribute('data-cloze-key')||'0';quickRNSetDraft('cloze',{...(quickRNDraft.cloze||{}),[key]:select.value});}
 function quickRNToggleDraft(path,value){const a=Array.isArray(quickRNDraft[path])?[...quickRNDraft[path]]:[];quickRNDraft[path]=a.includes(value)?a.filter(x=>x!==value):(['actions','monitoring'].includes(path)&&a.length>=2?a:[...a,value]);quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
 function quickRNMoveDraft(from,to){const a=[...(quickRNDraft.order||[])];if(from<0||to<0||from>=a.length||to>=a.length)return;const [v]=a.splice(from,1);a.splice(to,0,v);quickRNDraft={...quickRNDraft,order:a};quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
 function quickRNDragStart(e,i){quickRNDraggedIndex=i;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i));}
@@ -171,7 +174,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const patientName=patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient';
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.age||patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.age||'')+(patient.code?' · '+quickRNEscape(patient.code):'')+'</div>':'');
  const recordSections=tabs.filter(t=>t[1]).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+t[1]+'</div></section>').join('');
- const summarySection=patientSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary)+'</div></section>':'';
+ const scenarioText=quickRNSplitPrompt(q).scenario||'';const normalizeClinical=v=>String(v||'').replace(/<[^>]*>/g,' ').replace(/\\s+/g,' ').trim().toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary)+'</div></section>':'';
  let record=hasRecord?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>Clinical record</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'){
