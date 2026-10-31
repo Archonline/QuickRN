@@ -250,3 +250,13 @@ SELF-STUDY LINKED CASE STUDY FIX — 2026-10-31
 - Previously seen questions do not cause a partially seen case to be split; the complete case is repeated as a unit.
 - Shared case overview, patient information, clinical scenario, EHR/clinical record, vital signs, laboratory/diagnostic results, and exhibits are inherited by follow-up questions when the follow-up does not provide its own value.
 - Added tests for case grouping, sequence preservation, focused-case expansion, and partial-seen cases.
+
+
+SELF-STUDY END, ANALYTICS RESET, AND QUESTION EXHAUSTION — 2026-10-31
+- Fixed the Self-Study End action: the summary renderer now receives the study-streak result explicitly instead of referencing an out-of-scope variable that stopped the results screen from rendering.
+- Reset Analytics now clears the dashboard's studentStats totals, exam history, Client Needs metrics, per-question attempt ledger, study streak, and saved answer drafts for all exam modes while preserving the user's profile.
+- The global seen-question ledger is intentionally preserved by Reset Analytics. Clearing performance analytics must not make previously encountered questions repeatable.
+- Self-Study now selects only unseen questions across sessions, filters, and topics. Legacy submitted-question IDs are merged with the seen ledger.
+- Linked NGN case studies are treated as indivisible units: if any question in a case has already been encountered, the remaining questions in that case are also excluded from future sessions to prevent partial case repeats.
+- The picker no longer falls back to previously seen questions when the fresh pool is empty. It reports when the current filter or the entire bank has been exhausted.
+- Regression tests cover case-level exhaustion, no fallback to used items, and selecting the remaining fresh questions.
