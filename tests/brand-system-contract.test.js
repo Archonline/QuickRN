@@ -12,6 +12,12 @@ const css = fs.readFileSync(stylesheet, 'utf8');
 for (const token of ['--qr-brand-navy', '--qr-brand-teal', '--qr-brand-plum', '--qr-brand-coral', '--qr-brand-bg', '--qr-brand-border', 'font-family:Inter']) {
   if (!css.includes(token)) throw new Error('Missing shared brand token: ' + token);
 }
+const sidebarScript = path.join(root, 'js', 'quickrn-sidebar.js');
+assertFile(sidebarScript);
+const sidebarJs = fs.readFileSync(sidebarScript, 'utf8');
+for (const token of ['qr-sidebar-group', 'aria-current', 'qr-sidebar-shell', 'Learning Center', 'Feedback Inbox']) {
+  if (!sidebarJs.includes(token)) throw new Error('Missing unified sidebar feature: ' + token);
+}
 for (const page of pages) {
   const html = fs.readFileSync(path.join(root, page), 'utf8');
   if (!html.includes('css/quickrn-brand-system.css')) {
