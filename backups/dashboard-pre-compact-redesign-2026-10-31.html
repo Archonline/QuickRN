@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | QuickRN NCLEX Prep</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (typeof renderSubjectLessonLibrary === 'function') renderSubjectLessonLibrary(); });</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Standard trajectory line graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- External Questions Bank -->
+    <script src="questions.js" onerror="console.error('questions.js could not be loaded.')"></script>
+    <script src="questions-ngn-supplement.js"></script>
+    <script src="js/quickrn-question-bank-normalizer.js"></script>
+    <script src="js/quickrn-question-id-normalizer.js"></script>
+    <script src="js/quickrn-question-metrics.js"></script>
+    <script src="js/quickrn-coach.js"></script>
+    <script src="js/quickrn-lesson-library.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+    <link rel="stylesheet" href="css/quickrn-brand-system.css">
+</head>
+<body class="h-full bg-slate-50 text-slate-800 antialiased flex flex-col">
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- Login / Welcome Overlay (Shown when signed out) -->
+    <div id="auth-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all scale-100">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900">Welcome Back to QuickRN</h2>
+                <p class="text-slate-500 text-sm mt-1">Sign in to resume your NCLEX mastery journey</p>
+            </div>
+            <form id="login-form" onsubmit="handleSignIn(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Email Address</label>
+                    <input type="email" id="login-email" required value="student@quickrn.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Password</label>
+                    <input type="password" id="login-password" required value="password123" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                </div>
+                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/20 transition-all text-sm">
+                    Sign In to Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- App Shell -->
+    <div id="app-shell" class="flex h-full overflow-hidden">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col hidden md:flex">
+            <div class="p-6 flex items-center space-x-3 border-b border-slate-100">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-brand-500/30">
+                    <i class="fa-solid fa-bolt-lightning"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight text-slate-900">Quick<span class="text-brand-600">RN</span></span>
+                    <span class="block text-[10px] uppercase font-semibold text-slate-400">NCLEX Prep Engine</span>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+                <div class="px-3 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Core Dashboard</div>
+                
+                <a href="dashboard.html" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium bg-brand-50 text-brand-700 transition-colors">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="calendar.html" id="nav-calendar" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-calendar-days w-5 text-center text-emerald-600"></i>
+                    <span>Calendar</span>
+                </a>
+                
+                <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
+                    <span>QuickRN Feature Hub</span>
+                </a>
+
+                
+                <div class="px-3 pt-4 pb-1 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Study & Testing</div>
+
+                <a href="selfstudy.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors font-semibold">
+                    <i class="fa-solid fa-book-open w-5 text-center text-purple-600"></i>
+                    <span>Self Study Mode</span>
+                </a>
+
+                <a href="saved.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition-colors group">
+                    <i class="fa-solid fa-bookmark w-5 text-center text-amber-500 group-hover:scale-110 transition-transform"></i>
+                    <span>Saved Questions</span>
+                </a>
+
+
+
+                <a href="timed.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-stopwatch w-5 text-center text-blue-600"></i>
+                    <span>Timed Practice Test</span>
+                </a>
+
+                <a href="predictor.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-clipboard-check w-5 text-center text-amber-600"></i>
+                    <span>NCLEX Predictor Exam</span>
+                </a>
+
+                <a href="cat.html" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-laptop-code w-5 text-center text-slate-800"></i>
+                    <span>CAT Exam Simulator</span>
+                </a>
+
+
+
+                
+            </nav>
+
+            <div class="shrink-0 p-4 border-t border-slate-100">
+                <a href="help.html#disclaimer" id="nav-disclaimer" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition-colors">
+                    <i class="fa-solid fa-shield-halved w-5 text-center text-amber-600"></i>
+                    <span>Disclaimer</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Header -->
+            <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
+                <div class="flex items-center space-x-4">
+                    <h1 id="page-title" class="text-xl font-extrabold text-slate-900 tracking-tight">NCLEX Candidate Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="profile.html" class="flex items-center space-x-2.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-200 transition-all">
+                        <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-[10px]">RN</div>
+                        <div class="text-left leading-tight hidden sm:block">
+                            <span class="block font-bold text-slate-800" id="top-user-name">Future RN</span>
+                            <span class="block text-[10px] text-slate-500 font-normal">View Profile</span>
+                        </div>
+                    </a>
+                    <button onclick="handleSignOut()" class="flex items-center space-x-2 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable View Container -->
+            <main class="flex-1 overflow-y-auto p-3 lg:p-4 space-y-3">
+
+                <!-- DASHBOARD TAB -->
+                <div id="tab-content-dashboard" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-3">
+                    
+                    <!-- BANNER WITH NO CARD BORDERS AND ENLARGED PASS RATE ON THE RIGHTMOST SIDE -->
+                    <div class="lg:col-span-2 xl:col-span-3 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-xl p-3 lg:p-4 text-white shadow-md relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -left-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
+                            
+                            <!-- LEFT SIDE: Greeting & Encouraging Passage -->
+                            <div class="lg:col-span-7 space-y-1">
+                                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                                    <i class="fa-solid fa-heart-pulse"></i>
+                                    <span>Daily NCLEX Motivation</span>
+                                </div>
+
+                                <h2 id="greeting-title" class="text-xl lg:text-2xl font-black tracking-tight text-white leading-tight">
+                                    Welcome Back, Future RN! 👋
+                                </h2>
+
+                                <div class="pt-1">
+                                    <p id="encouraging-passage" class="text-xs lg:text-sm text-slate-200 italic leading-snug font-normal">
+                                        "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name."
+                                    </p>
+                                    <p id="quote-author" class="mt-2 text-xs font-semibold text-emerald-400 tracking-wide">— QuickRN Motivation</p>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT SIDE: NCLEX Passing Probability Text & Rightmost Large Gauge Circle -->
+                            <div class="lg:col-span-5 flex items-center justify-between space-x-3">
+                                
+                                <div class="space-y-1 flex-1">
+                                    <h3 class="text-lg lg:text-xl font-black text-white tracking-tight leading-snug">
+                                        NCLEX Passing Probability
+                                    </h3>
+                                    <p class="text-xs text-slate-300 leading-snug">
+                                        Based on your latest completed CAT or Predictor adaptive ability estimate. An estimate appears after at least 85 answered items; question volume and placeholder scores do not inflate it.
+                                    </p>
+                                </div>
+
+                                <!-- Rightmost Large Percentage Gauge Circle -->
+                                <div class="relative w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 flex items-center justify-center">
+                                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                        <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                        <span id="probability-value-text" class="text-2xl lg:text-3xl font-black text-white tracking-tight">—</span>
+                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">EST. PASS LIKELIHOOD</span>
+                                        <span id="probability-status-text" class="text-[9px] text-slate-400 mt-1">Complete a CAT or Predictor exam</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats Grid (Initial State: All 0) -->
+                    <div class="lg:col-span-1 xl:col-span-1 xl:row-start-2 grid grid-cols-2 gap-1.5">
+                        
+                        <!-- Questions Only Card (Clickable to show finished exams / test history) -->
+                        <div onclick="openFinishedTestsModal()" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
+                            <div>
+                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-brand-600 transition-colors">Questions only</p>
+                                <h3 id="stat-solved-display" class="text-xl font-black text-slate-900 mt-0.5">0 <span id="stat-pool-total" class="text-sm font-semibold text-slate-400">/ 0</span></h3>
+                                <p class="text-[9px] text-slate-500 mt-0.5"><i class="fa-regular fa-clock"></i> Click to view finished tests</p>
+                            </div>
+                            <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Overall Accuracy</p>
+                                <h3 id="stat-accuracy" class="text-2xl font-black text-slate-900 mt-1">0%</h3>
+                                <p class="text-[11px] text-slate-500 mt-1">Target: &gt; 75% accuracy</p>
+                            </div>
+                            <div class="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                        </div>
+
+                        <div onclick="openCatExamsModal()" class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group">
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-amber-600 transition-colors">CAT Exams Completed</p>
+                                <h3 id="stat-exams" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all CAT exams</p>
+                            </div>
+                            <div class="w-9 h-9 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-amber-100 transition-colors">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                        </div>
+
+                        <div onclick="openPredictorExamsModal()" class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-purple-500 hover:shadow-md transition-all group">
+                            <div>
+                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-purple-600 transition-colors">NCLEX Predictor Exams</p>
+                                <h3 id="stat-predictor-count" class="text-2xl font-black text-slate-900 mt-1">0</h3>
+                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all Predictor exams</p>
+                            </div>
+                            <div class="w-9 h-9 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-purple-100 transition-colors">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBJECT & LESSON LIBRARY -->
+                    <section class="lg:col-start-1 lg:row-start-3 xl:col-start-1 xl:row-start-3 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
+                                <p class="text-xs text-slate-500">Choose a nursing subject, then select a body system or lesson to start a focused Self Study session.</p>
+                            </div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 rounded-full px-3 py-1">7 core subjects</span>
+                        </div>
+                        <div id="quickrn-subject-library" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2"></div>
+                        <p class="text-[10px] text-slate-400">Focused sessions use matching question-bank topics. If a lesson has no matching questions yet, QuickRN will let you know rather than silently starting an unrelated session.</p>
+                    </section>
+
+                    <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
+                    <div class="lg:col-start-2 lg:col-span-1 xl:col-start-2 xl:row-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2">
+                            <div>
+                                <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
+                                <p class="text-xs text-slate-500">Your recorded exam accuracy and model-estimated chance of being above the passing standard. Only actual saved attempts are plotted.</p>
+                            </div>
+                            <!-- Legend indicators -->
+                            <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
+                                    <span>Exam accuracy</span>
+                                </div>
+                                <div class="flex items-center space-x-1.5">
+                                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                                    <span>Estimated passing likelihood</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="h-36 w-full">
+                            <canvas id="quickrnScoreChart"></canvas>
+                        </div>
+                        <p id="quickrn-score-chart-note" class="text-[11px] text-slate-500" aria-live="polite">Loading saved exam history…</p>
+                    </div>
+
+                    
+                    <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
+                    <div class="lg:col-start-1 lg:row-start-5 lg:col-span-2 xl:col-start-1 xl:row-start-4 xl:col-span-3 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-2.5 text-white shadow-md space-y-2 relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-9 h-9 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-400 flex items-center justify-center text-xl shadow-inner">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <h2 class="text-base font-bold text-white">QuickRN Clinical Study Coach & Remediation Planner</h2>
+                                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold uppercase tracking-wider">Local rules · no API required</span>
+                                    </div>
+                                    <p class="text-xs text-indigo-200">Uses your saved practice results to identify weak domains and schedule focused review.</p>
+                                </div>
+                            </div>
+                            <button onclick="generateStudyRoadmap()" class="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Study Roadmap
+                            </button>
+                        </div>
+                        <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
+                            <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
+                        </div>
+                    </div>
+
+                    <!-- COMBINED CLIENT NEEDS MASTERY & PRIORITY WEAK AREAS -->
+                    <section class="lg:col-span-2 lg:col-start-1 lg:row-start-4 xl:col-start-2 xl:row-start-3 xl:col-span-2 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
+                            <div>
+                                <h2 class="text-base font-extrabold text-slate-900">NCLEX Client Needs Performance</h2>
+                                <p class="text-[10px] text-slate-500">Mastery results and priority remediation areas, calculated from submitted answers.</p>
+                            </div>
+                            <button type="button" onclick="switchTab('analytics')" class="shrink-0 text-xs font-bold text-brand-700 hover:text-brand-900">Full analytics <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex flex-wrap items-center justify-between gap-2">
+                                <div>
+                                    <h3 class="text-sm font-bold text-slate-900">Client Needs Categories</h3>
+                                    <p class="text-[10px] text-slate-500">Select any category to practice its questions. Priority areas are highlighted directly in the same list.</p>
+                                </div>
+                                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-slate-600" aria-label="Client Needs performance legend">
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border-2 border-red-500 bg-white"></span> Priority review: below 75%</span>
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-slate-200 bg-slate-50"></span> On track: 75% or higher</span>
+                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-dashed border-slate-400 bg-white"></span> No data yet</span>
+                                </div>
+                            </div>
+                            <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                
+                                <!-- FEATURE HUB TAB -->
+                <div id="tab-content-features" class="hidden space-y-6">
+                    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-8 text-white shadow-xl space-y-4 relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="max-w-2xl space-y-3 relative z-10">
+                            <span class="px-3 py-1 bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">Simulated NCLEX Environment & Reviewer Guide</span>
+                            <h2 class="text-3xl font-black tracking-tight text-white">QuickRN Feature Hub</h2>
+                            <p class="text-indigo-200 text-sm leading-relaxed">
+                                Explore clinical review modules, the shared Clinical Study Coach, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- BETA RELEASE NOTES: CURRENT, HONESTLY DESCRIBED FEATURES -->
+                    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="whats-new-title">
+                        <div class="flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700"><i class="fa-solid fa-sparkles"></i></div>
+                                <div><h3 id="whats-new-title" class="font-bold text-slate-900 text-base">What's New</h3><p class="text-xs text-slate-500">A short guide to what's currently available in the beta</p></div>
+                            </div>
+                            <span class="inline-flex w-fit items-center rounded-full bg-amber-50 px-3 py-1 text-[11px] font-bold text-amber-800">Beta · October 31, 2026</span>
+                        </div>
+                        <div class="grid gap-3 pt-4 sm:grid-cols-2">
+                            <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-comments text-teal-700"></i> Streamlined exam feedback and question layout</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Removed the separate “Report this item” action and combined issue reporting with the Feedback control, including issue categories and question context. The Check Answer action is right-aligned. Items without a case study no longer show an empty Clinical Record; their question stem moves to the left pane while answer choices remain on the right.</p>
+                            </article>
+<article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-palette text-teal-700"></i> Unified QuickRN design system</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">A shared brand stylesheet now harmonizes typography, clinical navy and teal accents, focus states, form controls, and interface chrome across the landing page, dashboard, calendar, study modes, exam simulators, saved questions, reports, profile, help, and reference view. NCLEX split-screen layouts and clinical status feedback remain intact.</p>
+                            </article>
+                            <article class="rounded-xl border border-red-200 bg-red-50/30 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-column text-red-700"></i> Simplified Client Needs performance</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Combined the separate weak-area and mastery panels into one category list. Red borders identify areas below 75%; neutral borders indicate on-track areas, and dashed borders indicate categories with no attempts. A legend explains each status.</p>
+                            </article>
+                            <article class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-shield-halved text-emerald-700"></i> Platform reliability and recovery</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Shared browser-storage safeguards, local-only error diagnostics, offline/online notices, cross-tab events, and tab-resume signals are now available across QuickRN. Unfinished exams can be restored after a refresh, with the timer state preserved. Timed exams show five-minute and one-minute warnings. Backup restore validates the complete payload and rolls back a partial write if storage fails.</p>
+                            </article>
+                            <article class="rounded-xl border border-sky-200 bg-sky-50/40 p-4">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-code text-sky-700"></i> Safer clinical records</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Clinical-record markup is restricted to an allowlist. Executable elements and unsafe attributes are removed before patient-context panels render.</p>
+                            </article>
+                            <article class="rounded-xl border border-violet-200 bg-violet-50/40 p-4">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-clipboard-check text-violet-700"></i> Engineering register</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">The README records 50 implemented safeguards and subfeatures, plus exam recovery and keyboard shortcuts. Automated regression checks cover the shared platform layer and exam workspace.</p>
+                            </article>
+                        </div>
+                        <details class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <summary class="cursor-pointer text-xs font-bold text-slate-800">View all 50 documented improvements</summary>
+                            <div class="mt-3 grid gap-2 sm:grid-cols-2"><h4 class="mt-4 text-xs font-extrabold uppercase tracking-wide text-slate-700">Platform reliability</h4><ol class="mt-2 list-decimal space-y-1 pl-5 text-xs leading-5 text-slate-600"><li>Detect browser storage availability before relying on persistence.</li><li>Provide safe string reads with fallbacks.</li><li>Provide safe JSON parsing for corrupted values.</li><li>Provide guarded string writes.</li><li>Provide guarded JSON serialization writes.</li><li>Provide safe key removal.</li><li>Keep a bounded diagnostic journal of the latest 30 errors.</li><li>Capture uncaught JavaScript errors.</li><li>Capture unhandled promise rejections.</li><li>Keep diagnostic messages short and omit stack traces.</li></ol><h4 class="mt-4 text-xs font-extrabold uppercase tracking-wide text-slate-700">Connectivity and lifecycle</h4><ol class="mt-2 list-decimal space-y-1 pl-5 text-xs leading-5 text-slate-600"><li>Show a visible offline notice.</li><li>Show a connection-restored notice.</li><li>Announce status changes through an accessible live region.</li><li>Bridge cross-tab storage events into the QuickRN event layer.</li><li>Emit a page-hide lifecycle event.</li><li>Emit a visibility-change event.</li><li>Emit a resume event when a tab becomes visible.</li><li>Provide event subscriptions with unsubscribe callbacks.</li><li>Prevent duplicate platform initialization.</li><li>Attach page path context to local diagnostics.</li></ol><h4 class="mt-4 text-xs font-extrabold uppercase tracking-wide text-slate-700">Safe content and utilities</h4><ol class="mt-2 list-decimal space-y-1 pl-5 text-xs leading-5 text-slate-600"><li>Expose a shared HTML-escaping helper.</li><li>Sanitize markup in clinical-record panels.</li><li>Remove script elements from clinical records.</li><li>Remove style, iframe, object, and embed elements from clinical records.</li><li>Remove inline event handlers and unapproved attributes.</li><li>Retain only safe numeric table span attributes.</li><li>Keep plain-text clinical content on the escaped rendering path.</li><li>Sanitize the initial case-study tab.</li><li>Sanitize subsequent case-study tab changes.</li><li>Expose a shared unique-ID helper.</li></ol><h4 class="mt-4 text-xs font-extrabold uppercase tracking-wide text-slate-700">Backup and recovery</h4><ol class="mt-2 list-decimal space-y-1 pl-5 text-xs leading-5 text-slate-600"><li>Make backup collection tolerate inaccessible storage.</li><li>Reject restore payloads containing more than 500 entries.</li><li>Reject malformed or oversized storage key names.</li><li>Validate every restored value before writing.</li><li>Snapshot existing values before restore begins.</li><li>Track successfully applied restore keys.</li><li>Roll back already-written keys if a later write fails.</li><li>Remove newly-created keys during rollback.</li><li>Explain when a restore was rolled back.</li><li>Retain the pre-restore safety export.</li></ol><h4 class="mt-4 text-xs font-extrabold uppercase tracking-wide text-slate-700">Application coverage and quality</h4><ol class="mt-2 list-decimal space-y-1 pl-5 text-xs leading-5 text-slate-600"><li>Load shared safeguards on the landing page.</li><li>Load shared safeguards on the dashboard.</li><li>Load shared safeguards on the calendar.</li><li>Load shared safeguards on profile and help pages.</li><li>Load shared safeguards on saved-items and reports pages.</li><li>Load shared safeguards on Self-Study.</li><li>Load shared safeguards on Timed Practice.</li><li>Load shared safeguards on Predictor and CAT.</li><li>Add a dedicated platform-hardening regression test.</li><li>Run the new regression test in the NGN validation workflow.</li></ol></div>
+                            <div class="mt-4 border-t border-slate-200 pt-3">
+                                <h4 class="text-xs font-extrabold uppercase tracking-wide text-slate-700">Additional exam workflow improvements</h4>
+                                <ul class="mt-2 list-disc space-y-1 pl-5 text-xs leading-5 text-slate-600">
+                                    <li>Restore an unfinished exam after refresh, including question order, current item, responses, notes, bookmarks, and timer state.</li>
+                                    <li>Preserve the wall-clock deadline for unpaused timed exams and clear checkpoints after completion.</li>
+                                    <li>Warn students at five minutes and one minute remaining in countdown exams.</li>
+                                    <li>Add Alt + Arrow navigation and Ctrl/Command + Enter submission shortcuts.</li>
+                                    <li>Delay object-URL cleanup so backup and report downloads are more reliable across browsers.</li>
+                                    <li>Extend the beta checklist with recovery, keyboard, storage, and offline verification steps.</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <div class="mt-4 flex flex-col gap-3 rounded-xl bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between">
+                            <p class="text-xs leading-5 text-slate-600">Beta note: question reports, including Self Study reports, are stored locally and are not automatically sent to the team. Study records remain browser-local and may be lost if browser data is cleared or you change devices. The rule-based Clinical Study Coach is not connected to a generative AI service. Scores and educational estimates are not official NCLEX predictions.</p>
+                            <a href="help.html" class="inline-flex shrink-0 items-center gap-2 text-xs font-bold text-emerald-700 hover:text-emerald-900">Read FAQs & disclaimer <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- ANALYTICS TAB -->
+                <div id="tab-content-analytics" class="hidden space-y-6">
+                    <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-6">
+                        <div>
+                            <h2 class="text-base font-bold text-slate-900">Detailed Client Needs Performance Breakdown</h2>
+                            <p class="text-xs text-slate-500">Comprehensive overview of mastery progression across NCLEX test plan domains.</p>
+                        </div>
+                        <div id="analytics-detailed-list" class="space-y-6">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Array of 30 Encouraging Phrases, Quotes & Passages for NCLEX Candidates
+        const encouragingQuotes = [
+            { quote: "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name.", author: "QuickRN Inspiration" },
+            { quote: "The struggle you're in today is developing the strength you need for tomorrow. Keep pushing forward!", author: "NCLEX Prep Quote" },
+            { quote: "It’s a beautiful day to save lives and pass the NCLEX!", author: "Future RN Mantra" },
+            { quote: "Believe you can and you're halfway there. Trust your nursing judgment and intuition.", author: "Theodore Roosevelt" },
+            { quote: "Small daily improvements over time lead to stunning long-term results. Focus on one high-yield question at a time.", author: "QuickRN Coaching" },
+            { quote: "You have come too far to only come this far. Your future patients are waiting for you!", author: "Nursing Excellence" },
+            { quote: "Confidence comes from discipline and training. Trust the process, study smart, and stay focused.", author: "NCLEX Mastery" },
+            { quote: "Safety first, ABCs always! Remember your fundamental nursing prioritization rules.", author: "Test-Taking Strategy" },
+            { quote: "Hard work beats talent when talent doesn't work hard. Your dedication will pay off on exam day.", author: "Tim Notke" },
+            { quote: "Don't wish it were easier; work to make yourself better. Every rationale reviewed builds clinical mastery.", author: "Jim Rohn" },
+            { quote: "You are going to make an extraordinary nurse. Keep believing in your purpose.", author: "QuickRN Motivation" },
+            { quote: "Breathe deeply, read every stem carefully, and eliminate the incorrect options with confidence.", author: "Test Prep Wisdom" },
+            { quote: "Success isn't always about greatness. It's about consistency. Consistent hard work leads to passing.", author: "Dwayne Johnson" },
+            { quote: "Your degree was proof you can learn; passing the NCLEX is proof you can protect and heal.", author: "Nurse Leader" },
+            { quote: "You don't need to know everything—you just need to know how to think like a safe, competent nurse.", author: "Clinical Judgment Core" },
+            { quote: "Doubt kills more dreams than failure ever will. Trust your preparation and stay positive!", author: "Suzy Kassem" },
+            { quote: "Every expert was once a beginner. Keep refining your knowledge every single day.", author: "Helen Hayes" },
+            { quote: "You are stronger, smarter, and more resilient than you think. You will conquer this exam!", author: "QuickRN Coach" },
+            { quote: "When you feel like quitting, remember why you started nursing in the first place.", author: "Nursing Call" },
+            { quote: "Focus on progress, not perfection. Learning from missed questions is the key to passing.", author: "NCLEX Strategy" },
+            { quote: "Keep calm and prioritize: Airway, Breathing, Circulation, and Patient Safety!", author: "NCLEX Rule" },
+            { quote: "Your dedication today protects patient lives tomorrow. Stay focused on the end goal.", author: "Future RN Reminder" },
+            { quote: "The NCLEX is not an obstacle; it is your doorway into the noble profession of nursing.", author: "QuickRN Core" },
+            { quote: "One day, you will be the nurse you once wished you had. Keep striving for excellence.", author: "Inspirational Nursing" },
+            { quote: "Preparation is the key to confidence. Every rationale you master builds your passing foundation.", author: "Clinical Insight" },
+            { quote: "You are capable of achieving anything you set your mind to. Keep studying with courage!", author: "Mindset Matters" },
+            { quote: "Mistakes are proof that you are trying and learning. Embrace every practice rationale.", author: "Learning Principle" },
+            { quote: "Step by step, day by day, question by question—you are building your RN future.", author: "QuickRN Journey" },
+            { quote: "When you put on that RN badge for the first time, all this hard work will be entirely worth it.", author: "Nurse Pride" },
+            { quote: "You've survived nursing school—the NCLEX is just your final victory lap. Go get it!", author: "QuickRN Staff" },
+            { quote: "You do not have to master everything today. Learn one concept well, apply it safely, and return tomorrow ready to grow.", author: "QuickRN Daily Encouragement" }
+        ];
+
+        let studentStats = {
+            totalSolved: 0,
+            correctCount: 0,
+            catExamsCount: 0,
+            predictorExamsCount: 0,
+            catAverageScore: 0,
+            predictorAverageScore: 0,
+            categories: [
+                { name: 'Management of Care (17-23%)', testPlanWeight: '17-23%', solved: 0, correct: 0, percentage: 0, color: 'bg-indigo-600' },
+                { name: 'Safety and Infection Control (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-blue-600' },
+                { name: 'Health Promotion and Maintenance (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-emerald-600' },
+                { name: 'Psychosocial Integrity (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-purple-600' },
+                { name: 'Basic Care and Comfort (6-12%)', testPlanWeight: '6-12%', solved: 0, correct: 0, percentage: 0, color: 'bg-amber-600' },
+                { name: 'Pharmacological and Parenteral Therapies (12-18%)', testPlanWeight: '12-18%', solved: 0, correct: 0, percentage: 0, color: 'bg-rose-600' },
+                { name: 'Reduction of Risk Potential (9-15%)', testPlanWeight: '9-15%', solved: 0, correct: 0, percentage: 0, color: 'bg-orange-600' },
+                { name: 'Physiological Adaptation (11-17%)', testPlanWeight: '11-17%', solved: 0, correct: 0, percentage: 0, color: 'bg-teal-600' }
+            ]
+        };
+
+        let totalQuestionsInPool = 0;
+        let quickrnChartInstance = null;
+
+        // Session & App Setup
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAuthStatus();
+            detectTotalQuestionsPool();
+            loadStateFromStorage();
+            updateTimeBasedGreeting();
+            rotateEncouragement();
+            renderDashboardStats();
+            renderMasteryCategories();
+            initQuickRNScoreChart();
+        });
+
+        function detectTotalQuestionsPool() {
+            let pool = [];
+            if (typeof window.questions !== 'undefined' && Array.isArray(window.questions)) {
+                pool = window.questions;
+            } else if (typeof embeddedQuestionsData !== 'undefined' && Array.isArray(embeddedQuestionsData)) {
+                pool = embeddedQuestionsData;
+            }
+            totalQuestionsInPool = pool.length > 0 ? pool.length : 150;
+            document.getElementById('stat-pool-total').textContent = `/ ${totalQuestionsInPool}`;
+        }
+
+        function updateTimeBasedGreeting() {
+            const hour = new Date().getHours();
+            let greetingWord = "Welcome Back";
+            if (hour < 12) greetingWord = "Good Morning";
+            else if (hour < 18) greetingWord = "Good Afternoon";
+            else greetingWord = "Good Evening";
+
+            const name = localStorage.getItem('quickrn_user_name') || 'Future RN';
+            const titleElem = document.getElementById('greeting-title');
+            if (titleElem) {
+                titleElem.innerHTML = `${greetingWord}, ${name}! 👋`;
+            }
+        }
+
+        function rotateEncouragement() {
+            // Show a consistent inspiration message for each calendar day.
+            // The 31 entries cover every possible day in a month; shorter months use the matching dates.
+            const dayOfMonth = new Date().getDate();
+            const selected = encouragingQuotes[(dayOfMonth - 1) % encouragingQuotes.length];
+
+            const passageElem = document.getElementById('encouraging-passage');
+            const authorElem = document.getElementById('quote-author');
+
+            if (passageElem) passageElem.textContent = `"${selected.quote}"`;
+            if (authorElem) authorElem.textContent = `— ${selected.author}`;
+        }
+
+        function loadStateFromStorage() {
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats) {
+                        studentStats.totalSolved = parsed.studentStats.totalAnswered || 0;
+                        studentStats.correctCount = parsed.studentStats.correctCount || 0;
+                        studentStats.catExamsCount = Array.isArray(parsed.studentStats.examHistory) ? parsed.studentStats.examHistory.filter(item => /CAT/i.test(item.mode || item.type || '')).length : 0;
+                        studentStats.predictorExamsCount = parsed.studentStats.predictorHistory ? parsed.studentStats.predictorHistory.length : 0;
+                        
+                        const savedDomains = parsed.studentStats.clientNeeds || {};
+                        studentStats.categories = studentStats.categories.map(cat => {
+                            const domain = window.QuickRNCoach && window.QuickRNCoach.domains.find(item => item.name === cat.name);
+                            const metrics = domain ? (savedDomains[domain.id] || {}) : {};
+                            const legacy = (parsed.studentStats.categories || []).find(item => item.name === cat.name) || {};
+                            const solved = Math.max(0, Number(metrics.attempted ?? legacy.solved ?? 0) || 0);
+                            const correct = Math.max(0, Math.min(solved, Number(metrics.correct ?? legacy.correct ?? 0) || 0));
+                            return { ...cat, solved, correct, percentage: solved ? Math.round(correct / solved * 100) : 0 };
+                        });
+                    }
+                } catch(e) {
+                    console.error("Error reading saved state:", e);
+                }
+            }
+        }
+
+        function checkAuthStatus() {
+            const isSignedOut = localStorage.getItem('quickrn_signed_out') === 'true';
+            const overlay = document.getElementById('auth-overlay');
+
+            if (isSignedOut) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function handleSignOut() {
+            // Mark the session as signed out, then leave the dashboard entirely.
+            try {
+                localStorage.setItem('quickrn_signed_out', 'true');
+            } catch (error) {
+                console.warn('Could not persist the signed-out state:', error);
+            }
+            window.location.replace('index.html');
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            localStorage.setItem('quickrn_signed_out', 'false');
+            localStorage.setItem('quickrn_user_email', email);
+            
+            document.getElementById('auth-overlay').classList.add('hidden');
+            updateTimeBasedGreeting();
+            rotateEncouragement();
+            showToast('Welcome back! Dashboard synchronized.', 'success');
+        }
+
+        
+        function generateStudyRoadmap() {
+            const container = document.getElementById('ai-roadmap-container');
+            const measured = studentStats.categories.filter(cat => cat.solved > 0).sort((a, b) => a.percentage - b.percentage);
+            if (!measured.length) {
+                container.innerHTML = '<p class="p-4 rounded-xl bg-indigo-900/50 text-indigo-100 text-xs">Complete and submit questions in a practice mode to collect Client Needs data before generating a personalized study plan.</p>';
+                return;
+            }
+
+            const weakAreas = measured.filter(cat => cat.percentage < 75).slice(0, 3);
+            const priorities = weakAreas.length ? weakAreas : measured.slice(0, 2);
+            const primary = priorities[0], secondary = priorities[1] || primary;
+            const tasks = [
+                { title: 'Review core concepts: ' + primary.name, details: 'Review key cues, core concepts, and rationales for missed questions.' },
+                { title: 'Targeted practice: ' + primary.name, details: 'Complete a focused question set and explain why each distractor is less appropriate.' },
+                { title: 'Clinical judgment review', details: 'Practice recognizing cues, analyzing cues, prioritizing hypotheses, and evaluating outcomes.' },
+                { title: 'Second focus area: ' + secondary.name, details: 'Review high-yield content and correct misunderstandings in this domain.' },
+                { title: 'Timed practice: weak areas', details: 'Complete a timed set, then review missed questions and identify the reason for each error.' },
+                { title: 'Mixed practice and error log', details: 'Complete mixed questions and summarize recurring knowledge gaps.' },
+                { title: 'Reassess Client Needs mastery', details: 'Retest the focus areas and compare accuracy with the 75% target.' }
+            ];
+            const localDate = offset => {
+                const date = new Date();
+                date.setHours(12, 0, 0, 0);
+                date.setDate(date.getDate() + offset);
+                return date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+            };
+            let events = [];
+            try { events = JSON.parse(localStorage.getItem('quickrn_calendar_events') || '[]'); } catch (error) { events = []; }
+            if (!Array.isArray(events)) events = [];
+            events = events.filter(event => event.source !== 'ai-roadmap');
+            const roadmapEvents = tasks.map((task, index) => ({
+                id: 'roadmap-' + Date.now().toString(36) + '-' + index,
+                date: localDate(index),
+                title: task.title,
+                details: task.details,
+                source: 'ai-roadmap'
+            }));
+            localStorage.setItem('quickrn_calendar_events', JSON.stringify(events.concat(roadmapEvents)));
+            localStorage.setItem('quickrn_ai_study_roadmap', JSON.stringify({
+                generatedAt: new Date().toISOString(),
+                focus: priorities.map(cat => ({ name: cat.name, percentage: cat.percentage, attempts: cat.solved })),
+                events: roadmapEvents
+            }));
+            const escapeText = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+            const first = weakAreas[0] || primary;
+            container.innerHTML = '<div class="grid grid-cols-1 md:grid-cols-3 gap-4"><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Performance review</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'This is below the 75% accuracy target.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-4 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item, index) => '<li><strong>Day ' + (index + 1) + ':</strong> ' + escapeText(item.title) + '</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
+            showToast('Study roadmap saved to Calendar.', 'success');
+        }
+
+        // Subject and lesson taxonomy for focused Self Study sessions.
+        const quickRNSubjectLessons = [
+            {name:'Adult Health',icon:'fa-heart-pulse',color:'blue',lessons:[
+                ['Cardiovascular System','cardiovascular|cardiac|heart failure|hypertension|dysrhythmia'],
+                ['Respiratory System','respiratory|pulmonary|copd|asthma|pneumonia'],
+                ['Endocrine System','endocrine|diabetes|thyroid|adrenal|dka'],
+                ['Renal & Urinary System','renal|kidney|urinary|acute kidney|dialysis'],
+                ['Gastrointestinal System','gastrointestinal|gi|bowel|liver|pancreatitis'],
+                ['Neurological System','neurologic|neurological|stroke|seizure|intracranial'],
+                ['Hematology & Oncology','hematology|oncology|anemia|leukemia|cancer'],
+                ['Musculoskeletal System','musculoskeletal|orthopedic|fracture|joint'],
+                ['Integumentary & Wound Care','integumentary|skin|wound|burn'],
+                ['Perioperative & Postoperative Care','perioperative|postoperative|post-op|surgical']
+            ]},
+            {name:'Child Health',icon:'fa-child-reaching',color:'pink',lessons:[
+                ['Growth & Development','growth|development|developmental|milestone'],
+                ['Pediatric Respiratory','pediatric respiratory|child respiratory|croup|bronchiolitis|asthma'],
+                ['Pediatric Cardiac','pediatric cardiac|congenital heart|heart defect'],
+                ['Pediatric Endocrine & Metabolic','pediatric endocrine|type 1 diabetes|pediatric dka'],
+                ['Pediatric GI & Nutrition','pediatric gi|dehydration|pediatric nutrition'],
+                ['Pediatric Neurology','pediatric neuro|febrile seizure|meningitis'],
+                ['Pediatric Safety & Emergencies','pediatric emergency|child safety|poisoning']
+            ]},
+            {name:'Critical Care',icon:'fa-truck-medical',color:'rose',lessons:[
+                ['Shock & Hemodynamic Instability','shock|hemodynamic|hypovolemic|cardiogenic'],
+                ['Sepsis & Infection','sepsis|septic|infection|sirs'],
+                ['Acute Respiratory Failure','respiratory failure|ventilator|ards|airway emergency'],
+                ['Cardiac Emergencies','cardiac emergency|myocardial infarction|acute coronary|pulmonary embolism'],
+                ['Neurological Emergencies','neurological emergency|increased intracranial|status epilepticus'],
+                ['Emergency Prioritization & Triage','emergency|triage|prioritization|rapid response']
+            ]},
+            {name:'Fundamentals',icon:'fa-book-open',color:'emerald',lessons:[
+                ['Nursing Process & Clinical Judgment','nursing process|clinical judgment|assessment|implementation'],
+                ['Safety & Infection Control','safety|infection control|isolation|standard precautions'],
+                ['Vital Signs & Basic Assessment','vital signs|assessment|physical examination'],
+                ['Mobility, Hygiene & Skin Integrity','mobility|hygiene|pressure injury|skin integrity'],
+                ['Fluids, Electrolytes & Acid-Base','fluid|electrolyte|acid-base|potassium|sodium'],
+                ['Nutrition & Elimination','nutrition|elimination|enteral|parenteral'],
+                ['Oxygenation & Basic Procedures','oxygenation|suctioning|specimen|catheter']
+            ]},
+            {name:'Leadership & Management',icon:'fa-people-group',color:'amber',lessons:[
+                ['Delegation & Assignment','delegation|assignment|scope of practice'],
+                ['Prioritization & Time Management','prioritization|priority|time management'],
+                ['Legal & Ethical Practice','legal|ethical|informed consent|confidentiality'],
+                ['Quality Improvement & Safety','quality improvement|risk management|patient safety'],
+                ['Leadership & Conflict Resolution','leadership|conflict|management|teamwork'],
+                ['Care Coordination & Discharge','care coordination|discharge|case management']
+            ]},
+            {name:'Mental Health',icon:'fa-brain',color:'violet',lessons:[
+                ['Therapeutic Communication','therapeutic communication|communication|interpersonal'],
+                ['Anxiety, Mood & Depression','anxiety|depression|bipolar|mood disorder'],
+                ['Psychosis & Schizophrenia','psychosis|schizophrenia|delusion|hallucination'],
+                ['Substance Use & Withdrawal','substance|withdrawal|alcohol|opioid'],
+                ['Personality & Behavioral Disorders','personality disorder|behavioral|eating disorder'],
+                ['Crisis Intervention & Suicide Safety','suicide|self-harm|crisis|violence']
+            ]},
+            {name:'Pharmacology',icon:'fa-pills',color:'indigo',lessons:[
+                ['Cardiovascular Medications','cardiac medication|cardiovascular medication|digoxin|antihypertensive|anticoagulant'],
+                ['Endocrine & Diabetes Medications','insulin|antidiabetic|thyroid medication|endocrine medication'],
+                ['Antibiotics & Anti-infectives','antibiotic|anti-infective|antimicrobial'],
+                ['Respiratory Medications','bronchodilator|respiratory medication|inhaler'],
+                ['Neurological & Psychiatric Medications','psychotropic|antidepressant|anticonvulsant|neurological medication'],
+                ['Pain Management & Opioids','analgesic|opioid|pain medication'],
+                ['Medication Safety & Calculations','medication safety|dosage calculation|drug calculation|pharmacology']
+            ]}
+        ];
+
+        function renderSubjectLessonLibrary() {
+            const root = document.getElementById('quickrn-subject-library');
+            if (!root) return;
+            const accents = {
+                blue:'border-blue-200 bg-blue-50 text-blue-700', pink:'border-pink-200 bg-pink-50 text-pink-700',
+                rose:'border-rose-200 bg-rose-50 text-rose-700', emerald:'border-emerald-200 bg-emerald-50 text-emerald-700',
+                amber:'border-amber-200 bg-amber-50 text-amber-700', violet:'border-violet-200 bg-violet-50 text-violet-700',
+                indigo:'border-indigo-200 bg-indigo-50 text-indigo-700'
+            };
+            const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            root.innerHTML = quickRNSubjectLessons.map((subject,index) => {
+                const links = subject.lessons.map(([label,terms]) =>
+                    '<a class="flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[11px] text-slate-700 hover:bg-emerald-50 hover:text-emerald-800 transition" href="selfstudy.html?topic='+encodeURIComponent(label)+'&q='+encodeURIComponent(terms)+'"><span>'+safe(label)+'</span><i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400"></i></a>'
+                ).join('');
+                const subjectTerms = subject.lessons.map(item=>item[1]).join('|');
+                return '<details class="group rounded-xl border border-slate-200 bg-white overflow-hidden" '+(index===0?'open':'')+'><summary class="cursor-pointer list-none flex items-center gap-2 p-2 hover:bg-slate-50"><span class="w-7 h-7 rounded-lg flex items-center justify-center border '+accents[subject.color]+'"><i class="fa-solid '+subject.icon+'"></i></span><span class="flex-1 min-w-0"><strong class="block text-xs text-slate-800">'+safe(subject.name)+'</strong><small class="text-[10px] text-slate-500">'+subject.lessons.length+' systems & lessons</small></span><i class="fa-solid fa-chevron-down text-[10px] text-slate-400 transition-transform group-open:rotate-180"></i></summary><a class="block px-2.5 py-1.5 text-[10px] font-bold text-emerald-700 hover:bg-emerald-50" href="selfstudy.html?topic='+encodeURIComponent(subject.name)+'&q='+encodeURIComponent(subjectTerms)+'">Practice all '+safe(subject.name)+' questions <i class="fa-solid fa-arrow-right ml-1"></i></a><div class="border-t border-slate-100 p-1 max-h-56 overflow-y-auto">'+links+'</div></details>';
+            }).join('');
+        }
+
+        function renderDashboardStats() {
+            document.getElementById('stat-solved-display').innerHTML = `${studentStats.totalSolved} <span class="text-sm font-semibold text-slate-400">/ ${totalQuestionsInPool}</span>`;
+            
+            const ledger = window.QuickRNQuestionMetrics && typeof window.QuickRNQuestionMetrics.totals === 'function' ? window.QuickRNQuestionMetrics.totals() : null;
+            const hasLedgerAttempts = ledger && Number(ledger.attempts) > 0;
+            const answered = hasLedgerAttempts ? Number(ledger.attempts) : Math.max(0, Number(studentStats.totalSolved) || 0);
+            const correct = hasLedgerAttempts ? Number(ledger.correct) : Math.max(0, Number(studentStats.correctCount) || 0);
+            studentStats.totalSolved = answered;
+            studentStats.correctCount = Math.min(answered, correct);
+            const accuracy = answered > 0 ? Math.round((studentStats.correctCount / answered) * 100) : 0;
+            document.getElementById('stat-accuracy').textContent = accuracy + '%';
+            const solvedNode = document.getElementById('stat-solved-display');
+            if (solvedNode) solvedNode.innerHTML = answered + ' <span class="text-sm font-semibold text-slate-400">/ ' + totalQuestionsInPool + '</span>';
+
+            document.getElementById('stat-exams').textContent = studentStats.catExamsCount;
+            document.getElementById('stat-predictor-count').textContent = studentStats.predictorExamsCount;
+
+            // Use the adaptive model's saved probability from a sufficiently long CAT/Predictor attempt.
+            // Never infer a passing probability from question volume, raw accuracy, or placeholder averages.
+            const savedState = (() => {
+                try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); }
+                catch (error) { return {}; }
+            })();
+            const stats = savedState.studentStats || {};
+            const history = [
+                ...(Array.isArray(stats.examHistory) ? stats.examHistory : []),
+                ...(Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [])
+            ];
+            const seen = new Set();
+            const adaptiveResults = history.filter(record => {
+                const mode = String(record.mode || record.type || '');
+                if (!/CAT|Predictor/i.test(mode)) return false;
+                const probability = Number(record.passingProbability);
+                const itemCount = Number(record.totalAnswered ?? record.total ?? record.attempted ?? 0);
+                if (!Number.isFinite(probability) || probability < 0 || probability > 100 || itemCount < 85) return false;
+                const key = [record.date || record.timestamp || '', mode, itemCount, probability].join('|');
+                if (seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            });
+            adaptiveResults.sort((a, b) => {
+                const dateA = Date.parse(a.timestamp || a.date || '') || 0;
+                const dateB = Date.parse(b.timestamp || b.date || '') || 0;
+                return dateB - dateA;
+            });
+            const latestAdaptiveResult = adaptiveResults[0] || null;
+            const calculatedProbability = latestAdaptiveResult
+                ? Math.round(Number(latestAdaptiveResult.passingProbability))
+                : null;
+
+            const probText = document.getElementById('probability-value-text');
+            const gaugeCircle = document.getElementById('gauge-circle-path');
+            const statusText = document.getElementById('probability-status-text');
+
+            if (probText) probText.textContent = calculatedProbability === null ? '—' : calculatedProbability + '%';
+            if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability === null ? 0 : calculatedProbability}, 100`);
+            if (statusText) {
+                statusText.textContent = latestAdaptiveResult
+                    ? (/INCONCLUSIVE/i.test(String(latestAdaptiveResult.status || latestAdaptiveResult.decision || '')) ? 'Limited evidence' : 'Latest adaptive result')
+                    : 'Complete 85+ CAT/Predictor items';
+            }
+        }
+
+        function renderMasteryCategories() {
+            const container = document.getElementById('mastery-categories-list');
+            const detailedContainer = document.getElementById('analytics-detailed-list');
+            if (container) container.innerHTML = '';
+            if (detailedContainer) detailedContainer.innerHTML = '';
+
+            studentStats.categories.forEach(cat => {
+                cat.solved = Math.max(0, Number(cat.solved) || 0);
+                cat.correct = Math.max(0, Math.min(cat.solved, Number(cat.correct) || 0));
+                cat.percentage = cat.solved ? Math.round(cat.correct / cat.solved * 100) : 0;
+                const status = cat.solved === 0 ? 'No data yet' : (cat.percentage < 75 ? 'Needs review' : 'On track');
+
+                if (container) {
+                    container.innerHTML += `
+                        <a href="selfstudy.html?topic=${encodeURIComponent(cat.name)}&q=${encodeURIComponent(cat.name.replace(/\s*\([^)]*\)/g, ''))}" class="block space-y-2 p-2.5 bg-slate-50 rounded-xl border ${cat.solved > 0 && cat.percentage < 75 ? 'border-2 border-red-500 bg-red-50/30' : (cat.solved === 0 ? 'border border-dashed border-slate-300' : 'border border-slate-200')} hover:border-brand-400 hover:bg-blue-50/40 transition cursor-pointer" title="Practice all questions in ${cat.name}">
+                            <div class="flex justify-between gap-2 text-xs font-bold">
+                                <span class="text-slate-700">${cat.name}</span>
+                                <span class="text-slate-900">${cat.solved ? cat.percentage + '%' : '—'} <span class="text-slate-400 font-normal">(${cat.correct}/${cat.solved} correct)</span></span>
+                            </div>
+                            <p class="text-[10px] font-semibold ${cat.solved > 0 && cat.percentage < 75 ? 'text-red-700' : 'text-slate-400'}">${status}</p>
+                            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden"><div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div></div>
+                        </a>`;
+                }
+                if (detailedContainer) {
+                    detailedContainer.innerHTML += `
+                        <a href="selfstudy.html?topic=${encodeURIComponent(cat.name)}&q=${encodeURIComponent(cat.name.replace(/\s*\([^)]*\)/g, ''))}" class="block p-3 rounded-xl border border-slate-100 bg-slate-50/50 space-y-2 hover:border-brand-400 transition">
+                            <div class="flex justify-between items-center gap-3"><h4 class="font-bold text-sm text-slate-800">${cat.name}</h4><span class="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700">${cat.solved ? cat.percentage + '% Mastery' : 'No data yet'}</span></div>
+                            <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden"><div class="${cat.color} h-full transition-all duration-500 rounded-full" style="width: ${cat.percentage}%"></div></div>
+                            <div class="flex justify-between text-[11px] text-slate-500"><span>Questions Attempted: <strong class="text-slate-700">${cat.solved}</strong></span><span>Correct Answers: <strong class="text-slate-700">${cat.correct}</strong></span></div>
+                        </a>`;
+                }
+            });
+        }
+
+        function initQuickRNScoreChart() {
+            const canvas = document.getElementById('quickrnScoreChart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            const state = (() => { try { return JSON.parse(localStorage.getItem('quickrn_student_state') || '{}'); } catch(e) { return {}; } })();
+            const stats = state.studentStats || {};
+            const history = Array.isArray(stats.examHistory) ? [...stats.examHistory] : [];
+            const predictorHistory = Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [];
+            const seen = new Set(history.map(x => String(x.date || '') + '|' + String(x.type || x.mode || '') + '|' + String(x.total || x.totalAnswered || '')));
+            predictorHistory.forEach(x => {
+                const key = String(x.date || '') + '|' + String(x.type || 'NCLEX Predictor Exam') + '|' + String(x.total || '');
+                if (!seen.has(key)) history.push(x);
+            });
+            const records = history
+                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp))
+                .map(x => ({...x, _date: new Date(x.timestamp || x.date), _score: Number(x.scorePercent ?? x.score), _prob: Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
+                .filter(x => !Number.isNaN(x._date.getTime()))
+                .sort((a,b) => a._date-b._date);
+            const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
+            const scores = records.map(x => x._score);
+            const probabilities = records.map(x => x._prob);
+            if (quickrnChartInstance) quickrnChartInstance.destroy();
+            quickrnChartInstance = new Chart(canvas, {
+                type: 'line',
+                data: { labels, datasets: [
+                    { label: 'Exam accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 3, fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 3, borderDash: [5,4], fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false }
+                ]},
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y === null ? 'Not recorded for this attempt' : ctx.parsed.y + '%'); } } }
+                    },
+                    scales: {
+                        y: { min: 0, max: 100, ticks: { callback: val => val + '%' }, title: {display:true,text:'Percentage'} },
+                        x: { grid: { display: false }, title: {display:true,text:'Completed exam attempts'} }
+                    }
+                }
+            });
+            const note = document.getElementById('quickrn-score-chart-note');
+            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a CAT or Predictor exam to begin your performance trend. No sample or peer data is shown.';
+        }
+
+        function switchTab(tabId) {
+            ['dashboard', 'features', 'analytics'].forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const nav = document.getElementById(`nav-${t}`);
+                if (content) content.classList.add('hidden');
+                if (nav) {
+                    nav.classList.remove('bg-brand-50', 'text-brand-700');
+                    nav.classList.add('text-slate-600', 'hover:bg-slate-50');
+                }
+            });
+
+            const activeContent = document.getElementById(`tab-content-${tabId}`);
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeNav) {
+                activeNav.classList.remove('text-slate-600', 'hover:bg-slate-50');
+                activeNav.classList.add('bg-brand-50', 'text-brand-700');
+            }
+
+            const titles = {
+                dashboard: 'NCLEX Candidate Dashboard',
+                features: 'QuickRN Feature Hub & NCLEX Tour',
+                analytics: 'Client Needs Mastery Analytics'
+            };
+            document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
+        }
+
+        
+        function openFinishedTestsModal() {
+            const container = document.getElementById('finished-tests-list');
+            let finishedExams = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats) {
+                        if (Array.isArray(parsed.studentStats.examHistory)) {
+                            // Filter only finished exams
+                            finishedExams = parsed.studentStats.examHistory.filter(ex => ex.isFinished || ex.finished || ex.scorePercent !== undefined);
+                        }
+                        if (Array.isArray(parsed.studentStats.predictorHistory)) {
+                            parsed.studentStats.predictorHistory.forEach(r => {
+                                finishedExams.push({
+                                    type: 'NCLEX Predictor Exam',
+                                    scorePercent: r.scorePercent || r.score || 0,
+                                    date: r.date || new Date().toLocaleString(),
+                                    details: r.details || 'Completed NCLEX Predictor Exam'
+                                });
+                            });
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            if (finishedExams.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto"><i class="fa-regular fa-folder-open"></i></div>
+                        <h4 class="font-bold text-slate-800 text-sm">No Finished Tests Yet</h4>
+                        <p class="text-xs text-slate-500">Complete a CAT Exam, Timed Practice Test, or NCLEX Predictor Exam to view finished results here.</p>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                finishedExams.forEach((ex, i) => {
+                    let score = ex.scorePercent !== undefined ? ex.scorePercent : (ex.score || 0);
+                    let title = ex.type || `Exam Attempt #${i + 1}`;
+                    let dateStr = ex.date || 'Recent session';
+                    let passStatus = score >= 75 ? '<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">PASSING</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">NEEDS REVIEW</span>';
+                    
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-bold text-slate-900">${title}</span>
+                                    ${passStatus}
+                                </div>
+                                <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${dateStr}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-base font-black text-brand-600">${score}%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">Score</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+
+            document.getElementById('finished-tests-modal').classList.remove('hidden');
+        }
+
+        function closeFinishedTestsModal() {
+            document.getElementById('finished-tests-modal').classList.add('hidden');
+        }
+
+        
+        function openCatExamsModal() {
+            const container = document.getElementById('specific-exams-list');
+            document.getElementById('modal-exam-title').textContent = 'CAT Exam History & Previous Attempts';
+            let catHistory = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && Array.isArray(parsed.studentStats.examHistory)) {
+                        catHistory = parsed.studentStats.examHistory;
+                    }
+                } catch(e) {}
+            }
+
+            if (catHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-graduation-cap"></i></div>
+                        <h4 class="font-bold text-slate-800 text-sm">No CAT Exams Completed Yet</h4>
+                        <p class="text-xs text-slate-500">Complete sessions in the CAT Exam Simulator to review your historical attempts here.</p>
+                        <a href="cat.html" class="inline-block mt-3 px-4 py-2 bg-ncsbn-navy text-white text-xs font-bold rounded-lg bg-slate-900">Start CAT Exam</a>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                catHistory.forEach((ex, i) => {
+                    let score = ex.scorePercent || ex.score || 0;
+                    let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">PASSING</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">NEAR PASSING</span>';
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-bold text-slate-900">CAT Attempt #${i + 1}</span>
+                                    ${passStatus}
+                                </div>
+                                <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed session'}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-base font-black text-amber-600">${score}%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">CAT Score</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
+        }
+
+        function openPredictorExamsModal() {
+            const container = document.getElementById('specific-exams-list');
+            document.getElementById('modal-exam-title').textContent = 'NCLEX Predictor Exam History & Previous Attempts';
+            let predictorHistory = [];
+
+            const savedState = localStorage.getItem('quickrn_student_state');
+            if (savedState) {
+                try {
+                    const parsed = JSON.parse(savedState);
+                    if (parsed.studentStats && Array.isArray(parsed.studentStats.predictorHistory)) {
+                        predictorHistory = parsed.studentStats.predictorHistory;
+                    }
+                } catch(e) {}
+            }
+
+            if (predictorHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center space-y-2">
+                        <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h4 class="font-bold text-slate-800 text-sm">No NCLEX Predictor Exams Completed Yet</h4>
+                        <p class="text-xs text-slate-500">Take the Predictive Test to assess your readiness and record your score history here.</p>
+                        <a href="predictor.html" class="inline-block mt-3 px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-lg">Start Predictor Exam</a>
+                    </div>
+                `;
+            } else {
+                let html = '';
+                predictorHistory.forEach((ex, i) => {
+                    let score = ex.scorePercent || ex.score || 0;
+                    let passStatus = score >= 75 ? '<span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold text-[10px]">HIGH LIKELIHOOD</span>' : '<span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold text-[10px]">BORDERLINE</span>';
+                    html += `
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-bold text-slate-900">Predictive Test Attempt #${i + 1}</span>
+                                    ${passStatus}
+                                </div>
+                                <p class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-1"></i> ${ex.date || 'Completed assessment'}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-base font-black text-purple-600">${score}%</span>
+                                <span class="block text-[10px] text-slate-400 uppercase">Predictor Score</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('specific-exams-modal').classList.remove('hidden');
+        }
+
+        function closeSpecificExamsModal() {
+            document.getElementById('specific-exams-modal').classList.add('hidden');
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-slate-900';
+
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-3 transform transition-all translate-y-2 opacity-0 pointer-events-auto`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check text-emerald-300' : 'fa-circle-info text-blue-300'}"></i>
+                <span>${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+
+    <!-- FINISHED TESTS MODAL -->
+    <div id="finished-tests-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base">Finished Test History</h3>
+                        <p class="text-xs text-slate-500">All completed exams and finished test sessions</p>
+                    </div>
+                </div>
+                <button onclick="closeFinishedTestsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="finished-tests-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeFinishedTestsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SPECIFIC EXAMS HISTORY MODAL (CAT & PREDICTOR) -->
+    <div id="specific-exams-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 space-y-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-exam-title" class="font-bold text-slate-900 text-base">Exam History</h3>
+                        <p class="text-xs text-slate-500">All recorded previous exam attempts</p>
+                    </div>
+                </div>
+                <button onclick="closeSpecificExamsModal()" class="text-slate-400 hover:text-slate-600 text-lg p-2"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="specific-exams-list" class="flex-grow overflow-y-auto space-y-3 pr-1">
+                <!-- Dynamically populated -->
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex justify-end">
+                <button onclick="closeSpecificExamsModal()" class="px-5 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/quickrn-platform-hardening.js"></script>
+</body>
+</html>
