@@ -102,6 +102,9 @@
                     <span>Calendar</span>
                 </a>
                 
+                <a href="#" onclick="switchTab('learning')" id="nav-learning" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                    <i class="fa-solid fa-book-open w-5 text-center text-emerald-600"></i><span>Learning Center</span>
+                </a>
                 <a href="#" onclick="switchTab('features')" id="nav-features" class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
                     <i class="fa-solid fa-compass w-5 text-center text-indigo-600"></i>
                     <span>QuickRN Feature Hub</span>
@@ -176,116 +179,98 @@
             <!-- Scrollable View Container -->
             <main class="flex-1 overflow-y-auto p-3 lg:p-4 space-y-3">
 
-                <!-- DASHBOARD TAB -->
-                <div id="tab-content-dashboard" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-3">
-                    
-                    <!-- BANNER WITH NO CARD BORDERS AND ENLARGED PASS RATE ON THE RIGHTMOST SIDE -->
-                    <div class="lg:col-span-2 xl:col-span-3 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 rounded-xl p-3 lg:p-4 text-white shadow-md relative overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="absolute -left-10 -bottom-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-3 items-center">
-                            
-                            <!-- LEFT SIDE: Greeting & Encouraging Passage -->
-                            <div class="lg:col-span-7 space-y-1">
-                                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-                                    <i class="fa-solid fa-heart-pulse"></i>
-                                    <span>Daily NCLEX Motivation</span>
-                                </div>
-
-                                <h2 id="greeting-title" class="text-xl lg:text-2xl font-black tracking-tight text-white leading-tight">
-                                    Welcome Back, Future RN! 👋
-                                </h2>
-
-                                <div class="pt-1">
-                                    <p id="encouraging-passage" class="text-xs lg:text-sm text-slate-200 italic leading-snug font-normal">
-                                        "Nurses are the heart of healthcare. Every question you answer today brings you one step closer to putting RN behind your name."
-                                    </p>
-                                    <p id="quote-author" class="mt-2 text-xs font-semibold text-emerald-400 tracking-wide">— QuickRN Motivation</p>
-                                </div>
-                            </div>
-
-                            <!-- RIGHT SIDE: NCLEX Passing Probability Text & Rightmost Large Gauge Circle -->
-                            <div class="lg:col-span-5 flex items-center justify-between space-x-3">
-                                
-                                <div class="space-y-1 flex-1">
-                                    <h3 class="text-lg lg:text-xl font-black text-white tracking-tight leading-snug">
-                                        NCLEX Passing Probability
-                                    </h3>
-                                    <p class="text-xs text-slate-300 leading-snug">
-                                        Based on your latest completed CAT or Predictor adaptive ability estimate. An estimate appears after at least 85 answered items; question volume and placeholder scores do not inflate it.
-                                    </p>
-                                </div>
-
-                                <!-- Rightmost Large Percentage Gauge Circle -->
-                                <div class="relative w-20 h-20 lg:w-24 lg:h-24 flex-shrink-0 flex items-center justify-center">
-                                    <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                                        <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                        <path id="gauge-circle-path" class="text-emerald-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                    </svg>
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                        <span id="probability-value-text" class="text-2xl lg:text-3xl font-black text-white tracking-tight">—</span>
-                                        <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">EST. PASS LIKELIHOOD</span>
-                                        <span id="probability-status-text" class="text-[9px] text-slate-400 mt-1">Complete a CAT or Predictor exam</span>
-                                    </div>
-                                </div>
-
-                            </div>
-
+                <!-- COMPACT DASHBOARD -->
+                <div id="tab-content-dashboard" class="space-y-3">
+                    <section class="rounded-xl bg-slate-950 text-white px-4 py-3 lg:px-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                        <div class="min-w-0">
+                            <p class="text-[10px] uppercase tracking-[.16em] font-bold text-emerald-300">Your NCLEX preparation</p>
+                            <h2 id="greeting-title" class="text-lg lg:text-xl font-extrabold tracking-tight mt-0.5">Welcome Back, Future RN!</h2>
+                            <p id="encouraging-passage" class="text-xs text-slate-300 mt-1 leading-relaxed">Every question you answer today brings you one step closer to your RN goal.</p>
+                            <p id="quote-author" class="text-[10px] text-emerald-300 mt-1 font-semibold">— QuickRN Motivation</p>
                         </div>
+                        <div class="flex items-center gap-3 sm:max-w-[245px] sm:border-l sm:border-slate-700 sm:pl-4">
+                            <div class="relative w-14 h-14 shrink-0">
+                                <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36" aria-hidden="true">
+                                    <path class="text-slate-700" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path id="gauge-circle-path" class="text-emerald-400" stroke-dasharray="0, 100" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center text-base font-extrabold"><span id="probability-value-text">—</span></div>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-white">NCLEX readiness estimate</p>
+                                <p id="probability-status-text" class="text-[10px] text-slate-400 mt-0.5">Complete 85+ CAT/Predictor items</p>
+                                <p class="text-[10px] text-slate-500 mt-1">Based on saved adaptive results</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section aria-label="Study statistics" class="grid grid-cols-2 xl:grid-cols-4 gap-2">
+                        <button type="button" onclick="openFinishedTestsModal()" class="text-left bg-white border border-slate-200 rounded-lg px-3 py-2.5 hover:border-brand-300 transition">
+                            <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">Questions answered</span>
+                            <span id="stat-solved-display" class="block text-xl font-extrabold text-slate-900 mt-0.5">0 <span id="stat-pool-total" class="text-xs font-medium text-slate-400">/ 0</span></span>
+                            <span class="text-[10px] text-slate-400">View completed attempts</span>
+                        </button>
+                        <div class="bg-white border border-slate-200 rounded-lg px-3 py-2.5">
+                            <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">Overall accuracy</span>
+                            <span id="stat-accuracy" class="block text-xl font-extrabold text-slate-900 mt-0.5">0%</span>
+                            <span class="text-[10px] text-slate-400">Target: 75%+</span>
+                        </div>
+                        <button type="button" onclick="openCatExamsModal()" class="text-left bg-white border border-slate-200 rounded-lg px-3 py-2.5 hover:border-brand-300 transition">
+                            <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">CAT exams</span>
+                            <span id="stat-exams" class="block text-xl font-extrabold text-slate-900 mt-0.5">0</span>
+                            <span class="text-[10px] text-slate-400">View CAT history</span>
+                        </button>
+                        <button type="button" onclick="openPredictorExamsModal()" class="text-left bg-white border border-slate-200 rounded-lg px-3 py-2.5 hover:border-brand-300 transition">
+                            <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">Predictor exams</span>
+                            <span id="stat-predictor-count" class="block text-xl font-extrabold text-slate-900 mt-0.5">0</span>
+                            <span class="text-[10px] text-slate-400">View predictor history</span>
+                        </button>
+                    </section>
+                    <div class="grid grid-cols-1 xl:grid-cols-5 gap-3">
+                        <section class="xl:col-span-3 bg-white rounded-xl border border-slate-200 p-3 lg:p-4 space-y-2">
+                            <div class="flex flex-wrap items-start justify-between gap-2">
+                                <div><h2 class="text-sm font-bold text-slate-900">Performance trend</h2><p class="text-[11px] text-slate-500">Your actual saved exam results over time</p></div>
+                                <div class="flex flex-wrap items-center gap-3 text-[10px] text-slate-500">
+                                    <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> Accuracy</span>
+                                    <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Passing estimate</span>
+                                </div>
+                            </div>
+                            <div class="h-40 w-full"><canvas id="quickrnScoreChart" role="img" aria-label="Line graph of saved exam accuracy and estimated passing likelihood"></canvas></div>
+                            <div class="flex items-center justify-between gap-2">
+                                <p id="quickrn-score-chart-note" class="text-[10px] text-slate-500" aria-live="polite">Loading saved exam history…</p>
+                                <button type="button" onclick="switchTab('analytics')" class="shrink-0 text-[10px] font-bold text-brand-700 hover:text-brand-900">Detailed analytics →</button>
+                            </div>
+                        </section>
+                        <section class="xl:col-span-2 bg-white rounded-xl border border-slate-200 p-3 lg:p-4 space-y-2">
+                            <div class="flex items-center justify-between gap-2">
+                                <div><h2 class="text-sm font-bold text-slate-900">Client Needs priorities</h2><p class="text-[10px] text-slate-500">Based on submitted answers</p></div>
+                                <button type="button" onclick="switchTab('analytics')" class="text-[10px] font-bold text-brand-700">View all</button>
+                            </div>
+                            <div class="flex flex-wrap gap-x-3 gap-y-1 text-[9px] text-slate-500">
+                                <span><span class="inline-block w-2 h-2 rounded-sm border-2 border-red-500 mr-1"></span>Below 75%</span>
+                                <span><span class="inline-block w-2 h-2 rounded-sm border border-slate-300 mr-1"></span>On track</span>
+                                <span><span class="inline-block w-2 h-2 rounded-sm border border-dashed border-slate-400 mr-1"></span>No data</span>
+                            </div>
+                            <div id="mastery-categories-list" class="grid grid-cols-1 gap-1.5"></div>
+                        </section>
                     </div>
-
-                    <!-- Quick Stats Grid (Initial State: All 0) -->
-                    <div class="lg:col-span-1 xl:col-span-1 xl:row-start-2 grid grid-cols-2 gap-1.5">
-                        
-                        <!-- Questions Only Card (Clickable to show finished exams / test history) -->
-                        <div onclick="openFinishedTestsModal()" class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-brand-500 hover:shadow-md transition-all group">
-                            <div>
-                                <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-brand-600 transition-colors">Questions only</p>
-                                <h3 id="stat-solved-display" class="text-xl font-black text-slate-900 mt-0.5">0 <span id="stat-pool-total" class="text-sm font-semibold text-slate-400">/ 0</span></h3>
-                                <p class="text-[9px] text-slate-500 mt-0.5"><i class="fa-regular fa-clock"></i> Click to view finished tests</p>
-                            </div>
-                            <div class="w-8 h-8 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
-                                <i class="fa-solid fa-list-check"></i>
-                            </div>
+                    <section class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div><p class="text-xs font-bold text-slate-900">Keep your preparation moving</p><p class="text-[10px] text-slate-500">Open your study tools or start an exam when you're ready.</p></div>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="switchTab('learning')" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Learning Center</button>
+                            <a href="selfstudy.html" class="px-3 py-2 rounded-lg bg-brand-600 text-white text-[11px] font-bold hover:bg-brand-700">Start practice</a>
+                            <a href="timed.html" class="px-3 py-2 rounded-lg bg-white border border-slate-200 text-[11px] font-bold text-slate-700 hover:border-brand-300">Timed exam</a>
                         </div>
+                    </section>
+                </div>
 
-                        <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Overall Accuracy</p>
-                                <h3 id="stat-accuracy" class="text-2xl font-black text-slate-900 mt-1">0%</h3>
-                                <p class="text-[11px] text-slate-500 mt-1">Target: &gt; 75% accuracy</p>
-                            </div>
-                            <div class="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0">
-                                <i class="fa-solid fa-bullseye"></i>
-                            </div>
-                        </div>
-
-                        <div onclick="openCatExamsModal()" class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group">
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-amber-600 transition-colors">CAT Exams Completed</p>
-                                <h3 id="stat-exams" class="text-2xl font-black text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all CAT exams</p>
-                            </div>
-                            <div class="w-9 h-9 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-amber-100 transition-colors">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
-                        </div>
-
-                        <div onclick="openPredictorExamsModal()" class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between cursor-pointer hover:border-purple-500 hover:shadow-md transition-all group">
-                            <div>
-                                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-purple-600 transition-colors">NCLEX Predictor Exams</p>
-                                <h3 id="stat-predictor-count" class="text-2xl font-black text-slate-900 mt-1">0</h3>
-                                <p class="text-[11px] text-slate-500 mt-1"><i class="fa-regular fa-clock"></i> Click to view all Predictor exams</p>
-                            </div>
-                            <div class="w-9 h-9 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0 group-hover:bg-purple-100 transition-colors">
-                                <i class="fa-solid fa-clipboard-check"></i>
-                            </div>
-                        </div>
+                <!-- LEARNING CENTER TAB -->
+                <div id="tab-content-learning" class="hidden space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+                        <div><h2 class="text-lg font-extrabold text-slate-900">Learning Center</h2><p class="text-xs text-slate-500">Focused lessons, clinical coaching, and remediation based on your practice history.</p></div>
+                        <a href="selfstudy.html" class="text-xs font-bold text-brand-700">Open Self Study →</a>
                     </div>
-
                     <!-- SUBJECT & LESSON LIBRARY -->
-                    <section class="lg:col-start-1 lg:row-start-3 xl:col-start-1 xl:row-start-3 xl:col-span-1 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-2">
+                    <section class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                             <div>
                                 <h2 class="text-base font-extrabold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-600 mr-2"></i>Subjects & Lesson Library</h2>
@@ -296,36 +281,8 @@
                         <div id="quickrn-subject-library" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2"></div>
                         <p class="text-[10px] text-slate-400">Focused sessions use matching question-bank topics. If a lesson has no matching questions yet, QuickRN will let you know rather than silently starting an unrelated session.</p>
                     </section>
-
-                    <!-- ARCHER-STYLE LINE GRAPH: Score Trajectory & Peer Benchmark Comparisons -->
-                    <div class="lg:col-start-2 lg:col-span-1 xl:col-start-2 xl:row-start-2 xl:col-span-2 bg-white rounded-lg border border-slate-200 p-2.5 shadow-sm space-y-2">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2">
-                            <div>
-                                <h2 class="text-base font-bold text-slate-900">Exam Performance & Passing Readiness Trend</h2>
-                                <p class="text-xs text-slate-500">Your recorded exam accuracy and model-estimated chance of being above the passing standard. Only actual saved attempts are plotted.</p>
-                            </div>
-                            <!-- Legend indicators -->
-                            <div class="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-600">
-                                <div class="flex items-center space-x-1.5">
-                                    <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block"></span>
-                                    <span>Exam accuracy</span>
-                                </div>
-                                <div class="flex items-center space-x-1.5">
-                                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-                                    <span>Estimated passing likelihood</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="h-36 w-full">
-                            <canvas id="quickrnScoreChart"></canvas>
-                        </div>
-                        <p id="quickrn-score-chart-note" class="text-[11px] text-slate-500" aria-live="polite">Loading saved exam history…</p>
-                    </div>
-
-                    
                     <!-- LOCAL CLINICAL STUDY COACH & REMEDIATION PLANNER -->
-                    <div class="lg:col-start-1 lg:row-start-5 lg:col-span-2 xl:col-start-1 xl:row-start-4 xl:col-span-3 bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-lg p-2.5 text-white shadow-md space-y-2 relative overflow-hidden">
+                    <section class="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
                         <div class="absolute right-0 top-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
                         <div class="flex flex-col gap-2 border-b border-indigo-800/60 pb-2">
                             <div class="flex items-center space-x-3">
@@ -347,39 +304,10 @@
                         <div id="ai-roadmap-container" class="space-y-3 text-xs text-indigo-100">
                             <p class="italic text-indigo-300">Click "Generate Study Roadmap" above to analyze your practice history and create your personalized 7-Day NCLEX remediation plan.</p>
                         </div>
-                    </div>
-
-                    <!-- COMBINED CLIENT NEEDS MASTERY & PRIORITY WEAK AREAS -->
-                    <section class="lg:col-span-2 lg:col-start-1 lg:row-start-4 xl:col-start-2 xl:row-start-3 xl:col-span-2 bg-white rounded-xl border border-slate-200 p-2.5 shadow-sm space-y-3">
-                        <div class="flex items-center justify-between gap-3 border-b border-slate-100 pb-2">
-                            <div>
-                                <h2 class="text-base font-extrabold text-slate-900">NCLEX Client Needs Performance</h2>
-                                <p class="text-[10px] text-slate-500">Mastery results and priority remediation areas, calculated from submitted answers.</p>
-                            </div>
-                            <button type="button" onclick="switchTab('analytics')" class="shrink-0 text-xs font-bold text-brand-700 hover:text-brand-900">Full analytics <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></button>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex flex-wrap items-center justify-between gap-2">
-                                <div>
-                                    <h3 class="text-sm font-bold text-slate-900">Client Needs Categories</h3>
-                                    <p class="text-[10px] text-slate-500">Select any category to practice its questions. Priority areas are highlighted directly in the same list.</p>
-                                </div>
-                                <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-slate-600" aria-label="Client Needs performance legend">
-                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border-2 border-red-500 bg-white"></span> Priority review: below 75%</span>
-                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-slate-200 bg-slate-50"></span> On track: 75% or higher</span>
-                                    <span class="inline-flex items-center gap-1.5"><span class="inline-block w-3 h-3 rounded-sm border border-dashed border-slate-400 bg-white"></span> No data yet</span>
-                                </div>
-                            </div>
-                            <div id="mastery-categories-list" class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                <!-- Populated dynamically by JS -->
-                            </div>
-                        </div>
                     </section>
-
                 </div>
 
-                
-                                <!-- FEATURE HUB TAB -->
+                <!-- FEATURE HUB TAB -->
                 <div id="tab-content-features" class="hidden space-y-6">
                     <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-8 text-white shadow-xl space-y-4 relative overflow-hidden">
                         <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -807,14 +735,14 @@
                 const probability = Number(record.passingProbability);
                 const itemCount = Number(record.totalAnswered ?? record.total ?? record.attempted ?? 0);
                 if (!Number.isFinite(probability) || probability < 0 || probability > 100 || itemCount < 85) return false;
-                const key = [record.date || record.timestamp || '', mode, itemCount, probability].join('|');
+                const key = [record.date || record.timestamp || record.completedAt || '', mode, itemCount, probability].join('|');
                 if (seen.has(key)) return false;
                 seen.add(key);
                 return true;
             });
             adaptiveResults.sort((a, b) => {
-                const dateA = Date.parse(a.timestamp || a.date || '') || 0;
-                const dateB = Date.parse(b.timestamp || b.date || '') || 0;
+                const dateA = Date.parse(a.timestamp || a.date || a.completedAt || '') || 0;
+                const dateB = Date.parse(b.timestamp || b.date || b.completedAt || '') || 0;
                 return dateB - dateA;
             });
             const latestAdaptiveResult = adaptiveResults[0] || null;
@@ -882,8 +810,8 @@
                 if (!seen.has(key)) history.push(x);
             });
             const records = history
-                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp))
-                .map(x => ({...x, _date: new Date(x.timestamp || x.date), _score: Number(x.scorePercent ?? x.score), _prob: Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
+                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
+                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.scorePercent ?? x.score), _prob: Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
                 .filter(x => !Number.isNaN(x._date.getTime()))
                 .sort((a,b) => a._date-b._date);
             const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
@@ -893,19 +821,20 @@
             quickrnChartInstance = new Chart(canvas, {
                 type: 'line',
                 data: { labels, datasets: [
-                    { label: 'Exam accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 3, fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false },
-                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 3, borderDash: [5,4], fill: false, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, spanGaps: false }
+                    { label: 'Exam accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#f59e0b', spanGaps: false }
                 ]},
                 options: {
                     responsive: true, maintainAspectRatio: false,
                     interaction: { mode: 'index', intersect: false },
+                    layout: { padding: { top: 4, right: 6, bottom: 0, left: 0 } },
                     plugins: {
                         legend: { display: false },
                         tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y === null ? 'Not recorded for this attempt' : ctx.parsed.y + '%'); } } }
                     },
                     scales: {
-                        y: { min: 0, max: 100, ticks: { callback: val => val + '%' }, title: {display:true,text:'Percentage'} },
-                        x: { grid: { display: false }, title: {display:true,text:'Completed exam attempts'} }
+                        y: { min: 0, max: 100, border: { display: false }, grid: { color: 'rgba(148,163,184,0.14)', drawTicks: false }, ticks: { stepSize: 25, color: '#94a3b8', font: { size: 9 }, padding: 6, callback: val => val + '%' } },
+                        x: { border: { display: false }, grid: { display: false }, ticks: { color: '#94a3b8', maxRotation: 0, autoSkip: true, maxTicksLimit: 6, font: { size: 9 } } }
                     }
                 }
             });
@@ -914,7 +843,7 @@
         }
 
         function switchTab(tabId) {
-            ['dashboard', 'features', 'analytics'].forEach(t => {
+            ['dashboard', 'learning', 'features', 'analytics'].forEach(t => {
                 const content = document.getElementById(`tab-content-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if (content) content.classList.add('hidden');
@@ -934,6 +863,7 @@
 
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
+                learning: 'Learning Center',
                 features: 'QuickRN Feature Hub & NCLEX Tour',
                 analytics: 'Client Needs Mastery Analytics'
             };
