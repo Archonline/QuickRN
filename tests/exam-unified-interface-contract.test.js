@@ -14,8 +14,8 @@ assert.doesNotMatch(renderer, /aria-label="Incorrect answer">✕<\/span><small/)
 
 assert.match(app, /function isAdaptiveMode\(\)\{return mode==='cat';\}/);
 assert.match(app, /\['15','15 questions'\].*\['50','50 questions'\].*\['85','85 questions'\].*\['150','150 questions'\].*\['all','All available questions'\]/);
-assert.match(app, /\['40','40 questions'\].*\['60','60 questions'\]/);
-assert.doesNotMatch(app, /\['85','85 questions'\].*\['150','150 questions'\]/);
+assert.match(app, /else if\(mode==='timed'\)opts=\[\['40','40 questions'\],\['60','60 questions'\]\]/);
+assert.doesNotMatch(app, /else if\(mode==='timed'\)opts=\[[^;]*\['85'|else if\(mode==='timed'\)opts=\[[^;]*\['150'/);
 assert.match(app, /else if\(mode==='cat'\)\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=\[\];const first=chooseFirstAdaptive\(\);if\(first\)session\.push\(first\);\}/);
 assert.match(app, /else\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=balancedPick\(pool,maxItems\);\}/);
 assert.match(app, /mode==='predictor'\?'Predictor score'/);
