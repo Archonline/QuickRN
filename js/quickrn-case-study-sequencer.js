@@ -38,8 +38,7 @@
  function randomizeAll(list,random){return shuffled(units(list),random).flatMap(unit=>unit.items);}
  function pick(list,count,seen,random){
   const source=units(list),seenIds=seen instanceof Set?seen:new Set(seen||[]);
-  let fresh=source.filter(unit=>!unit.items.every(q=>seenIds.has(String(q?.id??''))));
-  if(!fresh.length)fresh=source;
+  const fresh=source.filter(unit=>!unit.items.some(q=>seenIds.has(String(q?.id??''))));
   const target=Math.max(0,Number(count)||0),chosen=[];
   for(const unit of shuffled(fresh,random)){
    if(chosen.length>=target)break;
