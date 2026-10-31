@@ -14,6 +14,6 @@ jobs:
           node-version: 20
       - run: node --check js/quickrn-ngn-compat.js
       - run: node --check js/quickrn-exam-app.js
-      - run: node tests/quickrn-coach.test.js
-      - run: node tests/dashboard-question-routing.test.js
       - run: node tests/dashboard-layout-contract.test.js
+      - run: node tests/dashboard-question-routing.test.js
+      - run: node tests/quickrn-coach.test.js
