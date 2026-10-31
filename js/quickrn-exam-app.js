@@ -133,8 +133,38 @@ function renderAnswerArea(q){const r=currentRecord(q),api=renderer();if(!api||ty
 function updateProgress(){const done=session.filter(q=>answers[q.id]?.submitted).length;$('session-info-pill')?.replaceChildren(document.createTextNode(done+' answered'));if(mode==='predictor'||mode==='cat')$('q-total-display').textContent=String(maxItems);}
 function closeRationale(){$('rationale-section')?.classList.add('hidden');}
 function hasResponseValue(value){if(Array.isArray(value))return value.length>0&&value.some(hasResponseValue);if(value&&typeof value==='object')return Object.values(value).some(hasResponseValue);if(typeof value==='number')return Number.isFinite(value);if(typeof value==='boolean')return value;return value!==undefined&&value!==null&&String(value).trim()!=='';}
-function canSubmitResponse(q,draft){const f=String(renderer()?.detect(q)||'');if(isNGN(q)){const hasChoice= draft&&(draft.choice!==undefined&&String(draft.choice).trim()!==''||draft.selectedOption!==undefined&&String(draft.selectedOption).trim()!==''||['choices','selected','selectedList','highlights','order'].some(k=>Array.isArray(draft[k])&&draft[k].length>0));return !!(hasChoice||renderer()?.hasAnswer(q,draft)||hasResponseValue(draft));}if(f==='Single Choice')return !!draft&&draft.choice!==undefined&&String(draft.choice).trim()!=='';if(f==='Select N')return Array.isArray(draft.choices)&&draft.choices.length>0;return !!(renderer()?.hasAnswer(q,draft)||hasResponseValue(draft));}
-function submitAnswer(){const q=currentQuestion();if(!q||finished)return false;const r=currentRecord(q);if(r.submitted)return true;const api=renderer(),draft=api.toDraft(q,r.draft);if(!canSubmitResponse(q,draft)){notice('Please enter or select an answer before submitting.');return false;}r.draft=api.fromDraft(q,draft);r.submitted=true;r.lastSubmittedAt=new Date().toISOString();const detail=window.QuickRNNgnScoring?.grade(q,draft);r.result=detail||{isCorrect:!!api.grade(q,draft),earned:api.grade(q,draft)?1:0,max:1};r.isCorrect=!!r.result.isCorrect;saveState();renderAnswerArea(q);const status=$('status-message');if(status){status.textContent='';status.classList.add('hidden');}if(mode==='selfstudy'){recordMetric(q,r);showRationale(q,r);$('submit-btn').parentElement.classList.add('hidden');}else{notice('Answer recorded.');}updateProgress();return true;}
+function canSubmitResponse(q,draft,legacyDraft){
+ const api=renderer(),format=String(api?.detect(q)||'').toLowerCase(),d=draft&&typeof draft==='object'?draft:{},raw=legacyDraft&&typeof legacyDraft==='object'?legacyDraft:{};
+ const filled=v=>{if(Array.isArray(v))return v.some(filled);if(v&&typeof v==='object')return Object.values(v).some(filled);return v!==undefined&&v!==null&&String(v).trim()!=='';};
+ // The legacy renderer stores Matrix and Cloze answers as the selected-cell / blank maps.
+ // Normalize both representations so compatibility-layer conversions cannot hide a real selection.
+ if(format.includes('matrix')||format.includes('grid'))return filled(d.matrix)||filled(raw.matrix)||filled(raw)||!!api?.hasAnswer(q,d);
+ if(format.includes('cloze')||format.includes('drop-down')||format.includes('dropdown'))return filled(d.cloze)||filled(raw.cloze)||filled(raw)||!!api?.hasAnswer(q,d);
+ if(format.includes('bowtie'))return filled(d.condition)||filled(d.actions)||filled(d.monitoring)||filled(d.params)||filled(raw.condition)||filled(raw.actions)||filled(raw.monitoring)||filled(raw.params)||!!api?.hasAnswer(q,d);
+ if(format==='single choice')return filled(d.choice)||filled(d.selectedOption)||filled(raw.choice)||filled(raw.selectedOption);
+ if(format==='select n')return Array.isArray(d.choices)&&d.choices.length>0||Array.isArray(raw.choices)&&raw.choices.length>0;
+ return !!(api?.hasAnswer(q,d)||api?.hasAnswer(q,raw)||filled(d)||filled(raw));
+}
+function submitAnswer(){
+ const q=currentQuestion();if(!q||finished)return false;
+ const r=currentRecord(q);if(r.submitted)return true;
+ const api=renderer(),legacyDraft=r.draft&&typeof r.draft==='object'?r.draft:{};
+ let draft=api.toDraft(q,legacyDraft)||{};
+ if(!canSubmitResponse(q,draft,legacyDraft)){notice('Please enter or select an answer before submitting.');return false;}
+ const format=String(api.detect(q)||'').toLowerCase();
+ if(format.includes('matrix')||format.includes('grid'))draft.matrix=draft.matrix||legacyDraft.matrix||legacyDraft;
+ if(format.includes('cloze')||format.includes('drop-down')||format.includes('dropdown'))draft.cloze=draft.cloze||legacyDraft.cloze||legacyDraft;
+ if(format.includes('bowtie'))draft={...draft,condition:draft.condition??legacyDraft.condition??'',actions:draft.actions||legacyDraft.actions||[],monitoring:draft.monitoring||legacyDraft.monitoring||legacyDraft.params||[]};
+ r.draft=api.fromDraft(q,draft);
+ r.submitted=true;r.lastSubmittedAt=new Date().toISOString();
+ const detail=window.QuickRNNgnScoring?.grade(q,draft),fallbackGrade=api.grade(q,draft);
+ r.result=detail||{isCorrect:!!fallbackGrade,earned:fallbackGrade?1:0,max:1};
+ r.isCorrect=!!r.result.isCorrect;saveState();renderAnswerArea(q);
+ const status=$('status-message');if(status){status.textContent='';status.classList.add('hidden');}
+ if(mode==='selfstudy'){recordMetric(q,r);showRationale(q,r);$('submit-btn').parentElement.classList.add('hidden');}
+ else notice('Answer recorded.');
+ updateProgress();return true;
+}
 function recordMetric(q,r){if(r.metricRecorded)return;r.metricRecorded=true;try{window.QuickRNQuestionMetrics?.record(q,!!r.isCorrect,mode);}catch(e){}try{window.QuickRNCoach?.recordClientNeedAttempt(q,!!r.isCorrect);}catch(e){}saveState();}
 function rationaleText(v){if(v==null)return '';if(typeof v==='string'||typeof v==='number')return String(v);if(Array.isArray(v))return v.map(rationaleText).filter(Boolean).join(' ');if(typeof v==='object')return String(v.rationale||v.explanation||v.feedback||v.text||v.description||'');return '';}
 function buildTeachingRationale(q,r,result){
