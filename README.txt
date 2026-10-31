@@ -272,3 +272,14 @@ SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
 - Self-Study session choices are 15, 50, 85, 150, or all remaining unseen items.
 - Timed Practice choices are 40, 60, 85, and 150 items. The 85- and 150-item Timed Practice selections use the CAT adaptive engine; 40- and 60-item sessions remain fixed-form timed exams.
 - The shared exam application routes adaptive-mode decisions through one helper, keeping progress, CAT stopping, scoring, summary, and retake behavior consistent.
+
+
+## Saved library, calendar navigation, and distinct exam modes — November 1, 2026
+
+- Rebuilt the Saved Questions page into the shared QuickRN app shell with the same responsive left navigation, teal brand accents, typography, surfaces, and active-page treatment as the dashboard.
+- Added Saved Questions and Feedback Inbox destinations to the Calendar sidebar, plus a compact Saved shortcut in the Calendar header for smaller screens. Updated the Calendar's page-specific brand token to the shared teal palette while preserving its calendar layout and scheduling behavior.
+- Regenerated and verified CAT and NCLEX Predictor as separate pages using the shared Self-Study exam shell, shared question renderer, NGN/case-study support, rationale panel, and common exam application. Their page modes remain independently configured as `cat` and `predictor`.
+- Removed the 85- and 150-item adaptive options from Timed Practice. Timed Practice is now a fixed-form 40- or 60-question countdown exam.
+- CAT is the only adaptive exam mode: it selects subsequent questions based on the learner's estimated ability and uses adaptive stopping logic.
+- NCLEX Predictor is now a fixed-form 150-question readiness assessment with a domain performance report and a clearly qualified practice score; it no longer duplicates CAT's adaptive flow. Its score is not represented as an official NCLEX prediction.
+- Added regression assertions for the Saved/Calendar navigation and theme, distinct CAT/Predictor/Timed session logic, and shared page renderer dependencies.
