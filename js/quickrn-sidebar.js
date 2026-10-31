@@ -7,7 +7,7 @@
   const groups = [
     { label: 'Workspace', links: [
       ['dashboard.html','fa-chart-pie','Dashboard'], ['calendar.html','fa-calendar-days','Calendar'],
-      ['dashboard.html#learning','fa-book-open','Learning Center','learning'], ['dashboard.html#features','fa-compass','Feature Hub','features']
+      ['learning-center.html','fa-book-open','Learning Center'], ['dashboard.html#features','fa-compass','Feature Hub','features']
     ]},
     { label: 'Study & testing', links: [
       ['selfstudy.html','fa-book-medical','Self Study'], ['saved.html','fa-bookmark','Saved Questions'],
