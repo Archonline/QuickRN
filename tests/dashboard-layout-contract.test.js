@@ -19,7 +19,7 @@ assert.ok(dashboard.includes('QuickRNQuestionMetrics.totals()'), 'Accuracy shoul
 assert.ok(dashboard.includes('selfstudy.html?topic=' + '$' + '{encodeURIComponent(cat.name)}'), 'Client Needs cards should open focused question sets');
 assert.ok(dashboard.includes('topic=\'+encodeURIComponent(label)'), 'Lesson links should preserve their selected topic');
 assert.ok(examApp.includes('new URLSearchParams(window.location.search||\'\')'), 'Self Study should read dashboard topic filters');
-assert.ok(examApp.includes('maxItems=pool.length;session=shuffle(pool.slice())'), 'Focused topic sessions should include every matching question');
+assert.ok(examApp.includes('maxItems=pool.length;session=diversityShuffle(pool.slice())'), 'Focused topic sessions should include every matching question');
 
 assert.ok(dashboard.includes('id="tab-content-learning"'), 'Subjects and the study coach should live in a dedicated Learning Center tab');
 assert.ok(dashboard.includes('id="nav-learning"'), 'Learning Center should be available from the sidebar');
