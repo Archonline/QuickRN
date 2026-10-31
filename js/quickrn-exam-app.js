@@ -138,7 +138,7 @@ function addLabReferenceRanges(value){
  let matched=false,missing=false;
  const lines=raw.split('\n').map(line=>{
   if(/(?:reference|normal)\s+range|ref(?:erence)?\s*:/i.test(line))return line;
-  const m=line.match(/^\s*([A-Za-z][A-Za-z0-9 /()_-]{1,45})\s*[:=]\s*(-?\d+(?:\.\d+)?)\s*([A-Za-zµμ/%0-9.^/-]*)\s*$/);
+  const m=line.match(/^\s*([A-Za-z][A-Za-z0-9 /()_-]{1,45}?)\s*(?:[:=]\s*|\s+)(-?\d+(?:\.\d+)?)\s*([A-Za-zµμ/%0-9.^/-]*)\s*$/);
   if(!m){if(/\b\d+(?:\.\d+)?\b/.test(line))missing=true;return line;}
   const range=quickRNStandardLabRange(m[1],m[3]);
   if(!range){missing=true;return line;}
@@ -158,7 +158,7 @@ function asText(v){
   const name=v.test||v.name||v.analyte||v.label||v.parameter||v.testName||'';
   const value=v.value??v.result??v.measurement??v.observedValue;
   const unit=v.unit||v.units||'';
-  const suppliedRange=v.referenceRange??v.normalRange??v.normal??v.range??v.referenceValues;const range=suppliedRange??quickRNStandardLabRange(name,unit);
+  const suppliedRange=v.referenceRange??v.normalRange??v.normal??v.range??v.referenceValues;const range=suppliedRange!==undefined&&suppliedRange!==null&&String(suppliedRange).trim()?suppliedRange:quickRNStandardLabRange(name,unit);
   if(value!==undefined&&value!==null){
    const rangeText=range!==undefined&&range!==null&&String(range).trim()?'<span class="qr-lab-reference-range"><strong>'+(suppliedRange?'Reference range:':'Typical adult reference range:')+'</strong> '+escapeHTML(typeof range==='object'?JSON.stringify(range):range)+'</span>':'<span class="qr-lab-reference-missing">Reference range not supplied in source record</span>';
    return '<div class="qr-lab-result"><strong>'+escapeHTML(name||'Result')+':</strong> '+escapeHTML(value)+' '+escapeHTML(unit)+' '+rangeText+'</div>';
