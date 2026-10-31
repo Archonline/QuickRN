@@ -901,9 +901,10 @@
             if (probText) probText.textContent = calculatedProbability === null ? '—' : calculatedProbability + '%';
             if (gaugeCircle) gaugeCircle.setAttribute('stroke-dasharray', `${calculatedProbability === null ? 0 : calculatedProbability}, 100`);
             if (statusText) {
+                const adaptiveStatus = String(latestAdaptiveResult?.status || latestAdaptiveResult?.decision || '').toUpperCase();
                 statusText.textContent = latestAdaptiveResult
-                    ? (/INCONCLUSIVE/i.test(String(latestAdaptiveResult.status || latestAdaptiveResult.decision || '')) ? 'Limited evidence' : 'Latest adaptive result')
-                    : 'Complete 85+ CAT/Predictor items';
+                    ? (adaptiveStatus === 'PASS' ? 'Practice standard met · simulated' : adaptiveStatus === 'FAIL' ? 'Below practice standard · simulated' : /CONTINUE|INCONCLUSIVE/.test(adaptiveStatus) ? 'Inconclusive practice estimate' : 'Latest adaptive estimate')
+                    : 'Complete 85+ CAT items';
             }
         }
 
