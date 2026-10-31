@@ -146,3 +146,15 @@ body.quickrn-exam main.question-only-layout{display:flex!important;}
 body.quickrn-exam main.question-only-layout>#left-panel{display:none!important;}
 body.quickrn-exam main.question-only-layout>#right-panel{display:flex!important;width:100%!important;max-width:none!important;flex:1 1 100%!important;min-width:0!important;}
 body.quickrn-exam main.question-only-layout #question-prompt{display:block!important;width:100%;margin:0 0 8px!important;padding:0!important;}
+
+
+/* Rationale review: option-by-option feedback stays directly beneath the choices. */
+body.quickrn-exam .qr-inline-option-rationale{flex:0 0 auto;margin:14px 0 8px;padding:14px;border:1px solid #cbd5e1;border-radius:12px;background:#fff;box-shadow:0 2px 8px rgba(16,43,78,.08);min-width:0;overflow-wrap:anywhere}
+body.quickrn-exam .qr-inline-rationale-heading{font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#102b4e;margin-bottom:10px}
+body.quickrn-exam .qr-inline-option-rationale>div{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:9px}
+body.quickrn-exam .qr-inline-option-rationale>div>div{min-width:0;overflow-wrap:anywhere}
+body.quickrn-exam #rationale-section{align-items:flex-start!important;justify-content:center!important;padding:16px!important}
+body.quickrn-exam #rationale-section>div{position:relative;box-sizing:border-box!important;width:min(96vw,1440px)!important;max-width:1440px!important;min-height:0!important;height:auto!important;max-height:calc(100dvh - 32px)!important;overflow-x:hidden!important;overflow-y:auto!important;margin:0 auto!important;padding:clamp(14px,2vw,28px)!important;overscroll-behavior:contain}
+body.quickrn-exam #rationale-section>div>*{min-width:0;max-width:100%;overflow-wrap:anywhere}
+body.quickrn-exam .qr-rationale-drag-handle{cursor:move;touch-action:none;user-select:none}
+body.quickrn-exam .qr-rationale-drag-handle:active{cursor:grabbing}
