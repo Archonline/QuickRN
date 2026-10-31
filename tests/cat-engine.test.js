@@ -17,6 +17,9 @@ assert.ok(cat.evaluate(make(true,85)).passProbability > 99,'strong performance s
 assert.ok(cat.evaluate(make(false,85)).passProbability < 1,'poor performance should show low confidence above standard');
 assert.ok(cat.evaluate(Array.from({length:85},()=>({q:{difficulty:0,discrimination:1},correct:true})).slice(0,55).concat(Array.from({length:30},()=>({q:{difficulty:0,discrimination:1},correct:false})))).passProbability < 50,'performance below the practice standard should be below borderline probability');
 assert.equal(cat.evaluate(make(true,85)).passProbability, cat.evaluate(make(true,85)).passProbability,'probability should be deterministic');
+const partial=cat.estimate([{q:{difficulty:0,discrimination:1},earned:1,max:2}]);
+const zero=cat.estimate([{q:{difficulty:0,discrimination:1},earned:0,max:2}]);
+assert.ok(partial.theta>zero.theta,'partial NGN credit must influence CAT ability estimate');
 assert.equal(cat.MAX_ITEMS,150);
 assert.equal(cat.MIN_ITEMS,85);
 console.log('PASS: CAT 85-item minimum, confidence checkpoint, and 150-item finalization.');
