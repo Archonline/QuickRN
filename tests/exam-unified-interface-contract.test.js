@@ -28,6 +28,9 @@ assert.match(app, /accuracyPercent:score\.accuracy/);
 assert.match(app, /score\.partialCorrect/);
 assert.match(app, /formatHtml\+judgmentHtml\+domainHtml/);
 assert.match(app, /renderer\(\)\.cleanClinicalText\(tabs\[index\]\.content,q\)/);
+assert.match(renderer, /quickRNGradeWithPolytomousScoring/);
+assert.match(app, /qr-lab-reference-range/);
+assert.match(app, /qr-lab-reference-missing/);
 assert.match(app, /\(mode==='selfstudy'\|\|reviewMode\)&&rec\.submitted\)showRationale/);
 assert.doesNotMatch(app, /ifisAdaptiveMode/);
 
