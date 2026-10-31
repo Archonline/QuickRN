@@ -137,3 +137,9 @@ body.quickrn-exam #summary-screen{z-index:80}
  body.quickrn-exam>main>#right-panel{min-height:420px}
  body.quickrn-exam>footer#exam-footer{position:sticky;bottom:0;flex-wrap:wrap;gap:8px}
 }
+
+/* Question-only items should not reserve an empty clinical-record column. */
+body.quickrn-exam main.question-only-layout{display:flex!important;}
+body.quickrn-exam main.question-only-layout>#left-panel{display:none!important;}
+body.quickrn-exam main.question-only-layout>#right-panel{display:flex!important;width:100%!important;max-width:none!important;flex:1 1 100%!important;min-width:0!important;}
+body.quickrn-exam main.question-only-layout #question-prompt{display:block!important;width:100%;margin:0 0 8px!important;padding:0!important;}
