@@ -100,10 +100,10 @@ function quickRNStandardLabRange(name,unit){
  const n=String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
  const u=String(unit||'').toLowerCase().replace(/[µμ]/g,'u').replace(/\s+/g,'');
  const match=p=>p.test(n),unitOk=p=>!u||p.test(u);
- if(match(/^(sodium|na)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '135–145 mEq/L';
- if(match(/^(potassium|k)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '3.5–5.0 mEq/L';
- if(match(/^(chloride|cl)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '98–106 mEq/L';
- if(match(/^(bicarbonate|co2|hco3)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return '22–29 mEq/L';
+ if(match(/^(sodium|na)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return u==='mmol/l'?'135–145 mmol/L':'135–145 mEq/L';
+ if(match(/^(potassium|k)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return u==='mmol/l'?'3.5–5.0 mmol/L':'3.5–5.0 mEq/L';
+ if(match(/^(chloride|cl)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return u==='mmol/l'?'98–106 mmol/L':'98–106 mEq/L';
+ if(match(/^(bicarbonate|co2|hco3)$/)&&unitOk(/^(meq\/l|mmol\/l)$/))return u==='mmol/l'?'22–29 mmol/L':'22–29 mEq/L';
  if(match(/^(bun|blood urea nitrogen)$/)&&unitOk(/^mg\/dl$/))return '7–20 mg/dL';
  if(match(/^(bun|blood urea nitrogen)$/)&&unitOk(/^mmol\/l$/))return '2.5–7.1 mmol/L';
  if(match(/^(creatinine|creat)$/)&&unitOk(/^mg\/dl$/))return '0.6–1.3 mg/dL (adult; varies with age and sex)';
@@ -114,6 +114,9 @@ function quickRNStandardLabRange(name,unit){
  if(match(/^(magnesium|mg)$/)&&unitOk(/^mg\/dl$/))return '1.7–2.2 mg/dL';
  if(match(/^(phosphorus|phosphate|phos)$/)&&unitOk(/^mg\/dl$/))return '2.5–4.5 mg/dL';
  if(match(/^(wbc|white blood cells?|white blood cell count)$/))return '4,500–11,000/µL (4.5–11.0 × 10³/µL)';
+ if(match(/^(hemoglobin|hgb|hb)$/)&&unitOk(/^g\/dl$/))return 'Female: 12–16 g/dL; male: 13.5–17.5 g/dL (adult)';
+ if(match(/^(hematocrit|hct)$/)&&unitOk(/^%$/))return 'Female: 36–46%; male: 41–53% (adult)';
+ if(match(/^(rbc|red blood cells?|red blood cell count)$/))return 'Female: 4.2–5.4 million/µL; male: 4.7–6.1 million/µL (adult)';
  if(match(/^(platelets?|platelet count)$/))return '150,000–400,000/µL (150–400 × 10³/µL)';
  if(match(/^(pt|prothrombin time)$/)&&unitOk(/^(sec|seconds?)$/))return '11–13.5 seconds';
  if(match(/^(inr|international normalized ratio)$/))return '0.8–1.1 (not receiving anticoagulants)';
