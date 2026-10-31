@@ -24,6 +24,10 @@ assert.match(app, /This is the best answer because it matches the keyed response
 assert.match(app, /This is not the best answer/);
 assert.match(app, /right\.insertBefore\(rationale,actionRow\)/);
 assert.match(app, /videoResources&&videoResources\.parentElement!==left/);
+assert.match(app, /accuracyPercent:score\.accuracy/);
+assert.match(app, /score\.partialCorrect/);
+assert.match(app, /formatHtml\+judgmentHtml\+domainHtml/);
+assert.match(app, /renderer\(\)\.cleanClinicalText\(tabs\[index\]\.content,q\)/);
 assert.match(app, /\(mode==='selfstudy'\|\|reviewMode\)&&rec\.submitted\)showRationale/);
 assert.doesNotMatch(app, /ifisAdaptiveMode/);
 
@@ -50,4 +54,5 @@ assert.match(brand, /#answer-workspace \.qr-feedback-correct\{color:#15803d/);
 assert.match(brand, /#answer-workspace \.qr-feedback-incorrect\{color:#b91c1c/);
 assert.match(read('css/quickrn-unified-exam.css'), /qr-clinical-scenario-text[^}]*font-size:19px/);
 assert.match(read('css/quickrn-unified-exam.css'), /#rationale-section:not\(\.hidden\)\{display:block/);
+assert.match(read('dashboard.html'), /accuracyPercent \?\? x\.scorePercent/);
 console.log('Unified exam interface contract tests passed.');
