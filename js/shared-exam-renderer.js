@@ -401,6 +401,16 @@ quickRNFromLegacyDraft=function(q,value){const f=quickRNDetectItemFormat(q);if(f
 const quickRNToLegacyBase2=quickRNToLegacyDraft;
 quickRNToLegacyDraft=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Numeric Entry')return d.numericEntry??'';if(f==='Select N')return d.choices||[];return quickRNToLegacyBase2(q,d);};
 
+const quickRNGradeWithPolytomousScoring=quickRNGrade;
+quickRNGrade=function(q,d){
+ const scoring=window.QuickRNNgnScoring;
+ if(scoring&&typeof scoring.grade==='function'){
+  const format=scoring.format(q);
+  if(['Multiple Response','Select N','Highlight','Matrix','Cloze','Bowtie','Ordered','Numeric'].includes(format))return scoring.grade(q,d);
+ }
+ return quickRNGradeWithPolytomousScoring(q,d);
+};
+
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,
  toDraft:quickRNFromLegacyDraft,
