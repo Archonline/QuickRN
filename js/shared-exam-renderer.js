@@ -194,8 +194,9 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    const tokenPattern=/\{\{([^}]+)\}\}|\{([^}]+)\}|\[\[([^\]]+)\]\]|\[blank\]|_{2,}/gi;
    let blankIndex=0;
    const renderBlank=token=>{
-    const index=blankIndex++,key=token&&token!=='[blank]'&&!/^_+$/.test(token)?token.trim():String(defs[index]?.id??defs[index]?.key??index);
-    const def=getDef(key,index),choices=getOptions(key,index,def)||[],selected=String(draft.cloze?.[key]??'');
+    const index=blankIndex++,tokenKey=token&&token!=='[blank]'&&!/^_+$/.test(token)?token.trim():'';
+    const matched=defs.find((d,i)=>String(d.id??d.key??d.name??i)===tokenKey),def=matched||defs[index]||{},key=matched?tokenKey:String(def.id??def.key??def.name??tokenKey||index);
+    const choices=getOptions(key,index,def)||[],selected=String(draft.cloze?.[key]??'');
     const correct=def.correct??def.answer??correctMap[key]??(Array.isArray(q.correctAnswers)?q.correctAnswers[index]:undefined);
     const isCorrect=correct!==undefined&&correct!==null&&(String(correct)===selected||choices.some(v=>optionValue(v)===selected&&[optionValue(v),optionLabel(v)].includes(String(correct))));
     const indicator=submitted?'<span class="qr-cloze-result '+(isCorrect?'is-correct':'is-incorrect')+'" aria-label="'+(isCorrect?'Correct':'Incorrect')+'">'+(isCorrect?'✓':'✕')+'</span>':'';
