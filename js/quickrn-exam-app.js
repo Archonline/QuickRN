@@ -133,6 +133,25 @@ function clearSubmissionError(){const status=$('status-message');if(!status)retu
 function showSubmissionError(){const status=$('status-message');if(status){status.textContent='Please enter or select an answer before submitting.';status.classList.remove('hidden');status.classList.add('text-red-700','bg-red-50','border','border-red-200','rounded','px-3','py-2');status.setAttribute('role','alert');}const workspace=$('answer-workspace');if(workspace)workspace.scrollIntoView({behavior:'smooth',block:'nearest'});}
 function renderAnswerArea(q){const r=currentRecord(q),api=renderer();if(!api||typeof api.renderReact!=='function'){$('answer-workspace').textContent='The shared question renderer did not load.';return;}const temp=document.createElement('div');const submitted=!!r.submitted;temp.innerHTML=api.renderReact(q,r.draft,function(legacy){if(mode==='selfstudy'&&r.submitted)return;r.draft=legacy;r.submitted=false;clearSubmissionError();saveState();},submitted);const response=temp.querySelector('.qr-response-area');$('answer-workspace').innerHTML=response?response.innerHTML:temp.innerHTML;$('answer-workspace').classList.toggle('answer-locked',submitted);}
 function updateProgress(){const done=session.filter(q=>answers[q.id]?.submitted).length;$('session-info-pill')?.replaceChildren(document.createTextNode(done+' answered'));if(mode==='predictor'||mode==='cat')$('q-total-display').textContent=String(maxItems);}
+function enableRationaleDragging(){
+ const overlay=$('rationale-section'),card=overlay?.firstElementChild,handle=card?.firstElementChild;
+ if(!overlay||!card||!handle||handle.dataset.dragReady==='1')return;
+ handle.dataset.dragReady='1';handle.classList.add('qr-rationale-drag-handle');handle.title='Drag to move this rationale panel';
+ let active=null;
+ handle.addEventListener('pointerdown',event=>{
+  if(event.target.closest('button,a,input,select,textarea'))return;
+  const rect=card.getBoundingClientRect();active={x:event.clientX,y:event.clientY,left:rect.left,top:rect.top};
+  card.style.position='fixed';card.style.margin='0';card.style.left=rect.left+'px';card.style.top=rect.top+'px';card.style.transform='none';
+  handle.setPointerCapture?.(event.pointerId);event.preventDefault();
+ });
+ handle.addEventListener('pointermove',event=>{
+  if(!active)return;const width=card.offsetWidth,height=card.offsetHeight;
+  const left=Math.max(8,Math.min(window.innerWidth-width-8,active.left+event.clientX-active.x));
+  const top=Math.max(8,Math.min(window.innerHeight-height-8,active.top+event.clientY-active.y));
+  card.style.left=left+'px';card.style.top=top+'px';
+ });
+ const stop=()=>{active=null;};handle.addEventListener('pointerup',stop);handle.addEventListener('pointercancel',stop);
+}
 function closeRationale(){const panel=$('rationale-section');if(panel){panel.classList.add('hidden');panel.style.display='none';}}
 function hasResponseValue(value){if(Array.isArray(value))return value.length>0&&value.some(hasResponseValue);if(value&&typeof value==='object')return Object.values(value).some(hasResponseValue);if(typeof value==='number')return Number.isFinite(value);if(typeof value==='boolean')return value;return value!==undefined&&value!==null&&String(value).trim()!=='';}
 function collectRenderedResponse(q,draft){
@@ -225,7 +244,20 @@ function buildTeachingRationale(q,r,result){
  const pearlText=pearl||core.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,360)||'Use the patient’s most important clinical cue to select the safest, most appropriate nursing response.';
  return '<section class="space-y-2"><h4 class="text-xs font-black uppercase tracking-wide text-slate-500">Why the correct answer is right</h4><p class="text-sm leading-relaxed text-slate-700"><strong>'+escapeHTML(correctText)+'</strong></p><div class="text-sm leading-relaxed text-slate-700">'+safeClinicalHTML(core)+'</div></section><section class="space-y-2"><h4 class="text-xs font-black uppercase tracking-wide text-slate-500">Why each option is right or not the best choice</h4><div class="space-y-2">'+optionsHtml+'</div></section><section class="rounded-lg border border-cyan-200 bg-cyan-50 p-4 space-y-1"><h4 class="text-xs font-black uppercase tracking-wide text-cyan-900">Clinical principle to remember</h4><p class="text-sm leading-relaxed text-slate-800">'+safeClinicalHTML(pearlText)+'</p></section>';
 }
-function showRationale(q,r){const graded=renderer().grade(q,renderer().toDraft(q,r.draft)),result=r.result||(graded&&typeof graded==='object'?graded:{isCorrect:!!graded,earned:graded?1:0,max:1});$('rationale-section').classList.remove('hidden');$('rationale-section').style.display='flex';$('result-badge').textContent=result.isCorrect?'CORRECT':'INCORRECT';$('result-badge').className='px-3 py-1 rounded text-xs font-bold uppercase text-white '+(result.isCorrect?'bg-green-600':'bg-red-600');$('score-earned').textContent='Score: '+result.earned+'/'+result.max;$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=buildTeachingRationale(q,r,result);const insight=window.QuickRNCoach?.buildTutorInsight(q,!!r.isCorrect);if($('coach-insight'))$('coach-insight').innerHTML=insight?'<div class="rounded-lg border border-cyan-100 bg-cyan-50 p-4"><div class="text-xs font-black uppercase tracking-wider text-cyan-900">Clinical Study Coach</div><p class="text-sm text-slate-700 mt-2">'+escapeHTML(insight.guidance)+'</p><p class="text-xs text-slate-600 mt-2">'+escapeHTML(insight.outcome)+'</p></div>':'';if($('confidence-saved'))$('confidence-saved').textContent=r.confidence?'Saved confidence: '+({1:'Guessing',2:'Somewhat sure',3:'Very sure'}[r.confidence]):'Optional · helps identify confidence gaps';renderLearningResources(q);$('rationale-section').classList.remove('hidden');}
+function showRationale(q,r){
+ const graded=renderer().grade(q,renderer().toDraft(q,r.draft)),result=r.result||(graded&&typeof graded==='object'?graded:{isCorrect:!!graded,earned:graded?1:0});
+ const rationaleMarkup=buildTeachingRationale(q,r,result),template=document.createElement('template');template.innerHTML=rationaleMarkup;
+ const optionSection=[...template.content.querySelectorAll('section')].find(section=>/Why each option is right or not the best choice/i.test(section.querySelector('h4')?.textContent||''));
+ const inlineHost=$('answer-workspace');inlineHost?.querySelector('.qr-inline-option-rationale')?.remove();
+ if(optionSection&&inlineHost){const inline=document.createElement('section');inline.className='qr-inline-option-rationale';inline.innerHTML='<div class="qr-inline-rationale-heading">Why each option is right or not the best choice</div>'+optionSection.innerHTML.replace(/<h4[^>]*>[\\s\\S]*?<\\/h4>/i,'');inlineHost.appendChild(inline);optionSection.remove();}
+ $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='flex';
+ $('result-badge').textContent=result.isCorrect?'CORRECT':'INCORRECT';$('result-badge').className='px-3 py-1 rounded text-xs font-bold uppercase text-white '+(result.isCorrect?'bg-green-600':'bg-red-600');
+ $('score-earned').textContent='Score: '+result.earned+'/'+result.max;$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=template.innerHTML;
+ const insight=window.QuickRNCoach?.buildTutorInsight(q,!!r.isCorrect);
+ if($('coach-insight'))$('coach-insight').innerHTML=insight?'<div class="rounded-lg border border-cyan-100 bg-cyan-50 p-4"><div class="text-xs font-black uppercase tracking-wider text-cyan-900">Clinical Study Coach</div><p class="text-sm text-slate-700 mt-2">'+escapeHTML(insight.guidance)+'</p><p class="text-xs text-slate-600 mt-2">'+escapeHTML(insight.outcome)+'</p></div>':'';
+ if($('confidence-saved'))$('confidence-saved').textContent=r.confidence?'Saved confidence: '+({1:'Guessing',2:'Somewhat sure',3:'Very sure'}[r.confidence]):'Optional · helps identify confidence gaps';
+ renderLearningResources(q);$('rationale-section').classList.remove('hidden');enableRationaleDragging();
+}
 function renderLearningResources(q){
  const host=$('video-resources');if(!host)return;
  const videos=(window.QuickRNYoutube?.getTwoVideos(q)||[]).slice(0,2);
