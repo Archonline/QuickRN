@@ -15,8 +15,11 @@ answers=readJSON(ANSWER_KEY,{})||{};bookmarks=new Set(readJSON(BOOKMARK_KEY,[])|
 function notice(message){let n=$('quickrn-notice');if(!n){n=document.createElement('div');n.id='quickrn-notice';n.className='fixed top-20 left-1/2 -translate-x-1/2 z-[90] bg-slate-900 text-white px-4 py-2 rounded-lg shadow-xl text-xs font-semibold';document.body.appendChild(n);}n.textContent=message;n.classList.remove('hidden');clearTimeout(notice._timer);notice._timer=setTimeout(()=>n.classList.add('hidden'),2600);}
 function stripQuestionLead(value, metadata){
  const api=renderer(),cleaner=api?.cleanClinicalText||api?.cleanPrompt;
- if(typeof cleaner==='function')return cleaner(String(value||''),metadata||{});
- let text=String(value||'').trim();
+ let text=typeof cleaner==='function'?cleaner(String(value||''),metadata||{}):String(value||'').trim();
+ const topic=String(metadata?.topic||metadata?.keyPhrase||metadata?.category||'').trim();
+ if(topic&&text.slice(0,topic.length).toLowerCase()===topic.toLowerCase()&&/^\\s*:/u.test(text.slice(topic.length)))text=text.slice(topic.length).replace(/^\\s*:\\s*/,'').trim();
+ const lead=/^\\s*(?:[A-Z][A-Za-z0-9 /&()'’-]{1,70}):\\s+(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify)\\b)/;
+ if(lead.test(text))text=text.replace(lead,'').trim();
  const patterns=[/^\s*(?:\[[^\]]+\]\s*)+/i,/^\s*(?:QUESTION\s*ID|ITEM\s*ID|QID|ID|TOPIC|SUBJECT|CATEGORY|TYPE)\s*[:#-]\s*[^—–|;\n]{1,110}\s*(?:[—–|;]\s*|(?=\n)|$)/i,/^\s*FOLLOW[- ]?UP\s*\d+\s*(?:[-:|–—]\s*)?/i,/^\s*PATIENT\s+INFORMATION\s*[:—–-]?\s*/i];
  for(let i=0;i<8;i++){const before=text;patterns.forEach(p=>text=text.replace(p,'').trim());if(text===before)break;}
  return text;
