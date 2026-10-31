@@ -225,9 +225,9 @@ function canSubmitResponse(q,draft,legacyDraft){
  const filled=v=>{if(Array.isArray(v))return v.some(filled);if(v&&typeof v==='object')return Object.values(v).some(filled);return v!==undefined&&v!==null&&String(v).trim()!=='';};
  // The legacy renderer stores Matrix and Cloze answers as the selected-cell / blank maps.
  // Normalize both representations so compatibility-layer conversions cannot hide a real selection.
- if(format.includes('matrix')||format.includes('grid'))return filled(d.matrix)||filled(raw.matrix)||filled(raw)||!!api?.hasAnswer(q,d);
- if(format.includes('cloze')||format.includes('drop-down')||format.includes('dropdown'))return filled(d.cloze)||filled(raw.cloze)||filled(raw)||!!api?.hasAnswer(q,d);
- if(format.includes('bowtie'))return filled(d.condition)||filled(d.actions)||filled(d.monitoring)||filled(d.params)||filled(raw.condition)||filled(raw.actions)||filled(raw.monitoring)||filled(raw.params)||!!api?.hasAnswer(q,d);
+ if(format.includes('matrix')||format.includes('grid'))return !!api?.hasAnswer(q,d)||!!api?.hasAnswer(q,raw);
+ if(format.includes('cloze')||format.includes('drop-down')||format.includes('dropdown'))return !!api?.hasAnswer(q,d)||!!api?.hasAnswer(q,raw);
+ if(format.includes('bowtie'))return !!api?.hasAnswer(q,d)||!!api?.hasAnswer(q,raw);
  if(format==='single choice')return filled(d.choice)||filled(d.selectedOption)||filled(d.selected)||filled(raw.choice)||filled(raw.selectedOption)||filled(typeof legacyDraft==='string'?legacyDraft:'')||!!api?.hasAnswer(q,d);
  if(format==='select n')return Array.isArray(d.choices)&&d.choices.length>0||Array.isArray(raw.choices)&&raw.choices.length>0;
  return !!(api?.hasAnswer(q,d)||api?.hasAnswer(q,raw)||filled(d)||filled(raw));
