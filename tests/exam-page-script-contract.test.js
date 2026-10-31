@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const root = process.cwd();
 const fs = require('fs');
-const pages = ['selfstudy.html', 'timed.html'];
+const pages = ['selfstudy.html', 'timed.html', 'predictor.html', 'cat.html'];
 const failures = [];
 for (const page of pages) {
   const html = fs.readFileSync(page, 'utf8');
@@ -41,10 +41,10 @@ if (failures.length) {
   console.error('Rebuilt exam page contract failed:\n- ' + failures.join('\n- '));
   process.exit(1);
 }
-console.log('PASS: both existing rebuilt exam pages preserve the correct_view split-screen and load the shared question stack in dependency order.');
+console.log('PASS: all four rebuilt exam pages preserve the correct_view split-screen and load the shared question stack in dependency order.');
 
 
-const platformPages = ['index.html','dashboard.html','calendar.html','selfstudy.html','timed.html','saved.html','reports.html','profile.html','help.html','correct_view.html'];
+const platformPages = ['index.html','dashboard.html','calendar.html','selfstudy.html','timed.html','predictor.html','cat.html','saved.html','reports.html','profile.html','help.html','correct_view.html'];
 for (const page of platformPages) {
   const html = fs.readFileSync(path.join(root, page), 'utf8');
   assert.match(html, /js\/quickrn-platform-hardening\.js/, page + ' should load shared platform safeguards');
