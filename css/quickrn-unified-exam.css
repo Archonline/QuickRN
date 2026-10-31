@@ -158,3 +158,21 @@ body.quickrn-exam #rationale-section>div{position:relative;box-sizing:border-box
 body.quickrn-exam #rationale-section>div>*{min-width:0;max-width:100%;overflow-wrap:anywhere}
 body.quickrn-exam .qr-rationale-drag-handle{cursor:move;touch-action:none;user-select:none}
 body.quickrn-exam .qr-rationale-drag-handle:active{cursor:grabbing}
+
+
+/* QuickRN exam readability and compact review spacing */
+body.quickrn-exam #case-study-content>div:last-child{font-size:15px!important;line-height:1.75!important;font-weight:600!important;color:#24364b!important}
+body.quickrn-exam #case-study-content .qr-ehr-section>div{padding:10px 12px!important;line-height:1.65!important}
+body.quickrn-exam .qr-choice{padding:15px 17px!important;gap:13px!important;line-height:1.65!important}
+body.quickrn-exam .qr-inline-option-rationale{margin:14px 0 8px;padding:12px!important;border:1px solid #dbe3ec;border-radius:12px;background:#fff}
+body.quickrn-exam .qr-inline-rationale-heading{font-size:13px;font-weight:850;color:#102b4e;margin:0 0 10px}
+body.quickrn-exam .qr-inline-rationale-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:9px}
+body.quickrn-exam .qr-inline-rationale-options>div{padding:12px!important;border-radius:9px}
+body.quickrn-exam #rationale-section{position:relative!important;inset:auto!important;z-index:1!important;display:none;align-items:stretch!important;justify-content:flex-start!important;width:100%!important;height:auto!important;max-height:48%!important;overflow-x:hidden!important;overflow-y:auto!important;margin:10px 0 0!important;padding:8px!important;border:1px solid #cbd5e1!important;border-radius:12px!important;background:#f8fafc!important;box-shadow:none!important}
+body.quickrn-exam #rationale-section:not(.hidden){display:block!important}
+body.quickrn-exam #rationale-section>div{width:100%!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0!important;padding:14px!important;overflow:visible!important;border-radius:9px!important;box-shadow:none!important}
+body.quickrn-exam #rationale-text{display:block!important}
+body.quickrn-exam #rationale-text>section{margin:0 0 10px;padding:12px!important}
+body.quickrn-exam #rationale-text>section:first-child,body.quickrn-exam #rationale-text>section:last-child{grid-column:auto}
+body.quickrn-exam .qr-cloze select{min-width:150px;min-height:42px;padding:9px 12px!important;font-size:14px!important;cursor:pointer;pointer-events:auto!important}
+@media(max-width:900px){body.quickrn-exam #rationale-section{max-height:42%!important}body.quickrn-exam .qr-choice{padding:13px!important}}
