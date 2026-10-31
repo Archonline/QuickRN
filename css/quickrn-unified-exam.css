@@ -116,3 +116,24 @@ body.quickrn-exam #submit-btn{margin-left:auto}
   body.quickrn-exam #left-panel.question-only-panel{min-height:160px!important;height:auto!important}
   body.quickrn-exam #right-panel{min-height:55vh}
 }
+
+
+/* Ensure the complete exam workspace remains visible after setup closes. */
+body.quickrn-exam{height:100vh;min-height:0;overflow:hidden}
+body.quickrn-exam>main{display:flex;flex:1 1 auto;min-height:0;height:auto;overflow:hidden}
+body.quickrn-exam>main>#left-panel,
+body.quickrn-exam>main>#right-panel{height:100%;min-height:0;min-width:0}
+body.quickrn-exam>main>#left-panel{overflow-y:auto!important;overflow-x:hidden!important;flex:1 1 50%}
+body.quickrn-exam>main>#right-panel{overflow-y:auto!important;overflow-x:hidden!important;flex:1 1 50%}
+body.quickrn-exam>footer#exam-footer{display:flex;flex:0 0 auto;min-height:48px;position:relative;z-index:30}
+body.quickrn-exam #setup-modal{z-index:70}
+body.quickrn-exam #summary-screen{z-index:80}
+@media(max-width:767px){
+ body.quickrn-exam{height:auto;min-height:100vh;overflow-y:auto!important}
+ body.quickrn-exam>main{height:auto;min-height:0;overflow:visible!important;flex-direction:column!important}
+ body.quickrn-exam>main>#left-panel,
+ body.quickrn-exam>main>#right-panel{width:100%!important;height:auto!important;min-height:320px;overflow:visible!important;flex:none}
+ body.quickrn-exam>main>#left-panel{min-height:220px}
+ body.quickrn-exam>main>#right-panel{min-height:420px}
+ body.quickrn-exam>footer#exam-footer{position:sticky;bottom:0;flex-wrap:wrap;gap:8px}
+}
