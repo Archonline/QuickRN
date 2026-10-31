@@ -54,32 +54,7 @@
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
-    <!-- Login / Welcome Overlay (Shown when signed out) -->
-    <div id="auth-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all scale-100">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-slate-900">Welcome Back to QuickRN</h2>
-                <p class="text-slate-500 text-sm mt-1">Sign in to resume your NCLEX mastery journey</p>
-            </div>
-            <form id="login-form" onsubmit="handleSignIn(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Email Address</label>
-                    <input type="email" id="login-email" required value="student@quickrn.com" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1">Password</label>
-                    <input type="password" id="login-password" required value="password123" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
-                </div>
-                <button type="submit" class="w-full py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-500/20 transition-all text-sm">
-                    Sign In to Dashboard
-                </button>
-            </form>
-        </div>
-    </div>
-
+    <!-- Dashboard is entered through the main authenticated sign-in flow on index.html. -->
     <!-- App Shell -->
     <div id="app-shell" class="flex h-full overflow-hidden">
         
@@ -369,6 +344,10 @@
                         </div>
                         <div class="grid gap-3 pt-4 sm:grid-cols-2">
                             <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-bolt text-teal-700"></i> Faster sign-in and Self Study setup</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Removed the duplicate sign-in overlay from the dashboard. Successful Google and email sign-ins now clear stale local session flags before opening the dashboard. Self Study question-count choices are visible immediately; the question bank loads in small batches so the setup screen can render without waiting for the entire bank. The Start button becomes available when preparation finishes.</p>
+                            </article>
+                            <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
                                 <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-calendar-check text-teal-700"></i> Focused calendar and refreshed profile</div>
                                 <p class="mt-2 text-xs leading-6 text-slate-600">The calendar now opens on today and shows upcoming dates only, with roadmap activities and personal reminders displayed directly inside their calendar days. Removed the separate roadmap banner, test countdown panel, and duplicate upcoming-activities list to reduce scrolling and visual clutter. The candidate profile now uses QuickRN's shared navy-and-teal brand system, a cleaner layout, simpler navigation, and a more focused analytics reset area.</p>
                             </article>
@@ -507,7 +486,6 @@
 
         // Session & App Setup
         window.addEventListener('DOMContentLoaded', () => {
-            checkAuthStatus();
             detectTotalQuestionsPool();
             loadStateFromStorage();
             updateTimeBasedGreeting();
@@ -584,17 +562,6 @@
             }
         }
 
-        function checkAuthStatus() {
-            const isSignedOut = localStorage.getItem('quickrn_signed_out') === 'true';
-            const overlay = document.getElementById('auth-overlay');
-
-            if (isSignedOut) {
-                overlay.classList.remove('hidden');
-            } else {
-                overlay.classList.add('hidden');
-            }
-        }
-
         function handleSignOut() {
             // Mark the session as signed out, then leave the dashboard entirely.
             try {
@@ -605,19 +572,6 @@
             window.location.replace('index.html');
         }
 
-        function handleSignIn(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            localStorage.setItem('quickrn_signed_out', 'false');
-            localStorage.setItem('quickrn_user_email', email);
-            
-            document.getElementById('auth-overlay').classList.add('hidden');
-            updateTimeBasedGreeting();
-            rotateEncouragement();
-            showToast('Welcome back! Dashboard synchronized.', 'success');
-        }
-
-        
         function generateStudyRoadmap() {
             const container = document.getElementById('ai-roadmap-container');
             if (!container) return;
