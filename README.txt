@@ -292,3 +292,11 @@ SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
 - Navigation destinations remain consistent and relevant: Dashboard, Calendar, Learning Center, Feature Hub, all study/exam modes, Saved Questions, Profile, Feedback Inbox, and Help & Disclaimer.
 - Added a compact horizontally scrollable navigation layout for mobile screens. Existing exam, calendar, profile, and feedback functionality remains in its original page content.
 - Added regression checks for shared navigation loading, active-page handling, responsive behavior, and page coverage.
+
+
+## Exam rationale placement and clinical scenario readability — November 1, 2026
+
+- After an answer is submitted in Self-Study, Timed Practice, Predictor, or CAT, each multiple-choice option now receives an explanation directly beneath the choices, identifying the best answer or explaining why an alternative is not the best choice. Supplied option-specific rationales take precedence; otherwise the explanation distinguishes the keyed answer from alternatives without inventing a detailed clinical mechanism.
+- Moved the full post-submission rationale and Clinical Study Coach insight into the right pane, below the response choices. The Video Lessons area remains in the left clinical-scenario pane.
+- Removed the rationale Collapse control and its toggle behavior.
+- Clinical scenario paragraphs are bold and 4 points larger (19px) for readability.
