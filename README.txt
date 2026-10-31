@@ -283,3 +283,12 @@ SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
 - CAT is the only adaptive exam mode: it selects subsequent questions based on the learner's estimated ability and uses adaptive stopping logic.
 - NCLEX Predictor is now a fixed-form 150-question readiness assessment with a domain performance report and a clearly qualified practice score; it no longer duplicates CAT's adaptive flow. Its score is not represented as an official NCLEX prediction.
 - Added regression assertions for the Saved/Calendar navigation and theme, distinct CAT/Predictor/Timed session logic, and shared page renderer dependencies.
+
+
+## Unified sidebar navigation — November 1, 2026
+
+- Replaced page-specific sidebar markup and colors with one shared QuickRN navigation component across Dashboard, Saved Questions, Calendar, Profile, Feedback Inbox, Self-Study, Timed Practice, NCLEX Predictor, CAT, Help, and the legacy reference view.
+- Standardized the clinical-navy sidebar, teal brand mark and active state, icon sizing, section labels, link spacing, hover/focus behavior, and footer treatment.
+- Navigation destinations remain consistent and relevant: Dashboard, Calendar, Learning Center, Feature Hub, all study/exam modes, Saved Questions, Profile, Feedback Inbox, and Help & Disclaimer.
+- Added a compact horizontally scrollable navigation layout for mobile screens. Existing exam, calendar, profile, and feedback functionality remains in its original page content.
+- Added regression checks for shared navigation loading, active-page handling, responsive behavior, and page coverage.
