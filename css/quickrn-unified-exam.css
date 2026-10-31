@@ -230,3 +230,7 @@ body.quickrn-exam #rationale-section .qr-option-rationale-section{display:none!i
 
 /* Clinical scenario text remains bold and enlarged across every EHR tab. */
 body.quickrn-exam #case-study-content .qr-clinical-scenario-text,body.quickrn-exam #case-study-content .qr-clinical-scenario-text *{font-size:19px!important;line-height:1.75!important;font-weight:800!important;color:#24364b!important}
+
+body.quickrn-exam .qr-lab-result{display:block;padding:6px 0;border-bottom:1px solid #e2e8f0;font-size:14px!important;font-weight:700!important}
+body.quickrn-exam .qr-lab-reference-range{display:inline-block;margin-left:8px;padding:2px 6px;border-radius:5px;background:#ecfdf5;color:#166534;font-size:12px!important;font-weight:600!important}
+body.quickrn-exam .qr-lab-reference-missing{display:inline-block;margin-left:8px;padding:2px 6px;border-radius:5px;background:#fff7ed;color:#9a3412;font-size:11px!important;font-weight:600!important}
