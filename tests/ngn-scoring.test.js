@@ -13,7 +13,15 @@ const fixtures=[
  {q:{type:'Trend',options:['Call provider','Document'],correctAnswer:'Call provider'},a:{choice:'Call provider'},earned:1,max:1}
 ];
 for(const f of fixtures){const result=api.grade(f.q,f.a);assert.equal(result.earned,f.earned);assert.equal(result.max,f.max);}
+const selectN=api.grade({type:'Select N',correctAnswers:['A','B'],options:['A','B','C'],selectN:2},{choices:['A','C']});
+assert.equal(selectN.earned,1,'Select N uses zero/one scoring without subtracting incorrect choices');
+const bowtie=api.grade({type:'Bowtie',correctAnswers:{bowtie:{condition:'Sepsis',actions:['Cultures','Antibiotics'],monitoring:['MAP','Lactate']}}},{condition:'Sepsis',actions:['Cultures','Distractor'],monitoring:['MAP','Lactate']});
+assert.equal(bowtie.earned,4,'Bowtie uses zero/one scoring: wrong tokens do not subtract correct target points');
+const rationale=api.grade({type:'Cloze',correctAnswers:{cause:'C',action:'A',monitor:'M'},rationaleGroups:[{fields:['cause','action']},{fields:['monitor']}]},{cloze:{cause:'C',action:'X',monitor:'M'}});
+assert.equal(rationale.earned,1,'rationale scoring awards credit only when paired fields are both correct');
 const total=api.summarize(fixtures.map(f=>({q:f.q,answer:f.a})));
 assert.equal(total.answered,fixtures.length);assert.equal(total.earned,9);assert.equal(total.max,18);
+assert.equal(total.accuracy,38,'item accuracy counts only fully correct items');
+assert.equal(total.partialCorrect,3);
 assert.equal(api.grade(fixtures[0].q,{choice:'B'}).isCorrect,false);
 console.log('PASS: NGN item scoring and mixed-format test summary checks.');

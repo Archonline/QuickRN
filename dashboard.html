@@ -868,6 +868,7 @@
                 ...(Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [])
             ];
             const seen = new Set();
+            // Use the latest completed CAT or Predictor adaptive ability estimate, not a weighted raw-score proxy.
             const adaptiveResults = history.filter(record => {
                 const mode = String(record.mode || record.type || '');
                 if (!/CAT|Predictor/i.test(mode)) return false;
@@ -949,8 +950,8 @@
                 if (!seen.has(key)) history.push(x);
             });
             const records = history
-                .filter(x => Number.isFinite(Number(x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
-                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
+                .filter(x => Number.isFinite(Number(x.accuracyPercent ?? x.scorePercent ?? x.score)) && (x.date || x.timestamp || x.completedAt))
+                .map(x => ({...x, _date: new Date(x.timestamp || x.date || x.completedAt), _score: Number(x.accuracyPercent ?? x.scorePercent ?? x.score), _prob: x.passingProbability !== null && x.passingProbability !== undefined && x.passingProbability !== '' && Number.isFinite(Number(x.passingProbability)) ? Number(x.passingProbability) : null}))
                 .filter(x => !Number.isNaN(x._date.getTime()))
                 .sort((a,b) => a._date-b._date);
             const labels = records.map((x,i) => x._date.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + (i+1));
@@ -960,7 +961,7 @@
             quickrnChartInstance = new Chart(canvas, {
                 type: 'line',
                 data: { labels, datasets: [
-                    { label: 'Exam accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
+                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
                     { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.32, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#f59e0b', spanGaps: false }
                 ]},
                 options: {
@@ -978,7 +979,7 @@
                 }
             });
             const note = document.getElementById('quickrn-score-chart-note');
-            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a CAT or Predictor exam to begin your performance trend. No sample or peer data is shown.';
+            if (note) note.textContent = records.length ? 'Showing ' + records.length + ' saved exam attempt(s), oldest to newest. Accuracy is the percentage of items answered fully correctly. Passing likelihood is unavailable for older attempts that did not save an ability estimate.' : 'Complete a practice session to begin your item-accuracy trend. No sample or peer data is shown.';
         }
 
         function switchTab(tabId) {

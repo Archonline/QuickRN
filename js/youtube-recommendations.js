@@ -46,7 +46,7 @@
 
     function getQuestionContext(question) {
         const q=question&&typeof question==='object'?question:{};
-        const preferred=[q.keyPhrase,q.clinicalFocus,q.focusArea,q.learningObjective,q.concept,q.topic,q.subcategory,q.category,q.clientNeedDomain,q.questionOnly,q.actualQuestion,q.cleanTitle,q.title,q.questionText,q.question,q.stem].map(v=>plainText(v,0)).filter(Boolean);
+        const preferred=[q.topic,q.keyPhrase,q.concept,q.subcategory,q.category,q.clientNeedDomain,q.questionOnly,q.actualQuestion,q.cleanTitle,q.title,q.questionText,q.question,q.stem,q.clinicalFocus,q.focusArea,q.learningObjective].map(v=>plainText(v,0)).filter(Boolean);
         const unique=preferred.filter((v,i,a)=>a.findIndex(x=>x.toLowerCase()===v.toLowerCase())===i);
         let context=unique.join(' ')||uniqueFragments(q).join(' ')||'clinical nursing fundamentals';
         return Array.from(context).slice(0,240).join('').trim();

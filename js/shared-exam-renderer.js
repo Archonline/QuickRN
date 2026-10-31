@@ -21,7 +21,7 @@ function quickRNCleanClinicalText(value, metadata){
  let text=String(value??'').replace(/\r/g,'').trim();
  if(!text)return '';
  // Remove short diagnosis/topic prefixes such as “Cystic fibrosis:” and “HELLP syndrome:”.
- text=text.replace(/^\s*((?:[A-Z][A-Za-z0-9-]*)(?:\s+[A-Za-z][A-Za-z0-9-]*){0,4})\s*:\s*(?=(?:A|An|The|This|That|Client|Patient|Ages?\b|\d{1,3}[- ]year[- ]old)\b)/,'');
+ text=text.replace(/^\s*([^:\n]{2,90}):\s*(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify|Ages?\b|\d{1,3}[- ]year[- ]old)\b)/i,'');
  const meta=metadata&&typeof metadata==='object'?metadata:{};
  const labels=[meta.topic,meta.category,meta.subject,meta.caseTitle,meta.caseStudyTitle,meta.caseStudyContext?.title].filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim());
  for(let round=0;round<8;round++){
@@ -175,7 +175,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.age||patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.age||'')+(patient.code?' · '+quickRNEscape(patient.code):'')+'</div>':'');
  const recordSections=tabs.filter(t=>t[1]).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+t[1]+'</div></section>').join('');
  const scenarioText=quickRNSplitPrompt(q).scenario||'';const normalizeClinical=v=>String(v||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary)+'</div></section>':'';
- let record=hasRecord?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>Clinical record</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
+ let record=hasRecord?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Clinical record')+'</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'){
    const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'; const selected=multi?(draft.choices||[]):[draft.choice];
@@ -249,7 +249,7 @@ function quickRNHasAnswer(q,d){
 function quickRNGrade(q,d){const f=quickRNDetectItemFormat(q), opts=Array.isArray(q.options)?q.options:[];const eq=(a,b)=>String(a??'')===String(b??'');const sameSet=(a,b)=>Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every(x=>b.includes(x));
  if(f==='Single Choice'){const c=q.correctAnswerText??q.correctAnswer;const v=d.choice;const ix=opts.findIndex((o,i)=>eq(quickRNOptionValue(o,i),v));const txt=ix>=0?quickRNOptionText(opts[ix]):v;return eq(v,c)||eq(txt,c)||eq(v,String.fromCharCode(65+ix));}
  if(f==='Extended Multiple Response'||f==='Multiple Response'){const correct=q.correctAnswers??q.correctAnswer??[];const norm=x=>Array.isArray(x)?x:[x];const ids=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionValue(found,opts.indexOf(found));if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionValue(opts[x.charCodeAt(0)-65],x.charCodeAt(0)-65);return x});const textCorrect=norm(correct).map(x=>{const found=opts.find((o,i)=>eq(quickRNOptionValue(o,i),x)||eq(quickRNOptionText(o),x));if(found)return quickRNOptionText(found);if(typeof x==='string'&&/^[A-Z]$/.test(x)&&opts[x.charCodeAt(0)-65]!==undefined)return quickRNOptionText(opts[x.charCodeAt(0)-65]);return x});return sameSet(d.choices||[],ids)||sameSet((d.choices||[]).map(v=>{const i=opts.findIndex((o,j)=>eq(quickRNOptionValue(o,j),v));return i>=0?quickRNOptionText(opts[i]):v}),textCorrect);}
- if(f==='Matrix / Grid'){const rows=q.rows||q.matrixData?.rows||[], c=q.correctAnswers||{};return rows.length>0&&rows.every((r,i)=>{const id=r.id||String(i);return eq(d.matrix?.[id],c[id]);});}
+ if(f==='Matrix / Grid'||f==='Matrix Multiple'||f==='Matrix Single'){const rows=q.rows||q.matrixData?.rows||[], c=q.correctAnswers?.matrix||q.correctAnswers||{};return rows.length>0&&rows.every((r,i)=>{const id=r.id||String(i),expected=c[id]??r.correct,actual=d.matrix?.[id];return Array.isArray(expected)?sameSet(Array.isArray(actual)?actual:[actual],expected):eq(actual,expected);});}
  if(f==='Cloze (Drop-down)'){
   const defs=Array.isArray(q.dropdowns)?q.dropdowns:Object.entries(q.dropdowns||{}).map(([id,value])=>value&&typeof value==='object'&&!Array.isArray(value)?{id,...value}:{id,options:value});
   const correctMap=q.correctAnswers&&typeof q.correctAnswers==='object'?q.correctAnswers:{};
@@ -400,6 +400,16 @@ const quickRNFromLegacyBase2=quickRNFromLegacyDraft;
 quickRNFromLegacyDraft=function(q,value){const f=quickRNDetectItemFormat(q);if(f==='Numeric Entry')return {numericEntry:value===undefined||value===null?'':String(value)};if(f==='Select N')return {choices:Array.isArray(value)?value:[]};return quickRNFromLegacyBase2(q,value);};
 const quickRNToLegacyBase2=quickRNToLegacyDraft;
 quickRNToLegacyDraft=function(q,d){const f=quickRNDetectItemFormat(q);if(f==='Numeric Entry')return d.numericEntry??'';if(f==='Select N')return d.choices||[];return quickRNToLegacyBase2(q,d);};
+
+const quickRNGradeWithPolytomousScoring=quickRNGrade;
+quickRNGrade=function(q,d){
+ const scoring=window.QuickRNNgnScoring;
+ if(scoring&&typeof scoring.grade==='function'){
+  const format=scoring.format(q);
+  if(['Multiple Response','Select N','Highlight','Matrix','Cloze','Bowtie','Ordered','Numeric'].includes(format))return scoring.grade(q,d);
+ }
+ return quickRNGradeWithPolytomousScoring(q,d);
+};
 
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,

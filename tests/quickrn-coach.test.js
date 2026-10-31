@@ -123,7 +123,7 @@ for (const page of ['cat.html', 'timed.html', 'predictor.html', 'selfstudy.html'
   assert.match(source, /js\/quickrn-coach\.js/, page + ' coach import');
   assert.match(fs.readFileSync('js/quickrn-exam-app.js', 'utf8'), /recordClientNeedAttempt/, page + ' Client Needs tracker');
   assert.doesNotMatch(source, /\beval\s*\(/, page + ' must not call eval');
-  assert.match(source, /Clinical Study Coach/, page + ' study coach UI');
+  assert.match(fs.readFileSync('js/quickrn-exam-app.js', 'utf8'), /Clinical Study Coach/, page + ' shared study coach UI');
 }
 
 // Check classic inline scripts for syntax errors; skip JSX and ES modules.

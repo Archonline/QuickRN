@@ -69,13 +69,13 @@ function has(q,d){
  if(f==='Single Choice')return value(a.choice??a.selectedOption??a.answer);
  if(f==='Multiple Response'||f==='Extended Multiple Response')return Array.isArray(a.choices)&&a.choices.length>0;
  if(f==='Select N'){const n=Number(x.selectN||x.nRequired||x.numberToSelect||x.requiredSelections||0);return n>0&&Array.isArray(a.choices)&&a.choices.length===n;}
- if(f==='Matrix Multiple'||f==='Matrix Single')return nonempty(a.matrix||a);
- if(f==='Cloze (Drop-down)')return nonempty(a.cloze||a);
- if(f==='Bowtie')return value(a.condition)||(a.actions||[]).length>0||(a.monitoring||a.params||[]).length>0;
+ if(f==='Matrix Multiple'||f==='Matrix Single'){const rows=x.rows||[];const matrix=a.matrix||a;return rows.length>0&&rows.every((row,i)=>{const id=String(row.id??i);return nonempty(matrix[id]);});}
+ if(f==='Cloze (Drop-down)'){const defs=Array.isArray(x.dropdowns)?x.dropdowns:[];const keys=defs.length?defs.map((d,i)=>String(d.id??d.key??d.name??i)):Object.keys(x.correctAnswers||x.options||{});const cloze=a.cloze||a.dropdownChoices||a;return keys.length>0&&keys.every(key=>value(cloze[key]));}
+ if(f==='Bowtie')return value(a.condition)&&(a.actions||[]).length===2&&(a.monitoring||a.params||[]).length===2;
  if(f==='Numeric Entry')return value(a.numericEntry??a.value??a.numeric)&&Number.isFinite(Number(a.numericEntry??a.value??a.numeric));
  if(f==='Highlight')return nonempty(a.highlights??a.highlighted??a.tokens??a.selected);
  if(f==='Trend')return nonempty(a.choice??a.choices??a.response??a.trend??a);
- if(f==='Extended Drag and Drop')return Array.isArray(a.order)&&a.order.length>0;
+ if(f==='Extended Drag and Drop'){const expected=x.correctOrder||[];return Array.isArray(a.order)&&expected.length>0&&a.order.length===expected.length;}
  return baseHasAnswer(x,a)||nonempty(a);
 }
 api.detect=q=>{const x=canon(q);return x.ngnType;};

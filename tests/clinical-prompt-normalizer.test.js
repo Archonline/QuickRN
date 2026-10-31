@@ -33,7 +33,7 @@ const ngn = api.splitPrompt({
 });
 assert.equal(
   ngn.scenario,
-  'Ethics informed consent: A client is being reassessed after an intervention and the nurse must determine the next step. The client is being evaluated before transfer to another unit.'
+  'A client is being reassessed after an intervention and the nurse must determine the next step. The client is being evaluated before transfer to another unit.'
 );
 assert.equal(ngn.question, 'Review the clinical cues and complete the item as directed.');
 
