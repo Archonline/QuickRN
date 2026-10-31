@@ -82,3 +82,8 @@ assert.ok(caseHtml.includes('Item 2 of 5'),'case-study progress is rendered');
 const dragFixture = {id:'DND-TEST-1',type:'Drag and Drop',availableItems:['First','Second','Third'],correctOrder:['First','Second','Third']};
 assert.notDeepEqual(api.toDraft(dragFixture,undefined).order,dragFixture.correctOrder,'drag-and-drop does not expose the answer order on first render');
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
+
+const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
+assert.equal(clean('Veracity: The nurse verifies the client\'s identity.'), 'The nurse verifies the client\'s identity.');
+assert.equal(clean('Mantoux/TB screening: A client returns for the test reading.'), 'A client returns for the test reading.');
+assert.equal(clean('Guillain-Barré syndrome: An adult reports progressive weakness.'), 'An adult reports progressive weakness.');
