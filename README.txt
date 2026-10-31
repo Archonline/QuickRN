@@ -300,3 +300,12 @@ SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
 - Moved the full post-submission rationale and Clinical Study Coach insight into the right pane, below the response choices. The Video Lessons area remains in the left clinical-scenario pane.
 - Removed the rationale Collapse control and its toggle behavior.
 - Clinical scenario paragraphs are bold and 4 points larger (19px) for readability.
+
+
+## NGN scoring, exam analytics and accuracy trend — November 1, 2026
+
+- Added distinct plus/minus scoring for unrestricted multiple-response and highlight items, zero/one scoring for Select N items, row-level matrix scoring, and rationale-group scoring for dependent cloze/drop-down responses. Partial-credit scores are capped at the item's maximum and floored at zero.
+- CAT ability estimation now receives fractional item credit from NGN responses rather than reducing every response to a binary correct/incorrect flag. Adaptive item selection continues to target the current ability estimate within the available bank. This remains an educational approximation, not the proprietary NCSBN algorithm.
+- Exam summaries now show item accuracy (fully correct items / answered items), partial-credit score, earned points, fully correct, partially correct, incorrect, unanswered, item-format breakdown, Client Needs performance, and any available clinical-judgment skill breakdown. Session history stores these fields and elapsed time.
+- Dashboard trend now plots item accuracy separately from any saved CAT practice passing estimate; older attempts fall back to the historical score field.
+- Clinical scenario typography is consistent across all EHR tabs, not only the first tab. Video lessons remain in the left pane; the rationale and per-option teaching explanations remain in the right pane without a collapse control.
