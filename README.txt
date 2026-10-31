@@ -262,3 +262,13 @@ SELF-STUDY END, ANALYTICS RESET, AND QUESTION EXHAUSTION — 2026-10-31
 - Regression tests cover case-level exhaustion, no fallback to used items, and selecting the remaining fresh questions.
 
 - Self-Study now loads the shared QuickRN brand stylesheet after its page-specific styles to keep the exam workspace aligned with the application-wide design system.
+
+
+SHARED EXAM RENDERING, RATIONALE CONTROLS, AND BRAND ALIGNMENT — 2026-10-31
+- Standardized standard-item and NGN answer-choice feedback in the shared renderer. Correct choices display a right-aligned green “✓ Correct answer” label; incorrect choices display a right-aligned red “✕ Incorrect” label.
+- Simplified the rationale heading to “Rationale”. The collapse control reduces the rationale to a compact strip within the left clinical-case pane; Expand restores the full explanation. Collapsing resets any dragged card position so it remains in the left pane.
+- CAT and NCLEX Predictor pages now use the same Self-Study HTML shell, shared question renderer, case-study presentation, and NGN interaction scripts, while retaining their own adaptive exam modes.
+- Standardized the Self-Study cyan header/brand color across the app and aligned dashboard navigation accents to the same navy/cyan palette. Existing page structure, split-screen proportions, and question layouts are preserved.
+- Self-Study session choices are 15, 50, 85, 150, or all remaining unseen items.
+- Timed Practice choices are 40, 60, 85, and 150 items. The 85- and 150-item Timed Practice selections use the CAT adaptive engine; 40- and 60-item sessions remain fixed-form timed exams.
+- The shared exam application routes adaptive-mode decisions through one helper, keeping progress, CAT stopping, scoring, summary, and retake behavior consistent.

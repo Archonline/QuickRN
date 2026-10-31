@@ -145,3 +145,41 @@ body:has(#app-shell) #app-shell>aside .bg-brand-600{
 body:has(#app-shell) #app-shell>aside .text-brand-600{
   color:#ffad98!important;
 }
+
+/* QuickRN Self-Study cyan identity applied consistently without altering page layout. */
+:root{
+  --qr-brand-teal:#00a8cc;
+  --qr-brand-teal-dark:#008ba8;
+  --qr-brand-teal-soft:#e6f7fb;
+  --qr-brand-focus:#00a8cc;
+}
+body header{
+  background:#00a8cc!important;
+  color:#fff!important;
+  border-color:#008ba8!important;
+}
+body header :is(h1,h2,h3,h4,p,span,strong,a,button,i){color:inherit;}
+body:not(:has(#answer-workspace)) :where([class~="bg-brand-600"],[class~="bg-medical-600"],[class~="bg-emerald-600"],[class~="bg-green-600"],[class~="bg-teal-600"],[class~="bg-cyan-600"]){background-color:#00a8cc!important;}
+body:not(:has(#answer-workspace)) :where([class~="hover:bg-brand-700"],[class~="hover:bg-medical-700"],[class~="hover:bg-emerald-700"],[class~="hover:bg-green-700"],[class~="hover:bg-teal-700"],[class~="hover:bg-cyan-700"]):hover{background-color:#008ba8!important;}
+body:not(:has(#answer-workspace)) :where([class~="text-brand-600"],[class~="text-medical-600"],[class~="text-emerald-600"],[class~="text-green-600"],[class~="text-teal-600"],[class~="text-cyan-600"]){color:#008ba8!important;}
+body:not(:has(#answer-workspace)) :where([class~="border-brand-500"],[class~="border-brand-600"],[class~="border-emerald-500"],[class~="border-green-500"],[class~="border-cyan-500"]){border-color:#00a8cc!important;}
+body:has(#app-shell) #app-shell>aside{background:#12304a!important;border-color:#0d2438!important;color:#f8fbfd!important;}
+body:has(#app-shell) #app-shell>aside :is(.text-slate-900,.text-slate-800,.text-slate-700,.text-slate-600,.text-slate-500,.text-slate-400){color:#e5f2f7!important;}
+body:has(#app-shell) #app-shell>aside :is(.border-slate-100,.border-slate-200){border-color:rgba(255,255,255,.14)!important;}
+body:has(#app-shell) #app-shell>aside nav a:hover{background:rgba(0,168,204,.18)!important;color:#fff!important;}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50{background:rgba(0,168,204,.22)!important;color:#8de8f6!important;}
+body:has(#app-shell) #app-shell>aside nav a.bg-brand-50 i{color:#8de8f6!important;}
+body:has(#app-shell) #app-shell>aside .bg-brand-600{background:#00a8cc!important;}
+body:has(#app-shell) #app-shell>aside .text-brand-600{color:#8de8f6!important;}
+/* Option status labels sit at the far right of each answer row. */
+#answer-workspace .qr-choice-copy{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-width:0;}
+#answer-workspace .qr-choice-feedback{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;margin-left:auto;flex:0 0 auto;white-space:nowrap;font-size:12px;font-weight:800;}
+#answer-workspace .qr-feedback-correct{color:#15803d!important;}
+#answer-workspace .qr-feedback-incorrect{color:#b91c1c!important;}
+/* Collapse the rationale to a compact strip inside the left clinical-case pane. */
+#rationale-section.rationale-collapsed{max-height:54px!important;min-height:54px;overflow:hidden!important;padding:4px 8px!important;}
+#rationale-section.rationale-collapsed>div{padding:6px 10px!important;}
+#rationale-section.rationale-collapsed>div>:not(:first-child){display:none!important;}
+#rationale-section.rationale-collapsed>div>:first-child{padding:0!important;border:0!important;}
+#rationale-section.rationale-collapsed #rationale-toggle{white-space:nowrap;}
+@media(max-width:767px){#answer-workspace .qr-choice-copy{flex-wrap:wrap;align-items:flex-start}#answer-workspace .qr-choice-feedback{margin-left:auto;}}

@@ -86,6 +86,7 @@
 </head>
 <body data-exam-mode="cat" class="h-screen flex flex-col overflow-hidden text-slate-800 antialiased">
 
+    <!-- Shared QuickRN exam shell using the Self-Study question renderer. -->
     <!-- ==================== TOP HEADER (CYAN BANNER) ==================== -->
     <header class="bg-archer-cyan text-white px-4 py-2 flex flex-wrap items-center justify-between shadow-md z-20 shrink-0 text-sm">
         <!-- Left Banner Info -->
@@ -183,7 +184,7 @@
 
                 <!-- Detailed Explanation Text -->
                 <div>
-                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Rationale & Detailed Explanation</h4>
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Rationale</h4>
                     <div id="rationale-text" class="text-sm text-slate-700 leading-relaxed space-y-2">
                         <!-- Explanation injected here -->
                     </div>
@@ -345,7 +346,7 @@
     <div id="setup-modal" class="fixed inset-0 z-[70] bg-slate-950/60 flex items-center justify-center p-4">
         <div class="w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden">
             <div class="bg-archer-darkBlue text-white p-5"><div class="text-xs uppercase tracking-widest text-cyan-200">QuickRN Examination</div><h2 id="setup-title" class="text-xl font-black mt-1">Exam Setup</h2><p id="setup-description" class="text-sm text-slate-300 mt-2"></p></div>
-            <div class="p-5 space-y-4"><label class="block text-sm font-semibold text-slate-700" for="session-count">Number of questions</label><select id="session-count" class="w-full border border-slate-300 rounded-lg p-3 text-sm bg-white"></select><p class="text-xs text-slate-500">Your answers and bookmarks are saved in this browser while you work.</p><button id="setup-start" onclick="startExamSession()" class="w-full bg-archer-cyan hover:bg-archer-cyanDark text-white font-bold py-3 rounded-lg">Start</button><button onclick="returnToDashboard()" class="w-full text-slate-500 hover:text-slate-800 text-xs font-semibold py-2">Return to Dashboard</button></div>
+            <div class="p-5 space-y-4"><label class="block text-sm font-semibold text-slate-700" for="session-count">Number of questions</label><select id="session-count" class="w-full border border-slate-300 rounded-lg p-3 text-sm bg-white"><option value="10">10 questions</option><option value="20" selected>20 questions</option><option value="50">50 questions</option><option value="100">100 questions</option><option value="all">All available questions</option></select><p class="text-xs text-slate-500">Your answers and bookmarks are saved in this browser while you work.</p><button id="setup-start" onclick="startExamSession()" class="w-full bg-archer-cyan hover:bg-archer-cyanDark text-white font-bold py-3 rounded-lg">Start</button><button onclick="returnToDashboard()" class="w-full text-slate-500 hover:text-slate-800 text-xs font-semibold py-2">Return to Dashboard</button></div>
         </div>
     </div>
     <div id="summary-screen" class="hidden fixed inset-0 z-[80] bg-slate-100 overflow-y-auto"></div>
@@ -355,6 +356,7 @@
     <script src="questions.js"></script>
     <script src="questions-ngn-supplement.js"></script>
     <script src="js/quickrn-question-bank-normalizer.js"></script>
+    <script src="js/quickrn-case-study-sequencer.js"></script>
     <script src="js/quickrn-question-id-normalizer.js"></script>
     <script src="js/quickrn-question-metrics.js"></script>
     <script src="js/shared-exam-renderer.js"></script>

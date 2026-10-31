@@ -41,6 +41,7 @@ jobs:
           node --check js/quickrn-case-study-sequencer.js
           node --check tests/case-study-sequencer.test.js
           node --check tests/selfstudy-lifecycle.test.js
+          node --check tests/exam-unified-interface-contract.test.js
           node --check tests/exam-page-script-contract.test.js
           node --check js/quickrn-ngn-scoring.js
           node --check tests/ngn-scoring.test.js
@@ -55,6 +56,8 @@ jobs:
         run: node tests/case-study-sequencer.test.js
       - name: Verify Self-Study finish, analytics reset, and no-repeat contracts
         run: node tests/selfstudy-lifecycle.test.js
+      - name: Verify shared exam interface, rationale, branding, and session lengths
+        run: node tests/exam-unified-interface-contract.test.js
       - name: Verify exam page script dependencies
         run: node tests/exam-page-script-contract.test.js
       - name: Verify dashboard routing and normalized question bank loading
