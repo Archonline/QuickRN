@@ -868,6 +868,7 @@
                 ...(Array.isArray(stats.predictorHistory) ? stats.predictorHistory : [])
             ];
             const seen = new Set();
+            // Use the latest completed CAT or Predictor adaptive ability estimate, not a weighted raw-score proxy.
             const adaptiveResults = history.filter(record => {
                 const mode = String(record.mode || record.type || '');
                 if (!/CAT|Predictor/i.test(mode)) return false;
