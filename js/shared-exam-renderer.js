@@ -21,7 +21,7 @@ function quickRNCleanClinicalText(value, metadata){
  let text=String(value??'').replace(/\r/g,'').trim();
  if(!text)return '';
  // Remove short diagnosis/topic prefixes such as “Cystic fibrosis:” and “HELLP syndrome:”.
- text=text.replace(/^\s*((?:[A-Z][A-Za-z0-9-]*)(?:\s+[A-Za-z][A-Za-z0-9-]*){0,4})\s*:\s*(?=(?:A|An|The|This|That|Client|Patient|Ages?\b|\d{1,3}[- ]year[- ]old)\b)/,'');
+ text=text.replace(/^\s*([^:\n]{2,90}):\s*(?=(?:A|An|The|This|That|Client|Patient|Nurse|When|Which|What|Review|Use|Analyze|Interpret|Complete|Select|Determine|Identify|Ages?\b|\d{1,3}[- ]year[- ]old)\b)/i,'');
  const meta=metadata&&typeof metadata==='object'?metadata:{};
  const labels=[meta.topic,meta.category,meta.subject,meta.caseTitle,meta.caseStudyTitle,meta.caseStudyContext?.title].filter(v=>typeof v==='string'&&v.trim()).map(v=>v.trim());
  for(let round=0;round<8;round++){
