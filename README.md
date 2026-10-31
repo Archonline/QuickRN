@@ -1,0 +1,51 @@
+# QuickRN
+
+QuickRN is a browser-based NCLEX-RN practice and NGN learning simulator. It includes Self-Study, Timed Practice, Predictor, and CAT practice modes.
+
+## Current implementation notes
+
+- Shared question renderer and scoring layer are used by the exam modes.
+- NGN formats include matrix/grid, highlight text, cloze/drop-down, extended drag-and-drop, bowtie, numeric entry, and multiple-response formats.
+- Linked case-study questions use a split EHR/question layout. Clinical record tabs remain available while working through a linked case; video lessons remain in the left pane.
+- Answer feedback distinguishes the best answer from distractors and reports the scoring method and points earned.
+- Exam summaries include item accuracy, partial-credit score, client-needs performance, clinical-judgment stage performance, difficulty breakdown, question-format counts, timing, and item review.
+- Dashboard accuracy history plots fully-correct item accuracy; it does not relabel partial-credit scores as item accuracy.
+- Lab results show source-provided ranges where available. Typical adult ranges are added only for recognized common tests and units; pediatric, pregnancy, age-specific, and local laboratory ranges must be verified. Unknown ranges are flagged instead of fabricated.
+
+## NGN scoring methods
+
+QuickRN implements practice versions of the three NCSBN scoring approaches:
+- **Plus/minus:** correct selections add points and incorrect selections subtract points; scores are floored at zero.
+- **0/1:** each keyed response earns one point; incorrect responses earn zero.
+- **Rationale:** dependent response elements earn credit only when the complete linked pair is correct.
+
+The scoring method is surfaced in submitted-answer feedback. Item-level keys and rationales still depend on the quality and completeness of the question-bank metadata.
+
+## CAT practice disclaimer
+
+The CAT mode uses an instructional ability-estimation model, difficulty matching, an 85-item minimum checkpoint, a 150-item maximum, and a five-hour time limit. It is a simulator, not the NCSBN/Pearson VUE operational CAT algorithm. Any readiness or passing-likelihood value is an educational estimate and must not be represented as an official NCLEX result.
+
+## Latest update — November 1, 2026
+
+- Moved option-by-option rationales into the right-hand rationale pane and removed duplicated inline rationale rendering.
+- Avoided repeating the same generic question rationale beneath every distractor when the bank has no option-specific explanation.
+- Cleaned leading topic/category labels from clinical scenario content.
+- Increased clinical scenario typography to 18px and bolded the scenario text.
+- Preserved the selected EHR tab across linked NGN case-study questions; kept video lessons in the left pane.
+- Added typical adult reference ranges for recognized structured and line-based laboratory results; unknown ranges remain explicitly flagged.
+- Exposed the per-item scoring method (plus/minus, 0/1, or rationale) in answer feedback.
+- Expanded test summaries with difficulty and Clinical Judgment Measurement Model performance, total items, and average time per answered item.
+- Reworked dashboard accuracy-history plotting and added a lightweight SVG fallback when Chart.js is unavailable.
+- Applied the CAT run-out-of-time rule: fewer than 85 completed items is a failing practice outcome; after 85, time expiry uses the final practice ability estimate.
+
+## Official reference documents
+
+- [2026 NCLEX-RN Test Plan](https://www.nclex.com/files/2026_RN_Test%20Plan_English-F.pdf)
+- [NCLEX Frequently Asked Questions — formats, laboratory reference ranges, and scoring](https://www.nclex.com/faqs.page)
+- [NCSBN scoring models](https://ncsbn.zendesk.com/hc/en-us/articles/14690447982359-What-are-the-current-scoring-models)
+
+## Quality and safety notes
+
+- Reference ranges vary by laboratory, method, units, age, sex, pregnancy status, and clinical context. Verify the correct range before using an item for clinical teaching.
+- Never treat QuickRN's score, CAT estimate, or readiness probability as an official NCLEX result.
+- The simulator is an educational tool and does not replace clinical judgment, institutional policy, or current evidence-based references.
