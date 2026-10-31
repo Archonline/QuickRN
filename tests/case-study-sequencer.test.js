@@ -20,5 +20,10 @@ for(const group of ['case-A','case-B']){
  assert.ok(selected.length===0||selected.length===3,'selection includes all linked questions or none');
 }
 const partialSeen=sequencer.pick(caseA,2,new Set(['A1']),()=>0);
-assert.deepEqual(partialSeen.map(q=>q.id),['A1','A2','A3'],'partially seen case is repeated as a complete case');
-console.log('PASS: linked case studies remain complete, contiguous, and sequential in Self-Study.');
+assert.deepEqual(partialSeen,[],'a partially seen case is excluded as a whole instead of repeating its first item');
+const exhausted=sequencer.pick(bank,20,new Set(bank.map(q=>q.id)),()=>0);
+assert.deepEqual(exhausted,[],'an exhausted pool never falls back to previously seen questions');
+const remaining=sequencer.pick(bank,20,new Set(['A1','A2','A3']),()=>0);
+assert.ok(remaining.length>0,'unseen independent questions and cases remain selectable');
+assert.ok(remaining.every(q=>!['A1','A2','A3'].includes(q.id)),'previously seen case questions never reappear');
+console.log('PASS: case studies remain complete and Self-Study never repeats exhausted questions.');
