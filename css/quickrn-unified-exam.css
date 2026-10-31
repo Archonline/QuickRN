@@ -215,3 +215,15 @@ body.quickrn-exam #rationale-section.rationale-collapsed #coach-insight,
 body.quickrn-exam #rationale-section.rationale-collapsed #video-resources,
 body.quickrn-exam #rationale-section.rationale-collapsed #confidence-saved,
 body.quickrn-exam #rationale-section.rationale-collapsed #peer-stats{display:none!important}
+
+
+/* Clinical scenario readability and post-submit teaching placement */
+body.quickrn-exam #case-study-content .qr-clinical-scenario-text,
+body.quickrn-exam #case-study-content .qr-clinical-scenario-text strong{font-size:19px!important;line-height:1.75!important;font-weight:800!important;color:#24364b!important}
+body.quickrn-exam #video-resources{flex:0 0 auto;width:auto;max-width:100%;margin:14px 14px 18px;padding:14px;border:1px solid #dbe3ec;border-radius:12px;background:#f8fafc}
+body.quickrn-exam #rationale-section{display:none;position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;flex:0 0 auto!important;overflow:visible!important;margin:18px 0 10px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+body.quickrn-exam #rationale-section:not(.hidden){display:block!important}
+body.quickrn-exam #rationale-section>div{width:100%!important;max-width:none!important;max-height:none!important;height:auto!important;overflow:visible!important;margin:0!important;padding:16px!important;border:1px solid #cbd5e1!important;border-radius:12px!important;background:#fff!important;box-shadow:0 2px 8px rgba(16,43,78,.08)!important}
+body.quickrn-exam #rationale-section #rationale-text{display:block!important}
+body.quickrn-exam #rationale-section .qr-option-rationale-section{display:none!important}
+@media(max-width:767px){body.quickrn-exam #video-resources{margin:12px;padding:12px}body.quickrn-exam #rationale-section{margin-top:14px!important}}
