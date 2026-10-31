@@ -6,7 +6,7 @@
       let score=-theta, info=1;
       for(const item of responses||[]){
         const q=item.q||item.question||item;
-        const y=item.correct===undefined?!!item.isCorrect:!!item.correct;
+        const ratio=Number(item.max)>0&&Number.isFinite(Number(item.earned))?Number(item.earned)/Number(item.max):null;const y=ratio===null?(item.correct===undefined?Number(!!item.isCorrect):Number(!!item.correct)):Math.max(0,Math.min(1,ratio));
         const a=Math.max(0.5,Math.min(2.5,Number(q.discrimination)||1));
         const b=Math.max(-3,Math.min(3,Number(q.difficulty)||0));
         const z=Math.max(-8,Math.min(8,a*(theta-b)));
