@@ -19,7 +19,11 @@ assert.doesNotMatch(app, /else if\(mode==='timed'\)opts=\[[^;]*\['85'|else if\(m
 assert.match(app, /else if\(mode==='cat'\)\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=\[\];const first=chooseFirstAdaptive\(\);if\(first\)session\.push\(first\);\}/);
 assert.match(app, /else\{maxItems=Math\.min\(maxItems\|\|150,pool\.length,150\);session=balancedPick\(pool,maxItems\);\}/);
 assert.match(app, /mode==='predictor'\?'Predictor score'/);
-assert.match(app, /function toggleRationale\(\)[\s\S]*?Rationale collapsed in the clinical case pane/);
+assert.doesNotMatch(app, /function toggleRationale\(/);
+assert.match(app, /This is the best answer because it matches the keyed response/);
+assert.match(app, /This is not the best answer/);
+assert.match(app, /right\.insertBefore\(rationale,actionRow\)/);
+assert.match(app, /videoResources&&videoResources\.parentElement!==left/);
 assert.match(app, /\(mode==='selfstudy'\|\|reviewMode\)&&rec\.submitted\)showRationale/);
 assert.doesNotMatch(app, /ifisAdaptiveMode/);
 
@@ -30,6 +34,8 @@ for (const [path, mode] of [['selfstudy.html','selfstudy'],['timed.html','timed'
   assert.match(page, /js\/quickrn-exam-app\.js/);
   assert.match(page, /css\/quickrn-brand-system\.css/);
   assert.match(page, /id="rationale-section"/);
+  assert.doesNotMatch(page, /id="rationale-toggle"/);
+  assert.match(page, /id="video-resources"/);
   assert.match(page, />Rationale<\/h4>/);
 }
 for (const path of ['index.html','dashboard.html','profile.html','calendar.html','saved.html','reports.html','correct_view.html']) {
@@ -42,5 +48,6 @@ assert.match(read('calendar.html'), /href="saved\.html"/);
 assert.match(read('calendar.html'), /#087f8c/);
 assert.match(brand, /#answer-workspace \.qr-feedback-correct\{color:#15803d/);
 assert.match(brand, /#answer-workspace \.qr-feedback-incorrect\{color:#b91c1c/);
-assert.match(brand, /#rationale-section\.rationale-collapsed\{max-height:54px/);
+assert.match(read('css/quickrn-unified-exam.css'), /qr-clinical-scenario-text[^}]*font-size:19px/);
+assert.match(read('css/quickrn-unified-exam.css'), /#rationale-section:not\(\.hidden\)\{display:block/);
 console.log('Unified exam interface contract tests passed.');
