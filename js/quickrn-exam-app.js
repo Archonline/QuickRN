@@ -343,7 +343,7 @@ function buildTeachingRationale(q,r,result){
 }
 function showRationale(q,r){
  const graded=renderer().grade(q,renderer().toDraft(q,r.draft)),result=r.result||(graded&&typeof graded==='object'?graded:{isCorrect:!!graded,earned:graded?1:0});
- const rationaleMarkup=buildTeachingRationale(q,r,result),template=document.createElement('template');template.innerHTML=rationaleMarkup;
+ const rationaleMarkup=buildTeachingRationale(q,r,result),template=document.createElement('template');template.innerHTML=rationaleMarkup;template.content.querySelectorAll('h3,h4,h5').forEach(heading=>{if(/^(best answer|clinical principle to remember|clinical study approach)$/i.test(heading.textContent.trim())){const block=heading.closest('section')||heading.parentElement?.parentElement;if(block)block.remove();}});
  const optionSection=[...template.content.querySelectorAll('section')].find(section=>/Why each option is right or not the best choice/i.test(section.querySelector('h4')?.textContent||''));
  $('answer-workspace')?.querySelector('.qr-inline-option-rationale')?.remove();
  $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='block';
