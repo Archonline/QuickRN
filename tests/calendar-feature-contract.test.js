@@ -13,6 +13,11 @@ requireText("type==='predictor'?'predictor.html'", 'Predictor shortcut route mis
 requireText('shortcut(event.type)', 'Selected-day CAT/Predictor shortcut rendering missing');
 requireText("download='quickrn-study-calendar.ics'", 'Calendar export missing');
 requireText('type:typeInput.value', 'Event type is not persisted');
+requireText('id="event-form-panel"', 'Inline date-specific activity form missing');
+requireText("getElementById('event-form-panel').classList.remove('hidden')", 'Add activity button does not reveal the form');
+requireText("getElementById('event-form-panel').classList.add('hidden')", 'Activity form does not close after reset');
+if ((html.match(/id="new-activity"/g) || []).length !== 1) failures.push('Calendar must have exactly one Add study activity button');
+if (html.includes('xl:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-5')) failures.push('Separate Add study activity card should be removed');
 requireText("typeInput.value = event.type || 'activity'", 'Event type is not restored when editing');
 requireText('<script>', 'Calendar script not found');
 try { const scripts=[...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)]; const source=scripts.length?scripts[scripts.length-1][1]:''; if(!source.trim())throw new Error('Inline script not found'); new Function(source); } catch (error) { failures.push('Calendar inline JavaScript syntax invalid: ' + error.message); }
