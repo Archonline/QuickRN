@@ -299,3 +299,6 @@ body:not(:has(#answer-workspace)):not(.quickrn-exam){background:var(--qr-brand-b
 .text-purple-700,.text-purple-800,.text-purple-900,.text-amber-600,.text-amber-700{color:var(--qr-brand-teal)!important}
 .bg-purple-100,.bg-amber-50,.bg-amber-100{background-color:var(--qr-brand-teal-soft)!important}
 .border-purple-200,.border-purple-300,.border-amber-200,.border-amber-300{border-color:var(--qr-brand-border)!important}
+
+/* Export/download actions are intentionally removed from student-facing pages. */
+button[id*="export" i],a[id*="export" i],[data-action*="export" i]{display:none!important;visibility:hidden!important;pointer-events:none!important}
