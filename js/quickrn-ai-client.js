@@ -12,6 +12,7 @@ const loadButton = $("quickrn-ai-load");
 const geminiKeyInput = $("quickrn-gemini-key");
 const geminiEnableButton = $("quickrn-gemini-enable");
 const geminiStatus = $("quickrn-gemini-status");
+const authStatus = $("quickrn-ai-auth-status");
 const taskButtons = Array.from(document.querySelectorAll("[data-ai-task]"));
 
 let generator = null;
@@ -21,6 +22,15 @@ let useWebGPU = Boolean(navigator.gpu);
 let localModelFailed = false;
 let geminiApiKey = "";
 let conversation = [];
+
+const signInProvider = localStorage.getItem("quickrn_auth_provider");
+if (authStatus) {
+  authStatus.textContent = signInProvider === "google.com"
+    ? "Google sign-in · Local AI"
+    : signInProvider === "password"
+      ? "Email sign-in · Local AI"
+      : "Local AI · Sign-in method unavailable";
+}
 
 env.allowLocalModels = false;
 env.allowRemoteModels = true;
