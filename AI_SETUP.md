@@ -14,7 +14,7 @@ The app uses:
 
 1. Open Learning Center.
 2. Select **Load free AI model**.
-3. Wait for the first model download. It is approximately a few hundred megabytes, depending on model files and quantization.
+3. Wait for the first model download. It is approximately 480 MB with WebGPU q4f16, or up to about 786 MB for the CPU q4 fallback. Actual transfer can vary with caching and model file selection.
 4. Ask the AI Tutor, summarize notes, generate flashcards, draft practice questions, or create a study plan.
 5. On later visits the browser can reuse its cached model files.
 
