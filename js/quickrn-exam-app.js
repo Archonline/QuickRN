@@ -328,10 +328,7 @@ function showRationale(q,r){
  if(mode==='selfstudy'&&r?.submitted)renderLearningResources(q);else{const videoHost=$('video-resources');if(videoHost)videoHost.innerHTML='';}
  const graded=renderer().grade(q,renderer().toDraft(q,r.draft)),result=r.result||(graded&&typeof graded==='object'?graded:{isCorrect:!!graded,earned:graded?1:0});
  const rationaleMarkup=buildTeachingRationale(q,r,result),template=document.createElement('template');template.innerHTML=rationaleMarkup;const firstRationaleSection=template.content.querySelector('section');const keyedAnswerLine=firstRationaleSection?.querySelector('p');if(keyedAnswerLine?.querySelector('strong'))keyedAnswerLine.remove();template.content.querySelectorAll('h3,h4,h5').forEach(heading=>{if(/^(best answer|clinical principle to remember|clinical study approach)$/i.test(heading.textContent.trim())){const block=heading.closest('section')||heading.parentElement?.parentElement;if(block)block.remove();}});
- const optionSection=[...template.content.querySelectorAll('section')].find(section=>/Why each option is right or not the best choice/i.test(section.querySelector('h4')?.textContent||''));
- if(!isNGN(q))optionSection?.remove();
- $('answer-workspace')?.querySelector('.qr-inline-option-rationale')?.remove();
- $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='block';
+  $('rationale-section').classList.remove('hidden');$('rationale-section').style.display='block';
  $('result-badge').textContent=result.isCorrect?'CORRECT':'INCORRECT';$('result-badge').className='px-3 py-1 rounded text-xs font-bold uppercase text-white '+(result.isCorrect?'bg-green-600':'bg-red-600');
  $('score-earned').textContent='Score: '+result.earned+'/'+result.max+(result.scoringMethod?' · '+result.scoringMethod:'');$('peer-stats')?.parentElement?.remove();$('rationale-text').innerHTML=template.innerHTML;
  const insight=window.QuickRNCoach?.buildTutorInsight(q,!!r.isCorrect);
