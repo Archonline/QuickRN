@@ -23,7 +23,7 @@ QuickRN AI uses the OpenAI Responses API through a Firebase callable Cloud Funct
    cd functions
    npm install
    cd ..
-   firebase deploy --only functions:quickrnAI
+   firebase deploy --only firestore:rules,functions:quickrnAI
    ```
 7. Open Learning Center while signed in and test the AI Tutor, note summarizer, flashcards, and quiz generator.
 
