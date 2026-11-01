@@ -17,8 +17,10 @@ This checklist defines the minimum release gate for a closed beta. A green autom
 
 ## Clinical-content quality gate
 
+**Current bank audit:** 389 loaded records / 4,500 required (4,111 remaining); 13/13 formats present; 389/389 static renderer smoke checks passed; 389 unique runtime IDs; 0 missing prompts; 0 missing rationales; 0 rationales under 80 characters; 0 generic/template stems flagged by the current automated pattern scan. This is a structural and wording screen, not clinical certification.
+
 - [ ] A qualified nursing educator reviews clinical accuracy, rationales, answer keys, and sentence construction.
-- [ ] Review the automated question-bank quality warnings before inviting testers. The current source-bank scan identifies 4,029 records with generic/template-style stems; these must be reviewed or excluded from the beta question pool rather than assumed to be publication-ready.
+- [ ] Reach and verify the required 4,500-question bank before beta. Runtime audit of the current production script sequence (2026-11-02) loads 389 unique questions, leaving 4,111 additional questions required. All 13 supported formats are represented; all 389 records rendered through the shared renderer in a static smoke test, and the automated scan found no missing prompts, missing rationales, short rationales, or known generic-template stems. These checks do not certify clinical accuracy; qualified nurse-educator review remains mandatory. The validator now fails the release gate until the loaded bank reaches at least 4,500 records.
 - [ ] Grammar edits preserve the clinical meaning, urgency, patient details, and answer key.
 - [ ] NGN item structures are internally consistent (for example, matrix rows/columns, bowtie selections, highlight targets, and ordered-response lists).
 - [ ] No item is advertised as an official NCSBN/NCLEX item unless licensed and authorized.
