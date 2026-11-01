@@ -16,8 +16,8 @@ const supplement=path.resolve(__dirname,'../questions-ngn-supplement.js');
 if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8'),context,{timeout:30000,filename:supplement});
 const v2Bank=path.resolve(__dirname,'../questions-bank-v2.js');
 if(fs.existsSync(v2Bank))vm.runInNewContext(fs.readFileSync(v2Bank,'utf8'),context,{timeout:30000,filename:v2Bank});
-const v2Expansion=path.resolve(__dirname,'../questions-bank-v2-4500.js');
-if(fs.existsSync(v2Expansion))vm.runInNewContext(fs.readFileSync(v2Expansion,'utf8'),context,{timeout:30000,filename:v2Expansion});
+const curatedBank=path.resolve(__dirname,'../questions-bank-v2-curated.js');
+if(fs.existsSync(curatedBank))vm.runInNewContext(fs.readFileSync(curatedBank,'utf8'),context,{timeout:30000,filename:curatedBank});
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
