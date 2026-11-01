@@ -80,11 +80,11 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 Dashboard, Calendar, Learning Center, Saved Questions, Help, Reports, Self-Study, Timed Practice, CAT, and Predictor were inspected for navigation and script loading. Core dependencies include questions.js, questions-ngn-supplement.js, quickrn-question-bank-normalizer.js, quickrn-question-id-normalizer.js, quickrn-question-metrics.js, quickrn-case-study-sequencer.js, shared-exam-renderer.js, quickrn-ngn-compat.js, quickrn-ngn-scoring.js, quickrn-cat-engine.js, quickrn-question-reporting.js, quickrn-coach.js, youtube-recommendations.js, quickrn-exam-app.js, quickrn-sidebar.js, and quickrn-platform-hardening.js. Availability and order should still be confirmed in a hosted browser build with Firebase Auth/Analytics enabled.
 
 
-## Real AI integration — November 1, 2026
+## Free on-device AI integration — November 1, 2026
 
-- Added an authenticated QuickRN AI Tutor to the Learning Center, backed by the OpenAI Responses API through a Firebase callable Cloud Function.
-- Added tutor Q&A, study-note summarization, flashcard generation, NCLEX-style quiz drafting, and study-plan drafting. Backend also exposes a rationale task for future exam-mode integration.
-- OpenAI credentials are stored as Firebase Secret Manager secrets and never shipped to the browser. Requests require Firebase Authentication and have per-user daily/minute limits; prompts and responses are not persisted by this feature.
-- Added `AI_SETUP.md` with Firebase, Firestore, OpenAI secret, deployment, cost, and safety setup instructions.
-- Deployment is not complete until the Firebase Blaze plan, Firestore database, OpenAI API key secret, and Cloud Function are configured. The Learning Center AI UI will report setup errors until the backend is deployed.
-- App Check enforcement remains a pre-launch hardening task; configure App Check for the production hosting domain before enabling enforcement. AI output is educational and must be checked against current authoritative nursing references.
+- Added a real open-weight language model to the Learning Center using Hugging Face Transformers.js and Qwen2.5-0.5B-Instruct (4-bit quantized).
+- Inference runs in the student's browser using WebGPU when available, with a CPU/WASM fallback. The model is downloaded from the public Hugging Face model repository and cached by the browser.
+- No OpenAI API key, paid AI subscription, paid inference endpoint, Firebase Cloud Functions, or Firebase Blaze upgrade is required for AI inference.
+- Includes AI tutor Q&A, note summarization, flashcard generation, NCLEX-style practice-question drafting, and study-plan drafting.
+- Prompts and generated responses remain in the browser. The browser downloads public model/runtime files; it does not send study prompts to an AI provider.
+- Limitations: this compact model is less capable than larger hosted models; speed and availability depend on the student's device, browser storage, and WebGPU/CPU support. The first model download is several hundred MB and requires internet. Do not use for clinical decisions or identifiable patient data.
