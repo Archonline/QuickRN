@@ -1,47 +1,44 @@
-# QuickRN AI integration setup
+# QuickRN free on-device AI setup
 
-QuickRN AI uses the OpenAI Responses API through a Firebase callable Cloud Function. The browser never receives the OpenAI API key. The callable requires a Firebase Authentication session, applies per-user request limits, and does not store prompts or model responses. Usage counters are stored in the server-only `quickrn_ai_usage` collection.
+## Cost
 
-## One-time project requirements
+This integration uses a free open-weight model running locally in each student's browser. It does not call OpenAI or another paid inference API. There are no API keys, usage-based AI fees, Firebase Cloud Functions, Firebase Blaze requirement, or AI backend server.
 
-1. Use the Firebase project `quickrnapp` and enable the Blaze billing plan. Cloud Functions deployment and outbound provider calls require billing to be enabled; OpenAI API usage is billed separately by OpenAI.
-2. Create the default Cloud Firestore database in the Firebase console if one does not already exist. Choose the database location carefully; it cannot be changed after creation.
-3. In the OpenAI platform, create an API key for this application. Keep it private; never paste it into HTML, JavaScript, GitHub, or a public Firebase config.
-4. From the repository root, install the Firebase CLI and authenticate:
-   ```bash
-   npm install -g firebase-tools
-   firebase login
-   firebase use quickrnapp
-   ```
-5. Set the provider key as a Firebase Secret:
-   ```bash
-   firebase functions:secrets:set OPENAI_API_KEY
-   ```
-   Paste the API key into the secure prompt. Do not put the key in a command-line argument or commit it to source control.
-6. Deploy the callable:
-   ```bash
-   cd functions
-   npm install
-   cd ..
-   firebase deploy --only firestore:rules,functions:quickrnAI
-   ```
-7. Open Learning Center while signed in and test the AI Tutor, note summarizer, flashcards, and quiz generator.
+The app uses:
+- Transformers.js v3.8.1 from jsDelivr.
+- onnx-community/Qwen2.5-0.5B-Instruct, using 4-bit quantization.
+- WebGPU when supported, with ONNX Runtime WebAssembly/CPU fallback.
+- Browser model caching for repeat visits.
 
-## Model selection
+## How students use it
 
-The default model is `gpt-5-mini`, set as a Firebase string parameter. To change it, set the `OPENAI_MODEL` parameter during deployment or configure the parameter in the Firebase environment. Use a model enabled for the OpenAI project and compatible with the Responses API.
+1. Open Learning Center.
+2. Select **Load free AI model**.
+3. Wait for the first model download. It is approximately a few hundred megabytes, depending on model files and quantization.
+4. Ask the AI Tutor, summarize notes, generate flashcards, draft practice questions, or create a study plan.
+5. On later visits the browser can reuse its cached model files.
 
-## Security and cost controls
+The first download requires internet access. Model inference is local after the files are loaded. Students need a modern browser and enough free memory/storage. WebGPU is recommended; CPU fallback may be slow on low-powered devices.
 
-- The callable rejects unauthenticated requests.
-- Each signed-in user is limited to 35 requests per UTC day and 8 requests per minute. Adjust these constants in `functions/index.js` after beta usage review.
-- Request content is limited to 12,000 characters; generated output is capped.
-- OpenAI calls use `store: false`; prompts and outputs are not written to Firestore by this integration.
-- Firestore stores only per-user usage counters. Client access to this collection should remain denied by Firestore rules.
-- Firebase App Check is not enforced yet because the existing client does not initialize App Check. Before public launch, configure App Check for the actual hosting domain and enable `enforceAppCheck: true` on the callable.
-- Do not enter identifiable patient information or real patient records. AI output is educational and requires verification against current authoritative references.
-- Review OpenAI API usage and set a project budget/alert in the OpenAI platform. Firebase and OpenAI billing are separate.
+## No paid setup
 
-## Current scope
+There is no API key to create, no Firebase project upgrade, and no cloud function to deploy. The AI itself is activated from the Learning Center. Normal website hosting and bandwidth limits still apply to the static app and model downloads; this is not a promise that hosting or internet access is free.
 
-The first integration adds a real AI Tutor to Learning Center with tutor Q&A, note summarization, flashcard generation, quiz generation, and study-plan drafting. The backend also supports rationale tasks for a later exam-interface integration. AI-generated exam rationales are not yet automatically injected into CAT, Predictor, Timed Practice, or Self-Study. Speech dictation remains browser-native transcription and is not itself AI.
+## Privacy and safety
+
+- The student's prompts and generated responses are processed in the browser and are not sent to an AI inference API by this feature.
+- Model and JavaScript files are downloaded from public CDNs/model hosting. The model host receives ordinary file requests, not the student's prompts.
+- Do not submit names, dates of birth, medical record numbers, or other identifiable patient data.
+- The compact model can make mistakes and may produce incomplete or incorrect nursing explanations. Verify clinical information against current authoritative nursing references.
+- AI-generated questions are practice material, not official NCLEX/NCSBN items. The AI must not silently change the answer key in the existing question bank.
+
+## Model quality and device limits
+
+Qwen2.5-0.5B is deliberately small to keep downloads and hardware requirements lower. It is genuine generative AI, but it is not as capable or dependable as larger models. Complex clinical reasoning, long documents, and detailed rationales may be weak. Students with low-memory devices may be unable to load it. If it fails, the rest of QuickRN's question bank and learning content should continue to work.
+
+## Troubleshooting
+
+- If WebGPU fails, the client attempts CPU/WASM mode.
+- If the model download fails, check the network and retry.
+- If memory is insufficient, close other tabs/apps and reload the Learning Center.
+- Clear browser site data only if the model cache is corrupted; this will require another download.
