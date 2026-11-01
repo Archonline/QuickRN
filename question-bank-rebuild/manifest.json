@@ -44,16 +44,26 @@
       "validationStatus": "structural_pass_clinical_review_pending",
       "file": "question-bank-rebuild/batches/qr-batch-000590-000689.json",
       "commit": "e4e320d7317ee7212c10d3bee893391b881c4b09"
+    },
+    {
+      "number": 4,
+      "firstId": "QR-000690",
+      "lastId": "QR-000789",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000690-000789.json",
+      "commit": "8b1825083a3033238f22b88e0c5a4b8505c08169"
     }
   ],
   "nextBatch": {
-    "number": 4,
-    "firstId": "QR-000690",
-    "lastId": "QR-000789",
-    "status": "in_progress",
-    "stagedCount": 66,
-    "stagedFile": "question-bank-rebuild/batches/qr-batch-000690-000789.part-a.json",
-    "stagedThrough": "QR-000755"
+    "number": 5,
+    "firstId": "QR-000790",
+    "lastId": "QR-000889",
+    "status": "not_started",
+    "stagedCount": 0
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -70,12 +80,11 @@
     "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
     "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
     "No claim of 4,500-question completion until all 45 batches pass validation and integration.",
-    "Batch 4 staging currently contains 36 of 100 items; the six initial staged records plus 30 added in the latest commit. Batch 4 is not complete or release-validated.",
-    "Batch 4 now has 66 staged items (QR-000690 through QR-000755); 34 additional items remain before the exact 100-item batch can be finalized."
+    "Batch 4 completed with exactly 100 records (QR-000690–QR-000789), contiguous unique IDs, all 13 supported formats, and required fields present. Clinical review and four-mode integration remain pending."
   ],
   "progress": {
-    "questionsAuthored": 266,
-    "questionsStructurallyValidated": 266,
+    "questionsAuthored": 400,
+    "questionsStructurallyValidated": 400,
     "questionsClinicallyReviewed": 0,
     "questionsIntegratedIntoExamModes": 0
   }
