@@ -111,7 +111,7 @@ const dashboard = fs.readFileSync('dashboard.html', 'utf8');
 const calendar = fs.readFileSync('calendar.html', 'utf8');
 assert.match(dashboard, /href="calendar\.html"/);
 assert.doesNotMatch(dashboard, /id="tab-content-calendar"/);
-assert.match(dashboard, /function generateStudyRoadmap/);
+assert.match(calendar, /function generateStudyRoadmap/);
 assert.match(dashboard, /quickrn_calendar_events/);
 assert.match(calendar, /quickrn_calendar_events/);
 assert.match(calendar, /quickrn_ai_study_roadmap/);
