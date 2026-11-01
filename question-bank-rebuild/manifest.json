@@ -8,12 +8,25 @@
   "lastId": "QR-004889",
   "branch": "question-bank-4500-rebuild",
   "baseBranch": "main",
-  "completedBatches": [],
+  "completedBatches": [
+    {
+      "number": 1,
+      "firstId": "QR-000390",
+      "lastId": "QR-000489",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000390-000489.json",
+      "commit": "521075e1ea6fd722f748caff980ca465b27f2368"
+    }
+  ],
   "nextBatch": {
-    "number": 1,
-    "firstId": "QR-000390",
-    "lastId": "QR-000489",
-    "status": "in_progress"
+    "number": 2,
+    "firstId": "QR-000490",
+    "lastId": "QR-000589",
+    "status": "not_started"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -30,5 +43,11 @@
     "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
     "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
     "No claim of 4,500-question completion until all 45 batches pass validation and integration."
-  ]
+  ],
+  "progress": {
+    "questionsAuthored": 100,
+    "questionsStructurallyValidated": 100,
+    "questionsClinicallyReviewed": 0,
+    "questionsIntegratedIntoExamModes": 0
+  }
 }
