@@ -62,6 +62,7 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 - Restored the previously empty root `questions.js` with a canonical linked six-item NGN case-study group, shared EHR records, `caseGroupId`, `caseQuestionNumber`, and Clinical Judgment Measurement Model stages. Case-group key detection and EHR rendering accept common alternate schema names.
 - Added a dedicated Learning Center with Child Health, Adult Health, and Pharmacology body-system topic maps, four topic-specific search phrases, embedded playback for supplied/verified YouTube video IDs, a notes workspace with browser-local autosave, export, and browser speech dictation. Speech dictation is transcription, not a generative AI service. Search-result links open YouTube; to embed and autoplay a specific result, paste its video URL into the player because a YouTube Data API key / verified video ID is not configured.
 - Moved the Clinical Study Coach and seven-day remediation roadmap to Calendar. Generated roadmap activities are saved into the same calendar event store as personal reminders.
+- Simplified the Calendar activity workflow: removed the separate Add study activity card, retained one Add study activity action in the selected-date panel, and reveal the inline form only when the user chooses a date and requests a personal activity. Personal activities remain separate from generated roadmap sessions.
 - Removed the dashboard's preparation-prompt strip and profile shortcut beside Sign Out.
 
 
