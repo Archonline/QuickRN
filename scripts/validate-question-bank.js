@@ -14,6 +14,10 @@ if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+
 context.window=context;context.questions=bank;
 const supplement=path.resolve(__dirname,'../questions-ngn-supplement.js');
 if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8'),context,{timeout:30000,filename:supplement});
+const v2Bank=path.resolve(__dirname,'../questions-bank-v2.js');
+if(fs.existsSync(v2Bank))vm.runInNewContext(fs.readFileSync(v2Bank,'utf8'),context,{timeout:30000,filename:v2Bank});
+const curatedBank=path.resolve(__dirname,'../questions-bank-v2-curated.js');
+if(fs.existsSync(curatedBank))vm.runInNewContext(fs.readFileSync(curatedBank,'utf8'),context,{timeout:30000,filename:curatedBank});
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
@@ -70,10 +74,10 @@ for(let i=0;i<bank.length;i++){
  }
  if(f==='Matrix / Grid'){
   const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[],answers=q.correctAnswers||{};
-  if(rows.some((row,index)=>{const id=row.id||String(index);return !(id in answers)||!columns.includes(answers[id]);})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to a valid column');
+  if(rows.some((row,index)=>{const id=row.id||String(index),key=answers[id];return key===undefined||(Array.isArray(key)?(!key.length||key.some(value=>!columns.includes(value))):!columns.includes(key));})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to valid column(s)');
  }
  if(f==='Cloze (Drop-down)'){
-  const answers=q.correctAnswers||{},choices=q.options||q.dropdowns||{};
+  const answers=q.correctAnswers||{},choices=q.options||((Array.isArray(q.dropdowns)?Object.fromEntries(q.dropdowns.map(d=>[d.id,d.options||[]])):q.dropdowns)||{});
   if(Object.entries(answers).some(([key,value])=>!Array.isArray(choices[key])||!choices[key].some(choice=>String(choice)===String(value))))issue('CLOZE_KEY_MISMATCH','Cloze answer key does not match its dropdown choices');
  }
  if(f==='Extended Drag and Drop'){
@@ -88,6 +92,7 @@ for(let i=0;i<bank.length;i++){
  }
 
  if(!String(q.title||q.questionText||q.question||q.cleanTitle||'').trim())issue('MISSING_PROMPT','No usable title or prompt');
+ if(q.caseGroupId){const scenario=q.caseStudy&&q.caseStudy.scenario;if(!String(scenario||'').trim())issue('CASE_SCENARIO_MISSING','Linked case question must reference a separately stored case scenario');if(!Number.isInteger(Number(q.caseQuestionNumber))||Number(q.caseQuestionNumber)<1)issue('CASE_SEQUENCE_MISSING','Linked case question must have a positive sequence number');}
  if(['Single Choice','Trend','Select N'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
  if(['Multiple Response','Extended Multiple Response'].includes(f)&&(!Array.isArray(q.options)||!q.options.length||!(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))))issue('INVALID_MULTI_SCHEMA','Expected options and array answer key');
