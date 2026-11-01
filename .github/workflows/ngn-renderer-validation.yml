@@ -25,6 +25,8 @@ jobs:
           node --check js/quickrn-ngn-compat.js
           node --check tests/quickrn-ngn-compat.test.js
           node --check questions-ngn-supplement.js
+          node --check questions-bank-v3-clinical.js
+          node --check tests/clinical-v3-bank.test.js
           node --check js/quickrn-ngn-compat.js
           node --check tests/shared-renderer.test.js
           node --check tests/clinical-prompt-normalizer.test.js
@@ -59,6 +61,8 @@ jobs:
         run: node tests/selfstudy-lifecycle.test.js
       - name: Validate curated NCLEX and NGN replacement questions
         run: node tests/curated-question-bank.test.js
+      - name: Validate clinical v3 bank and all 13 formats across exam modes
+        run: node tests/clinical-v3-bank.test.js
       - name: Verify shared exam interface, rationale, branding, and session lengths
         run: node tests/exam-unified-interface-contract.test.js
       - name: Verify exam page script dependencies
