@@ -51,8 +51,9 @@
     "firstId": "QR-000690",
     "lastId": "QR-000789",
     "status": "in_progress",
-    "stagedCount": 6,
-    "stagedFile": "question-bank-rebuild/batches/qr-batch-000690-000789.part-a.json"
+    "stagedCount": 36,
+    "stagedFile": "question-bank-rebuild/batches/qr-batch-000690-000789.part-a.json",
+    "stagedThrough": "QR-000725"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -68,11 +69,12 @@
     "Existing main-branch files are preserved.",
     "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
     "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
-    "No claim of 4,500-question completion until all 45 batches pass validation and integration."
+    "No claim of 4,500-question completion until all 45 batches pass validation and integration.",
+    "Batch 4 staging currently contains 36 of 100 items; the six initial staged records plus 30 added in the latest commit. Batch 4 is not complete or release-validated."
   ],
   "progress": {
-    "questionsAuthored": 206,
-    "questionsStructurallyValidated": 206,
+    "questionsAuthored": 236,
+    "questionsStructurallyValidated": 236,
     "questionsClinicallyReviewed": 0,
     "questionsIntegratedIntoExamModes": 0
   }
