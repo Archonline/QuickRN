@@ -20,13 +20,39 @@
       "validationStatus": "structural_pass_clinical_review_pending",
       "file": "question-bank-rebuild/batches/qr-batch-000390-000489.json",
       "commit": "521075e1ea6fd722f748caff980ca465b27f2368"
+    },
+    {
+      "number": 2,
+      "firstId": "QR-000490",
+      "lastId": "QR-000589",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000490-000589.json",
+      "commit": "7734a22075a660668f793cda5b3054074524f5ba"
+    },
+    {
+      "number": 3,
+      "firstId": "QR-000590",
+      "lastId": "QR-000689",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000590-000689.json",
+      "commit": "e4e320d7317ee7212c10d3bee893391b881c4b09"
     }
   ],
   "nextBatch": {
-    "number": 2,
-    "firstId": "QR-000490",
-    "lastId": "QR-000589",
-    "status": "not_started"
+    "number": 4,
+    "firstId": "QR-000690",
+    "lastId": "QR-000789",
+    "status": "in_progress",
+    "stagedCount": 6,
+    "stagedFile": "question-bank-rebuild/batches/qr-batch-000690-000789.part-a.json"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -45,8 +71,8 @@
     "No claim of 4,500-question completion until all 45 batches pass validation and integration."
   ],
   "progress": {
-    "questionsAuthored": 100,
-    "questionsStructurallyValidated": 100,
+    "questionsAuthored": 206,
+    "questionsStructurallyValidated": 206,
     "questionsClinicallyReviewed": 0,
     "questionsIntegratedIntoExamModes": 0
   }
