@@ -44,7 +44,7 @@ for(const q of curated){
 }
 const caseQs=curated.filter(q=>q.caseGroupId==='QB2R-CS-001').sort((a,b)=>a.caseQuestionNumber-b.caseQuestionNumber);
 assert.equal(caseQs.length,6,'case study has six sequential questions');
-assert.deepEqual(caseQs.map(q=>q.caseQuestionNumber),[1,2,3,4,5,6]);
+assert.equal(Array.from(caseQs,q=>q.caseQuestionNumber).join(','),'1,2,3,4,5,6');
 const scenario=caseQs[0].caseStudy.scenario;
 assert.ok(scenario&&scenario.length>100,'case narrative is stored separately');
 assert.ok(caseQs.every(q=>q.caseStudy.scenario===scenario),'all linked questions reference the same separate scenario');
