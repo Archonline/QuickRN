@@ -4514,54 +4514,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent)."
   },
   {
-    "id": "NCLEX-2044",
-    "category": "Prioritization & Triage",
-    "topic": "Triage Categorization (Emergent vs Urgent)",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Triage Categorization (Emergent vs Urgent), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Management of Care",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Triage Categorization (Emergent vs Urgent)",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent)."
-  },
-  {
     "id": "NCLEX-2049",
     "category": "Prioritization & Triage",
     "topic": "Unstable vs Stable Client Assignments",
@@ -4608,54 +4560,6 @@
     "promptTitle": "Unstable vs Stable Client Assignments",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Unstable vs Stable Client Assignments."
-  },
-  {
-    "id": "NCLEX-2055",
-    "category": "Prioritization & Triage",
-    "topic": "Post-Operative Complications Priority",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Post-Operative Complications Priority, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Management of Care",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Prioritization & Triage - Post-Operative Complications Priority] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Post-Operative Complications Priority",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority."
   },
   {
     "id": "NCLEX-2056",
@@ -4946,54 +4850,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Prohibited Tasks for UAPs and LPNs."
   },
   {
-    "id": "NCLEX-2085",
-    "category": "Scope of Practice: RN vs LPN vs UAP",
-    "topic": "Reinforcing Teaching vs Initial Teaching",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Reinforcing Teaching vs Initial Teaching, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Management of Care",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Reinforcing Teaching vs Initial Teaching",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching."
-  },
-  {
     "id": "NCLEX-2086",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "Reinforcing Teaching vs Initial Teaching",
@@ -5282,54 +5138,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess."
   },
   {
-    "id": "NCLEX-2104",
-    "category": "Fluid, Electrolyte, and Acid-Base Problems",
-    "topic": "Fluid Volume Deficit vs Excess",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Fluid Volume Deficit vs Excess, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Fluid Volume Deficit vs Excess",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess."
-  },
-  {
     "id": "NCLEX-2109",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Diuretic Therapy Monitoring",
@@ -5424,54 +5232,6 @@
     "promptTitle": "Diuretic Therapy Monitoring",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring."
-  },
-  {
-    "id": "NCLEX-2115",
-    "category": "Fluid, Electrolyte, and Acid-Base Problems",
-    "topic": "Arterial Blood Gas Interpretation",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Arterial Blood Gas Interpretation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Arterial Blood Gas Interpretation",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation."
   },
   {
     "id": "NCLEX-2116",
@@ -5762,54 +5522,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation."
   },
   {
-    "id": "NCLEX-2134",
-    "category": "Hematologic & Immunologic Problems",
-    "topic": "Anemia and Energy Conservation",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Anemia and Energy Conservation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Anemia and Energy Conservation",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation."
-  },
-  {
     "id": "NCLEX-2139",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Blood Transfusion Delegation and Monitoring",
@@ -5904,54 +5616,6 @@
     "promptTitle": "Blood Transfusion Delegation and Monitoring",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring."
-  },
-  {
-    "id": "NCLEX-2145",
-    "category": "Hematologic & Immunologic Problems",
-    "topic": "Oncologic Emergencies and Sepsis",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Oncologic Emergencies and Sepsis, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Oncologic Emergencies and Sepsis",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis."
   },
   {
     "id": "NCLEX-2146",
@@ -6242,54 +5906,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP)."
   },
   {
-    "id": "NCLEX-2164",
-    "category": "Neurologic Problems",
-    "topic": "Increased Intracranial Pressure (ICP)",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Increased Intracranial Pressure (ICP), tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Increased Intracranial Pressure (ICP)",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP)."
-  },
-  {
     "id": "NCLEX-2169",
     "category": "Neurologic Problems",
     "topic": "Spinal Cord Injury and Autonomic Dysreflexia",
@@ -6384,54 +6000,6 @@
     "promptTitle": "Spinal Cord Injury and Autonomic Dysreflexia",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia."
-  },
-  {
-    "id": "NCLEX-2175",
-    "category": "Neurologic Problems",
-    "topic": "Neurological Assessment Delegation",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Neurologic Problems - Neurological Assessment Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Neurologic Problems - Neurological Assessment Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Neurological Assessment Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Management of Care",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Neurologic Problems - Neurological Assessment Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Neurological Assessment Delegation",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation."
   },
   {
     "id": "NCLEX-2176",
@@ -6722,54 +6290,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care."
   },
   {
-    "id": "NCLEX-2194",
-    "category": "Gastrointestinal & Renal Problems",
-    "topic": "Urinary Tract Infection and Catheter Care",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Urinary Tract Infection and Catheter Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Safety and Infection Control",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Urinary Tract Infection and Catheter Care",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care."
-  },
-  {
     "id": "NCLEX-2199",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "GI Bleeding and Hemodynamic Stability",
@@ -6864,54 +6384,6 @@
     "promptTitle": "GI Bleeding and Hemodynamic Stability",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability."
-  },
-  {
-    "id": "NCLEX-2205",
-    "category": "Gastrointestinal & Renal Problems",
-    "topic": "Bowel Obstruction and NG Tube Management",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Bowel Obstruction and NG Tube Management, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Bowel Obstruction and NG Tube Management",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management."
   },
   {
     "id": "NCLEX-2206",
@@ -7202,54 +6674,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration."
   },
   {
-    "id": "NCLEX-2224",
-    "category": "Cardiovascular & Respiratory Problems",
-    "topic": "COPD and Oxygen Therapy Administration",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for COPD and Oxygen Therapy Administration, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "COPD and Oxygen Therapy Administration",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration."
-  },
-  {
     "id": "NCLEX-2229",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Pulmonary Embolism Recognition and Action",
@@ -7344,54 +6768,6 @@
     "promptTitle": "Pulmonary Embolism Recognition and Action",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action."
-  },
-  {
-    "id": "NCLEX-2235",
-    "category": "Cardiovascular & Respiratory Problems",
-    "topic": "Hypertensive Crisis and Post-Op Graft Stress",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Hypertensive Crisis and Post-Op Graft Stress, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Hypertensive Crisis and Post-Op Graft Stress",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress."
   },
   {
     "id": "NCLEX-2236",
@@ -7682,54 +7058,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care."
   },
   {
-    "id": "NCLEX-2254",
-    "category": "Musculoskeletal Problems",
-    "topic": "Total Joint Replacement Post-Op Care",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Total Joint Replacement Post-Op Care, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Total Joint Replacement Post-Op Care",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care."
-  },
-  {
     "id": "NCLEX-2259",
     "category": "Musculoskeletal Problems",
     "topic": "Cast Care and Neurovascular Checks",
@@ -7824,54 +7152,6 @@
     "promptTitle": "Cast Care and Neurovascular Checks",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks."
-  },
-  {
-    "id": "NCLEX-2265",
-    "category": "Musculoskeletal Problems",
-    "topic": "Amputation Stump Care and Positioning",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Amputation Stump Care and Positioning, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Amputation Stump Care and Positioning",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning."
   },
   {
     "id": "NCLEX-2266",
@@ -8162,54 +7442,6 @@
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring."
   },
   {
-    "id": "NCLEX-2284",
-    "category": "Endocrine Problems",
-    "topic": "Adrenalectomy Post-Op Monitoring",
-    "difficulty": "Moderate",
-    "type": "single_choice",
-    "question": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": false
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": true
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "correctAnswerText": "Provide independent patient education on complex disease pathology and discharge self-management.",
-    "rationale": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Adrenalectomy Post-Op Monitoring, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Physiological Adaptation",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Adrenalectomy Post-Op Monitoring",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring."
-  },
-  {
     "id": "NCLEX-2289",
     "category": "Endocrine Problems",
     "topic": "Thyroidectomy and Airway Complications",
@@ -8304,54 +7536,6 @@
     "promptTitle": "Thyroidectomy and Airway Complications",
     "instruction": "Select the single best answer.",
     "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications."
-  },
-  {
-    "id": "NCLEX-2295",
-    "category": "Endocrine Problems",
-    "topic": "Diabetes Mellitus Foot Care Delegation",
-    "difficulty": "Hard",
-    "type": "single_choice",
-    "question": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "options": [
-      {
-        "id": "A",
-        "text": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-        "correct": true
-      },
-      {
-        "id": "B",
-        "text": "Administer scheduled oral medications and monitor stable client outcomes under RN supervision.",
-        "correct": false
-      },
-      {
-        "id": "C",
-        "text": "Provide independent patient education on complex disease pathology and discharge self-management.",
-        "correct": false
-      },
-      {
-        "id": "D",
-        "text": "Evaluate overall treatment effectiveness and modify the individualized nursing care plan.",
-        "correct": false
-      }
-    ],
-    "correctAnswer": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "correctAnswerText": "Perform initial admission assessment and establish nursing care plan for a newly admitted client with unstable vitals.",
-    "rationale": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "learningObjective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
-    "studyNote": "Remember the core rule: RNs do EAT (Evaluation, Assessment, Teaching). LPNs handle stable/predictable clients and medication administration. UAPs handle stable ADLs and vital signs.",
-    "nclexMasteryType": null,
-    "stem": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "explanation": "In accordance with LaCharity principles for Diabetes Mellitus Foot Care Delegation, tasks requiring nursing judgment, initial assessments, complex teaching, and care of unstable clients are restricted to the RN. LPNs care for stable clients with predictable outcomes, while UAPs perform routine, non-invasive ADLs and vital signs for stable clients.",
-    "clientNeed": "Management of Care",
-    "ngnType": "not_applicable",
-    "format": "single_choice",
-    "itemType": "Traditional",
-    "questionType": "single_choice",
-    "isNGN": false,
-    "title": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] The nurse is caring for a client with an acute exacerbation. Which clinical manifestation requires the most immediate nursing action?",
-    "promptTitle": "Diabetes Mellitus Foot Care Delegation",
-    "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation."
   },
   {
     "id": "NCLEX-2296",
