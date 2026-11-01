@@ -4,6 +4,7 @@
   window.__quickrnSidebarMounted = true;
   const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
   const active = path === 'correct_view.html' ? 'selfstudy.html' : path;
+  if(typeof window.switchTab!=='function'){window.switchTab=function(tabId){['dashboard','learning','features','analytics'].forEach(t=>{document.getElementById('tab-content-'+t)?.classList.add('hidden');const n=document.getElementById('nav-'+t);if(n){n.classList.remove('bg-brand-50','text-brand-700');n.classList.add('text-slate-600','hover:bg-slate-50');}});document.getElementById('tab-content-'+tabId)?.classList.remove('hidden');const activeNav=document.getElementById('nav-'+tabId);if(activeNav){activeNav.classList.remove('text-slate-600','hover:bg-slate-50');activeNav.classList.add('bg-brand-50','text-brand-700');}const titles={dashboard:'NCLEX Candidate Dashboard',learning:'Learning Center',features:'QuickRN Feature Hub & NCLEX Tour',analytics:'Client Needs Mastery Analytics'};const title=document.getElementById('page-title');if(title)title.textContent=titles[tabId]||'Dashboard';};}
   const groups = [
     { label: 'Workspace', links: [
       ['dashboard.html','fa-chart-pie','Dashboard'], ['calendar.html','fa-calendar-days','Calendar'],
@@ -31,4 +32,5 @@
   const shell=document.getElementById('app-shell');
   if(shell){const old=shell.querySelector(':scope > aside');if(old)old.replaceWith(aside);else shell.insertBefore(aside,shell.firstChild);shell.classList.add('qr-sidebar-shell');}
   else{document.body.insertBefore(aside,document.body.firstChild);document.body.classList.add('qr-has-sidebar');}
+  const requestedTab=String(window.location.hash||'').slice(1);if(path==='dashboard.html'&&['dashboard','learning','features','analytics'].includes(requestedTab))window.switchTab(requestedTab);
 })();
