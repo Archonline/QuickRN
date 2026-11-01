@@ -30,7 +30,7 @@ assert.match(app, /videoResources&&videoResources\.parentElement!==left/);
 assert.match(app, /accuracyPercent:score\.accuracy/);
 assert.match(app, /score\.partialCorrect/);
 assert.match(app, /score\.wrong/);
-assert.match(app, /recordMetric\(q,r\);showRationale\(q,r\)/);
+assert.match(app, /recordMetric\(q,r\);\$\('submit-btn'\)/);
 assert.match(app, /if\(!record\.submitted\)\{submitAnswer\(\);return;\}/);
 assert.match(app, /elapsedSeconds\/60/);
 assert.match(app, /v\.correct/);
