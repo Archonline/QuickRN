@@ -50,6 +50,12 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
     <span class="rounded-full px-3 py-1 text-xs font-bold" style="background:#e8f4ed;color:#1B5E43" id="quickrn-ai-auth-status">Free · On-device AI</span>
   </div>
   <div class="flex flex-wrap items-center gap-2"><button type="button" id="quickrn-ai-load" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F">Load free AI model</button><span id="quickrn-ai-model-status" class="text-xs text-slate-500">Model not loaded · first download requires internet</span></div><div class="h-1.5 rounded-full bg-slate-100 overflow-hidden"><div id="quickrn-ai-progress" class="h-full bg-purple-600" style="width:0%"></div></div>
+  <details class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+    <summary class="cursor-pointer text-xs font-bold text-slate-700">Optional Gemini fallback (only if the local model cannot run)</summary>
+    <p class="mt-2 text-[11px] leading-5 text-slate-500">Google sign-in does not automatically authorize Gemini API access. To use this optional fallback, create your own Gemini API key in <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="font-bold text-purple-700 underline">Google AI Studio</a> and enter it below. The key stays in this page's memory and is not saved. Gemini receives the prompt and notes you submit. Free-tier availability and limits are controlled by Google; do not enter identifiable patient information.</p>
+    <div class="mt-2 flex flex-col sm:flex-row gap-2"><input id="quickrn-gemini-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your own Gemini API key" class="min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs"><button id="quickrn-gemini-enable" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700">Enable fallback</button></div>
+    <p id="quickrn-gemini-status" class="mt-2 text-[10px] text-slate-500" role="status">Not connected. The local model remains the default.</p>
+  </details>
   <label class="block text-xs font-bold text-slate-700" for="quickrn-ai-prompt">What would you like help with?</label>
   <textarea id="quickrn-ai-prompt" rows="3" maxlength="12000" class="w-full rounded-xl border p-3 text-sm" placeholder="Example: Explain the priority nursing interventions for a client with acute pulmonary edema."></textarea>
   <div class="flex flex-wrap gap-2">
