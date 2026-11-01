@@ -9,8 +9,8 @@ for(const page of ['selfstudy.html','cat.html','predictor.html','timed.html']){c
 const bank=context.window.questions;
 assert.ok(Array.isArray(bank));
 const curated=bank.filter(q=>String(q.id||'').startsWith('QB2R-'));
-assert.equal(curated.length,28,'expected 22 standalone items plus six linked case questions');
-assert.equal(new Set(curated.map(q=>q.id)).size,28,'curated IDs are unique');
+assert.ok(curated.length>=28,'curated bank includes the original standalone and six linked case questions plus replacement batches');
+assert.equal(new Set(curated.map(q=>q.id)).size,curated.length,'curated IDs are unique');
 const clientNeeds=new Set(curated.map(q=>q.clientNeed).filter(Boolean));
 for(const need of ['Management of Care','Safety and Infection Control','Health Promotion and Maintenance','Psychosocial Integrity','Basic Care and Comfort','Pharmacological and Parenteral Therapies','Reduction of Risk Potential','Physiological Adaptation']) assert.ok(clientNeeds.has(need),'coverage includes '+need);
 for(const q of curated){
@@ -60,4 +60,4 @@ assert.equal(scoring.grade(byId('QB2R-0006'),{cloze:{fluid:'isotonic crystalloid
 assert.equal(scoring.grade(byId('QB2R-0007'),{condition:'Septic shock',actions:byId('QB2R-0007').correctAnswers.actions,monitoring:byId('QB2R-0007').correctAnswers.monitoring}).isCorrect,true);
 assert.equal(scoring.grade(byId('QB2R-0009'),{numericEntry:180}).isCorrect,true);
 assert.equal(scoring.grade(byId('QB2R-0010'),{order:byId('QB2R-0010').correctOrder}).isCorrect,true);
-console.log('PASS: 28 curated questions; answer structures, rationales, all supported schemas, six-step case sequence, and representative scoring checks.');
+console.log('PASS: '+curated.length+' curated questions; answer structures, rationales, supported schemas, six-step case sequence, and representative scoring checks.');
