@@ -22,7 +22,7 @@ assert.match(app, /mode==='predictor'\?'Predictor score'/);
 assert.doesNotMatch(app, /function toggleRationale\(/);
 assert.match(app, /aria-label=\"Best answer\"/);
 assert.match(app, /question bank does not include an option-specific explanation/);
-assert.match(app, /This is not the best answer/);
+assert.match(app, /Not the best answer/);
 assert.match(app, /right\.insertBefore\(rationale,actionRow\)/);
 assert.match(app, /rationale\.classList\.add\('hidden'\)/);
 assert.match(app, /Reference range: not supplied in source item/);
