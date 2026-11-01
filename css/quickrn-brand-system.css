@@ -302,3 +302,31 @@ body:not(:has(#answer-workspace)):not(.quickrn-exam){background:var(--qr-brand-b
 
 /* Export/download actions are intentionally removed from student-facing pages. */
 button[id*="export" i],a[id*="export" i],[data-action*="export" i]{display:none!important;visibility:hidden!important;pointer-events:none!important}
+
+
+/* Final brand lock: all page headers, including dashboard, Learning Center,
+   Feedback Inbox and Profile, share the same clinical navy/teal system. */
+:root{
+ --qr-purple:#16324f;--qr-purple-deep:#10263d;--qr-amber:#0f7c78;
+ --qr-brand-plum:#16324f;--qr-brand-plum-deep:#10263d;
+ --qr-brand-coral:#0f7c78;--qr-brand-coral-dark:#0b625f;
+ --qr-sidebar-bg:#12304a;--qr-sidebar-border:#0d2438;--qr-sidebar-accent:#0f7c78;
+}
+body header{
+ background:#16324f!important;
+ background-image:none!important;
+ border-color:#294b62!important;
+ color:#fff!important;
+}
+body header :is(h1,h2,h3,h4,p,span,strong,a,i,button,label){
+ color:inherit;
+}
+body header :is(a,button){border-color:rgba(255,255,255,.22)}
+body header :is(a,button):hover{background-color:rgba(255,255,255,.1)}
+body header [class*="bg-white"]{background-color:rgba(255,255,255,.1)!important}
+body header [class*="text-slate-900"],body header [class*="text-slate-700"],body header [class*="text-slate-600"]{color:#f1f5f9!important}
+body header [class*="text-purple"],body header [class*="text-amber"],body header [class*="text-cyan"]{color:#b9e5e5!important}
+#quickrn-unified-sidebar.qr-sidebar{background:#12304a!important;border-color:#0d2438!important}
+#quickrn-unified-sidebar .qr-sidebar-mark{background:#0f7c78!important}
+#quickrn-unified-sidebar .qr-sidebar-link.is-active{background:rgba(15,124,120,.28)!important;border-color:rgba(185,229,229,.25)!important}
+#quickrn-unified-sidebar .qr-sidebar-link:hover{background:rgba(15,124,120,.18)!important}
