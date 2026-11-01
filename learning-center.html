@@ -44,7 +44,26 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
 <p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
 </aside>
 </div>
+<section class="rounded-2xl border bg-white p-4 md:p-5 space-y-4" id="quickrn-ai-panel">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">QuickRN Intelligence</p><h2 class="text-xl font-extrabold">AI Nursing Tutor</h2><p class="text-xs text-slate-500 mt-1">Ask questions, summarize your notes, or create active-recall practice materials.</p></div>
+    <span class="rounded-full px-3 py-1 text-xs font-bold" style="background:#D3DDEB;color:#4A4A4A" id="quickrn-ai-auth-status">Checking sign-in…</span>
+  </div>
+  <label class="block text-xs font-bold text-slate-700" for="quickrn-ai-prompt">What would you like help with?</label>
+  <textarea id="quickrn-ai-prompt" rows="3" maxlength="12000" class="w-full rounded-xl border p-3 text-sm" placeholder="Example: Explain the priority nursing interventions for a client with acute pulmonary edema."></textarea>
+  <div class="flex flex-wrap gap-2">
+    <button type="button" data-ai-task="tutor" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F">Ask AI Tutor</button>
+    <button type="button" data-ai-task="summarize" class="rounded-lg border px-3 py-2 text-xs font-bold">Summarize my notes</button>
+    <button type="button" data-ai-task="flashcards" class="rounded-lg border px-3 py-2 text-xs font-bold">Make flashcards</button>
+    <button type="button" data-ai-task="quiz" class="rounded-lg border px-3 py-2 text-xs font-bold">Create 5 questions</button>
+    <button type="button" data-ai-task="study-plan" class="rounded-lg border px-3 py-2 text-xs font-bold">Make a study plan</button>
+  </div>
+  <div id="quickrn-ai-output" class="hidden rounded-xl border p-4 bg-slate-50 text-sm leading-6 whitespace-pre-wrap" aria-live="polite"></div>
+  <p id="quickrn-ai-status" class="text-xs text-slate-500" role="status">AI responses require an authenticated QuickRN account. AI-generated educational content should be checked against current nursing references.</p>
+  <p class="text-[11px] text-slate-400">Do not enter identifiable patient information. AI outputs are educational drafts, not clinical advice or official NCLEX content.</p>
+</section>
 </div>
 <script src="js/quickrn-learning-center.js"></script>
+<script type="module" src="js/quickrn-ai-client.js"></script>
 <script src="js/quickrn-platform-hardening.js"></script>
 </body></html>
