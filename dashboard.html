@@ -714,8 +714,8 @@
             quickrnChartInstance = new Chart(activeCanvas, {
                 type: 'line',
                 data: { labels, datasets: [
-                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2.5, fill: true, tension: 0.25, pointRadius: 4, pointHoverRadius: 6, pointBackgroundColor: '#16a34a', spanGaps: false },
-                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.25, pointRadius: 3, pointHoverRadius: 5, pointBackgroundColor: '#f59e0b', spanGaps: false }
+                    { label: 'Item accuracy', data: scores, borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 2, fill: true, tension: 0.25, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#16a34a', spanGaps: false },
+                    { label: 'Estimated passing likelihood', data: probabilities, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.08)', borderWidth: 2, borderDash: [4,3], fill: false, tension: 0.25, pointRadius: 2, pointHoverRadius: 4, pointBackgroundColor: '#f59e0b', spanGaps: false }
                 ]},
                 options: {
                     responsive: true, maintainAspectRatio: false,
