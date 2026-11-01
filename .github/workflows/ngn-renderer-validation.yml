@@ -77,17 +77,22 @@ jobs:
         run: node tests/reporting-backup-contract.test.js
           node tests/feedback-inbox.test.js
       - name: Test CAT adaptive decision engine
+        if: always()
         run: node tests/cat-engine.test.js
       - name: Test all supported question renderers
+        if: always()
         run: |
           node tests/shared-renderer.test.js
           node tests/clinical-prompt-normalizer.test.js
           node tests/quickrn-ngn-compat.test.js
       - name: Test question ID collision normalization
+        if: always()
         run: node tests/question-id-normalizer.test.js
       - name: Verify production bank against shared renderer
+        if: always()
         run: node tests/question-bank-renderer-contract.test.js
       - name: Validate production question bank
+        if: always()
         run: node scripts/validate-question-bank.js questions.js
       - name: Upload real-bank validation report
         if: always()
