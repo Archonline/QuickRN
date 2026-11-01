@@ -537,6 +537,7 @@
             // Mark the session as signed out, then leave the dashboard entirely.
             try {
                 localStorage.setItem('quickrn_signed_out', 'true');
+                localStorage.removeItem('quickrn_auth_provider');
             } catch (error) {
                 console.warn('Could not persist the signed-out state:', error);
             }
