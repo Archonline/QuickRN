@@ -1,0 +1,88 @@
+{
+  "batch": 4,
+  "range": "QR-000690–QR-000789 (partial; 6/100)",
+  "count": 6,
+  "questionTypes": [
+    "Bowtie",
+    "Case Study",
+    "Cloze (Drop-down)",
+    "Highlight",
+    "Numeric Entry",
+    "Trend"
+  ],
+  "validation": {
+    "exactCount": false,
+    "uniqueIds": true,
+    "requiredFields": true,
+    "formatCoverage": false,
+    "clinicalReview": "required before release"
+  },
+  "items": [
+    {
+      "id": "QR-000690",
+      "type": "Cloze (Drop-down)",
+      "category": "Adult Health",
+      "topic": "Acute DVT",
+      "title": "A client with suspected DVT should not have the affected leg ___. The nurse should assess for pulmonary embolism symptoms such as sudden ___ and chest pain.",
+      "content": "massaged|dyspnea",
+      "rationale": "Massage is avoided because of embolization concern. Sudden dyspnea and chest pain may indicate PE and require emergency evaluation.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    },
+    {
+      "id": "QR-000691",
+      "type": "Bowtie",
+      "category": "Adult Health",
+      "topic": "Acute opioid overdose",
+      "title": "A client is found unresponsive with RR 5/min, pinpoint pupils, and suspected opioid exposure. Select the condition, two actions, and two parameters to monitor.",
+      "content": "condition:opioid overdose with respiratory depression|actions:provide airway and ventilatory support;administer naloxone and repeat per protocol if needed|monitor:respiratory rate and oxygenation;level of consciousness and recurrent sedation",
+      "rationale": "Ventilation is the immediate priority. Naloxone reverses opioid effects but may wear off before the opioid, so monitor for recurrence.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    },
+    {
+      "id": "QR-000692",
+      "type": "Highlight",
+      "category": "Adult Health",
+      "topic": "Acute kidney injury",
+      "title": "Highlight findings suggesting acute kidney injury: rising creatinine;reduced urine output;new hyperkalemia;stable baseline creatinine;new fluid overload.",
+      "content": "segments:rising creatinine|reduced urine output|new hyperkalemia|stable baseline creatinine|new fluid overload|correct:1,2,3,5",
+      "rationale": "Rising creatinine, oliguria, hyperkalemia, and fluid overload are complications or indicators of acute kidney injury.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    },
+    {
+      "id": "QR-000693",
+      "type": "Numeric Entry",
+      "category": "Pharmacology",
+      "topic": "Dose calculation",
+      "title": "A client is prescribed 1.2 g of an antibiotic. The vial concentration after reconstitution is 400 mg/mL. How many mL are needed?",
+      "content": "3|mL|0",
+      "rationale": "1.2 g = 1,200 mg. 1,200 mg ÷ 400 mg/mL = 3 mL.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    },
+    {
+      "id": "QR-000694",
+      "type": "Trend",
+      "category": "Adult Health",
+      "topic": "Sepsis lactate",
+      "title": "A client's lactate decreases from 5.2 to 4.7 to 4.5 mmol/L after initial treatment but remains elevated. What is the best interpretation?",
+      "content": "Perfusion may be improving slowly but remains abnormal; continue reassessment and prescribed sepsis management.",
+      "rationale": "A downward trend is encouraging, but persistent elevation may indicate ongoing hypoperfusion or other causes and needs continued evaluation.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    },
+    {
+      "id": "QR-000695",
+      "type": "Case Study",
+      "category": "Adult Health",
+      "topic": "Acute compartment syndrome",
+      "title": "A client with a tibial fracture in a cast reports escalating pain despite medication. The calf is tense, pain increases with passive stretch, and sensation is tingling. What should the nurse do?",
+      "content": "Notify the orthopedic surgeon immediately, perform and document neurovascular checks, keep the limb at heart level, and prepare for urgent cast release or fasciotomy as directed.",
+      "rationale": "Pain out of proportion, passive-stretch pain, tense swelling, and paresthesia suggest compartment syndrome. Delay can cause irreversible muscle and nerve injury.",
+      "batch": 2,
+      "reviewStatus": "needs_clinical_review"
+    }
+  ]
+}
