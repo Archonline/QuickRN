@@ -368,6 +368,7 @@
                 const result = await signInWithPopup(auth, googleProvider);
                 if (result.user) {
                     localStorage.setItem('quickrn_signed_out', 'false');
+                    localStorage.setItem('quickrn_auth_provider', 'google.com');
                     localStorage.setItem('quickrn_user_email', result.user.email || '');
                     window.location.href = "dashboard.html";
                 }
@@ -385,12 +386,14 @@
             try {
                 const credential = await signInWithEmailAndPassword(auth, email, pass);
                 localStorage.setItem('quickrn_signed_out', 'false');
+                localStorage.setItem('quickrn_auth_provider', 'password');
                 localStorage.setItem('quickrn_user_email', credential.user.email || email);
                 window.location.href = "dashboard.html";
             } catch (signinError) {
                 try {
                     const credential = await createUserWithEmailAndPassword(auth, email, pass);
                     localStorage.setItem('quickrn_signed_out', 'false');
+                    localStorage.setItem('quickrn_auth_provider', 'password');
                     localStorage.setItem('quickrn_user_email', credential.user.email || email);
                     window.location.href = "dashboard.html";
                 } catch (signupError) {
