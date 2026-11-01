@@ -38,14 +38,15 @@
    const seed=seeds[s];
    for(let a=0;a<settings.length;a++){
     for(let b=0;b<presentations.length;b++){
-     for(let c=0;c<timings.length;c++){
+     for(let c=0;c<1;c++){
+      const timingIndex=(a*presentations.length+b)%timings.length;
       sequence++;
       const id='QB2G-'+String(sequence).padStart(5,'0');
       if(known.has(id))continue;
       const variant={
        ...seed,
        id,
-       title:seed.title+' The nurse is addressing this situation '+settings[a]+', '+presentations[b]+', '+timings[c]+'.',
+       title:seed.title+' The nurse is addressing this situation '+settings[a]+', '+presentations[b]+', '+timings[timingIndex]+'.',
        sourceSeedId:seed.id,
        generatedVariant:true,
        requiresClinicalReview:true,
