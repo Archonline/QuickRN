@@ -1,0 +1,34 @@
+{
+  "project": "QuickRN 4500-question bank rebuild",
+  "targetQuestions": 4500,
+  "batchSize": 100,
+  "totalBatches": 45,
+  "idPrefix": "QR-",
+  "firstId": "QR-000390",
+  "lastId": "QR-004889",
+  "branch": "question-bank-4500-rebuild",
+  "baseBranch": "main",
+  "completedBatches": [],
+  "nextBatch": {
+    "number": 1,
+    "firstId": "QR-000390",
+    "lastId": "QR-000489",
+    "status": "in_progress"
+  },
+  "validationPolicy": {
+    "exactBatchCount": 100,
+    "uniqueIds": true,
+    "nonPlaceholderStems": true,
+    "answerKeyPresent": true,
+    "rationalePresent": true,
+    "supportedQuestionFormats": 13,
+    "clinicalReviewRequired": true,
+    "integrationAcrossFourExamModesRequired": true
+  },
+  "notes": [
+    "Existing main-branch files are preserved.",
+    "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
+    "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
+    "No claim of 4,500-question completion until all 45 batches pass validation and integration."
+  ]
+}
