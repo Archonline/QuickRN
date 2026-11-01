@@ -34,7 +34,7 @@ assert.ok(dashboard.includes('Performance trend'), 'Dashboard should label the c
 assert.ok(dashboard.includes('xl:col-span-3'), 'Trend graph should receive the primary dashboard width');
 assert.ok(dashboard.includes('xl:col-span-2'), 'Client Needs priorities should remain visible beside the trend graph');
 assert.ok(dashboard.includes('borderWidth: 2') && dashboard.includes('pointRadius: 2'), 'Trend graph should use restrained line and marker weights');
-assert.ok(dashboard.includes('x.timestamp || x.date || x.completedAt'), 'Trend graph should include current completedAt exam records');
+assert.ok(dashboard.includes('x.completed === true || !!(x.completedAt || x.finishedAt)'), 'Trend graph should include completed exam records only');
 assert.ok(dashboard.includes('x.passingProbability !== null'), 'Missing passing estimates should remain gaps, not zero-value points');
 assert.equal((dashboard.match(/id="mastery-categories-list"/g) || []).length, 1, 'Dashboard should retain one Client Needs render target');
 console.log('PASS: dashboard scripts compile; compact analytics, Learning Center, exam-history trend, and focused topic routing contracts are present.');
