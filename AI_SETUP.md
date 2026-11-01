@@ -2,7 +2,7 @@
 
 ## Cost
 
-This integration uses a free open-weight model running locally in each student's browser. It does not call OpenAI or another paid inference API. There are no API keys, usage-based AI fees, Firebase Cloud Functions, Firebase Blaze requirement, or AI backend server.
+The primary integration uses a free open-weight model running locally in each student's browser. It does not call OpenAI or require an API key, paid inference service, Firebase Cloud Functions, or Firebase Blaze upgrade. An optional Gemini fallback is available only when a student supplies their own Google AI Studio API key; it is not required for the local model.
 
 The app uses:
 - Transformers.js v3.8.1 from jsDelivr.
@@ -20,13 +20,18 @@ The app uses:
 
 The first download requires internet access. Model inference is local after the files are loaded. Students need a modern browser and enough free memory/storage. WebGPU is recommended; CPU fallback may be slow on low-powered devices.
 
-## No paid setup
+## Optional Gemini fallback
 
-There is no API key to create, no Firebase project upgrade, and no cloud function to deploy. The AI itself is activated from the Learning Center. Normal website hosting and bandwidth limits still apply to the static app and model downloads; this is not a promise that hosting or internet access is free.
+If the local model cannot load or generate a response, a student may optionally supply their own Gemini API key in the Learning Center. The app uses Google's `gemini-2.5-flash-lite` Developer API model as a fallback. Google currently lists a free tier for this model, but quotas, availability, regional eligibility, and terms can change. The student creates the key in [Google AI Studio](https://aistudio.google.com/app/apikey); QuickRN does not provide or share a project key.
+
+**Google sign-in is not a Gemini API credential.** Firebase Google authentication identifies the student to QuickRN; it does not grant Gemini Developer API access. The student must separately create and enter a Gemini API key. The key is kept in JavaScript memory for the current page session only: it is not written to localStorage or sent to QuickRN servers. The browser sends the prompt and any included study notes directly to Google's Gemini API when fallback is used. Google's free-tier data handling and privacy terms apply. Do not submit identifiable patient information. Free-tier quotas can be exhausted; the app does not enable billing or upgrade a project.
+
+For the primary local model, there is no API key to create, no Firebase project upgrade, and no cloud function to deploy. Normal website hosting and bandwidth limits still apply to the static app and model downloads; this is not a promise that hosting or internet access is free.
 
 ## Privacy and safety
 
-- The student's prompts and generated responses are processed in the browser and are not sent to an AI inference API by this feature.
+- With the local model, prompts and generated responses are processed in the browser and are not sent to an AI inference API.
+- If the student explicitly enables Gemini fallback, the prompt and notes are sent directly to Google. The student's own API key remains in page memory only and is not persisted.
 - Model and JavaScript files are downloaded from public CDNs/model hosting. The model host receives ordinary file requests, not the student's prompts.
 - Do not submit names, dates of birth, medical record numbers, or other identifiable patient data.
 - The compact model can make mistakes and may produce incomplete or incorrect nursing explanations. Verify clinical information against current authoritative nursing references.
