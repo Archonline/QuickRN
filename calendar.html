@@ -281,6 +281,7 @@
     });
     document.getElementById('new-activity').addEventListener('click', () => {
       resetForm();
+      document.getElementById('event-form-panel').classList.remove('hidden');
       titleInput.focus();
     });
     document.getElementById('cancel-edit').addEventListener('click', resetForm);
