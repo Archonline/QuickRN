@@ -78,3 +78,13 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 ### Dependency scope checked
 
 Dashboard, Calendar, Learning Center, Saved Questions, Help, Reports, Self-Study, Timed Practice, CAT, and Predictor were inspected for navigation and script loading. Core dependencies include questions.js, questions-ngn-supplement.js, quickrn-question-bank-normalizer.js, quickrn-question-id-normalizer.js, quickrn-question-metrics.js, quickrn-case-study-sequencer.js, shared-exam-renderer.js, quickrn-ngn-compat.js, quickrn-ngn-scoring.js, quickrn-cat-engine.js, quickrn-question-reporting.js, quickrn-coach.js, youtube-recommendations.js, quickrn-exam-app.js, quickrn-sidebar.js, and quickrn-platform-hardening.js. Availability and order should still be confirmed in a hosted browser build with Firebase Auth/Analytics enabled.
+
+
+## Question-bank preservation and NGN supplement (November 2026)
+
+- Restored `questions.js` to the original canonical 4,500-item / four-set question-bank blob from `main` (blob SHA: `6ca096d2d35f055deef75206d2786fd1a1471cdd`; 14,841,456 bytes). The NGN case-study work must never replace this file.
+- Preserved the existing `questions-ngn-supplement.js` (16,482 bytes; traditional SATA, enhanced hot spot, and trend interpretation items).
+- Moved the six sequential NGN sepsis case-study items into the new `questions-ngn-case-study.js` file. It appends the case items to the existing `window.questions` bank and checks IDs before appending.
+- Added the new supplement after `questions-ngn-supplement.js` on Dashboard, Self-Study, Timed Practice, CAT, and Predictor, before the question-bank normalizer and exam renderer run.
+- Question source order: canonical `questions.js` → existing `questions-ngn-supplement.js` → new `questions-ngn-case-study.js` → normalizer / sequencer / renderer.
+- Do not overwrite or truncate `questions.js` when adding NGN content. New case studies and question sets must be separate supplemental files.
