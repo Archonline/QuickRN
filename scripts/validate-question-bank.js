@@ -14,6 +14,8 @@ if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+
 context.window=context;context.questions=bank;
 const supplement=path.resolve(__dirname,'../questions-ngn-supplement.js');
 if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8'),context,{timeout:30000,filename:supplement});
+const v2Bank=path.resolve(__dirname,'../questions-bank-v2.js');
+if(fs.existsSync(v2Bank))vm.runInNewContext(fs.readFileSync(v2Bank,'utf8'),context,{timeout:30000,filename:v2Bank});
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
