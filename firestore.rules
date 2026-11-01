@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // QuickRN AI usage counters are written only by the Admin SDK in Cloud Functions.
+    // No browser client should read or modify these records.
+    match /quickrn_ai_usage/{userId} {
+      allow read, write: if false;
+    }
+
+    // Deny client access by default until a collection has an explicit,
+    // reviewed per-user authorization rule.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
