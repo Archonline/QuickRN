@@ -63,3 +63,13 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 - Added a dedicated Learning Center with Child Health, Adult Health, and Pharmacology body-system topic maps, four topic-specific search phrases, embedded playback for supplied/verified YouTube video IDs, a notes workspace with browser-local autosave, export, and browser speech dictation. Speech dictation is transcription, not a generative AI service. Search-result links open YouTube; to embed and autoplay a specific result, paste its video URL into the player because a YouTube Data API key / verified video ID is not configured.
 - Moved the Clinical Study Coach and seven-day remediation roadmap to Calendar. Generated roadmap activities are saved into the same calendar event store as personal reminders.
 - Removed the dashboard's preparation-prompt strip and profile shortcut beside Sign Out.
+
+
+## Question-bank preservation and NGN supplement (November 2026)
+
+- Restored `questions.js` to the original canonical 4,500-item / four-set question-bank blob from `main` (blob SHA: `6ca096d2d35f055deef75206d2786fd1a1471cdd`; 14,841,456 bytes). The NGN case-study work must never replace this file.
+- Preserved the existing `questions-ngn-supplement.js` (16,482 bytes; traditional SATA, enhanced hot spot, and trend interpretation items).
+- Moved the six sequential NGN sepsis case-study items into the new `questions-ngn-case-study.js` file. It appends the case items to the existing `window.questions` bank and checks IDs before appending.
+- Added the new supplement after `questions-ngn-supplement.js` on Dashboard, Self-Study, Timed Practice, CAT, and Predictor, before the question-bank normalizer and exam renderer run.
+- Question source order: canonical `questions.js` → existing `questions-ngn-supplement.js` → new `questions-ngn-case-study.js` → normalizer / sequencer / renderer.
+- Do not overwrite or truncate `questions.js` when adding NGN content. New case studies and question sets must be separate supplemental files.
