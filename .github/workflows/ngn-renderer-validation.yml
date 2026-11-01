@@ -48,6 +48,7 @@ jobs:
           node --check tests/ngn-workspace-contract.test.js
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
+          node --check tests/curated-question-bank.test.js
       - name: Verify shared QuickRN brand system across pages
         run: node tests/brand-system-contract.test.js
       - name: Test shared platform safeguards
@@ -56,6 +57,8 @@ jobs:
         run: node tests/case-study-sequencer.test.js
       - name: Verify Self-Study finish, analytics reset, and no-repeat contracts
         run: node tests/selfstudy-lifecycle.test.js
+      - name: Validate curated NCLEX and NGN replacement questions
+        run: node tests/curated-question-bank.test.js
       - name: Verify shared exam interface, rationale, branding, and session lengths
         run: node tests/exam-unified-interface-contract.test.js
       - name: Verify exam page script dependencies
