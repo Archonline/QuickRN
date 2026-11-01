@@ -8,11 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/quickrn-brand-system.css">
 <style>
-body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(340px,.9fr);gap:18px}
+body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-columns:245px minmax(0,1.1fr) minmax(340px,.9fr);gap:18px}
 .lesson-link{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid #d9dde4;border-radius:10px;background:#fff;font-size:12px;color:#4a4a4a}
 .lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#6C4B9F;background:#f4f0f9}
 .subject-card[open]>summary{background:#f4f0f9;color:#6C4B9F}
-@media(max-width:850px){.learning-layout{grid-template-columns:1fr}}
+@media(max-width:1100px){.learning-layout{grid-template-columns:220px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}}@media(max-width:700px){.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}}
 </style>
 </head>
 <body class="min-h-screen">
@@ -26,7 +26,17 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
 <button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="adult">Adult Health</button>
 <button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="pharm">Pharmacology</button>
 </div>
-<div class="learning-layout">
+<div class="learning-layout"><aside id="learning-topic-sidebar" class="rounded-2xl border bg-white p-4 space-y-4 h-fit">
+<h2 class="text-sm font-extrabold text-slate-900">Learning Library</h2>
+<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">Subjects</h3><nav class="space-y-1 text-xs" aria-label="Nursing subjects">
+<button type="button" data-learning-topic="Fundamentals of Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Fundamentals of Nursing</button><button type="button" data-learning-topic="Adult Health / Medical-Surgical" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Adult Health / Medical-Surgical</button><button type="button" data-learning-topic="Child Health / Pediatrics" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Child Health / Pediatrics</button><button type="button" data-learning-topic="Maternal-Newborn Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Maternal-Newborn Nursing</button><button type="button" data-learning-topic="Mental Health / Psychiatric Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Mental Health / Psychiatric Nursing</button><button type="button" data-learning-topic="Pharmacology" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Pharmacology</button><button type="button" data-learning-topic="Leadership & Management" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Leadership & Management</button><button type="button" data-learning-topic="Community Health" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Community Health</button><button type="button" data-learning-topic="Safety & Infection Control" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Safety & Infection Control</button>
+</nav></div>
+<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">NCLEX Client Needs</h3><nav class="space-y-1 text-xs" aria-label="NCLEX client needs">
+<button type="button" data-learning-topic="Management of Care" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Management of Care</button><button type="button" data-learning-topic="Safety and Infection Control" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Safety and Infection Control</button><button type="button" data-learning-topic="Health Promotion and Maintenance" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Health Promotion and Maintenance</button><button type="button" data-learning-topic="Psychosocial Integrity" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Psychosocial Integrity</button><button type="button" data-learning-topic="Basic Care and Comfort" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Basic Care and Comfort</button><button type="button" data-learning-topic="Pharmacological and Parenteral Therapies" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Pharmacological and Parenteral Therapies</button><button type="button" data-learning-topic="Reduction of Risk Potential" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Reduction of Risk Potential</button><button type="button" data-learning-topic="Physiological Adaptation" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Physiological Adaptation</button>
+</nav></div>
+<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">Clinical Judgment</h3><nav class="space-y-1 text-xs" aria-label="Clinical judgment topics">
+<button type="button" data-learning-topic="Recognize Cues" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Recognize Cues</button><button type="button" data-learning-topic="Analyze Cues" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Analyze Cues</button><button type="button" data-learning-topic="Prioritize Hypotheses" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Prioritize Hypotheses</button><button type="button" data-learning-topic="Generate Solutions" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Generate Solutions</button><button type="button" data-learning-topic="Take Action" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Take Action</button><button type="button" data-learning-topic="Evaluate Outcomes" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Evaluate Outcomes</button>
+</nav></div></aside>
 <section class="space-y-4 min-w-0">
 <div class="rounded-2xl border bg-white p-4 space-y-3">
 <div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Choose a topic and a lesson phrase below.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
@@ -40,7 +50,7 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
 <div class="flex items-center justify-between gap-2"><div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">Study notebook</p><h2 id="notes-topic" class="text-xl font-extrabold">Select a topic</h2></div><span class="rounded-lg px-3 py-2 text-xs font-bold" style="background:#D3DDEB;color:#4A4A4A">AUTO-SAVED</span></div>
 <p class="text-xs text-slate-500">Write key findings, assessment cues, interventions, medications, and NCLEX reminders. Notes are saved in this browser.</p>
 <textarea id="topic-notes" rows="18" class="w-full rounded-xl border p-4 text-sm leading-6" placeholder="Start typing your notes here..."></textarea>
-<div class="flex flex-wrap items-center gap-2"><button id="save-notes" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F"><i class="fa-solid fa-floppy-disk mr-1"></i>Save notes</button><button id="voice-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-microphone mr-1"></i>Dictate notes</button><button id="export-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-download mr-1"></i>Export</button></div>
+<div class="flex flex-wrap items-center gap-2"><button id="save-notes" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F"><i class="fa-solid fa-floppy-disk mr-1"></i>Save notes</button><button id="voice-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-microphone mr-1"></i>Dictate notes</button></div>
 <p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
 </aside>
 </div>
@@ -70,6 +80,7 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
   <p class="text-[11px] text-slate-400">Do not enter identifiable patient information. AI outputs are educational drafts, not clinical advice or official NCLEX content.</p>
 </section>
 </div>
+<script src="js/quickrn-sidebar.js"></script>
 <script src="js/quickrn-learning-center.js"></script>
 <script type="module" src="js/quickrn-ai-client.js"></script>
 <script src="js/quickrn-platform-hardening.js"></script>
