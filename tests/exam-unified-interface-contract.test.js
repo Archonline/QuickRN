@@ -17,7 +17,7 @@ assert.match(app, /\['15','15 questions'\].*\['50','50 questions'\].*\['85','85 
 assert.match(app, /else if\(mode==='timed'\)opts=\[\['40','40 questions'\],\['60','60 questions'\]\]/);
 assert.doesNotMatch(app, /else if\(mode==='timed'\)opts=\[[^;]*\['85'|else if\(mode==='timed'\)opts=\[[^;]*\['150'/);
 assert.match(app, /else if\(mode==='cat'\)\{\s*maxItems=Math\.min\(150,pool\.length\);session=\[\];\s*const first=chooseFirstAdaptive\(\);if\(first\)session\.push\(first\);/);
-assert.match(app, /else if\(mode==='predictor'\)\{\s*maxItems=150;session=balancedPick\(pool,maxItems\);\}/);
+assert.match(app, /else if\(mode==='predictor'\)\{\s*maxItems=150;session=balancedPick\(pool,maxItems\);\s*\}/);
 assert.match(app, /mode==='predictor'\?'Predictor score'/);
 assert.doesNotMatch(app, /function toggleRationale\(/);
 assert.doesNotMatch(app, /Why each option is right or not the best choice|Not the best answer|option-specific explanation/i);
