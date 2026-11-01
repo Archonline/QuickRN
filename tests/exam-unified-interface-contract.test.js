@@ -35,7 +35,7 @@ assert.match(app, /if\(!record\.submitted\)\{submitAnswer\(\);return;\}/);
 assert.match(app, /elapsedSeconds\/60/);
 assert.match(app, /v\.correct/);
 assert.match(app, /v\.attempted/);
-assert.match(app, /formatHtml\+judgmentHtml\+domainHtml/);
+assert.match(app, /formatHtml\+judgmentHtml\+difficultyHtml\+domainHtml/);
 assert.match(app, /renderer\(\)\.cleanClinicalText\(tabs\[index\]\.content,q\)/);
 assert.match(app, /sequencer\?\.keyOf\(previous\)/);
 assert.match(app, /function balancedPick\(list,count\)\{const sequencer=window\.QuickRNCaseStudySequencer/);
