@@ -25,7 +25,8 @@ function format(q){
  if(s.includes('select n')||q.selectN!==undefined||q.numberToSelect!==undefined||q.requiredSelections!==undefined)return 'Select N';
  if(s.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(s.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
- if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns))return 'Matrix / Grid';
+ if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns)){const rows=q.rows||q.matrixData?.rows||[];const answers=q.correctAnswers||{};const multi=rows.some((row,index)=>{const value=answers[row.id||String(index)];return Array.isArray(value)&&value.length>1;})||/matrix.*multiple|multiple.*matrix/.test(s);return multi?'Matrix Multiple':'Matrix Single';}
+ if(s.includes('dropdown rationale')||s.includes('drop-down rationale')||q.dropdownRationale===true)return 'Dropdown Rationale';
  if(s.includes('cloze')||s.includes('drop-down')||s.includes('dropdown')||q.clozeTemplate||q.dropdowns)return 'Cloze (Drop-down)';
  if(s.includes('drag')||s.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
  if(s.includes('bowtie')||q.bowtieData)return 'Bowtie';
@@ -48,7 +49,7 @@ bank.forEach((q,index)=>{
  if(candidate!==q.id){q.id=candidate;duplicateIdsNormalized++;}
  usedQuestionIds.add(candidate);
 });
-const formats=['Single Choice','Numeric Entry','Select N','Multiple Response','Matrix / Grid','Cloze (Drop-down)','Extended Drag and Drop','Bowtie','Extended Multiple Response','Highlight','Trend'];
+const formats=['Single Choice','Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry'];
 const counts=Object.fromEntries(formats.map(x=>[x,0])),errors=[],qualityWarnings=[],samples={},caseGroups=new Set();
 for(let i=0;i<bank.length;i++){
  const q=bank[i]||{},f=format(q);counts[f]=(counts[f]||0)+1;
@@ -72,11 +73,11 @@ for(let i=0;i<bank.length;i++){
  if((f==='Multiple Response'||f==='Extended Multiple Response')&&Array.isArray(q.correctAnswers)&&options.length&&!q.correctAnswers.every(optionHas)){
   issue('ANSWER_IDS_NOT_IN_OPTIONS','Multiple-response answer key contains an unknown option');
  }
- if(f==='Matrix / Grid'){
+ if(f==='Matrix Single'||f==='Matrix Multiple'){
   const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[],answers=q.correctAnswers||{};
   if(rows.some((row,index)=>{const id=row.id||String(index),key=answers[id];return key===undefined||(Array.isArray(key)?(!key.length||key.some(value=>!columns.includes(value))):!columns.includes(key));})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to valid column(s)');
  }
- if(f==='Cloze (Drop-down)'){
+ if(f==='Cloze (Drop-down)'||f==='Dropdown Rationale'){
   const answers=q.correctAnswers||{},choices=q.options||((Array.isArray(q.dropdowns)?Object.fromEntries(q.dropdowns.map(d=>[d.id,d.options||[]])):q.dropdowns)||{});
   if(Object.entries(answers).some(([key,value])=>!Array.isArray(choices[key])||!choices[key].some(choice=>String(choice)===String(value))))issue('CLOZE_KEY_MISMATCH','Cloze answer key does not match its dropdown choices');
  }
@@ -96,8 +97,8 @@ for(let i=0;i<bank.length;i++){
  if(['Single Choice','Trend','Select N'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
  if(['Multiple Response','Extended Multiple Response'].includes(f)&&(!Array.isArray(q.options)||!q.options.length||!(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))))issue('INVALID_MULTI_SCHEMA','Expected options and array answer key');
- if(f==='Matrix / Grid'&&(!(q.rows||q.matrixData?.rows)?.length||!(q.columns||q.matrixData?.columns)?.length||!q.correctAnswers))issue('INVALID_MATRIX_SCHEMA','Expected rows, columns, correctAnswers');
- if(f==='Cloze (Drop-down)'&&!(q.clozeTemplate||q.template||q.questionText||q.question))issue('MISSING_CLOZE_TEMPLATE','No cloze template or prompt');
+ if((f==='Matrix Single'||f==='Matrix Multiple')&&(!(q.rows||q.matrixData?.rows)?.length||!(q.columns||q.matrixData?.columns)?.length||!q.correctAnswers))issue('INVALID_MATRIX_SCHEMA','Expected rows, columns, correctAnswers');
+ if((f==='Cloze (Drop-down)'||f==='Dropdown Rationale')&&!(q.clozeTemplate||q.template||q.questionText||q.question||q.title))issue('MISSING_CLOZE_TEMPLATE','No cloze template or prompt');
  if(f==='Extended Drag and Drop'&&(!(q.availableItems||[]).length||!(q.correctOrder||[]).length))issue('INVALID_DRAG_SCHEMA','Expected availableItems and correctOrder');
  if(f==='Bowtie'&&(!q.bowtieData||!q.correctAnswers))issue('INVALID_BOWTIE_SCHEMA','Expected bowtieData and correctAnswers');
  if(f==='Highlight'&&(!(q.highlightText||q.passage||q.caseStudyText||q.highlightSegments||q.segments)||!(q.correctHighlights||q.correctAnswers?.highlights)))issue('INVALID_HIGHLIGHT_SCHEMA','Expected highlightable text/segments and correctHighlights');
