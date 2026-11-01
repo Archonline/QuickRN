@@ -1,0 +1,116 @@
+{
+  "project": "QuickRN 4,500-item NCLEX question-bank rebuild",
+  "targetTotal": 4500,
+  "currentKnownCore": {
+    "legacyReviewedRecords": 264,
+    "curatedItemsAfterCurrentBatch": 74
+  },
+  "remainingTarget": 4162,
+  "policy": "Independently authored clinical vignettes only. Do not inflate count through copied stems, answer-order rotations, superficial demographic swaps, or generated filler.",
+  "blueprint": {
+    "clientNeeds": [
+      {
+        "name": "Management of Care",
+        "target": 540
+      },
+      {
+        "name": "Safety and Infection Control",
+        "target": 405
+      },
+      {
+        "name": "Health Promotion and Maintenance",
+        "target": 405
+      },
+      {
+        "name": "Psychosocial Integrity",
+        "target": 360
+      },
+      {
+        "name": "Basic Care and Comfort",
+        "target": 405
+      },
+      {
+        "name": "Pharmacological and Parenteral Therapies",
+        "target": 675
+      },
+      {
+        "name": "Reduction of Risk Potential",
+        "target": 630
+      },
+      {
+        "name": "Physiological Adaptation",
+        "target": 1080
+      }
+    ],
+    "formats": [
+      {
+        "name": "Single Choice",
+        "target": 2250
+      },
+      {
+        "name": "Multiple Response",
+        "target": 450
+      },
+      {
+        "name": "Select N",
+        "target": 225
+      },
+      {
+        "name": "Matrix Single",
+        "target": 225
+      },
+      {
+        "name": "Matrix Multiple",
+        "target": 180
+      },
+      {
+        "name": "Cloze (Drop-down)",
+        "target": 180
+      },
+      {
+        "name": "Dropdown Rationale",
+        "target": 90
+      },
+      {
+        "name": "Bowtie",
+        "target": 180
+      },
+      {
+        "name": "Extended Drag and Drop",
+        "target": 180
+      },
+      {
+        "name": "Extended Multiple Response",
+        "target": 135
+      },
+      {
+        "name": "Highlight",
+        "target": 135
+      },
+      {
+        "name": "Trend",
+        "target": 180
+      },
+      {
+        "name": "Numeric Entry",
+        "target": 90
+      }
+    ]
+  },
+  "clinicalRequirements": {
+    "traditional": "Each item includes a specific patient setting and timeline, relevant symptoms and objective assessment findings, the nursing task, and only clinically relevant vital signs, medication details, labs, or diagnostics.",
+    "caseStudy": "Each longitudinal case includes a coherent EHR snapshot (demographics, history, allergies, medications, vitals, focused assessment, labs/diagnostics, timestamps and evolving cues). Each linked question asks one distinct clinical-judgment task.",
+    "answerKey": "One defensible correct answer or an explicitly defined multi-select key. The key must be directly supported by the supplied cues and format schema.",
+    "rationale": "Explain the underlying clinical principle, cue-to-conclusion link, priority, and immediate safety considerations. Avoid option-by-option explanations.",
+    "format": "Store all information needed to answer the item; no missing cue, invisible lab, unstated patient parameter, or renderer-dependent placeholder."
+  },
+  "releaseGates": [
+    "Exactly 4,500 loaded records across all production bank files.",
+    "Unique, stable IDs across every loaded file.",
+    "All 13 formats detected and rendered with format-specific schema validation.",
+    "No generic stems, duplicate scenarios, answer-key mismatches, or unsupported clinical claims.",
+    "All longitudinal case questions reference complete, shared EHR case data and valid sequence numbers.",
+    "Every item passes automated validation and qualified nurse-educator review before release."
+  ],
+  "currentStatus": "The rebuild is in progress. Current known counts are a 264-item recovered legacy core and 74 curated replacements; supplemental format banks must be included in the runtime combined count before declaring the exact remaining gap."
+}
