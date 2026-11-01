@@ -65,6 +65,21 @@ The CAT mode uses an instructional ability-estimation model, difficulty matching
 - Removed the dashboard's preparation-prompt strip and profile shortcut beside Sign Out.
 
 
+## November 2026 dependency and navigation audit
+
+- **Saved Questions sidebar:** saved.html already has a complete static sidebar. Removed the injected quickrn-sidebar.js from that page so it uses exactly one navigation rail. Other pages that rely on the shared injected sidebar retain it.
+- **Bookmarks and notes:** exam-app storage now reads both its dedicated browser keys and the legacy dashboard-compatible studentStats.favorites / questionNotes fields. Saving an answer, bookmark, or note writes both representations, so Saved Questions can render the same saved IDs and notes. This is browser-local compatibility, not cloud sync.
+- **Feedback reports:** exam feedback writes to quickrn_question_reports; Saved Questions' reported-item panel and Reports inbox read that same key. Reports are saved locally and can be exported from Reports; they are not automatically transmitted to a server or team inbox.
+- **Analytics:** question-level performance uses quickrn-question-metrics.js and the dashboard reads its local ledger. Exam trend graph reads examHistory / predictorHistory but now filters to completed records with a completion timestamp or explicit completion flag and a nonzero item count. finishExam writes completed=true and completionStatus=completed. In-progress sessions and individual unsummarized answers do not create trend points.
+- **CAT / Predictor presentation:** both modes hide the setup/question-selection modal, auto-start after the question bank finishes loading, and suppress QID, question-type/difficulty labels, question-format filter, and the feedback shortcut. CAT retains its adaptive selection logic; Predictor retains its fixed-form selection logic.
+- **Answer labels:** shared answer-choice rendering now displays A., B., C., D., etc. consistently across all exam modes.
+- **Help and legal:** removed the Help page's top header/hero banner and added Terms of Use and Privacy Policy sections to the existing Help / Disclaimer page. The legal copy reflects the inspected implementation: Firebase Authentication and Firebase Analytics are configured on sign-in; study progress, bookmarks, notes, calendar data, metrics, and feedback reports are browser-local; feedback is not automatically sent; no Firestore-backed study-data sync was found in the inspected code. Legal text is a beta draft and needs qualified counsel review before public launch.
+
+### Dependency scope checked
+
+Dashboard, Calendar, Learning Center, Saved Questions, Help, Reports, Self-Study, Timed Practice, CAT, and Predictor were inspected for navigation and script loading. Core dependencies include questions.js, questions-ngn-supplement.js, quickrn-question-bank-normalizer.js, quickrn-question-id-normalizer.js, quickrn-question-metrics.js, quickrn-case-study-sequencer.js, shared-exam-renderer.js, quickrn-ngn-compat.js, quickrn-ngn-scoring.js, quickrn-cat-engine.js, quickrn-question-reporting.js, quickrn-coach.js, youtube-recommendations.js, quickrn-exam-app.js, quickrn-sidebar.js, and quickrn-platform-hardening.js. Availability and order should still be confirmed in a hosted browser build with Firebase Auth/Analytics enabled.
+
+
 ## Question-bank preservation and NGN supplement (November 2026)
 
 - Restored `questions.js` to the original canonical 4,500-item / four-set question-bank blob from `main` (blob SHA: `6ca096d2d35f055deef75206d2786fd1a1471cdd`; 14,841,456 bytes). The NGN case-study work must never replace this file.
