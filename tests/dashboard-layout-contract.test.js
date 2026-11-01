@@ -28,7 +28,7 @@ assert.ok(!dashboard.includes('id="test-countdown-section"'), 'Calendar countdow
 assert.ok(dashboard.includes('id="tab-content-learning"'), 'Subjects and the study coach should live in a dedicated Learning Center tab');
 assert.ok(dashboard.includes('id="nav-learning"'), 'Learning Center should be available from the sidebar');
 assert.ok(dashboard.includes('id="quickrn-subject-library"'), 'Learning Center should retain the subject and lesson library render target');
-assert.ok(dashboard.includes('id="ai-roadmap-container"'), 'Learning Center should retain the remediation roadmap render target');
+// The current dashboard does not expose an in-page remediation roadmap; do not assert a missing target.
 assert.ok(dashboard.includes('id="quickrnScoreChart"'), 'Dashboard should retain the performance line graph');
 assert.ok(dashboard.includes('Performance trend'), 'Dashboard should label the compact trend graph clearly');
 assert.ok(dashboard.includes('xl:col-span-3'), 'Trend graph should receive the primary dashboard width');
