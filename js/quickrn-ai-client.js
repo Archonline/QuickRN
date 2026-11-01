@@ -23,7 +23,8 @@ let localModelFailed = false;
 let geminiApiKey = "";
 let conversation = [];
 
-const signInProvider = localStorage.getItem("quickrn_auth_provider");
+let signInProvider = "";
+try { signInProvider = localStorage.getItem("quickrn_auth_provider") || ""; } catch (_) {}
 if (authStatus) {
   authStatus.textContent = signInProvider === "google.com"
     ? "Google sign-in · Local AI"
