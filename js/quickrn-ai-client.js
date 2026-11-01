@@ -216,6 +216,7 @@ async function runTask(task) {
       }
     }
 
+    setBusy(true);
     if (generator) {
       try {
         statusEl.textContent = "Generating locally on this device…";
