@@ -52,7 +52,7 @@ async function loadModel() {
     setProgress(2);
 
     const options = {
-      dtype: "q4",
+      dtype: useWebGPU ? "q4f16" : "q4",
       device: useWebGPU ? "webgpu" : "wasm",
       progress_callback: (event) => {
         if (event && event.status === "progress" && Number.isFinite(event.progress)) {
@@ -76,7 +76,8 @@ async function loadModel() {
       useWebGPU = false;
       generator = await pipeline("text-generation", MODEL_ID, {
         ...options,
-        device: "wasm"
+        device: "wasm",
+        dtype: "q4"
       });
     }
 
