@@ -273,3 +273,29 @@ body[data-exam-mode]{width:100vw!important;height:100dvh!important;min-height:10
 body[data-exam-mode]>main{width:100%!important;max-width:none!important}
 body[data-exam-mode] #left-panel,body[data-exam-mode] #right-panel{min-width:0!important;flex:1 1 50%!important;width:50%!important}
 @media(max-width:767px){body[data-exam-mode]>main{overflow:auto!important}body[data-exam-mode] #left-panel,body[data-exam-mode] #right-panel{width:100%!important;flex-basis:100%!important;min-height:45vh!important}}
+
+
+/* QuickRN unified clinical-learning brand palette — navy, teal, and cool neutrals. */
+:root{
+  --qr-brand-navy:#16324f;
+  --qr-brand-navy-deep:#10263d;
+  --qr-brand-teal:#0f7c78;
+  --qr-brand-teal-dark:#0b625f;
+  --qr-brand-teal-soft:#e8f3f2;
+  --qr-brand-ink:#263746;
+  --qr-brand-muted:#647789;
+  --qr-brand-bg:#f4f7fa;
+  --qr-brand-surface:#ffffff;
+  --qr-brand-border:#d9e2ea;
+  --qr-brand-focus:#0f7c78;
+  --qr-brand-plum:#16324f;
+  --qr-brand-plum-deep:#10263d;
+  --qr-brand-coral:#0f7c78;
+  --qr-brand-coral-dark:#0b625f;
+  --qr-brand-coral-soft:#e8f3f2;
+}
+body{color:var(--qr-brand-ink)}
+body:not(:has(#answer-workspace)):not(.quickrn-exam){background:var(--qr-brand-bg)}
+.text-purple-700,.text-purple-800,.text-purple-900,.text-amber-600,.text-amber-700{color:var(--qr-brand-teal)!important}
+.bg-purple-100,.bg-amber-50,.bg-amber-100{background-color:var(--qr-brand-teal-soft)!important}
+.border-purple-200,.border-purple-300,.border-amber-200,.border-amber-300{border-color:var(--qr-brand-border)!important}
