@@ -25,7 +25,7 @@ assert.match(app, /question bank does not include an option-specific explanation
 assert.match(app, /Not the best answer/);
 assert.match(app, /right\.insertBefore\(rationale,actionRow\)/);
 assert.match(app, /rationale\.classList\.add\('hidden'\)/);
-assert.match(app, /Reference range: not supplied in source item/);
+assert.match(app, /Reference range not supplied in source record/);
 assert.match(app, /videoResources&&videoResources\.parentElement!==left/);
 assert.match(app, /accuracyPercent:score\.accuracy/);
 assert.match(app, /score\.partialCorrect/);
