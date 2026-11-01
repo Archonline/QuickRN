@@ -76,5 +76,5 @@ assert.match(brand, /#answer-workspace \.qr-feedback-correct\{color:#15803d/);
 assert.match(brand, /#answer-workspace \.qr-feedback-incorrect\{color:#b91c1c/);
 assert.match(read('css/quickrn-unified-exam.css'), /qr-clinical-scenario-text[^}]*font-size:19px/);
 assert.match(read('css/quickrn-unified-exam.css'), /#rationale-section:not\(\.hidden\)\{display:block/);
-assert.match(read('dashboard.html'), /accuracyPercent \?\? x\.scorePercent/);
+assert.match(read('dashboard.html'), /record\.accuracyPercent \?\? record\.itemAccuracyPercent/);
 console.log('Unified exam interface contract tests passed.');
