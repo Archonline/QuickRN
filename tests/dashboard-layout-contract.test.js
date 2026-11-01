@@ -9,6 +9,9 @@ const examApp = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
 // Compile dashboard inline scripts without executing browser-dependent code.
 for (const match of dashboard.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
   if (/\bsrc\s*=/.test(match[1])) continue;
+  // This inline app script embeds a complete printable HTML document, including a nested script tag.
+  // The simple tag matcher below cannot distinguish that string from an actual HTML script element.
+  if (match[2].includes('printWindow.document.write(')) continue;
   new vm.Script(match[2], { filename: 'dashboard.html:inline-script' });
 }
 new vm.Script(examApp, { filename: 'js/quickrn-exam-app.js' });
@@ -21,6 +24,7 @@ assert.ok(dashboard.includes('topic=\'+encodeURIComponent(label)'), 'Lesson link
 assert.ok(examApp.includes('new URLSearchParams(window.location.search||\'\')'), 'Self Study should read dashboard topic filters');
 assert.ok(examApp.includes('maxItems=freshPool.length;session=window.QuickRNCaseStudySequencer?.randomizeAll?window.QuickRNCaseStudySequencer.randomizeAll(freshPool)'), 'Focused topic sessions should include all unseen matching questions and keep linked cases together');
 
+assert.ok(!dashboard.includes('id="test-countdown-section"'), 'Calendar countdown is not duplicated as a separate panel');
 assert.ok(dashboard.includes('id="tab-content-learning"'), 'Subjects and the study coach should live in a dedicated Learning Center tab');
 assert.ok(dashboard.includes('id="nav-learning"'), 'Learning Center should be available from the sidebar');
 assert.ok(dashboard.includes('id="quickrn-subject-library"'), 'Learning Center should retain the subject and lesson library render target');
