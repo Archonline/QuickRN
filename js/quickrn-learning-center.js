@@ -38,52 +38,60 @@ pharm:{
 // Only verified, topic-specific video IDs belong in this catalog.
 // Missing entries intentionally show an unavailable placeholder instead of unrelated content.
 const VIDEO_PROVIDERS=[
-  {id:'registerednursern',label:'RegisteredNurseRN'},
-  {id:'simplenursing',label:'Simple Nursing'},
-  {id:'picmonic',label:'Picmonic'}
+  {id:'registerednursern',label:'RegisteredNurseRN',query:'RegisteredNurseRN'},
+  {id:'simplenursing',label:'Simple Nursing',query:'SimpleNursing'},
+  {id:'picmonic',label:'Picmonic',query:'Picmonic'}
 ];
-const TOPIC_VIDEOS={
-  'Heart failure':{
-    registerednursern:'HoN2EmBJXBk',
-    simplenursing:'r5W1ns5C1ik'
-  }
-};
 let selectedProvider='registerednursern';
+let topic='',recognition=null;
+const $=id=>document.getElementById(id);
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const noteKey=()=> 'quickrn_learning_notes_v1';
+function allTopics(){return Object.entries(DATA).flatMap(([category,systems])=>Object.entries(systems).flatMap(([system,topics])=>topics.map(topic=>({category,system,topic}))));}
+function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {};}}
+function saveNotes(){const notes=loadNotes();notes[topic||'General']=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
+function selectTopic(value){
+  topic=value;
+  $('notes-topic').textContent=value;
+  $('topic-notes').value=loadNotes()[value]||'';
+  document.querySelectorAll('[data-topic]').forEach(b=>b.classList.toggle('is-active-topic',b.dataset.topic===value));
+  playTopicPlaylist(value);
+}
+function renderSystems(){
+  const groups=allTopics().reduce((acc,item)=>{
+    const label=item.category==='child'?'Pediatrics':item.category==='adult'?'Adult Health':'Pharmacology';
+    const key=label+' · '+item.system;(acc[key]||(acc[key]=[])).push(item.topic);return acc;
+  },{});
+  const total=Object.values(groups).reduce((n,a)=>n+a.length,0);
+  $('topic-count').textContent=total+' topics';
+  $('system-list').innerHTML=Object.entries(groups).map(([system,topics],i)=>
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>'
+  ).join('');
+}
 function showVideoMessage(message){
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-solid fa-circle-play text-4xl text-slate-400"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
 function renderProviderButtons(topicText){
-  const host=$('video-provider-controls');
-  if(!host)return;
-  host.innerHTML=VIDEO_PROVIDERS.map(provider=>'<button type="button" class="video-provider-button'+(provider.id===selectedProvider?' is-selected':'')+'" data-provider="'+provider.id+'" aria-pressed="'+(provider.id===selectedProvider?'true':'false')+'">'+safe(provider.label)+'</button>').join('');
+  const host=$('video-provider-controls');if(!host)return;
+  host.innerHTML=VIDEO_PROVIDERS.map(p=>'<button type="button" class="video-provider-button'+(p.id===selectedProvider?' is-selected':'')+'" data-provider="'+p.id+'" aria-pressed="'+(p.id===selectedProvider?'true':'false')+'">'+safe(p.label)+'</button>').join('');
   host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
-    selectedProvider=button.dataset.provider;
-    renderProviderButtons(topicText);
-    loadTopicVideo(topicText,selectedProvider);
+    selectedProvider=button.dataset.provider;renderProviderButtons(topicText);loadTopicVideo(topicText,selectedProvider);
   }));
 }
 function loadTopicVideo(topicText,providerId){
-  const lesson=allTopics().find(x=>x.topic===topicText);
-  const canonical=lesson?lesson.topic:topicText;
-  const videoId=TOPIC_VIDEOS[canonical]&&TOPIC_VIDEOS[canonical][providerId];
-  if(!videoId){
-    showVideoMessage('Video not available for this topic from '+(VIDEO_PROVIDERS.find(p=>p.id===providerId)?.label||'this provider')+'. Please select another provider.');
-    $('player-caption').textContent='No verified video available for: '+canonical;
-    return;
-  }
-  // A catalog entry must be a verified YouTube video ID; playback starts automatically.
-  $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(videoId)+'?autoplay=1&rel=0" title="'+safe(canonical)+' - '+safe(providerId)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
-  $('player-caption').textContent='Now playing: '+canonical+' · '+(VIDEO_PROVIDERS.find(p=>p.id===providerId)?.label||providerId);
+  const provider=VIDEO_PROVIDERS.find(p=>p.id===providerId);
+  if(!provider)return;
+  const query=provider.query+' '+topicText+' nursing';
+  // YouTube's search-playlist embed asks YouTube to resolve and play the first matching result.
+  // If YouTube disables search embeds for a channel/account, the user can still open the channel search.
+  const embed='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(query)+'&autoplay=1&rel=0';
+  $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="'+safe(embed)+'" title="'+safe(provider.label+' '+topicText)+'" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+  $('player-caption').textContent='Searching '+provider.label+' for: '+topicText;
 }
-function playTopicPlaylist(topicText){
-  const lesson=allTopics().find(x=>x.topic===topicText);
-  const exactTopic=lesson?lesson.topic:topicText;
-  renderProviderButtons(exactTopic);
-  loadTopicVideo(exactTopic,selectedProvider);
-}
+function playTopicPlaylist(topicText){renderProviderButtons(topicText);loadTopicVideo(topicText,selectedProvider);}
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
-document.getElementById('learning-topic-sidebar')?.addEventListener('click',e=>{const b=e.target.closest('[data-learning-topic]');if(b){selectTopic(b.dataset.learningTopic);document.querySelectorAll('[data-learning-topic]').forEach(x=>x.classList.toggle('bg-slate-100',x===b));document.querySelector('.learning-layout>section')?.scrollIntoView({behavior:'smooth',block:'start'});}});
+
 
 
 
