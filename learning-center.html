@@ -8,24 +8,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/quickrn-brand-system.css">
 <style>
-body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-columns:245px minmax(0,1.1fr) minmax(340px,.9fr);gap:18px}
+html,body{height:100%;margin:0}
+body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;color:#1e293b}
+#app-shell{display:flex;height:100%;min-height:100vh;overflow:hidden}
+.learning-workspace{display:flex;flex:1;min-width:0;min-height:0;flex-direction:column;overflow:hidden}
+.learning-workspace>header{height:64px;min-height:64px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:#fff!important;color:#0f172a!important;border-bottom:1px solid #e2e8f0!important}
+.learning-workspace>header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
+.learning-header-title{display:flex;align-items:center;gap:12px;min-width:0}
+.learning-header-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#087f8c;color:#fff}
+.learning-header-icon i{color:#fff!important}
+.learning-header-title .eyebrow{margin:0 0 2px;color:#64748b;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.learning-header-title h1{margin:0;color:#0f172a;font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.025em}
+.learning-header-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;color:#334155!important;text-decoration:none;font-size:12px;font-weight:700}
+.learning-header-link:hover{background:#f8fafc}
+.learning-workspace>main{flex:1;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0;padding:16px;display:flex;flex-direction:column;gap:16px}
+.learning-layout{display:grid;grid-template-columns:245px minmax(0,1.1fr) minmax(300px,.9fr);gap:16px;align-items:start}
+.learning-layout>aside,.learning-layout>section,.learning-workspace main>section{min-width:0}
 .lesson-link{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid #d9dde4;border-radius:10px;background:#fff;font-size:12px;color:#4a4a4a}
-.lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#6C4B9F;background:#f4f0f9}
-.subject-card[open]>summary{background:#f4f0f9;color:#6C4B9F}
-@media(max-width:1100px){.learning-layout{grid-template-columns:220px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}}@media(max-width:700px){.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}}
+.lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#087f8c;background:#eef8f9}
+.subject-card[open]>summary{background:#eef8f9;color:#087f8c}
+@media(max-width:1100px){.learning-layout{grid-template-columns:220px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}}
+@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}}
+@media(max-width:420px){.learning-header-link span{display:none}.learning-header-link{padding:9px 10px}}
 </style>
 </head>
-<body class="min-h-screen">
-<div class="max-w-[1500px] mx-auto p-4 md:p-6 space-y-5">
-<header class="rounded-2xl px-5 py-5 text-white shadow-sm flex flex-wrap items-center justify-between gap-3">
-<div><p class="text-xs uppercase tracking-widest opacity-80">QuickRN / Study</p><h1 class="text-2xl font-extrabold">Learning Center</h1><p class="text-sm opacity-90 mt-1">Watch focused lessons, organize clinical notes, and review every major body system.</p></div>
-<a href="dashboard.html" class="rounded-xl bg-white/15 px-4 py-2 text-sm font-bold"><i class="fa-solid fa-arrow-left mr-2"></i>Dashboard</a>
-</header>
-<div class="flex flex-wrap gap-2" id="track-tabs">
-<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-purple-100 text-purple-900" data-track="child">Child Health</button>
-<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="adult">Adult Health</button>
-<button class="track-tab rounded-full px-4 py-2 text-sm font-bold bg-white border" data-track="pharm">Pharmacology</button>
-</div>
+<body class="h-full bg-slate-50 text-slate-800 antialiased">
+<div id="app-shell">
+  <div class="learning-workspace">
+    <header>
+      <div class="learning-header-title">
+        <span class="learning-header-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span>
+        <div><p class="eyebrow">QuickRN / Study</p><h1 id="page-title">Learning Center</h1></div>
+      </div>
+      <a href="dashboard.html" class="learning-header-link"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Dashboard</span></a>
+    </header>
+    <main>
 <div class="learning-layout"><aside id="learning-topic-sidebar" class="rounded-2xl border bg-white p-4 space-y-4 h-fit">
 <h2 class="text-sm font-extrabold text-slate-900">Learning Library</h2>
 <div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">Subjects</h3><nav class="space-y-1 text-xs" aria-label="Nursing subjects">
@@ -79,6 +96,8 @@ body{font-family:Inter,sans-serif}.learning-layout{display:grid;grid-template-co
   <p id="quickrn-ai-status" class="text-xs text-slate-500" role="status">Free on-device AI. Load the model once; it will be cached by your browser. AI-generated educational content should be checked against current nursing references.</p>
   <p class="text-[11px] text-slate-400">Do not enter identifiable patient information. AI outputs are educational drafts, not clinical advice or official NCLEX content.</p>
 </section>
+    </main>
+  </div>
 </div>
 <script src="js/quickrn-sidebar.js"></script>
 <script src="js/quickrn-learning-center.js"></script>
