@@ -22,18 +22,18 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .learning-header-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;color:#334155!important;text-decoration:none;font-size:12px;font-weight:700}
 .learning-header-link:hover{background:#f8fafc}
 .learning-workspace>main{flex:1;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0;padding:16px;display:flex;flex-direction:column;gap:16px}
-.learning-layout{display:grid;grid-template-columns:220px minmax(0,1.15fr) minmax(280px,.85fr);gap:14px;align-items:stretch}
+.learning-layout{display:grid;grid-template-columns:260px minmax(0,1.45fr) minmax(280px,.8fr);gap:14px;align-items:stretch}
 .learning-layout>aside,.learning-layout>section,.learning-workspace main>section{min-width:0}
 .learning-video-card,.learning-notes-card{height:100%;min-height:560px}
 .learning-video-card{display:flex;flex-direction:column}
 .video-provider-button{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;transition:background .15s,border-color .15s,color .15s}
 .video-provider-button:hover{border-color:#087f8c;color:#087f8c}
 .video-provider-button.is-selected{background:#087f8c;border-color:#087f8c;color:#fff;box-shadow:0 0 0 2px rgba(8,127,140,.16)}
-#player-shell{flex:1;min-height:420px;height:auto;aspect-ratio:auto}
+#player-shell{flex:1;min-height:560px;height:auto;aspect-ratio:auto}
 #player-shell>div{min-height:100%}
 .learning-notes-card{display:flex;flex-direction:column}
 .learning-notes-card textarea{flex:1;min-height:340px;resize:vertical}
-.learning-browse{margin-top:14px}
+.learning-browse{margin-top:14px}.is-active-topic{border-color:#087f8c!important;background:#eef8f9!important;color:#087f8c!important}
 .learning-ai-details{border:1px solid #e2e8f0;border-radius:16px;background:#fff}
 .learning-ai-details>summary{cursor:pointer;padding:14px 18px;font-weight:800;font-size:14px;color:#334155}
 .learning-ai-details[open]>summary{border-bottom:1px solid #e2e8f0}
@@ -42,7 +42,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#087f8c;background:#eef8f9}
 .subject-card[open]>summary{background:#eef8f9;color:#087f8c}
 @media(max-width:1100px){.learning-layout{grid-template-columns:210px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}.learning-video-card,.learning-notes-card{min-height:520px}}
-@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:320px}.learning-notes-card textarea{min-height:280px}}
+@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:360px}.learning-notes-card textarea{min-height:280px}}
 @media(max-width:420px){.learning-header-link span{display:none}.learning-header-link{padding:9px 10px}}
 </style>
 </head>
@@ -59,19 +59,11 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
     <main>
 <div class="learning-layout"><aside id="learning-topic-sidebar" class="rounded-2xl border bg-white p-4 space-y-4 h-fit">
 <h2 class="text-sm font-extrabold text-slate-900">Learning Library</h2>
-<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">Subjects</h3><nav class="space-y-1 text-xs" aria-label="Nursing subjects">
-<button type="button" data-learning-topic="Fundamentals of Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Fundamentals of Nursing</button><button type="button" data-learning-topic="Adult Health / Medical-Surgical" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Adult Health / Medical-Surgical</button><button type="button" data-learning-topic="Child Health / Pediatrics" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Child Health / Pediatrics</button><button type="button" data-learning-topic="Maternal-Newborn Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Maternal-Newborn Nursing</button><button type="button" data-learning-topic="Mental Health / Psychiatric Nursing" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Mental Health / Psychiatric Nursing</button><button type="button" data-learning-topic="Pharmacology" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Pharmacology</button><button type="button" data-learning-topic="Leadership & Management" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Leadership & Management</button><button type="button" data-learning-topic="Community Health" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Community Health</button><button type="button" data-learning-topic="Safety & Infection Control" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Safety & Infection Control</button>
-</nav></div>
-<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">NCLEX Client Needs</h3><nav class="space-y-1 text-xs" aria-label="NCLEX client needs">
-<button type="button" data-learning-topic="Management of Care" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Management of Care</button><button type="button" data-learning-topic="Safety and Infection Control" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Safety and Infection Control</button><button type="button" data-learning-topic="Health Promotion and Maintenance" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Health Promotion and Maintenance</button><button type="button" data-learning-topic="Psychosocial Integrity" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Psychosocial Integrity</button><button type="button" data-learning-topic="Basic Care and Comfort" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Basic Care and Comfort</button><button type="button" data-learning-topic="Pharmacological and Parenteral Therapies" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Pharmacological and Parenteral Therapies</button><button type="button" data-learning-topic="Reduction of Risk Potential" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Reduction of Risk Potential</button><button type="button" data-learning-topic="Physiological Adaptation" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Physiological Adaptation</button>
-</nav></div>
-<div><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2">Clinical Judgment</h3><nav class="space-y-1 text-xs" aria-label="Clinical judgment topics">
-<button type="button" data-learning-topic="Recognize Cues" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Recognize Cues</button><button type="button" data-learning-topic="Analyze Cues" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Analyze Cues</button><button type="button" data-learning-topic="Prioritize Hypotheses" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Prioritize Hypotheses</button><button type="button" data-learning-topic="Generate Solutions" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Generate Solutions</button><button type="button" data-learning-topic="Take Action" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Take Action</button><button type="button" data-learning-topic="Evaluate Outcomes" class="w-full text-left rounded-lg px-2 py-2 hover:bg-slate-50 text-slate-700">Evaluate Outcomes</button>
-</nav></div></aside>
+<div class="space-y-2"><div class="flex items-center justify-between"><h3 class="text-[11px] font-black uppercase tracking-wider text-slate-500">Body systems & topics</h3><span id="topic-count" class="text-[10px] text-slate-400"></span></div><div id="system-list" class="space-y-2"></div></div>
 <section class="space-y-4 min-w-0">
 <div class="rounded-2xl border bg-white p-4 space-y-3">
-<div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Select a topic to find matching videos from your preferred provider.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
-<div class="rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a provider to find a lesson for this topic.</p><p class="text-xs mt-1 text-white/50">A verified, embeddable YouTube lesson will load automatically when you select a topic.</p></div></div>
+<div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Select a provider, then choose a body-system topic to autoplay a matching YouTube search.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
+<div class="rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a topic from the Learning Library to search and autoplay a matching lesson.</p><p class="text-xs mt-1 text-white/50">Choose a provider below the player. The selected channel will be searched when you click a topic.</p></div></div>
 <div id="video-provider-controls" class="flex flex-wrap items-center gap-2 pt-1" aria-label="Choose video provider"></div>
 </div>
 </section>
@@ -83,19 +75,8 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
 </aside>
 </div>
-<details class="learning-browse rounded-2xl border bg-white p-4"><summary class="cursor-pointer font-extrabold text-sm">Browse all body systems <span class="ml-2 text-xs font-normal text-slate-500" id="topic-count"></span></summary><div id="system-list" class="mt-3 space-y-2"></div></details>
-<details class="learning-ai-details"><summary><i class="fa-solid fa-wand-magic-sparkles mr-2 text-purple-700"></i>AI Nursing Tutor <span class="ml-2 text-xs font-normal text-slate-500">Questions, summaries, quizzes and flashcards</span></summary><section class="rounded-2xl border bg-white p-4 md:p-5 space-y-4" id="quickrn-ai-panel">
-  <div class="flex flex-wrap items-center justify-between gap-3">
-    <div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">QuickRN Intelligence</p><h2 class="text-xl font-extrabold">AI Nursing Tutor</h2><p class="text-xs text-slate-500 mt-1">Ask questions, summarize your notes, or create active-recall practice materials.</p></div>
-    <span class="rounded-full px-3 py-1 text-xs font-bold" style="background:#e8f4ed;color:#1B5E43" id="quickrn-ai-auth-status">Free · On-device AI</span>
-  </div>
-  <div class="flex flex-wrap items-center gap-2"><button type="button" id="quickrn-ai-load" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F">Load free AI model</button><span id="quickrn-ai-model-status" class="text-xs text-slate-500">Model not loaded · first download requires internet</span></div><div class="h-1.5 rounded-full bg-slate-100 overflow-hidden"><div id="quickrn-ai-progress" class="h-full bg-purple-600" style="width:0%"></div></div>
-  <details class="rounded-xl border border-slate-200 bg-slate-50 p-3">
-    <summary class="cursor-pointer text-xs font-bold text-slate-700">Optional Gemini fallback (only if the local model cannot run)</summary>
-    <p class="mt-2 text-[11px] leading-5 text-slate-500">Google sign-in does not automatically authorize Gemini API access. To use this optional fallback, create your own Gemini API key in <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="font-bold text-purple-700 underline">Google AI Studio</a> and enter it below. The key stays in this page's memory and is not saved. Gemini receives the prompt and notes you submit. Free-tier availability and limits are controlled by Google; do not enter identifiable patient information.</p>
-    <div class="mt-2 flex flex-col sm:flex-row gap-2"><input id="quickrn-gemini-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your own Gemini API key" class="min-w-0 flex-1 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs"><button id="quickrn-gemini-enable" type="button" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700">Enable fallback</button></div>
-    <p id="quickrn-gemini-status" class="mt-2 text-[10px] text-slate-500" role="status">Not connected. The local model remains the default.</p>
-  </details>
+
+
   <label class="block text-xs font-bold text-slate-700" for="quickrn-ai-prompt">What would you like help with?</label>
   <textarea id="quickrn-ai-prompt" rows="3" maxlength="12000" class="w-full rounded-xl border p-3 text-sm" placeholder="Example: Explain the priority nursing interventions for a client with acute pulmonary edema."></textarea>
   <div class="flex flex-wrap gap-2">
@@ -114,6 +95,6 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 </div>
 <script src="js/quickrn-sidebar.js"></script>
 <script src="js/quickrn-learning-center.js"></script>
-<script type="module" src="js/quickrn-ai-client.js"></script>
+
 <script src="js/quickrn-platform-hardening.js"></script>
 </body></html>
