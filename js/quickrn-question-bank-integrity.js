@@ -21,7 +21,7 @@
   ['patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','caseStudyContext'].forEach(k=>{if(q[k]!=null)walk(q[k],k,id);});
   const kind=String(q.type||q.format||q.questionType||q.ngnType||'').toLowerCase();
   const isNgn=!!(q.isNGN||q.caseGroupId||q.caseStudyContext||/bowtie|matrix|cloze|highlight|trend|drag.?and.?drop|extended multiple response|select n/.test(kind));
-  const hasClinical=hasValue(q.patientInfo)||hasValue(q.patientInformation)||hasValue(q.patient_information)||hasValue(q.ehr)||hasValue(q.caseStudy)||hasValue(q.case_study)||hasValue(q.caseStudyContext)||hasValue(q.scenario)||hasValue(q.clinicalScenario)||hasValue(q.patientScenario);
+  const stemText=String(q.title||q.question||q.stem||q.questionText||'');const hasClinicalRecord=hasValue(q.patientInfo)||hasValue(q.patientInformation)||hasValue(q.patient_information)||hasValue(q.ehr)||hasValue(q.caseStudy)||hasValue(q.case_study)||hasValue(q.caseStudyContext)||hasValue(q.scenario)||hasValue(q.clinicalScenario)||hasValue(q.patientScenario);const hasClinicalStem=/\\b(client|patient|nurse|postoperative|pregnant|child|adult|assessment|vital signs|laboratory|symptom|reports|develops|presents|admitted|injury|surgery|infusion)\\b/i.test(stemText);const hasClinical=hasClinicalRecord||hasClinicalStem;
   if(isNgn&&!hasClinical)issues.push({id,code:'NGN_MISSING_CLINICAL_CONTEXT'});
   const sections=[];
   const add=(label,value)=>{const valueText=text(value);if(valueText)sections.push({label,value:valueText});};
