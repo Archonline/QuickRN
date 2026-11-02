@@ -330,3 +330,25 @@ body header [class*="text-purple"],body header [class*="text-amber"],body header
 #quickrn-unified-sidebar .qr-sidebar-mark{background:#0f7c78!important}
 #quickrn-unified-sidebar .qr-sidebar-link.is-active{background:rgba(15,124,120,.28)!important;border-color:rgba(185,229,229,.25)!important}
 #quickrn-unified-sidebar .qr-sidebar-link:hover{background:rgba(15,124,120,.18)!important}
+
+/* Shared application chrome: dashboard header proportions on every non-exam page.
+   Exam-mode headers retain their compact, task-specific controls. */
+body:not([data-exam-mode]) header{
+  min-height:64px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  background:#16324f!important;
+  background-image:none!important;
+  border-bottom:1px solid #294b62!important;
+  color:#fff!important;
+}
+body:not([data-exam-mode]) header :is(h1,h2,h3,h4,p,span,strong,a,i,button,label){
+  color:inherit;
+}
+body:not([data-exam-mode]) header :is(a,button){
+  border-color:rgba(255,255,255,.22);
+}
+body:not([data-exam-mode]) header :is(a,button):hover{
+  background-color:rgba(255,255,255,.1);
+}
