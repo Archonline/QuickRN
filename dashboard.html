@@ -346,6 +346,8 @@
         }
 
         <script>
+        // Use the same loaded, de-duplicated bank as the exam pages for dashboard totals.
+        const totalQuestionsInPool = Array.isArray(window.questions) ? window.questions.length : 0;
         // Subject and lesson taxonomy for focused Self Study sessions.
         const quickRNSubjectLessons = [
             {name:'Adult Health',icon:'fa-heart-pulse',color:'blue',lessons:[
