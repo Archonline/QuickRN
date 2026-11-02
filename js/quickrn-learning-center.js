@@ -35,9 +35,22 @@ pharm:{
 }
 };
 
-// Video playback uses topic-specific YouTube search instead of unverified IDs.
+// API-key-free YouTube channel embeds.
+const VIDEO_CHANNELS={
+  registered:{name:'RegisteredNurseRN',id:'UCPyMN8DzkFl2__xnTEiGZ1w'},
+  simple:{name:'Simple Nursing',id:'UCUxQWmWk1_Hk9iDRKvhH29Q'},
+  levelup:{name:'Level Up RN',id:'UCSlJ8BB17Ex9s4mrg7DEYCw'},
+  nexus:{name:'Nexus Nursing',id:'UCjK0JEIipVfy1dyalzqKC1w'}
+};
+function recommendedChannel(topicName){
+  const item=allTopics().find(x=>x.topic===topicName);
+  if(item?.category==='child')return 'registered';
+  if(item?.category==='pharm')return 'simple';
+  if(item?.category==='adult')return 'nexus';
+  return 'levelup';
+}
 
-let topic='',recognition=null,videoRequest=0;
+let topic='',recognition=null;
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const noteKey=()=> 'quickrn_learning_notes_v1';
@@ -47,17 +60,13 @@ function selectTopic(value){
   topic=value;
   $('notes-topic').textContent=value;
   $('topic-notes').value=loadNotes()[value]||'';
-  renderPhrases();
-  playBestVideoForQuery(value);
+  const channelKey=recommendedChannel(value);
+  $('video-channel').value=channelKey;
+  playChannelVideos(value,channelKey);
 }
 
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {}}}
 function saveNotes(){const notes=loadNotes();notes[topic||'General']= $('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
-
-function renderPhrases(){
-  const phrases=[topic,topic+' pathophysiology and clinical manifestations',topic+' nursing assessment and priority interventions',topic+' NCLEX case study and patient education'];
-  $('phrase-links').innerHTML=phrases.map((p,i)=>'<button type="button" class="lesson-link" data-phrase="'+safe(p)+'" aria-pressed="false"><span class="font-bold text-purple-700">'+(i+1)+'.</span> '+safe(p)+' <span class="block text-[10px] text-slate-500 mt-1">Search YouTube for this lesson</span></button>').join('');
-}
 
 function renderSystems(){
   const groups=allTopics().reduce((acc,item)=>{const label=item.category==='child'?'Child Health':item.category==='adult'?'Adult Health':'Pharmacology';const key=label+' · '+item.system;(acc[key]||(acc[key]=[])).push(item.topic);return acc;},{});
@@ -71,49 +80,20 @@ function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
 
-async function playBestVideoForQuery(queryText) {
-  const requestId=++videoRequest;
-  showVideoMessage('Finding a playable lesson for '+queryText+'…');
-  $('player-caption').textContent='Loading a verified YouTube lesson · '+queryText;
-  try{
-    const response=await fetch('/api/youtube-search?q='+encodeURIComponent(queryText),{headers:{'Accept':'application/json'}});
-    const data=await response.json().catch(()=>({}));
-    if(requestId!==videoRequest)return;
-    if(!response.ok||!data.videoId){
-      showVideoMessage(data.error||'No playable video is available for this topic yet.');
-      $('player-caption').textContent='Video unavailable · '+queryText;
-      return;
-    }
-    const id=String(data.videoId);
-    if(!/^[A-Za-z0-9_-]{11}$/.test(id)){
-      showVideoMessage('YouTube returned an invalid video ID.');
-      return;
-    }
-    $('player-shell').style.position='relative';
-    $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(data.title||queryText)+'" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-    $('player-caption').textContent=(data.title||queryText)+' · '+(data.channel||'YouTube')+' · Autoplay starts muted; unmute in the player.';
-  }catch(error){
-    if(requestId!==videoRequest)return;
-    showVideoMessage('Could not load a lesson video. Please try selecting the topic again.');
-    $('player-caption').textContent='Unable to connect to YouTube.';
-  }
+function playChannelVideos(topicText,channelKey) {
+  const channel=VIDEO_CHANNELS[channelKey]||VIDEO_CHANNELS.registered;
+  const uploadsPlaylist='UU'+channel.id.slice(2);
+  const embedUrl='https://www.youtube-nocookie.com/embed/videoseries?list='+uploadsPlaylist+'&autoplay=1&mute=1&playsinline=1&rel=0';
+  $('player-shell').style.position='relative';
+  $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="'+embedUrl+'" title="'+safe(channel.name)+' nursing video channel" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  $('player-caption').textContent='Showing recent uploads from '+channel.name+' · Selected topic: '+topicText+'. Channel playlists are not topic-filtered; choose another channel if needed. Autoplay starts muted.';
 }
-
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
 document.getElementById('learning-topic-sidebar')?.addEventListener('click',e=>{const b=e.target.closest('[data-learning-topic]');if(b){selectTopic(b.dataset.learningTopic);document.querySelectorAll('[data-learning-topic]').forEach(x=>x.classList.toggle('bg-slate-100',x===b));document.querySelector('.learning-layout>section')?.scrollIntoView({behavior:'smooth',block:'start'});}});
 
-// Updated phrase click behavior: Plays directly inside the player instead of opening external windows
-$('phrase-links').addEventListener('click',e=>{
-  const b=e.target.closest('[data-phrase]');
-  if(!b)return;
-  const phrase=b.dataset.phrase;
-  document.querySelectorAll('[data-phrase]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-  playBestVideoForQuery(phrase);
-});
-
-
-
+// Learners can switch between the available nursing education channels.
+$('video-channel').addEventListener('change',e=>playChannelVideos(topic||'Nursing',e.target.value));
 
 $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(n));}});
@@ -136,5 +116,5 @@ $('voice-notes').addEventListener('click',()=>{
 renderSystems();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
-else selectTopic("Heart failure"); // Automatically load a verified, embeddable lesson
+else selectTopic("Heart failure"); // Load the recommended nursing channel uploads playlist
 })();
