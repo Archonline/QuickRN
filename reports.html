@@ -9,63 +9,72 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/quickrn-brand-system.css">
   <style>
-    body{margin:0;min-height:100vh;background:var(--qr-brand-bg,#f4f7fa);color:var(--qr-brand-ink,#263746);font:14px Inter,system-ui,sans-serif}
-    body>header{height:64px;min-height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;background:#16324f!important;border-bottom:1px solid #294b62!important;color:#fff!important}
+    html,body{height:100%;margin:0}
+    body{min-height:100%;background:#f8fafc;color:#1e293b;font-family:Inter,system-ui,sans-serif}
+    #app-shell{display:flex;height:100%;min-height:100vh;overflow:hidden}
+    .feedback-workspace{display:flex;flex:1;min-width:0;min-height:0;flex-direction:column;overflow:hidden}
+    .feedback-workspace>header{height:64px;min-height:64px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:#fff!important;color:#0f172a!important;border-bottom:1px solid #e2e8f0!important}
+    .feedback-workspace>header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
     .feedback-header-title{display:flex;align-items:center;gap:12px;min-width:0}
-    .feedback-header-title .eyebrow{margin:0 0 3px;color:#b9cbd8;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-    .feedback-header-title h1{margin:0;color:#fff;font-size:17px;font-weight:800;line-height:1.25}
-    .feedback-header-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#0f7c78;color:#fff}
-    .feedback-header-link{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.24);border-radius:9px;color:#fff;text-decoration:none;font-size:12px;font-weight:700}
-    .feedback-header-link:hover{background:rgba(255,255,255,.1)}
-    main{width:min(1100px,100%);box-sizing:border-box;margin:0 auto;padding:28px 24px 48px}
-    .panel,.report{background:#fff;border:1px solid var(--qr-brand-border,#d9e2ea);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,38,61,.04)}
-    .panel h2{font-size:18px;line-height:1.3;font-weight:800;margin:0 0 7px;color:#263746}
-    .muted{color:#647789;font-size:12px;line-height:1.65}
-    .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
-    button,.button{border:0;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer;background:#0f7c78;color:#fff;font-size:12px}
+    .feedback-header-title .eyebrow{margin:0 0 2px;color:#64748b;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .feedback-header-title h1{margin:0;color:#0f172a;font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.025em}
+    .feedback-header-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#087f8c;color:#fff}
+    .feedback-header-icon i{color:#fff!important}
+    .feedback-header-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;color:#334155!important;text-decoration:none;font-size:12px;font-weight:700}
+    .feedback-header-link:hover{background:#f8fafc}
+    .feedback-workspace>main{flex:1;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0;padding:16px;display:flex;flex-direction:column;gap:12px}
+    .panel,.report{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+    .panel h2{font-size:16px;line-height:1.3;font-weight:800;margin:0 0 7px;color:#1e293b}
+    .muted{color:#64748b;font-size:12px;line-height:1.6}
+    .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    button,.button{border:0;border-radius:9px;padding:9px 12px;font-weight:700;cursor:pointer;background:#087f8c;color:#fff;font-size:12px}
     button:hover,.button:hover{filter:brightness(.96)}
-    .secondary{background:#e8f3f2;color:#164c4a}
+    .secondary{background:#e6f3f4;color:#075b64}
     button.danger{background:#fff0f0;color:#a21c35}
-    input,select{padding:10px 11px;border:1px solid #d9e2ea;border-radius:9px;background:#fff;color:#263746;font:inherit;font-size:12px;max-width:100%}
-    input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid rgba(15,124,120,.3);outline-offset:2px}
+    input,select{padding:9px 11px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#1e293b;font:inherit;font-size:12px;max-width:100%}
+    input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid rgba(8,127,140,.22);outline-offset:2px}
     .report-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#e8f3f2;color:#0b625f;font-size:10px;font-weight:800;letter-spacing:.04em}
+    .pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#e6f3f4;color:#075b64;font-size:10px;font-weight:800;letter-spacing:.04em}
     .report>p:not(.muted){line-height:1.65;overflow-wrap:anywhere}
-    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7fa;padding:12px;border-radius:8px;font-size:12px}
-    @media(max-width:767px){body>header{padding:0 15px}main{padding:18px 14px 32px}.panel,.report{padding:15px}.feedback-header-title .eyebrow{font-size:9px}}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f8fafc;padding:12px;border-radius:8px;font-size:12px}
+    @media(max-width:767px){.feedback-workspace>header{padding:0 15px}.feedback-workspace>main{padding:12px}.panel,.report{padding:14px}.feedback-header-title .eyebrow{font-size:9px}}
     @media(max-width:420px){.feedback-header-link span{display:none}.feedback-header-link{padding:9px 10px}}
   </style>
 </head>
-<body>
-  <header>
-    <div class="feedback-header-title">
-      <span class="feedback-header-icon"><i class="fa-solid fa-inbox" aria-hidden="true"></i></span>
-      <div><p class="eyebrow">QuickRN / Support</p><h1>Feedback Inbox</h1></div>
+<body class="h-full bg-slate-50 text-slate-800 antialiased">
+  <div id="app-shell">
+    <div class="feedback-workspace">
+      <header>
+        <div class="feedback-header-title">
+          <span class="feedback-header-icon"><i class="fa-solid fa-inbox" aria-hidden="true"></i></span>
+          <div><p class="eyebrow">QuickRN / Support</p><h1 id="page-title">Feedback Inbox</h1></div>
+        </div>
+        <a class="feedback-header-link" href="dashboard.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Dashboard</span></a>
+      </header>
+      <main>
+        <section class="panel">
+          <h2>Beta feedback inbox</h2>
+          <p class="muted">This page reads reports saved in this browser only. Tester reports from other devices are not automatically synchronized. Ask testers to download their feedback JSON and import it here. Imported reports remain in this browser until exported or backed up.</p>
+          <div class="toolbar">
+            <strong id="count">0 reports</strong><span class="muted" id="source-count"></span>
+            <button id="export"><i class="fa-solid fa-download" aria-hidden="true"></i> Export all JSON</button>
+            <button class="secondary" id="export-csv"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Export CSV</button>
+            <label class="button secondary" for="import-file"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Import tester reports</label>
+            <input id="import-file" type="file" accept=".json,application/json" multiple hidden>
+            <button class="danger" id="clear"><i class="fa-solid fa-trash" aria-hidden="true"></i> Clear inbox</button>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="toolbar" style="margin-top:0">
+            <input id="search" type="search" placeholder="Search feedback, question ID, details…" aria-label="Search feedback" style="flex:1;min-width:220px">
+            <select id="status" aria-label="Filter by status"><option value="all">All statuses</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="resolved">Resolved</option></select>
+            <select id="category" aria-label="Filter by category"><option value="all">All categories</option></select>
+          </div>
+          <div id="reports" aria-live="polite"></div>
+        </section>
+      </main>
     </div>
-    <a class="feedback-header-link" href="dashboard.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Dashboard</span></a>
-  </header>
-  <main>
-    <section class="panel">
-      <h2>Beta feedback inbox</h2>
-      <p class="muted">This page reads reports saved in this browser only. Tester reports from other devices are not automatically synchronized. Ask testers to download their feedback JSON and import it here. Imported reports remain in this browser until exported or backed up.</p>
-      <div class="toolbar">
-        <strong id="count">0 reports</strong><span class="muted" id="source-count"></span>
-        <button id="export"><i class="fa-solid fa-download" aria-hidden="true"></i> Export all JSON</button>
-        <button class="secondary" id="export-csv"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Export CSV</button>
-        <label class="button secondary" for="import-file"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Import tester reports</label>
-        <input id="import-file" type="file" accept=".json,application/json" multiple hidden>
-        <button class="danger" id="clear"><i class="fa-solid fa-trash" aria-hidden="true"></i> Clear inbox</button>
-      </div>
-    </section>
-    <section class="panel">
-      <div class="toolbar">
-        <input id="search" type="search" placeholder="Search feedback, question ID, details…" aria-label="Search feedback" style="flex:1;min-width:220px">
-        <select id="status" aria-label="Filter by status"><option value="all">All statuses</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="resolved">Resolved</option></select>
-        <select id="category" aria-label="Filter by category"><option value="all">All categories</option></select>
-      </div>
-      <div id="reports" aria-live="polite"></div>
-    </section>
-  </main>
+  </div>
   <script>
 (function(){'use strict';const KEY='quickrn_question_reports',$=id=>document.getElementById(id);const read=()=>{try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}};const write=x=>{try{localStorage.setItem(KEY,JSON.stringify(x));return true}catch(_){alert('Browser storage is full or unavailable. Export the inbox before continuing.');return false}};const node=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=String(txt);return e};
 function render(){const data=read();$('count').textContent=data.length+' report(s)';$('source-count').textContent='Stored on this browser · not shared';const cats=[...new Set(data.map(r=>r.reason||'General feedback'))].sort(),chosen=$('category').value;$('category').replaceChildren(new Option('All categories','all'),...cats.map(c=>new Option(c,c)));if(cats.includes(chosen))$('category').value=chosen;const term=$('search').value.toLowerCase(),st=$('status').value,cat=$('category').value;const list=data.map((r,i)=>({...r,__index:i})).filter(r=>[r.id,r.reason,r.details,r.mode,r.question?.id,r.question?.prompt,r.page].join(' ').toLowerCase().includes(term)&&(st==='all'||(r.reviewStatus||'new')===st)&&(cat==='all'||(r.reason||'General feedback')===cat)).sort((a,b)=>String(b.reportedAt||'').localeCompare(String(a.reportedAt||'')));const root=$('reports');root.replaceChildren();if(!list.length){root.append(node('p','muted','No feedback matches these filters.'));return}for(const r of list){const card=node('article','report'),head=node('div','report-head'),left=node('div'),actions=node('div','toolbar');left.append(node('strong','',r.reason||'General feedback'),node('div','muted',(r.question?.id?'Question '+r.question.id+' · ':'')+(r.mode||'Unknown mode')+' · '+(r.reportedAt||'Unknown date')));actions.append(node('span','pill',(r.reviewStatus||'new').toUpperCase()));const sel=node('select');[['new','New'],['reviewed','Reviewed'],['resolved','Resolved']].forEach(([v,l])=>sel.add(new Option(l,v)));sel.value=r.reviewStatus||'new';sel.onchange=()=>{const all=read();all[r.__index].reviewStatus=sel.value;write(all);render()};const del=node('button','danger','Delete');del.onclick=()=>{if(confirm('Delete this report from this browser inbox?')){const all=read();all.splice(r.__index,1);write(all);render()}};actions.append(sel,del);head.append(left,actions);const detail=node('p','',r.details||'No details supplied');detail.style.whiteSpace='pre-wrap';card.append(head,detail,node('p','muted','Report '+(r.id||'—')+' · '+(r.page||'—')));if(r.question?.prompt){const d=node('details'),s=node('summary','Question snapshot'),p=node('pre','',r.question.prompt);d.append(s,p);card.append(d)}root.append(card)}}
