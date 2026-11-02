@@ -26,7 +26,7 @@
   },
   "items": [
     {
-      "id": "QR-000490",
+      "id": "QR-000365",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Sepsis perfusion",
@@ -34,10 +34,11 @@
       "content": "Activate the sepsis response and begin prescribed resuscitation and antimicrobial pathway.",
       "rationale": "Hypotension, altered mentation, and elevated lactate indicate impaired perfusion. Prompt protocol-based fluids and antimicrobials are time-critical.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000490"
     },
     {
-      "id": "QR-000491",
+      "id": "QR-000366",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Chest pain after cocaine",
@@ -45,10 +46,11 @@
       "content": "Obtain urgent ECG and initiate emergency assessment.",
       "rationale": "Cocaine can cause coronary vasospasm, ischemia, and dysrhythmias. Rapid ECG and assessment are needed; treatment is directed by emergency clinicians.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000491"
     },
     {
-      "id": "QR-000492",
+      "id": "QR-000367",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Bowel obstruction",
@@ -56,10 +58,11 @@
       "content": "Keep the client NPO and prepare for prescribed nasogastric decompression.",
       "rationale": "Findings suggest bowel obstruction. Bowel rest, fluid/electrolyte management, and decompression may be required while the cause is evaluated.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000492"
     },
     {
-      "id": "QR-000493",
+      "id": "QR-000368",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Acute glaucoma",
@@ -67,10 +70,11 @@
       "content": "Arrange immediate ophthalmologic evaluation.",
       "rationale": "Acute angle-closure glaucoma can rapidly cause permanent vision loss and is an emergency.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000493"
     },
     {
-      "id": "QR-000494",
+      "id": "QR-000369",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Burn inhalation injury",
@@ -78,10 +82,11 @@
       "content": "Activate emergency airway support and prepare for early airway management.",
       "rationale": "Hoarseness and soot suggest inhalation injury; airway edema can progress rapidly and make intubation difficult.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000494"
     },
     {
-      "id": "QR-000495",
+      "id": "QR-000370",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Pancreatitis complications",
@@ -89,10 +94,11 @@
       "content": "Serum calcium.",
       "rationale": "Hypocalcemia can occur in severe pancreatitis and cause neuromuscular irritability, including tetany.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000495"
     },
     {
-      "id": "QR-000496",
+      "id": "QR-000371",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Atrial fibrillation",
@@ -100,10 +106,11 @@
       "content": "Activate the stroke response and establish last-known-well time.",
       "rationale": "Atrial fibrillation increases embolic stroke risk. Time-sensitive stroke evaluation must begin immediately.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000496"
     },
     {
-      "id": "QR-000497",
+      "id": "QR-000372",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Sickle cell crisis",
@@ -111,10 +118,11 @@
       "content": "Administer prescribed analgesia promptly and assess hydration and oxygenation.",
       "rationale": "Pain crisis requires timely analgesia and assessment for complications. Oxygen is used for hypoxemia, not routinely when saturation is normal.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000497"
     },
     {
-      "id": "QR-000498",
+      "id": "QR-000373",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Parkinson disease",
@@ -122,10 +130,11 @@
       "content": "Contact pharmacy and the prescriber to obtain the medication promptly.",
       "rationale": "Time-critical Parkinson medications should be administered on schedule when possible; delays can worsen rigidity, mobility, and swallowing.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000498"
     },
     {
-      "id": "QR-000499",
+      "id": "QR-000374",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Cirrhosis encephalopathy",
@@ -133,10 +142,11 @@
       "content": "Lactulose.",
       "rationale": "Lactulose reduces intestinal ammonia absorption and is commonly used for hepatic encephalopathy; monitor mental status and stool response.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000499"
     },
     {
-      "id": "QR-000500",
+      "id": "QR-000375",
       "type": "Single Choice",
       "category": "Pharmacology",
       "topic": "Metformin and contrast",
@@ -144,10 +154,11 @@
       "content": "Verify the current contrast and renal-function protocol with the prescriber before the study.",
       "rationale": "Metformin management around iodinated contrast depends on renal function and clinical circumstances; follow current institutional guidance and reassess renal function when indicated.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000500"
     },
     {
-      "id": "QR-000501",
+      "id": "QR-000376",
       "type": "Single Choice",
       "category": "Pharmacology",
       "topic": "Aminoglycoside toxicity",
@@ -155,10 +166,11 @@
       "content": "Hold the dose and notify the prescriber promptly.",
       "rationale": "Tinnitus may indicate ototoxicity. Prompt evaluation and drug-level/renal review can prevent progression.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000501"
     },
     {
-      "id": "QR-000502",
+      "id": "QR-000377",
       "type": "Single Choice",
       "category": "Pharmacology",
       "topic": "Phenytoin administration",
@@ -166,10 +178,11 @@
       "content": "Stop the infusion and initiate urgent assessment.",
       "rationale": "Rapid IV phenytoin administration can cause cardiovascular instability. Stop the infusion and escalate immediately.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000502"
     },
     {
-      "id": "QR-000503",
+      "id": "QR-000378",
       "type": "Single Choice",
       "category": "Pharmacology",
       "topic": "Transdermal nitroglycerin",
@@ -177,10 +190,11 @@
       "content": "Remove the previous patch before applying the new one and follow the prescribed nitrate-free interval.",
       "rationale": "Removing the old patch prevents unintended excess dosing; the prescribed nitrate-free interval helps reduce tolerance.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000503"
     },
     {
-      "id": "QR-000504",
+      "id": "QR-000379",
       "type": "Single Choice",
       "category": "Maternal Newborn",
       "topic": "Postpartum endometritis",
@@ -188,10 +202,11 @@
       "content": "Prompt evaluation and prescribed broad-spectrum IV antibiotics.",
       "rationale": "Fever, uterine tenderness, and malodorous lochia suggest postpartum endometritis, requiring prompt antimicrobial treatment.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000504"
     },
     {
-      "id": "QR-000505",
+      "id": "QR-000380",
       "type": "Single Choice",
       "category": "Maternal Newborn",
       "topic": "Newborn respiratory distress",
@@ -199,10 +214,11 @@
       "content": "Support airway and breathing and notify the neonatal team immediately.",
       "rationale": "Grunting and retractions indicate respiratory distress. Rapid assessment and respiratory support are required.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000505"
     },
     {
-      "id": "QR-000506",
+      "id": "QR-000381",
       "type": "Single Choice",
       "category": "Maternal Newborn",
       "topic": "Rh incompatibility",
@@ -210,10 +226,11 @@
       "content": "Administer Rho(D) immune globulin within the recommended postpartum window.",
       "rationale": "Rho(D) immune globulin prevents maternal sensitization after exposure to Rh-positive fetal cells.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000506"
     },
     {
-      "id": "QR-000507",
+      "id": "QR-000382",
       "type": "Single Choice",
       "category": "Child Health",
       "topic": "Pyloric stenosis",
@@ -221,10 +238,11 @@
       "content": "A palpable olive-shaped mass in the upper abdomen.",
       "rationale": "Hypertrophic pyloric stenosis causes projectile nonbilious vomiting and may produce a palpable olive; dehydration and electrolyte abnormalities require evaluation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000507"
     },
     {
-      "id": "QR-000508",
+      "id": "QR-000383",
       "type": "Single Choice",
       "category": "Child Health",
       "topic": "Tetralogy of Fallot spell",
@@ -232,10 +250,11 @@
       "content": "Place the child in the knee-chest position.",
       "rationale": "Knee-chest positioning increases systemic vascular resistance and can reduce right-to-left shunting during a hypercyanotic spell.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000508"
     },
     {
-      "id": "QR-000509",
+      "id": "QR-000384",
       "type": "Single Choice",
       "category": "Child Health",
       "topic": "Epileptic seizure",
@@ -243,10 +262,11 @@
       "content": "Protect the child from injury and position laterally when possible.",
       "rationale": "Protecting the head and maintaining a safe position reduce injury and support airway drainage. Do not restrain or place objects in the mouth.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000509"
     },
     {
-      "id": "QR-000510",
+      "id": "QR-000385",
       "type": "Single Choice",
       "category": "Mental Health",
       "topic": "Lithium and dehydration",
@@ -254,10 +274,11 @@
       "content": "Seek prompt clinical advice and do not take further doses until urgently reviewed.",
       "rationale": "Dehydration can increase lithium concentration and toxicity risk. Prompt assessment of hydration, renal function, and serum level is needed.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000510"
     },
     {
-      "id": "QR-000511",
+      "id": "QR-000386",
       "type": "Single Choice",
       "category": "Mental Health",
       "topic": "Command hallucinations",
@@ -265,10 +286,11 @@
       "content": "Assess intent, plan, ability to resist the command, and immediate access to means while maintaining safety.",
       "rationale": "Command hallucinations involving harm require immediate risk assessment, protection of others, and urgent team intervention.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000511"
     },
     {
-      "id": "QR-000512",
+      "id": "QR-000387",
       "type": "Single Choice",
       "category": "Fundamentals",
       "topic": "Sterile field contamination",
@@ -276,10 +298,11 @@
       "content": "Replace the contaminated glove before continuing.",
       "rationale": "The bedrail is not sterile; contact contaminates the glove and compromises aseptic technique.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000512"
     },
     {
-      "id": "QR-000513",
+      "id": "QR-000388",
       "type": "Single Choice",
       "category": "Fundamentals",
       "topic": "Fall after surgery",
@@ -287,10 +310,11 @@
       "content": "Assess the client for injury and neurologic or neurovascular compromise before moving them.",
       "rationale": "Do not move a potentially injured client until an assessment is completed and help is obtained.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000513"
     },
     {
-      "id": "QR-000514",
+      "id": "QR-000389",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Heart failure discharge",
@@ -298,10 +322,11 @@
       "content": "Weigh daily under consistent conditions; report rapid weight gain according to the care plan; limit sodium as prescribed; take medications as directed; stop diuretics when edema resolves.",
       "rationale": "Daily weights detect fluid retention. Sodium guidance and medication adherence reduce exacerbations; diuretics should not be stopped without prescriber direction.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000514"
     },
     {
-      "id": "QR-000515",
+      "id": "QR-000390",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Neutropenia",
@@ -309,10 +334,11 @@
       "content": "Perform meticulous hand hygiene; avoid fresh flowers and standing water in the room; report fever immediately; screen visitors for illness.",
       "rationale": "Neutropenia increases infection risk. Fever requires urgent evaluation; reduce exposure to potential pathogens and use meticulous hygiene.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000515"
     },
     {
-      "id": "QR-000516",
+      "id": "QR-000391",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Stroke dysphagia",
@@ -320,10 +346,11 @@
       "content": "Coughing; wet or gurgling voice; pocketing food; oxygen desaturation.",
       "rationale": "These findings may indicate aspiration or impaired swallowing. Stop oral intake and request reassessment if they occur.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000516"
     },
     {
-      "id": "QR-000517",
+      "id": "QR-000392",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Dialysis disequilibrium",
@@ -331,10 +358,11 @@
       "content": "Notify the dialysis clinician immediately; assess neurologic status and vital signs; prepare to modify or stop dialysis as prescribed.",
       "rationale": "Dialysis disequilibrium can cause cerebral edema and neurologic symptoms. Immediate assessment and treatment adjustment are required.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000517"
     },
     {
-      "id": "QR-000518",
+      "id": "QR-000393",
       "type": "Multiple Response",
       "category": "Pharmacology",
       "topic": "Opioid discharge teaching",
@@ -342,10 +370,11 @@
       "content": "Avoid alcohol and sedatives unless specifically approved; do not drive while impaired; store securely; seek emergency help for slow or difficult breathing.",
       "rationale": "Opioids can cause sedation and respiratory depression. Secure storage reduces accidental ingestion or diversion.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000518"
     },
     {
-      "id": "QR-000519",
+      "id": "QR-000394",
       "type": "Multiple Response",
       "category": "Pharmacology",
       "topic": "Warfarin teaching",
@@ -353,10 +382,11 @@
       "content": "Keep vitamin K intake consistent; attend INR monitoring; report unusual bleeding; check with the prescriber before starting new medications or supplements.",
       "rationale": "Consistent vitamin K intake and INR monitoring support safe anticoagulation. Interactions and bleeding require prompt review.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000519"
     },
     {
-      "id": "QR-000520",
+      "id": "QR-000395",
       "type": "Multiple Response",
       "category": "Maternal Newborn",
       "topic": "Labor complications",
@@ -364,10 +394,11 @@
       "content": "Stop oxytocin; reposition laterally; increase IV fluid rate if prescribed or per protocol; notify the obstetric clinician and continue fetal assessment.",
       "rationale": "Late decelerations suggest uteroplacental insufficiency. Reduce uterine stimulation, reposition, support maternal circulation, and escalate.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000520"
     },
     {
-      "id": "QR-000521",
+      "id": "QR-000396",
       "type": "Multiple Response",
       "category": "Maternal Newborn",
       "topic": "Newborn jaundice",
@@ -375,10 +406,11 @@
       "content": "Jaundice within the first 24 hours; rapidly rising bilirubin; lethargy and poor feeding; signs of hemolysis.",
       "rationale": "Early onset, rapid bilirubin rise, poor feeding, and hemolysis increase risk of severe hyperbilirubinemia and bilirubin neurotoxicity.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000521"
     },
     {
-      "id": "QR-000522",
+      "id": "QR-000397",
       "type": "Multiple Response",
       "category": "Child Health",
       "topic": "Cystic fibrosis",
@@ -386,10 +418,11 @@
       "content": "Give pancreatic enzymes with meals and snacks; encourage high-calorie nutrition; provide prescribed airway-clearance therapy; monitor growth and fat-soluble vitamin status.",
       "rationale": "Pancreatic insufficiency causes malabsorption. Enzymes with food, calorie-dense nutrition, airway clearance, and vitamin monitoring are standard components of care.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000522"
     },
     {
-      "id": "QR-000523",
+      "id": "QR-000398",
       "type": "Multiple Response",
       "category": "Child Health",
       "topic": "Nephrotic syndrome",
@@ -397,10 +430,11 @@
       "content": "Daily weight; abdominal girth; urine protein; signs of infection; serum albumin and fluid balance.",
       "rationale": "Nephrotic syndrome causes protein loss, hypoalbuminemia, and edema, with increased infection and thrombosis risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000523"
     },
     {
-      "id": "QR-000524",
+      "id": "QR-000399",
       "type": "Multiple Response",
       "category": "Mental Health",
       "topic": "Eating disorder refeeding",
@@ -408,10 +442,11 @@
       "content": "Serum phosphate; potassium; magnesium; cardiac rhythm and fluid balance.",
       "rationale": "Refeeding syndrome can cause severe electrolyte shifts, dysrhythmias, fluid overload, and organ dysfunction. Monitor phosphate, potassium, magnesium, and cardiac status.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000524"
     },
     {
-      "id": "QR-000525",
+      "id": "QR-000400",
       "type": "Multiple Response",
       "category": "Fundamentals",
       "topic": "Central line infection prevention",
@@ -419,10 +454,11 @@
       "content": "Scrub the hub before access; use aseptic technique; assess daily whether the line remains necessary; change dressings using sterile technique.",
       "rationale": "Hub disinfection, aseptic access, sterile dressing care, and daily necessity review reduce infection risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000525"
     },
     {
-      "id": "QR-000526",
+      "id": "QR-000401",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Pulmonary embolism risk",
@@ -430,10 +466,11 @@
       "content": "New tachycardia; unexplained hypoxemia; unilateral leg swelling.",
       "rationale": "Tachycardia and hypoxemia with unilateral leg swelling suggest venous thromboembolism with possible pulmonary embolism.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000526"
     },
     {
-      "id": "QR-000527",
+      "id": "QR-000402",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Hypocalcemia",
@@ -441,10 +478,11 @@
       "content": "Positive Chvostek sign; carpopedal spasm; prolonged QT interval.",
       "rationale": "Hypocalcemia increases neuromuscular excitability and can prolong QT, creating risk for dysrhythmias.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000527"
     },
     {
-      "id": "QR-000528",
+      "id": "QR-000403",
       "type": "Select N",
       "category": "Pharmacology",
       "topic": "Insulin hypoglycemia",
@@ -452,10 +490,11 @@
       "content": "Give 15 g of rapid-acting carbohydrate; recheck glucose in 15 minutes; repeat treatment if glucose remains below 70 mg/dL.",
       "rationale": "The 15-15 approach treats mild-to-moderate hypoglycemia in a conscious client able to swallow. Severe impairment requires glucagon or IV dextrose per protocol.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000528"
     },
     {
-      "id": "QR-000529",
+      "id": "QR-000404",
       "type": "Select N",
       "category": "Maternal Newborn",
       "topic": "Postpartum infection",
@@ -463,10 +502,11 @@
       "content": "Notify the obstetric clinician; obtain ordered cultures without delaying antibiotics; monitor vital signs and perfusion.",
       "rationale": "These findings suggest postpartum infection with possible sepsis. Prompt escalation, cultures when feasible, antimicrobials, and perfusion monitoring are priorities.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000529"
     },
     {
-      "id": "QR-000530",
+      "id": "QR-000405",
       "type": "Select N",
       "category": "Child Health",
       "topic": "Meningitis",
@@ -474,10 +514,11 @@
       "content": "Initiate appropriate isolation; perform frequent neurologic assessment; administer prescribed antimicrobials promptly.",
       "rationale": "Isolation limits transmission for relevant pathogens; neurologic assessment detects deterioration; early antimicrobials improve outcomes.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000530"
     },
     {
-      "id": "QR-000531",
+      "id": "QR-000406",
       "type": "Select N",
       "category": "Fundamentals",
       "topic": "Delegation boundaries",
@@ -485,10 +526,11 @@
       "content": "Initial assessment of a newly admitted unstable client; developing the nursing care plan; evaluating response to a new intervention.",
       "rationale": "Assessment, care planning, and evaluation require RN clinical judgment and cannot be delegated to UAP.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000531"
     },
     {
-      "id": "QR-000532",
+      "id": "QR-000407",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Acute respiratory failure",
@@ -496,10 +538,11 @@
       "content": "Declining level of consciousness; weak or ineffective cough; decreasing respiratory effort after prolonged distress.",
       "rationale": "Altered mentation, ineffective airway clearance, and fatigue with falling effort indicate impending respiratory failure.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000532"
     },
     {
-      "id": "QR-000533",
+      "id": "QR-000408",
       "type": "Matrix Single",
       "category": "Pharmacology",
       "topic": "Medication monitoring",
@@ -507,10 +550,11 @@
       "content": "rows:unfractionated heparin;levothyroxine;furosemide|columns:aPTT or anti-Xa per protocol;TSH trend;potassium and renal function|answers:unfractionated heparin=aPTT or anti-Xa per protocol;levothyroxine=TSH trend;furosemide=potassium and renal function",
       "rationale": "Heparin is monitored using aPTT or anti-Xa protocols. Levothyroxine is titrated using thyroid function. Loop diuretics can affect potassium and renal function.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000533"
     },
     {
-      "id": "QR-000534",
+      "id": "QR-000409",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Anemia patterns",
@@ -518,10 +562,11 @@
       "content": "rows:low ferritin and low MCV;low vitamin B12 with macrocytosis;increased reticulocytes after acute blood loss|columns:iron deficiency;vitamin B12 deficiency;compensatory marrow response|answers:low ferritin and low MCV=iron deficiency;low vitamin B12 with macrocytosis=vitamin B12 deficiency;increased reticulocytes after acute blood loss=compensatory marrow response",
       "rationale": "Iron deficiency commonly causes microcytosis and low ferritin. B12 deficiency causes macrocytosis. Reticulocytosis reflects marrow response after blood loss.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000534"
     },
     {
-      "id": "QR-000535",
+      "id": "QR-000410",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Heart failure self-management",
@@ -529,10 +574,11 @@
       "content": "rows:weight gain of 2 kg in 2 days;new orthopnea;dizziness after diuretic dose|columns:contact care team promptly;assess blood pressure and volume status;do not independently double medication dose|answers:weight gain of 2 kg in 2 days=contact care team promptly;new orthopnea=contact care team promptly;dizziness after diuretic dose=assess blood pressure and volume status,contact care team promptly,do not independently double medication dose",
       "rationale": "Rapid weight gain and new orthopnea may signal worsening congestion. Dizziness may reflect hypotension or volume depletion and needs assessment; medication changes require clinical direction.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000535"
     },
     {
-      "id": "QR-000536",
+      "id": "QR-000411",
       "type": "Matrix Multiple",
       "category": "Fundamentals",
       "topic": "Oxygen safety",
@@ -540,10 +586,11 @@
       "content": "rows:client using home oxygen;oxygen cylinder stored in room;nasal cannula tubing found kinked|columns:keep away from flames and smoking;secure cylinder upright;restore unobstructed tubing and reassess saturation|answers:client using home oxygen=keep away from flames and smoking;oxygen cylinder stored in room=secure cylinder upright;nasal cannula tubing found kinked=restore unobstructed tubing and reassess saturation",
       "rationale": "Oxygen supports combustion. Cylinders must be secured, and delivery tubing must remain unobstructed with reassessment of oxygenation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000536"
     },
     {
-      "id": "QR-000537",
+      "id": "QR-000412",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Acute stroke",
@@ -551,10 +598,11 @@
       "content": "NPO|last-known-well|noncontrast head CT",
       "rationale": "NPO status reduces aspiration risk. Last-known-well time guides treatment eligibility; noncontrast CT rapidly evaluates for intracranial hemorrhage.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000537"
     },
     {
-      "id": "QR-000538",
+      "id": "QR-000413",
       "type": "Cloze (Drop-down)",
       "category": "Pharmacology",
       "topic": "Digoxin administration",
@@ -562,10 +610,11 @@
       "content": "apical|withhold|prescriber",
       "rationale": "Apical pulse assessment detects bradycardia. New symptomatic bradycardia warrants withholding and clinical review rather than automatic administration.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000538"
     },
     {
-      "id": "QR-000539",
+      "id": "QR-000414",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Tension pneumothorax",
@@ -573,10 +622,11 @@
       "content": "condition:tension pneumothorax|actions:activate emergency response and provide oxygen;prepare for immediate needle or finger decompression followed by chest tube as directed|monitor:oxygen saturation and respiratory effort;blood pressure and perfusion",
       "rationale": "Unilateral absent breath sounds, hypotension, and tracheal deviation suggest tension pneumothorax. This is a life-threatening emergency requiring immediate decompression.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000539"
     },
     {
-      "id": "QR-000540",
+      "id": "QR-000415",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Acute hemolytic transfusion reaction",
@@ -584,10 +634,11 @@
       "content": "condition:acute hemolytic transfusion reaction|actions:stop the transfusion and keep IV access with saline using new tubing;notify provider and blood bank and send ordered specimens|monitor:urine output and color;vital signs and hemolysis/renal laboratory trends",
       "rationale": "The symptoms suggest acute intravascular hemolysis. Stop the product, maintain access with saline, notify the team, and monitor for shock and acute kidney injury.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000540"
     },
     {
-      "id": "QR-000541",
+      "id": "QR-000416",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Meningitis deterioration",
@@ -595,10 +646,11 @@
       "content": "segments:decreasing consciousness|repeated vomiting|new unequal pupils|improved headache|new seizure|correct:1,2,3,5",
       "rationale": "Declining consciousness, vomiting, pupillary changes, and seizures may indicate neurologic deterioration or increased intracranial pressure and require immediate escalation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000541"
     },
     {
-      "id": "QR-000542",
+      "id": "QR-000417",
       "type": "Highlight",
       "category": "Maternal Newborn",
       "topic": "Preeclampsia severe features",
@@ -606,10 +658,11 @@
       "content": "segments:persistent severe headache|visual scotomata|BP 166/112 mm Hg|mild dependent ankle edema alone|right upper quadrant pain|correct:1,2,3,5",
       "rationale": "Severe-range blood pressure, neurologic symptoms, and right upper quadrant pain are severe features and require urgent obstetric management.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000542"
     },
     {
-      "id": "QR-000543",
+      "id": "QR-000418",
       "type": "Numeric Entry",
       "category": "Fundamentals",
       "topic": "Oral liquid dose",
@@ -617,10 +670,11 @@
       "content": "7.5|mL|0.1",
       "rationale": "375 mg ÷ 250 mg × 5 mL = 7.5 mL. Verify the concentration and dose before administration.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000543"
     },
     {
-      "id": "QR-000544",
+      "id": "QR-000419",
       "type": "Numeric Entry",
       "category": "Adult Health",
       "topic": "Fluid balance",
@@ -628,10 +682,11 @@
       "content": "540|mL|0",
       "rationale": "240 + 180 + 120 = 540 mL. Record intake according to facility measurement standards.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000544"
     },
     {
-      "id": "QR-000545",
+      "id": "QR-000420",
       "type": "Extended Drag and Drop",
       "category": "Fundamentals",
       "topic": "PPE removal",
@@ -639,10 +694,11 @@
       "content": "Remove gloves.|Remove gown.|Perform hand hygiene if hands become contaminated.|Remove eye protection.|Remove mask or respirator after leaving the room when indicated.|Perform hand hygiene.",
       "rationale": "Remove the most contaminated items first and avoid touching the face. Respirator removal follows isolation-room exit requirements; hand hygiene is performed at key points.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000545"
     },
     {
-      "id": "QR-000546",
+      "id": "QR-000421",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Hypoglycemia response",
@@ -650,10 +706,11 @@
       "content": "Give 15 g of rapid-acting carbohydrate.|Recheck blood glucose in 15 minutes.|Repeat 15 g carbohydrate if glucose remains below 70 mg/dL.|Once corrected, provide a meal or snack if the next meal is not soon.",
       "rationale": "Treat promptly with fast carbohydrate, recheck after 15 minutes, repeat if still low, and prevent recurrence with food when appropriate.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000546"
     },
     {
-      "id": "QR-000547",
+      "id": "QR-000422",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "COPD discharge",
@@ -661,10 +718,11 @@
       "content": "Use prescribed inhalers with correct technique; receive recommended vaccinations; stop smoking and seek cessation support; pace activity and plan rest periods; increase oxygen flow independently whenever dyspneic.",
       "rationale": "Correct inhaler use, vaccination, smoking cessation, and pacing reduce exacerbations and symptoms. Oxygen changes should follow the prescribed plan.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000547"
     },
     {
-      "id": "QR-000548",
+      "id": "QR-000423",
       "type": "Extended Multiple Response",
       "category": "Pharmacology",
       "topic": "Anticoagulant safety",
@@ -672,10 +730,11 @@
       "content": "Take doses consistently as prescribed; report unusual bleeding; inform clinicians before procedures; do not double a missed dose without following product instructions; avoid all vegetables containing vitamin K.",
       "rationale": "Apixaban has no routine vitamin K dietary restriction. Adherence, bleeding surveillance, and procedural communication are important; missed-dose instructions should follow product guidance.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000548"
     },
     {
-      "id": "QR-000549",
+      "id": "QR-000424",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Sepsis response",
@@ -683,10 +742,11 @@
       "content": "Perfusion is improving but remains abnormal; continue close reassessment and prescribed sepsis management.",
       "rationale": "Improved MAP and falling lactate suggest response to resuscitation, but continued monitoring and treatment are needed until perfusion stabilizes.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000549"
     },
     {
-      "id": "QR-000550",
+      "id": "QR-000425",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Neurologic decline",
@@ -694,10 +754,11 @@
       "content": "Recognize neurologic deterioration and activate urgent escalation for possible intracranial injury progression.",
       "rationale": "A declining GCS with vomiting indicates worsening neurologic status and possible increased intracranial pressure. Immediate escalation is required.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000550"
     },
     {
-      "id": "QR-000551",
+      "id": "QR-000426",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "COPD with acute exacerbation",
@@ -705,10 +766,11 @@
       "content": "Acute COPD exacerbation with hypoxemia and hypercapnic respiratory acidosis. Titrate prescribed oxygen to the individualized target, administer prescribed bronchodilators and corticosteroids, monitor mental status and ABGs, and escalate for noninvasive ventilation or airway support if deterioration continues.",
       "rationale": "The client has acute ventilatory failure with respiratory acidosis. Controlled oxygen, bronchodilation, steroids, and close reassessment are indicated; worsening fatigue or mentation requires escalation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000551"
     },
     {
-      "id": "QR-000552",
+      "id": "QR-000427",
       "type": "Case Study",
       "category": "Maternal Newborn",
       "topic": "Severe postpartum hypertension",
@@ -716,10 +778,11 @@
       "content": "Suspect postpartum preeclampsia with severe features. Notify the obstetric team urgently, institute seizure precautions, administer prescribed magnesium sulfate and antihypertensive therapy, and monitor respiratory status, reflexes, urine output, and blood pressure.",
       "rationale": "Preeclampsia can first present or worsen postpartum. Severe hypertension and neurologic symptoms create seizure and stroke risk; magnesium and rapid blood pressure control are urgent.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000552"
     },
     {
-      "id": "QR-000553",
+      "id": "QR-000428",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Upper gastrointestinal bleeding",
@@ -727,10 +790,11 @@
       "content": "Suspect significant gastrointestinal hemorrhage with hypovolemia. Activate urgent clinical support, establish large-bore IV access, prepare prescribed fluid and blood-product resuscitation, keep NPO, and monitor hemodynamics and ongoing bleeding.",
       "rationale": "Melena, hypotension, tachycardia, and anemia indicate significant blood loss. Stabilization and urgent evaluation take priority.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000553"
     },
     {
-      "id": "QR-000554",
+      "id": "QR-000429",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Hyperthyroidism medication",
@@ -738,10 +802,11 @@
       "content": "Withhold further doses pending urgent evaluation and obtain a CBC as prescribed.",
       "rationale": "Fever and sore throat may indicate agranulocytosis, a rare serious adverse effect. Prompt blood count and prescriber review are needed.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000554"
     },
     {
-      "id": "QR-000555",
+      "id": "QR-000430",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Peripheral arterial disease",
@@ -749,10 +814,11 @@
       "content": "Stop smoking; inspect feet daily; avoid direct heating pads on feet; follow a structured walking program if prescribed; avoid crossing legs for prolonged periods.",
       "rationale": "Smoking cessation, foot protection, and exercise therapy support limb health. Reduced sensation and perfusion increase burn and injury risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000555"
     },
     {
-      "id": "QR-000556",
+      "id": "QR-000431",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Acute pancreatitis deterioration",
@@ -760,10 +826,11 @@
       "content": "New hypotension; oxygen saturation falling despite oxygen; reduced level of consciousness.",
       "rationale": "These findings suggest shock, respiratory failure, or systemic complications and require immediate escalation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000556"
     },
     {
-      "id": "QR-000557",
+      "id": "QR-000432",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Burn depth",
@@ -771,10 +838,11 @@
       "content": "rows:red, painful, dry skin without blisters;moist blistered skin with severe pain;white or charred leathery skin with reduced sensation|columns:superficial;superficial partial-thickness;full-thickness|answers:red, painful, dry skin without blisters=superficial;moist blistered skin with severe pain=superficial partial-thickness;white or charred leathery skin with reduced sensation=full-thickness",
       "rationale": "Superficial burns are red and dry. Superficial partial-thickness burns are moist, blistered, and painful. Full-thickness burns may be leathery and insensate centrally.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000557"
     },
     {
-      "id": "QR-000558",
+      "id": "QR-000433",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Pulmonary embolism",
@@ -782,10 +850,11 @@
       "content": "pulmonary embolism|oxygenation|ambulation",
       "rationale": "Pulmonary embolism can cause acute respiratory and hemodynamic compromise. Support oxygenation, escalate, and keep the client at rest during evaluation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000558"
     },
     {
-      "id": "QR-000559",
+      "id": "QR-000434",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Acute ischemic stroke",
@@ -793,10 +862,11 @@
       "content": "condition:acute stroke, possible ischemic|actions:activate stroke pathway and document last-known-well;prepare for urgent noncontrast CT and glucose assessment|monitor:neurologic status;blood pressure and oxygenation",
       "rationale": "Rapid stroke activation, onset documentation, and CT are essential. Serial neurologic checks and physiologic monitoring identify deterioration and support treatment decisions.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000559"
     },
     {
-      "id": "QR-000560",
+      "id": "QR-000435",
       "type": "Highlight",
       "category": "Fundamentals",
       "topic": "Medication administration safety",
@@ -804,10 +874,11 @@
       "content": "segments:verify two client identifiers|prepare medications for several clients together without separation|check allergies|clarify an incomplete order|document before administration|correct:1,3,4",
       "rationale": "Use two identifiers, check allergies, clarify incomplete orders, and document after administration. Preparing medications for multiple clients together increases mix-up risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000560"
     },
     {
-      "id": "QR-000561",
+      "id": "QR-000436",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Weight-based infusion",
@@ -815,10 +886,11 @@
       "content": "300|mg|0",
       "rationale": "5 mg/kg × 60 kg = 300 mg. Confirm the dose range and formulation before preparation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000561"
     },
     {
-      "id": "QR-000562",
+      "id": "QR-000437",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Renal function",
@@ -826,10 +898,11 @@
       "content": "The client has worsening acute kidney injury and requires prompt evaluation of perfusion, volume status, medications, and electrolytes.",
       "rationale": "A rapid creatinine rise with reduced urine output indicates acute kidney injury. Assess reversible causes and complications promptly.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000562"
     },
     {
-      "id": "QR-000563",
+      "id": "QR-000438",
       "type": "Single Choice",
       "category": "Fundamentals",
       "topic": "Restraint safety",
@@ -837,10 +910,11 @@
       "content": "Use individualized alternatives such as frequent observation, toileting, reorientation, and a low bed.",
       "rationale": "Restraints are a last resort. Address unmet needs and use the least restrictive safe alternatives.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000563"
     },
     {
-      "id": "QR-000564",
+      "id": "QR-000439",
       "type": "Multiple Response",
       "category": "Pharmacology",
       "topic": "Insulin storage",
@@ -848,10 +922,11 @@
       "content": "Follow product-specific storage instructions; inspect insulin for unexpected particles or discoloration; rotate injection sites; avoid sharing pens or needles.",
       "rationale": "Insulin stability varies by product. Visual inspection, site rotation, and never sharing injection devices reduce risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000564"
     },
     {
-      "id": "QR-000565",
+      "id": "QR-000440",
       "type": "Select N",
       "category": "Maternal Newborn",
       "topic": "Newborn sepsis",
@@ -859,10 +934,11 @@
       "content": "Notify neonatal clinician immediately; support airway and breathing; obtain ordered cultures and administer prescribed antimicrobials promptly.",
       "rationale": "Neonatal sepsis can present nonspecifically and progress rapidly. Respiratory support and prompt evaluation/treatment are essential.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000565"
     },
     {
-      "id": "QR-000566",
+      "id": "QR-000441",
       "type": "Matrix Multiple",
       "category": "Pharmacology",
       "topic": "High-alert medication checks",
@@ -870,10 +946,11 @@
       "content": "rows:IV insulin;heparin infusion;concentrated potassium chloride|columns:independent double-check per policy;use infusion pump and protocol;never administer by IV push|answers:IV insulin=independent double-check per policy,use infusion pump and protocol;heparin infusion=independent double-check per policy,use infusion pump and protocol;concentrated potassium chloride=independent double-check per policy,use infusion pump and protocol,never administer by IV push",
       "rationale": "Insulin and heparin are high-alert medications requiring protocolized administration and checks. Concentrated potassium must be diluted and infused under policy; never give IV push.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000566"
     },
     {
-      "id": "QR-000567",
+      "id": "QR-000442",
       "type": "Extended Drag and Drop",
       "category": "Maternal Newborn",
       "topic": "Magnesium toxicity response",
@@ -881,10 +958,11 @@
       "content": "Stop the magnesium sulfate infusion.|Call for emergency assistance and notify the obstetric clinician.|Support airway and breathing and monitor oxygenation.|Prepare and administer prescribed calcium gluconate.",
       "rationale": "Respiratory depression and absent reflexes indicate magnesium toxicity. Stop the infusion, escalate, support ventilation, and use calcium gluconate as prescribed.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000567"
     },
     {
-      "id": "QR-000568",
+      "id": "QR-000443",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Acute kidney injury monitoring",
@@ -892,10 +970,11 @@
       "content": "Measure intake and output accurately; trend creatinine, potassium, and bicarbonate; assess lung sounds and edema; review nephrotoxic exposures; administer potassium supplements without checking the level.",
       "rationale": "Monitor renal function, electrolytes, and fluid overload, and review nephrotoxins. Potassium replacement without a current level is unsafe in oliguria.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000568"
     },
     {
-      "id": "QR-000569",
+      "id": "QR-000444",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Hyperkalemia in renal failure",
@@ -903,10 +982,11 @@
       "content": "Treat as life-threatening hyperkalemia: activate emergency support, prepare IV calcium for membrane stabilization, administer prescribed potassium-shifting therapy, and arrange urgent dialysis. Continuously monitor ECG and repeat potassium.",
       "rationale": "Severe hyperkalemia with ECG changes can cause fatal dysrhythmias. Calcium stabilizes the myocardium, shifting therapies temporarily lower serum potassium, and dialysis removes potassium.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000569"
     },
     {
-      "id": "QR-000570",
+      "id": "QR-000445",
       "type": "Single Choice",
       "category": "Child Health",
       "topic": "Febrile seizure",
@@ -914,10 +994,11 @@
       "content": "Place the child on the side during a seizure and seek emergency help if it lasts 5 minutes or breathing is impaired.",
       "rationale": "Most simple febrile seizures are brief and self-limited. Protect the child, time the seizure, and seek emergency care for prolonged seizure or breathing compromise.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000570"
     },
     {
-      "id": "QR-000571",
+      "id": "QR-000446",
       "type": "Single Choice",
       "category": "Mental Health",
       "topic": "Clozapine monitoring",
@@ -925,10 +1006,11 @@
       "content": "Arrange urgent assessment and ANC testing before further dosing.",
       "rationale": "Clozapine can cause severe neutropenia. Infection symptoms require urgent ANC evaluation and prescriber direction.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000571"
     },
     {
-      "id": "QR-000572",
+      "id": "QR-000447",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Acute appendicitis",
@@ -936,10 +1018,11 @@
       "content": "Appendiceal perforation with peritonitis.",
       "rationale": "Sudden pain relief followed by diffuse pain and fever may indicate rupture and peritoneal contamination; urgent surgical evaluation is required.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000572"
     },
     {
-      "id": "QR-000573",
+      "id": "QR-000448",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Venous thromboembolism prevention",
@@ -947,10 +1030,11 @@
       "content": "Assist with early ambulation when safe; apply prescribed intermittent pneumatic compression; administer prescribed prophylactic anticoagulant; encourage leg exercises.",
       "rationale": "Mobility, mechanical prophylaxis, and prescribed anticoagulation reduce venous stasis and thrombosis risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000573"
     },
     {
-      "id": "QR-000574",
+      "id": "QR-000449",
       "type": "Select N",
       "category": "Fundamentals",
       "topic": "Pressure injury staging",
@@ -958,10 +1042,11 @@
       "content": "Partial-thickness skin loss with exposed dermis; a moist pink or red wound bed; an intact or ruptured serum-filled blister.",
       "rationale": "Stage 2 involves partial-thickness skin loss and exposed dermis, often appearing as a moist pink/red wound or serum blister.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000574"
     },
     {
-      "id": "QR-000575",
+      "id": "QR-000450",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Acid-base disorders",
@@ -969,10 +1054,11 @@
       "content": "rows:pH 7.28 PaCO2 58 HCO3 25;pH 7.50 PaCO2 40 HCO3 31;pH 7.30 PaCO2 38 HCO3 18|columns:respiratory acidosis;metabolic alkalosis;metabolic acidosis|answers:pH 7.28 PaCO2 58 HCO3 25=respiratory acidosis;pH 7.50 PaCO2 40 HCO3 31=metabolic alkalosis;pH 7.30 PaCO2 38 HCO3 18=metabolic acidosis",
       "rationale": "Low pH with elevated PaCO2 indicates respiratory acidosis. High pH with elevated bicarbonate indicates metabolic alkalosis. Low pH with low bicarbonate indicates metabolic acidosis.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000575"
     },
     {
-      "id": "QR-000576",
+      "id": "QR-000451",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Compartment syndrome",
@@ -980,10 +1066,11 @@
       "content": "compartment syndrome|approximately|orthopedic team",
       "rationale": "These findings suggest compartment syndrome. Avoid elevation above heart level or ice that could reduce perfusion; urgent surgical evaluation is required.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000576"
     },
     {
-      "id": "QR-000577",
+      "id": "QR-000452",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Adrenal crisis",
@@ -991,10 +1078,11 @@
       "content": "condition:adrenal crisis|actions:administer prescribed IV hydrocortisone;initiate prescribed isotonic fluid resuscitation|monitor:blood pressure and perfusion;serum glucose and electrolytes",
       "rationale": "Adrenal crisis causes severe cortisol deficiency, volume depletion, and electrolyte disturbance. Steroid replacement and fluids are urgent; monitor hemodynamics, glucose, and electrolytes.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000577"
     },
     {
-      "id": "QR-000578",
+      "id": "QR-000453",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Acute limb ischemia",
@@ -1002,10 +1090,11 @@
       "content": "segments:sudden severe limb pain|pallor|pulselessness|paresthesia|chronic mild ankle edema|correct:1,2,3,4",
       "rationale": "The 6 Ps include pain, pallor, pulselessness, paresthesia, paralysis, and poikilothermia. Acute limb ischemia is a vascular emergency.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000578"
     },
     {
-      "id": "QR-000579",
+      "id": "QR-000454",
       "type": "Numeric Entry",
       "category": "Fundamentals",
       "topic": "Temperature conversion",
@@ -1013,10 +1102,11 @@
       "content": "102.2|°F|0.1",
       "rationale": "(39 × 9/5) + 32 = 102.2 °F.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000579"
     },
     {
-      "id": "QR-000580",
+      "id": "QR-000455",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Acute blood loss",
@@ -1024,10 +1114,11 @@
       "content": "Ongoing blood loss or shock with impaired organ perfusion; escalate immediately.",
       "rationale": "Tachycardia, hypotension, and oliguria are signs of worsening perfusion and possible hemorrhage.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000580"
     },
     {
-      "id": "QR-000581",
+      "id": "QR-000456",
       "type": "Single Choice",
       "category": "Pharmacology",
       "topic": "Beta blocker withdrawal",
@@ -1035,10 +1126,11 @@
       "content": "Rebound tachycardia, hypertension, or angina can occur; contact the prescriber for guidance.",
       "rationale": "Abrupt beta-blocker withdrawal can cause rebound sympathetic effects and exacerbate ischemia. Tapering is generally clinician-directed.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000581"
     },
     {
-      "id": "QR-000582",
+      "id": "QR-000457",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Osteoporosis prevention",
@@ -1046,10 +1138,11 @@
       "content": "Perform weight-bearing activity as tolerated; ensure adequate calcium and vitamin D intake; remove home fall hazards; stop smoking.",
       "rationale": "Weight-bearing exercise, adequate nutrients, fall prevention, and smoking cessation support bone health and reduce fracture risk.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000582"
     },
     {
-      "id": "QR-000583",
+      "id": "QR-000458",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Increased intracranial pressure",
@@ -1057,10 +1150,11 @@
       "content": "Declining level of consciousness; new pupillary asymmetry; abnormal posturing.",
       "rationale": "These are concerning neurologic signs of rising intracranial pressure and require urgent escalation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000583"
     },
     {
-      "id": "QR-000584",
+      "id": "QR-000459",
       "type": "Matrix Multiple",
       "category": "Maternal Newborn",
       "topic": "Newborn safe sleep",
@@ -1068,10 +1162,11 @@
       "content": "rows:place infant supine;use a firm flat sleep surface;place pillows and loose blankets in crib;room-share without bed-sharing|columns:recommended;not recommended|answers:place infant supine=recommended;use a firm flat sleep surface=recommended;place pillows and loose blankets in crib=not recommended;room-share without bed-sharing=recommended",
       "rationale": "Supine positioning, a firm flat surface, and room-sharing without bed-sharing reduce sleep-related infant death risk. Keep soft objects and loose bedding out of the sleep space.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000584"
     },
     {
-      "id": "QR-000585",
+      "id": "QR-000460",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Acute anaphylaxis",
@@ -1079,10 +1174,11 @@
       "content": "Administer IM epinephrine promptly per protocol.|Call for emergency assistance and support airway and breathing.|Position supine with legs elevated if tolerated and no respiratory compromise.|Administer prescribed oxygen and IV fluids; reassess frequently.",
       "rationale": "Epinephrine is first-line and should not be delayed. Support airway, breathing, and circulation; position based on respiratory status and reassess.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000585"
     },
     {
-      "id": "QR-000586",
+      "id": "QR-000461",
       "type": "Extended Multiple Response",
       "category": "Fundamentals",
       "topic": "Postoperative pulmonary hygiene",
@@ -1090,10 +1186,11 @@
       "content": "Encourage incentive spirometry as instructed; assist with early mobilization; teach splinting during cough; reposition regularly; maintain prolonged strict bed rest.",
       "rationale": "Lung expansion, coughing, repositioning, and mobility reduce atelectasis. Prolonged bed rest increases pulmonary complications.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000586"
     },
     {
-      "id": "QR-000587",
+      "id": "QR-000462",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Acute coronary syndrome",
@@ -1101,10 +1198,11 @@
       "content": "Activate the STEMI pathway, obtain IV access and required labs without delaying reperfusion, administer prescribed antiplatelet therapy after contraindication review, and prepare for urgent reperfusion. Monitor rhythm, pain, and hemodynamic status.",
       "rationale": "ST elevation with typical ischemic symptoms indicates STEMI. Rapid reperfusion is the priority; tests and medications must not delay definitive treatment.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000587"
     },
     {
-      "id": "QR-000588",
+      "id": "QR-000463",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Acute urinary retention",
@@ -1112,10 +1210,11 @@
       "content": "Notify the prescriber and perform catheterization if prescribed or authorized by protocol.",
       "rationale": "The large residual indicates urinary retention. Prompt bladder decompression may be required while reversible causes are assessed.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000588"
     },
     {
-      "id": "QR-000589",
+      "id": "QR-000464",
       "type": "Multiple Response",
       "category": "Pharmacology",
       "topic": "Antibiotic allergy",
@@ -1123,7 +1222,8 @@
       "content": "Stop the medication; administer IM epinephrine per emergency protocol; activate emergency response; support airway and oxygenation.",
       "rationale": "These are signs of anaphylaxis. Stop exposure, give epinephrine promptly, and support airway and circulation.",
       "batch": 2,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000589"
     }
   ]
 }
