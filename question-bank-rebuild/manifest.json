@@ -83,7 +83,8 @@
     "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes.",
     "Release target reset from 4,500 to 2,000 questions. Existing four batches on main are structurally validated only; clinical review and integration into all four exam modes remain pending.",
     "The 1,000-record batch set previously created on question-bank-4500-rebuild is not promoted to main because it has not passed clinical review and renderer integration.",
-    "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes."
+    "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes.",
+    "2026-11-02: Standardized 1,329 main-branch question records to contiguous QR-000001 through QR-001329 IDs. Original IDs are retained as legacyId and the complete mapping is stored in question-bank-rebuild/id-migration-map.json. Archived batch filenames remain unchanged for traceability; question IDs inside them use the canonical sequence. Historical branches remain unchanged."
   ],
   "progress": {
     "questionsAuthored": 400,
@@ -117,5 +118,23 @@
       ],
       "note": "Structural/content-presence audit only; this does not constitute nurse-educator clinical review or browser end-to-end testing."
     }
-  ]
+  ],
+  "idStandardization": {
+    "status": "completed",
+    "canonicalPrefix": "QR-",
+    "currentSequenceStart": "QR-000001",
+    "currentSequenceEnd": "QR-001264",
+    "uniqueQuestionIds": 1264,
+    "legacyIdsPreserved": true,
+    "mappingFile": "question-bank-rebuild/id-migration-map.json",
+    "backupBranch": "backup/pre-question-id-renumber-2026-11-02",
+    "scope": [
+      "questions.js",
+      "questions-bank-v2.js",
+      "questions-bank-v2-curated.js",
+      "questions-bank-v3-clinical.js",
+      "questions-ngn-supplement.js",
+      "question-bank-rebuild/batches/*.json"
+    ]
+  }
 }
