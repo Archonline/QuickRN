@@ -42,7 +42,12 @@ const VIDEO_PROVIDERS=[
   {id:'simplenursing',label:'Simple Nursing'},
   {id:'picmonic',label:'Picmonic'}
 ];
-const TOPIC_VIDEOS={};
+const TOPIC_VIDEOS={
+  'Heart failure':{
+    registerednursern:'HoN2EmBJXBk',
+    simplenursing:'r5W1ns5C1ik'
+  }
+};
 let selectedProvider='registerednursern';
 function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-solid fa-circle-play text-4xl text-slate-400"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
