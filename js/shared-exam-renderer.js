@@ -93,7 +93,7 @@ function quickRNSplitPrompt(q){
  q=q&&typeof q==='object'?q:{};
  const asText=v=>{
   if(v==null)return '';
-  if(typeof v==='string'||typeof v==='number')return String(v);
+  if(typeof v==='string'||typeof v==='number')return quickRNPlainClinicalText(v);
   if(Array.isArray(v))return v.map(asText).filter(Boolean).join('\n\n');
   if(typeof v==='object')return quickRNPatientInfoText(v);
   return '';
