@@ -1,9 +1,9 @@
 {
   "batch": 5,
   "range": {
-    "firstId": "QR-000790",
-    "lastId": "QR-000889",
-    "stagedThrough": "QR-000889"
+    "firstId": "QR-000665",
+    "lastId": "QR-000764",
+    "stagedThrough": "QR-000764"
   },
   "count": 100,
   "questionTypes": [
@@ -30,7 +30,7 @@
   },
   "items": [
     {
-      "id": "QR-000790",
+      "id": "QR-000665",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Pulmonary edema",
@@ -38,10 +38,11 @@
       "content": "answer:Position upright, support oxygenation/ventilation, and activate emergency response.",
       "rationale": "Pulmonary edema causes acute gas-exchange failure; respiratory support and escalation are immediate.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000790"
     },
     {
-      "id": "QR-000791",
+      "id": "QR-000666",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Hyperkalemia",
@@ -49,10 +50,11 @@
       "content": "answer:Continuous ECG, IV calcium as prescribed, potassium-shifting therapy, and definitive potassium removal.",
       "rationale": "Calcium stabilizes myocardium; insulin/dextrose and beta agonists shift potassium, while dialysis or other therapies remove it.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000791"
     },
     {
-      "id": "QR-000792",
+      "id": "QR-000667",
       "type": "Select N",
       "category": "Pharmacology",
       "topic": "Warfarin bleeding",
@@ -60,10 +62,11 @@
       "content": "answer:Assess hemodynamics, hold further dose pending urgent review, and obtain CBC/INR as ordered.",
       "rationale": "Melena suggests GI bleeding; assess shock and anticoagulation status.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000792"
     },
     {
-      "id": "QR-000793",
+      "id": "QR-000668",
       "type": "Matrix Single",
       "category": "Maternal Newborn",
       "topic": "Postpartum hemorrhage",
@@ -71,10 +74,11 @@
       "content": "finding:Twenty minutes after birth, a client has heavy bleeding and a boggy fundus.|classification:Postpartum hemorrhage|key:Massage fundus, call for assistance, activate hemorrhage response, and prepare uterotonics/resuscitation.",
       "rationale": "Uterine atony is a common cause of postpartum hemorrhage.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000793"
     },
     {
-      "id": "QR-000794",
+      "id": "QR-000669",
       "type": "Matrix Multiple",
       "category": "Pediatrics",
       "topic": "Epiglottitis",
@@ -82,10 +86,11 @@
       "content": "finding:A child has high fever, drooling, muffled voice, stridor, and tripod positioning.|classification:Epiglottitis|key:Keep calm and upright; summon airway experts; do not inspect the throat.",
       "rationale": "Throat examination or agitation can precipitate complete airway obstruction.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000794"
     },
     {
-      "id": "QR-000795",
+      "id": "QR-000670",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Acute stroke",
@@ -93,10 +98,11 @@
       "content": "completion:Activate stroke response, document last-known-well, check glucose, and prepare urgent noncontrast CT.",
       "rationale": "Time, glucose, and imaging guide stroke treatment and exclude hemorrhage/mimics.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000795"
     },
     {
-      "id": "QR-000796",
+      "id": "QR-000671",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Sepsis",
@@ -104,10 +110,11 @@
       "content": "condition:Sepsis|actions:Activate sepsis response, obtain cultures if no delay, give prompt antibiotics and prescribed crystalloid.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Hypotension, elevated lactate, and confusion indicate infection with hypoperfusion.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000796"
     },
     {
-      "id": "QR-000797",
+      "id": "QR-000672",
       "type": "Highlight",
       "category": "Maternal Newborn",
       "topic": "Magnesium toxicity",
@@ -115,10 +122,11 @@
       "content": "segments:A client on magnesium sulfate has RR 9/min, absent reflexes, and urine output 18 mL/hr.|correct:1",
       "rationale": "Respiratory depression, absent reflexes, and oliguria indicate magnesium accumulation.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000797"
     },
     {
-      "id": "QR-000798",
+      "id": "QR-000673",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -126,10 +134,11 @@
       "content": "25.9|mL/hr|1",
       "rationale": "18 × 72 = 1,296 units/hr; 1,296 ÷ 50 = 25.92 mL/hr, rounded to 25.9. Verify with the institutional high-alert medication process.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000798"
     },
     {
-      "id": "QR-000799",
+      "id": "QR-000674",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "DKA with hypokalemia",
@@ -137,10 +146,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Replace potassium and monitor ECG before starting insulin per protocol. 4. Reassess and document response.",
       "rationale": "Insulin shifts potassium intracellularly and can precipitate fatal dysrhythmia when potassium is severely low.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000799"
     },
     {
-      "id": "QR-000800",
+      "id": "QR-000675",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Compartment syndrome",
@@ -148,10 +158,11 @@
       "content": "answer:Notify orthopedic surgeon immediately and prepare for urgent pressure-relief evaluation.",
       "rationale": "Pain out of proportion and passive-stretch pain are early signs; pulses may remain until late.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000800"
     },
     {
-      "id": "QR-000801",
+      "id": "QR-000676",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Transfusion reaction",
@@ -159,10 +170,11 @@
       "content": "initial:A client develops chills, flank pain, and fever 10 minutes after RBC transfusion begins.|interpretation:Stop transfusion immediately; maintain IV access with saline/new tubing and notify provider/blood bank.|rationale:The findings suggest acute hemolytic reaction.",
       "rationale": "The findings suggest acute hemolytic reaction.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000801"
     },
     {
-      "id": "QR-000802",
+      "id": "QR-000677",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Acute kidney injury",
@@ -170,10 +182,11 @@
       "content": "answer:Notify provider; assess volume status, potassium, fluid balance, and nephrotoxic exposures.",
       "rationale": "Rising creatinine with oliguria indicates worsening renal function.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000802"
     },
     {
-      "id": "QR-000803",
+      "id": "QR-000678",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "COPD exacerbation",
@@ -181,10 +194,11 @@
       "content": "answer:Escalate respiratory support and prepare for noninvasive or invasive ventilation.",
       "rationale": "Hypercapnic acidosis with somnolence indicates ventilatory failure.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000803"
     },
     {
-      "id": "QR-000804",
+      "id": "QR-000679",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Anaphylaxis",
@@ -192,10 +206,11 @@
       "content": "answer:Stop medication, give IM epinephrine per protocol, and activate emergency response.",
       "rationale": "Epinephrine is first-line for anaphylaxis; antihistamines are adjuncts.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000804"
     },
     {
-      "id": "QR-000805",
+      "id": "QR-000680",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "GI hemorrhage",
@@ -203,10 +218,11 @@
       "content": "answer:Activate emergency response, support ABCs, establish large-bore IV access, and prepare blood resuscitation.",
       "rationale": "The client has hemorrhagic shock; stabilize and prepare definitive hemostasis.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000805"
     },
     {
-      "id": "QR-000806",
+      "id": "QR-000681",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Hepatic encephalopathy",
@@ -214,10 +230,11 @@
       "content": "finding:A client with cirrhosis is confused, has asterixis, and has been constipated.|classification:Hepatic encephalopathy|key:Administer prescribed lactulose and monitor mental status, stool frequency, hydration, and electrolytes.",
       "rationale": "Lactulose reduces ammonia absorption; constipation and bleeding can precipitate encephalopathy.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000806"
     },
     {
-      "id": "QR-000807",
+      "id": "QR-000682",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Acute pancreatitis",
@@ -225,10 +242,11 @@
       "content": "finding:A client has severe epigastric pain radiating to the back and elevated lipase.|classification:Acute pancreatitis|key:Provide prescribed IV fluids, analgesia, antiemetics, and oral/enteral nutrition as tolerated.",
       "rationale": "Supportive care treats pain and volume depletion; early nutrition is preferred when tolerated.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000807"
     },
     {
-      "id": "QR-000808",
+      "id": "QR-000683",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Meningitis",
@@ -236,10 +254,11 @@
       "content": "completion:Initiate droplet precautions and urgent evaluation for bacterial meningitis/sepsis.",
       "rationale": "Meningococcal disease spreads by droplets and can progress rapidly.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000808"
     },
     {
-      "id": "QR-000809",
+      "id": "QR-000684",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Adrenal crisis",
@@ -247,10 +266,11 @@
       "content": "condition:Adrenal crisis|actions:Prepare IV hydrocortisone and isotonic fluids with dextrose as prescribed.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Adrenal crisis causes life-threatening hypotension and metabolic disturbance.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000809"
     },
     {
-      "id": "QR-000810",
+      "id": "QR-000685",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Cardiac tamponade",
@@ -258,10 +278,11 @@
       "content": "segments:After cardiac surgery, a client develops hypotension, JVD, and muffled heart sounds.|correct:1",
       "rationale": "Beck triad indicates impaired ventricular filling and obstructive shock.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000810"
     },
     {
-      "id": "QR-000811",
+      "id": "QR-000686",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -269,10 +290,11 @@
       "content": "2040|mL|0",
       "rationale": "68 × 30 = 2,040 mL. Administer according to the order and reassess perfusion and fluid tolerance.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000811"
     },
     {
-      "id": "QR-000812",
+      "id": "QR-000687",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Neurogenic shock",
@@ -280,10 +302,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Maintain spinal alignment and support circulation/respiration with prescribed therapy. 4. Reassess and document response.",
       "rationale": "Loss of sympathetic tone causes hypotension, bradycardia, and vasodilation.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000812"
     },
     {
-      "id": "QR-000813",
+      "id": "QR-000688",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Autonomic dysreflexia",
@@ -291,10 +314,11 @@
       "content": "answer:Sit upright, loosen clothing, and assess bladder drainage for obstruction.",
       "rationale": "Autonomic dysreflexia is a hypertensive emergency; remove triggers.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000813"
     },
     {
-      "id": "QR-000814",
+      "id": "QR-000689",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "ARDS",
@@ -302,10 +326,11 @@
       "content": "initial:A septic client develops bilateral infiltrates, poor lung compliance, and severe hypoxemia despite oxygen.|interpretation:Escalate critical care and prepare lung-protective ventilation while treating sepsis.|rationale:ARDS causes noncardiogenic pulmonary edema and refractory hypoxemia.",
       "rationale": "ARDS causes noncardiogenic pulmonary edema and refractory hypoxemia.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000814"
     },
     {
-      "id": "QR-000815",
+      "id": "QR-000690",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Hypoglycemia",
@@ -313,10 +338,11 @@
       "content": "answer:Give 15 g rapid carbohydrate and recheck glucose in 15 minutes.",
       "rationale": "The 15-15 approach treats mild/moderate hypoglycemia in an alert client.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000815"
     },
     {
-      "id": "QR-000816",
+      "id": "QR-000691",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Severe hypoglycemia",
@@ -324,10 +350,11 @@
       "content": "answer:Give IV dextrose or glucagon per protocol and protect airway.",
       "rationale": "Oral carbohydrate creates aspiration risk in an unconscious client.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000816"
     },
     {
-      "id": "QR-000817",
+      "id": "QR-000692",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Deep vein thrombosis",
@@ -335,10 +362,11 @@
       "content": "answer:Do not massage the leg; assess for PE symptoms and arrange diagnostic evaluation.",
       "rationale": "Massage is avoided with suspected DVT; dyspnea/chest pain may indicate PE.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000817"
     },
     {
-      "id": "QR-000818",
+      "id": "QR-000693",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Acute limb ischemia",
@@ -346,10 +374,11 @@
       "content": "answer:Activate vascular emergency response and prepare for urgent revascularization.",
       "rationale": "Acute arterial occlusion threatens limb viability.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000818"
     },
     {
-      "id": "QR-000819",
+      "id": "QR-000694",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Burn inhalation injury",
@@ -357,10 +386,11 @@
       "content": "finding:A fire victim has facial burns, soot in the mouth, and hoarseness.|classification:Burn inhalation injury|key:Prepare early controlled intubation and administer high-concentration oxygen.",
       "rationale": "Airway edema can progress rapidly after inhalation injury.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000819"
     },
     {
-      "id": "QR-000820",
+      "id": "QR-000695",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Carbon monoxide poisoning",
@@ -368,10 +398,11 @@
       "content": "finding:A fire victim has headache and confusion but SpO₂ reads 99%.|classification:Carbon monoxide poisoning|key:Administer 100% oxygen and obtain co-oximetry evaluation.",
       "rationale": "Conventional pulse oximetry cannot distinguish carboxyhemoglobin reliably.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000820"
     },
     {
-      "id": "QR-000821",
+      "id": "QR-000696",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "C. difficile",
@@ -379,10 +410,11 @@
       "content": "completion:Use contact precautions, soap-and-water hand hygiene, and sporicidal cleaning.",
       "rationale": "C. difficile spores resist alcohol hand rub.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000821"
     },
     {
-      "id": "QR-000822",
+      "id": "QR-000697",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Neutropenic fever",
@@ -390,10 +422,11 @@
       "content": "condition:Neutropenic fever|actions:Notify provider urgently, obtain ordered cultures, and administer prompt empiric antibiotics.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Febrile neutropenia is an oncologic emergency.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000822"
     },
     {
-      "id": "QR-000823",
+      "id": "QR-000698",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "DIC",
@@ -401,10 +434,11 @@
       "content": "segments:A septic client has oozing IV sites, thrombocytopenia, prolonged PT/aPTT, and low fibrinogen.|correct:1",
       "rationale": "DIC consumes platelets and clotting factors and causes bleeding/thrombosis.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000823"
     },
     {
-      "id": "QR-000824",
+      "id": "QR-000699",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -412,10 +446,11 @@
       "content": "7.5|mL|1",
       "rationale": "Dose = 18 × 10 = 180 mg. Concentration = 24 mg/mL. Volume = 180 ÷ 24 = 7.5 mL.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000824"
     },
     {
-      "id": "QR-000825",
+      "id": "QR-000700",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Myasthenic crisis",
@@ -423,10 +458,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Activate critical-care/airway response, prepare ventilatory support, and keep NPO pending swallow assessment. 4. Reassess and document response.",
       "rationale": "Bulbar and respiratory weakness can progress to ventilatory failure.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000825"
     },
     {
-      "id": "QR-000826",
+      "id": "QR-000701",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Guillain-Barré syndrome",
@@ -434,10 +470,11 @@
       "content": "answer:Perform serial respiratory mechanics and urgent airway/critical-care evaluation.",
       "rationale": "Guillain-Barré can progress to respiratory paralysis and autonomic instability.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000826"
     },
     {
-      "id": "QR-000827",
+      "id": "QR-000702",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Septic arthritis",
@@ -445,10 +482,11 @@
       "content": "initial:A client has a hot swollen knee, fever, and inability to bear weight.|interpretation:Prepare urgent joint aspiration/culture, IV antibiotics, and possible drainage.|rationale:Septic arthritis can rapidly destroy cartilage.",
       "rationale": "Septic arthritis can rapidly destroy cartilage.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000827"
     },
     {
-      "id": "QR-000828",
+      "id": "QR-000703",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Osteomyelitis",
@@ -456,10 +494,11 @@
       "content": "answer:Evaluate for osteomyelitis, obtain cultures, and prepare targeted antimicrobial treatment.",
       "rationale": "Bone infection may follow contiguous spread from a chronic ulcer.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000828"
     },
     {
-      "id": "QR-000829",
+      "id": "QR-000704",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Bowel obstruction",
@@ -467,10 +506,11 @@
       "content": "answer:Keep NPO, administer prescribed IV fluids, and prepare NG decompression.",
       "rationale": "Obstruction causes fluid sequestration and aspiration risk.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000829"
     },
     {
-      "id": "QR-000830",
+      "id": "QR-000705",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Mesenteric ischemia",
@@ -478,10 +518,11 @@
       "content": "answer:Activate urgent vascular/surgical evaluation and prepare imaging/intervention.",
       "rationale": "Embolic bowel ischemia is time-critical.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000830"
     },
     {
-      "id": "QR-000831",
+      "id": "QR-000706",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Postoperative evisceration",
@@ -489,10 +530,11 @@
       "content": "answer:Cover organs with sterile saline-moistened dressings, keep NPO, and summon immediate surgical assistance.",
       "rationale": "Do not reinsert organs; protect tissue and prepare for surgery.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000831"
     },
     {
-      "id": "QR-000832",
+      "id": "QR-000707",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Pressure injury",
@@ -500,10 +542,11 @@
       "content": "finding:A client has intact sacral skin with nonblanchable erythema.|classification:Pressure injury|key:Classify as stage 1 pressure injury and offload pressure.",
       "rationale": "Stage 1 is intact skin with nonblanchable erythema.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000832"
     },
     {
-      "id": "QR-000833",
+      "id": "QR-000708",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Fat embolism syndrome",
@@ -511,10 +554,11 @@
       "content": "finding:A client 36 hours after femur fracture develops hypoxemia, confusion, and petechiae.|classification:Fat embolism syndrome|key:Provide respiratory support and urgent critical-care evaluation.",
       "rationale": "The classic triad includes respiratory distress, neurologic changes, and petechiae.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000833"
     },
     {
-      "id": "QR-000834",
+      "id": "QR-000709",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Sickle cell acute chest",
@@ -522,10 +566,11 @@
       "content": "completion:Escalate urgently, provide oxygen for hypoxemia, and prepare prescribed antibiotics/analgesia.",
       "rationale": "Acute chest syndrome is life-threatening.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000834"
     },
     {
-      "id": "QR-000835",
+      "id": "QR-000710",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Tumor lysis syndrome",
@@ -533,10 +578,11 @@
       "content": "condition:Tumor lysis syndrome|actions:Initiate telemetry, prescribed hydration/urate-lowering therapy, and urgent electrolyte management.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Cell lysis causes life-threatening electrolyte abnormalities and AKI.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000835"
     },
     {
-      "id": "QR-000836",
+      "id": "QR-000711",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Thyroid storm",
@@ -544,10 +590,11 @@
       "content": "segments:A client with Graves disease has fever 40°C, HR 168/min, agitation, and diarrhea.|correct:1",
       "rationale": "Thyroid storm is a life-threatening hypermetabolic crisis.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000836"
     },
     {
-      "id": "QR-000837",
+      "id": "QR-000712",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -555,10 +602,11 @@
       "content": "3|mL|0",
       "rationale": "1.2 g = 1,200 mg. 1,200 ÷ 400 = 3 mL.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000837"
     },
     {
-      "id": "QR-000838",
+      "id": "QR-000713",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Acute glaucoma",
@@ -566,10 +614,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Arrange immediate ophthalmic treatment for acute angle-closure glaucoma. 4. Reassess and document response.",
       "rationale": "Elevated intraocular pressure can rapidly cause permanent vision loss.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000838"
     },
     {
-      "id": "QR-000839",
+      "id": "QR-000714",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Peritonitis",
@@ -577,10 +626,11 @@
       "content": "answer:Escalate for urgent surgical evaluation and prescribed antibiotics/resuscitation.",
       "rationale": "Peritoneal signs with systemic symptoms indicate an urgent abdominal process.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000839"
     },
     {
-      "id": "QR-000840",
+      "id": "QR-000715",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Upper airway obstruction",
@@ -588,10 +638,11 @@
       "content": "initial:A client with neck trauma develops stridor, inability to speak, and expanding swelling.|interpretation:Activate emergency airway response and prepare definitive airway management.|rationale:Stridor and expanding neck hematoma indicate impending obstruction.",
       "rationale": "Stridor and expanding neck hematoma indicate impending obstruction.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000840"
     },
     {
-      "id": "QR-000841",
+      "id": "QR-000716",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Hemothorax",
@@ -599,10 +650,11 @@
       "content": "answer:Activate trauma response and prepare chest tube and blood resuscitation.",
       "rationale": "Pleural blood impairs ventilation and causes volume loss.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000841"
     },
     {
-      "id": "QR-000842",
+      "id": "QR-000717",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Tension pneumothorax",
@@ -610,10 +662,11 @@
       "content": "answer:Prepare for immediate decompression by a qualified clinician.",
       "rationale": "Tension pneumothorax causes obstructive shock.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000842"
     },
     {
-      "id": "QR-000843",
+      "id": "QR-000718",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Acute pericarditis",
@@ -621,10 +674,11 @@
       "content": "answer:Assess for effusion/tamponade and administer prescribed anti-inflammatory therapy.",
       "rationale": "Positional pleuritic pain and friction rub are characteristic.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000843"
     },
     {
-      "id": "QR-000844",
+      "id": "QR-000719",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Aortic stenosis",
@@ -632,10 +686,11 @@
       "content": "answer:Stop activity, assess hemodynamics, and escalate urgently.",
       "rationale": "Fixed outflow obstruction can cause syncope and ischemia.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000844"
     },
     {
-      "id": "QR-000845",
+      "id": "QR-000720",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Digoxin toxicity",
@@ -643,10 +698,11 @@
       "content": "finding:A client taking digoxin reports nausea and yellow-green halos; apical pulse is 48/min.|classification:Digoxin toxicity|key:Withhold digoxin and notify prescriber; obtain level and electrolytes as ordered.",
       "rationale": "Bradycardia, GI symptoms, and visual changes suggest toxicity.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000845"
     },
     {
-      "id": "QR-000846",
+      "id": "QR-000721",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Lithium toxicity",
@@ -654,10 +710,11 @@
       "content": "finding:A client taking lithium has coarse tremor, ataxia, vomiting, and confusion after diarrhea.|classification:Lithium toxicity|key:Hold lithium and obtain urgent serum level and renal/electrolyte assessment.",
       "rationale": "Dehydration reduces lithium clearance and may cause toxicity.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000846"
     },
     {
-      "id": "QR-000847",
+      "id": "QR-000722",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Serotonin syndrome",
@@ -665,10 +722,11 @@
       "content": "completion:Stop serotonergic agents and initiate urgent supportive care.",
       "rationale": "Clonus and hyperreflexia with autonomic instability are characteristic.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000847"
     },
     {
-      "id": "QR-000848",
+      "id": "QR-000723",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Neuroleptic malignant syndrome",
@@ -676,10 +734,11 @@
       "content": "condition:Neuroleptic malignant syndrome|actions:Stop antipsychotic and initiate emergency supportive care.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "NMS causes rigidity, hyperthermia, rhabdomyolysis, and autonomic instability.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000848"
     },
     {
-      "id": "QR-000849",
+      "id": "QR-000724",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Wernicke encephalopathy",
@@ -687,10 +746,11 @@
       "content": "segments:A client with chronic alcohol use has confusion, ataxia, and abnormal eye movements.|correct:1",
       "rationale": "The triad suggests thiamine deficiency; early treatment prevents progression.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000849"
     },
     {
-      "id": "QR-000850",
+      "id": "QR-000725",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -698,10 +758,11 @@
       "content": "2800|units|0",
       "rationale": "70 × 40 = 2,800 units. Verify product-specific dosing with the hematology plan.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000850"
     },
     {
-      "id": "QR-000851",
+      "id": "QR-000726",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Acute liver failure",
@@ -709,10 +770,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Escalate for critical-care/transplant evaluation, monitor airway/neurologic status, and treat hypoglycemia. 4. Reassess and document response.",
       "rationale": "Encephalopathy and coagulopathy indicate severe hepatic dysfunction.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000851"
     },
     {
-      "id": "QR-000852",
+      "id": "QR-000727",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Variceal hemorrhage",
@@ -720,10 +782,11 @@
       "content": "answer:Protect airway, establish large-bore IV access, resuscitate, and prepare vasoactive therapy/endoscopy.",
       "rationale": "Variceal bleeding can cause rapid exsanguination and aspiration.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000852"
     },
     {
-      "id": "QR-000853",
+      "id": "QR-000728",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Acute cholangitis",
@@ -731,10 +794,11 @@
       "content": "initial:A client with gallstones has RUQ pain, fever, jaundice, hypotension, and confusion.|interpretation:Activate urgent sepsis care, administer antibiotics, and prepare biliary drainage.|rationale:Severe ascending cholangitis requires antibiotics and source control.",
       "rationale": "Severe ascending cholangitis requires antibiotics and source control.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000853"
     },
     {
-      "id": "QR-000854",
+      "id": "QR-000729",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Infected urinary obstruction",
@@ -742,10 +806,11 @@
       "content": "answer:Urgent antibiotics and decompression of the obstructed urinary system.",
       "rationale": "Infected obstruction is a urologic emergency.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000854"
     },
     {
-      "id": "QR-000855",
+      "id": "QR-000730",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Acute urinary retention",
@@ -753,10 +818,11 @@
       "content": "answer:Perform prescribed bladder decompression and monitor urine output.",
       "rationale": "Significant retention requires management and monitoring.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000855"
     },
     {
-      "id": "QR-000856",
+      "id": "QR-000731",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Hemolytic anemia",
@@ -764,10 +830,11 @@
       "content": "answer:Evaluate for hemolysis and monitor renal/hemodynamic status.",
       "rationale": "Hemolysis releases hemoglobin and increases indirect bilirubin.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000856"
     },
     {
-      "id": "QR-000857",
+      "id": "QR-000732",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Iron deficiency anemia",
@@ -775,10 +842,11 @@
       "content": "answer:Evaluate iron deficiency and source of blood loss; reinforce prescribed replacement.",
       "rationale": "Low ferritin and microcytosis are typical of iron deficiency.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000857"
     },
     {
-      "id": "QR-000858",
+      "id": "QR-000733",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Vitamin B12 deficiency",
@@ -786,10 +854,11 @@
       "content": "finding:A client has macrocytosis, paresthesia, and impaired vibration sense.|classification:Vitamin B12 deficiency|key:Evaluate B12 deficiency and prepare replacement therapy.",
       "rationale": "B12 deficiency causes macrocytic anemia and neurologic injury.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000858"
     },
     {
-      "id": "QR-000859",
+      "id": "QR-000734",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Aplastic anemia",
@@ -797,10 +866,11 @@
       "content": "finding:A client has pancytopenia, fatigue, infections, and bruising.|classification:Aplastic anemia|key:Institute infection and bleeding precautions and arrange urgent hematology evaluation.",
       "rationale": "Pancytopenia increases infection, anemia, and bleeding risks.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000859"
     },
     {
-      "id": "QR-000860",
+      "id": "QR-000735",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Pulmonary edema in renal failure",
@@ -808,10 +878,11 @@
       "content": "completion:Support oxygenation/ventilation and arrange urgent dialysis/ultrafiltration.",
       "rationale": "Fluid overload causing pulmonary edema is life-threatening.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000860"
     },
     {
-      "id": "QR-000861",
+      "id": "QR-000736",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Severe hypercalcemia",
@@ -819,10 +890,11 @@
       "content": "condition:Severe hypercalcemia|actions:Initiate prescribed isotonic hydration and calcium-lowering therapy with ECG/renal monitoring.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Severe hypercalcemia causes neurologic, renal, and cardiac complications.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000861"
     },
     {
-      "id": "QR-000862",
+      "id": "QR-000737",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Severe hyponatremia",
@@ -830,10 +902,11 @@
       "content": "segments:A client has sodium 112 mEq/L and a seizure.|correct:1",
       "rationale": "Severe symptomatic hyponatremia is a neurologic emergency.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000862"
     },
     {
-      "id": "QR-000863",
+      "id": "QR-000738",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -841,10 +914,11 @@
       "content": "125|mL/hr|0",
       "rationale": "1,000 ÷ 8 = 125 mL/hr. Confirm the prescribed fluid and patient-specific restrictions.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000863"
     },
     {
-      "id": "QR-000864",
+      "id": "QR-000739",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Hypernatremia",
@@ -852,10 +926,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Correct free-water deficit gradually with frequent sodium and neurologic monitoring. 4. Reassess and document response.",
       "rationale": "Hypernatremia causes cellular dehydration; overly rapid correction risks cerebral edema.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000864"
     },
     {
-      "id": "QR-000865",
+      "id": "QR-000740",
       "type": "Extended Multiple Response",
       "category": "Adult Health",
       "topic": "Metabolic acidosis",
@@ -863,10 +938,11 @@
       "content": "answer:Identify high-anion-gap metabolic acidosis and treat DKA per protocol.",
       "rationale": "Ketone accumulation lowers bicarbonate and pH.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000865"
     },
     {
-      "id": "QR-000866",
+      "id": "QR-000741",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Respiratory alkalosis",
@@ -874,10 +950,11 @@
       "content": "initial:A client hyperventilating during panic has pH 7.50 and PaCO₂ 28 mm Hg.|interpretation:Identify respiratory alkalosis and assess/treat the cause of hyperventilation.|rationale:Excess ventilation lowers PaCO₂ and raises pH.",
       "rationale": "Excess ventilation lowers PaCO₂ and raises pH.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000866"
     },
     {
-      "id": "QR-000867",
+      "id": "QR-000742",
       "type": "Case Study",
       "category": "Adult Health",
       "topic": "Metabolic alkalosis",
@@ -885,10 +962,11 @@
       "content": "answer:Identify metabolic alkalosis and assess volume/chloride and potassium deficits.",
       "rationale": "Loss of gastric acid raises bicarbonate relative to acid.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000867"
     },
     {
-      "id": "QR-000868",
+      "id": "QR-000743",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Respiratory acidosis",
@@ -896,10 +974,11 @@
       "content": "answer:Identify respiratory acidosis and support ventilation.",
       "rationale": "CO₂ retention lowers pH.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000868"
     },
     {
-      "id": "QR-000869",
+      "id": "QR-000744",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Hemorrhagic stroke",
@@ -907,10 +986,11 @@
       "content": "answer:Arrange emergency brain imaging and prescribed warfarin reversal.",
       "rationale": "Anticoagulant-associated intracranial hemorrhage requires rapid reversal.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000869"
     },
     {
-      "id": "QR-000870",
+      "id": "QR-000745",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Subarachnoid hemorrhage",
@@ -918,10 +998,11 @@
       "content": "answer:Activate emergency neurologic evaluation and obtain urgent noncontrast CT.",
       "rationale": "Thunderclap headache with meningismus is classic for SAH.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000870"
     },
     {
-      "id": "QR-000871",
+      "id": "QR-000746",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Cerebral vasospasm",
@@ -929,10 +1010,11 @@
       "content": "finding:Six days after aneurysmal SAH, a client develops new unilateral weakness.|classification:Cerebral vasospasm|key:Notify neurocritical team immediately and evaluate for delayed cerebral ischemia/vasospasm.",
       "rationale": "New focal deficit days after SAH may indicate vasospasm.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000871"
     },
     {
-      "id": "QR-000872",
+      "id": "QR-000747",
       "type": "Matrix Multiple",
       "category": "Adult Health",
       "topic": "Increased intracranial pressure",
@@ -940,10 +1022,11 @@
       "content": "finding:A client with TBI develops declining consciousness, vomiting, and unequal pupils.|classification:Increased intracranial pressure|key:Activate emergency neurocritical response, protect airway, and prepare urgent imaging/ICP management.",
       "rationale": "These are signs of rising ICP and possible herniation.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000872"
     },
     {
-      "id": "QR-000873",
+      "id": "QR-000748",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Posterior circulation stroke",
@@ -951,10 +1034,11 @@
       "content": "completion:Activate stroke response and document last-known-well.",
       "rationale": "Brainstem/cerebellar ischemia causes ocular, balance, speech, and swallowing deficits.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000873"
     },
     {
-      "id": "QR-000874",
+      "id": "QR-000749",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Stroke dysphagia",
@@ -962,10 +1046,11 @@
       "content": "condition:Stroke dysphagia|actions:Stop oral intake, maintain NPO, and arrange validated swallow assessment.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Coughing and wet voice suggest aspiration risk.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000874"
     },
     {
-      "id": "QR-000875",
+      "id": "QR-000750",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Stroke neglect",
@@ -973,10 +1058,11 @@
       "content": "segments:A client with right hemisphere stroke ignores food on the left and attempts unsafe transfers.|correct:1",
       "rationale": "Neglect and impulsivity increase injury risk.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000875"
     },
     {
-      "id": "QR-000876",
+      "id": "QR-000751",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -984,10 +1070,11 @@
       "content": "62|mm Hg|0",
       "rationale": "(86 + 2 × 50) ÷ 3 = 62 mm Hg.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000876"
     },
     {
-      "id": "QR-000877",
+      "id": "QR-000752",
       "type": "Extended Drag and Drop",
       "category": "Adult Health",
       "topic": "Suicide safety",
@@ -995,10 +1082,11 @@
       "content": "1. Assess immediate safety/ABCs; 2. Escalate and obtain focused assessment; 3. Initiate prescribed intervention: Maintain continuous observation, remove access to means, and initiate emergency safety evaluation. 4. Reassess and document response.",
       "rationale": "A specific plan and imminent timeframe indicate high acute risk.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000877"
     },
     {
-      "id": "QR-000878",
+      "id": "QR-000753",
       "type": "Extended Multiple Response",
       "category": "Mental Health",
       "topic": "Command hallucinations",
@@ -1006,10 +1094,11 @@
       "content": "answer:Ask directly whether the client intends to act and has a plan or access to means.",
       "rationale": "Command hallucinations require direct safety assessment.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000878"
     },
     {
-      "id": "QR-000879",
+      "id": "QR-000754",
       "type": "Trend",
       "category": "Mental Health",
       "topic": "Acute mania",
@@ -1017,10 +1106,11 @@
       "content": "initial:A client has decreased need for sleep, pressured speech, grandiosity, and risky spending.|interpretation:Maintain safety, reduce stimulation, and administer prescribed treatment.|rationale:These are characteristic manic symptoms.",
       "rationale": "These are characteristic manic symptoms.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000879"
     },
     {
-      "id": "QR-000880",
+      "id": "QR-000755",
       "type": "Case Study",
       "category": "Pharmacology",
       "topic": "Clozapine neutropenia",
@@ -1028,10 +1118,11 @@
       "content": "answer:Arrange urgent CBC/ANC assessment and prescriber notification.",
       "rationale": "Clozapine can cause severe neutropenia/agranulocytosis.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000880"
     },
     {
-      "id": "QR-000881",
+      "id": "QR-000756",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Opioid toxicity",
@@ -1039,10 +1130,11 @@
       "content": "answer:Support ventilation, activate emergency response, and administer naloxone per protocol.",
       "rationale": "Respiratory depression is life-threatening; naloxone may need repeating.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000881"
     },
     {
-      "id": "QR-000882",
+      "id": "QR-000757",
       "type": "Multiple Response",
       "category": "Pharmacology",
       "topic": "Beta blocker overdose",
@@ -1050,10 +1142,11 @@
       "content": "answer:Activate toxicology response and prepare prescribed glucagon/hemodynamic support.",
       "rationale": "Beta blocker toxicity causes bradycardia, hypotension, and possible hypoglycemia.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000882"
     },
     {
-      "id": "QR-000883",
+      "id": "QR-000758",
       "type": "Select N",
       "category": "Adult Health",
       "topic": "Medication error",
@@ -1061,10 +1154,11 @@
       "content": "answer:Assess ABCs and hemodynamic status and activate urgent clinical response.",
       "rationale": "Treat immediate instability before reporting/documenting the error.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000883"
     },
     {
-      "id": "QR-000884",
+      "id": "QR-000759",
       "type": "Matrix Single",
       "category": "Pharmacology",
       "topic": "Vancomycin infusion reaction",
@@ -1072,10 +1166,11 @@
       "content": "finding:A client develops flushing and pruritus during rapid vancomycin infusion.|classification:Vancomycin infusion reaction|key:Pause/slow infusion per protocol, assess for hypotension/airway symptoms, and notify provider.",
       "rationale": "Rate-related infusion reaction may improve with slower administration.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000884"
     },
     {
-      "id": "QR-000885",
+      "id": "QR-000760",
       "type": "Matrix Multiple",
       "category": "Pharmacology",
       "topic": "Aminoglycoside toxicity",
@@ -1083,10 +1178,11 @@
       "content": "finding:A client receiving gentamicin reports tinnitus and has rising creatinine.|classification:Aminoglycoside toxicity|key:Notify prescriber and assess for ototoxicity/nephrotoxicity; review levels and renal function.",
       "rationale": "Aminoglycosides can injure hearing and kidneys.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000885"
     },
     {
-      "id": "QR-000886",
+      "id": "QR-000761",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Contrast anaphylaxis",
@@ -1094,10 +1190,11 @@
       "content": "completion:Stop contrast and administer IM epinephrine while activating emergency response.",
       "rationale": "Severe contrast reaction with airway/circulatory compromise is anaphylaxis.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000886"
     },
     {
-      "id": "QR-000887",
+      "id": "QR-000762",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Postoperative ileus",
@@ -1105,10 +1202,11 @@
       "content": "condition:Postoperative ileus|actions:Assess for complications and follow orders for NPO/decompression.|monitor:clinical status, relevant vital signs, and organ function",
       "rationale": "Delayed bowel motility causes distention and nausea.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000887"
     },
     {
-      "id": "QR-000888",
+      "id": "QR-000763",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "High-output ileostomy",
@@ -1116,10 +1214,11 @@
       "content": "segments:A client with ileostomy has watery output, dizziness, and low urine output.|correct:1",
       "rationale": "High output can cause dehydration and AKI.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000888"
     },
     {
-      "id": "QR-000889",
+      "id": "QR-000764",
       "type": "Numeric Entry",
       "category": "Pharmacology",
       "topic": "Medication and clinical calculation",
@@ -1127,7 +1226,8 @@
       "content": "20|mEq/L|0",
       "rationale": "140 − (104 + 16) = 20 mEq/L.",
       "batch": 5,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000889"
     }
   ]
 }
