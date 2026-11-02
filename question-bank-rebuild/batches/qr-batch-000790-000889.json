@@ -1,10 +1,6 @@
 {
   "batch": 5,
-  "range": {
-    "firstId": "QR-000665",
-    "lastId": "QR-000764",
-    "stagedThrough": "QR-000764"
-  },
+  "range": "QR-000665–QR-000764",
   "count": 100,
   "questionTypes": [
     "Single Choice",
@@ -1229,5 +1225,12 @@
       "reviewStatus": "needs_clinical_review",
       "legacyId": "QR-000889"
     }
-  ]
+  ],
+  "legacyRange": {
+    "firstId": "QR-000665",
+    "lastId": "QR-000764",
+    "stagedThrough": "QR-000764"
+  },
+  "firstId": "QR-000665",
+  "lastId": "QR-000764"
 }
