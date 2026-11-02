@@ -1,6 +1,6 @@
 {
   "batch": 1,
-  "range": "QR-000437–QR-000489",
+  "range": "QR-000312–QR-000355",
   "count": 44,
   "format": "QuickRN question-bank canonical draft v1",
   "items": [
@@ -532,5 +532,8 @@
       "reviewStatus": "needs_clinical_review",
       "legacyId": "QR-000480"
     }
-  ]
+  ],
+  "legacyRange": "QR-000437–QR-000489",
+  "firstId": "QR-000312",
+  "lastId": "QR-000355"
 }
