@@ -676,14 +676,14 @@
                 if (!seen.has(key)) history.push(x);
             });
             const accuracyOf = record => {
-                const direct = record.accuracyPercent ?? record.itemAccuracyPercent ?? record.accuracy;
+                const direct = record.accuracyPercent ?? record.itemAccuracyPercent ?? record.accuracy ?? record.scorePercent ?? record.percentage ?? record.score;
                 if (direct !== undefined && direct !== null && direct !== '' && Number.isFinite(Number(direct))) return Math.max(0, Math.min(100, Number(direct)));
                 const correct = Number(record.correctCount ?? record.fullyCorrect ?? record.correct);
                 const total = Number(record.totalAnswered ?? record.itemsAnswered ?? record.total ?? record.attempted);
                 return Number.isFinite(correct) && Number.isFinite(total) && total > 0 ? Math.max(0, Math.min(100, correct / total * 100)) : null;
             };
-            const records = history.filter(x => x && x.completed !== false && String(x.completionStatus || '').toLowerCase() !== 'in_progress' && (x.completed === true || !!(x.completedAt || x.finishedAt)) && Number(x.totalItems || x.totalAnswered || x.total || 0) > 0).map(x => {
-                const date = new Date(x.completedAt || x.timestamp || x.date || '');
+            const records = history.filter(x => x && x.completed !== false && String(x.completionStatus || '').toLowerCase() !== 'in_progress' && (x.completed === true || x.isFinished === true || x.finished === true || ['completed','complete','finished','submitted'].includes(String(x.completionStatus || x.status || '').toLowerCase()) || !!(x.completedAt || x.finishedAt)) && Number(x.totalItems || x.totalAnswered || x.total || 0) > 0).map(x => {
+                const date = new Date(x.completedAt || x.finishedAt || x.timestamp || x.date || '');
                 const accuracy = accuracyOf(x);
                 const probability = x.passingProbability;
                 return {...x, _date: date, _score: accuracy, _prob: probability !== null && probability !== undefined && probability !== '' && Number.isFinite(Number(probability)) ? Math.max(0, Math.min(100, Number(probability))) : null};
@@ -758,7 +758,9 @@
                 features: 'QuickRN Feature Hub & NCLEX Tour',
                 analytics: 'Client Needs Mastery Analytics'
             };
-            document.getElementById('page-title').textContent = titles[tabId] || 'Dashboard';
+            const pageTitle = document.getElementById('page-title');
+            if (pageTitle) pageTitle.textContent = titles[tabId] || 'Dashboard';
+            if (tabId === 'dashboard') requestAnimationFrame(refreshDashboardChart);
         }
 
         
@@ -935,6 +937,25 @@
         function closeSpecificExamsModal() {
             document.getElementById('specific-exams-modal').classList.add('hidden');
         }
+
+        // Initialize the dashboard chart only after its canvas and history UI exist.
+        function refreshDashboardChart() {
+            try {
+                if (typeof initQuickRNScoreChart === 'function') initQuickRNScoreChart();
+            } catch (error) {
+                console.error('QuickRN dashboard chart could not be initialized:', error);
+                const note = document.getElementById('quickrn-score-chart-note');
+                if (note) note.textContent = 'Performance trend is temporarily unavailable. Refresh the page to try again.';
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', refreshDashboardChart, { once: true });
+        } else {
+            refreshDashboardChart();
+        }
+        window.addEventListener('storage', event => {
+            if (event.key === 'quickrn_student_state') refreshDashboardChart();
+        });
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toast-container');
