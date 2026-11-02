@@ -80,12 +80,40 @@
     "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
     "No claim of 4,500-question completion until all 45 batches pass validation and integration.",
     "Batch 4 completed with exactly 100 records (QR-000690–QR-000789), contiguous unique IDs, all 13 supported formats, and required fields present. Clinical review and four-mode integration remain pending.",
-    "Batch 4 completed with 100 unique records and all 13 NCLEX item types represented; structural checks passed. Clinical review, renderer compatibility, and integration into all four exam modes remain pending."
+    "Batch 4 completed with 100 unique records and all 13 NCLEX item types represented; structural checks passed. Clinical review, renderer compatibility, and integration into all four exam modes remain pending.",
+    "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes."
   ],
   "progress": {
     "questionsAuthored": 400,
     "questionsStructurallyValidated": 400,
     "questionsClinicallyReviewed": 0,
     "questionsIntegratedIntoExamModes": 0
-  }
+  },
+  "qualityAudits": [
+    {
+      "date": "2026-11-02",
+      "scope": "questions.js plus loaded question-bank supplements and shared renderer",
+      "staticAudit": {
+        "baseRecords": 264,
+        "uniqueIds": 264,
+        "missingStems": 0,
+        "duplicatePatientContent": 0,
+        "htmlMarkupInPatientContext": 0,
+        "ngnMissingClinicalContext": 0
+      },
+      "correctedRecords": [
+        "QB2R-0018",
+        "QRV3-0007",
+        "QRV3-0002",
+        "HTML-NGN-THY-002"
+      ],
+      "coverage": [
+        "selfstudy.html",
+        "timed.html",
+        "predictor.html",
+        "cat.html"
+      ],
+      "note": "Structural/content-presence audit only; this does not constitute nurse-educator clinical review or browser end-to-end testing."
+    }
+  ]
 }
