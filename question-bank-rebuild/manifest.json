@@ -1,12 +1,12 @@
 {
-  "project": "QuickRN 4500-question bank rebuild",
-  "targetQuestions": 4500,
+  "project": "QuickRN 2,000 clinically verified question-bank rebuild",
+  "targetQuestions": 2000,
   "batchSize": 100,
-  "totalBatches": 45,
+  "totalBatches": 20,
   "idPrefix": "QR-",
   "firstId": "QR-000390",
-  "lastId": "QR-004889",
-  "branch": "question-bank-4500-rebuild",
+  "lastId": "QR-002389",
+  "branch": "main",
   "baseBranch": "main",
   "completedBatches": [
     {
@@ -62,7 +62,7 @@
     "number": 5,
     "firstId": "QR-000790",
     "lastId": "QR-000889",
-    "status": "not_started"
+    "status": "not_started_on_main"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -78,10 +78,12 @@
     "Existing main-branch files are preserved.",
     "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
     "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
-    "No claim of 4,500-question completion until all 45 batches pass validation and integration.",
     "Batch 4 completed with exactly 100 records (QR-000690–QR-000789), contiguous unique IDs, all 13 supported formats, and required fields present. Clinical review and four-mode integration remain pending.",
     "Batch 4 completed with 100 unique records and all 13 NCLEX item types represented; structural checks passed. Clinical review, renderer compatibility, and integration into all four exam modes remain pending.",
-    "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes."
+    "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes.",
+    "Release target reset from 4,500 to 2,000 questions. Existing four batches on main are structurally validated only; clinical review and integration into all four exam modes remain pending.",
+    "The 1,000-record batch set previously created on question-bank-4500-rebuild is not promoted to main because it has not passed clinical review and renderer integration.",
+    "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes."
   ],
   "progress": {
     "questionsAuthored": 400,
