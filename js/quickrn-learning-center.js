@@ -56,7 +56,7 @@ function saveNotes(){const notes=loadNotes();notes[topic||'General']= $('topic-n
 
 function renderPhrases(){
   const phrases=[topic,topic+' pathophysiology and clinical manifestations',topic+' nursing assessment and priority interventions',topic+' NCLEX case study and patient education'];
-  $('phrase-links').innerHTML=phrases.map((p,i)=>'<button type="button" class="lesson-link" data-phrase="'+safe(p)+'" aria-pressed="false"><span class="font-bold text-purple-700">'+(i+1)+'.</span> '+safe(p)+' <span class="block text-[10px] text-slate-500 mt-1">Click to play video instantly</span></button>').join('');
+  $('phrase-links').innerHTML=phrases.map((p,i)=>'<button type="button" class="lesson-link" data-phrase="'+safe(p)+'" aria-pressed="false"><span class="font-bold text-purple-700">'+(i+1)+'.</span> '+safe(p)+' <span class="block text-[10px] text-slate-500 mt-1">Search YouTube for this lesson</span></button>').join('');
 }
 
 function renderSystems(){
