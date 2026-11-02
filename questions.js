@@ -2,7 +2,7 @@
 (function () {
   const data = [
   {
-    "id": "NCLEX-0001",
+    "id": "QR-000001",
     "category": "Cardiovascular",
     "topic": "Acute myocardial infarction",
     "difficulty": "Moderate",
@@ -46,10 +46,11 @@
     "title": "A client reports new crushing chest pressure with diaphoresis and nausea; acute coronary syndrome is suspected. Which nursing action should the nurse take first?",
     "promptTitle": "Acute myocardial infarction",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For suspected acute MI, obtain a 12-lead ECG promptly and assess symptoms/vitals; activate the emergency response pathway as indicated."
+    "learning_objective": "For suspected acute MI, obtain a 12-lead ECG promptly and assess symptoms/vitals; activate the emergency response pathway as indicated.",
+    "legacyId": "NCLEX-0001"
   },
   {
-    "id": "NCLEX-0011",
+    "id": "QR-000002",
     "category": "Cardiovascular",
     "topic": "Heart failure",
     "difficulty": "Hard",
@@ -93,10 +94,11 @@
     "title": "A client with heart failure develops worsening dyspnea, crackles, and increasing peripheral edema. Which nursing action should the nurse take first?",
     "promptTitle": "Heart failure",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For worsening heart failure, assess respiratory status, oxygenation, lung sounds, edema, daily weight, and fluid balance."
+    "learning_objective": "For worsening heart failure, assess respiratory status, oxygenation, lung sounds, edema, daily weight, and fluid balance.",
+    "legacyId": "NCLEX-0011"
   },
   {
-    "id": "NCLEX-0021",
+    "id": "QR-000003",
     "category": "Cardiovascular",
     "topic": "Digoxin safety",
     "difficulty": "Easy",
@@ -140,10 +142,11 @@
     "title": "Before a scheduled digoxin dose, the nurse is assessing the client's apical pulse and reviewing symptoms of possible toxicity. Which nursing action should the nurse take first?",
     "promptTitle": "Digoxin safety",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Before administering digoxin to an adult, assess the apical pulse for one full minute and follow the prescribed hold parameters."
+    "learning_objective": "Before administering digoxin to an adult, assess the apical pulse for one full minute and follow the prescribed hold parameters.",
+    "legacyId": "NCLEX-0021"
   },
   {
-    "id": "NCLEX-0031",
+    "id": "QR-000004",
     "category": "Cardiovascular",
     "topic": "Warfarin teaching",
     "difficulty": "Moderate",
@@ -187,10 +190,11 @@
     "title": "A client taking warfarin asks how to manage diet changes and which symptoms should be reported. Which nursing action should the nurse take first?",
     "promptTitle": "Warfarin teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Teach a client taking warfarin to keep vitamin K intake consistent and report bleeding; INR monitoring is required."
+    "learning_objective": "Teach a client taking warfarin to keep vitamin K intake consistent and report bleeding; INR monitoring is required.",
+    "legacyId": "NCLEX-0031"
   },
   {
-    "id": "NCLEX-0041",
+    "id": "QR-000005",
     "category": "Cardiovascular",
     "topic": "Nitroglycerin",
     "difficulty": "Hard",
@@ -234,10 +238,11 @@
     "title": "A client with prescribed sublingual nitroglycerin reports chest discomfort and is preparing to take a dose. Which nursing action should the nurse take first?",
     "promptTitle": "Nitroglycerin",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For prescribed sublingual nitroglycerin, have the client sit down and assess blood pressure; avoid use with recent PDE-5 inhibitor use per guidance."
+    "learning_objective": "For prescribed sublingual nitroglycerin, have the client sit down and assess blood pressure; avoid use with recent PDE-5 inhibitor use per guidance.",
+    "legacyId": "NCLEX-0041"
   },
   {
-    "id": "NCLEX-0051",
+    "id": "QR-000006",
     "category": "Respiratory",
     "topic": "Asthma exacerbation",
     "difficulty": "Easy",
@@ -281,10 +286,11 @@
     "title": "A client with asthma develops wheezing and increased work of breathing. Which nursing action should the nurse take first?",
     "promptTitle": "Asthma exacerbation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For acute asthma symptoms, assess airway and breathing and administer the prescribed rapid-acting bronchodilator promptly."
+    "learning_objective": "For acute asthma symptoms, assess airway and breathing and administer the prescribed rapid-acting bronchodilator promptly.",
+    "legacyId": "NCLEX-0051"
   },
   {
-    "id": "NCLEX-0061",
+    "id": "QR-000007",
     "category": "Respiratory",
     "topic": "COPD oxygen",
     "difficulty": "Moderate",
@@ -328,10 +334,11 @@
     "title": "A client with COPD is receiving supplemental oxygen and requires reassessment of oxygenation and response to therapy. Which nursing action should the nurse take first?",
     "promptTitle": "COPD oxygen",
     "instruction": "Select the single best answer.",
-    "learning_objective": "In COPD with hypoxemia, titrate prescribed oxygen to the individualized target and monitor respiratory status; do not withhold oxygen from a hypoxemic client."
+    "learning_objective": "In COPD with hypoxemia, titrate prescribed oxygen to the individualized target and monitor respiratory status; do not withhold oxygen from a hypoxemic client.",
+    "legacyId": "NCLEX-0061"
   },
   {
-    "id": "NCLEX-0071",
+    "id": "QR-000008",
     "category": "Respiratory",
     "topic": "Pneumonia",
     "difficulty": "Hard",
@@ -375,10 +382,11 @@
     "title": "A client with pneumonia has worsening cough, fever, and increased work of breathing. Which nursing action should the nurse take first?",
     "promptTitle": "Pneumonia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For pneumonia, monitor oxygenation, respiratory effort, temperature, hydration, and response to prescribed antimicrobial therapy."
+    "learning_objective": "For pneumonia, monitor oxygenation, respiratory effort, temperature, hydration, and response to prescribed antimicrobial therapy.",
+    "legacyId": "NCLEX-0071"
   },
   {
-    "id": "NCLEX-0081",
+    "id": "QR-000009",
     "category": "Respiratory",
     "topic": "Tracheostomy obstruction",
     "difficulty": "Easy",
@@ -422,10 +430,11 @@
     "title": "A client with a tracheostomy suddenly becomes distressed and air movement through the tube appears impaired. Which nursing action should the nurse take first?",
     "promptTitle": "Tracheostomy obstruction",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A client with a tracheostomy who develops acute distress and suspected obstruction needs immediate airway assessment and emergency assistance."
+    "learning_objective": "A client with a tracheostomy who develops acute distress and suspected obstruction needs immediate airway assessment and emergency assistance.",
+    "legacyId": "NCLEX-0081"
   },
   {
-    "id": "NCLEX-0091",
+    "id": "QR-000010",
     "category": "Respiratory",
     "topic": "Tuberculosis precautions",
     "difficulty": "Moderate",
@@ -469,10 +478,11 @@
     "title": "A client is admitted with suspected pulmonary tuberculosis and requires appropriate infection-control measures. Which nursing action should the nurse take first?",
     "promptTitle": "Tuberculosis precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Pulmonary or laryngeal tuberculosis requires airborne precautions, a fit-tested respirator, and appropriate room placement per policy."
+    "learning_objective": "Pulmonary or laryngeal tuberculosis requires airborne precautions, a fit-tested respirator, and appropriate room placement per policy.",
+    "legacyId": "NCLEX-0091"
   },
   {
-    "id": "NCLEX-0101",
+    "id": "QR-000011",
     "category": "Neurologic",
     "topic": "Stroke symptoms",
     "difficulty": "Hard",
@@ -516,10 +526,11 @@
     "title": "A client suddenly develops facial droop, unilateral arm weakness, and difficulty speaking. Which nursing action should the nurse take first?",
     "promptTitle": "Stroke symptoms",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Sudden facial droop, arm weakness, or speech difficulty requires emergency stroke activation and documentation of last-known-well time."
+    "learning_objective": "Sudden facial droop, arm weakness, or speech difficulty requires emergency stroke activation and documentation of last-known-well time.",
+    "legacyId": "NCLEX-0101"
   },
   {
-    "id": "NCLEX-0111",
+    "id": "QR-000012",
     "category": "Neurologic",
     "topic": "Increased intracranial pressure",
     "difficulty": "Easy",
@@ -563,10 +574,11 @@
     "title": "A client with a neurologic injury develops a change in level of consciousness and worsening headache. Which nursing action should the nurse take first?",
     "promptTitle": "Increased intracranial pressure",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Possible increased ICP requires frequent neurologic assessment, head elevation about 30 degrees when appropriate, and neutral neck alignment."
+    "learning_objective": "Possible increased ICP requires frequent neurologic assessment, head elevation about 30 degrees when appropriate, and neutral neck alignment.",
+    "legacyId": "NCLEX-0111"
   },
   {
-    "id": "NCLEX-0121",
+    "id": "QR-000013",
     "category": "Neurologic",
     "topic": "Seizure",
     "difficulty": "Moderate",
@@ -610,10 +622,11 @@
     "title": "A hospitalized client begins having a generalized tonic-clonic seizure. Which nursing action should the nurse take first?",
     "promptTitle": "Seizure",
     "instruction": "Select the single best answer.",
-    "learning_objective": "During a seizure, protect the client from injury, turn to the side when feasible, and do not restrain or place objects in the mouth."
+    "learning_objective": "During a seizure, protect the client from injury, turn to the side when feasible, and do not restrain or place objects in the mouth.",
+    "legacyId": "NCLEX-0121"
   },
   {
-    "id": "NCLEX-0131",
+    "id": "QR-000014",
     "category": "Neurologic",
     "topic": "Parkinson disease",
     "difficulty": "Hard",
@@ -657,10 +670,11 @@
     "title": "A client with Parkinson disease has impaired mobility and is scheduled to receive time-sensitive medication. Which nursing action should the nurse take first?",
     "promptTitle": "Parkinson disease",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Levodopa timing matters; administer on schedule and monitor for mobility changes and adverse effects."
+    "learning_objective": "Levodopa timing matters; administer on schedule and monitor for mobility changes and adverse effects.",
+    "legacyId": "NCLEX-0131"
   },
   {
-    "id": "NCLEX-0141",
+    "id": "QR-000015",
     "category": "Neurologic",
     "topic": "Spinal cord injury",
     "difficulty": "Easy",
@@ -704,10 +718,11 @@
     "title": "A client with a recent spinal cord injury requires assessment for acute complications. Which nursing action should the nurse take first?",
     "promptTitle": "Spinal cord injury",
     "instruction": "Select the single best answer.",
-    "learning_objective": "After suspected spinal injury, maintain spinal alignment and assess airway, breathing, circulation, and neurologic function."
+    "learning_objective": "After suspected spinal injury, maintain spinal alignment and assess airway, breathing, circulation, and neurologic function.",
+    "legacyId": "NCLEX-0141"
   },
   {
-    "id": "NCLEX-0151",
+    "id": "QR-000016",
     "category": "Endocrine",
     "topic": "Hypoglycemia",
     "difficulty": "Moderate",
@@ -751,10 +766,11 @@
     "title": "A client receiving glucose-lowering medication becomes diaphoretic, shaky, and confused. Which nursing action should the nurse take first?",
     "promptTitle": "Hypoglycemia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "An awake client who can swallow and has hypoglycemia should receive fast-acting carbohydrate per protocol, followed by reassessment."
+    "learning_objective": "An awake client who can swallow and has hypoglycemia should receive fast-acting carbohydrate per protocol, followed by reassessment.",
+    "legacyId": "NCLEX-0151"
   },
   {
-    "id": "NCLEX-0161",
+    "id": "QR-000017",
     "category": "Endocrine",
     "topic": "Diabetic ketoacidosis",
     "difficulty": "Hard",
@@ -798,10 +814,11 @@
     "title": "A client with diabetes presents with dehydration, deep rapid respirations, and marked hyperglycemia. Which nursing action should the nurse take first?",
     "promptTitle": "Diabetic ketoacidosis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "DKA management includes IV fluids, insulin as ordered, electrolyte monitoring, and close assessment of potassium."
+    "learning_objective": "DKA management includes IV fluids, insulin as ordered, electrolyte monitoring, and close assessment of potassium.",
+    "legacyId": "NCLEX-0161"
   },
   {
-    "id": "NCLEX-0171",
+    "id": "QR-000018",
     "category": "Endocrine",
     "topic": "SIADH",
     "difficulty": "Easy",
@@ -845,10 +862,11 @@
     "title": "A client with SIADH has reduced urine output and a low serum sodium level. Which nursing action should the nurse take first?",
     "promptTitle": "SIADH",
     "instruction": "Select the single best answer.",
-    "learning_objective": "SIADH can cause dilutional hyponatremia; monitor neurologic status, serum sodium, and fluid balance and follow prescribed fluid restriction."
+    "learning_objective": "SIADH can cause dilutional hyponatremia; monitor neurologic status, serum sodium, and fluid balance and follow prescribed fluid restriction.",
+    "legacyId": "NCLEX-0171"
   },
   {
-    "id": "NCLEX-0181",
+    "id": "QR-000019",
     "category": "Endocrine",
     "topic": "Diabetes foot care",
     "difficulty": "Moderate",
@@ -892,10 +910,11 @@
     "title": "A client with diabetes asks how to prevent foot injury and recognize complications. Which nursing action should the nurse take first?",
     "promptTitle": "Diabetes foot care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Teach clients with diabetes to inspect feet daily, use properly fitting footwear, and report wounds promptly."
+    "learning_objective": "Teach clients with diabetes to inspect feet daily, use properly fitting footwear, and report wounds promptly.",
+    "legacyId": "NCLEX-0181"
   },
   {
-    "id": "NCLEX-0191",
+    "id": "QR-000020",
     "category": "Endocrine",
     "topic": "Thyroid storm",
     "difficulty": "Hard",
@@ -939,10 +958,11 @@
     "title": "A client with untreated hyperthyroidism develops marked agitation, fever, and tachycardia. Which nursing action should the nurse take first?",
     "promptTitle": "Thyroid storm",
     "instruction": "Select the single best answer.",
-    "learning_objective": "High fever, severe tachycardia, agitation, and a history of hyperthyroidism may indicate thyroid storm and require emergency care."
+    "learning_objective": "High fever, severe tachycardia, agitation, and a history of hyperthyroidism may indicate thyroid storm and require emergency care.",
+    "legacyId": "NCLEX-0191"
   },
   {
-    "id": "NCLEX-0201",
+    "id": "QR-000021",
     "category": "Renal",
     "topic": "Hyperkalemia",
     "difficulty": "Easy",
@@ -986,10 +1006,11 @@
     "title": "A client with renal impairment has a critically elevated potassium level and new ECG changes. Which nursing action should the nurse take first?",
     "promptTitle": "Hyperkalemia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Severe hyperkalemia or ECG changes require urgent escalation and cardiac monitoring; prescribed therapies may shift or remove potassium."
+    "learning_objective": "Severe hyperkalemia or ECG changes require urgent escalation and cardiac monitoring; prescribed therapies may shift or remove potassium.",
+    "legacyId": "NCLEX-0201"
   },
   {
-    "id": "NCLEX-0211",
+    "id": "QR-000022",
     "category": "Renal",
     "topic": "Chronic kidney disease",
     "difficulty": "Moderate",
@@ -1033,10 +1054,11 @@
     "title": "A client with chronic kidney disease requires medication, fluid, and electrolyte assessment. Which nursing action should the nurse take first?",
     "promptTitle": "Chronic kidney disease",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Clients with CKD may need individualized sodium, potassium, phosphorus, fluid, and medication plans based on labs and dialysis status."
+    "learning_objective": "Clients with CKD may need individualized sodium, potassium, phosphorus, fluid, and medication plans based on labs and dialysis status.",
+    "legacyId": "NCLEX-0211"
   },
   {
-    "id": "NCLEX-0221",
+    "id": "QR-000023",
     "category": "Renal",
     "topic": "Hemodialysis access",
     "difficulty": "Hard",
@@ -1080,10 +1102,11 @@
     "title": "Before hemodialysis, the nurse assesses the client's arteriovenous fistula. Which nursing action should the nurse take first?",
     "promptTitle": "Hemodialysis access",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Assess an AV fistula for bruit and thrill; avoid blood pressure measurements and venipuncture in that access arm."
+    "learning_objective": "Assess an AV fistula for bruit and thrill; avoid blood pressure measurements and venipuncture in that access arm.",
+    "legacyId": "NCLEX-0221"
   },
   {
-    "id": "NCLEX-0231",
+    "id": "QR-000024",
     "category": "Renal",
     "topic": "Urinary tract infection",
     "difficulty": "Easy",
@@ -1127,10 +1150,11 @@
     "title": "An older adult with a suspected urinary tract infection develops acute confusion and a change in vital signs. Which nursing action should the nurse take first?",
     "promptTitle": "Urinary tract infection",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For suspected UTI, obtain the ordered urine specimen correctly before the first antibiotic dose when feasible and without delaying urgent treatment."
+    "learning_objective": "For suspected UTI, obtain the ordered urine specimen correctly before the first antibiotic dose when feasible and without delaying urgent treatment.",
+    "legacyId": "NCLEX-0231"
   },
   {
-    "id": "NCLEX-0241",
+    "id": "QR-000025",
     "category": "Gastrointestinal",
     "topic": "Upper GI bleeding",
     "difficulty": "Moderate",
@@ -1174,10 +1198,11 @@
     "title": "A client reports hematemesis and dizziness, with findings concerning for gastrointestinal blood loss. Which nursing action should the nurse take first?",
     "promptTitle": "Upper GI bleeding",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Hematemesis or melena with dizziness requires rapid assessment, vital signs, IV access as ordered, and urgent escalation."
+    "learning_objective": "Hematemesis or melena with dizziness requires rapid assessment, vital signs, IV access as ordered, and urgent escalation.",
+    "legacyId": "NCLEX-0241"
   },
   {
-    "id": "NCLEX-0251",
+    "id": "QR-000026",
     "category": "Gastrointestinal",
     "topic": "Pancreatitis",
     "difficulty": "Hard",
@@ -1221,10 +1246,11 @@
     "title": "A client with acute pancreatitis reports severe epigastric pain and persistent vomiting. Which nursing action should the nurse take first?",
     "promptTitle": "Pancreatitis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Acute pancreatitis care includes pain assessment, prescribed fluids, monitoring for complications, and nutrition decisions based on clinical status."
+    "learning_objective": "Acute pancreatitis care includes pain assessment, prescribed fluids, monitoring for complications, and nutrition decisions based on clinical status.",
+    "legacyId": "NCLEX-0251"
   },
   {
-    "id": "NCLEX-0261",
+    "id": "QR-000027",
     "category": "Gastrointestinal",
     "topic": "Lactulose for encephalopathy",
     "difficulty": "Easy",
@@ -1268,10 +1294,11 @@
     "title": "A client with cirrhosis and hepatic encephalopathy is receiving prescribed lactulose. Which nursing action should the nurse take first?",
     "promptTitle": "Lactulose for encephalopathy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For hepatic encephalopathy, lactulose is titrated as prescribed to achieve the target stool frequency and mental-status response."
+    "learning_objective": "For hepatic encephalopathy, lactulose is titrated as prescribed to achieve the target stool frequency and mental-status response.",
+    "legacyId": "NCLEX-0261"
   },
   {
-    "id": "NCLEX-0271",
+    "id": "QR-000028",
     "category": "Gastrointestinal",
     "topic": "Ostomy care",
     "difficulty": "Moderate",
@@ -1315,10 +1342,11 @@
     "title": "A client with a new ostomy asks how to assess the stoma and protect the surrounding skin. Which nursing action should the nurse take first?",
     "promptTitle": "Ostomy care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A healthy new stoma is moist and pink to red; dusky, black, or pale tissue requires prompt evaluation."
+    "learning_objective": "A healthy new stoma is moist and pink to red; dusky, black, or pale tissue requires prompt evaluation.",
+    "legacyId": "NCLEX-0271"
   },
   {
-    "id": "NCLEX-0281",
+    "id": "QR-000029",
     "category": "Gastrointestinal",
     "topic": "Bowel obstruction",
     "difficulty": "Hard",
@@ -1362,10 +1390,11 @@
     "title": "A client presents with abdominal distention, vomiting, and inability to pass stool or flatus. Which nursing action should the nurse take first?",
     "promptTitle": "Bowel obstruction",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Abdominal distention, vomiting, pain, and inability to pass stool or flatus may indicate obstruction and require urgent evaluation."
+    "learning_objective": "Abdominal distention, vomiting, pain, and inability to pass stool or flatus may indicate obstruction and require urgent evaluation.",
+    "legacyId": "NCLEX-0281"
   },
   {
-    "id": "NCLEX-0291",
+    "id": "QR-000030",
     "category": "Infection",
     "topic": "Sepsis",
     "difficulty": "Easy",
@@ -1409,10 +1438,11 @@
     "title": "A client with a suspected infection develops hypotension, tachycardia, and altered mentation. Which nursing action should the nurse take first?",
     "promptTitle": "Sepsis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Suspected sepsis with hypotension, altered mentation, or poor perfusion requires rapid escalation, lactate/cultures as ordered, and timely treatment."
+    "learning_objective": "Suspected sepsis with hypotension, altered mentation, or poor perfusion requires rapid escalation, lactate/cultures as ordered, and timely treatment.",
+    "legacyId": "NCLEX-0291"
   },
   {
-    "id": "NCLEX-0301",
+    "id": "QR-000031",
     "category": "Infection",
     "topic": "C. difficile",
     "difficulty": "Moderate",
@@ -1456,10 +1486,11 @@
     "title": "A client with frequent watery diarrhea is suspected of having Clostridioides difficile infection. Which nursing action should the nurse take first?",
     "promptTitle": "C. difficile",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Use contact precautions, gloves and gown, and soap-and-water hand hygiene when caring for a client with C. difficile, following facility policy."
+    "learning_objective": "Use contact precautions, gloves and gown, and soap-and-water hand hygiene when caring for a client with C. difficile, following facility policy.",
+    "legacyId": "NCLEX-0301"
   },
   {
-    "id": "NCLEX-0311",
+    "id": "QR-000032",
     "category": "Infection",
     "topic": "Neutropenia",
     "difficulty": "Hard",
@@ -1503,10 +1534,11 @@
     "title": "A client receiving chemotherapy has a low absolute neutrophil count and asks what symptoms require urgent reporting. Which nursing action should the nurse take first?",
     "promptTitle": "Neutropenia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A neutropenic client with fever needs immediate evaluation because infection may progress rapidly with few other signs."
+    "learning_objective": "A neutropenic client with fever needs immediate evaluation because infection may progress rapidly with few other signs.",
+    "legacyId": "NCLEX-0311"
   },
   {
-    "id": "NCLEX-0321",
+    "id": "QR-000033",
     "category": "Infection",
     "topic": "Needlestick injury",
     "difficulty": "Easy",
@@ -1550,10 +1582,11 @@
     "title": "A nurse sustains a needlestick injury while caring for a client. Which nursing action should the nurse take first?",
     "promptTitle": "Needlestick injury",
     "instruction": "Select the single best answer.",
-    "learning_objective": "After a needlestick, wash the area promptly, report immediately, and obtain urgent occupational-health evaluation for exposure management."
+    "learning_objective": "After a needlestick, wash the area promptly, report immediately, and obtain urgent occupational-health evaluation for exposure management.",
+    "legacyId": "NCLEX-0321"
   },
   {
-    "id": "NCLEX-0331",
+    "id": "QR-000034",
     "category": "Maternal",
     "topic": "Postpartum hemorrhage",
     "difficulty": "Moderate",
@@ -1597,10 +1630,11 @@
     "title": "After birth, a client has heavy vaginal bleeding and a boggy uterus. Which nursing action should the nurse take first?",
     "promptTitle": "Postpartum hemorrhage",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Heavy postpartum bleeding with a boggy uterus suggests uterine atony; call for help, massage the fundus, and follow hemorrhage protocol."
+    "learning_objective": "Heavy postpartum bleeding with a boggy uterus suggests uterine atony; call for help, massage the fundus, and follow hemorrhage protocol.",
+    "legacyId": "NCLEX-0331"
   },
   {
-    "id": "NCLEX-0341",
+    "id": "QR-000035",
     "category": "Maternal",
     "topic": "Preeclampsia",
     "difficulty": "Hard",
@@ -1644,10 +1678,11 @@
     "title": "A pregnant client has severe-range blood pressure and reports a persistent headache. Which nursing action should the nurse take first?",
     "promptTitle": "Preeclampsia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Severe headache, visual changes, epigastric pain, or severe-range blood pressure in pregnancy/postpartum requires urgent assessment."
+    "learning_objective": "Severe headache, visual changes, epigastric pain, or severe-range blood pressure in pregnancy/postpartum requires urgent assessment.",
+    "legacyId": "NCLEX-0341"
   },
   {
-    "id": "NCLEX-0351",
+    "id": "QR-000036",
     "category": "Maternal",
     "topic": "Magnesium sulfate",
     "difficulty": "Easy",
@@ -1691,10 +1726,11 @@
     "title": "A client receiving magnesium sulfate for preeclampsia requires monitoring for adverse effects. Which nursing action should the nurse take first?",
     "promptTitle": "Magnesium sulfate",
     "instruction": "Select the single best answer.",
-    "learning_objective": "During magnesium sulfate therapy, monitor respirations, deep tendon reflexes, urine output, and toxicity signs; keep calcium gluconate available per protocol."
+    "learning_objective": "During magnesium sulfate therapy, monitor respirations, deep tendon reflexes, urine output, and toxicity signs; keep calcium gluconate available per protocol.",
+    "legacyId": "NCLEX-0351"
   },
   {
-    "id": "NCLEX-0361",
+    "id": "QR-000037",
     "category": "Maternal",
     "topic": "Placenta previa",
     "difficulty": "Moderate",
@@ -1738,10 +1774,11 @@
     "title": "A pregnant client in the third trimester has painless vaginal bleeding. Which nursing action should the nurse take first?",
     "promptTitle": "Placenta previa",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Painless bright-red bleeding in later pregnancy may indicate placenta previa; avoid digital vaginal examination until placental location is known."
+    "learning_objective": "Painless bright-red bleeding in later pregnancy may indicate placenta previa; avoid digital vaginal examination until placental location is known.",
+    "legacyId": "NCLEX-0361"
   },
   {
-    "id": "NCLEX-0371",
+    "id": "QR-000038",
     "category": "Maternal",
     "topic": "Ectopic pregnancy",
     "difficulty": "Hard",
@@ -1785,10 +1822,11 @@
     "title": "A client with a possible early pregnancy reports unilateral pelvic pain and vaginal bleeding. Which nursing action should the nurse take first?",
     "promptTitle": "Ectopic pregnancy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Unilateral pelvic pain, vaginal bleeding, shoulder pain, dizziness, or syncope in early pregnancy may indicate ruptured ectopic pregnancy."
+    "learning_objective": "Unilateral pelvic pain, vaginal bleeding, shoulder pain, dizziness, or syncope in early pregnancy may indicate ruptured ectopic pregnancy.",
+    "legacyId": "NCLEX-0371"
   },
   {
-    "id": "NCLEX-0381",
+    "id": "QR-000039",
     "category": "Pediatrics",
     "topic": "Croup",
     "difficulty": "Easy",
@@ -1832,10 +1870,11 @@
     "title": "A young child has a barking cough and inspiratory stridor. Which nursing action should the nurse take first?",
     "promptTitle": "Croup",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A child with barking cough and stridor at rest needs prompt assessment; minimize agitation and provide prescribed treatment."
+    "learning_objective": "A child with barking cough and stridor at rest needs prompt assessment; minimize agitation and provide prescribed treatment.",
+    "legacyId": "NCLEX-0381"
   },
   {
-    "id": "NCLEX-0391",
+    "id": "QR-000040",
     "category": "Pediatrics",
     "topic": "Epiglottitis",
     "difficulty": "Moderate",
@@ -1879,10 +1918,11 @@
     "title": "A child presents with drooling, difficulty swallowing, and tripod positioning. Which nursing action should the nurse take first?",
     "promptTitle": "Epiglottitis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Drooling, tripod positioning, muffled voice, and respiratory distress suggest epiglottitis; do not inspect the throat with a tongue depressor."
+    "learning_objective": "Drooling, tripod positioning, muffled voice, and respiratory distress suggest epiglottitis; do not inspect the throat with a tongue depressor.",
+    "legacyId": "NCLEX-0391"
   },
   {
-    "id": "NCLEX-0401",
+    "id": "QR-000041",
     "category": "Pediatrics",
     "topic": "Dehydration",
     "difficulty": "Hard",
@@ -1926,10 +1966,11 @@
     "title": "A client has poor oral intake, dry mucous membranes, and reduced urine output. Which nursing action should the nurse take first?",
     "promptTitle": "Dehydration",
     "instruction": "Select the single best answer.",
-    "learning_objective": "In infants, fewer wet diapers, dry mucosa, sunken fontanel, lethargy, and poor perfusion can indicate dehydration."
+    "learning_objective": "In infants, fewer wet diapers, dry mucosa, sunken fontanel, lethargy, and poor perfusion can indicate dehydration.",
+    "legacyId": "NCLEX-0401"
   },
   {
-    "id": "NCLEX-0411",
+    "id": "QR-000042",
     "category": "Pediatrics",
     "topic": "Febrile seizure",
     "difficulty": "Easy",
@@ -1973,10 +2014,11 @@
     "title": "A young child develops a seizure during a febrile illness. Which nursing action should the nurse take first?",
     "promptTitle": "Febrile seizure",
     "instruction": "Select the single best answer.",
-    "learning_objective": "During a febrile seizure, protect the child from injury, position on the side when possible, time the event, and assess breathing."
+    "learning_objective": "During a febrile seizure, protect the child from injury, position on the side when possible, time the event, and assess breathing.",
+    "legacyId": "NCLEX-0411"
   },
   {
-    "id": "NCLEX-0421",
+    "id": "QR-000043",
     "category": "Pediatrics",
     "topic": "Safe sleep",
     "difficulty": "Moderate",
@@ -2020,10 +2062,11 @@
     "title": "A caregiver asks how to reduce an infant's risk of sleep-related death. Which nursing action should the nurse take first?",
     "promptTitle": "Safe sleep",
     "instruction": "Select the single best answer.",
-    "learning_objective": "To reduce sleep-related infant death risk, place infants supine on a firm, flat, separate sleep surface without loose bedding."
+    "learning_objective": "To reduce sleep-related infant death risk, place infants supine on a firm, flat, separate sleep surface without loose bedding.",
+    "legacyId": "NCLEX-0421"
   },
   {
-    "id": "NCLEX-0431",
+    "id": "QR-000044",
     "category": "Psychiatric",
     "topic": "Suicide risk",
     "difficulty": "Hard",
@@ -2067,10 +2110,11 @@
     "title": "A client expresses hopelessness and says life is no longer worth living. Which nursing action should the nurse take first?",
     "promptTitle": "Suicide risk",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A client expressing suicidal thoughts requires direct assessment of intent, plan, means, and immediacy, with safety precautions based on risk."
+    "learning_objective": "A client expressing suicidal thoughts requires direct assessment of intent, plan, means, and immediacy, with safety precautions based on risk.",
+    "legacyId": "NCLEX-0431"
   },
   {
-    "id": "NCLEX-0441",
+    "id": "QR-000045",
     "category": "Psychiatric",
     "topic": "Panic attack",
     "difficulty": "Easy",
@@ -2114,10 +2158,11 @@
     "title": "A client experiences sudden intense fear, palpitations, and rapid breathing. Which nursing action should the nurse take first?",
     "promptTitle": "Panic attack",
     "instruction": "Select the single best answer.",
-    "learning_objective": "During a panic attack, stay with the client, use calm brief statements, reduce stimuli, and coach slow breathing if tolerated."
+    "learning_objective": "During a panic attack, stay with the client, use calm brief statements, reduce stimuli, and coach slow breathing if tolerated.",
+    "legacyId": "NCLEX-0441"
   },
   {
-    "id": "NCLEX-0451",
+    "id": "QR-000046",
     "category": "Psychiatric",
     "topic": "Mania",
     "difficulty": "Moderate",
@@ -2161,10 +2206,11 @@
     "title": "A client with bipolar disorder has markedly decreased sleep, pressured speech, and impulsive behavior. Which nursing action should the nurse take first?",
     "promptTitle": "Mania",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For acute mania, reduce environmental stimulation, set clear limits, support hydration/nutrition, and protect sleep and safety."
+    "learning_objective": "For acute mania, reduce environmental stimulation, set clear limits, support hydration/nutrition, and protect sleep and safety.",
+    "legacyId": "NCLEX-0451"
   },
   {
-    "id": "NCLEX-0461",
+    "id": "QR-000047",
     "category": "Psychiatric",
     "topic": "Alcohol withdrawal",
     "difficulty": "Hard",
@@ -2208,10 +2254,11 @@
     "title": "A client who recently stopped heavy alcohol use develops tremors, diaphoresis, and tachycardia. Which nursing action should the nurse take first?",
     "promptTitle": "Alcohol withdrawal",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Alcohol withdrawal can progress to seizures or delirium tremens; assess symptoms and follow a prescribed withdrawal protocol."
+    "learning_objective": "Alcohol withdrawal can progress to seizures or delirium tremens; assess symptoms and follow a prescribed withdrawal protocol.",
+    "legacyId": "NCLEX-0461"
   },
   {
-    "id": "NCLEX-0471",
+    "id": "QR-000048",
     "category": "Psychiatric",
     "topic": "Lithium safety",
     "difficulty": "Easy",
@@ -2255,10 +2302,11 @@
     "title": "A client taking lithium reports vomiting, worsening tremor, and unsteady gait. Which nursing action should the nurse take first?",
     "promptTitle": "Lithium safety",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Lithium toxicity may cause worsening tremor, vomiting, diarrhea, ataxia, or confusion; report symptoms and check levels/renal function as ordered."
+    "learning_objective": "Lithium toxicity may cause worsening tremor, vomiting, diarrhea, ataxia, or confusion; report symptoms and check levels/renal function as ordered.",
+    "legacyId": "NCLEX-0471"
   },
   {
-    "id": "NCLEX-0481",
+    "id": "QR-000049",
     "category": "Pharmacology",
     "topic": "Opioid respiratory depression",
     "difficulty": "Moderate",
@@ -2302,10 +2350,11 @@
     "title": "A client receiving an opioid becomes difficult to arouse and has slow, shallow respirations. Which nursing action should the nurse take first?",
     "promptTitle": "Opioid respiratory depression",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A client with markedly slowed respirations and reduced consciousness after opioid administration needs airway support, emergency escalation, and naloxone per protocol/order."
+    "learning_objective": "A client with markedly slowed respirations and reduced consciousness after opioid administration needs airway support, emergency escalation, and naloxone per protocol/order.",
+    "legacyId": "NCLEX-0481"
   },
   {
-    "id": "NCLEX-0491",
+    "id": "QR-000050",
     "category": "Pharmacology",
     "topic": "Insulin administration",
     "difficulty": "Hard",
@@ -2349,10 +2398,11 @@
     "title": "A nurse is preparing to administer insulin and must verify the prescription, glucose result, and meal timing. Which nursing action should the nurse take first?",
     "promptTitle": "Insulin administration",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Verify the insulin type, dose, timing, glucose, meal availability, and independent double-check requirements per policy."
+    "learning_objective": "Verify the insulin type, dose, timing, glucose, meal availability, and independent double-check requirements per policy.",
+    "legacyId": "NCLEX-0491"
   },
   {
-    "id": "NCLEX-0501",
+    "id": "QR-000051",
     "category": "Pharmacology",
     "topic": "Potassium chloride",
     "difficulty": "Easy",
@@ -2396,10 +2446,11 @@
     "title": "A client is prescribed potassium replacement for hypokalemia. Which nursing action should the nurse take first?",
     "promptTitle": "Potassium chloride",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Never administer concentrated potassium chloride by IV push; administer diluted potassium at the prescribed rate with appropriate monitoring."
+    "learning_objective": "Never administer concentrated potassium chloride by IV push; administer diluted potassium at the prescribed rate with appropriate monitoring.",
+    "legacyId": "NCLEX-0501"
   },
   {
-    "id": "NCLEX-0511",
+    "id": "QR-000052",
     "category": "Pharmacology",
     "topic": "Heparin",
     "difficulty": "Moderate",
@@ -2443,10 +2494,11 @@
     "title": "A client receiving heparin requires assessment for therapeutic effect and bleeding. Which nursing action should the nurse take first?",
     "promptTitle": "Heparin",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Monitor for bleeding and ordered coagulation parameters with unfractionated heparin; follow protocol for dose adjustments and reversal."
+    "learning_objective": "Monitor for bleeding and ordered coagulation parameters with unfractionated heparin; follow protocol for dose adjustments and reversal.",
+    "legacyId": "NCLEX-0511"
   },
   {
-    "id": "NCLEX-0521",
+    "id": "QR-000053",
     "category": "Pharmacology",
     "topic": "Antibiotic allergy",
     "difficulty": "Hard",
@@ -2490,10 +2542,11 @@
     "title": "Shortly after receiving an antibiotic, a client develops hives and swelling. Which nursing action should the nurse take first?",
     "promptTitle": "Antibiotic allergy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For anaphylaxis signs after an antibiotic—wheezing, facial swelling, hypotension—stop the infusion and activate emergency treatment."
+    "learning_objective": "For anaphylaxis signs after an antibiotic—wheezing, facial swelling, hypotension—stop the infusion and activate emergency treatment.",
+    "legacyId": "NCLEX-0521"
   },
   {
-    "id": "NCLEX-0531",
+    "id": "QR-000054",
     "category": "Fundamentals",
     "topic": "Hand hygiene",
     "difficulty": "Easy",
@@ -2537,10 +2590,11 @@
     "title": "A nurse is moving between client-care tasks and must prevent transmission of microorganisms. Which nursing action should the nurse take first?",
     "promptTitle": "Hand hygiene",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Perform hand hygiene at the recommended moments and after glove removal; gloves do not replace hand hygiene."
+    "learning_objective": "Perform hand hygiene at the recommended moments and after glove removal; gloves do not replace hand hygiene.",
+    "legacyId": "NCLEX-0531"
   },
   {
-    "id": "NCLEX-0541",
+    "id": "QR-000055",
     "category": "Fundamentals",
     "topic": "Pressure injury prevention",
     "difficulty": "Moderate",
@@ -2584,10 +2638,11 @@
     "title": "An immobile client is at risk for pressure injury. Which nursing action should the nurse take first?",
     "promptTitle": "Pressure injury prevention",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For clients at risk, reposition based on individualized assessment, offload heels, manage moisture, and support nutrition."
+    "learning_objective": "For clients at risk, reposition based on individualized assessment, offload heels, manage moisture, and support nutrition.",
+    "legacyId": "NCLEX-0541"
   },
   {
-    "id": "NCLEX-0551",
+    "id": "QR-000056",
     "category": "Fundamentals",
     "topic": "Fall prevention",
     "difficulty": "Hard",
@@ -2631,10 +2686,11 @@
     "title": "An older adult with unsteady gait and a new sedating medication is preparing to ambulate. Which nursing action should the nurse take first?",
     "promptTitle": "Fall prevention",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For a high-fall-risk client, keep the call bell within reach, bed low and locked, pathway clear, and assist with transfers."
+    "learning_objective": "For a high-fall-risk client, keep the call bell within reach, bed low and locked, pathway clear, and assist with transfers.",
+    "legacyId": "NCLEX-0551"
   },
   {
-    "id": "NCLEX-0561",
+    "id": "QR-000057",
     "category": "Fundamentals",
     "topic": "Restraints",
     "difficulty": "Easy",
@@ -2678,10 +2734,11 @@
     "title": "A confused client is pulling at medical equipment and less restrictive measures must be considered. Which nursing action should the nurse take first?",
     "promptTitle": "Restraints",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Use restraints only when less restrictive measures fail and according to law/policy; monitor frequently and discontinue as soon as safe."
+    "learning_objective": "Use restraints only when less restrictive measures fail and according to law/policy; monitor frequently and discontinue as soon as safe.",
+    "legacyId": "NCLEX-0561"
   },
   {
-    "id": "NCLEX-0571",
+    "id": "QR-000058",
     "category": "Fundamentals",
     "topic": "Delegation",
     "difficulty": "Moderate",
@@ -2725,10 +2782,11 @@
     "title": "A registered nurse is assigning tasks to assistive personnel and must match the task to competency and client stability. Which nursing action should the nurse take first?",
     "promptTitle": "Delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "The RN retains responsibility for assessment, clinical judgment, care planning, and evaluation; stable routine tasks may be delegated according to scope and policy."
+    "learning_objective": "The RN retains responsibility for assessment, clinical judgment, care planning, and evaluation; stable routine tasks may be delegated according to scope and policy.",
+    "legacyId": "NCLEX-0571"
   },
   {
-    "id": "NCLEX-0581",
+    "id": "QR-000059",
     "category": "Fundamentals",
     "topic": "Informed consent",
     "difficulty": "Hard",
@@ -2772,10 +2830,11 @@
     "title": "A client scheduled for surgery has unanswered questions about the procedure before signing consent. Which nursing action should the nurse take first?",
     "promptTitle": "Informed consent",
     "instruction": "Select the single best answer.",
-    "learning_objective": "The provider performing the procedure explains risks, benefits, and alternatives; the nurse may witness the signature and verify voluntariness per policy."
+    "learning_objective": "The provider performing the procedure explains risks, benefits, and alternatives; the nurse may witness the signature and verify voluntariness per policy.",
+    "legacyId": "NCLEX-0581"
   },
   {
-    "id": "NCLEX-0591",
+    "id": "QR-000060",
     "category": "Fundamentals",
     "topic": "Blood transfusion reaction",
     "difficulty": "Easy",
@@ -2819,10 +2878,11 @@
     "title": "A client develops chills, back pain, and dyspnea shortly after a blood transfusion begins. Which nursing action should the nurse take first?",
     "promptTitle": "Blood transfusion reaction",
     "instruction": "Select the single best answer.",
-    "learning_objective": "If a transfusion reaction is suspected, stop the transfusion, maintain IV access with normal saline using new tubing per protocol, and notify the provider/blood bank."
+    "learning_objective": "If a transfusion reaction is suspected, stop the transfusion, maintain IV access with normal saline using new tubing per protocol, and notify the provider/blood bank.",
+    "legacyId": "NCLEX-0591"
   },
   {
-    "id": "NCLEX-0601",
+    "id": "QR-000061",
     "category": "Fundamentals",
     "topic": "Specimen labeling",
     "difficulty": "Moderate",
@@ -2866,10 +2926,11 @@
     "title": "A nurse has collected a blood specimen and must ensure accurate identification before it leaves the bedside. Which nursing action should the nurse take first?",
     "promptTitle": "Specimen labeling",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Label specimens at the bedside using required identifiers immediately after collection and follow facility policy."
+    "learning_objective": "Label specimens at the bedside using required identifiers immediately after collection and follow facility policy.",
+    "legacyId": "NCLEX-0601"
   },
   {
-    "id": "NCLEX-0611",
+    "id": "QR-000062",
     "category": "Fundamentals",
     "topic": "Sterile field",
     "difficulty": "Hard",
@@ -2913,10 +2974,11 @@
     "title": "A nurse is preparing a sterile field for a procedure. Which nursing action should the nurse take first?",
     "promptTitle": "Sterile field",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A sterile field is contaminated by moisture strike-through, reaching over it, or an item below waist level/out of view."
+    "learning_objective": "A sterile field is contaminated by moisture strike-through, reaching over it, or an item below waist level/out of view.",
+    "legacyId": "NCLEX-0611"
   },
   {
-    "id": "NCLEX-0621",
+    "id": "QR-000063",
     "category": "Fundamentals",
     "topic": "Oxygen safety",
     "difficulty": "Easy",
@@ -2960,10 +3022,11 @@
     "title": "A client receiving oxygen is being discharged with home oxygen equipment. Which nursing action should the nurse take first?",
     "promptTitle": "Oxygen safety",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Keep oxygen away from flames, smoking, and petroleum-based products; secure cylinders and use prescribed equipment."
+    "learning_objective": "Keep oxygen away from flames, smoking, and petroleum-based products; secure cylinders and use prescribed equipment.",
+    "legacyId": "NCLEX-0621"
   },
   {
-    "id": "NCLEX-0631",
+    "id": "QR-000064",
     "category": "Oncology",
     "topic": "Tumor lysis syndrome",
     "difficulty": "Moderate",
@@ -3007,10 +3070,11 @@
     "title": "A client receiving treatment for a high-burden malignancy is at risk for tumor lysis syndrome. Which nursing action should the nurse take first?",
     "promptTitle": "Tumor lysis syndrome",
     "instruction": "Select the single best answer.",
-    "learning_objective": "After cancer treatment, tumor lysis syndrome can cause hyperkalemia, hyperphosphatemia, hypocalcemia, and acute kidney injury."
+    "learning_objective": "After cancer treatment, tumor lysis syndrome can cause hyperkalemia, hyperphosphatemia, hypocalcemia, and acute kidney injury.",
+    "legacyId": "NCLEX-0631"
   },
   {
-    "id": "NCLEX-0641",
+    "id": "QR-000065",
     "category": "Oncology",
     "topic": "Extravasation",
     "difficulty": "Hard",
@@ -3054,10 +3118,11 @@
     "title": "A client receiving a vesicant medication through an IV reports burning and swelling at the site. Which nursing action should the nurse take first?",
     "promptTitle": "Extravasation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Suspected vesicant extravasation requires stopping the infusion immediately, leaving the access in place initially, and following the drug-specific protocol."
+    "learning_objective": "Suspected vesicant extravasation requires stopping the infusion immediately, leaving the access in place initially, and following the drug-specific protocol.",
+    "legacyId": "NCLEX-0641"
   },
   {
-    "id": "NCLEX-0651",
+    "id": "QR-000066",
     "category": "Oncology",
     "topic": "Radiation therapy skin care",
     "difficulty": "Easy",
@@ -3101,10 +3166,11 @@
     "title": "A client receiving external-beam radiation asks how to care for the treated skin. Which nursing action should the nurse take first?",
     "promptTitle": "Radiation therapy skin care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Teach clients to wash irradiated skin gently, avoid rubbing or unapproved products, and protect the area from sun exposure."
+    "learning_objective": "Teach clients to wash irradiated skin gently, avoid rubbing or unapproved products, and protect the area from sun exposure.",
+    "legacyId": "NCLEX-0651"
   },
   {
-    "id": "NCLEX-0661",
+    "id": "QR-000067",
     "category": "Oncology",
     "topic": "Chemotherapy neutropenia",
     "difficulty": "Moderate",
@@ -3148,10 +3214,11 @@
     "title": "A client receiving chemotherapy develops a fever while neutropenic. Which nursing action should the nurse take first?",
     "promptTitle": "Chemotherapy neutropenia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A chemotherapy client with fever should contact the oncology team immediately or follow emergency instructions."
+    "learning_objective": "A chemotherapy client with fever should contact the oncology team immediately or follow emergency instructions.",
+    "legacyId": "NCLEX-0661"
   },
   {
-    "id": "NCLEX-0671",
+    "id": "QR-000068",
     "category": "Oncology",
     "topic": "Thrombocytopenia",
     "difficulty": "Hard",
@@ -3195,10 +3262,11 @@
     "title": "A client receiving chemotherapy has a low platelet count and new bruising. Which nursing action should the nurse take first?",
     "promptTitle": "Thrombocytopenia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "With thrombocytopenia, reduce trauma, avoid unnecessary IM injections and rectal procedures, and monitor for bleeding per plan."
+    "learning_objective": "With thrombocytopenia, reduce trauma, avoid unnecessary IM injections and rectal procedures, and monitor for bleeding per plan.",
+    "legacyId": "NCLEX-0671"
   },
   {
-    "id": "NCLEX-0681",
+    "id": "QR-000069",
     "category": "Emergency",
     "topic": "Anaphylaxis",
     "difficulty": "Easy",
@@ -3242,10 +3310,11 @@
     "title": "A client develops generalized urticaria, wheezing, and hypotension after exposure to an allergen. Which nursing action should the nurse take first?",
     "promptTitle": "Anaphylaxis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Epinephrine IM is first-line treatment for anaphylaxis; activate emergency help and support airway/breathing/circulation."
+    "learning_objective": "Epinephrine IM is first-line treatment for anaphylaxis; activate emergency help and support airway/breathing/circulation.",
+    "legacyId": "NCLEX-0681"
   },
   {
-    "id": "NCLEX-0691",
+    "id": "QR-000070",
     "category": "Emergency",
     "topic": "Shock",
     "difficulty": "Moderate",
@@ -3289,10 +3358,11 @@
     "title": "A client has hypotension, cool clammy skin, tachycardia, and altered mentation. Which nursing action should the nurse take first?",
     "promptTitle": "Shock",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Signs of shock include hypotension, altered mental status, cool clammy skin, and poor perfusion; escalate immediately and treat the cause."
+    "learning_objective": "Signs of shock include hypotension, altered mental status, cool clammy skin, and poor perfusion; escalate immediately and treat the cause.",
+    "legacyId": "NCLEX-0691"
   },
   {
-    "id": "NCLEX-0701",
+    "id": "QR-000071",
     "category": "Emergency",
     "topic": "Burn inhalation injury",
     "difficulty": "Hard",
@@ -3336,10 +3406,11 @@
     "title": "A client rescued from a house fire has facial burns, soot around the mouth, and a hoarse voice. Which nursing action should the nurse take first?",
     "promptTitle": "Burn inhalation injury",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Facial burns, soot, hoarseness, or enclosed-space fire exposure raise concern for inhalation injury and airway edema."
+    "learning_objective": "Facial burns, soot, hoarseness, or enclosed-space fire exposure raise concern for inhalation injury and airway edema.",
+    "legacyId": "NCLEX-0701"
   },
   {
-    "id": "NCLEX-0711",
+    "id": "QR-000072",
     "category": "Emergency",
     "topic": "Heat stroke",
     "difficulty": "Easy",
@@ -3383,10 +3454,11 @@
     "title": "A client collapses after prolonged exertion in hot weather and has altered mental status. Which nursing action should the nurse take first?",
     "promptTitle": "Heat stroke",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Heat stroke with altered mental status and hyperthermia requires emergency activation and rapid cooling."
+    "learning_objective": "Heat stroke with altered mental status and hyperthermia requires emergency activation and rapid cooling.",
+    "legacyId": "NCLEX-0711"
   },
   {
-    "id": "NCLEX-0721",
+    "id": "QR-000073",
     "category": "Emergency",
     "topic": "Hypothermia",
     "difficulty": "Moderate",
@@ -3430,10 +3502,11 @@
     "title": "A client exposed to severe cold has a low core temperature and altered coordination. Which nursing action should the nurse take first?",
     "promptTitle": "Hypothermia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For significant hypothermia, handle gently, remove wet clothing, provide controlled rewarming, and monitor cardiac status."
+    "learning_objective": "For significant hypothermia, handle gently, remove wet clothing, provide controlled rewarming, and monitor cardiac status.",
+    "legacyId": "NCLEX-0721"
   },
   {
-    "id": "NCLEX-0731",
+    "id": "QR-000074",
     "category": "Emergency",
     "topic": "Opioid overdose",
     "difficulty": "Hard",
@@ -3477,10 +3550,11 @@
     "title": "A client is found unresponsive with pinpoint pupils and slow respirations after suspected opioid exposure. Which nursing action should the nurse take first?",
     "promptTitle": "Opioid overdose",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Suspected opioid overdose with respiratory depression requires emergency response, ventilatory support, and naloxone as indicated; recurrence can occur."
+    "learning_objective": "Suspected opioid overdose with respiratory depression requires emergency response, ventilatory support, and naloxone as indicated; recurrence can occur.",
+    "legacyId": "NCLEX-0731"
   },
   {
-    "id": "NCLEX-0741",
+    "id": "QR-000075",
     "category": "Leadership",
     "topic": "Prioritization",
     "difficulty": "Easy",
@@ -3524,10 +3598,11 @@
     "title": "The nurse receives handoff for several clients, one of whom has a new potentially life-threatening change. Which nursing action should the nurse take first?",
     "promptTitle": "Prioritization",
     "instruction": "Select the single best answer.",
-    "learning_objective": "When prioritizing, unstable clients and immediate threats to airway, breathing, circulation, or acute neurologic status generally come before routine needs."
+    "learning_objective": "When prioritizing, unstable clients and immediate threats to airway, breathing, circulation, or acute neurologic status generally come before routine needs.",
+    "legacyId": "NCLEX-0741"
   },
   {
-    "id": "NCLEX-0751",
+    "id": "QR-000076",
     "category": "Leadership",
     "topic": "SBAR handoff",
     "difficulty": "Moderate",
@@ -3571,10 +3646,11 @@
     "title": "A nurse must communicate an acute change in a client's condition to the provider. Which nursing action should the nurse take first?",
     "promptTitle": "SBAR handoff",
     "instruction": "Select the single best answer.",
-    "learning_objective": "SBAR communicates Situation, Background, Assessment, and Recommendation/request to support concise clinical handoff."
+    "learning_objective": "SBAR communicates Situation, Background, Assessment, and Recommendation/request to support concise clinical handoff.",
+    "legacyId": "NCLEX-0751"
   },
   {
-    "id": "NCLEX-0761",
+    "id": "QR-000077",
     "category": "Leadership",
     "topic": "Medication error",
     "difficulty": "Hard",
@@ -3618,10 +3694,11 @@
     "title": "A nurse discovers that a medication dose may have been administered incorrectly. Which nursing action should the nurse take first?",
     "promptTitle": "Medication error",
     "instruction": "Select the single best answer.",
-    "learning_objective": "After a medication error, assess the client first, provide needed care, notify the appropriate clinician, and report according to policy."
+    "learning_objective": "After a medication error, assess the client first, provide needed care, notify the appropriate clinician, and report according to policy.",
+    "legacyId": "NCLEX-0761"
   },
   {
-    "id": "NCLEX-0771",
+    "id": "QR-000078",
     "category": "Leadership",
     "topic": "Incident reporting",
     "difficulty": "Easy",
@@ -3665,10 +3742,11 @@
     "title": "A client experiences an unexpected safety event during hospitalization. Which nursing action should the nurse take first?",
     "promptTitle": "Incident reporting",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Incident reports support safety improvement and are not a substitute for factual documentation in the health record."
+    "learning_objective": "Incident reports support safety improvement and are not a substitute for factual documentation in the health record.",
+    "legacyId": "NCLEX-0771"
   },
   {
-    "id": "NCLEX-0781",
+    "id": "QR-000079",
     "category": "Leadership",
     "topic": "Conflict resolution",
     "difficulty": "Moderate",
@@ -3712,10 +3790,11 @@
     "title": "Two team members disagree about a care assignment during a busy shift. Which nursing action should the nurse take first?",
     "promptTitle": "Conflict resolution",
     "instruction": "Select the single best answer.",
-    "learning_objective": "For a nonurgent workplace conflict, address the issue privately and respectfully, use specific observations, and seek a supervisor if unresolved."
+    "learning_objective": "For a nonurgent workplace conflict, address the issue privately and respectfully, use specific observations, and seek a supervisor if unresolved.",
+    "legacyId": "NCLEX-0781"
   },
   {
-    "id": "NCLEX-0791",
+    "id": "QR-000080",
     "category": "Leadership",
     "topic": "Assignment and scope",
     "difficulty": "Hard",
@@ -3759,10 +3838,11 @@
     "title": "A charge nurse is assigning care based on staff licensure, competence, and client acuity. Which nursing action should the nurse take first?",
     "promptTitle": "Assignment and scope",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Assign care based on client stability, task complexity, staff competence, and legal scope of practice."
+    "learning_objective": "Assign care based on client stability, task complexity, staff competence, and legal scope of practice.",
+    "legacyId": "NCLEX-0791"
   },
   {
-    "id": "NCLEX-0801",
+    "id": "QR-000081",
     "category": "Leadership",
     "topic": "Quality improvement",
     "difficulty": "Easy",
@@ -3806,10 +3886,11 @@
     "title": "A unit team reviews a rise in falls and plans a measurable safety improvement. Which nursing action should the nurse take first?",
     "promptTitle": "Quality improvement",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Quality improvement uses data to identify system patterns, test changes, and measure outcomes rather than focusing only on individual blame."
+    "learning_objective": "Quality improvement uses data to identify system patterns, test changes, and measure outcomes rather than focusing only on individual blame.",
+    "legacyId": "NCLEX-0801"
   },
   {
-    "id": "NCLEX-0811",
+    "id": "QR-000082",
     "category": "Leadership",
     "topic": "HIPAA/confidentiality",
     "difficulty": "Moderate",
@@ -3853,10 +3934,11 @@
     "title": "A staff member is asked for client information by someone whose authorization is unclear. Which nursing action should the nurse take first?",
     "promptTitle": "HIPAA/confidentiality",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Access or disclose patient information only for authorized care, operations, or legally permitted purposes and follow minimum-necessary rules where applicable."
+    "learning_objective": "Access or disclose patient information only for authorized care, operations, or legally permitted purposes and follow minimum-necessary rules where applicable.",
+    "legacyId": "NCLEX-0811"
   },
   {
-    "id": "NCLEX-0821",
+    "id": "QR-000083",
     "category": "Leadership",
     "topic": "Disaster triage",
     "difficulty": "Hard",
@@ -3900,10 +3982,11 @@
     "title": "Multiple injured clients arrive at once and resources are limited. Which nursing action should the nurse take first?",
     "promptTitle": "Disaster triage",
     "instruction": "Select the single best answer.",
-    "learning_objective": "In mass-casualty triage, use the incident command system and assigned triage protocol to prioritize resources for the greatest overall benefit."
+    "learning_objective": "In mass-casualty triage, use the incident command system and assigned triage protocol to prioritize resources for the greatest overall benefit.",
+    "legacyId": "NCLEX-0821"
   },
   {
-    "id": "NCLEX-0831",
+    "id": "QR-000084",
     "category": "Leadership",
     "topic": "Ethics: autonomy",
     "difficulty": "Easy",
@@ -3947,10 +4030,11 @@
     "title": "A competent adult refuses a recommended treatment after receiving information about risks and benefits. Which nursing action should the nurse take first?",
     "promptTitle": "Ethics: autonomy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "A competent adult may refuse treatment after receiving relevant information; assess understanding, notify the provider, and document per policy."
+    "learning_objective": "A competent adult may refuse treatment after receiving relevant information; assess understanding, notify the provider, and document per policy.",
+    "legacyId": "NCLEX-0831"
   },
   {
-    "id": "NCLEX-2001",
+    "id": "QR-000085",
     "category": "Leadership & Delegation",
     "topic": "Delegation to Unlicensed Assistive Personnel (UAP)",
     "difficulty": "Hard",
@@ -3994,10 +4078,11 @@
     "title": "[Leadership & Delegation - Delegation to Unlicensed Assistive Personnel (UAP)] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Delegation to Unlicensed Assistive Personnel (UAP)",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Delegation to Unlicensed Assistive Personnel (UAP)."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Delegation to Unlicensed Assistive Personnel (UAP).",
+    "legacyId": "NCLEX-2001"
   },
   {
-    "id": "NCLEX-2007",
+    "id": "QR-000086",
     "category": "Leadership & Delegation",
     "topic": "Delegation to Licensed Practical Nurse (LPN/LVN)",
     "difficulty": "Hard",
@@ -4041,10 +4126,11 @@
     "title": "[Leadership & Delegation - Delegation to Licensed Practical Nurse (LPN/LVN)] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Delegation to Licensed Practical Nurse (LPN/LVN)",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Delegation to Licensed Practical Nurse (LPN/LVN)."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Delegation to Licensed Practical Nurse (LPN/LVN).",
+    "legacyId": "NCLEX-2007"
   },
   {
-    "id": "NCLEX-2013",
+    "id": "QR-000087",
     "category": "Leadership & Delegation",
     "topic": "Five Rights of Delegation",
     "difficulty": "Hard",
@@ -4088,10 +4174,11 @@
     "title": "[Leadership & Delegation - Five Rights of Delegation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Five Rights of Delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Five Rights of Delegation.",
+    "legacyId": "NCLEX-2013"
   },
   {
-    "id": "NCLEX-2019",
+    "id": "QR-000088",
     "category": "Leadership & Delegation",
     "topic": "Supervision and Accountability in Team Nursing",
     "difficulty": "Hard",
@@ -4135,10 +4222,11 @@
     "title": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Supervision and Accountability in Team Nursing",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
+    "legacyId": "NCLEX-2019"
   },
   {
-    "id": "NCLEX-2020",
+    "id": "QR-000089",
     "category": "Leadership & Delegation",
     "topic": "Supervision and Accountability in Team Nursing",
     "difficulty": "Moderate",
@@ -4182,10 +4270,11 @@
     "title": "[Leadership & Delegation - Supervision and Accountability in Team Nursing] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Supervision and Accountability in Team Nursing",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Supervision and Accountability in Team Nursing.",
+    "legacyId": "NCLEX-2020"
   },
   {
-    "id": "NCLEX-2026",
+    "id": "QR-000090",
     "category": "Leadership & Delegation",
     "topic": "Communication and the Four Cs of Delegation",
     "difficulty": "Moderate",
@@ -4229,10 +4318,11 @@
     "title": "[Leadership & Delegation - Communication and the Four Cs of Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Communication and the Four Cs of Delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Communication and the Four Cs of Delegation.",
+    "legacyId": "NCLEX-2026"
   },
   {
-    "id": "NCLEX-2031",
+    "id": "QR-000091",
     "category": "Prioritization & Triage",
     "topic": "ABC and Airway Management Priorities",
     "difficulty": "Hard",
@@ -4276,10 +4366,11 @@
     "title": "[Prioritization & Triage - ABC and Airway Management Priorities] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "ABC and Airway Management Priorities",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding ABC and Airway Management Priorities."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding ABC and Airway Management Priorities.",
+    "legacyId": "NCLEX-2031"
   },
   {
-    "id": "NCLEX-2037",
+    "id": "QR-000092",
     "category": "Prioritization & Triage",
     "topic": "Maslow's Hierarchy in Client Care",
     "difficulty": "Hard",
@@ -4323,10 +4414,11 @@
     "title": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Maslow's Hierarchy in Client Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
+    "legacyId": "NCLEX-2037"
   },
   {
-    "id": "NCLEX-2038",
+    "id": "QR-000093",
     "category": "Prioritization & Triage",
     "topic": "Maslow's Hierarchy in Client Care",
     "difficulty": "Moderate",
@@ -4370,10 +4462,11 @@
     "title": "[Prioritization & Triage - Maslow's Hierarchy in Client Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Maslow's Hierarchy in Client Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Maslow's Hierarchy in Client Care.",
+    "legacyId": "NCLEX-2038"
   },
   {
-    "id": "NCLEX-2043",
+    "id": "QR-000094",
     "category": "Prioritization & Triage",
     "topic": "Triage Categorization (Emergent vs Urgent)",
     "difficulty": "Hard",
@@ -4417,10 +4510,11 @@
     "title": "[Prioritization & Triage - Triage Categorization (Emergent vs Urgent)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Triage Categorization (Emergent vs Urgent)",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent)."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Triage Categorization (Emergent vs Urgent).",
+    "legacyId": "NCLEX-2043"
   },
   {
-    "id": "NCLEX-2049",
+    "id": "QR-000095",
     "category": "Prioritization & Triage",
     "topic": "Unstable vs Stable Client Assignments",
     "difficulty": "Hard",
@@ -4464,10 +4558,11 @@
     "title": "[Prioritization & Triage - Unstable vs Stable Client Assignments] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Unstable vs Stable Client Assignments",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Unstable vs Stable Client Assignments."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Unstable vs Stable Client Assignments.",
+    "legacyId": "NCLEX-2049"
   },
   {
-    "id": "NCLEX-2056",
+    "id": "QR-000096",
     "category": "Prioritization & Triage",
     "topic": "Post-Operative Complications Priority",
     "difficulty": "Moderate",
@@ -4511,10 +4606,11 @@
     "title": "[Prioritization & Triage - Post-Operative Complications Priority] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Post-Operative Complications Priority",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Complications Priority.",
+    "legacyId": "NCLEX-2056"
   },
   {
-    "id": "NCLEX-2061",
+    "id": "QR-000097",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "LPN Scope: Stable vs Unstable Patients",
     "difficulty": "Hard",
@@ -4558,10 +4654,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - LPN Scope: Stable vs Unstable Patients] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "LPN Scope: Stable vs Unstable Patients",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding LPN Scope: Stable vs Unstable Patients."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding LPN Scope: Stable vs Unstable Patients.",
+    "legacyId": "NCLEX-2061"
   },
   {
-    "id": "NCLEX-2067",
+    "id": "QR-000098",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "RN Scope: Initial Assessment and Teaching",
     "difficulty": "Hard",
@@ -4605,10 +4702,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "RN Scope: Initial Assessment and Teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
+    "legacyId": "NCLEX-2067"
   },
   {
-    "id": "NCLEX-2068",
+    "id": "QR-000099",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "RN Scope: Initial Assessment and Teaching",
     "difficulty": "Moderate",
@@ -4652,10 +4750,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - RN Scope: Initial Assessment and Teaching] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "RN Scope: Initial Assessment and Teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding RN Scope: Initial Assessment and Teaching.",
+    "legacyId": "NCLEX-2068"
   },
   {
-    "id": "NCLEX-2073",
+    "id": "QR-000100",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "UAP Scope: Hygiene, Vital Signs, and ADLs",
     "difficulty": "Hard",
@@ -4699,10 +4798,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - UAP Scope: Hygiene, Vital Signs, and ADLs] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "UAP Scope: Hygiene, Vital Signs, and ADLs",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding UAP Scope: Hygiene, Vital Signs, and ADLs."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding UAP Scope: Hygiene, Vital Signs, and ADLs.",
+    "legacyId": "NCLEX-2073"
   },
   {
-    "id": "NCLEX-2079",
+    "id": "QR-000101",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "Prohibited Tasks for UAPs and LPNs",
     "difficulty": "Hard",
@@ -4746,10 +4846,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - Prohibited Tasks for UAPs and LPNs] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Prohibited Tasks for UAPs and LPNs",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Prohibited Tasks for UAPs and LPNs."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Prohibited Tasks for UAPs and LPNs.",
+    "legacyId": "NCLEX-2079"
   },
   {
-    "id": "NCLEX-2086",
+    "id": "QR-000102",
     "category": "Scope of Practice: RN vs LPN vs UAP",
     "topic": "Reinforcing Teaching vs Initial Teaching",
     "difficulty": "Moderate",
@@ -4793,10 +4894,11 @@
     "title": "[Scope of Practice: RN vs LPN vs UAP - Reinforcing Teaching vs Initial Teaching] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Reinforcing Teaching vs Initial Teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Reinforcing Teaching vs Initial Teaching.",
+    "legacyId": "NCLEX-2086"
   },
   {
-    "id": "NCLEX-2091",
+    "id": "QR-000103",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Potassium Imbalance and Cardiac Monitoring",
     "difficulty": "Hard",
@@ -4840,10 +4942,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Potassium Imbalance and Cardiac Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
+    "legacyId": "NCLEX-2091"
   },
   {
-    "id": "NCLEX-2092",
+    "id": "QR-000104",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Potassium Imbalance and Cardiac Monitoring",
     "difficulty": "Moderate",
@@ -4887,10 +4990,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Potassium Imbalance and Cardiac Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Potassium Imbalance and Cardiac Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Potassium Imbalance and Cardiac Monitoring.",
+    "legacyId": "NCLEX-2092"
   },
   {
-    "id": "NCLEX-2097",
+    "id": "QR-000105",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Sodium Imbalance and Neurological Status",
     "difficulty": "Hard",
@@ -4934,10 +5038,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Sodium Imbalance and Neurological Status",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
+    "legacyId": "NCLEX-2097"
   },
   {
-    "id": "NCLEX-2098",
+    "id": "QR-000106",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Sodium Imbalance and Neurological Status",
     "difficulty": "Moderate",
@@ -4981,10 +5086,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Sodium Imbalance and Neurological Status] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Sodium Imbalance and Neurological Status",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Sodium Imbalance and Neurological Status.",
+    "legacyId": "NCLEX-2098"
   },
   {
-    "id": "NCLEX-2103",
+    "id": "QR-000107",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Fluid Volume Deficit vs Excess",
     "difficulty": "Hard",
@@ -5028,10 +5134,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Fluid Volume Deficit vs Excess] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Fluid Volume Deficit vs Excess",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fluid Volume Deficit vs Excess.",
+    "legacyId": "NCLEX-2103"
   },
   {
-    "id": "NCLEX-2109",
+    "id": "QR-000108",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Diuretic Therapy Monitoring",
     "difficulty": "Hard",
@@ -5075,10 +5182,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Diuretic Therapy Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
+    "legacyId": "NCLEX-2109"
   },
   {
-    "id": "NCLEX-2110",
+    "id": "QR-000109",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Diuretic Therapy Monitoring",
     "difficulty": "Moderate",
@@ -5122,10 +5230,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Diuretic Therapy Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Diuretic Therapy Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diuretic Therapy Monitoring.",
+    "legacyId": "NCLEX-2110"
   },
   {
-    "id": "NCLEX-2116",
+    "id": "QR-000110",
     "category": "Fluid, Electrolyte, and Acid-Base Problems",
     "topic": "Arterial Blood Gas Interpretation",
     "difficulty": "Moderate",
@@ -5169,10 +5278,11 @@
     "title": "[Fluid, Electrolyte, and Acid-Base Problems - Arterial Blood Gas Interpretation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Arterial Blood Gas Interpretation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Arterial Blood Gas Interpretation.",
+    "legacyId": "NCLEX-2116"
   },
   {
-    "id": "NCLEX-2121",
+    "id": "QR-000111",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Neutropenic Precautions and Infection Control",
     "difficulty": "Hard",
@@ -5216,10 +5326,11 @@
     "title": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Neutropenic Precautions and Infection Control",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
+    "legacyId": "NCLEX-2121"
   },
   {
-    "id": "NCLEX-2122",
+    "id": "QR-000112",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Neutropenic Precautions and Infection Control",
     "difficulty": "Moderate",
@@ -5263,10 +5374,11 @@
     "title": "[Hematologic & Immunologic Problems - Neutropenic Precautions and Infection Control] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Neutropenic Precautions and Infection Control",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neutropenic Precautions and Infection Control.",
+    "legacyId": "NCLEX-2122"
   },
   {
-    "id": "NCLEX-2127",
+    "id": "QR-000113",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Thrombocytopenia and Bleeding Precautions",
     "difficulty": "Hard",
@@ -5310,10 +5422,11 @@
     "title": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Thrombocytopenia and Bleeding Precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
+    "legacyId": "NCLEX-2127"
   },
   {
-    "id": "NCLEX-2128",
+    "id": "QR-000114",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Thrombocytopenia and Bleeding Precautions",
     "difficulty": "Moderate",
@@ -5357,10 +5470,11 @@
     "title": "[Hematologic & Immunologic Problems - Thrombocytopenia and Bleeding Precautions] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Thrombocytopenia and Bleeding Precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thrombocytopenia and Bleeding Precautions.",
+    "legacyId": "NCLEX-2128"
   },
   {
-    "id": "NCLEX-2133",
+    "id": "QR-000115",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Anemia and Energy Conservation",
     "difficulty": "Hard",
@@ -5404,10 +5518,11 @@
     "title": "[Hematologic & Immunologic Problems - Anemia and Energy Conservation] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Anemia and Energy Conservation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Anemia and Energy Conservation.",
+    "legacyId": "NCLEX-2133"
   },
   {
-    "id": "NCLEX-2139",
+    "id": "QR-000116",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Blood Transfusion Delegation and Monitoring",
     "difficulty": "Hard",
@@ -5451,10 +5566,11 @@
     "title": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Blood Transfusion Delegation and Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
+    "legacyId": "NCLEX-2139"
   },
   {
-    "id": "NCLEX-2140",
+    "id": "QR-000117",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Blood Transfusion Delegation and Monitoring",
     "difficulty": "Moderate",
@@ -5498,10 +5614,11 @@
     "title": "[Hematologic & Immunologic Problems - Blood Transfusion Delegation and Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Blood Transfusion Delegation and Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Blood Transfusion Delegation and Monitoring.",
+    "legacyId": "NCLEX-2140"
   },
   {
-    "id": "NCLEX-2146",
+    "id": "QR-000118",
     "category": "Hematologic & Immunologic Problems",
     "topic": "Oncologic Emergencies and Sepsis",
     "difficulty": "Moderate",
@@ -5545,10 +5662,11 @@
     "title": "[Hematologic & Immunologic Problems - Oncologic Emergencies and Sepsis] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Oncologic Emergencies and Sepsis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Oncologic Emergencies and Sepsis.",
+    "legacyId": "NCLEX-2146"
   },
   {
-    "id": "NCLEX-2151",
+    "id": "QR-000119",
     "category": "Neurologic Problems",
     "topic": "Stroke (CVA) Care and Swallow Precautions",
     "difficulty": "Hard",
@@ -5592,10 +5710,11 @@
     "title": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Stroke (CVA) Care and Swallow Precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
+    "legacyId": "NCLEX-2151"
   },
   {
-    "id": "NCLEX-2152",
+    "id": "QR-000120",
     "category": "Neurologic Problems",
     "topic": "Stroke (CVA) Care and Swallow Precautions",
     "difficulty": "Moderate",
@@ -5639,10 +5758,11 @@
     "title": "[Neurologic Problems - Stroke (CVA) Care and Swallow Precautions] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Stroke (CVA) Care and Swallow Precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Stroke (CVA) Care and Swallow Precautions.",
+    "legacyId": "NCLEX-2152"
   },
   {
-    "id": "NCLEX-2157",
+    "id": "QR-000121",
     "category": "Neurologic Problems",
     "topic": "Seizure Precautions and Management",
     "difficulty": "Hard",
@@ -5686,10 +5806,11 @@
     "title": "[Neurologic Problems - Seizure Precautions and Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Seizure Precautions and Management",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
+    "legacyId": "NCLEX-2157"
   },
   {
-    "id": "NCLEX-2158",
+    "id": "QR-000122",
     "category": "Neurologic Problems",
     "topic": "Seizure Precautions and Management",
     "difficulty": "Moderate",
@@ -5733,10 +5854,11 @@
     "title": "[Neurologic Problems - Seizure Precautions and Management] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Seizure Precautions and Management",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Seizure Precautions and Management.",
+    "legacyId": "NCLEX-2158"
   },
   {
-    "id": "NCLEX-2163",
+    "id": "QR-000123",
     "category": "Neurologic Problems",
     "topic": "Increased Intracranial Pressure (ICP)",
     "difficulty": "Hard",
@@ -5780,10 +5902,11 @@
     "title": "[Neurologic Problems - Increased Intracranial Pressure (ICP)] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Increased Intracranial Pressure (ICP)",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP)."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Increased Intracranial Pressure (ICP).",
+    "legacyId": "NCLEX-2163"
   },
   {
-    "id": "NCLEX-2169",
+    "id": "QR-000124",
     "category": "Neurologic Problems",
     "topic": "Spinal Cord Injury and Autonomic Dysreflexia",
     "difficulty": "Hard",
@@ -5827,10 +5950,11 @@
     "title": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Spinal Cord Injury and Autonomic Dysreflexia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
+    "legacyId": "NCLEX-2169"
   },
   {
-    "id": "NCLEX-2170",
+    "id": "QR-000125",
     "category": "Neurologic Problems",
     "topic": "Spinal Cord Injury and Autonomic Dysreflexia",
     "difficulty": "Moderate",
@@ -5874,10 +5998,11 @@
     "title": "[Neurologic Problems - Spinal Cord Injury and Autonomic Dysreflexia] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Spinal Cord Injury and Autonomic Dysreflexia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Spinal Cord Injury and Autonomic Dysreflexia.",
+    "legacyId": "NCLEX-2170"
   },
   {
-    "id": "NCLEX-2176",
+    "id": "QR-000126",
     "category": "Neurologic Problems",
     "topic": "Neurological Assessment Delegation",
     "difficulty": "Moderate",
@@ -5921,10 +6046,11 @@
     "title": "[Neurologic Problems - Neurological Assessment Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Neurological Assessment Delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Neurological Assessment Delegation.",
+    "legacyId": "NCLEX-2176"
   },
   {
-    "id": "NCLEX-2181",
+    "id": "QR-000127",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Post-Operative Abdominal Surgery Monitoring",
     "difficulty": "Hard",
@@ -5968,10 +6094,11 @@
     "title": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Post-Operative Abdominal Surgery Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
+    "legacyId": "NCLEX-2181"
   },
   {
-    "id": "NCLEX-2182",
+    "id": "QR-000128",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Post-Operative Abdominal Surgery Monitoring",
     "difficulty": "Moderate",
@@ -6015,10 +6142,11 @@
     "title": "[Gastrointestinal & Renal Problems - Post-Operative Abdominal Surgery Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Post-Operative Abdominal Surgery Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Post-Operative Abdominal Surgery Monitoring.",
+    "legacyId": "NCLEX-2182"
   },
   {
-    "id": "NCLEX-2187",
+    "id": "QR-000129",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Renal Colic and Lithotripsy Care",
     "difficulty": "Hard",
@@ -6062,10 +6190,11 @@
     "title": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Renal Colic and Lithotripsy Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
+    "legacyId": "NCLEX-2187"
   },
   {
-    "id": "NCLEX-2188",
+    "id": "QR-000130",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Renal Colic and Lithotripsy Care",
     "difficulty": "Moderate",
@@ -6109,10 +6238,11 @@
     "title": "[Gastrointestinal & Renal Problems - Renal Colic and Lithotripsy Care] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Renal Colic and Lithotripsy Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Renal Colic and Lithotripsy Care.",
+    "legacyId": "NCLEX-2188"
   },
   {
-    "id": "NCLEX-2193",
+    "id": "QR-000131",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Urinary Tract Infection and Catheter Care",
     "difficulty": "Hard",
@@ -6156,10 +6286,11 @@
     "title": "[Gastrointestinal & Renal Problems - Urinary Tract Infection and Catheter Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Urinary Tract Infection and Catheter Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Urinary Tract Infection and Catheter Care.",
+    "legacyId": "NCLEX-2193"
   },
   {
-    "id": "NCLEX-2199",
+    "id": "QR-000132",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "GI Bleeding and Hemodynamic Stability",
     "difficulty": "Hard",
@@ -6203,10 +6334,11 @@
     "title": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "GI Bleeding and Hemodynamic Stability",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
+    "legacyId": "NCLEX-2199"
   },
   {
-    "id": "NCLEX-2200",
+    "id": "QR-000133",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "GI Bleeding and Hemodynamic Stability",
     "difficulty": "Moderate",
@@ -6250,10 +6382,11 @@
     "title": "[Gastrointestinal & Renal Problems - GI Bleeding and Hemodynamic Stability] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "GI Bleeding and Hemodynamic Stability",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding GI Bleeding and Hemodynamic Stability.",
+    "legacyId": "NCLEX-2200"
   },
   {
-    "id": "NCLEX-2206",
+    "id": "QR-000134",
     "category": "Gastrointestinal & Renal Problems",
     "topic": "Bowel Obstruction and NG Tube Management",
     "difficulty": "Moderate",
@@ -6297,10 +6430,11 @@
     "title": "[Gastrointestinal & Renal Problems - Bowel Obstruction and NG Tube Management] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Bowel Obstruction and NG Tube Management",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Bowel Obstruction and NG Tube Management.",
+    "legacyId": "NCLEX-2206"
   },
   {
-    "id": "NCLEX-2211",
+    "id": "QR-000135",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Heart Failure Exacerbation and Diuresis",
     "difficulty": "Hard",
@@ -6344,10 +6478,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Heart Failure Exacerbation and Diuresis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
+    "legacyId": "NCLEX-2211"
   },
   {
-    "id": "NCLEX-2212",
+    "id": "QR-000136",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Heart Failure Exacerbation and Diuresis",
     "difficulty": "Moderate",
@@ -6391,10 +6526,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Heart Failure Exacerbation and Diuresis] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Heart Failure Exacerbation and Diuresis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Heart Failure Exacerbation and Diuresis.",
+    "legacyId": "NCLEX-2212"
   },
   {
-    "id": "NCLEX-2217",
+    "id": "QR-000137",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Myocardial Infarction and Chest Pain Protocol",
     "difficulty": "Hard",
@@ -6438,10 +6574,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Myocardial Infarction and Chest Pain Protocol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
+    "legacyId": "NCLEX-2217"
   },
   {
-    "id": "NCLEX-2218",
+    "id": "QR-000138",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Myocardial Infarction and Chest Pain Protocol",
     "difficulty": "Moderate",
@@ -6485,10 +6622,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Myocardial Infarction and Chest Pain Protocol] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Myocardial Infarction and Chest Pain Protocol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Myocardial Infarction and Chest Pain Protocol.",
+    "legacyId": "NCLEX-2218"
   },
   {
-    "id": "NCLEX-2223",
+    "id": "QR-000139",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "COPD and Oxygen Therapy Administration",
     "difficulty": "Hard",
@@ -6532,10 +6670,11 @@
     "title": "[Cardiovascular & Respiratory Problems - COPD and Oxygen Therapy Administration] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "COPD and Oxygen Therapy Administration",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding COPD and Oxygen Therapy Administration.",
+    "legacyId": "NCLEX-2223"
   },
   {
-    "id": "NCLEX-2229",
+    "id": "QR-000140",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Pulmonary Embolism Recognition and Action",
     "difficulty": "Hard",
@@ -6579,10 +6718,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Pulmonary Embolism Recognition and Action",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
+    "legacyId": "NCLEX-2229"
   },
   {
-    "id": "NCLEX-2230",
+    "id": "QR-000141",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Pulmonary Embolism Recognition and Action",
     "difficulty": "Moderate",
@@ -6626,10 +6766,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Pulmonary Embolism Recognition and Action] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Pulmonary Embolism Recognition and Action",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Pulmonary Embolism Recognition and Action.",
+    "legacyId": "NCLEX-2230"
   },
   {
-    "id": "NCLEX-2236",
+    "id": "QR-000142",
     "category": "Cardiovascular & Respiratory Problems",
     "topic": "Hypertensive Crisis and Post-Op Graft Stress",
     "difficulty": "Moderate",
@@ -6673,10 +6814,11 @@
     "title": "[Cardiovascular & Respiratory Problems - Hypertensive Crisis and Post-Op Graft Stress] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Hypertensive Crisis and Post-Op Graft Stress",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypertensive Crisis and Post-Op Graft Stress.",
+    "legacyId": "NCLEX-2236"
   },
   {
-    "id": "NCLEX-2241",
+    "id": "QR-000143",
     "category": "Musculoskeletal Problems",
     "topic": "Fractures and Compartment Syndrome Signs",
     "difficulty": "Hard",
@@ -6720,10 +6862,11 @@
     "title": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Fractures and Compartment Syndrome Signs",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
+    "legacyId": "NCLEX-2241"
   },
   {
-    "id": "NCLEX-2242",
+    "id": "QR-000144",
     "category": "Musculoskeletal Problems",
     "topic": "Fractures and Compartment Syndrome Signs",
     "difficulty": "Moderate",
@@ -6767,10 +6910,11 @@
     "title": "[Musculoskeletal Problems - Fractures and Compartment Syndrome Signs] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Fractures and Compartment Syndrome Signs",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Fractures and Compartment Syndrome Signs.",
+    "legacyId": "NCLEX-2242"
   },
   {
-    "id": "NCLEX-2247",
+    "id": "QR-000145",
     "category": "Musculoskeletal Problems",
     "topic": "Osteomyelitis and Vital Sign Monitoring",
     "difficulty": "Hard",
@@ -6814,10 +6958,11 @@
     "title": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Osteomyelitis and Vital Sign Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
+    "legacyId": "NCLEX-2247"
   },
   {
-    "id": "NCLEX-2248",
+    "id": "QR-000146",
     "category": "Musculoskeletal Problems",
     "topic": "Osteomyelitis and Vital Sign Monitoring",
     "difficulty": "Moderate",
@@ -6861,10 +7006,11 @@
     "title": "[Musculoskeletal Problems - Osteomyelitis and Vital Sign Monitoring] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Osteomyelitis and Vital Sign Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Osteomyelitis and Vital Sign Monitoring.",
+    "legacyId": "NCLEX-2248"
   },
   {
-    "id": "NCLEX-2253",
+    "id": "QR-000147",
     "category": "Musculoskeletal Problems",
     "topic": "Total Joint Replacement Post-Op Care",
     "difficulty": "Hard",
@@ -6908,10 +7054,11 @@
     "title": "[Musculoskeletal Problems - Total Joint Replacement Post-Op Care] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Total Joint Replacement Post-Op Care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Total Joint Replacement Post-Op Care.",
+    "legacyId": "NCLEX-2253"
   },
   {
-    "id": "NCLEX-2259",
+    "id": "QR-000148",
     "category": "Musculoskeletal Problems",
     "topic": "Cast Care and Neurovascular Checks",
     "difficulty": "Hard",
@@ -6955,10 +7102,11 @@
     "title": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Cast Care and Neurovascular Checks",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
+    "legacyId": "NCLEX-2259"
   },
   {
-    "id": "NCLEX-2260",
+    "id": "QR-000149",
     "category": "Musculoskeletal Problems",
     "topic": "Cast Care and Neurovascular Checks",
     "difficulty": "Moderate",
@@ -7002,10 +7150,11 @@
     "title": "[Musculoskeletal Problems - Cast Care and Neurovascular Checks] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Cast Care and Neurovascular Checks",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Cast Care and Neurovascular Checks.",
+    "legacyId": "NCLEX-2260"
   },
   {
-    "id": "NCLEX-2266",
+    "id": "QR-000150",
     "category": "Musculoskeletal Problems",
     "topic": "Amputation Stump Care and Positioning",
     "difficulty": "Moderate",
@@ -7049,10 +7198,11 @@
     "title": "[Musculoskeletal Problems - Amputation Stump Care and Positioning] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Amputation Stump Care and Positioning",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Amputation Stump Care and Positioning.",
+    "legacyId": "NCLEX-2266"
   },
   {
-    "id": "NCLEX-2271",
+    "id": "QR-000151",
     "category": "Endocrine Problems",
     "topic": "Diabetic Ketoacidosis (DKA) Management",
     "difficulty": "Hard",
@@ -7096,10 +7246,11 @@
     "title": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Diabetic Ketoacidosis (DKA) Management",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
+    "legacyId": "NCLEX-2271"
   },
   {
-    "id": "NCLEX-2272",
+    "id": "QR-000152",
     "category": "Endocrine Problems",
     "topic": "Diabetic Ketoacidosis (DKA) Management",
     "difficulty": "Moderate",
@@ -7143,10 +7294,11 @@
     "title": "[Endocrine Problems - Diabetic Ketoacidosis (DKA) Management] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Diabetic Ketoacidosis (DKA) Management",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetic Ketoacidosis (DKA) Management.",
+    "legacyId": "NCLEX-2272"
   },
   {
-    "id": "NCLEX-2277",
+    "id": "QR-000153",
     "category": "Endocrine Problems",
     "topic": "Hypoglycemia vs Hyperglycemia Protocol",
     "difficulty": "Hard",
@@ -7190,10 +7342,11 @@
     "title": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Hypoglycemia vs Hyperglycemia Protocol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
+    "legacyId": "NCLEX-2277"
   },
   {
-    "id": "NCLEX-2278",
+    "id": "QR-000154",
     "category": "Endocrine Problems",
     "topic": "Hypoglycemia vs Hyperglycemia Protocol",
     "difficulty": "Moderate",
@@ -7237,10 +7390,11 @@
     "title": "[Endocrine Problems - Hypoglycemia vs Hyperglycemia Protocol] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Hypoglycemia vs Hyperglycemia Protocol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Hypoglycemia vs Hyperglycemia Protocol.",
+    "legacyId": "NCLEX-2278"
   },
   {
-    "id": "NCLEX-2283",
+    "id": "QR-000155",
     "category": "Endocrine Problems",
     "topic": "Adrenalectomy Post-Op Monitoring",
     "difficulty": "Hard",
@@ -7284,10 +7438,11 @@
     "title": "[Endocrine Problems - Adrenalectomy Post-Op Monitoring] An LPN/LVN under the supervision of an RN is caring for multiple clients. Which action by the LPN requires immediate intervention by the RN?",
     "promptTitle": "Adrenalectomy Post-Op Monitoring",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Adrenalectomy Post-Op Monitoring.",
+    "legacyId": "NCLEX-2283"
   },
   {
-    "id": "NCLEX-2289",
+    "id": "QR-000156",
     "category": "Endocrine Problems",
     "topic": "Thyroidectomy and Airway Complications",
     "difficulty": "Hard",
@@ -7331,10 +7486,11 @@
     "title": "[Endocrine Problems - Thyroidectomy and Airway Complications] A registered nurse (RN) is working with a care team on a medical-surgical unit. Which client is most appropriate to assign to the LPN/LVN?",
     "promptTitle": "Thyroidectomy and Airway Complications",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
+    "legacyId": "NCLEX-2289"
   },
   {
-    "id": "NCLEX-2290",
+    "id": "QR-000157",
     "category": "Endocrine Problems",
     "topic": "Thyroidectomy and Airway Complications",
     "difficulty": "Moderate",
@@ -7378,10 +7534,11 @@
     "title": "[Endocrine Problems - Thyroidectomy and Airway Complications] The nurse receives a shift report on four clients. Which client should the nurse assess first?",
     "promptTitle": "Thyroidectomy and Airway Complications",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Thyroidectomy and Airway Complications.",
+    "legacyId": "NCLEX-2290"
   },
   {
-    "id": "NCLEX-2296",
+    "id": "QR-000158",
     "category": "Endocrine Problems",
     "topic": "Diabetes Mellitus Foot Care Delegation",
     "difficulty": "Moderate",
@@ -7425,10 +7582,11 @@
     "title": "[Endocrine Problems - Diabetes Mellitus Foot Care Delegation] An RN is delegating vital sign collection for a post-operative client. What specific instruction should be given to the nursing assistant?",
     "promptTitle": "Diabetes Mellitus Foot Care Delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation."
+    "learning_objective": "Master clinical decision-making, prioritization, and safe delegation regarding Diabetes Mellitus Foot Care Delegation.",
+    "legacyId": "NCLEX-2296"
   },
   {
-    "id": "ADDED-0001",
+    "id": "QR-000159",
     "category": "Respiratory",
     "topic": "Cor pulmonale",
     "difficulty": "Moderate",
@@ -7484,10 +7642,11 @@
     "title": "A client with COPD develops cor pulmonale. Which findings support right-sided heart strain? Select all that apply.",
     "promptTitle": "Cor pulmonale",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Cor pulmonale, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Cor pulmonale, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0001"
   },
   {
-    "id": "ADDED-0002",
+    "id": "QR-000160",
     "category": "Infection",
     "topic": "Diphtheria",
     "difficulty": "Moderate",
@@ -7531,10 +7690,11 @@
     "title": "A child is admitted with suspected respiratory diphtheria. Which action should the nurse implement immediately?",
     "promptTitle": "Diphtheria",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Diphtheria, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Diphtheria, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0002"
   },
   {
-    "id": "ADDED-0003",
+    "id": "QR-000161",
     "category": "Infection",
     "topic": "Pertussis",
     "difficulty": "Moderate",
@@ -7578,10 +7738,11 @@
     "title": "A hospitalized infant has suspected pertussis. Which intervention is most appropriate to reduce transmission?",
     "promptTitle": "Pertussis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Pertussis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Pertussis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0003"
   },
   {
-    "id": "ADDED-0004",
+    "id": "QR-000162",
     "category": "Maternal-Newborn",
     "topic": "Placental abruption",
     "difficulty": "Moderate",
@@ -7637,10 +7798,11 @@
     "title": "A 34-week pregnant client reports sudden abdominal pain and vaginal bleeding. The uterus is firm and tender, and the fetal heart rate is abnormal. Which actions should the nurse anticipate? Select all that apply.",
     "promptTitle": "Placental abruption",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Placental abruption, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Placental abruption, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0004"
   },
   {
-    "id": "ADDED-0005",
+    "id": "QR-000163",
     "category": "Maternal-Newborn",
     "topic": "Umbilical cord prolapse / VEAL CHOP",
     "difficulty": "Moderate",
@@ -7684,10 +7846,11 @@
     "title": "Immediately after rupture of membranes, the fetal heart rate drops to 70/min and the nurse palpates a pulsating cord in the vagina. What is the priority action?",
     "promptTitle": "Umbilical cord prolapse / VEAL CHOP",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Umbilical cord prolapse / VEAL CHOP, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Umbilical cord prolapse / VEAL CHOP, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0005"
   },
   {
-    "id": "ADDED-0006",
+    "id": "QR-000164",
     "category": "Endocrine",
     "topic": "Addison disease",
     "difficulty": "Moderate",
@@ -7731,10 +7894,11 @@
     "title": "A client with Addison disease has vomiting, severe weakness, BP 78/44 mm Hg, and sodium 126 mEq/L. Which prescription should the nurse anticipate first?",
     "promptTitle": "Addison disease",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Addison disease, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Addison disease, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0006"
   },
   {
-    "id": "ADDED-0007",
+    "id": "QR-000165",
     "category": "Endocrine",
     "topic": "Cushing syndrome",
     "difficulty": "Moderate",
@@ -7778,10 +7942,11 @@
     "title": "Which assessment finding is most consistent with Cushing syndrome?",
     "promptTitle": "Cushing syndrome",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Cushing syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Cushing syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0007"
   },
   {
-    "id": "ADDED-0008",
+    "id": "QR-000166",
     "category": "Health Promotion",
     "topic": "Smoking cessation",
     "difficulty": "Moderate",
@@ -7825,10 +7990,11 @@
     "title": "A client says, “I want to quit smoking, but I always relapse when stressed.” Which response by the nurse is best?",
     "promptTitle": "Smoking cessation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Smoking cessation, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Smoking cessation, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0008"
   },
   {
-    "id": "ADDED-0009",
+    "id": "QR-000167",
     "category": "Neurologic",
     "topic": "Post-lumbar puncture headache",
     "difficulty": "Moderate",
@@ -7872,10 +8038,11 @@
     "title": "A client reports a severe headache that worsens when sitting upright 12 hours after a lumbar puncture. Which action should the nurse take?",
     "promptTitle": "Post-lumbar puncture headache",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Post-lumbar puncture headache, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Post-lumbar puncture headache, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0009"
   },
   {
-    "id": "ADDED-0010",
+    "id": "QR-000168",
     "category": "Musculoskeletal",
     "topic": "Buck traction",
     "difficulty": "Moderate",
@@ -7919,10 +8086,11 @@
     "title": "A client with Buck skin traction reports increasing pain. The nurse observes that the weights are resting on the floor. What should the nurse do?",
     "promptTitle": "Buck traction",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Buck traction, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Buck traction, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0010"
   },
   {
-    "id": "ADDED-0011",
+    "id": "QR-000169",
     "category": "Musculoskeletal",
     "topic": "Compartment syndrome",
     "difficulty": "Moderate",
@@ -7966,10 +8134,11 @@
     "title": "A client with a lower-leg fracture reports escalating pain that is not relieved by opioids and severe pain with passive toe movement. What is the priority nursing action?",
     "promptTitle": "Compartment syndrome",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Compartment syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Compartment syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0011"
   },
   {
-    "id": "ADDED-0013",
+    "id": "QR-000170",
     "category": "Maternal-Newborn",
     "topic": "Chorionic villus sampling",
     "difficulty": "Moderate",
@@ -8013,10 +8182,11 @@
     "title": "Which client statement after chorionic villus sampling indicates a need for immediate follow-up?",
     "promptTitle": "Chorionic villus sampling",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Chorionic villus sampling, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Chorionic villus sampling, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0013"
   },
   {
-    "id": "ADDED-0014",
+    "id": "QR-000171",
     "category": "Infection",
     "topic": "Tuberculosis / Mantoux",
     "difficulty": "Moderate",
@@ -8060,10 +8230,11 @@
     "title": "Four clients had Mantoux tests. Which finding should the nurse use when interpreting the result?",
     "promptTitle": "Tuberculosis / Mantoux",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Tuberculosis / Mantoux, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Tuberculosis / Mantoux, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0014"
   },
   {
-    "id": "ADDED-0015",
+    "id": "QR-000172",
     "category": "Pharmacology",
     "topic": "Digoxin teaching",
     "difficulty": "Moderate",
@@ -8107,10 +8278,11 @@
     "title": "Which statement by a client taking digoxin shows correct understanding?",
     "promptTitle": "Digoxin teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Digoxin teaching, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Digoxin teaching, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0015"
   },
   {
-    "id": "ADDED-0016",
+    "id": "QR-000173",
     "category": "Pharmacology",
     "topic": "Aripiprazole",
     "difficulty": "Moderate",
@@ -8154,10 +8326,11 @@
     "title": "A client recently started aripiprazole and reports an irresistible urge to pace and an inability to sit still. What should the nurse do?",
     "promptTitle": "Aripiprazole",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Aripiprazole, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Aripiprazole, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0016"
   },
   {
-    "id": "ADDED-0017",
+    "id": "QR-000174",
     "category": "Neurologic",
     "topic": "Acute stroke recognition",
     "difficulty": "Moderate",
@@ -8201,10 +8374,11 @@
     "title": "A client develops left-sided weakness, facial droop, aphasia, and markedly elevated blood pressure. Which action is the priority?",
     "promptTitle": "Acute stroke recognition",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Acute stroke recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Acute stroke recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0017"
   },
   {
-    "id": "ADDED-0018",
+    "id": "QR-000175",
     "category": "Cardiovascular",
     "topic": "Atrial fibrillation",
     "difficulty": "Moderate",
@@ -8248,10 +8422,11 @@
     "title": "A client with atrial fibrillation has a ventricular rate of 158/min, BP 78/46 mm Hg, chest discomfort, and confusion. Which intervention should the nurse anticipate?",
     "promptTitle": "Atrial fibrillation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Atrial fibrillation, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Atrial fibrillation, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0018"
   },
   {
-    "id": "ADDED-0019",
+    "id": "QR-000176",
     "category": "Cardiovascular",
     "topic": "Sinus bradycardia",
     "difficulty": "Moderate",
@@ -8295,10 +8470,11 @@
     "title": "A client’s ECG shows sinus bradycardia at 38/min. The client is pale, diaphoretic, and hypotensive. What should the nurse do first?",
     "promptTitle": "Sinus bradycardia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Sinus bradycardia, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Sinus bradycardia, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0019"
   },
   {
-    "id": "ADDED-0020",
+    "id": "QR-000177",
     "category": "Ethics",
     "topic": "Do-not-intubate order",
     "difficulty": "Moderate",
@@ -8342,10 +8518,11 @@
     "title": "A client with a documented do-not-intubate order is deteriorating. The family asks the nurse to intubate despite the order. What is the best response?",
     "promptTitle": "Do-not-intubate order",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Do-not-intubate order, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Do-not-intubate order, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0020"
   },
   {
-    "id": "ADDED-0021",
+    "id": "QR-000178",
     "category": "Leadership",
     "topic": "Floating nurse assignment",
     "difficulty": "Moderate",
@@ -8389,10 +8566,11 @@
     "title": "An obstetric nurse is floated to an emergency department where several clients need care. Which assignment is most appropriate?",
     "promptTitle": "Floating nurse assignment",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Assign client care according to staff competency, legal scope, client acuity, and the supervision required for safe completion of the task."
+    "learning_objective": "Assign client care according to staff competency, legal scope, client acuity, and the supervision required for safe completion of the task.",
+    "legacyId": "ADDED-0021"
   },
   {
-    "id": "ADDED-0022",
+    "id": "QR-000179",
     "category": "Cardiovascular",
     "topic": "Cardiac tamponade",
     "difficulty": "Moderate",
@@ -8448,10 +8626,11 @@
     "title": "A client after cardiac surgery develops hypotension, jugular venous distention, muffled heart sounds, and narrowing pulse pressure. Which actions should the nurse take? Select all that apply.",
     "promptTitle": "Cardiac tamponade",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Cardiac tamponade, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Cardiac tamponade, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0022"
   },
   {
-    "id": "ADDED-0023",
+    "id": "QR-000180",
     "category": "Renal",
     "topic": "Hemodialysis first treatment",
     "difficulty": "Moderate",
@@ -8495,10 +8674,11 @@
     "title": "A client is receiving the first hemodialysis treatment and becomes confused, nauseated, and restless with a headache. What complication should the nurse suspect?",
     "promptTitle": "Hemodialysis first treatment",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Hemodialysis first treatment, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Hemodialysis first treatment, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0023"
   },
   {
-    "id": "ADDED-0024",
+    "id": "QR-000181",
     "category": "Maternal-Newborn",
     "topic": "Late fetal heart rate decelerations",
     "difficulty": "Moderate",
@@ -8542,10 +8722,11 @@
     "title": "During labor, the fetal monitor shows recurrent decelerations that begin after the peak of contractions. Which nursing action should the nurse take first?",
     "promptTitle": "Late fetal heart rate decelerations",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Late fetal heart rate decelerations, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Late fetal heart rate decelerations, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0024"
   },
   {
-    "id": "ADDED-0025",
+    "id": "QR-000182",
     "category": "Renal",
     "topic": "Hemodialysis diet",
     "difficulty": "Moderate",
@@ -8581,8 +8762,15 @@
     "stem": "A 59-year-old client receiving maintenance hemodialysis asks which lunch choice best follows the prescribed renal diet. The client has been instructed to limit potassium, phosphorus, sodium, and fluid. Which meal is the best choice?",
     "explanation": "The best option is relatively lower in sodium, potassium, and phosphorus than the alternatives. Individual limits depend on laboratory values and the renal dietitian’s plan.",
     "clientNeed": "Physiological Adaptation",
-    "patientInfo": {"name": "Adult dialysis client", "age": "59-year-old adult", "history": "End-stage kidney disease receiving maintenance hemodialysis; prescribed limits for potassium, phosphorus, sodium, and fluid."},
-    "ehr": {"nursesNotes": "The client asks for help choosing an appropriate lunch and reports following the renal diet plan.", "diagnosticResults": "End-stage kidney disease requiring maintenance hemodialysis. Individual electrolyte and fluid limits are based on current laboratory results and the renal care plan."},
+    "patientInfo": {
+      "name": "Adult dialysis client",
+      "age": "59-year-old adult",
+      "history": "End-stage kidney disease receiving maintenance hemodialysis; prescribed limits for potassium, phosphorus, sodium, and fluid."
+    },
+    "ehr": {
+      "nursesNotes": "The client asks for help choosing an appropriate lunch and reports following the renal diet plan.",
+      "diagnosticResults": "End-stage kidney disease requiring maintenance hemodialysis. Individual electrolyte and fluid limits are based on current laboratory results and the renal care plan."
+    },
     "ngnType": "not_applicable",
     "format": "single_choice",
     "itemType": "Traditional",
@@ -8591,10 +8779,11 @@
     "title": "Which meal choice is most appropriate for a client receiving maintenance hemodialysis who has been advised to limit potassium, phosphorus, sodium, and fluid?",
     "promptTitle": "Hemodialysis diet",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Hemodialysis diet, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Hemodialysis diet, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0025"
   },
   {
-    "id": "ADDED-0026",
+    "id": "QR-000183",
     "category": "Maternal-Newborn",
     "topic": "Magnesium sulfate toxicity",
     "difficulty": "Moderate",
@@ -8638,10 +8827,11 @@
     "title": "A client receiving magnesium sulfate for preeclampsia has absent deep tendon reflexes, respirations of 9/min, and urine output of 15 mL/hr. What should the nurse do first?",
     "promptTitle": "Magnesium sulfate toxicity",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Magnesium sulfate toxicity, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Magnesium sulfate toxicity, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0026"
   },
   {
-    "id": "ADDED-0027",
+    "id": "QR-000184",
     "category": "Respiratory",
     "topic": "Cystic fibrosis",
     "difficulty": "Moderate",
@@ -8685,10 +8875,11 @@
     "title": "Which intervention best helps a child with cystic fibrosis maintain nutrition?",
     "promptTitle": "Cystic fibrosis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Cystic fibrosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Cystic fibrosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0027"
   },
   {
-    "id": "ADDED-0028",
+    "id": "QR-000185",
     "category": "Hematology",
     "topic": "Hemophilia",
     "difficulty": "Moderate",
@@ -8732,10 +8923,11 @@
     "title": "A child with hemophilia develops a painful swollen knee after a minor injury. Which action is most appropriate?",
     "promptTitle": "Hemophilia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Hemophilia, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Hemophilia, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0028"
   },
   {
-    "id": "ADDED-0029",
+    "id": "QR-000186",
     "category": "Neurologic",
     "topic": "Seizure onset",
     "difficulty": "Moderate",
@@ -8779,10 +8971,11 @@
     "title": "A hospitalized client begins having a generalized tonic-clonic seizure. What is the nurse’s priority action?",
     "promptTitle": "Seizure onset",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Seizure onset, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Seizure onset, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0029"
   },
   {
-    "id": "ADDED-0030",
+    "id": "QR-000187",
     "category": "Maternal-Newborn",
     "topic": "HELLP syndrome",
     "difficulty": "Moderate",
@@ -8826,10 +9019,11 @@
     "title": "A pregnant client with preeclampsia reports right upper-quadrant pain and malaise. Labs show hemolysis, elevated liver enzymes, and low platelets. What complication should the nurse suspect?",
     "promptTitle": "HELLP syndrome",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for HELLP syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for HELLP syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0030"
   },
   {
-    "id": "ADDED-0031",
+    "id": "QR-000188",
     "category": "Pharmacology",
     "topic": "Feverfew and warfarin",
     "difficulty": "Moderate",
@@ -8873,10 +9067,11 @@
     "title": "A client taking warfarin says they plan to start feverfew for headaches. What should the nurse advise?",
     "promptTitle": "Feverfew and warfarin",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Feverfew and warfarin, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Feverfew and warfarin, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0031"
   },
   {
-    "id": "ADDED-0032",
+    "id": "QR-000189",
     "category": "Vascular",
     "topic": "Deep vein thrombosis",
     "difficulty": "Moderate",
@@ -8920,10 +9115,11 @@
     "title": "A postoperative client develops unilateral calf swelling, warmth, and pain. What should the nurse do?",
     "promptTitle": "Deep vein thrombosis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Deep vein thrombosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Deep vein thrombosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0032"
   },
   {
-    "id": "ADDED-0033",
+    "id": "QR-000190",
     "category": "Vascular",
     "topic": "Peripheral artery disease",
     "difficulty": "Moderate",
@@ -8967,10 +9163,11 @@
     "title": "Which finding is most characteristic of peripheral arterial disease?",
     "promptTitle": "Peripheral artery disease",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Peripheral artery disease, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Peripheral artery disease, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0033"
   },
   {
-    "id": "ADDED-0034",
+    "id": "QR-000191",
     "category": "Infection",
     "topic": "Clostridioides difficile",
     "difficulty": "Moderate",
@@ -9014,10 +9211,11 @@
     "title": "A client has frequent watery stools and a positive C. difficile test. Which infection-control action is appropriate?",
     "promptTitle": "Clostridioides difficile",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Clostridioides difficile, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Clostridioides difficile, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0034"
   },
   {
-    "id": "ADDED-0035",
+    "id": "QR-000192",
     "category": "Immunology",
     "topic": "Latex-fruit cross-reactivity",
     "difficulty": "Moderate",
@@ -9061,10 +9259,11 @@
     "title": "A client with latex allergy asks which food may cross-react. Which food should the nurse include in teaching?",
     "promptTitle": "Latex-fruit cross-reactivity",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Latex-fruit cross-reactivity, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Latex-fruit cross-reactivity, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0035"
   },
   {
-    "id": "ADDED-0036",
+    "id": "QR-000193",
     "category": "Nutrition",
     "topic": "Iron absorption",
     "difficulty": "Moderate",
@@ -9108,10 +9307,11 @@
     "title": "A client is prescribed oral iron for iron-deficiency anemia. Which instruction can improve absorption if tolerated?",
     "promptTitle": "Iron absorption",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Iron absorption, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Iron absorption, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0036"
   },
   {
-    "id": "ADDED-0037",
+    "id": "QR-000194",
     "category": "Infection",
     "topic": "Botulism precautions",
     "difficulty": "Moderate",
@@ -9155,10 +9355,11 @@
     "title": "A client with suspected foodborne botulism is admitted. Which precaution is generally appropriate for routine care?",
     "promptTitle": "Botulism precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Botulism precautions, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Botulism precautions, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0037"
   },
   {
-    "id": "ADDED-0038",
+    "id": "QR-000195",
     "category": "Psychiatric",
     "topic": "Psychotropic medication safety",
     "difficulty": "Moderate",
@@ -9202,10 +9403,11 @@
     "title": "Which statement from a client taking lithium requires immediate follow-up?",
     "promptTitle": "Psychotropic medication safety",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Psychotropic medication safety, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Psychotropic medication safety, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0038"
   },
   {
-    "id": "ADDED-0039",
+    "id": "QR-000196",
     "category": "Pharmacology",
     "topic": "Statins",
     "difficulty": "Moderate",
@@ -9249,10 +9451,11 @@
     "title": "A client taking atorvastatin reports new severe muscle pain and dark urine. What should the nurse advise?",
     "promptTitle": "Statins",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Statins, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Statins, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0039"
   },
   {
-    "id": "ADDED-0040",
+    "id": "QR-000197",
     "category": "Endocrine",
     "topic": "Hyperthyroidism",
     "difficulty": "Moderate",
@@ -9296,10 +9499,11 @@
     "title": "A client with untreated hyperthyroidism develops fever, agitation, severe tachycardia, and vomiting. Which complication is the priority concern?",
     "promptTitle": "Hyperthyroidism",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Hyperthyroidism, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Hyperthyroidism, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0040"
   },
   {
-    "id": "ADDED-0041",
+    "id": "QR-000198",
     "category": "Ethics",
     "topic": "Veracity",
     "difficulty": "Moderate",
@@ -9343,10 +9547,11 @@
     "title": "A client asks whether a newly diagnosed illness is serious. The family asks the nurse to hide the diagnosis. What is the nurse’s best response?",
     "promptTitle": "Veracity",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Veracity, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Veracity, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0041"
   },
   {
-    "id": "ADDED-0042",
+    "id": "QR-000199",
     "category": "Leadership",
     "topic": "UAP delegation",
     "difficulty": "Moderate",
@@ -9390,10 +9595,11 @@
     "title": "Which task is most appropriate for the RN to delegate to a trained UAP for a stable client?",
     "promptTitle": "UAP delegation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for UAP delegation, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for UAP delegation, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0042"
   },
   {
-    "id": "ADDED-0043",
+    "id": "QR-000200",
     "category": "Musculoskeletal",
     "topic": "Fracture neurovascular assessment",
     "difficulty": "Moderate",
@@ -9437,10 +9643,11 @@
     "title": "A client with a newly casted forearm reports increasing pain and numbness. Which assessment is most important?",
     "promptTitle": "Fracture neurovascular assessment",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Fracture neurovascular assessment, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Fracture neurovascular assessment, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0043"
   },
   {
-    "id": "ADDED-0044",
+    "id": "QR-000201",
     "category": "Musculoskeletal",
     "topic": "Osteoporosis",
     "difficulty": "Moderate",
@@ -9484,10 +9691,11 @@
     "title": "Which client has the greatest risk for osteoporosis?",
     "promptTitle": "Osteoporosis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Osteoporosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Osteoporosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0044"
   },
   {
-    "id": "ADDED-0045",
+    "id": "QR-000202",
     "category": "Neurologic",
     "topic": "Autonomic dysreflexia",
     "difficulty": "Moderate",
@@ -9531,10 +9739,11 @@
     "title": "A client with a T4 spinal cord injury suddenly develops a pounding headache, flushing above the injury, and BP 210/110 mm Hg. What should the nurse do first?",
     "promptTitle": "Autonomic dysreflexia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Autonomic dysreflexia, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Autonomic dysreflexia, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0045"
   },
   {
-    "id": "ADDED-0046",
+    "id": "QR-000203",
     "category": "Pediatrics",
     "topic": "Developmental milestones",
     "difficulty": "Moderate",
@@ -9578,10 +9787,11 @@
     "title": "Which behavior is most expected in a typically developing 15-month-old child?",
     "promptTitle": "Developmental milestones",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Developmental milestones, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Developmental milestones, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0046"
   },
   {
-    "id": "ADDED-0047",
+    "id": "QR-000204",
     "category": "Pediatrics",
     "topic": "Newborn stool and urine teaching",
     "difficulty": "Moderate",
@@ -9625,10 +9835,11 @@
     "title": "The parent of a 4-day-old newborn asks which diaper finding should be reported promptly. Which response is best?",
     "promptTitle": "Newborn stool and urine teaching",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Newborn stool and urine teaching, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Newborn stool and urine teaching, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0047"
   },
   {
-    "id": "ADDED-0048",
+    "id": "QR-000205",
     "category": "Pediatrics",
     "topic": "Autism spectrum disorder",
     "difficulty": "Moderate",
@@ -9672,10 +9883,11 @@
     "title": "A toddler has limited eye contact, does not respond consistently to their name, and has delayed social communication. What is the nurse’s best action?",
     "promptTitle": "Autism spectrum disorder",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Autism spectrum disorder, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Autism spectrum disorder, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0048"
   },
   {
-    "id": "ADDED-0049",
+    "id": "QR-000206",
     "category": "Pediatrics",
     "topic": "Aspiration during tube feeding",
     "difficulty": "Moderate",
@@ -9719,10 +9931,11 @@
     "title": "During gavage feeding of a premature infant, the nurse aspirates a small residual and the infant begins coughing and desaturating. What should the nurse do first?",
     "promptTitle": "Aspiration during tube feeding",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Aspiration during tube feeding, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Aspiration during tube feeding, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0049"
   },
   {
-    "id": "ADDED-0050",
+    "id": "QR-000207",
     "category": "Procedures",
     "topic": "Colonoscopy preparation",
     "difficulty": "Moderate",
@@ -9766,10 +9979,11 @@
     "title": "Which statement by a client scheduled for colonoscopy indicates a need for further teaching?",
     "promptTitle": "Colonoscopy preparation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Colonoscopy preparation, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Colonoscopy preparation, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0050"
   },
   {
-    "id": "ADDED-0051",
+    "id": "QR-000208",
     "category": "Leadership",
     "topic": "Quality improvement recognition",
     "difficulty": "Moderate",
@@ -9813,10 +10027,11 @@
     "title": "A nurse manager publicly recognizes a staff nurse whose practical suggestion improved patient flow and received positive feedback. Which management concept is illustrated?",
     "promptTitle": "Quality improvement recognition",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Quality improvement recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Quality improvement recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0051"
   },
   {
-    "id": "ADDED-0052",
+    "id": "QR-000209",
     "category": "Respiratory",
     "topic": "Asthma peak flow meter",
     "difficulty": "Moderate",
@@ -9860,10 +10075,11 @@
     "title": "A client with asthma asks what a peak flow meter measures. Which response is correct?",
     "promptTitle": "Asthma peak flow meter",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Asthma peak flow meter, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Asthma peak flow meter, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0052"
   },
   {
-    "id": "ADDED-0053",
+    "id": "QR-000210",
     "category": "Respiratory",
     "topic": "Metered-dose inhaler",
     "difficulty": "Moderate",
@@ -9907,10 +10123,11 @@
     "title": "Which instruction is correct when using a pressurized metered-dose inhaler without a spacer?",
     "promptTitle": "Metered-dose inhaler",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Metered-dose inhaler, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Metered-dose inhaler, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0053"
   },
   {
-    "id": "ADDED-0054",
+    "id": "QR-000211",
     "category": "Emergency",
     "topic": "Diabetic ketoacidosis",
     "difficulty": "Moderate",
@@ -9954,10 +10171,11 @@
     "title": "A client with diabetic ketoacidosis is dehydrated, tachycardic, and hypotensive. Which intervention is generally initiated first, unless contraindicated?",
     "promptTitle": "Diabetic ketoacidosis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Diabetic ketoacidosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Diabetic ketoacidosis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0054"
   },
   {
-    "id": "ADDED-0055",
+    "id": "QR-000212",
     "category": "Cardiovascular",
     "topic": "Suspected myocardial infarction with initial negative troponin",
     "difficulty": "Moderate",
@@ -10001,10 +10219,11 @@
     "title": "A client has crushing chest pain and diaphoresis, but the first troponin is negative. What should the nurse understand?",
     "promptTitle": "Suspected myocardial infarction with initial negative troponin",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Suspected myocardial infarction with initial negative troponin, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Suspected myocardial infarction with initial negative troponin, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0055"
   },
   {
-    "id": "ADDED-0056",
+    "id": "QR-000213",
     "category": "Endocrine",
     "topic": "Hypothyroidism",
     "difficulty": "Moderate",
@@ -10048,10 +10267,11 @@
     "title": "Which assessment finding is most consistent with hypothyroidism?",
     "promptTitle": "Hypothyroidism",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Hypothyroidism, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Hypothyroidism, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0056"
   },
   {
-    "id": "ADDED-0057",
+    "id": "QR-000214",
     "category": "Cardiovascular",
     "topic": "Prinzmetal angina",
     "difficulty": "Moderate",
@@ -10095,10 +10315,11 @@
     "title": "A client reports episodes of chest pain at rest associated with transient coronary vasospasm. Which type of angina is most likely?",
     "promptTitle": "Prinzmetal angina",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Prinzmetal angina, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Prinzmetal angina, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0057"
   },
   {
-    "id": "ADDED-0058",
+    "id": "QR-000215",
     "category": "Neurologic",
     "topic": "Cerebral palsy",
     "difficulty": "Moderate",
@@ -10142,10 +10363,11 @@
     "title": "A child with cerebral palsy has difficulty walking safely because of spasticity and balance problems. Which nursing plan is most appropriate?",
     "promptTitle": "Cerebral palsy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Cerebral palsy, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Cerebral palsy, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0058"
   },
   {
-    "id": "ADDED-0059",
+    "id": "QR-000216",
     "category": "Psychiatric",
     "topic": "Delusions",
     "difficulty": "Moderate",
@@ -10189,10 +10411,11 @@
     "title": "A client says, “My neighbors have installed cameras to poison me.” Which response is therapeutic?",
     "promptTitle": "Delusions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Delusions, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Delusions, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0059"
   },
   {
-    "id": "ADDED-0060",
+    "id": "QR-000217",
     "category": "Maternal-Newborn",
     "topic": "Labor stages",
     "difficulty": "Moderate",
@@ -10236,10 +10459,11 @@
     "title": "A laboring client is 5 cm dilated with regular contractions. Which interpretation is most accurate?",
     "promptTitle": "Labor stages",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Labor stages, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Labor stages, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0060"
   },
   {
-    "id": "ADDED-0061",
+    "id": "QR-000218",
     "category": "Musculoskeletal",
     "topic": "Total hip arthroplasty",
     "difficulty": "Moderate",
@@ -10283,10 +10507,11 @@
     "title": "A client after posterior total hip arthroplasty is preparing to transfer to a chair. Which instruction helps reduce dislocation risk?",
     "promptTitle": "Total hip arthroplasty",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Total hip arthroplasty, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Total hip arthroplasty, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0061"
   },
   {
-    "id": "ADDED-0062",
+    "id": "QR-000219",
     "category": "Pharmacology",
     "topic": "Alendronate",
     "difficulty": "Moderate",
@@ -10330,10 +10555,11 @@
     "title": "Which instruction should the nurse give a client prescribed oral alendronate?",
     "promptTitle": "Alendronate",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Alendronate, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Alendronate, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0062"
   },
   {
-    "id": "ADDED-0063",
+    "id": "QR-000220",
     "category": "Pharmacology",
     "topic": "Ticlopidine",
     "difficulty": "Moderate",
@@ -10377,10 +10603,11 @@
     "title": "Ticlopidine is prescribed for a client at risk for thrombotic events. Which drug class does it belong to?",
     "promptTitle": "Ticlopidine",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Ticlopidine, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Ticlopidine, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0063"
   },
   {
-    "id": "ADDED-0064",
+    "id": "QR-000221",
     "category": "Pharmacology",
     "topic": "Riluzole",
     "difficulty": "Moderate",
@@ -10424,10 +10651,11 @@
     "title": "A client prescribed riluzole asks when to take the tablets. Which instruction is generally correct for standard oral riluzole tablets?",
     "promptTitle": "Riluzole",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Riluzole, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Riluzole, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0064"
   },
   {
-    "id": "ADDED-0065",
+    "id": "QR-000222",
     "category": "Pharmacology",
     "topic": "Carisoprodol",
     "difficulty": "Moderate",
@@ -10471,10 +10699,11 @@
     "title": "Which explanation best describes carisoprodol?",
     "promptTitle": "Carisoprodol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Carisoprodol, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Carisoprodol, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0065"
   },
   {
-    "id": "ADDED-0066",
+    "id": "QR-000223",
     "category": "Pharmacology",
     "topic": "Carvedilol",
     "difficulty": "Moderate",
@@ -10518,10 +10747,11 @@
     "title": "The nurse is reviewing carvedilol with a client who has heart failure. Which description is accurate?",
     "promptTitle": "Carvedilol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Carvedilol, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Carvedilol, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0066"
   },
   {
-    "id": "ADDED-0067",
+    "id": "QR-000224",
     "category": "Pharmacology",
     "topic": "Fluoxetine",
     "difficulty": "Moderate",
@@ -10565,10 +10795,11 @@
     "title": "A client taking fluoxetine asks which medication class it belongs to. What should the nurse say?",
     "promptTitle": "Fluoxetine",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Fluoxetine, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Fluoxetine, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0067"
   },
   {
-    "id": "ADDED-0068",
+    "id": "QR-000225",
     "category": "Pharmacology",
     "topic": "Sertraline sexual adverse effects",
     "difficulty": "Moderate",
@@ -10612,10 +10843,11 @@
     "title": "A client taking sertraline reports decreased libido. Which response is most appropriate?",
     "promptTitle": "Sertraline sexual adverse effects",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Sertraline sexual adverse effects, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Sertraline sexual adverse effects, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0068"
   },
   {
-    "id": "ADDED-0069",
+    "id": "QR-000226",
     "category": "Pharmacology",
     "topic": "Indomethacin for gout",
     "difficulty": "Moderate",
@@ -10659,10 +10891,11 @@
     "title": "A client with an acute gout flare is prescribed indomethacin. Which history requires the nurse to clarify the prescription most carefully?",
     "promptTitle": "Indomethacin for gout",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Indomethacin for gout, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Indomethacin for gout, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0069"
   },
   {
-    "id": "ADDED-0070",
+    "id": "QR-000227",
     "category": "Psychiatric",
     "topic": "Benzodiazepine suicide precautions",
     "difficulty": "Moderate",
@@ -10706,10 +10939,11 @@
     "title": "A client admitted after a suicide attempt has a new benzodiazepine prescription. Which nursing action is most important?",
     "promptTitle": "Benzodiazepine suicide precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Assess suicide risk directly, identify immediate safety needs, initiate appropriate observation and precautions, and communicate urgent concerns to the treatment team."
+    "learning_objective": "Assess suicide risk directly, identify immediate safety needs, initiate appropriate observation and precautions, and communicate urgent concerns to the treatment team.",
+    "legacyId": "ADDED-0070"
   },
   {
-    "id": "ADDED-0071",
+    "id": "QR-000228",
     "category": "Psychiatric",
     "topic": "Alcohol withdrawal",
     "difficulty": "Moderate",
@@ -10765,10 +10999,11 @@
     "title": "A client 18 hours after the last alcohol intake has tremors, diaphoresis, tachycardia, anxiety, and nausea. Which actions are appropriate? Select all that apply.",
     "promptTitle": "Alcohol withdrawal",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Alcohol withdrawal, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Alcohol withdrawal, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0071"
   },
   {
-    "id": "ADDED-0072",
+    "id": "QR-000229",
     "category": "Vascular",
     "topic": "Peripheral artery disease case",
     "difficulty": "Moderate",
@@ -10824,10 +11059,11 @@
     "title": "A client with PAD has a cool foot, diminished pedal pulse, shiny skin, and pain when walking that resolves with rest. Which teaching points are appropriate? Select all that apply.",
     "promptTitle": "Peripheral artery disease case",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Peripheral artery disease case, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Peripheral artery disease case, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0072"
   },
   {
-    "id": "ADDED-0073",
+    "id": "QR-000230",
     "category": "Maternal-Newborn",
     "topic": "PROM",
     "difficulty": "Moderate",
@@ -10872,10 +11108,11 @@
     "title": "A client at 32 weeks reports a gush of fluid before contractions begin. Which nursing action is most appropriate first?",
     "promptTitle": "PROM",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for PROM, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for PROM, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0073"
   },
   {
-    "id": "ADDED-0074",
+    "id": "QR-000231",
     "category": "Maternal-Newborn",
     "topic": "Shoulder dystocia / macrosomia",
     "difficulty": "Moderate",
@@ -10919,10 +11156,11 @@
     "title": "During vaginal birth, the fetal head delivers but retracts against the perineum and the shoulders do not deliver. What should the nurse do?",
     "promptTitle": "Shoulder dystocia / macrosomia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Shoulder dystocia / macrosomia, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Shoulder dystocia / macrosomia, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0074"
   },
   {
-    "id": "ADDED-0075",
+    "id": "QR-000232",
     "category": "Renal",
     "topic": "Urinary tract infection",
     "difficulty": "Moderate",
@@ -10966,10 +11204,11 @@
     "title": "An older adult has new dysuria, urinary frequency, fever, and flank pain. Which action is most appropriate?",
     "promptTitle": "Urinary tract infection",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Urinary tract infection, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Urinary tract infection, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0075"
   },
   {
-    "id": "ADDED-0076",
+    "id": "QR-000233",
     "category": "Endocrine",
     "topic": "Thyroidectomy",
     "difficulty": "Moderate",
@@ -11013,10 +11252,11 @@
     "title": "A client returns from thyroidectomy and develops stridor with increasing respiratory distress. What is the nurse’s priority?",
     "promptTitle": "Thyroidectomy",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Thyroidectomy, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Thyroidectomy, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0076"
   },
   {
-    "id": "ADDED-0077",
+    "id": "QR-000234",
     "category": "Laboratory",
     "topic": "Arterial blood gas interpretation",
     "difficulty": "Moderate",
@@ -11060,10 +11300,11 @@
     "title": "A client’s ABG is pH 7.50, PaCO2 29 mm Hg, and HCO3− 24 mEq/L. How should the nurse interpret these results?",
     "promptTitle": "Arterial blood gas interpretation",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Arterial blood gas interpretation, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Arterial blood gas interpretation, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0077"
   },
   {
-    "id": "ADDED-0078",
+    "id": "QR-000235",
     "category": "Airway",
     "topic": "Total laryngectomy precautions",
     "difficulty": "Moderate",
@@ -11107,10 +11348,11 @@
     "title": "A client with a total laryngectomy becomes acutely short of breath. Which action is essential?",
     "promptTitle": "Total laryngectomy precautions",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Total laryngectomy precautions, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Total laryngectomy precautions, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0078"
   },
   {
-    "id": "ADDED-0079",
+    "id": "QR-000236",
     "category": "Cardiovascular",
     "topic": "Implantable cardioverter-defibrillator",
     "difficulty": "Moderate",
@@ -11154,10 +11396,11 @@
     "title": "A client with an implantable cardioverter-defibrillator reports receiving one shock and is now alert without symptoms. What should the nurse advise?",
     "promptTitle": "Implantable cardioverter-defibrillator",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Implantable cardioverter-defibrillator, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Implantable cardioverter-defibrillator, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0079"
   },
   {
-    "id": "ADDED-0080",
+    "id": "QR-000237",
     "category": "Musculoskeletal",
     "topic": "Ventrogluteal injection",
     "difficulty": "Moderate",
@@ -11201,10 +11444,11 @@
     "title": "Why is the ventrogluteal site often preferred for an adult intramuscular injection when appropriate?",
     "promptTitle": "Ventrogluteal injection",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Ventrogluteal injection, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Ventrogluteal injection, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0080"
   },
   {
-    "id": "ADDED-0081",
+    "id": "QR-000238",
     "category": "Gastrointestinal",
     "topic": "Liver cirrhosis and asterixis",
     "difficulty": "Moderate",
@@ -11248,10 +11492,11 @@
     "title": "A client with cirrhosis develops confusion and a flapping tremor of the hands. Which complication should the nurse suspect?",
     "promptTitle": "Liver cirrhosis and asterixis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Liver cirrhosis and asterixis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Liver cirrhosis and asterixis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0081"
   },
   {
-    "id": "ADDED-0082",
+    "id": "QR-000239",
     "category": "Gastrointestinal",
     "topic": "Ulcerative colitis",
     "difficulty": "Moderate",
@@ -11295,10 +11540,11 @@
     "title": "Which finding in a client with ulcerative colitis requires the most urgent follow-up?",
     "promptTitle": "Ulcerative colitis",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Ulcerative colitis, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Ulcerative colitis, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0082"
   },
   {
-    "id": "ADDED-0083",
+    "id": "QR-000240",
     "category": "Infection",
     "topic": "Meningitis versus Guillain-Barré syndrome",
     "difficulty": "Moderate",
@@ -11342,10 +11588,11 @@
     "title": "A client has fever, severe headache, photophobia, and neck stiffness. Which condition is most concerning?",
     "promptTitle": "Meningitis versus Guillain-Barré syndrome",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Meningitis versus Guillain-Barré syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Meningitis versus Guillain-Barré syndrome, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0083"
   },
   {
-    "id": "ADDED-0084",
+    "id": "QR-000241",
     "category": "Respiratory",
     "topic": "CHF versus pneumonia",
     "difficulty": "Moderate",
@@ -11389,10 +11636,11 @@
     "title": "A client with dyspnea has bilateral crackles, elevated jugular venous pressure, peripheral edema, and a recent 3-kg weight gain. Which condition is most strongly supported?",
     "promptTitle": "CHF versus pneumonia",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for CHF versus pneumonia, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for CHF versus pneumonia, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0084"
   },
   {
-    "id": "ADDED-0085",
+    "id": "QR-000242",
     "category": "Psychiatric",
     "topic": "Delirium tremens",
     "difficulty": "Moderate",
@@ -11436,10 +11684,11 @@
     "title": "A client 72 hours after stopping heavy alcohol use develops severe agitation, disorientation, fever, and visual hallucinations. What is the priority?",
     "promptTitle": "Delirium tremens",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Delirium tremens, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Delirium tremens, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0085"
   },
   {
-    "id": "ADDED-0086",
+    "id": "QR-000243",
     "category": "Maternal-Newborn",
     "topic": "Preeclampsia with clonus",
     "difficulty": "Moderate",
@@ -11483,10 +11732,11 @@
     "title": "A client with preeclampsia has severe headache, hyperreflexia, sustained ankle clonus, and worsening blood pressure. What should the nurse do?",
     "promptTitle": "Preeclampsia with clonus",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Preeclampsia with clonus, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Preeclampsia with clonus, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0086"
   },
   {
-    "id": "ADDED-0087",
+    "id": "QR-000244",
     "category": "Leadership",
     "topic": "LPN assignment: dressing change",
     "difficulty": "Moderate",
@@ -11530,10 +11780,11 @@
     "title": "Which task is generally appropriate for the RN to assign to a competent LPN/LVN for a stable client, consistent with local scope and policy?",
     "promptTitle": "LPN assignment: dressing change",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for LPN assignment: dressing change, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for LPN assignment: dressing change, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0087"
   },
   {
-    "id": "ADDED-0088",
+    "id": "QR-000245",
     "category": "Leadership",
     "topic": "Float nurse from pediatrics to medical-surgical",
     "difficulty": "Moderate",
@@ -11577,10 +11828,11 @@
     "title": "A charge nurse must assign a pediatric nurse floated to a medical-surgical unit. Which client is the safest assignment if the nurse’s competencies are verified?",
     "promptTitle": "Float nurse from pediatrics to medical-surgical",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Float nurse from pediatrics to medical-surgical, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Float nurse from pediatrics to medical-surgical, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0088"
   },
   {
-    "id": "ADDED-0089",
+    "id": "QR-000246",
     "category": "Pediatrics",
     "topic": "School-age obesity prevention",
     "difficulty": "Moderate",
@@ -11624,10 +11876,11 @@
     "title": "Which intervention is most appropriate for a school-age child with obesity?",
     "promptTitle": "School-age obesity prevention",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for School-age obesity prevention, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for School-age obesity prevention, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0089"
   },
   {
-    "id": "ADDED-0090",
+    "id": "QR-000247",
     "category": "Infection",
     "topic": "Rubeola (measles)",
     "difficulty": "Moderate",
@@ -11671,10 +11924,11 @@
     "title": "A child with fever, cough, coryza, conjunctivitis, and a spreading rash is suspected of having measles. Which precautions are required?",
     "promptTitle": "Rubeola (measles)",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Rubeola (measles), explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Rubeola (measles), explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0090"
   },
   {
-    "id": "ADDED-0091",
+    "id": "QR-000248",
     "category": "Infection",
     "topic": "Respiratory syncytial virus",
     "difficulty": "Moderate",
@@ -11718,10 +11972,11 @@
     "title": "A hospitalized infant with RSV bronchiolitis is being cared for. Which infection-control approach is appropriate?",
     "promptTitle": "Respiratory syncytial virus",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Respiratory syncytial virus, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Respiratory syncytial virus, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0091"
   },
   {
-    "id": "ADDED-0092",
+    "id": "QR-000249",
     "category": "Infection",
     "topic": "Herpes zoster",
     "difficulty": "Moderate",
@@ -11765,10 +12020,11 @@
     "title": "A client has disseminated herpes zoster. Which precautions should the nurse initiate?",
     "promptTitle": "Herpes zoster",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Herpes zoster, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Herpes zoster, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0092"
   },
   {
-    "id": "ADDED-0093",
+    "id": "QR-000250",
     "category": "Infection",
     "topic": "Impetigo",
     "difficulty": "Moderate",
@@ -11812,10 +12068,11 @@
     "title": "A child is diagnosed with impetigo. Which teaching should the nurse provide to the caregivers?",
     "promptTitle": "Impetigo",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Impetigo, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Impetigo, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0093"
   },
   {
-    "id": "ADDED-0094",
+    "id": "QR-000251",
     "category": "Oncology",
     "topic": "Total laryngectomy communication",
     "difficulty": "Moderate",
@@ -11859,10 +12116,11 @@
     "title": "A client after total laryngectomy cannot speak and is frustrated. Which nursing action is best?",
     "promptTitle": "Total laryngectomy communication",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Total laryngectomy communication, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Total laryngectomy communication, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0094"
   },
   {
-    "id": "ADDED-0095",
+    "id": "QR-000252",
     "category": "Pharmacology",
     "topic": "Warfarin and feverfew",
     "difficulty": "Moderate",
@@ -11906,10 +12164,11 @@
     "title": "Which statement about herbal supplements is most important for a client taking warfarin?",
     "promptTitle": "Warfarin and feverfew",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Warfarin and feverfew, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Warfarin and feverfew, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0095"
   },
   {
-    "id": "ADDED-0096",
+    "id": "QR-000253",
     "category": "Cardiovascular",
     "topic": "ECG atrial fibrillation recognition",
     "difficulty": "Moderate",
@@ -11953,10 +12212,11 @@
     "title": "Which ECG feature is most characteristic of atrial fibrillation?",
     "promptTitle": "ECG atrial fibrillation recognition",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for ECG atrial fibrillation recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for ECG atrial fibrillation recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0096"
   },
   {
-    "id": "ADDED-0097",
+    "id": "QR-000254",
     "category": "Cardiovascular",
     "topic": "ECG sinus bradycardia recognition",
     "difficulty": "Moderate",
@@ -12000,10 +12260,11 @@
     "title": "Which ECG finding is consistent with sinus bradycardia?",
     "promptTitle": "ECG sinus bradycardia recognition",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for ECG sinus bradycardia recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for ECG sinus bradycardia recognition, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0097"
   },
   {
-    "id": "ADDED-0098",
+    "id": "QR-000255",
     "category": "Prioritization",
     "topic": "Mixed-patient prioritization",
     "difficulty": "Moderate",
@@ -12047,10 +12308,11 @@
     "title": "The nurse receives reports on four clients. Which client should be assessed first?",
     "promptTitle": "Mixed-patient prioritization",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Mixed-patient prioritization, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Mixed-patient prioritization, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0098"
   },
   {
-    "id": "ADDED-0099",
+    "id": "QR-000256",
     "category": "Prioritization",
     "topic": "Pulse oximeter",
     "difficulty": "Moderate",
@@ -12094,10 +12356,11 @@
     "title": "A client’s pulse oximeter suddenly reads 82%, but the client is talking comfortably and has cold fingers. What should the nurse do first?",
     "promptTitle": "Pulse oximeter",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Pulse oximeter, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Pulse oximeter, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0099"
   },
   {
-    "id": "ADDED-0100",
+    "id": "QR-000257",
     "category": "Emergency",
     "topic": "Long-bone fracture and fat embolism",
     "difficulty": "Moderate",
@@ -12153,10 +12416,11 @@
     "title": "A client with a femur fracture develops sudden dyspnea, confusion, tachycardia, and petechiae 24 hours after injury. Which actions are appropriate? Select all that apply.",
     "promptTitle": "Long-bone fracture and fat embolism",
     "instruction": "Select all options that apply.",
-    "learning_objective": "Identify the priority nursing response for Long-bone fracture and fat embolism, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Long-bone fracture and fat embolism, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0100"
   },
   {
-    "id": "ADDED-0101",
+    "id": "QR-000258",
     "category": "Pharmacology",
     "topic": "Medication teaching: benzodiazepines and alcohol",
     "difficulty": "Moderate",
@@ -12200,10 +12464,11 @@
     "title": "A client prescribed chlordiazepoxide for alcohol withdrawal asks whether alcohol can be used to help sleep. What should the nurse say?",
     "promptTitle": "Medication teaching: benzodiazepines and alcohol",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Medication teaching: benzodiazepines and alcohol, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Medication teaching: benzodiazepines and alcohol, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0101"
   },
   {
-    "id": "ADDED-0102",
+    "id": "QR-000259",
     "category": "Fundamentals",
     "topic": "Quantitative versus qualitative care",
     "difficulty": "Moderate",
@@ -12247,10 +12512,11 @@
     "title": "A unit compares the number of medication errors per 1,000 doses before and after a safety intervention. What type of measure is this?",
     "promptTitle": "Quantitative versus qualitative care",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for Quantitative versus qualitative care, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for Quantitative versus qualitative care, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0102"
   },
   {
-    "id": "ADDED-0103",
+    "id": "QR-000260",
     "category": "Maternal-Newborn",
     "topic": "VEAL CHOP fetal heart patterns",
     "difficulty": "Moderate",
@@ -12294,10 +12560,11 @@
     "title": "Which fetal heart rate pattern is most associated with uteroplacental insufficiency?",
     "promptTitle": "VEAL CHOP fetal heart patterns",
     "instruction": "Select the single best answer.",
-    "learning_objective": "Identify the priority nursing response for VEAL CHOP fetal heart patterns, explain the clinical risk addressed, and determine what findings require reassessment or escalation."
+    "learning_objective": "Identify the priority nursing response for VEAL CHOP fetal heart patterns, explain the clinical risk addressed, and determine what findings require reassessment or escalation.",
+    "legacyId": "ADDED-0103"
   },
   {
-    "id": "HTML-NGN-HF-001",
+    "id": "QR-000261",
     "category": "Cardiovascular & Hemodynamic Stability",
     "topic": "Acute decompensated heart failure with pulmonary edema",
     "difficulty": "Hard",
@@ -12363,10 +12630,11 @@
     },
     "title": "A 67-year-old client with HFrEF reports severe orthopnea and dyspnea at rest. Assessment reveals bilateral crackles, +3 peripheral edema, SpO₂ 87% on room air, and a 4-kg weight gain over 3 days. For each intervention, classify it as indicated, nonessential, or contraindicated.",
     "promptTitle": "Acute decompensated heart failure with pulmonary edema",
-    "learning_objective": "Recognize acute heart failure with pulmonary congestion, select interventions that support oxygenation and reduce fluid overload, and identify actions that may worsen respiratory distress."
+    "learning_objective": "Recognize acute heart failure with pulmonary congestion, select interventions that support oxygenation and reduce fluid overload, and identify actions that may worsen respiratory distress.",
+    "legacyId": "HTML-NGN-HF-001"
   },
   {
-    "id": "HTML-NGN-THY-002",
+    "id": "QR-000262",
     "category": "Endocrine & Postoperative Nursing",
     "topic": "Post-thyroidectomy hypocalcemia",
     "difficulty": "Hard",
@@ -12422,10 +12690,11 @@
     },
     "title": "Four hours after a total thyroidectomy, a client reports perioral numbness and tingling in the fingertips. Muscle twitching and a positive Chvostek sign are present; serum calcium is 6.8 mg/dL. Complete the clinical statement by selecting the best option for each blank.",
     "promptTitle": "Post-thyroidectomy hypocalcemia",
-    "learning_objective": "Identify symptomatic hypocalcemia after thyroidectomy, connect the findings to possible parathyroid dysfunction, and prioritize escalation and safe prescribed calcium replacement."
+    "learning_objective": "Identify symptomatic hypocalcemia after thyroidectomy, connect the findings to possible parathyroid dysfunction, and prioritize escalation and safe prescribed calcium replacement.",
+    "legacyId": "HTML-NGN-THY-002"
   },
   {
-    "id": "HTML-NGN-DKA-003",
+    "id": "QR-000263",
     "category": "Metabolic & Acute Endocrine Emergencies",
     "topic": "Diabetic ketoacidosis initial management",
     "difficulty": "Hard",
@@ -12485,10 +12754,11 @@
     },
     "title": "A 24-year-old client with newly diagnosed type 1 diabetes presents with lethargy, Kussmaul respirations, fruity breath, and dehydration. Blood pressure is 88/54 mmHg, heart rate 132/min, glucose 540 mg/dL, pH 7.15, bicarbonate 12 mEq/L, and potassium 4.9 mEq/L. Arrange the listed actions in the appropriate sequence for initial DKA management.",
     "promptTitle": "Diabetic ketoacidosis initial management",
-    "learning_objective": "Sequence initial DKA interventions according to circulatory status, electrolyte safety, insulin therapy, and prevention of hypoglycemia during continued treatment."
+    "learning_objective": "Sequence initial DKA interventions according to circulatory status, electrolyte safety, insulin therapy, and prevention of hypoglycemia during continued treatment.",
+    "legacyId": "HTML-NGN-DKA-003"
   },
   {
-    "id": "HTML-NGN-PE-004",
+    "id": "QR-000264",
     "category": "Cardiovascular & Pulmonary Embolism",
     "topic": "Acute pulmonary embolism after hip arthroplasty",
     "difficulty": "Hard",
@@ -12550,7 +12820,8 @@
     },
     "title": "On postoperative day 3 after total hip arthroplasty, a client develops sudden pleuritic chest pain, severe dyspnea, anxiety, and scant hemoptysis. Blood pressure is 92/58 mmHg, heart rate 124/min, respiratory rate 32/min, and SpO₂ 85% on room air. CT pulmonary angiography shows a filling defect in the right main pulmonary artery. Complete the bowtie by selecting the most likely condition, two actions, and two parameters to monitor.",
     "promptTitle": "Acute pulmonary embolism after hip arthroplasty",
-    "learning_objective": "Recognize acute pulmonary embolism after orthopedic surgery, choose immediate stabilization and prescribed treatment actions, and identify respiratory and hemodynamic parameters requiring close monitoring."
+    "learning_objective": "Recognize acute pulmonary embolism after orthopedic surgery, choose immediate stabilization and prescribed treatment actions, and identify respiratory and hemodynamic parameters requiring close monitoring.",
+    "legacyId": "HTML-NGN-PE-004"
   }
 ];
   if (typeof window !== "undefined") window.questions = data;
