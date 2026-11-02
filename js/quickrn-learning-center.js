@@ -35,37 +35,19 @@ pharm:{
 }
 };
 
-// Curated RegisteredNurseRN lecture playlists (not the channel uploads feed).
-// Playlist IDs are linked from the educator's nursing video index.
-const VIDEO_PLAYLISTS={
-  general:{name:'NCLEX Review Lectures',id:'PLQrdx7rRsKfWwTsEG3KPPQx9rWa8AqMIk'},
-  pediatric:{name:'Pediatric Nursing',id:'PLQrdx7rRsKfXmfA3CoozS5N767bLpnrbm'},
-  fundamentals:{name:'Nursing Fundamentals',id:'PLQrdx7rRsKfV7rYMLXUs8L8IJAbDecClE'},
-  cardiovascular:{name:'Medical-Surgical Cardiovascular',id:'PLQrdx7rRsKfUB0GvScYEb9ILzg5mZQ7m7'},
-  renal:{name:'Medical-Surgical Renal',id:'PLQrdx7rRsKfUBQ80h1YhmXlnMCv7tJPsL'},
-  respiratory:{name:'Medical-Surgical Respiratory',id:'PLQrdx7rRsKfUumcstoW1ru6t8onTa5rGL'},
-  endocrine:{name:'Medical-Surgical Endocrine',id:'PLQrdx7rRsKfVqW-S8Lj7cHEI1Cyh8y6qP'},
-  pharmacology:{name:'Nursing Pharmacology',id:'PLQrdx7rRsKfWpel1Ymwd9IQe0noyzAjeS'},
-  medication:{name:'Medication Administration',id:'PLQrdx7rRsKfWnUmBHphXkW4m4aiRTIzkG'},
-  maternity:{name:'Maternity Nursing',id:'PLQrdx7rRsKfXiZ3a-IbRaUJXMa8mXyuOL'},
-  ekg:{name:'EKG/ECG Interpretation',id:'PLQrdx7rRsKfU-A9UTclI0tOYrNJ1N5SNt'},
-  fluids:{name:'Fluid and Electrolytes',id:'PLQrdx7rRsKfWJSZ9pL8L3Q1dzdlxUzeKv'}
-};
-function recommendedPlaylist(topicName){
-  const item=allTopics().find(x=>x.topic===topicName);
-  const text=(topicName+' '+(item?.system||'')).toLowerCase();
-  if(item?.category==='child')return 'pediatric';
-  if(item?.category==='pharm')return /medication|dosage|administration|safety|reconciliation/.test(text)?'medication':'pharmacology';
-  if(/ecg|ekg|dysrhythmia|arrhythmia/.test(text))return 'ekg';
-  if(/fluid|electrolyte|dehydration|sodium|potassium/.test(text))return 'fluids';
-  if(/maternity|pregnan|newborn|obstetric/.test(text))return 'maternity';
-  if(/cardiovascular|heart|cardiac|hypertension|coronary/.test(text))return 'cardiovascular';
-  if(/renal|urinary|kidney|dialysis/.test(text))return 'renal';
-  if(/respiratory|copd|asthma|pneumonia|pulmonary/.test(text))return 'respiratory';
-  if(/endocrine|diabetes|thyroid|adrenal|dk[a-z]/.test(text))return 'endocrine';
-  if(/fundamental|assessment|vital signs|infection control/.test(text))return 'fundamentals';
-  return 'general';
-};
+// Provider-specific searches are built from the exact selected lesson topic.
+// Search results are opened on the provider site; no API key or scraping is required.
+const VIDEO_PROVIDERS=[
+  {id:'registerednursern',label:'RegisteredNurseRN',kind:'youtube',query:'RegisteredNurseRN'},
+  {id:'simplenursing',label:'Simple Nursing',kind:'youtube',query:'SimpleNursing'},
+  {id:'picmonic',label:'Picmonic',kind:'web',query:'site:picmonic.com nursing'}
+];
+function providerSearchUrl(provider,topicName){
+  const lesson=topicName+' nursing';
+  const q=provider.kind==='youtube'?provider.query+' '+lesson:provider.query+' '+lesson;
+  const base=provider.kind==='youtube'?'https://www.youtube.com/results?search_query=':'https://www.google.com/search?q=';
+  return base+encodeURIComponent(q);
+}
 
 let topic='',recognition=null;
 const $=id=>document.getElementById(id);
@@ -96,12 +78,15 @@ function showVideoMessage(message){
 }
 
 function playTopicPlaylist(topicText) {
-  const playlistKey=recommendedPlaylist(topicText);
-  const playlist=VIDEO_PLAYLISTS[playlistKey]||VIDEO_PLAYLISTS.general;
-  const embedUrl='https://www.youtube-nocookie.com/embed/videoseries?list='+playlist.id+'&autoplay=1&mute=1&playsinline=1&rel=0';
+  const lesson=allTopics().find(x=>x.topic===topicText);
+  const exactTopic=lesson?lesson.topic:topicText;
+  const providerLinks=VIDEO_PROVIDERS.map(provider=>{
+    const href=providerSearchUrl(provider,exactTopic);
+    return '<a class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:border-purple-400 hover:text-purple-700" href="'+safe(href)+'" target="_blank" rel="noopener noreferrer">'+safe(provider.label)+' <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>';
+  }).join('');
   $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="'+embedUrl+'" title="'+safe(playlist.name)+' nursing lecture playlist" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-  $('player-caption').textContent='Curated full-lesson playlist: '+playlist.name+' · Topic: '+topicText+'. Autoplay starts muted; select a lesson in the playlist if needed.';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-base font-bold">'+safe(exactTopic)+'</p><p class="max-w-lg text-xs text-white/70">Choose a provider below to find lessons for this exact topic. Results open on the provider site because their search pages do not support reliable in-page embedding.</p><div class="flex flex-wrap justify-center gap-2">'+providerLinks+'</div></div>';
+  $('player-caption').textContent='Video resources for: '+exactTopic;
 }
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
@@ -130,5 +115,5 @@ $('voice-notes').addEventListener('click',()=>{
 renderSystems();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
-else selectTopic("Heart failure"); // Load a curated long-form nursing lecture playlist
+else selectTopic("Heart failure"); // Show topic-matched provider options
 })();
