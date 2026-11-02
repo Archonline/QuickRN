@@ -10,8 +10,10 @@ vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{timeout:120000,filename
 let bank=context.questions||context.embeddedQuestionsData||context.questionBank||context.window.questions||context.window.embeddedQuestionsData;
 if(!Array.isArray(bank)){for(const name of ['questions','embeddedQuestionsData','questionBank']){try{const candidate=vm.runInNewContext(name,context);if(Array.isArray(candidate)){bank=candidate;break;}}catch{}}}
 if(!Array.isArray(bank)){console.error('Could not locate a questions array in '+file);process.exit(3);}
-// Include the supplemental formats used by the live exam pages.
+// Mirror the production exam-page sequence, including the six-item shared case-study add-on.
 context.window=context;context.questions=bank;
+const caseStudyAddon=path.resolve(__dirname,'../js/quickrn-ngn-case-study-addon.js');
+if(fs.existsSync(caseStudyAddon))vm.runInNewContext(fs.readFileSync(caseStudyAddon,'utf8'),context,{timeout:30000,filename:caseStudyAddon});
 const supplement=path.resolve(__dirname,'../questions-ngn-supplement.js');
 if(fs.existsSync(supplement))vm.runInNewContext(fs.readFileSync(supplement,'utf8'),context,{timeout:30000,filename:supplement});
 const v2Bank=path.resolve(__dirname,'../questions-bank-v2.js');
@@ -95,7 +97,7 @@ for(let i=0;i<bank.length;i++){
  }
 
  if(!String(q.title||q.questionText||q.question||q.cleanTitle||'').trim())issue('MISSING_PROMPT','No usable title or prompt');
- if(q.caseGroupId){const scenario=q.caseStudy&&q.caseStudy.scenario;if(!String(scenario||'').trim())issue('CASE_SCENARIO_MISSING','Linked case question must reference a separately stored case scenario');if(!Number.isInteger(Number(q.caseQuestionNumber))||Number(q.caseQuestionNumber)<1)issue('CASE_SEQUENCE_MISSING','Linked case question must have a positive sequence number');}
+ if(q.caseGroupId){const scenario=q.caseStudyContext?.scenario||q.caseStudy?.scenario||q.case_study?.scenario||q.scenario||q.clinicalScenario;if(!String(scenario||'').trim())issue('CASE_SCENARIO_MISSING','Linked case question must reference a separately stored case scenario');if(!Number.isInteger(Number(q.caseQuestionNumber))||Number(q.caseQuestionNumber)<1)issue('CASE_SEQUENCE_MISSING','Linked case question must have a positive sequence number');}
  if(['Single Choice','Trend','Select N'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
  if(['Multiple Response','Extended Multiple Response'].includes(f)&&(!Array.isArray(q.options)||!q.options.length||!(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))))issue('INVALID_MULTI_SCHEMA','Expected options and array answer key');
