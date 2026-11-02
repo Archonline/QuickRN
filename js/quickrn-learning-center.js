@@ -35,58 +35,46 @@ pharm:{
 }
 };
 
-// Provider-specific searches are built from the exact selected lesson topic.
-// Search results are opened on the provider site; no API key or scraping is required.
+// Only verified, topic-specific video IDs belong in this catalog.
+// Missing entries intentionally show an unavailable placeholder instead of unrelated content.
 const VIDEO_PROVIDERS=[
-  {id:'registerednursern',label:'RegisteredNurseRN',kind:'youtube',query:'RegisteredNurseRN'},
-  {id:'simplenursing',label:'Simple Nursing',kind:'youtube',query:'SimpleNursing'},
-  {id:'picmonic',label:'Picmonic',kind:'web',query:'site:picmonic.com nursing'}
+  {id:'registerednursern',label:'RegisteredNurseRN'},
+  {id:'simplenursing',label:'Simple Nursing'},
+  {id:'picmonic',label:'Picmonic'}
 ];
-function providerSearchUrl(provider,topicName){
-  const lesson=topicName+' nursing';
-  const q=provider.kind==='youtube'?provider.query+' '+lesson:provider.query+' '+lesson;
-  const base=provider.kind==='youtube'?'https://www.youtube.com/results?search_query=':'https://www.google.com/search?q=';
-  return base+encodeURIComponent(q);
-}
-
-let topic='',recognition=null;
-const $=id=>document.getElementById(id);
-const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const noteKey=()=> 'quickrn_learning_notes_v1';
-function allTopics(){return Object.entries(DATA).flatMap(([category,systems])=>Object.entries(systems).flatMap(([system,topics])=>topics.map(topic=>({category,system,topic}))));}
-
-function selectTopic(value){
-  topic=value;
-  $('notes-topic').textContent=value;
-  $('topic-notes').value=loadNotes()[value]||'';
-  playTopicPlaylist(value);
-}
-
-function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {}}}
-function saveNotes(){const notes=loadNotes();notes[topic||'General']= $('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
-
-function renderSystems(){
-  const groups=allTopics().reduce((acc,item)=>{const label=item.category==='child'?'Child Health':item.category==='adult'?'Adult Health':'Pharmacology';const key=label+' · '+item.system;(acc[key]||(acc[key]=[])).push(item.topic);return acc;},{});
-  const total=Object.values(groups).reduce((n,a)=>n+a.length,0);
-  $('topic-count').textContent=total+' topics';
-  $('system-list').innerHTML=Object.entries(groups).map(([system,topics],i)=>'<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-4 py-3 font-bold text-sm flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-xs font-normal text-slate-500">'+topics.length+' topics</span></summary><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>').join('');
-}
-
+const TOPIC_VIDEOS={};
+let selectedProvider='registerednursern';
 function showVideoMessage(message){
-  $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<div class="w-full h-full flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-solid fa-circle-play text-4xl text-slate-400"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
-
-function playTopicPlaylist(topicText) {
+function renderProviderButtons(topicText){
+  const host=$('video-provider-controls');
+  if(!host)return;
+  host.innerHTML=VIDEO_PROVIDERS.map(provider=>'<button type="button" class="video-provider-button'+(provider.id===selectedProvider?' is-selected':'')+'" data-provider="'+provider.id+'" aria-pressed="'+(provider.id===selectedProvider?'true':'false')+'">'+safe(provider.label)+'</button>').join('');
+  host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
+    selectedProvider=button.dataset.provider;
+    renderProviderButtons(topicText);
+    loadTopicVideo(topicText,selectedProvider);
+  }));
+}
+function loadTopicVideo(topicText,providerId){
+  const lesson=allTopics().find(x=>x.topic===topicText);
+  const canonical=lesson?lesson.topic:topicText;
+  const videoId=TOPIC_VIDEOS[canonical]&&TOPIC_VIDEOS[canonical][providerId];
+  if(!videoId){
+    showVideoMessage('Video not available for this topic from '+(VIDEO_PROVIDERS.find(p=>p.id===providerId)?.label||'this provider')+'. Please select another provider.');
+    $('player-caption').textContent='No verified video available for: '+canonical;
+    return;
+  }
+  // A catalog entry must be a verified YouTube video ID; playback starts automatically.
+  $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(videoId)+'?autoplay=1&rel=0" title="'+safe(canonical)+' - '+safe(providerId)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+  $('player-caption').textContent='Now playing: '+canonical+' · '+(VIDEO_PROVIDERS.find(p=>p.id===providerId)?.label||providerId);
+}
+function playTopicPlaylist(topicText){
   const lesson=allTopics().find(x=>x.topic===topicText);
   const exactTopic=lesson?lesson.topic:topicText;
-  const providerLinks=VIDEO_PROVIDERS.map(provider=>{
-    const href=providerSearchUrl(provider,exactTopic);
-    return '<a class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:border-purple-400 hover:text-purple-700" href="'+safe(href)+'" target="_blank" rel="noopener noreferrer">'+safe(provider.label)+' <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i></a>';
-  }).join('');
-  $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-base font-bold">'+safe(exactTopic)+'</p><p class="max-w-lg text-xs text-white/70">Choose a provider below to find lessons for this exact topic. Results open on the provider site because their search pages do not support reliable in-page embedding.</p><div class="flex flex-wrap justify-center gap-2">'+providerLinks+'</div></div>';
-  $('player-caption').textContent='Video resources for: '+exactTopic;
+  renderProviderButtons(exactTopic);
+  loadTopicVideo(exactTopic,selectedProvider);
 }
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
