@@ -5,7 +5,7 @@
   "format": "QuickRN question-bank canonical draft v1",
   "items": [
     {
-      "id": "QR-000481",
+      "id": "QR-000356",
       "type": "Single Choice",
       "category": "Adult Health",
       "topic": "Acute aortic dissection",
@@ -13,10 +13,11 @@
       "content": "Activate emergency evaluation and prepare for rapid blood pressure and heart-rate control as prescribed.",
       "rationale": "Abrupt tearing pain and unequal arm pressures suggest aortic dissection. This is a vascular emergency requiring urgent imaging and controlled reduction of shear stress.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000481"
     },
     {
-      "id": "QR-000482",
+      "id": "QR-000357",
       "type": "Multiple Response",
       "category": "Adult Health",
       "topic": "Peritoneal dialysis peritonitis",
@@ -24,10 +25,11 @@
       "content": "Notify the dialysis team promptly; collect effluent for cell count and culture as prescribed; assess temperature and abdominal findings; administer prescribed intraperitoneal antimicrobials.",
       "rationale": "Cloudy dialysate and abdominal pain suggest peritonitis. Prompt specimen collection and antimicrobial treatment are important to preserve peritoneal function and prevent sepsis.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000482"
     },
     {
-      "id": "QR-000483",
+      "id": "QR-000358",
       "type": "Select N",
       "category": "Fundamentals",
       "topic": "Aspiration prevention",
@@ -35,10 +37,11 @@
       "content": "Keep the client upright at 90 degrees; follow the prescribed texture and liquid consistency; check for pocketing and maintain upright positioning after meals.",
       "rationale": "Upright posture, prescribed consistency, and checking for retained food reduce aspiration. Oral intake should begin only after an appropriate swallow assessment.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000483"
     },
     {
-      "id": "QR-000484",
+      "id": "QR-000359",
       "type": "Matrix Single",
       "category": "Adult Health",
       "topic": "Arterial versus venous disease",
@@ -46,10 +49,11 @@
       "content": "rows:leg pain with walking relieved by rest;brown ankle discoloration with edema;cool foot with diminished pulses|columns:peripheral arterial disease;chronic venous insufficiency|answers:leg pain with walking relieved by rest=peripheral arterial disease;brown ankle discoloration with edema=chronic venous insufficiency;cool foot with diminished pulses=peripheral arterial disease",
       "rationale": "Intermittent claudication, coolness, and diminished pulses suggest arterial insufficiency. Dependent edema and brown gaiter-area pigmentation are characteristic of chronic venous disease.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000484"
     },
     {
-      "id": "QR-000485",
+      "id": "QR-000360",
       "type": "Cloze (Drop-down)",
       "category": "Adult Health",
       "topic": "Thyroid storm",
@@ -57,10 +61,11 @@
       "content": "thyroid storm|beta blocker and antithyroid therapy|cardiovascular",
       "rationale": "Thyroid storm is life-threatening thyrotoxicosis. Treatment includes supportive cooling, beta blockade, antithyroid medication, and close cardiovascular monitoring.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000485"
     },
     {
-      "id": "QR-000486",
+      "id": "QR-000361",
       "type": "Bowtie",
       "category": "Adult Health",
       "topic": "Acute upper GI bleeding",
@@ -68,10 +73,11 @@
       "content": "condition:acute upper gastrointestinal hemorrhage|actions:establish large-bore IV access and initiate prescribed resuscitation;prepare for urgent endoscopy and prescribed vasoactive therapy if variceal bleeding is suspected|monitor:hemodynamic status;hemoglobin and ongoing blood loss",
       "rationale": "Hematemesis with shock in cirrhosis suggests major upper GI bleeding, potentially variceal. Resuscitation and urgent definitive evaluation are required; monitor perfusion and blood loss.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000486"
     },
     {
-      "id": "QR-000487",
+      "id": "QR-000362",
       "type": "Highlight",
       "category": "Adult Health",
       "topic": "Meningococcemia",
@@ -79,10 +85,11 @@
       "content": "segments:rapidly spreading nonblanching petechiae|severe headache and neck stiffness|mild seasonal sneezing|hypotension|cool mottled extremities|correct:1,2,4,5",
       "rationale": "A rapidly spreading purpuric rash, meningismus, hypotension, and poor perfusion can indicate meningococcal sepsis. Immediate isolation, antimicrobials, and resuscitation are essential.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000487"
     },
     {
-      "id": "QR-000488",
+      "id": "QR-000363",
       "type": "Numeric Entry",
       "category": "Adult Health",
       "topic": "Oral medication calculation",
@@ -90,10 +97,11 @@
       "content": "3|tablets|0",
       "rationale": "750 mg ÷ 250 mg per tablet = 3 tablets. Verify the formulation and whether the prescribed dose is within the safe range.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000488"
     },
     {
-      "id": "QR-000489",
+      "id": "QR-000364",
       "type": "Trend",
       "category": "Adult Health",
       "topic": "Digoxin and potassium risk",
@@ -101,7 +109,8 @@
       "content": "The client is at increased risk for digoxin toxicity and dysrhythmia; withhold the dose and escalate for urgent evaluation.",
       "rationale": "Falling potassium increases myocardial sensitivity to digoxin. New nausea and bradycardia are concerning for toxicity and require withholding the dose, ECG assessment, and urgent review.",
       "batch": 1,
-      "reviewStatus": "needs_clinical_review"
+      "reviewStatus": "needs_clinical_review",
+      "legacyId": "QR-000489"
     }
   ]
 }
