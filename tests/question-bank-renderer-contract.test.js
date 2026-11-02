@@ -7,6 +7,7 @@ for(const file of [
  'questions-ngn-supplement.js',
  'questions-bank-v2.js',
  'questions-bank-v2-curated.js',
+ 'questions-bank-v3-clinical.js',
  'js/quickrn-question-bank-normalizer.js',
  'js/quickrn-question-id-normalizer.js',
  'js/shared-exam-renderer.js'

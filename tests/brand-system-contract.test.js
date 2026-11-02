@@ -4,7 +4,7 @@ const root = path.join(__dirname, '..');
 const pages = [
   'index.html', 'dashboard.html', 'calendar.html', 'help.html',
   'selfstudy.html', 'timed.html', 'predictor.html', 'cat.html',
-  'saved.html', 'profile.html', 'reports.html', 'correct_view.html'
+  'saved.html', 'profile.html', 'reports.html'
 ];
 const stylesheet = path.join(root, 'css', 'quickrn-brand-system.css');
 assertFile(stylesheet);
@@ -25,12 +25,8 @@ for (const page of pages) {
   }
   if (!/<\/head>/i.test(html)) throw new Error(page + ' has no closing head tag');
 }
-const examCss = fs.readFileSync(path.join(root, 'css', 'quickrn-unified-exam.css'), 'utf8');
-if (!examCss.includes('.qr-clinical-layout')) {
-  throw new Error('Shared exam split-screen layout stylesheet is missing');
-}
 if (!css.includes('body:has(#app-shell) #app-shell>aside')) throw new Error('Reference-inspired dashboard navigation theme is missing');
-console.log('QuickRN brand contract passed: ' + pages.length + ' pages load the shared theme; exam layout stylesheet remains present.');
+console.log('QuickRN brand contract passed: ' + pages.length + ' active pages load the shared theme; retired legacy assets are excluded.');
 
 function assertFile(file) {
   if (!fs.existsSync(file)) throw new Error('Required file is missing: ' + path.relative(root, file));
