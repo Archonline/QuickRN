@@ -26,6 +26,9 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .learning-layout>aside,.learning-layout>section,.learning-workspace main>section{min-width:0}
 .learning-video-card,.learning-notes-card{height:100%;min-height:560px}
 .learning-video-card{display:flex;flex-direction:column}
+.video-provider-button{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;transition:background .15s,border-color .15s,color .15s}
+.video-provider-button:hover{border-color:#087f8c;color:#087f8c}
+.video-provider-button.is-selected{background:#087f8c;border-color:#087f8c;color:#fff;box-shadow:0 0 0 2px rgba(8,127,140,.16)}
 #player-shell{flex:1;min-height:420px;height:auto;aspect-ratio:auto}
 #player-shell>div{min-height:100%}
 .learning-notes-card{display:flex;flex-direction:column}
@@ -69,6 +72,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <div class="rounded-2xl border bg-white p-4 space-y-3">
 <div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Select a topic to find matching videos from your preferred provider.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
 <div class="rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a provider to find a lesson for this topic.</p><p class="text-xs mt-1 text-white/50">A verified, embeddable YouTube lesson will load automatically when you select a topic.</p></div></div>
+<div id="video-provider-controls" class="flex flex-wrap items-center gap-2 pt-1" aria-label="Choose video provider"></div>
 </div>
 </section>
 <aside class="learning-notes-card rounded-2xl border bg-white p-4 space-y-3 min-w-0">
