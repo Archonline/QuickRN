@@ -1,14 +1,79 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feedback Inbox | QuickRN</title><link rel="stylesheet" href="css/quickrn-brand-system.css"><style>
-body{margin:0;background:#f5f7fb;color:#182338;font:14px Inter,system-ui,sans-serif}header{background:#182338;color:white;padding:18px 24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}main{max-width:1100px;margin:28px auto;padding:0 18px}.panel,.report{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:14px}h1{font-size:22px;margin:0 0 6px}.muted{color:#64748b;font-size:12px;line-height:1.6}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}button,.button{border:0;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer;background:#164e63;color:white;font-size:12px}.secondary{background:#e8edf3;color:#253247}button.danger{background:#fff0f0;color:#a21c35}input,select{padding:9px;border:1px solid #cbd5e1;border-radius:9px;background:white;max-width:100%}.report-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.pill{display:inline-block;border-radius:20px;padding:4px 8px;background:#eff6ff;color:#1e40af;font-size:11px;font-weight:700}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f8fafc;padding:10px;border-radius:8px;font-size:12px}@media(max-width:600px){header{padding:14px}main{margin:16px auto}.panel{padding:14px}}</style></head><body>
-<header><div><strong>QuickRN · Feedback Inbox</strong><div class="muted" style="color:#cbd5e1">Local review workspace</div></div><a href="dashboard.html" style="color:white">← Dashboard</a></header>
-<main><section class="panel"><h1>Beta feedback inbox</h1><p class="muted">This page reads reports saved in this browser only. Tester reports from other devices are not automatically synchronized. Ask testers to download their feedback JSON and import it here. Imported reports remain in this browser until exported or backed up.</p><div class="toolbar"><strong id="count">0 reports</strong><span class="muted" id="source-count"></span><button id="export">Export all JSON</button><button class="secondary" id="export-csv">Export CSV</button><label class="button secondary" for="import-file">Import tester reports</label><input id="import-file" type="file" accept=".json,application/json" multiple hidden><button class="danger" id="clear">Clear inbox</button></div></section>
-<section class="panel"><div class="toolbar"><input id="search" type="search" placeholder="Search feedback, question ID, details…" style="flex:1;min-width:220px"><select id="status"><option value="all">All statuses</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="resolved">Resolved</option></select><select id="category"><option value="all">All categories</option></select></div><div id="reports" aria-live="polite"></div></section></main>
-<script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feedback Inbox | QuickRN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/quickrn-brand-system.css">
+  <style>
+    body{margin:0;min-height:100vh;background:var(--qr-brand-bg,#f4f7fa);color:var(--qr-brand-ink,#263746);font:14px Inter,system-ui,sans-serif}
+    body>header{height:64px;min-height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;background:#16324f!important;border-bottom:1px solid #294b62!important;color:#fff!important}
+    .feedback-header-title{display:flex;align-items:center;gap:12px;min-width:0}
+    .feedback-header-title .eyebrow{margin:0 0 3px;color:#b9cbd8;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .feedback-header-title h1{margin:0;color:#fff;font-size:17px;font-weight:800;line-height:1.25}
+    .feedback-header-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#0f7c78;color:#fff}
+    .feedback-header-link{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.24);border-radius:9px;color:#fff;text-decoration:none;font-size:12px;font-weight:700}
+    .feedback-header-link:hover{background:rgba(255,255,255,.1)}
+    main{width:min(1100px,100%);box-sizing:border-box;margin:0 auto;padding:28px 24px 48px}
+    .panel,.report{background:#fff;border:1px solid var(--qr-brand-border,#d9e2ea);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(16,38,61,.04)}
+    .panel h2{font-size:18px;line-height:1.3;font-weight:800;margin:0 0 7px;color:#263746}
+    .muted{color:#647789;font-size:12px;line-height:1.65}
+    .toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
+    button,.button{border:0;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer;background:#0f7c78;color:#fff;font-size:12px}
+    button:hover,.button:hover{filter:brightness(.96)}
+    .secondary{background:#e8f3f2;color:#164c4a}
+    button.danger{background:#fff0f0;color:#a21c35}
+    input,select{padding:10px 11px;border:1px solid #d9e2ea;border-radius:9px;background:#fff;color:#263746;font:inherit;font-size:12px;max-width:100%}
+    input:focus,select:focus,button:focus-visible,a:focus-visible{outline:3px solid rgba(15,124,120,.3);outline-offset:2px}
+    .report-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#e8f3f2;color:#0b625f;font-size:10px;font-weight:800;letter-spacing:.04em}
+    .report>p:not(.muted){line-height:1.65;overflow-wrap:anywhere}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f4f7fa;padding:12px;border-radius:8px;font-size:12px}
+    @media(max-width:767px){body>header{padding:0 15px}main{padding:18px 14px 32px}.panel,.report{padding:15px}.feedback-header-title .eyebrow{font-size:9px}}
+    @media(max-width:420px){.feedback-header-link span{display:none}.feedback-header-link{padding:9px 10px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="feedback-header-title">
+      <span class="feedback-header-icon"><i class="fa-solid fa-inbox" aria-hidden="true"></i></span>
+      <div><p class="eyebrow">QuickRN / Support</p><h1>Feedback Inbox</h1></div>
+    </div>
+    <a class="feedback-header-link" href="dashboard.html"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Dashboard</span></a>
+  </header>
+  <main>
+    <section class="panel">
+      <h2>Beta feedback inbox</h2>
+      <p class="muted">This page reads reports saved in this browser only. Tester reports from other devices are not automatically synchronized. Ask testers to download their feedback JSON and import it here. Imported reports remain in this browser until exported or backed up.</p>
+      <div class="toolbar">
+        <strong id="count">0 reports</strong><span class="muted" id="source-count"></span>
+        <button id="export"><i class="fa-solid fa-download" aria-hidden="true"></i> Export all JSON</button>
+        <button class="secondary" id="export-csv"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Export CSV</button>
+        <label class="button secondary" for="import-file"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Import tester reports</label>
+        <input id="import-file" type="file" accept=".json,application/json" multiple hidden>
+        <button class="danger" id="clear"><i class="fa-solid fa-trash" aria-hidden="true"></i> Clear inbox</button>
+      </div>
+    </section>
+    <section class="panel">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search feedback, question ID, details…" aria-label="Search feedback" style="flex:1;min-width:220px">
+        <select id="status" aria-label="Filter by status"><option value="all">All statuses</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="resolved">Resolved</option></select>
+        <select id="category" aria-label="Filter by category"><option value="all">All categories</option></select>
+      </div>
+      <div id="reports" aria-live="polite"></div>
+    </section>
+  </main>
+  <script>
 (function(){'use strict';const KEY='quickrn_question_reports',$=id=>document.getElementById(id);const read=()=>{try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}};const write=x=>{try{localStorage.setItem(KEY,JSON.stringify(x));return true}catch(_){alert('Browser storage is full or unavailable. Export the inbox before continuing.');return false}};const node=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=String(txt);return e};
 function render(){const data=read();$('count').textContent=data.length+' report(s)';$('source-count').textContent='Stored on this browser · not shared';const cats=[...new Set(data.map(r=>r.reason||'General feedback'))].sort(),chosen=$('category').value;$('category').replaceChildren(new Option('All categories','all'),...cats.map(c=>new Option(c,c)));if(cats.includes(chosen))$('category').value=chosen;const term=$('search').value.toLowerCase(),st=$('status').value,cat=$('category').value;const list=data.map((r,i)=>({...r,__index:i})).filter(r=>[r.id,r.reason,r.details,r.mode,r.question?.id,r.question?.prompt,r.page].join(' ').toLowerCase().includes(term)&&(st==='all'||(r.reviewStatus||'new')===st)&&(cat==='all'||(r.reason||'General feedback')===cat)).sort((a,b)=>String(b.reportedAt||'').localeCompare(String(a.reportedAt||'')));const root=$('reports');root.replaceChildren();if(!list.length){root.append(node('p','muted','No feedback matches these filters.'));return}for(const r of list){const card=node('article','report'),head=node('div','report-head'),left=node('div'),actions=node('div','toolbar');left.append(node('strong','',r.reason||'General feedback'),node('div','muted',(r.question?.id?'Question '+r.question.id+' · ':'')+(r.mode||'Unknown mode')+' · '+(r.reportedAt||'Unknown date')));actions.append(node('span','pill',(r.reviewStatus||'new').toUpperCase()));const sel=node('select');[['new','New'],['reviewed','Reviewed'],['resolved','Resolved']].forEach(([v,l])=>sel.add(new Option(l,v)));sel.value=r.reviewStatus||'new';sel.onchange=()=>{const all=read();all[r.__index].reviewStatus=sel.value;write(all);render()};const del=node('button','danger','Delete');del.onclick=()=>{if(confirm('Delete this report from this browser inbox?')){const all=read();all.splice(r.__index,1);write(all);render()}};actions.append(sel,del);head.append(left,actions);const detail=node('p','',r.details||'No details supplied');detail.style.whiteSpace='pre-wrap';card.append(head,detail,node('p','muted','Report '+(r.id||'—')+' · '+(r.page||'—')));if(r.question?.prompt){const d=node('details'),s=node('summary','Question snapshot'),p=node('pre','',r.question.prompt);d.append(s,p);card.append(d)}root.append(card)}}
 function download(name,data,type){const url=URL.createObjectURL(new Blob([data],{type})),a=node('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
 $('export').onclick=()=>download('quickrn-feedback-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(read(),null,2),'application/json');$('export-csv').onclick=()=>{const rows=[['id','reason','details','mode','questionId','reportedAt','reviewStatus','page'],...read().map(r=>[r.id,r.reason,r.details,r.mode,r.question?.id,r.reportedAt,r.reviewStatus||'new',r.page])];download('quickrn-feedback.csv',rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n'),'text/csv')};
 $('import-file').onchange=async e=>{let all=read(),added=0;for(const file of [...e.target.files]){try{const p=JSON.parse(await file.text()),batch=Array.isArray(p)?p:(Array.isArray(p.reports)?p.reports:[p]);for(const r of batch)if(r&&typeof r==='object'&&r.id&&!all.some(x=>x.id===r.id)){all.push({...r,reviewStatus:r.reviewStatus||'new'});added++}}catch(_){alert('Could not import '+file.name+'.')}}if(write(all))alert(added+' new report(s) imported.');e.target.value='';render()};$('clear').onclick=()=>{if(confirm('Clear every report from this browser inbox? Export first if needed.')){write([]);render()}};['search','status','category'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',render));render()})();
-</script>        <script src="js/quickrn-sidebar.js"></script>
-<script src="js/quickrn-platform-hardening.js"></script>
-</body></html>
+</script>
+  <script src="js/quickrn-sidebar.js"></script>
+  <script src="js/quickrn-platform-hardening.js"></script>
+</body>
+</html>
