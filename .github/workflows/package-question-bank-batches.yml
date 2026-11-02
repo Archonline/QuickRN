@@ -1,0 +1,43 @@
+name: Package question-bank batches
+
+on:
+  push:
+    branches:
+      - question-bank-4500-rebuild
+    paths:
+      - "question-bank-rebuild/batches/**"
+      - ".github/workflows/package-question-bank-batches.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Build ZIP of canonical batch files
+        run: |
+          mkdir -p dist/question-bank-batches
+          cp question-bank-rebuild/batches/qr-batch-*.json dist/question-bank-batches/
+          cat > dist/question-bank-batches/README.txt <<'EOF'
+          QuickRN question-bank rebuild batches
+          
+          This archive contains the canonical 100-question batch JSON files currently
+          present in question-bank-rebuild/batches. Split part files are intentionally
+          excluded to avoid duplicate records.
+          
+          These are rebuild/source records, not a declaration that all items are
+          clinically reviewed or production-ready. Review status is recorded per item.
+          EOF
+          cd dist
+          zip -r quickrn-question-bank-batches.zip question-bank-batches
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quickrn-question-bank-batches
+          path: dist/quickrn-question-bank-batches.zip
+          if-no-files-found: error
+          retention-days: 30
