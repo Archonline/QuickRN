@@ -41,3 +41,5 @@ jobs:
           path: dist/quickrn-question-bank-batches.zip
           if-no-files-found: error
           retention-days: 30
+
+# Packaging workflow refreshed after adding batches 6–10.
