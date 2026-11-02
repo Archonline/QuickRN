@@ -37,7 +37,7 @@ pharm:{
 
 // Video playback uses topic-specific YouTube search instead of unverified IDs.
 
-let topic='',recognition=null;
+let topic='',recognition=null,videoRequest=0;
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const noteKey=()=> 'quickrn_learning_notes_v1';
@@ -48,7 +48,7 @@ function selectTopic(value){
   $('notes-topic').textContent=value;
   $('topic-notes').value=loadNotes()[value]||'';
   renderPhrases();
-  showVideoSearch(value);
+  playBestVideoForQuery(value);
 }
 
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {}}}
@@ -66,47 +66,37 @@ function renderSystems(){
   $('system-list').innerHTML=Object.entries(groups).map(([system,topics],i)=>'<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-4 py-3 font-bold text-sm flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-xs font-normal text-slate-500">'+topics.length+' topics</span></summary><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>').join('');
 }
 
-function youtubeSearchUrl(query){
-  return 'https://www.youtube.com/results?search_query='+encodeURIComponent(query+' nursing NCLEX');
-}
-
-function showVideoSearch(query){
-  const searchUrl=youtubeSearchUrl(query);
+function showVideoMessage(message){
   $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-0 flex flex-col items-center justify-center gap-3 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm font-semibold">Find a current lesson video</p><p class="max-w-md text-xs text-white/65">Search YouTube for '+safe(query)+' and choose a video that is available in your region.</p><a class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#dc2626" href="'+searchUrl+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube mr-1"></i>Search YouTube</a></div>';
-  $('player-caption').textContent='Video search · '+query;
+  $('player-shell').innerHTML='<div class="w-full h-full flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
 
-function loadYouTube(urlOrId){
-  const input=String(urlOrId||'').trim();
-  let id='';
-  if(/^[A-Za-z0-9_-]{11}$/.test(input)){
-    id=input;
-  }else{
-    try{
-      const url=new URL(input);
-      const host=url.hostname.replace(/^www\./,'').replace(/^m\./,'');
-      if(host==='youtu.be') id=url.pathname.split('/').filter(Boolean)[0]||'';
-      else if(host==='youtube.com'||host==='youtube-nocookie.com'){
-        if(url.pathname==='/watch') id=url.searchParams.get('v')||'';
-        else if(/^\/(embed|shorts|live)\//.test(url.pathname)) id=url.pathname.split('/')[2]||'';
-      }
-    }catch(e){}
+async function playBestVideoForQuery(queryText) {
+  const requestId=++videoRequest;
+  showVideoMessage('Finding a playable lesson for '+queryText+'…');
+  $('player-caption').textContent='Loading a verified YouTube lesson · '+queryText;
+  try{
+    const response=await fetch('/api/youtube-search?q='+encodeURIComponent(queryText),{headers:{'Accept':'application/json'}});
+    const data=await response.json().catch(()=>({}));
+    if(requestId!==videoRequest)return;
+    if(!response.ok||!data.videoId){
+      showVideoMessage(data.error||'No playable video is available for this topic yet.');
+      $('player-caption').textContent='Video unavailable · '+queryText;
+      return;
+    }
+    const id=String(data.videoId);
+    if(!/^[A-Za-z0-9_-]{11}$/.test(id)){
+      showVideoMessage('YouTube returned an invalid video ID.');
+      return;
+    }
+    $('player-shell').style.position='relative';
+    $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(data.title||queryText)+'" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    $('player-caption').textContent=(data.title||queryText)+' · '+(data.channel||'YouTube')+' · Autoplay starts muted; unmute in the player.';
+  }catch(error){
+    if(requestId!==videoRequest)return;
+    showVideoMessage('Could not load a lesson video. Please try selecting the topic again.');
+    $('player-caption').textContent='Unable to connect to YouTube.';
   }
-  if(!/^[A-Za-z0-9_-]{11}$/.test(id)){
-    $('player-caption').textContent='Enter a valid YouTube video URL or 11-character video ID.';
-    showVideoSearch(topic||'NCLEX nursing');
-    return false;
-  }
-  const fallbackUrl=youtubeSearchUrl(topic||'NCLEX nursing');
-  $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="https://www.youtube-nocookie.com/embed/'+id+'?rel=0" title="QuickRN learning video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><a class="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-1 text-[10px] text-white" href="'+fallbackUrl+'" target="_blank" rel="noopener noreferrer">Video unavailable? Search YouTube</a>';
-  $('player-caption').textContent='Embedded YouTube video · If playback is blocked, use Search YouTube.';
-  return true;
-}
-
-function playBestVideoForQuery(queryText) {
-  showVideoSearch(queryText);
 }
 
 // Event Listeners
@@ -119,15 +109,12 @@ $('phrase-links').addEventListener('click',e=>{
   if(!b)return;
   const phrase=b.dataset.phrase;
   document.querySelectorAll('[data-phrase]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-  playBestVideoForKeyphrase(phrase);
+  playBestVideoForQuery(phrase);
 });
 
-function playBestVideoForKeyphrase(phrase) {
-  showVideoSearch(phrase);
-}
 
-$('load-video').addEventListener('click',()=>loadYouTube($('video-url').value));
-$('video-url').addEventListener('keydown',e=>{if(e.key==='Enter')loadYouTube(e.target.value)});
+
+
 $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(n));}});
 
@@ -149,5 +136,5 @@ $('voice-notes').addEventListener('click',()=>{
 renderSystems();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
-else selectTopic("Heart failure"); // Show topic-specific search; never autoplay an unverified ID
+else selectTopic("Heart failure"); // Automatically load a verified, embeddable lesson
 })();
