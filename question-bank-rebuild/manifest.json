@@ -1,0 +1,119 @@
+{
+  "project": "QuickRN 4500-question bank rebuild",
+  "targetQuestions": 4500,
+  "batchSize": 100,
+  "totalBatches": 45,
+  "idPrefix": "QR-",
+  "firstId": "QR-000390",
+  "lastId": "QR-004889",
+  "branch": "question-bank-4500-rebuild",
+  "baseBranch": "main",
+  "completedBatches": [
+    {
+      "number": 1,
+      "firstId": "QR-000390",
+      "lastId": "QR-000489",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000390-000489.json",
+      "commit": "521075e1ea6fd722f748caff980ca465b27f2368"
+    },
+    {
+      "number": 2,
+      "firstId": "QR-000490",
+      "lastId": "QR-000589",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000490-000589.json",
+      "commit": "7734a22075a660668f793cda5b3054074524f5ba"
+    },
+    {
+      "number": 3,
+      "firstId": "QR-000590",
+      "lastId": "QR-000689",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000590-000689.json",
+      "commit": "e4e320d7317ee7212c10d3bee893391b881c4b09"
+    },
+    {
+      "number": 4,
+      "firstId": "QR-000690",
+      "lastId": "QR-000789",
+      "count": 100,
+      "uniqueIds": true,
+      "requiredFields": true,
+      "formatsCovered": 13,
+      "validationStatus": "structural_pass_clinical_review_pending",
+      "file": "question-bank-rebuild/batches/qr-batch-000690-000789.part-a.json",
+      "commit": "b4be3c73b3d45dee9cb0600621a6e5e94ed83a6d"
+    }
+  ],
+  "nextBatch": {
+    "number": 5,
+    "firstId": "QR-000790",
+    "lastId": "QR-000889",
+    "status": "not_started"
+  },
+  "validationPolicy": {
+    "exactBatchCount": 100,
+    "uniqueIds": true,
+    "nonPlaceholderStems": true,
+    "answerKeyPresent": true,
+    "rationalePresent": true,
+    "supportedQuestionFormats": 13,
+    "clinicalReviewRequired": true,
+    "integrationAcrossFourExamModesRequired": true
+  },
+  "notes": [
+    "Existing main-branch files are preserved.",
+    "Existing questions.js contains 278 distinct NCLEX-* question IDs; other embedded option IDs are not question IDs.",
+    "The separate questions-bank-v2-curated.js supplement contains QB2R-* records and is not renumbered.",
+    "No claim of 4,500-question completion until all 45 batches pass validation and integration.",
+    "Batch 4 completed with exactly 100 records (QR-000690–QR-000789), contiguous unique IDs, all 13 supported formats, and required fields present. Clinical review and four-mode integration remain pending.",
+    "Batch 4 completed with 100 unique records and all 13 NCLEX item types represented; structural checks passed. Clinical review, renderer compatibility, and integration into all four exam modes remain pending.",
+    "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes."
+  ],
+  "progress": {
+    "questionsAuthored": 400,
+    "questionsStructurallyValidated": 400,
+    "questionsClinicallyReviewed": 0,
+    "questionsIntegratedIntoExamModes": 0
+  },
+  "qualityAudits": [
+    {
+      "date": "2026-11-02",
+      "scope": "questions.js plus loaded question-bank supplements and shared renderer",
+      "staticAudit": {
+        "baseRecords": 264,
+        "uniqueIds": 264,
+        "missingStems": 0,
+        "duplicatePatientContent": 0,
+        "htmlMarkupInPatientContext": 0,
+        "ngnMissingClinicalContext": 0
+      },
+      "correctedRecords": [
+        "QB2R-0018",
+        "QRV3-0007",
+        "QRV3-0002",
+        "HTML-NGN-THY-002"
+      ],
+      "coverage": [
+        "selfstudy.html",
+        "timed.html",
+        "predictor.html",
+        "cat.html"
+      ],
+      "note": "Structural/content-presence audit only; this does not constitute nurse-educator clinical review or browser end-to-end testing."
+    }
+  ]
+}

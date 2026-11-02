@@ -17,6 +17,35 @@ function quickRNDetectItemFormat(q){
  return 'Single Choice';
 }
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function quickRNDecodeClinicalEntities(value){
+ let text=String(value==null?'':value);
+ return text.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi,(match,entity)=>{
+  const key=entity.toLowerCase();
+  if(key==='amp')return '&';if(key==='lt')return '<';if(key==='gt')return '>';if(key==='quot')return '"';if(key==='apos')return "'";if(key==='nbsp')return ' ';
+  const code=key.startsWith('#x')?parseInt(key.slice(2),16):parseInt(key.slice(1),10);
+  return Number.isFinite(code)&&code>0&&code<=0x10ffff?String.fromCodePoint(code):match;
+ });
+}
+function quickRNPlainClinicalText(value){
+ let text=quickRNDecodeClinicalEntities(value).replace(/\r/g,'');
+ if(/<\/?[a-z][^>]*>/i.test(text))text=text.replace(/<\/?[a-z][^>]*>/gi,' ');
+ return text.replace(/\s+/g,' ').trim();
+}
+function quickRNPatientInfoText(patient){
+ if(patient==null)return '';
+ if(typeof patient!=='object'||Array.isArray(patient))return quickRNPlainClinicalText(patient);
+ const labels={name:'Name',patientName:'Name',age:'Age',sex:'Sex',gender:'Gender',weight:'Weight',height:'Height',history:'History',medicalHistory:'Medical history',allergies:'Allergies',code:'Patient ID',summary:'Summary',description:'Description',notes:'Notes'};
+ const preferred=['age','sex','gender','weight','height','history','medicalHistory','allergies','code','summary','description','notes'];
+ const keys=[...preferred.filter(k=>patient[k]!=null&&patient[k]!==''),...Object.keys(patient).filter(k=>!preferred.includes(k)&&!['name','patientName'].includes(k)&&patient[k]!=null&&patient[k]!=='')];
+ const seen=new Set(),lines=[];
+ keys.forEach(key=>{
+  const value=quickRNPlainClinicalText(patient[key]);if(!value)return;
+  const normalized=value.toLowerCase();if(seen.has(normalized))return;seen.add(normalized);
+  const label=labels[key]||key.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase());
+  lines.push(label+': '+value);
+ });
+ return lines.join('\n');
+}
 function quickRNCleanClinicalText(value, metadata){
  let text=String(value??'').replace(/\r/g,'').trim();
  if(!text)return '';
@@ -64,9 +93,9 @@ function quickRNSplitPrompt(q){
  q=q&&typeof q==='object'?q:{};
  const asText=v=>{
   if(v==null)return '';
-  if(typeof v==='string'||typeof v==='number')return String(v);
+  if(typeof v==='string'||typeof v==='number')return quickRNPlainClinicalText(v);
   if(Array.isArray(v))return v.map(asText).filter(Boolean).join('\n\n');
-  if(typeof v==='object')return String(v.summary||v.description||v.narrative||v.text||v.content||v.history||v.notes||v.patientInformation||'');
+  if(typeof v==='object')return quickRNPatientInfoText(v);
   return '';
  };
  const explicitFields=[
@@ -169,22 +198,23 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const prompt=rawPrompt&&rawPrompt.toLowerCase()!==title.toLowerCase()?rawPrompt:'';
  const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]];
  const caseContext=q.caseStudyContext||{};
- const patientSummary=typeof q.patientInfo==='string'?q.patientInfo:(patient.summary||patient.history||patient.notes||patient.description||caseContext.summary||q.caseStudy||q.case_study||'');
+ const patientSummary=typeof q.patientInfo==='string'?quickRNPlainClinicalText(q.patientInfo):(quickRNPatientInfoText(patient)||quickRNPlainClinicalText(caseContext.summary||q.caseStudy||q.case_study||''));
  const hasRecord=!!(q.ehr||patientSummary||q.caseStudyContext||q.patientInfo||q.caseStudy||q.case_study);
- const patientName=patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient';
- const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.age||patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.age||'')+(patient.code?' · '+quickRNEscape(patient.code):'')+'</div>':'');
- const recordSections=tabs.filter(t=>t[1]).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+t[1]+'</div></section>').join('');
- const scenarioText=quickRNSplitPrompt(q).scenario||'';const normalizeClinical=v=>String(v||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary)+'</div></section>':'';
+ const patientName=quickRNPlainClinicalText(patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient');
+ const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.code)+'</div>':'');
+ const seenRecordSections=new Set(patientSummary?[quickRNPlainClinicalText(patientSummary).toLowerCase()]:[]);const recordSections=tabs.map(t=>[t[0],quickRNPlainClinicalText(t[1])]).filter(t=>{if(!t[1])return false;const key=t[1].toLowerCase();if(seenRecordSections.has(key))return false;seenRecordSections.add(key);return true;}).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+quickRNEscape(t[1])+'</div></section>').join('');
+ const scenarioText=quickRNPlainClinicalText(quickRNSplitPrompt(q).scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
  let record=hasRecord?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Clinical record')+'</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
  let response='';
- if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'){
-   const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'; const selected=multi?(draft.choices||[]):[draft.choice];
+ if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'){
+   const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'; const selected=multi?(draft.choices||[]):[draft.choice];
    const correctRaw=q.correctAnswers??q.correctAnswer??q.correctAnswerText??q.correctOption??q.correct??[];
    const correctList=Array.isArray(correctRaw)?correctRaw:[correctRaw];
    const normalize=v=>String(v??'').trim().toLowerCase();
    response=opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),txt=quickRNOptionText(o),letter=String.fromCharCode(65+i),on=selected.some(x=>normalize(x)===normalize(val)||normalize(x)===normalize(txt)||normalize(x)===normalize(letter));const keyed=correctList.some(x=>[val,txt,letter].some(candidate=>normalize(x)===normalize(candidate)));const isCorrect=!!(o&&typeof o==='object'&&o.correct===true)||keyed;const feedback=submitted?(isCorrect?' qr-answer-correct':' qr-answer-incorrect'):'';const action=multi?'quickRNToggleDraft("choices",'+JSON.stringify(val)+')':'quickRNSetDraft("choice",'+JSON.stringify(val)+')';const status=submitted?(isCorrect?'<small class="qr-choice-feedback qr-feedback-correct" aria-label="Correct answer">✓ Correct answer'+(on?' · Your choice':'')+'</small>':'<small class="qr-choice-feedback qr-feedback-incorrect" aria-label="Incorrect answer">✕ Incorrect</small>'):'';return "<button type='button' aria-pressed='"+on+"' "+(submitted?"aria-disabled='true'":"")+" class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+(submitted?'':action)+"'><span class='qr-choice-mark "+(multi?'is-checkbox':'is-radio')+"'>"+String.fromCharCode(65+i)+".</span><span class='qr-choice-copy'>"+quickRNEscape(txt)+(status?"<span class='qr-choice-status'>"+status+"</span>":"")+"</span></button>";}).join(''):'<div class="qr-missing">This item is missing its response options.</div>';
  } else if(f==='Matrix / Grid'){
-   const rows=q.rows||q.matrixData?.rows||[], cols=q.columns||q.matrixData?.columns||[]; response=rows.length&&cols.length?`<div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / intervention</th>${cols.map(c=>`<th>${quickRNEscape(c)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>{const id=r.id||String(i);return `<tr><td>${quickRNEscape(r.text||r.label||r)}</td>${cols.map(c=>`<td><label><input type="radio" name="qr-matrix-${quickRNEscape(id)}" ${draft.matrix?.[id]===c?'checked':''} onchange="quickRNSetDraft('matrix',{...(quickRNDraft.matrix||{}),${JSON.stringify(id)}:${JSON.stringify(c)}})"><span class="sr-only">${quickRNEscape(c)}</span></label></td>`).join('')}</tr>`}).join('')}</tbody></table></div>`:`<div class="qr-missing">Matrix rows or columns are missing from this item.</div>`;
+   const rows=q.rows||q.matrixData?.rows||[], cols=q.columns||q.matrixData?.columns||[], correctMap=q.correctAnswers?.matrix||q.correctAnswers||{};
+   response=rows.length&&cols.length?`<div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / intervention</th>${cols.map(c=>`<th>${quickRNEscape(c)}</th>`).join('')}</tr></thead><tbody>${rows.map((r,i)=>{const id=String(r.id??i),expected=correctMap[id]??r.correct,actual=draft.matrix?.[id],rowCorrect=expected!==undefined&&expected!==null&&(Array.isArray(expected)?expected.map(String).includes(String(actual)):String(expected)===String(actual));return `<tr class="${submitted?(rowCorrect?'qr-matrix-row-correct':'qr-matrix-row-incorrect'):''}"><td>${quickRNEscape(r.text||r.label||r)}${submitted?'<div class="qr-matrix-row-feedback">'+(rowCorrect?'<span class="qr-feedback-correct">✓ Correct</span>':'<span class="qr-feedback-incorrect">✕ Incorrect · Correct answer: '+quickRNEscape(Array.isArray(expected)?expected.join(', '):expected??'Not provided')+'</span>')+'</div>':''}</td>${cols.map(c=>{const selected=String(actual??'')===String(c),isCorrect=expected!==undefined&&expected!==null&&(Array.isArray(expected)?expected.map(String).includes(String(c)):String(expected)===String(c)),feedback=submitted?(isCorrect?' qr-answer-correct':(selected?' qr-answer-incorrect':'')):'';return `<td class="${feedback.trim()}"><label><input type="radio" name="qr-matrix-${quickRNEscape(id)}" ${selected?'checked':''} ${submitted?'disabled':''} onchange="quickRNSetDraft('matrix',{...(quickRNDraft.matrix||{}),${JSON.stringify(id)}:${JSON.stringify(c)}})"><span class="sr-only">${quickRNEscape(c)}</span>${submitted&&isCorrect?'<span class="qr-choice-feedback qr-feedback-correct" aria-label="Correct answer">✓</span>':''}${submitted&&selected&&!isCorrect?'<span class="qr-choice-feedback qr-feedback-incorrect" aria-label="Incorrect answer">✕</span>':''}</label></td>`}).join('')}</tr>`}).join('')}</tbody></table></div>`:`<div class="qr-missing">Matrix rows or columns are missing from this item.</div>`;
  } else if(f==='Cloze (Drop-down)'){
    const template=String(q.clozeTemplate||q.template||q.questionText||q.question||q.stem||'');
    const rawDefs=q.dropdowns||q.clozeOptions||q.blankOptions||{};
@@ -226,7 +256,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    const opts=Array.isArray(q.options)?q.options:[];
    response=table+(cols.length?'<p class="qr-help">'+quickRNEscape(cols.join(' · '))+'</p>':'')+(opts.length?opts.map((o,i)=>{const val=quickRNOptionValue(o,i),on=String(draft.choice??'')===String(val);return '<button type="button" class="qr-choice '+(on?'selected':'')+'" aria-pressed="'+on+'" onclick="quickRNSetDraft(\'choice\','+JSON.stringify(val)+')"><span class="qr-choice-mark is-radio">'+String.fromCharCode(65+i)+'</span><span class="qr-choice-copy">'+quickRNEscape(quickRNOptionText(o))+'</span></button>';}).join(''):'<label class="block text-sm font-semibold text-slate-700">Interpret the trend and enter your response<input type="text" class="mt-2 w-full rounded-lg border border-slate-300 p-3" value="'+quickRNEscape(draft.trendResponse??draft.numericEntry??'')+'" '+(submitted?'disabled':'')+' oninput="quickRNSetDraft(\'trendResponse\',this.value)"></label>');
  } else if(f==='Bowtie'){
-   const b=q.bowtieData||{}; const correctDraft=draft||{}; const group=(key,label,kind)=>`<section class="qr-bowtie-group"><h4>${label}</h4>${(b[key]||[]).map(v=>{const on=kind==='condition'?correctDraft.condition===v:(correctDraft[kind]||[]).includes(v);return `<label class="qr-bowtie-option"><input type="${kind==='condition'?'radio':'checkbox'}" name="qr-bowtie-${kind}" ${on?'checked':''} onchange="${kind==='condition'?`quickRNSetDraft('condition',${JSON.stringify(v)})`:`quickRNToggleDraft('${kind}',${JSON.stringify(v)})`}"><span>${quickRNEscape(v)}</span></label>`}).join('')}</section>`;
+   const b=q.bowtieData||{}; const correctDraft=draft||{}; const group=(key,label,kind)=>{const values=b[key]||(key==='monitoring'?b.parameters:[])||[];return `<section class="qr-bowtie-group"><h4>${label}</h4>${values.map(v=>{const on=kind==='condition'?correctDraft.condition===v:(correctDraft[kind]||[]).includes(v);return `<label class="qr-bowtie-option"><input type="${kind==='condition'?'radio':'checkbox'}" name="qr-bowtie-${kind}" ${on?'checked':''} onchange="${kind==='condition'?`quickRNSetDraft('condition',${JSON.stringify(v)})`:`quickRNToggleDraft('${kind}',${JSON.stringify(v)})`}"><span>${quickRNEscape(v)}</span></label>`}).join('')}</section>`;};
    response=`<div class="qr-bowtie">${group('actions','Actions to Take','actions')}${group('conditions','Potential Condition','condition')}${group('monitoring','Parameters to Monitor','monitoring')}</div>`;
  }
  return `<div class="qr-clinical-layout ${hasRecord?"has-record":"question-only"}">${record}<section class="qr-question-panel"><div class="qr-question-head"><h2>${quickRNEscape(title)}</h2>${prompt?`<p>${quickRNEscape(prompt)}</p>`:''}</div><div class="qr-response-area">${response}</div></section></div>`;
