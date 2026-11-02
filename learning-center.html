@@ -22,13 +22,24 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .learning-header-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;color:#334155!important;text-decoration:none;font-size:12px;font-weight:700}
 .learning-header-link:hover{background:#f8fafc}
 .learning-workspace>main{flex:1;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0;padding:16px;display:flex;flex-direction:column;gap:16px}
-.learning-layout{display:grid;grid-template-columns:245px minmax(0,1.1fr) minmax(300px,.9fr);gap:16px;align-items:start}
+.learning-layout{display:grid;grid-template-columns:220px minmax(0,1.15fr) minmax(280px,.85fr);gap:14px;align-items:stretch}
 .learning-layout>aside,.learning-layout>section,.learning-workspace main>section{min-width:0}
+.learning-video-card,.learning-notes-card{height:100%;min-height:560px}
+.learning-video-card{display:flex;flex-direction:column}
+#player-shell{flex:1;min-height:420px;height:auto;aspect-ratio:auto}
+#player-shell>div{min-height:100%}
+.learning-notes-card{display:flex;flex-direction:column}
+.learning-notes-card textarea{flex:1;min-height:340px;resize:vertical}
+.learning-browse{margin-top:14px}
+.learning-ai-details{border:1px solid #e2e8f0;border-radius:16px;background:#fff}
+.learning-ai-details>summary{cursor:pointer;padding:14px 18px;font-weight:800;font-size:14px;color:#334155}
+.learning-ai-details[open]>summary{border-bottom:1px solid #e2e8f0}
+.learning-ai-details #quickrn-ai-panel{border:0;border-radius:0}
 .lesson-link{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid #d9dde4;border-radius:10px;background:#fff;font-size:12px;color:#4a4a4a}
 .lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#087f8c;background:#eef8f9}
 .subject-card[open]>summary{background:#eef8f9;color:#087f8c}
-@media(max-width:1100px){.learning-layout{grid-template-columns:220px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}}
-@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}}
+@media(max-width:1100px){.learning-layout{grid-template-columns:210px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}.learning-video-card,.learning-notes-card{min-height:520px}}
+@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:320px}.learning-notes-card textarea{min-height:280px}}
 @media(max-width:420px){.learning-header-link span{display:none}.learning-header-link{padding:9px 10px}}
 </style>
 </head>
@@ -57,13 +68,13 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <section class="space-y-4 min-w-0">
 <div class="rounded-2xl border bg-white p-4 space-y-3">
 <div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Select a topic to find matching videos from your preferred provider.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
-<div class="aspect-video rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Select a lesson with a verified video to play it here.</p><p class="text-xs mt-1 text-white/50">A verified, embeddable YouTube lesson will load automatically when you select a topic.</p></div></div>
+<div class="rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a provider to find a lesson for this topic.</p><p class="text-xs mt-1 text-white/50">A verified, embeddable YouTube lesson will load automatically when you select a topic.</p></div></div>
 <p class="text-[11px] text-slate-500">No API key required. Choose RegisteredNurseRN, Simple Nursing, or Picmonic to search for lessons matching the selected topic. Provider results open in a new tab; availability and access requirements are controlled by each provider.</p>
 
 </div>
 <div class="rounded-2xl border bg-white p-4"><div class="flex items-center justify-between"><h2 class="font-extrabold">Browse body systems</h2><span class="text-xs text-slate-500" id="topic-count"></span></div><div id="system-list" class="mt-3 space-y-2"></div></div>
 </section>
-<aside class="rounded-2xl border bg-white p-4 space-y-3 min-w-0 h-fit">
+<aside class="learning-notes-card rounded-2xl border bg-white p-4 space-y-3 min-w-0">
 <div class="flex items-center justify-between gap-2"><div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">Study notebook</p><h2 id="notes-topic" class="text-xl font-extrabold">Select a topic</h2></div><span class="rounded-lg px-3 py-2 text-xs font-bold" style="background:#D3DDEB;color:#4A4A4A">AUTO-SAVED</span></div>
 <p class="text-xs text-slate-500">Write key findings, assessment cues, interventions, medications, and NCLEX reminders. Notes are saved in this browser.</p>
 <textarea id="topic-notes" rows="18" class="w-full rounded-xl border p-4 text-sm leading-6" placeholder="Start typing your notes here..."></textarea>
@@ -71,7 +82,8 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
 </aside>
 </div>
-<section class="rounded-2xl border bg-white p-4 md:p-5 space-y-4" id="quickrn-ai-panel">
+<details class="learning-browse rounded-2xl border bg-white p-4"><summary class="cursor-pointer font-extrabold text-sm">Browse all body systems <span class="ml-2 text-xs font-normal text-slate-500" id="topic-count"></span></summary><div id="system-list" class="mt-3 space-y-2"></div></details>
+<details class="learning-ai-details"><summary><i class="fa-solid fa-wand-magic-sparkles mr-2 text-purple-700"></i>AI Nursing Tutor <span class="ml-2 text-xs font-normal text-slate-500">Questions, summaries, quizzes and flashcards</span></summary><section class="rounded-2xl border bg-white p-4 md:p-5 space-y-4" id="quickrn-ai-panel">
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div><p class="text-xs font-bold uppercase tracking-wider text-purple-700">QuickRN Intelligence</p><h2 class="text-xl font-extrabold">AI Nursing Tutor</h2><p class="text-xs text-slate-500 mt-1">Ask questions, summarize your notes, or create active-recall practice materials.</p></div>
     <span class="rounded-full px-3 py-1 text-xs font-bold" style="background:#e8f4ed;color:#1B5E43" id="quickrn-ai-auth-status">Free · On-device AI</span>
@@ -95,7 +107,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
   <div id="quickrn-ai-output" class="hidden rounded-xl border p-4 bg-slate-50 text-sm leading-6 whitespace-pre-wrap" aria-live="polite"></div>
   <p id="quickrn-ai-status" class="text-xs text-slate-500" role="status">Free on-device AI. Load the model once; it will be cached by your browser. AI-generated educational content should be checked against current nursing references.</p>
   <p class="text-[11px] text-slate-400">Do not enter identifiable patient information. AI outputs are educational drafts, not clinical advice or official NCLEX content.</p>
-</section>
+</section></details>
     </main>
   </div>
 </div>
