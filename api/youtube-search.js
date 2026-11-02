@@ -1,5 +1,5 @@
 // Vercel serverless endpoint: find a currently embeddable YouTube lesson.
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=3600');
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
