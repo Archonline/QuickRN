@@ -8,6 +8,7 @@ Reviewed the application HTML entry points, JavaScript module loading, shared re
 
 - Removed `css/quickrn-unified-exam.css`. No HTML page linked it and no JavaScript or stylesheet imported it. The four exam pages currently carry their active workspace styling inline.
 - Corrected `timed.html` to load `questions-bank-v2.js` after `questions-ngn-supplement.js`, matching the bank-loading sequence used by Self-Study, CAT, and Predictor. Timed Practice was otherwise missing this bank file.
+- Updated `tests/brand-system-contract.test.js` to stop requiring the retired `correct_view.html` page and deleted `quickrn-unified-exam.css` stylesheet. The contract now checks the 11 active pages and the shared brand stylesheet without asserting retired assets must exist.
 
 ## Findings: JavaScript
 
@@ -35,14 +36,24 @@ Reviewed the application HTML entry points, JavaScript module loading, shared re
 
 - No bank file was deleted. The four exam modes depend on several separate bank scripts, and the missing `questions-bank-v2.js` include in Timed Practice has been corrected.
 - Repeated short identifiers such as `h1`, `r1`, and `r2` occur inside highlight segments, matrix rows, and other nested answer structures. They are local child identifiers, not by themselves duplicate question IDs; deleting them would break item schemas.
-- The bank files include spread-defined and nested records, so a simple text-pattern count is not a sufficient full runtime inventory. The release gate remains the executable `scripts/validate-question-bank.js` across the exact production script sequence. Do not remove or merge bank records until the runtime validator confirms record identity, cross-file collisions, schema validity, and all 13 formats.
-- `BETA_READINESS.md` currently reports 389 loaded records and a 4,500 target. That reported total must be reconciled against a fresh validator run before declaring the bank count complete.
+- A fresh CI execution of `node scripts/validate-question-bank.js questions.js` loaded **383 records**, with **0 schema validation errors**, **0 quality warnings**, and **0 duplicate IDs normalized**. The validator reports **4,117 additional records required** to reach the 4,500 release target. This is the authoritative count from that run; it supersedes the earlier 389 estimate in `BETA_READINESS.md` until that document is reconciled.
+- Validator format counts: Single Choice 309; Multiple Response 14; Select N 8; Matrix Single 4; Matrix Multiple 2; Cloze (Drop-down) 4; Dropdown Rationale 2; Bowtie 5; Extended Drag and Drop 3; Extended Multiple Response 8; Highlight 8; Trend 8; Numeric Entry 8.
+- A separate renderer contract test reported **376 runtime questions loaded** and passed its checks for CAT/Predictor item sufficiency, supported formats, and linked-case normalization. This is a different test path/count from the validator's 383 records and needs reconciliation.
+- No question-bank records should be removed or merged until the 383-versus-376 discrepancy is explained and the full 4,500 records are present and validated.
+
+## CI results and follow-up
+
+- On the first PR run, JavaScript syntax checks passed; CAT adaptive engine, shared renderer/format adapters, question-ID normalization, and the 376-question renderer contract passed.
+- The brand-system contract initially failed because it still referenced the retired `correct_view.html` and `quickrn-unified-exam.css`. The test was updated to reflect the active application surface. A fresh PR run is still needed to confirm that fix and execute the steps that were skipped after the early failure.
+- The production-bank validator ran and failed only the release count gate: 383 records versus 4,500 required. It reported no schema errors or quality warnings in the loaded records.
+- Vercel reported success for the earlier audit commit. The updated test-contract commit has not yet been verified by a fresh workflow run.
 
 ## Verification still required
 
-- Run both GitHub Actions workflows on this branch.
-- Run `node scripts/validate-question-bank.js` against the production bank and inspect the generated report.
-- Smoke-test Timed Practice to confirm the additional 20-item bank is available and does not create ID collisions.
+- Confirm a fresh GitHub Actions run passes the corrected brand-system contract and executes all remaining checks.
+- Reconcile the 383 validator records with the 376 runtime-renderer records and the stale 389 figure in `BETA_READINESS.md`.
+- Rebuild the missing 4,117 question records in validated 100-question batches; do not claim the bank is complete until the validator reports at least 4,500 and all 13 formats pass.
+- Smoke-test Timed Practice to confirm the additional bank script is available and does not create ID collisions.
 - Browser-test all four exam modes, including each NGN format, before merging any broader markup or JavaScript refactor.
 
 ## Safety decision
