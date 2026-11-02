@@ -35,20 +35,37 @@ pharm:{
 }
 };
 
-// API-key-free YouTube channel embeds.
-const VIDEO_CHANNELS={
-  registered:{name:'RegisteredNurseRN',id:'UCPyMN8DzkFl2__xnTEiGZ1w'},
-  simple:{name:'Simple Nursing',id:'UCUxQWmWk1_Hk9iDRKvhH29Q'},
-  levelup:{name:'Level Up RN',id:'UCSlJ8BB17Ex9s4mrg7DEYCw'},
-  nexus:{name:'Nexus Nursing',id:'UCjK0JEIipVfy1dyalzqKC1w'}
+// Curated RegisteredNurseRN lecture playlists (not the channel uploads feed).
+// Playlist IDs are linked from the educator's nursing video index.
+const VIDEO_PLAYLISTS={
+  general:{name:'NCLEX Review Lectures',id:'PLQrdx7rRsKfWwTsEG3KPPQx9rWa8AqMIk'},
+  pediatric:{name:'Pediatric Nursing',id:'PLQrdx7rRsKfXmfA3CoozS5N767bLpnrbm'},
+  fundamentals:{name:'Nursing Fundamentals',id:'PLQrdx7rRsKfV7rYMLXUs8L8IJAbDecClE'},
+  cardiovascular:{name:'Medical-Surgical Cardiovascular',id:'PLQrdx7rRsKfUB0GvScYEb9ILzg5mZQ7m7'},
+  renal:{name:'Medical-Surgical Renal',id:'PLQrdx7rRsKfUBQ80h1YhmXlnMCv7tJPsL'},
+  respiratory:{name:'Medical-Surgical Respiratory',id:'PLQrdx7rRsKfUumcstoW1ru6t8onTa5rGL'},
+  endocrine:{name:'Medical-Surgical Endocrine',id:'PLQrdx7rRsKfVqW-S8Lj7cHEI1Cyh8y6qP'},
+  pharmacology:{name:'Nursing Pharmacology',id:'PLQrdx7rRsKfWpel1Ymwd9IQe0noyzAjeS'},
+  medication:{name:'Medication Administration',id:'PLQrdx7rRsKfWnUmBHphXkW4m4aiRTIzkG'},
+  maternity:{name:'Maternity Nursing',id:'PLQrdx7rRsKfXiZ3a-IbRaUJXMa8mXyuOL'},
+  ekg:{name:'EKG/ECG Interpretation',id:'PLQrdx7rRsKfU-A9UTclI0tOYrNJ1N5SNt'},
+  fluids:{name:'Fluid and Electrolytes',id:'PLQrdx7rRsKfWJSZ9pL8L3Q1dzdlxUzeKv'}
 };
-function recommendedChannel(topicName){
+function recommendedPlaylist(topicName){
   const item=allTopics().find(x=>x.topic===topicName);
-  if(item?.category==='child')return 'registered';
-  if(item?.category==='pharm')return 'simple';
-  if(item?.category==='adult')return 'nexus';
-  return 'levelup';
-}
+  const text=(topicName+' '+(item?.system||'')).toLowerCase();
+  if(item?.category==='child')return 'pediatric';
+  if(item?.category==='pharm')return /medication|dosage|administration|safety|reconciliation/.test(text)?'medication':'pharmacology';
+  if(/ecg|ekg|dysrhythmia|arrhythmia/.test(text))return 'ekg';
+  if(/fluid|electrolyte|dehydration|sodium|potassium/.test(text))return 'fluids';
+  if(/maternity|pregnan|newborn|obstetric/.test(text))return 'maternity';
+  if(/cardiovascular|heart|cardiac|hypertension|coronary/.test(text))return 'cardiovascular';
+  if(/renal|urinary|kidney|dialysis/.test(text))return 'renal';
+  if(/respiratory|copd|asthma|pneumonia|pulmonary/.test(text))return 'respiratory';
+  if(/endocrine|diabetes|thyroid|adrenal|dk[a-z]/.test(text))return 'endocrine';
+  if(/fundamental|assessment|vital signs|infection control/.test(text))return 'fundamentals';
+  return 'general';
+};
 
 let topic='',recognition=null;
 const $=id=>document.getElementById(id);
@@ -60,9 +77,7 @@ function selectTopic(value){
   topic=value;
   $('notes-topic').textContent=value;
   $('topic-notes').value=loadNotes()[value]||'';
-  const channelKey=recommendedChannel(value);
-  $('video-channel').value=channelKey;
-  playChannelVideos(value,channelKey);
+  playTopicPlaylist(value);
 }
 
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {}}}
@@ -80,20 +95,19 @@ function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
 
-function playChannelVideos(topicText,channelKey) {
-  const channel=VIDEO_CHANNELS[channelKey]||VIDEO_CHANNELS.registered;
-  const uploadsPlaylist='UU'+channel.id.slice(2);
-  const embedUrl='https://www.youtube-nocookie.com/embed/videoseries?list='+uploadsPlaylist+'&autoplay=1&mute=1&playsinline=1&rel=0';
+function playTopicPlaylist(topicText) {
+  const playlistKey=recommendedPlaylist(topicText);
+  const playlist=VIDEO_PLAYLISTS[playlistKey]||VIDEO_PLAYLISTS.general;
+  const embedUrl='https://www.youtube-nocookie.com/embed/videoseries?list='+playlist.id+'&autoplay=1&mute=1&playsinline=1&rel=0';
   $('player-shell').style.position='relative';
-  $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="'+embedUrl+'" title="'+safe(channel.name)+' nursing video channel" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-  $('player-caption').textContent='Showing recent uploads from '+channel.name+' · Selected topic: '+topicText+'. Channel playlists are not topic-filtered; choose another channel if needed. Autoplay starts muted.';
+  $('player-shell').innerHTML='<iframe class="w-full h-full border-0" src="'+embedUrl+'" title="'+safe(playlist.name)+' nursing lecture playlist" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  $('player-caption').textContent='Curated full-lesson playlist: '+playlist.name+' · Topic: '+topicText+'. Autoplay starts muted; select a lesson in the playlist if needed.';
 }
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
 document.getElementById('learning-topic-sidebar')?.addEventListener('click',e=>{const b=e.target.closest('[data-learning-topic]');if(b){selectTopic(b.dataset.learningTopic);document.querySelectorAll('[data-learning-topic]').forEach(x=>x.classList.toggle('bg-slate-100',x===b));document.querySelector('.learning-layout>section')?.scrollIntoView({behavior:'smooth',block:'start'});}});
 
-// Learners can switch between the available nursing education channels.
-$('video-channel').addEventListener('change',e=>playChannelVideos(topic||'Nursing',e.target.value));
+
 
 $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(n));}});
@@ -116,5 +130,5 @@ $('voice-notes').addEventListener('click',()=>{
 renderSystems();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
-else selectTopic("Heart failure"); // Load the recommended nursing channel uploads playlist
+else selectTopic("Heart failure"); // Load a curated long-form nursing lecture playlist
 })();
