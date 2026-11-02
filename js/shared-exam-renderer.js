@@ -206,8 +206,8 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const scenarioText=quickRNPlainClinicalText(quickRNSplitPrompt(q).scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
  let record=hasRecord?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Clinical record')+'</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
  let response='';
- if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'){
-   const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'; const selected=multi?(draft.choices||[]):[draft.choice];
+ if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'){
+   const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'; const selected=multi?(draft.choices||[]):[draft.choice];
    const correctRaw=q.correctAnswers??q.correctAnswer??q.correctAnswerText??q.correctOption??q.correct??[];
    const correctList=Array.isArray(correctRaw)?correctRaw:[correctRaw];
    const normalize=v=>String(v??'').trim().toLowerCase();
