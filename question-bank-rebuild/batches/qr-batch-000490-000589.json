@@ -1,6 +1,6 @@
 {
   "batch": 2,
-  "range": "QR-000490–QR-000589",
+  "range": "QR-000365–QR-000464",
   "count": 100,
   "questionTypes": [
     "Bowtie",
@@ -1225,5 +1225,8 @@
       "reviewStatus": "needs_clinical_review",
       "legacyId": "QR-000589"
     }
-  ]
+  ],
+  "legacyRange": "QR-000490–QR-000589",
+  "firstId": "QR-000365",
+  "lastId": "QR-000464"
 }
