@@ -95,7 +95,7 @@ function buildVideoReportUrl(topicText,provider,videoUrl){
     '**Report type:** Unavailable, broken, incorrect, or cannot be embedded',
     '',
     'Please verify the video and remap this topic if a suitable replacement is available.'
-  ].join('\\n');
+  ].join('\n');
   return 'https://github.com/Archonline/QuickRN/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
 }
 function videoReportLink(topicText,provider,videoUrl){
