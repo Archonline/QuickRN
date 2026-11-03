@@ -40,7 +40,7 @@ pharm:{
 const VIDEO_PROVIDERS=[
   {id:'registerednursern',label:'RegisteredNurseRN',query:'RegisteredNurseRN'},
   {id:'simplenursing',label:'Simple Nursing',query:'Simple Nursing'},
-  {id:'picmonic',label:'Picmonic',query:'Picmonic'}
+  {id:'picmonicvideo',label:'PicmonicVideo',query:'PicmonicVideo'}
 ];
 let selectedProvider=null;
 let topic='',recognition=null;
