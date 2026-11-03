@@ -100,8 +100,8 @@ function renderProviderButtons(){
   }));
 }
 function buildYouTubeSearchUrl(topicText,provider){
-  const query=provider.query+' '+topicText+' nursing';
-  return 'https://www.youtube.com/results?search_query='+encodeURIComponent(query);
+  const entry=VIDEO_SEARCH_CATALOG[topicText]&&VIDEO_SEARCH_CATALOG[topicText][provider.id];
+  return entry?entry.url:'https://www.youtube.com/results?search_query='+encodeURIComponent(provider.query+' '+topicText+' nursing lesson');
 }
 function buildVideoReportUrl(topicText,provider,videoUrl){
   const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
