@@ -29,8 +29,8 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .video-provider-button{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:700;transition:background .15s,border-color .15s,color .15s}
 .video-provider-button:hover{border-color:#087f8c;color:#087f8c}
 .video-provider-button.is-selected{background:#087f8c;border-color:#087f8c;color:#fff;box-shadow:0 0 0 2px rgba(8,127,140,.16)}
-#player-shell{flex:1;min-height:560px;height:auto;aspect-ratio:auto}
-#player-shell>div{min-height:100%}
+#player-shell{display:block;width:100%;height:auto;min-height:0;aspect-ratio:16/9}
+#player-shell>div{width:100%;height:100%;min-height:0}
 .learning-notes-card{display:flex;flex-direction:column}
 .learning-notes-card textarea{flex:1;min-height:340px;resize:vertical}
 .learning-browse{margin-top:14px}.is-active-topic{border-color:#087f8c!important;background:#eef8f9!important;color:#087f8c!important}
@@ -39,7 +39,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .lesson-link:hover,.lesson-link[aria-pressed=true]{border-color:#087f8c;background:#eef8f9}
 .subject-card[open]>summary{background:#eef8f9;color:#087f8c}
 @media(max-width:1100px){.learning-layout{grid-template-columns:210px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}.learning-video-card,.learning-notes-card{min-height:520px}}
-@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:360px}.learning-notes-card textarea{min-height:280px}}
+@media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:0;aspect-ratio:16/9}.learning-notes-card textarea{min-height:280px}}
 @media(max-width:420px){.learning-header-link span{display:none}.learning-header-link{padding:9px 10px}}
 .learning-steps{border:1px solid #bfdbfe;border-radius:18px;background:linear-gradient(115deg,#eff6ff,#f0f9ff 55%,#f5f3ff);padding:16px 18px;box-shadow:0 8px 24px rgba(30,64,175,.07)}.learning-steps-title{font-size:14px;font-weight:800;color:#12366b;text-align:center;margin:0 0 13px}.learning-steps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.learning-step{display:flex;align-items:center;gap:10px;min-width:0;padding:11px;border:1px solid #dbeafe;border-radius:13px;background:rgba(255,255,255,.86)}.learning-step-number{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#1674df;color:#fff;font-weight:900}.learning-step-icon{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#e0edff;color:#1554a3;font-size:19px}.learning-step strong{display:block;color:#15376b;font-size:12px;line-height:1.3}.learning-step small{display:block;color:#64748b;font-size:10px;line-height:1.35;margin-top:3px}.learning-step.is-current{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.13);background:#fff}.learning-flow-status{font-size:11px;color:#1d4ed8;font-weight:700;text-align:center;margin:11px 0 0}@media(max-width:760px){.learning-steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
 </head>
@@ -60,8 +60,8 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 </aside>
 <section class="space-y-4 min-w-0">
 <div class="rounded-2xl border bg-white p-4 space-y-3">
-<div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Select a provider, then choose a body-system topic to prepare a channel-specific YouTube search.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
-<div class="rounded-xl overflow-hidden bg-slate-950 flex items-center justify-center" id="player-shell"><div class="text-center text-white/80 p-6"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a provider and topic to open matching YouTube search results.</p><p class="text-xs mt-1 text-white/50">Choose a provider below the player. Search results open in YouTube so you can choose a playable lesson.</p></div></div>
+<div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Choose a topic and channel. Verified lessons play here when available.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
+<div class="rounded-xl overflow-hidden bg-slate-950 w-full" id="player-shell"><div class="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white/80"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a topic and channel to play a verified lesson.</p></div></div>
 <div id="video-provider-controls" class="flex flex-wrap items-center gap-2 pt-1" aria-label="Choose video provider"></div>
 </div>
 </section>
