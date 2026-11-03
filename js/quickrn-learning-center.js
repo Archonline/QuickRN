@@ -105,7 +105,7 @@ function loadTopicVideo(topicText,providerId){
 function extractYouTubeVideoId(value){
   try{
     const parsed=new URL(value);
-    const host=parsed.hostname.replace(/^www\\./,'').toLowerCase();
+    const host=parsed.hostname.replace(/^www\./,'').toLowerCase();
     let id='';
     if(host==='youtu.be')id=parsed.pathname.split('/').filter(Boolean)[0]||'';
     else if(host==='youtube.com'||host==='m.youtube.com'||host==='music.youtube.com'){
