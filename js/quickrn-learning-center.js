@@ -43,7 +43,7 @@ const VIDEO_PROVIDERS=[
   {id:'picmonicvideo',label:'PicmonicVideo',query:'PicmonicVideo'}
 ];
 let selectedProvider=null;
-let topic='',recognition=null;
+let topic='',recognition=null,currentVideoUrl='';
 const VIDEO_CATALOG={}; // Add reviewed YouTube video IDs here for in-player autoplay.
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -84,21 +84,42 @@ function buildYouTubeSearchUrl(topicText,provider){
   const query=provider.query+' '+topicText+' nursing';
   return 'https://www.youtube.com/results?search_query='+encodeURIComponent(query);
 }
+function buildVideoReportUrl(topicText,provider,videoUrl){
+  const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
+  const body=[
+    'Please review this Learning Center video mapping.',
+    '',
+    '**Topic:** '+topicText,
+    '**Channel:** '+provider.label,
+    '**Video URL / ID:** '+(videoUrl||'No video currently mapped'),
+    '**Report type:** Unavailable, broken, incorrect, or cannot be embedded',
+    '',
+    'Please verify the video and remap this topic if a suitable replacement is available.'
+  ].join('\\n');
+  return 'https://github.com/Archonline/QuickRN/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+}
+function videoReportLink(topicText,provider,videoUrl){
+  const url=buildVideoReportUrl(topicText,provider,videoUrl);
+  return '<a class="inline-flex items-center gap-2 rounded-lg border border-rose-300/60 px-3 py-2 text-xs font-semibold text-rose-100 hover:bg-rose-500/15" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-flag"></i>Report unavailable / broken video</a>';
+}
 function loadTopicVideo(topicText,providerId){
   const provider=VIDEO_PROVIDERS.find(p=>p.id===providerId);
   if(!provider)return;
+  currentVideoUrl='';
   updateLearningFlow(4,'Channel selected. Starting a verified matching lesson if available.');
   const videoId=VIDEO_CATALOG[providerId]&&VIDEO_CATALOG[providerId][topicText];
-  if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){$('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';$('player-caption').textContent='Now playing: '+provider.label+' · '+topicText;return;}
+  if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){currentVideoUrl='https://www.youtube.com/watch?v='+videoId;$('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col"><iframe class="w-full flex-1 min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><div class="flex justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';$('player-caption').textContent='Now playing: '+provider.label+' · '+topicText+' · Report a problem if this video is unavailable.';return;}
   const url=buildYouTubeSearchUrl(topicText,provider);
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-brands fa-youtube text-5xl text-red-500"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is mapped yet. Search YouTube, copy a lesson link, and paste it below to watch inside QuickRN while taking notes.</p><a class="inline-flex items-center gap-2 rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i>Find a lesson on YouTube</a><form id="quickrn-video-form" class="w-full max-w-xl flex flex-col sm:flex-row gap-2"><input id="quickrn-video-url" type="url" inputmode="url" placeholder="Paste YouTube video URL here" aria-label="YouTube video URL" class="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-cyan-400"><button type="submit" class="rounded-lg bg-cyan-600 px-4 py-3 text-sm font-bold text-white hover:bg-cyan-500">Play inside QuickRN</button></form><p id="quickrn-video-error" class="text-xs text-rose-300" role="status"></p><p class="text-xs text-white/60">Your Study Notebook stays open beside the player. Some YouTube videos do not allow embedding.</p></div>';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-brands fa-youtube text-5xl text-red-500"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is mapped yet. Search YouTube, copy a lesson link, and paste it below to watch inside QuickRN while taking notes.</p><a class="inline-flex items-center gap-2 rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i>Find a lesson on YouTube</a><form id="quickrn-video-form" class="w-full max-w-xl flex flex-col sm:flex-row gap-2"><input id="quickrn-video-url" type="url" inputmode="url" placeholder="Paste YouTube video URL here" aria-label="YouTube video URL" class="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-cyan-400"><button type="submit" class="rounded-lg bg-cyan-600 px-4 py-3 text-sm font-bold text-white hover:bg-cyan-500">Play inside QuickRN</button></form><p id="quickrn-video-error" class="text-xs text-rose-300" role="status"></p><p class="text-xs text-white/60">Your Study Notebook stays open beside the player. Some YouTube videos do not allow embedding.</p>'+videoReportLink(topicText,provider,'')+'</div>';
   const videoForm=$('quickrn-video-form');
   if(videoForm)videoForm.addEventListener('submit',event=>{
     event.preventDefault();
     const videoId=extractYouTubeVideoId($('quickrn-video-url').value.trim());
     if(!videoId){$('quickrn-video-error').textContent='Please paste a valid YouTube video link (youtube.com or youtu.be).';return;}
-    $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="QuickRN lesson video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
-    $('player-caption').textContent='Playing a YouTube lesson inside QuickRN · '+topicText;
+    currentVideoUrl='https://www.youtube.com/watch?v='+videoId;
+    const activeProvider=VIDEO_PROVIDERS.find(p=>p.id===selectedProvider)||{label:'YouTube'};
+    $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col"><iframe class="w-full flex-1 min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="QuickRN lesson video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><div class="flex justify-end bg-slate-900 p-2">'+videoReportLink(topicText,activeProvider,currentVideoUrl)+'</div></div>';
+    $('player-caption').textContent='Playing a YouTube lesson inside QuickRN · '+topicText+' · Report a problem if unavailable.';
   });
   $('player-caption').textContent='Search YouTube for '+provider.label+' · '+topicText+', then paste a video link to play it here.';
 }
