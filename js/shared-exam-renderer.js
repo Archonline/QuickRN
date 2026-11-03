@@ -441,6 +441,83 @@ quickRNGrade=function(q,d){
  return quickRNGradeWithPolytomousScoring(q,d);
 };
 
+
+/* Select-N rendering hardening: keep the checkbox UI, selection limit, and grading
+   consistent across Self-Study, Timed, Predictor, and CAT modes. */
+function quickRNSelectNLimit(q){
+ const explicit=Number(q&& (q.selectN??q.numberToSelect??q.requiredSelections??q.selectCount));
+ if(Number.isInteger(explicit)&&explicit>0)return explicit;
+ const correct=q&&(q.correctAnswers??q.correctAnswer);
+ return Array.isArray(correct)?correct.length:(correct==null?0:1);
+}
+const quickRNSelectNBaseToggle=quickRNToggleDraft;
+quickRNToggleDraft=function(path,value){
+ const q=window.quickRNCurrentQuestion||{};
+ if(path==='choices'&&quickRNDetectItemFormat(q)==='Select N'){
+  const current=Array.isArray(quickRNDraft.choices)?quickRNDraft.choices:[];
+  const exists=current.some(x=>String(x)===String(value));
+  const limit=quickRNSelectNLimit(q);
+  if(!exists&&limit>0&&current.length>=limit){
+   if(typeof window.quickRNShowNotice==='function')window.quickRNShowNotice('Select exactly '+limit+' options. Remove a selection before choosing another.');
+   return;
+  }
+ }
+ quickRNSelectNBaseToggle(path,value);
+};
+const quickRNSelectNBaseRender=quickRNRenderClinicalItem;
+quickRNRenderClinicalItem=function(q,draft,submitted){
+ if(quickRNDetectItemFormat(q)!=='Select N')return quickRNSelectNBaseRender(q,draft,submitted);
+ const html=quickRNSelectNBaseRender(q,draft,submitted);
+ const opts=Array.isArray(q.options)?q.options:[];
+ const selected=Array.isArray(draft&&draft.choices)?draft.choices:[];
+ const limit=quickRNSelectNLimit(q);
+ const norm=x=>String(x??'').trim().toLowerCase();
+ const correctRaw=q.correctAnswers??q.correctAnswer??[];
+ const correct=Array.isArray(correctRaw)?correctRaw:[correctRaw];
+ const choices=opts.length?opts.map((o,i)=>{
+  const value=quickRNOptionValue(o,i),label=quickRNOptionText(o),letter=String.fromCharCode(65+i);
+  const on=selected.some(x=>[value,label,letter].some(y=>norm(x)===norm(y)));
+  const isCorrect=!!(o&&typeof o==='object'&&o.correct===true)||correct.some(x=>[value,label,letter].some(y=>norm(x)===norm(y)));
+  const feedback=submitted?(isCorrect?' qr-answer-correct':(on?' qr-answer-incorrect':'')):'';
+  const status=submitted?(isCorrect?'<small class="qr-choice-feedback qr-feedback-correct">✓ Correct answer'+(on?' · Your choice':'')+'</small>':(on?'<small class="qr-choice-feedback qr-feedback-incorrect">✕ Incorrect</small>':'')):'';
+  const action="quickRNToggleDraft('choices',"+JSON.stringify(value)+")";
+  return "<button type='button' role='checkbox' aria-checked='"+on+"' aria-pressed='"+on+"' "+(submitted?"disabled":"")+" class='qr-choice "+(on?'selected':'')+feedback+"' onclick='"+(submitted?'':action)+"'><span class='qr-choice-mark is-checkbox'>"+(on?'✓':letter+'.')+"</span><span class='qr-choice-copy'>"+quickRNEscape(label)+(status?"<span class='qr-choice-status'>"+status+"</span>":"")+"</span></button>";
+ }).join(''):'<div class="qr-missing">This Select N item is missing its response options.</div>';
+ const notice='<p class="qr-help qr-select-n-instruction">Select exactly '+limit+' '+(limit===1?'option':'options')+'. <span class="qr-select-n-count">'+selected.length+'/'+limit+' selected</span></p>';
+ const response='<div class="qr-response-area">'+notice+choices+'</div>';
+ return html.replace(/<div class="qr-response-area">[\\s\\S]*?<\\/div><\\/section><\\/div>$/,response+'</section></div>');
+};
+const quickRNSelectNBaseHasAnswer=quickRNHasAnswer;
+quickRNHasAnswer=function(q,d){
+ if(quickRNDetectItemFormat(q)==='Select N'){
+  const n=quickRNSelectNLimit(q),values=Array.isArray(d&&d.choices)?d.choices:[];
+  return n>0&&values.length===n&&new Set(values.map(String)).size===n;
+ }
+ return quickRNSelectNBaseHasAnswer(q,d);
+};
+const quickRNSelectNBaseGrade=quickRNGrade;
+quickRNGrade=function(q,d){
+ if(quickRNDetectItemFormat(q)==='Select N'){
+  const opts=Array.isArray(q.options)?q.options:[],selected=Array.isArray(d&&d.choices)?d.choices:[];
+  const raw=q.correctAnswers??q.correctAnswer??[],correct=Array.isArray(raw)?raw:[raw];
+  const normalize=x=>{
+   const i=opts.findIndex((o,j)=>[quickRNOptionValue(o,j),quickRNOptionText(o),String.fromCharCode(65+j)].some(v=>String(v??'').trim().toLowerCase()===String(x??'').trim().toLowerCase()));
+   return i>=0?String(quickRNOptionValue(opts[i],i)):String(x??'');
+  };
+  const a=selected.map(normalize),b=correct.map(normalize);
+  return quickRNSelectNLimit(q)>0&&a.length===quickRNSelectNLimit(q)&&a.length===b.length&&new Set(a).size===a.length&&a.every(x=>b.includes(x));
+ }
+ return quickRNSelectNBaseGrade(q,d);
+};
+const quickRNSelectNBaseSummary=quickRNAnswerSummary;
+quickRNAnswerSummary=function(q,d){
+ if(quickRNDetectItemFormat(q)==='Select N'){
+  const opts=Array.isArray(q.options)?q.options:[],values=Array.isArray(d&&d.choices)?d.choices:[];
+  return values.map(v=>{const i=opts.findIndex((o,j)=>String(quickRNOptionValue(o,j))===String(v));return i>=0?quickRNOptionText(opts[i]):String(v);}).join('; ')||'Unanswered';
+ }
+ return quickRNSelectNBaseSummary(q,d);
+};
+
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,
  toDraft:quickRNFromLegacyDraft,
