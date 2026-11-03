@@ -485,7 +485,7 @@ quickRNRenderClinicalItem=function(q,draft,submitted){
  }).join(''):'<div class="qr-missing">This Select N item is missing its response options.</div>';
  const notice='<p class="qr-help qr-select-n-instruction">Select exactly '+limit+' '+(limit===1?'option':'options')+'. <span class="qr-select-n-count">'+selected.length+'/'+limit+' selected</span></p>';
  const response='<div class="qr-response-area">'+notice+choices+'</div>';
- return html.replace(/<div class="qr-response-area">[\\s\\S]*?<\\/div><\\/section><\\/div>$/,response+'</section></div>');
+ return html.replace(/<div class="qr-response-area">[\s\S]*?<\/div><\/section><\/div>$/,response+'</section></div>');
 };
 const quickRNSelectNBaseHasAnswer=quickRNHasAnswer;
 quickRNHasAnswer=function(q,d){
