@@ -1,8 +1,8 @@
 {
   "project": "QuickRN 2,000 clinically verified question-bank rebuild",
   "targetQuestions": 2000,
-  "batchSize": 100,
-  "totalBatches": 20,
+  "batchSize": 500,
+  "totalBatches": 2,
   "idPrefix": "QR-",
   "firstId": "QR-000001",
   "lastId": "QR-002000",
@@ -59,11 +59,11 @@
     }
   ],
   "nextBatch": {
-    "number": 14,
+    "number": 1,
     "firstId": "QR-001330",
-    "lastId": "QR-001429",
-    "status": "not_started_on_main",
-    "note": "IDs 1–1,329 are currently assigned; next new record begins at 1,330."
+    "lastId": "QR-001829",
+    "status": "not_started",
+    "note": "First 500-item expansion batch; 671 additional records are needed to reach 2,000 total assigned IDs."
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -138,5 +138,28 @@
       "questions-ngn-supplement.js",
       "question-bank-rebuild/batches/*.json"
     ]
+  },
+  "historicalBatchSize": 100,
+  "expansionPlan": {
+    "targetTotal": 2000,
+    "currentAssignedIds": 1329,
+    "remainingQuestions": 671,
+    "batches": [
+      {
+        "number": 1,
+        "firstId": "QR-001330",
+        "lastId": "QR-001829",
+        "count": 500,
+        "status": "not_started"
+      },
+      {
+        "number": 2,
+        "firstId": "QR-001830",
+        "lastId": "QR-002000",
+        "count": 171,
+        "status": "not_started"
+      }
+    ],
+    "note": "Historical 100-item archive batches are preserved. New expansion batches use 500 items, with a final 171-item batch to reach exactly 2,000 assigned question IDs. Draft items remain subject to educator review and renderer/integration validation."
   }
 }
