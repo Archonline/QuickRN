@@ -42,7 +42,7 @@ const VIDEO_PROVIDERS=[
   {id:'simplenursing',label:'Simple Nursing',query:'SimpleNursing'},
   {id:'picmonic',label:'Picmonic',query:'Picmonic'}
 ];
-let selectedProvider='registerednursern';
+let selectedProvider=null;
 let topic='',recognition=null;
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -71,11 +71,11 @@ function renderSystems(){
 function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
-function renderProviderButtons(topicText){
+function renderProviderButtons(){
   const host=$('video-provider-controls');if(!host)return;
   host.innerHTML=VIDEO_PROVIDERS.map(p=>'<button type="button" class="video-provider-button'+(p.id===selectedProvider?' is-selected':'')+'" data-provider="'+p.id+'" aria-pressed="'+(p.id===selectedProvider?'true':'false')+'">'+safe(p.label)+'</button>').join('');
   host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
-    selectedProvider=button.dataset.provider;renderProviderButtons(topicText);loadTopicVideo(topicText,selectedProvider);
+    selectedProvider=button.dataset.provider;renderProviderButtons();$('player-caption').textContent='Selected '+VIDEO_PROVIDERS.find(p=>p.id===selectedProvider).label+'. Choose a topic from the Learning Library to start its video.';showVideoMessage('Video provider selected. Now choose a body-system topic to play a matching lesson.');
   }));
 }
 function loadTopicVideo(topicText,providerId){
@@ -88,7 +88,7 @@ function loadTopicVideo(topicText,providerId){
   $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="'+safe(embed)+'" title="'+safe(provider.label+' '+topicText)+'" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
   $('player-caption').textContent='Searching '+provider.label+' for: '+topicText;
 }
-function playTopicPlaylist(topicText){renderProviderButtons(topicText);loadTopicVideo(topicText,selectedProvider);}
+function playTopicPlaylist(topicText){if(!selectedProvider){$('player-caption').textContent='Select a video provider below the player, then choose a topic to autoplay its lesson.';showVideoMessage('Choose a video provider below, then select a topic from the Learning Library.');return;}renderProviderButtons();loadTopicVideo(topicText,selectedProvider);}
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
 
@@ -114,7 +114,7 @@ $('voice-notes').addEventListener('click',()=>{
 });
 
 renderSystems();
+renderProviderButtons();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
-else selectTopic("Heart failure"); // Show topic-matched provider options
 })();
