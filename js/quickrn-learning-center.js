@@ -39,7 +39,7 @@ pharm:{
 // Missing entries intentionally show an unavailable placeholder instead of unrelated content.
 const VIDEO_PROVIDERS=[
   {id:'registerednursern',label:'RegisteredNurseRN',query:'RegisteredNurseRN'},
-  {id:'simplenursing',label:'Simple Nursing',query:'SimpleNursing'},
+  {id:'simplenursing',label:'Simple Nursing',query:'Simple Nursing'},
   {id:'picmonic',label:'Picmonic',query:'Picmonic'}
 ];
 let selectedProvider=null;
@@ -75,18 +75,19 @@ function renderProviderButtons(){
   const host=$('video-provider-controls');if(!host)return;
   host.innerHTML=VIDEO_PROVIDERS.map(p=>'<button type="button" class="video-provider-button'+(p.id===selectedProvider?' is-selected':'')+'" data-provider="'+p.id+'" aria-pressed="'+(p.id===selectedProvider?'true':'false')+'">'+safe(p.label)+'</button>').join('');
   host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
-    selectedProvider=button.dataset.provider;renderProviderButtons();$('player-caption').textContent='Selected '+VIDEO_PROVIDERS.find(p=>p.id===selectedProvider).label+'. Choose a topic from the Learning Library to start its video.';showVideoMessage('Video provider selected. Now choose a body-system topic to play a matching lesson.');
+    selectedProvider=button.dataset.provider;renderProviderButtons();const provider=VIDEO_PROVIDERS.find(p=>p.id===selectedProvider);if(topic){loadTopicVideo(topic,selectedProvider);}else{$('player-caption').textContent='Selected '+provider.label+'. Choose a topic from the Learning Library to prepare its YouTube search.';showVideoMessage('Video provider selected. Now choose a body-system topic to prepare a channel-specific YouTube search.');}
   }));
+}
+function buildYouTubeSearchUrl(topicText,provider){
+  const query=provider.query+' '+topicText+' nursing';
+  return 'https://www.youtube.com/results?search_query='+encodeURIComponent(query);
 }
 function loadTopicVideo(topicText,providerId){
   const provider=VIDEO_PROVIDERS.find(p=>p.id===providerId);
   if(!provider)return;
-  const query=provider.query+' '+topicText+' nursing';
-  // YouTube's search-playlist embed asks YouTube to resolve and play the first matching result.
-  // If YouTube disables search embeds for a channel/account, the user can still open the channel search.
-  const embed='https://www.youtube.com/embed?listType=search&list='+encodeURIComponent(query)+'&autoplay=1&rel=0';
-  $('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="'+safe(embed)+'" title="'+safe(provider.label+' '+topicText)+'" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>';
-  $('player-caption').textContent='Searching '+provider.label+' for: '+topicText;
+  const url=buildYouTubeSearchUrl(topicText,provider);
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-brands fa-youtube text-5xl text-red-500"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">YouTube search results open in a new tab. Choose a lesson from the selected channel; YouTube does not support embedding its search-results page as a playable video.</p><a class="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i>Search '+safe(provider.label)+' on YouTube</a></div>';
+  $('player-caption').textContent='YouTube search prepared for '+provider.label+': '+topicText;
 }
 function playTopicPlaylist(topicText){if(!selectedProvider){$('player-caption').textContent='Select a video provider below the player, then choose a topic to autoplay its lesson.';showVideoMessage('Choose a video provider below, then select a topic from the Learning Library.');return;}renderProviderButtons();loadTopicVideo(topicText,selectedProvider);}
 // Event Listeners
