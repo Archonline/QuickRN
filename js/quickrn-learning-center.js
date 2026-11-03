@@ -91,7 +91,20 @@ function loadTopicVideo(topicText,providerId){
   const videoId=VIDEO_CATALOG[providerId]&&VIDEO_CATALOG[providerId][topicText];
   if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){$('player-shell').innerHTML='<iframe class="w-full h-full min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';$('player-caption').textContent='Now playing: '+provider.label+' · '+topicText;return;}
   const url=buildYouTubeSearchUrl(topicText,provider);
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-brands fa-youtube text-5xl text-red-500"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is mapped to this topic and channel yet. Search pages cannot autoplay inside the player; open YouTube in a new window and choose a lesson.</p><a class="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-youtube"></i>Open YouTube in a new window</a></div>';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-brands fa-youtube text-5xl text-red-500"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is mapped to this topic and channel yet. Open YouTube beside QuickRN, then keep your Study Notebook open while you watch.</p><button type="button" id="open-youtube-side-by-side" class="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white hover:bg-red-700"><i class="fa-brands fa-youtube"></i>Open YouTube beside QuickRN</button><p class="text-xs text-white/60">If the windows overlap, use Win + ← for QuickRN and Win + → for YouTube.</p></div>';
+  const openButton=$('open-youtube-side-by-side');
+  if(openButton)openButton.addEventListener('click',()=>{
+    const width=Math.max(480,Math.floor((window.screen.availWidth||1200)/2));
+    const height=Math.max(600,window.screen.availHeight||800);
+    const left=Math.max(0,(window.screen.availWidth||1200)-width);
+    const features='popup=yes,width='+width+',height='+height+',left='+left+',top=0,resizable=yes,scrollbars=yes';
+    const youtubeWindow=window.open(url,'quickrn-youtube-window',features);
+    if(youtubeWindow){
+      try{youtubeWindow.moveTo(left,0);youtubeWindow.resizeTo(width,height);youtubeWindow.focus();}catch(error){}
+    }else{
+      $('player-caption').textContent='Your browser blocked the YouTube window. Allow pop-ups for QuickRN and try again.';
+    }
+  });
   $('player-caption').textContent='YouTube search prepared for '+provider.label+': '+topicText;
 }
 function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 4 · '+message;}
