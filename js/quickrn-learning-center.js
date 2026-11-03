@@ -45,7 +45,11 @@ const VIDEO_PROVIDERS=[
 let selectedProvider=null;
 let topic='',recognition=null,currentVideoUrl='';
 // Only manually reviewed video IDs are eligible for automatic playback.
-const VIDEO_ID_CATALOG={};
+const VIDEO_ID_CATALOG={
+  simplenursing:{
+    'Heart failure':'r5W1ns5C1ik'
+  }
+};
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const noteKey=()=> 'quickrn_learning_notes_v1';
