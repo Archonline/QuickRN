@@ -76,66 +76,10 @@ function renderSystems(){
   ).join('');
 }
 function showVideoMessage(message){
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
+  $('player-shell').innerHTML='<div class="w-full h-full min-h-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-solid fa-circle-exclamation text-4xl text-amber-400"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is currently mapped to this topic and channel. Please report an unavailable or incorrect lesson mapping so it can be reviewed.</p>'+videoReportLink(topicText,provider,'')+'</div>';
+  $('player-caption').textContent='No verified video mapped: '+provider.label+' · '+topicText;
 }
-function renderProviderButtons(){
-  const host=$('video-provider-controls');if(!host)return;
-  host.innerHTML=VIDEO_PROVIDERS.map(p=>'<button type="button" class="video-provider-button'+(p.id===selectedProvider?' is-selected':'')+'" data-provider="'+p.id+'" aria-pressed="'+(p.id===selectedProvider?'true':'false')+'">'+safe(p.label)+'</button>').join('');
-  host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
-    if(!topic){$('player-caption').textContent='Choose a body system and topic first.';showVideoMessage('Step 1: choose a body system. Step 2: choose a topic. Then select a channel.');return;}selectedProvider=button.dataset.provider;renderProviderButtons();loadTopicVideo(topic,selectedProvider);
-  }));
-}
-function buildVideoReportUrl(topicText,provider,videoUrl){
-  const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
-  const body=[
-    'Please review this Learning Center video mapping.',
-    '',
-    '**Topic:** '+topicText,
-    '**Channel:** '+provider.label,
-    '**Video URL / ID:** '+(videoUrl||'No video currently mapped'),
-    '**Report type:** Unavailable, broken, incorrect, or cannot be embedded',
-    '',
-    'Please verify the video and remap this topic if a suitable replacement is available.'
-  ].join('\n');
-  return 'https://github.com/Archonline/QuickRN/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
-}
-function videoReportLink(topicText,provider,videoUrl){
-  const url=buildVideoReportUrl(topicText,provider,videoUrl);
-  return '<a class="inline-flex items-center gap-2 rounded-lg border border-rose-300/60 px-3 py-2 text-xs font-semibold text-rose-100 hover:bg-rose-500/15" href="'+safe(url)+'" target="_blank" rel="noopener noreferrer"><i class="fa-regular fa-flag"></i>Report unavailable / broken video</a>';
-}
-function loadTopicVideo(topicText,providerId){
-  const provider=VIDEO_PROVIDERS.find(p=>p.id===providerId);
-  if(!provider)return;
-  currentVideoUrl='';
-  updateLearningFlow(4,'Channel selected. Checking for a verified lesson mapping.');
-  const videoId=VIDEO_ID_CATALOG[providerId]&&VIDEO_ID_CATALOG[providerId][topicText];
-  if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){currentVideoUrl='https://www.youtube.com/watch?v='+videoId;$('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col"><iframe class="w-full flex-1 min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe><div class="flex justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';$('player-caption').textContent='Now playing: '+provider.label+' · '+topicText+' · Report a problem if this video is unavailable.';return;}
-  $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-3 p-6 text-center text-white"><i class="fa-solid fa-circle-exclamation text-4xl text-amber-400"></i><p class="text-base font-bold">'+safe(provider.label)+' · '+safe(topicText)+'</p><p class="max-w-lg text-sm text-white/75">No verified video is currently mapped to this topic and channel. YouTube search has been removed. If you already have the correct lesson link, paste it below to play it inside QuickRN.</p><form id="quickrn-video-form" class="w-full max-w-xl flex flex-col sm:flex-row gap-2"><input id="quickrn-video-url" type="url" inputmode="url" placeholder="Paste a YouTube video URL" aria-label="YouTube video URL" class="min-w-0 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-3 text-sm text-slate-900 outline-none focus:ring-2 focus:ring-cyan-400"><button type="submit" class="rounded-lg bg-cyan-600 px-4 py-3 text-sm font-bold text-white hover:bg-cyan-500">Play inside QuickRN</button></form><p id="quickrn-video-error" class="text-xs text-rose-300" role="status"></p><p class="text-xs text-white/60">Your Study Notebook stays open beside the player. Some videos do not allow embedding.</p>'+videoReportLink(topicText,provider,'')+'</div>';
-  const videoForm=$('quickrn-video-form');
-  if(videoForm)videoForm.addEventListener('submit',event=>{
-    event.preventDefault();
-    const videoId=extractYouTubeVideoId($('quickrn-video-url').value.trim());
-    if(!videoId){$('quickrn-video-error').textContent='Please paste a valid YouTube video link (youtube.com or youtu.be).';return;}
-    currentVideoUrl='https://www.youtube.com/watch?v='+videoId;
-    const activeProvider=VIDEO_PROVIDERS.find(p=>p.id===selectedProvider)||{label:'YouTube'};
-    $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col"><iframe class="w-full flex-1 min-h-48" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="QuickRN lesson video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><div class="flex justify-end bg-slate-900 p-2">'+videoReportLink(topicText,activeProvider,currentVideoUrl)+'</div></div>';
-    $('player-caption').textContent='Playing a YouTube lesson inside QuickRN · '+topicText+' · Report a problem if unavailable.';
-  });
-  $('player-caption').textContent='No verified video mapped: '+provider.label+' · '+topicText+'. Paste a video link if you already have one.';
-}
-function extractYouTubeVideoId(value){
-  try{
-    const parsed=new URL(value);
-    const host=parsed.hostname.replace(/^www\./,'').toLowerCase();
-    let id='';
-    if(host==='youtu.be')id=parsed.pathname.split('/').filter(Boolean)[0]||'';
-    else if(host==='youtube.com'||host==='m.youtube.com'||host==='music.youtube.com'){
-      if(parsed.pathname==='/watch')id=parsed.searchParams.get('v')||'';
-      else {const parts=parsed.pathname.split('/').filter(Boolean);if(['embed','shorts','live'].includes(parts[0]))id=parts[1]||'';}
-    }
-    return /^[A-Za-z0-9_-]{11}$/.test(id)?id:'';
-  }catch(error){return '';}
-}
+
 function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 4 · '+message;}
 function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. Choose a channel to start the lesson.');renderProviderButtons();$('player-caption').textContent='Choose a channel to check whether a verified lesson is available for '+topicText+'.';showVideoMessage('Topic selected: '+topicText+'. Choose your preferred channel below to continue.');}
 // Event Listeners
