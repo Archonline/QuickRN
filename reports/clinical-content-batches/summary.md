@@ -48,6 +48,8 @@ Legacy top-level question fields were retained for compatibility with existing e
 
 A broader in-session scan of the two accessible modules loaded 80 records: the 40 authored records passed the v2 adapter; 40 untouched records still have metadata/rationale gaps (13 CJMM-stage gaps, 40 option-rationale gaps, and 40 Clinical Judgment Tip gaps). This is not a full production-bank count.
 
+Partial educator review queue: [educator-review-queue.partial.json](educator-review-queue.partial.json) — 40 pending authored records and 40 not-started records across the two accessible modules only; it is not the full production bank.
+
 ## Review policy
 
 The dedicated v2 validator writes separate schema-issue and educator-review queues:
