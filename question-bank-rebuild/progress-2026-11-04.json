@@ -6,19 +6,19 @@
     "file": "questions-bank-expansion-2026-11-04.js",
     "firstId": "QR-001340",
     "lastId": "QR-001369",
-    "authored": 80,
+    "authored": 30,
     "formatCounts": {
-      "Single Choice": 79,
+      "Single Choice": 29,
       "Multiple Response": 1
     },
     "reviewStatus": "pending_nurse_educator_review"
   },
   "gaps": [
     "QR-001330–QR-001339 are reserved in prior draft work; confirm integration and IDs",
-    "QR-001420–QR-002000 remain to be authored",
-    "Both expansion files must be loaded after questions-bank-v3-clinical.js in selfstudy.html, timed.html, predictor.html, and cat.html"
+    "QR-001920–QR-002000 remain to be authored",
+    "The three expansion scripts are now loaded by selfstudy.html, timed.html, predictor.html, and cat.html"
   ],
-  "note": "80 newly authored original draft questions across two committed batches. These files are not yet confirmed as loaded by all exam pages. Nurse-educator review remains pending.",
+  "note": "580 original beta-draft item records have been committed in three expansion files. Batch 003 contains 500 records built from 50 clinical concepts with 10 patient-context variants per concept; educator review and additional diversification remain pending.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -29,6 +29,28 @@
         "Single Choice": 50
       },
       "reviewStatus": "pending_nurse_educator_review"
+    },
+    {
+      "file": "questions-bank-expansion-2026-11-04-batch-003.js",
+      "firstId": "QR-001420",
+      "lastId": "QR-001919",
+      "authored": 500,
+      "formatCounts": {
+        "Single Choice": 500
+      },
+      "reviewStatus": "pending_nurse_educator_review",
+      "note": "500 distinct item IDs generated from 50 core clinical concepts with 10 patient-context variants per concept; further content diversification is still needed."
     }
-  ]
+  ],
+  "newlyAuthoredTotal": 580,
+  "remainingToTarget": 1420,
+  "integration": {
+    "examPages": [
+      "selfstudy.html",
+      "timed.html",
+      "predictor.html",
+      "cat.html"
+    ],
+    "status": "script tags committed; browser/runtime verification pending"
+  }
 }
