@@ -44,10 +44,12 @@ function diversityShuffle(list){const buckets=new Map();shuffle(list).forEach(q=
 const SEEN_QUESTION_KEY='quickrn_seen_question_ids_v1';
 function seenQuestionIds(){return new Set([...(readJSON(SEEN_QUESTION_KEY,[])||[]),...(readJSON('quickrn_used_q_ids',[])||[])].map(String));}
 function rememberQuestionSeen(q){
- if(mode!=='selfstudy'||!q||!isQuickRNWebmaster())return;
- const ids=new Set((readJSON(EDUCATOR_SEEN_KEY,[])||[]).map(String));
- ids.add(String(q.id));
- writeJSON(EDUCATOR_SEEN_KEY,[...ids]);
+ if(mode!=='selfstudy'||!q)return;
+ const ids=seenQuestionIds(),sequencer=window.QuickRNCaseStudySequencer;
+ const group=sequencer?.units?sequencer.units(bank).find(unit=>unit.items.some(item=>String(item.id)===String(q.id))):null;
+ (group?.items||[q]).forEach(item=>ids.add(String(item.id)));
+ writeJSON(SEEN_QUESTION_KEY,[...ids]);
+ if(isQuickRNWebmaster()){const educatorSeen=new Set((readJSON(EDUCATOR_SEEN_KEY,[])||[]).map(String));educatorSeen.add(String(q.id));writeJSON(EDUCATOR_SEEN_KEY,[...educatorSeen]);}
 }
 function unseenSelfStudyPool(list){
  const seen=seenQuestionIds(),sequencer=window.QuickRNCaseStudySequencer;
