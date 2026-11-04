@@ -1414,6 +1414,19 @@ const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const noteKey=()=> 'quickrn_learning_notes_v1';
 function allTopics(){return Object.entries(DATA).flatMap(([category,systems])=>Object.entries(systems).flatMap(([system,topics])=>topics.map(topic=>({category,system,topic}))));}
+function topicHasHardcodedVideo(topicText){
+  return VIDEO_PROVIDERS.some(provider=>{
+    const id=VIDEO_ID_CATALOG[provider.id]&&VIDEO_ID_CATALOG[provider.id][topicText];
+    return typeof id==='string'&&/^[A-Za-z0-9_-]{11}$/.test(id);
+  });
+}
+function renderTopicLabel(topicText){
+  const marker=topicHasHardcodedVideo(topicText)
+    ?'<i class="fa-solid fa-circle-play topic-video-marker" aria-label="Hard-coded video available" title="Hard-coded video available" role="img"></i>'
+    :'';
+  return '<span class="topic-label-text">'+safe(topicText)+'</span>'+marker;
+}
+
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {};}}
 function sanitizeNotesHtml(html){
   const parsed=new DOMParser().parseFromString(String(html||''),'text/html');
@@ -1524,7 +1537,7 @@ function renderSystems(){
     return {name:group.name,subs};
   }).filter(group=>group.subs.length);
   $('client-needs-list').innerHTML=needs.map((group,i)=>
-    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(group.name)+'</span><span class="text-[11px] font-normal text-slate-500">'+group.subs.reduce((n,sub)=>n+sub.topics.length,0)+'</span></summary><div class="p-2 border-t space-y-2">'+group.subs.map(sub=>'<details class="rounded-lg bg-slate-50 overflow-hidden"><summary class="cursor-pointer px-2 py-2 text-[11px] font-bold text-slate-700 flex justify-between gap-2"><span>'+safe(sub.name)+'</span><span class="font-normal text-slate-500">'+sub.topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2">'+sub.topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>').join('')+'</div></details>'
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(group.name)+'</span><span class="text-[11px] font-normal text-slate-500">'+group.subs.reduce((n,sub)=>n+sub.topics.length,0)+'</span></summary><div class="p-2 border-t space-y-2">'+group.subs.map(sub=>'<details class="rounded-lg bg-slate-50 overflow-hidden"><summary class="cursor-pointer px-2 py-2 text-[11px] font-bold text-slate-700 flex justify-between gap-2"><span>'+safe(sub.name)+'</span><span class="font-normal text-slate-500">'+sub.topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2">'+sub.topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'"'>'+renderTopicLabel(t)+'</button>').join('')+'</div></details>').join('')+'</div></details>'
   ).join('');
   const systems=items.reduce((acc,item)=>{
     const label=labels[item.category]||item.category;
@@ -1535,7 +1548,7 @@ function renderSystems(){
   const total=items.length;
   $('topic-count').textContent=total+' topics';
   $('system-list').innerHTML=Object.entries(systems).map(([system,topics],i)=>
-    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>'
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'"'>'+renderTopicLabel(t)+'</button>').join('')+'</div></details>'
   ).join('');
 }
 function showVideoMessage(message){
