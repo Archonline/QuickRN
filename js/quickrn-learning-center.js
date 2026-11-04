@@ -159,6 +159,7 @@ const VIDEO_ID_CATALOG={
     'Congenital heart defects':'sqk9ZuYLEDE',
     'Heart failure':'r5W1ns5C1ik',
     'Hypertension and hypertensive crisis':'4T3kgM-8nNI',
+    'ACE inhibitors and ARBs':'VtjIUnpKUI0',
     'Diabetes mellitus and insulin':'NyMigFpOnpM',
     'DKA vs HHS':'NxUzNDg5nN4',
     'Immunization schedule and safety':'aGuSHFYgdQE',
@@ -176,6 +177,7 @@ const VIDEO_ID_CATALOG={
     'Electrolyte imbalances':'-PaHC8fleO0',
     'Developmental milestones by age':'zzpmz5zDnb8',
     'Pediatric vital signs and assessment':'pXrGIZOLz4k',
+    'Medication administration rights':'TqVrR69Swr0',
     'Immunization schedule and safety':'piO71GcUa1s',
     'Increased intracranial pressure':'2_uXDgUSH0k'
   },
