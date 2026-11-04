@@ -15,7 +15,7 @@
  bank.forEach((q,index)=>{
   if(!q||typeof q!=='object'){issues.push({id:'index:'+index,code:'INVALID_RECORD'});return;}
   const id=String(q.id||'').trim()||'index:'+index;
-  if(!q.id)issues.push({id,code:'MISSING_ID'});
+  if(!q.id)issues.push({id,code:'MISSING_ID'});\n  else if(!/^QR-\\d{6}$/.test(String(q.id).trim()))issues.push({id,code:'NON_CANONICAL_QUESTION_ID'});
   if(seenIds.has(id))issues.push({id,code:'DUPLICATE_ID'});seenIds.add(id);
   if(!String(q.title||q.question||q.stem||q.questionText||'').trim())issues.push({id,code:'MISSING_STEM'});
   ['patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','caseStudyContext'].forEach(k=>{if(q[k]!=null)walk(q[k],k,id);});
