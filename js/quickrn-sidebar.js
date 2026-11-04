@@ -35,7 +35,7 @@
     toggle.title=enabled?'Turn off auto-hide':'Enable auto-hide';
     toggle.innerHTML='<i class="fa-solid '+(enabled?'fa-eye':'fa-eye-slash')+'" aria-hidden="true"></i>';
   };
-  toggle.addEventListener('click',()=>{autoHide=!autoHide;applySidebarState(autoHide);try{localStorage.setItem('quickrn-main-sidebar-autohide',String(autoHide));}catch(_e){}});
+  toggle.addEventListener('click',(event)=>{event.preventDefault();event.stopPropagation();autoHide=!autoHide;applySidebarState(autoHide);try{localStorage.setItem('quickrn-main-sidebar-autohide',String(autoHide));}catch(_e){}});
   const nav=document.createElement('nav'); nav.className='qr-sidebar-nav'; nav.setAttribute('aria-label','Main navigation');
   groups.forEach(group=>{const section=document.createElement('section');section.className='qr-sidebar-group';const heading=document.createElement('h2');heading.textContent=group.label;section.appendChild(heading);
     group.links.forEach(([href,icon,label,tab])=>{const a=document.createElement('a');a.href=href;a.className='qr-sidebar-link';a.innerHTML='<i class="fa-solid '+icon+'" aria-hidden="true"></i><span>'+label+'</span>';
