@@ -158,6 +158,7 @@ const VIDEO_ID_CATALOG={
   simplenursing:{
     'Heart failure':'r5W1ns5C1ik',
     'Diabetes mellitus and insulin':'NyMigFpOnpM',
+    'Immunization schedule and safety':'aGuSHFYgdQE',
     'Asthma management':'lPOtUH-A-yQ',
     'COPD exacerbation':'PYatQP1350c',
     'Electrolyte imbalances':'T_pCeQkpNX8',
@@ -169,7 +170,10 @@ const VIDEO_ID_CATALOG={
     'Preeclampsia and eclampsia':'pnGyENcL2j0',
     'Asthma management':'GVTXJwv8ndY',
     'Electrolyte imbalances':'-PaHC8fleO0',
-    'Developmental milestones by age':'zzpmz5zDnb8'
+    'Developmental milestones by age':'zzpmz5zDnb8',
+    'Pediatric vital signs and assessment':'pXrGIZOLz4k',
+    'Immunization schedule and safety':'piO71GcUa1s',
+    'Increased intracranial pressure':'2_uXDgUSH0k'
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
