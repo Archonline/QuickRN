@@ -148,7 +148,6 @@ Object.assign(DATA,{
 const VIDEO_PROVIDERS=[
   {id:'registerednursern',label:'RegisteredNurseRN',query:'RegisteredNurseRN'}
 ];
-let selectedProvider=null;
 let topic='',recognition=null,currentVideoUrl='';
 const VIDEO_ID_CATALOG={
   registerednursern:{
@@ -722,7 +721,7 @@ function showVideoMessage(message){
 }
 function renderProviderButtons(){
   const host=$('video-provider-controls');
-  if(host)host.innerHTML='';
+  if(host)host.remove();
 }
 function buildVideoReportUrl(topicText,provider,videoUrl){
   const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
@@ -741,7 +740,7 @@ function loadTopicVideo(topicText,providerId){
   const videoId=VIDEO_ID_CATALOG[providerId]&&VIDEO_ID_CATALOG[providerId][topicText];
   if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){
     currentVideoUrl='https://www.youtube.com/watch?v='+videoId;
-    $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
+    $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" loading="eager" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
     $('player-caption').textContent='Now playing: '+provider.label+' · '+topicText+' · Report a problem if this video is unavailable.';
     return;
   }
@@ -855,7 +854,7 @@ function renderCheatSheet(topicText){
 }
 
 function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 3 · '+message;}
-function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. The lesson loads automatically.');renderProviderButtons();loadTopicVideo(topicText,VIDEO_PROVIDERS[0].id);}
+function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. The lesson loads automatically.');loadTopicVideo(topicText,VIDEO_PROVIDERS[0].id);}
 // Sidebar can collapse to a slim rail to give the lesson and notebook more room.
 const sidebar=$('learning-topic-sidebar');
 const sidebarToggle=$('toggle-learning-sidebar');
@@ -953,7 +952,6 @@ $('voice-notes').addEventListener('click',()=>{
 });
 
 renderSystems();
-renderProviderButtons();
 const requestedTopic=new URLSearchParams(window.location.search).get('topic');
 if(requestedTopic)selectTopic(requestedTopic);
 })();
