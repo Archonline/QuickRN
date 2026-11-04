@@ -1,7 +1,7 @@
 {
   "project": "QuickRN question-bank expansion",
   "targetQuestions": 2000,
-  "previousCanonicalIds": "QR-000001–QR-001329",
+  "previousCanonicalIds": "Legacy numeric ID range noted by prior tracker; not a verified count.",
   "newDraftBatch": {
     "file": "questions-bank-expansion-2026-11-04.js",
     "firstId": "QR-001340",
@@ -18,7 +18,7 @@
     "Batch 004 extends IDs through QR-002419; total newly authored records tracked separately from legacy bank counts.",
     "The four exam pages include the NGN batch 004 script; browser/runtime verification remains pending."
   ],
-  "note": "1,080 new beta-draft records are committed across four expansion files. Batch 004 adds 500 NGN records across 50 clinical scenarios and 10 NGN item formats per scenario; nurse-educator review and independent content validation remain pending.",
+  "note": "Repository audit on main found 1,205 unique top-level question records loaded from the nine bank modules (125 legacy + 1,080 newly authored). No duplicate IDs were found in the assembled array. 795 additional records are needed to reach 2,000 available records. Batch 004 contributes 500 NGN records across 50 case contexts and 10 formats; educator review remains pending.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -63,7 +63,7 @@
     }
   ],
   "newlyAuthoredTotal": 1080,
-  "remainingToTarget": 920,
+  "remainingToTarget": 795,
   "integration": {
     "examPages": [
       "selfstudy.html",
@@ -73,15 +73,68 @@
     ],
     "status": "script tags committed; browser/runtime verification pending"
   },
-  "newDraftBatch004": {
-    "file": "questions-bank-expansion-2026-11-04-batch-004.js",
-    "firstId": "QR-001920",
-    "lastId": "QR-001939",
-    "authored": 20,
-    "formatCounts": {
-      "Single Choice": 20
-    },
-    "reviewStatus": "pending_nurse_educator_review"
+  "totalAssignedIncludingReserved": 1205,
+  "bankAudit": {
+    "branch": "main",
+    "auditedFiles": [
+      "questions-ngn-supplement.js",
+      "questions-bank-v2.js",
+      "questions-bank-v2-curated.js",
+      "questions-bank-v3-clinical.js",
+      "js/quickrn-ngn-case-study-addon.js",
+      "questions-bank-expansion-2026-11-04.js",
+      "questions-bank-expansion-2026-11-04-batch-002.js",
+      "questions-bank-expansion-2026-11-04-batch-003.js",
+      "questions-bank-ngn-expansion-2026-11-04-batch-004.js"
+    ],
+    "uniqueTopLevelQuestionRecords": 1205,
+    "duplicateIdsAcrossLoadedFiles": 0,
+    "legacyRecordsLoaded": 125,
+    "newlyAuthoredRecordsLoaded": 1080,
+    "remainingTo2000TotalRecords": 795,
+    "actualModuleContribution": [
+      {
+        "file": "questions-ngn-supplement.js",
+        "added": 26
+      },
+      {
+        "file": "questions-bank-v2.js",
+        "added": 20
+      },
+      {
+        "file": "questions-bank-v2-curated.js",
+        "added": 60
+      },
+      {
+        "file": "questions-bank-v3-clinical.js",
+        "added": 13
+      },
+      {
+        "file": "js/quickrn-ngn-case-study-addon.js",
+        "added": 6
+      },
+      {
+        "file": "questions-bank-expansion-2026-11-04.js",
+        "added": 30
+      },
+      {
+        "file": "questions-bank-expansion-2026-11-04-batch-002.js",
+        "added": 52
+      },
+      {
+        "file": "questions-bank-expansion-2026-11-04-batch-003.js",
+        "added": 498
+      },
+      {
+        "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+        "added": 500
+      }
+    ],
+    "excluded": [
+      "questions.js (empty file; contributes 0 records)"
+    ],
+    "method": "Executed the nine bank scripts in exam-page load order in an isolated JavaScript context, counted resulting top-level question objects, and checked ID uniqueness.",
+    "limitations": "Counts are top-level records available from the audited modules. Browser rendering/scoring is not included; nested case-study sub-items not pushed into root.questions are not counted separately."
   },
-  "totalAssignedIncludingReserved": 1939
+  "totalAvailableUniqueRecords": 1205
 }
