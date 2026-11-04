@@ -23,7 +23,7 @@ Added canonical schema v2 metadata, structured interactions, four letter-keyed o
 
 - `metadata`: `id`, `category`, `clientNeeds`, `cjmmStep`, integer `difficulty` (1–5), and `topic`
 - `interaction`: `type`, `stem`, `options`, `answerKey`, and `scoring.method`
-- `rationales`: `overall`, letter-keyed `options` entries with `correct` and `explanation`, and `clinicalJudgmentTip`
+- `rationales`: `overall`, letter-keyed `options` string explanations (A–D), and `clinicalJudgmentTip`
 - `evidence`: source title, organization, year, URL, and supported claim
 - `educatorReview` initialized to `pending`
 
@@ -33,7 +33,7 @@ Added canonical schema v2 metadata, structured interactions, four letter-keyed o
 |---|---|---|
 | Source JavaScript syntax | PASS | Updated question-bank file passed a syntax parse check. |
 | Schema v2 field presence | PASS | All five records contain nested metadata, interaction, and rationales structures. |
-| Option rationale coverage | PASS | Each of the four choices has a letter-keyed `correct` flag and explanation. |
+| Option rationale coverage | PASS | Each of the four choices has a letter-keyed explanation string; the correct response is stored in `interaction.answerKey`. |
 | Evidence retention | PASS | Each item has a titled source, organization, year, URL, and supported claim; transfusion item has two sources. |
 | Full production schema validator | NOT RUN | The complete production bank could not be assembled in this session because the repository file interface returned empty content for `questions.js`. |
 | Educator review | PENDING | All five records remain pending; none is educator-approved. |
