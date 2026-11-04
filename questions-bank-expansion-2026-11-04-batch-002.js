@@ -60,7 +60,7 @@
  ['Fundamentals','Urinary catheter care','Which action helps prevent catheter-associated urinary tract infection?',['Keep the drainage system closed and the bag below bladder level','Disconnect tubing daily for cleaning','Place the bag on the bed','Irrigate routinely without an order'],0,'A closed system and dependent drainage reduce infection risk; avoid unnecessary disconnections and irrigation.'],
  ['Fundamentals','Oxygen safety','A client receiving oxygen by nasal cannula asks to smoke. What should the nurse say?',['Smoking is prohibited near oxygen because it greatly increases fire risk','Smoking is safe if oxygen is turned down','Use a lighter only outside the room','Remove the cannula briefly and smoke beside the bed'],0,'Oxygen supports combustion. Smoking and open flames must be prohibited in oxygen-use areas.']
  ];
- const types=['Single Choice','Multiple Response','Select N','Single Choice','Multiple Response'];
+ const types=Array(50).fill('Single Choice');
  const items=rows.map((r,i)=>{
    const type=types[i%types.length];
    const correct=r[3][r[4]];
