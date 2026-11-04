@@ -7,7 +7,7 @@
  *   - 1 additional base record: QR-002150
  * OTHER BANK MODULES: 3,327 additional unique records.
  *
- * The 3,969 figure is the de-duplicated production-bank total, NOT the number of
+ * The 3,992 figure is the de-duplicated production-bank total, NOT the number of
  * records physically stored in this file. Keep the manifest below in sync whenever
  * bank modules or unique question records are added, removed, or consolidated.
  *
