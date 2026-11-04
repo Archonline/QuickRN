@@ -302,28 +302,6 @@ $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=sanitizeNotesHtml($('topic-notes').innerHTML);localStorage.setItem(noteKey(),JSON.stringify(n));}});
 let savedNoteSelection=null;
 const noteEditor=$('topic-notes');
-// End highlighting at the next space so only the selected word remains highlighted.
-noteEditor.addEventListener('keydown',event=>{
-  if(event.key!==' '||event.shiftKey||event.ctrlKey||event.metaKey||event.altKey)return;
-  const selection=window.getSelection();
-  if(!selection||!selection.isCollapsed||!selection.rangeCount)return;
-  const range=selection.getRangeAt(0);
-  if(!noteEditor.contains(range.startContainer))return;
-  let node=range.startContainer.nodeType===Node.TEXT_NODE?range.startContainer.parentElement:range.startContainer;
-  const mark=node&&node.closest('mark');
-  if(!mark||!noteEditor.contains(mark))return;
-  const before=range.cloneRange();
-  before.selectNodeContents(mark);
-  before.setEnd(range.startContainer,range.startOffset);
-  if(before.toString().length!==mark.textContent.length)return;
-  event.preventDefault();
-  const space=document.createTextNode(' ');
-  mark.parentNode.insertBefore(space,mark.nextSibling);
-  const after=document.createRange();
-  after.setStartAfter(space);after.collapse(true);
-  selection.removeAllRanges();selection.addRange(after);
-  saveNotes();
-});
 document.querySelectorAll('[data-note-format]').forEach(button=>{
   button.addEventListener('mousedown',event=>{
     const selection=window.getSelection();
@@ -339,9 +317,23 @@ document.querySelectorAll('[data-note-format]').forEach(button=>{
     const format=button.dataset.noteFormat;
     if(format==='bold')document.execCommand('bold',false,null);
     else if(format==='underline')document.execCommand('underline',false,null);
-    else if(format==='highlight'||format==='unhighlight'){
+    else if(format==='highlight'){
       if(!selection||selection.isCollapsed){$('voice-status').textContent='Select the text you want to format first.';return;}
-      document.execCommand('hiliteColor',false,format==='highlight'?'#fef08a':'transparent');
+      const range=selection.getRangeAt(0);
+      const highlighted=Array.from(editor.querySelectorAll('mark')).some(mark=>{
+        try{return range.intersectsNode(mark);}catch(_){return false;}
+      });
+      if(highlighted){
+        // Extract only the selected portion, remove its mark wrappers, and put it back.
+        // This also handles selecting only part of a highlighted phrase.
+        const fragment=range.extractContents();
+        fragment.querySelectorAll('mark').forEach(mark=>mark.replaceWith(...Array.from(mark.childNodes)));
+        range.insertNode(fragment);
+        range.collapse(false);
+        selection.removeAllRanges();selection.addRange(range);
+      }else{
+        document.execCommand('hiliteColor',false,'#fef08a');
+      }
     }
     savedNoteSelection=null;
     saveNotes();
