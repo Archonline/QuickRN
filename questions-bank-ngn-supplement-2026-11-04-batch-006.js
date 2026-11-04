@@ -8,7 +8,7 @@ const topics=[["Sepsis with pneumonia","Fever, tachycardia, hypotension, confusi
 const existing=new Set(bank.map(q=>String(q&&q.id||'')));
 let added=0;
 const formats=['Bowtie','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Highlight','Trend','Extended Drag and Drop','Extended Multiple Response','Select N'];
-topics.forEach((t,ti)=>{
+topics.slice(0,50).forEach((t,ti)=>{
  const actions=t[2].split(', ').filter(Boolean),monitors=t[3].split(', ').filter(Boolean);
  formats.forEach((fmt,fi)=>{
   const id='QR-'+String(2920+ti*10+fi).padStart(6,'0'),problem=t[0],act=actions[0]||'Escalate the acute change and implement prescribed care',monitor=monitors[0]||'Vital signs and clinical response';
