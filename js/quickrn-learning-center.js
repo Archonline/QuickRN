@@ -158,6 +158,11 @@ function loadTopicVideo(topicText,providerId){
 }
 // Topic-matched quick references. External images are previews with attribution; Google Images is a discovery link, not an image API.
 const CHEAT_SHEET_IMAGES=[
+  {match:/ECG|EKG|dysrhythmia|arrhythmia/i,title:'5 Lead EKG Placement',src:'https://nursing.com/wp-content/uploads/2019/11/cardiac-001-343x350-1.png',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
+  {match:/oxygen|COPD|asthma|airway|suction|chest tube|respiratory failure/i,title:'Hierarchy of Oxygen Delivery',src:'https://nursing.com/wp-content/uploads/2019/11/resp-002-343x350-1.webp',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
+  {match:/hemodynamic|heart failure|cardiogenic shock|cardiovascular|myocardial infarction|acute coronary/i,title:'Hemodynamic Values',src:'https://nursing.com/wp-content/uploads/2019/11/cardiac-003-343x350-1.webp',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
+  {match:/IV solution|intravenous fluid|fluid replacement/i,title:'Crystalloid IV Solutions',src:'https://nursing.com/wp-content/uploads/2019/11/pharm-001-copy-343x350-1.png',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
+  {match:/laboratory|lab value|CBC interpretation|renal and liver function/i,title:'63 Must-Know Lab Values',src:'https://nursing.com/wp-content/uploads/2019/12/labs-001-343x350-1.png',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
   {match:/electrolyte|sodium|potassium|calcium|magnesium/i,title:'Electrolyte Abnormalities',src:'https://nursing.com/wp-content/uploads/2019/11/electrolyte-abnormalities-cheatsheet.webp',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'},
   {match:/insulin|diabetes mellitus|DKA|HHS/i,title:'Insulin Onset & Peak',src:'https://nursing.com/wp-content/uploads/2024/02/insulin-peak-and-onset.webp',source:'NURSING.com',url:'https://nursing.com/cheat-sheets/'}
 ];
