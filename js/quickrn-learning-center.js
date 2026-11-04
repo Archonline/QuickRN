@@ -93,10 +93,19 @@ function allTopics(){return Object.entries(DATA).flatMap(([category,systems])=>O
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {};}}
 function saveNotes(){const notes=loadNotes();notes[topic||'General']=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
 function selectTopic(value){
+  // Stop an active dictation session before changing the note context.
+  if(recognition){recognition.stop();recognition=null;}
   topic=value;
   selectedProvider=null;
   $('notes-topic').textContent=value;
-  $('topic-notes').value=loadNotes()[value]||'';
+  const savedNotes=loadNotes();
+  const hasSavedNotes=Object.prototype.hasOwnProperty.call(savedNotes,value);
+  $('topic-notes').value=hasSavedNotes?savedNotes[value]:'';
+  $('voice-status').textContent=hasSavedNotes
+    ? 'Loaded your saved notes for '+value+'. Changes are saved automatically in this browser.'
+    : 'No saved notes for '+value+' yet. Your notes will be saved automatically as you type.';
+  const voiceButton=$('voice-notes');
+  if(voiceButton)voiceButton.innerHTML='<i class="fa-solid fa-microphone mr-1"></i>Dictate notes';
   document.querySelectorAll('[data-topic]').forEach(b=>b.classList.toggle('is-active-topic',b.dataset.topic===value));
   renderCheatSheet(value);
   playTopicPlaylist(value);
