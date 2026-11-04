@@ -56,7 +56,7 @@ jobs:
           node --check questions-bank-ngn-expansion-2026-11-04-batch-004.js
           node --check questions-bank-ngn-case-studies-2026-11-04-batch-005.js
           node --check questions-bank-ngn-priority-2026-11-04-batch-007.js
-          node --check questions-bank-matrix-grid-2026-11-04-batch-008.js
+          node --check js/quickrn-question-bank-case-fixes.js
           node --check tests/question-bank-duplicate-cleanup.test.js
       - name: Verify shared QuickRN brand system across pages
         run: node tests/brand-system-contract.test.js
