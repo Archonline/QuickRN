@@ -156,6 +156,7 @@ let topic='',recognition=null,currentVideoUrl='';
 // Fallback assignments are intentionally broad and are not clinically verified. Use the report-video control to flag mismatches.
 const VIDEO_ID_CATALOG={
   simplenursing:{
+    'Congenital heart defects':'sqk9ZuYLEDE',
     'Heart failure':'r5W1ns5C1ik',
     'Diabetes mellitus and insulin':'NyMigFpOnpM',
     'Immunization schedule and safety':'aGuSHFYgdQE',
