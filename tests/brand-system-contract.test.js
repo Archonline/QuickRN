@@ -3,7 +3,7 @@ const path = require('path');
 const root = path.join(__dirname, '..');
 const pages = [
   'index.html', 'dashboard.html', 'calendar.html', 'help.html',
-  'selfstudy.html', 'timed.html', 'predictor.html', 'cat.html',
+  'learning-center.html', 'selfstudy.html', 'timed.html', 'predictor.html', 'cat.html',
   'saved.html', 'profile.html', 'reports.html'
 ];
 const stylesheet = path.join(root, 'css', 'quickrn-brand-system.css');
@@ -15,8 +15,14 @@ for (const token of ['--qr-brand-navy', '--qr-brand-teal', '--qr-brand-plum', '-
 const sidebarScript = path.join(root, 'js', 'quickrn-sidebar.js');
 assertFile(sidebarScript);
 const sidebarJs = fs.readFileSync(sidebarScript, 'utf8');
-for (const token of ['qr-sidebar-group', 'aria-current', 'qr-sidebar-shell', 'Learning Center', 'Feedback Inbox']) {
+for (const token of ['qr-sidebar-group', 'aria-current', 'qr-sidebar-shell', 'Learning Center', 'const autoCollapse = path !== \'dashboard.html\'', 'qr-sidebar-signout']) {
   if (!sidebarJs.includes(token)) throw new Error('Missing unified sidebar feature: ' + token);
+}
+if (sidebarJs.includes('Feedback Inbox') || sidebarJs.includes('reports.html')) {
+  throw new Error('Webmaster-only Feedback Inbox must not appear in the student sidebar');
+}
+if (!css.includes('App-wide chrome normalization') || !css.includes('.support-workspace>header') || !css.includes('.calendar-workspace>header.calendar-header')) {
+  throw new Error('Calendar and support headers must share the 64px application header geometry');
 }
 for (const page of pages) {
   const html = fs.readFileSync(path.join(root, page), 'utf8');
