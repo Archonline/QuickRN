@@ -158,6 +158,7 @@ const VIDEO_ID_CATALOG={
   simplenursing:{
     'Congenital heart defects':'sqk9ZuYLEDE',
     'Heart failure':'r5W1ns5C1ik',
+    'Hypertension and hypertensive crisis':'4T3kgM-8nNI',
     'Diabetes mellitus and insulin':'NyMigFpOnpM',
     'Immunization schedule and safety':'aGuSHFYgdQE',
     'Asthma management':'lPOtUH-A-yQ',
