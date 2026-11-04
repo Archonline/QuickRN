@@ -38,6 +38,8 @@ for(const relative of productionBankModules){
  const modulePath=path.resolve(__dirname,relative);
  if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:120000,filename:modulePath});
 }
+const caseFixPath=path.resolve(__dirname,'../js/quickrn-question-bank-case-fixes.js');
+if(fs.existsSync(caseFixPath))vm.runInNewContext(fs.readFileSync(caseFixPath,'utf8'),context,{timeout:30000,filename:caseFixPath});
 for(const relative of ['../js/quickrn-question-bank-normalizer.js','../js/quickrn-question-id-normalizer.js']){
  const modulePath=path.resolve(__dirname,relative);
  if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:30000,filename:modulePath});
