@@ -692,3 +692,39 @@ body header>div:first-child{
   color:inherit!important;
   opacity:1!important;
 }
+
+
+/* Global compact header: align its top edge and height with the collapsed
+   sidebar logo cell (64px), on every page using the shared brand stylesheet. */
+body:not([data-exam-mode]) header{
+  height:64px!important;
+  min-height:64px!important;
+  max-height:64px!important;
+  flex:0 0 64px!important;
+  box-sizing:border-box!important;
+  display:flex;
+  align-items:center;
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+body:not([data-exam-mode]) #quickrn-unified-sidebar .qr-sidebar-brand{
+  height:64px!important;
+  min-height:64px!important;
+  max-height:64px!important;
+  box-sizing:border-box!important;
+  padding-top:10px!important;
+  padding-bottom:10px!important;
+}
+/* Remove action controls from the right-hand header area across all pages.
+   Preserve the page title and any left-side navigation/branding. */
+body:not([data-exam-mode]) header > div:first-child > :last-child :is(button,a,[role="button"]),
+body:not([data-exam-mode]) header > :last-child :is(button,a,[role="button"]),
+body:not([data-exam-mode]) header .header-actions :is(button,a,[role="button"]),
+body:not([data-exam-mode]) header .header-buttons :is(button,a,[role="button"]),
+body:not([data-exam-mode]) header [class*="ml-auto"] :is(button,a,[role="button"]){
+  display:none!important;
+}
+@media(max-width:767px){
+  body:not([data-exam-mode]) header{height:64px!important;min-height:64px!important;max-height:64px!important;flex-basis:64px!important}
+  body:not([data-exam-mode]) #quickrn-unified-sidebar .qr-sidebar-brand{height:58px!important;min-height:58px!important;max-height:58px!important}
+}
