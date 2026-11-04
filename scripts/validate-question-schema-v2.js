@@ -22,7 +22,10 @@ bank.forEach((q,i)=>{
  if(id&&ids.has(id))duplicates.push({id,index:i});else if(id)ids.add(id);
 });
 const counts={};errors.forEach(e=>counts[e.code]=(counts[e.code]||0)+1);
-const report={schemaVersion:2,generatedAt:new Date().toISOString(),totalRecords:bank.length,validRecords:bank.length-bank.filter((q,i)=>schema.validate(q,i).length).length,invalidRecords:bank.filter((q,i)=>schema.validate(q,i).length).length,duplicateIds:duplicates.length,issueCount:errors.length,issueCounts:counts,samples:errors.slice(0,100),duplicates:duplicates.slice(0,100)};
+const invalidIndexes=new Set(errors.map(e=>e.index));
+const answerKeyMismatches=errors.filter(e=>e.code==='V2_ANSWER_KEY_NOT_IN_OPTIONS');
+const incompleteCaseStimuli=errors.filter(e=>e.code==='V2_CASE_STIMULUS_EMPTY');
+const report={schemaVersion:2,generatedAt:new Date().toISOString(),totalRecords:bank.length,uniqueIds:ids.size,validRecords:bank.length-invalidIndexes.size,invalidRecords:invalidIndexes.size,duplicateIds:duplicates.length,issueCount:errors.length,issueCounts:counts,samples:errors.slice(0,100),allIssues:errors,duplicates,answerKeyMismatches,incompleteCaseStimuli};
 fs.mkdirSync(path.join(root,'reports'),{recursive:true});
 fs.writeFileSync(path.join(root,'reports/question-schema-v2-validation.json'),JSON.stringify(report,null,2));
 fs.writeFileSync(path.join(root,'reports/question-schema-v2-validation.md'),['# QuickRN Question Schema v2 audit','',`- Total records: ${report.totalRecords}`,`- Valid records: ${report.validRecords}`,`- Invalid records: ${report.invalidRecords}`,`- Duplicate IDs: ${report.duplicateIds}`,`- Schema issues: ${report.issueCount}`,'','## Issue counts','',...Object.entries(counts).map(([k,v])=>`- ${k}: ${v}`),'','## Sample issues','',...report.samples.map(e=>`- ${e.id}: [${e.code}] ${e.message}`)].join('\n'));
