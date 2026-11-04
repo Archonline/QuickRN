@@ -1,19 +1,23 @@
-/* Ensure stable, unique IDs before exam state, bookmarks, and metrics consume the bank. */
+/* Keep canonical question IDs unique before bookmarks, exam state, and metrics consume the bank. */
 (function(root){
  'use strict';
  const bank=Array.isArray(root.questions)?root.questions:(Array.isArray(root.embeddedQuestionsData)?root.embeddedQuestionsData:null);
  if(!bank)return;
- const reserved=new Set(bank.filter(item=>item&&item.id).map(item=>String(item.id).trim()));
- const used=new Set();let normalized=0;
+ const reserved=new Set(bank.filter(item=>item&&/^QR-\d{6}$/.test(String(item.id||'').trim())).map(item=>String(item.id).trim()));
+ const used=new Set();let normalized=0;const changes=[];
+ let nextNumber=Math.max(0,...Array.from(reserved,id=>Number(id.slice(3))))+1;
  bank.forEach((item,index)=>{
   if(!item||typeof item!=='object')return;
-  const base=String(item.id||('Q-'+(index+1))).trim()||('Q-'+(index+1));
-  let candidate=base,suffix=2;
-  if(used.has(candidate)){
-   do{candidate=base+'-DUP'+suffix;suffix++;}while(reserved.has(candidate)||used.has(candidate));
+  const original=String(item.id||'').trim();
+  let candidate=original;
+  if(!/^QR-\d{6}$/.test(original)||used.has(original)){
+   const previousId=original||null;
+   do{candidate='QR-'+String(nextNumber++).padStart(6,'0');}while(reserved.has(candidate)||used.has(candidate));
+   if(previousId){item.legacyId=item.legacyId||previousId;item.previousQuestionId=previousId;}
+   changes.push({index,previousId,id:candidate});
   }
   if(candidate!==item.id){item.id=candidate;normalized++;}
   used.add(candidate);
  });
- root.quickRNQuestionIdNormalization={total:bank.length,normalized};
+ root.quickRNQuestionIdNormalization={total:bank.length,normalized,changes};
 })(typeof window!=='undefined'?window:globalThis);

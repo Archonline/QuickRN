@@ -1,4 +1,4 @@
-/* QuickRN NGN expansion batch 004 — 500 original items across 50 clinical case scenarios.
+/* QuickRN NGN expansion batch 004 — 499 unique original items across 50 clinical case scenarios.
  * Ten NGN formats per scenario: bowtie, matrix single/multiple, cloze, dropdown rationale,
  * highlight, trend, extended drag-and-drop, extended multiple response, and select-N.
  * Pending qualified nurse-educator review; do not treat as validated clinical guidance.
@@ -22303,6 +22303,9 @@ const items=[
   ]
  }
 ];
+items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
+const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
+if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
 const existing=new Set(bank.map(q=>String(q&&q.id||'')));
 let added=0;
 items.forEach(q=>{if(!existing.has(q.id)){bank.push(q);existing.add(q.id);added++;}});

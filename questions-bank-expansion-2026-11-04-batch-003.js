@@ -98,8 +98,9 @@
      reviewStatus:'pending_nurse_educator_review'
    });
  }
+ items.slice(0,2).forEach((item,index)=>{const previousId=item.id;item.legacyId=previousId;item.id='QR-'+String(4521+index).padStart(6,'0');});
  const known=new Set(bank.map(q=>q&&q.id));
  for(const item of items)if(!known.has(item.id)){bank.push(item);known.add(item.id);}
  root.questions=bank;
- root.quickRNExpansionBatch20261104C={count:items.length,firstId:'QR-001420',lastId:'QR-001919',reviewStatus:'pending_nurse_educator_review'};
+ root.quickRNExpansionBatch20261104C={count:items.length,idRanges:['QR-001422–QR-001919','QR-004521–QR-004522'],remappedIds:{'QR-001420':'QR-004521','QR-001421':'QR-004522'},reviewStatus:'pending_nurse_educator_review'};
 })(typeof window!=='undefined'?window:globalThis);

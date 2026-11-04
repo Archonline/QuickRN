@@ -1,11 +1,11 @@
 /* QuickRN production question bank — COUNT OF RECORDS.
- * TOTAL: 3,969 UNIQUE PRODUCTION QUESTIONS across the complete set of bank modules
+ * TOTAL: 3,992 UNIQUE PRODUCTION QUESTIONS across the complete set of bank modules
  * loaded by Self Study, Timed Practice, CAT, and NCLEX Predictor.
  *
  * THIS FILE (questions.js): 665 base records:
  *   - 664 sequential records: QR-000001 through QR-000664
  *   - 1 additional base record: QR-002150
- * OTHER BANK MODULES: 3,304 additional unique records.
+ * OTHER BANK MODULES: 3,327 additional unique records.
  *
  * The 3,969 figure is the de-duplicated production-bank total, NOT the number of
  * records physically stored in this file. Keep the manifest below in sync whenever

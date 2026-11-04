@@ -22,6 +22,8 @@ const curatedBank=path.resolve(__dirname,'../questions-bank-v2-curated.js');
 if(fs.existsSync(curatedBank))vm.runInNewContext(fs.readFileSync(curatedBank,'utf8'),context,{timeout:30000,filename:curatedBank});
 const clinicalV3Bank=path.resolve(__dirname,'../questions-bank-v3-clinical.js');
 if(fs.existsSync(clinicalV3Bank))vm.runInNewContext(fs.readFileSync(clinicalV3Bank,'utf8'),context,{timeout:30000,filename:clinicalV3Bank});
+const expansionModules=["questions-bank-expansion-2026-11-04.js","questions-bank-expansion-2026-11-04-batch-002.js","questions-bank-expansion-2026-11-04-batch-003.js","questions-bank-ngn-expansion-2026-11-04-batch-004.js","questions-bank-ngn-case-studies-2026-11-04-batch-005.js","questions-bank-ngn-supplement-2026-11-04-batch-006.js","questions-bank-numeric-entry-2026-11-04-batch-007.js","questions-bank-matrix-grid-2026-11-04-batch-008.js","questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js","questions-bank-ngn-priority-2026-11-04-batch-007.js" ];
+for(const relativePath of expansionModules){const modulePath=path.resolve(__dirname,'..',relativePath);if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:60000,filename:modulePath});}
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
@@ -41,16 +43,18 @@ function format(q){
  return 'Single Choice';
 }
 // Mirror the client-side collision normalizer so reports describe the IDs the app will use.
-const reservedQuestionIds=new Set(bank.filter(q=>q&&q.id).map(q=>String(q.id).trim()));
-const usedQuestionIds=new Set();let duplicateIdsNormalized=0;
+const reservedQuestionIds=new Set(bank.filter(q=>q&&/^QR-\d{6}$/.test(String(q.id||'').trim())).map(q=>String(q.id).trim()));
+const usedQuestionIds=new Set();let questionIdsNormalized=0;
+let nextQuestionNumber=Math.max(0,...Array.from(reservedQuestionIds,id=>Number(id.slice(3))))+1;
 bank.forEach((q,index)=>{
  if(!q||typeof q!=='object')return;
- const base=String(q.id||('Q-'+(index+1))).trim()||('Q-'+(index+1));
- let candidate=base,suffix=2;
- if(usedQuestionIds.has(candidate)){
-  do{candidate=base+'-DUP'+suffix;suffix++;}while(reservedQuestionIds.has(candidate)||usedQuestionIds.has(candidate));
+ const original=String(q.id||'').trim();let candidate=original;
+ if(!/^QR-\d{6}$/.test(original)||usedQuestionIds.has(original)){
+  const previousId=original||null;
+  do{candidate='QR-'+String(nextQuestionNumber++).padStart(6,'0');}while(reservedQuestionIds.has(candidate)||usedQuestionIds.has(candidate));
+  if(previousId){q.legacyId=q.legacyId||previousId;q.previousQuestionId=previousId;}
  }
- if(candidate!==q.id){q.id=candidate;duplicateIdsNormalized++;}
+ if(candidate!==q.id){q.id=candidate;questionIdsNormalized++;}
  usedQuestionIds.add(candidate);
 });
 const formats=['Single Choice','Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry'];
@@ -60,6 +64,7 @@ for(let i=0;i<bank.length;i++){
  if(!samples[f])samples[f]=[];if(samples[f].length<5)samples[f].push(q.id||'record-'+(i+1));
  if(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study)caseGroups.add(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study);
  const issue=(code,message)=>errors.push({index:i,id:q.id||null,format:f,code,message});
+ if(!/^QR-\\d{6}$/.test(String(q.id||'')))issue('NON_CANONICAL_ID','Active production question IDs must use QR- followed by six digits');
  const stem=String(q.question||q.stem||q.title||'').trim();
  if(/^(?:Traditional NCLEX practice|NGN (?:Matrix \/ Grid|Cloze \(Drop-down\)|Extended Drag and Drop|Bowtie|Extended Multiple Response)|SATA)\s+\d+\s*[—-]/i.test(stem) ||
     /the client is alert and can answer questions|no written action plan is available|relevant medical history and several current assessment findings|reports a new symptom to the bedside nurse|vital signs have changed over the last hour/i.test(stem)){
@@ -118,9 +123,9 @@ const requiredQuestionCount=2000;
 const isClinicallyApproved=q=>q&&q.clinicalReview&&q.clinicalReview.status==='approved'&&String(q.clinicalReview.reviewedBy||'').trim()&&String(q.clinicalReview.reviewedAt||'').trim();
 const clinicallyReviewedCount=bank.filter(isClinicallyApproved).length;
 const clinicalReviewGap=Math.max(0,requiredQuestionCount-clinicallyReviewedCount);
-const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,requiredQuestionCount,questionCountGap:Math.max(0,requiredQuestionCount-bank.length),meetsQuestionCount:bank.length>=requiredQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:clinicallyReviewedCount>=requiredQuestionCount,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,qualityWarningSamples,duplicateIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
+const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,uniqueQuestionIds:new Set(bank.map(q=>String(q&&q.id||''))).size,questionIdMin:bank.map(q=>String(q&&q.id||'')).filter(id=>/^QR-\\d{6}$/.test(id)).sort()[0]||null,questionIdMax:bank.map(q=>String(q&&q.id||'')).filter(id=>/^QR-\\d{6}$/.test(id)).sort().at(-1)||null,requiredQuestionCount,questionCountGap:Math.max(0,requiredQuestionCount-bank.length),meetsQuestionCount:bank.length>=requiredQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:clinicallyReviewedCount>=requiredQuestionCount,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,qualityWarningSamples,questionIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
 fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/ngn-bank-validation.json',JSON.stringify(report,null,2));
-const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Required release count: ${requiredQuestionCount}`,`- Count gate: ${report.meetsQuestionCount?'PASS':'NOT MET ('+report.questionCountGap+' additional records required)'}`,`- Clinically reviewed records: ${clinicallyReviewedCount}`,`- Clinical approval gate: ${report.meetsClinicalReviewGate?'PASS':'NOT MET ('+clinicalReviewGap+' approved reviews required)'}`,`- Distinct case groups: ${caseGroups.size}`,`- Duplicate IDs normalized: ${duplicateIdsNormalized}`,`- Validation errors: ${errors.length}`,`- Generic/template stems requiring educator review: ${qualityWarnings.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Quality warnings','','| Format | Records requiring review |','|---|---:|',...Object.entries(qualityWarningCountsByFormat).map(([k,v])=>`| ${k} | ${v} |`),'',...(qualityWarningSamples.length?qualityWarningSamples.map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No generic/template stem warnings detected.']),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
+const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Required release count: ${requiredQuestionCount}`,`- Count gate: ${report.meetsQuestionCount?'PASS':'NOT MET ('+report.questionCountGap+' additional records required)'}`,`- Clinically reviewed records: ${clinicallyReviewedCount}`,`- Clinical approval gate: ${report.meetsClinicalReviewGate?'PASS':'NOT MET ('+clinicalReviewGap+' approved reviews required)'}`,`- Distinct case groups: ${caseGroups.size}`,`- Question IDs normalized: ${questionIdsNormalized}`,`- Validation errors: ${errors.length}`,`- Generic/template stems requiring educator review: ${qualityWarnings.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Quality warnings','','| Format | Records requiring review |','|---|---:|',...Object.entries(qualityWarningCountsByFormat).map(([k,v])=>`| ${k} | ${v} |`),'',...(qualityWarningSamples.length?qualityWarningSamples.map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No generic/template stem warnings detected.']),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
 fs.writeFileSync('reports/ngn-bank-validation.md',md);
-console.log(JSON.stringify({totalRecords:bank.length,requiredQuestionCount,questionCountGap:report.questionCountGap,meetsQuestionCount:report.meetsQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:report.meetsClinicalReviewGate,formatCounts:counts,distinctCaseGroups:caseGroups.size,duplicateIdsNormalized,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,validationErrors:errors.length},null,2));
+console.log(JSON.stringify({totalRecords:bank.length,requiredQuestionCount,questionCountGap:report.questionCountGap,meetsQuestionCount:report.meetsQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:report.meetsClinicalReviewGate,formatCounts:counts,distinctCaseGroups:caseGroups.size,questionIdsNormalized,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,validationErrors:errors.length},null,2));
 if(errors.length||bank.length<requiredQuestionCount||clinicallyReviewedCount<requiredQuestionCount)process.exitCode=1;
