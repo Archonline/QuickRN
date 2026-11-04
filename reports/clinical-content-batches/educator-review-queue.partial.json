@@ -1,0 +1,616 @@
+{
+  "generatedAt": "2026-11-05",
+  "scope": "partial — questions-bank-v2.js and questions-bank-v2-curated.js only",
+  "fullProductionBank": false,
+  "counts": {
+    "recordsLoaded": 80,
+    "pending": 40,
+    "notStarted": 40,
+    "approved": 0
+  },
+  "policy": "Schema validation and educator review are independent. No record is educator-approved without educatorReview.status=approved, reviewedBy, and reviewedAt.",
+  "pendingRecords": [
+    {
+      "id": "QR-001265",
+      "topic": "Acute coronary syndrome",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001266",
+      "topic": "Stroke",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001267",
+      "topic": "Sepsis and shock",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001268",
+      "topic": "Hyperkalemia",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001269",
+      "topic": "Heart failure",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001270",
+      "topic": "Insulin administration",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001271",
+      "topic": "Warfarin safety",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001272",
+      "topic": "Opioid toxicity",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001273",
+      "topic": "Postpartum hemorrhage",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001274",
+      "topic": "Severe preeclampsia",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001275",
+      "topic": "Magnesium sulfate toxicity",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001276",
+      "topic": "Epiglottitis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001277",
+      "topic": "Pediatric dehydration",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001278",
+      "topic": "Asthma exacerbation",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001279",
+      "topic": "Suicide risk assessment",
+      "clientNeeds": "Psychosocial Integrity",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001280",
+      "topic": "Alcohol withdrawal",
+      "clientNeeds": "Psychosocial Integrity",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001281",
+      "topic": "Blood transfusion reaction",
+      "clientNeeds": "Safety and Infection Control",
+      "format": "Single Choice",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001282",
+      "topic": "Airborne precautions",
+      "clientNeeds": "Safety and Infection Control",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001283",
+      "topic": "Chest tube management",
+      "clientNeeds": "Reduction of Risk Potential",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001284",
+      "topic": "Diabetic ketoacidosis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001285",
+      "topic": "Acute stroke",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001286",
+      "topic": "Heart failure exacerbation",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Multiple Response",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001287",
+      "topic": "Warfarin teaching",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Select N",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001288",
+      "topic": "Transmission-based precautions",
+      "clientNeeds": "Safety and Infection Control",
+      "format": "Matrix Single",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001289",
+      "topic": "Postpartum hemorrhage",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Matrix Multiple",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001290",
+      "topic": "Diabetic ketoacidosis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Cloze (Drop-down)",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001291",
+      "topic": "Septic shock",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Bowtie",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001292",
+      "topic": "Acute respiratory distress",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Highlight",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001293",
+      "topic": "Weight-based medication calculation",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Numeric Entry",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001294",
+      "topic": "Acute transfusion reaction",
+      "clientNeeds": "Safety and Infection Control",
+      "format": "Extended Drag and Drop",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001295",
+      "topic": "Suicide safety",
+      "clientNeeds": "Psychosocial Integrity",
+      "format": "Extended Multiple Response",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001296",
+      "topic": "Acute kidney injury",
+      "clientNeeds": "Reduction of Risk Potential",
+      "format": "Trend",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001297",
+      "topic": "Pediatric asthma",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Multiple Response",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001298",
+      "topic": "Magnesium sulfate toxicity",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001299",
+      "topic": "Delegation and assignment",
+      "clientNeeds": "Management of Care",
+      "format": "Select N",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001300",
+      "topic": "Electrolyte imbalance",
+      "clientNeeds": "Reduction of Risk Potential",
+      "format": "Matrix Single",
+      "evidenceCount": 3,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001301",
+      "topic": "Severe preeclampsia",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Cloze (Drop-down)",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001302",
+      "topic": "Epiglottitis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Bowtie",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001303",
+      "topic": "Hyperkalemia",
+      "clientNeeds": "Reduction of Risk Potential",
+      "format": "Highlight",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QR-001304",
+      "topic": "IV infusion calculation",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Numeric Entry",
+      "evidenceCount": 1,
+      "status": "pending"
+    }
+  ],
+  "notStartedRecords": [
+    {
+      "id": "QR-001305",
+      "topic": "Adult immunization",
+      "clientNeeds": "Health Promotion and Maintenance",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QR-001306",
+      "topic": "Pressure injury prevention",
+      "clientNeeds": "Basic Care and Comfort",
+      "format": "Multiple Response",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-01",
+      "topic": "Sepsis case study — recognize cues",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-02",
+      "topic": "Sepsis case study — analyze cues",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Multiple Response",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-03",
+      "topic": "Sepsis case study — prioritize hypotheses",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-04",
+      "topic": "Sepsis case study — generate solutions",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Multiple Response",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-05",
+      "topic": "Sepsis case study — take action",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Bowtie",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-CS-001-06",
+      "topic": "Sepsis case study — evaluate outcomes",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Trend",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0029",
+      "topic": "Triage: airway compromise",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0030",
+      "topic": "Postoperative complication",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0031",
+      "topic": "Reinforcing teaching",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0032",
+      "topic": "Fluid volume deficit",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0033",
+      "topic": "ABG interpretation",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0034",
+      "topic": "Anemia and energy conservation",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0035",
+      "topic": "Neutropenic fever",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0036",
+      "topic": "Increased intracranial pressure",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0037",
+      "topic": "Acute stroke recognition",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0038",
+      "topic": "Catheter-associated infection prevention",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0039",
+      "topic": "Bowel obstruction",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0040",
+      "topic": "COPD oxygen therapy",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0041",
+      "topic": "Hypertensive emergency",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0042",
+      "topic": "Postoperative pulmonary embolism",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0043",
+      "topic": "Amputation positioning",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0044",
+      "topic": "Adrenal crisis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0045",
+      "topic": "Diabetic foot infection",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0046",
+      "topic": "Acute coronary syndrome",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Multiple Response",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0047",
+      "topic": "Postpartum hemorrhage",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0048",
+      "topic": "Preeclampsia with severe features",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0049",
+      "topic": "Pediatric dehydration",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0050",
+      "topic": "Epiglottitis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0051",
+      "topic": "Insulin-associated hypoglycemia",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0052",
+      "topic": "Vancomycin infusion reaction",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Multiple Response",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0053",
+      "topic": "Acute kidney injury and hyperkalemia",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0054",
+      "topic": "Acute pancreatitis",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0055",
+      "topic": "Lithium toxicity",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0056",
+      "topic": "Suicide risk assessment",
+      "clientNeeds": "Psychosocial Integrity",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0057",
+      "topic": "Chest tube system air leak",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0058",
+      "topic": "Blood transfusion reaction",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0059",
+      "topic": "Sepsis and lactate trend",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "status": "not_started"
+    },
+    {
+      "id": "QB2R-0060",
+      "topic": "Pressure injury prevention",
+      "clientNeeds": "Safety and Infection Control",
+      "format": "Multiple Response",
+      "status": "not_started"
+    }
+  ]
+}
