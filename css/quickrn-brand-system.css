@@ -728,3 +728,8 @@ body:not([data-exam-mode]) header [class*="ml-auto"] :is(button,a,[role="button"
   body:not([data-exam-mode]) header{height:64px!important;min-height:64px!important;max-height:64px!important;flex-basis:64px!important}
   body:not([data-exam-mode]) #quickrn-unified-sidebar .qr-sidebar-brand{height:58px!important;min-height:58px!important;max-height:58px!important}
 }
+
+
+/* Single-choice item alignment: add breathing room beneath the clinical scenario
+   so its visual baseline aligns with the question/task panel. */
+.qr-ehr.qr-single-choice-scenario{margin-bottom:24px!important;padding-bottom:8px!important;}
