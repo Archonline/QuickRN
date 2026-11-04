@@ -21,23 +21,27 @@
   const aside = document.createElement('aside'); aside.id='quickrn-unified-sidebar'; aside.className='qr-sidebar';
   const brand=document.createElement('a'); brand.className='qr-sidebar-brand'; brand.href='dashboard.html';
   brand.innerHTML='<span class="qr-sidebar-mark"><i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i></span><span class="qr-sidebar-wordmark"><strong>Quick<span>RN</span></strong><small>NCLEX PREP ENGINE</small></span>'; aside.appendChild(brand);
-  // Auto-hide to an icon-only rail while the user works in the page.
-  // Hovering or keyboard-focusing the sidebar reveals its labels.
+  // Keep the Dashboard as the full-width navigation reference.
+  // Secondary/right-pane pages start as an icon rail and reveal labels on hover/focus.
+  const autoCollapse = path !== 'dashboard.html';
   const applySidebarState=(isCollapsed)=>{
-    document.body.classList.toggle('qr-main-sidebar-collapsed',isCollapsed);
+    const collapsedState=autoCollapse && isCollapsed;
+    document.body.classList.toggle('qr-main-sidebar-collapsed',collapsedState);
     const shell=document.getElementById('app-shell');
-    if(shell)shell.classList.toggle('qr-main-sidebar-collapsed',isCollapsed);
+    if(shell)shell.classList.toggle('qr-main-sidebar-collapsed',collapsedState);
   };
-  let collapsed=true;
-  aside.addEventListener('pointerenter',()=>applySidebarState(false));
-  aside.addEventListener('pointerleave',()=>applySidebarState(true));
-  aside.addEventListener('focusin',()=>applySidebarState(false));
-  aside.addEventListener('focusout',event=>{
-    if(!aside.contains(event.relatedTarget))applySidebarState(true);
-  });
+  if(autoCollapse){
+    aside.addEventListener('pointerenter',()=>applySidebarState(false));
+    aside.addEventListener('pointerleave',()=>applySidebarState(true));
+    aside.addEventListener('focusin',()=>applySidebarState(false));
+    aside.addEventListener('focusout',event=>{
+      if(!aside.contains(event.relatedTarget))applySidebarState(true);
+    });
+  }
   const nav=document.createElement('nav'); nav.className='qr-sidebar-nav'; nav.setAttribute('aria-label','Main navigation');
   groups.forEach(group=>{const section=document.createElement('section');section.className='qr-sidebar-group';const heading=document.createElement('h2');heading.textContent=group.label;section.appendChild(heading);
     group.links.forEach(([href,icon,label,tab])=>{const a=document.createElement('a');a.href=href;a.className='qr-sidebar-link';a.innerHTML='<i class="fa-solid '+icon+'" aria-hidden="true"></i><span>'+label+'</span>';
+      a.setAttribute('aria-label',label);a.title=label;
       if(tab)a.addEventListener('click',event=>{if(path==='dashboard.html'&&typeof window.switchTab==='function'){event.preventDefault();window.switchTab(tab);history.replaceState(null,'','#'+tab);}});
       if(active===href.split('#')[0]&&!tab){a.classList.add('is-active');a.setAttribute('aria-current','page');} section.appendChild(a);
     });nav.appendChild(section);
