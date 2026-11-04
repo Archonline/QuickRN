@@ -99,7 +99,7 @@ function sanitizeNotesHtml(html){
       if(child.nodeType===Node.TEXT_NODE)return;
       if(child.nodeType!==Node.ELEMENT_NODE){child.remove();return;}
       if(child.tagName==='SPAN'){
-        const highlighted=/background(?:-color)?\\s*:\\s*(?:#fef08a|rgb\\(254\\s*,\\s*240\\s*,\\s*138\\))/i.test(child.getAttribute('style')||'');
+        const highlighted=/background(?:-color)?\s*:\\s*(?:#fef08a|rgb\\(254\\s*,\\s*240\\s*,\\s*138\\))/i.test(child.getAttribute('style')||'');
         if(highlighted){
           const mark=document.createElement('mark');
           mark.append(...Array.from(child.childNodes));
@@ -300,19 +300,31 @@ $('system-list').addEventListener('click',e=>{const summary=e.target.closest('su
 
 $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=sanitizeNotesHtml($('topic-notes').innerHTML);localStorage.setItem(noteKey(),JSON.stringify(n));}});
-document.querySelectorAll('[data-note-format]').forEach(button=>button.addEventListener('mousedown',e=>e.preventDefault()));
-document.querySelectorAll('[data-note-format]').forEach(button=>button.addEventListener('click',()=>{
-  const editor=$('topic-notes');editor.focus();
-  const format=button.dataset.noteFormat;
-  if(format==='bold')document.execCommand('bold',false,null);
-  else if(format==='underline')document.execCommand('underline',false,null);
-  else if(format==='highlight'){
+let savedNoteSelection=null;
+const noteEditor=$('topic-notes');
+document.querySelectorAll('[data-note-format]').forEach(button=>{
+  button.addEventListener('mousedown',event=>{
     const selection=window.getSelection();
-    if(selection&&selection.isCollapsed){$('voice-status').textContent='Select some text first, then choose Highlight.';return;}
-    document.execCommand('hiliteColor',false,'#fef08a');
-  }
-  saveNotes();
-}));
+    if(selection&&selection.rangeCount&&noteEditor.contains(selection.anchorNode)&&noteEditor.contains(selection.focusNode))savedNoteSelection=selection.getRangeAt(0).cloneRange();
+    event.preventDefault();
+  });
+  button.addEventListener('click',()=>{
+    const editor=$('topic-notes');
+    const selection=window.getSelection();
+    if(savedNoteSelection&&editor.contains(savedNoteSelection.commonAncestorContainer)){
+      editor.focus();selection.removeAllRanges();selection.addRange(savedNoteSelection);
+    }else editor.focus();
+    const format=button.dataset.noteFormat;
+    if(format==='bold')document.execCommand('bold',false,null);
+    else if(format==='underline')document.execCommand('underline',false,null);
+    else if(format==='highlight'||format==='unhighlight'){
+      if(!selection||selection.isCollapsed){$('voice-status').textContent='Select the text you want to format first.';return;}
+      document.execCommand('hiliteColor',false,format==='highlight'?'#fef08a':'transparent');
+    }
+    savedNoteSelection=null;
+    saveNotes();
+  });
+});
 
 const exportNotes=$('export-notes');
 if(exportNotes)exportNotes.addEventListener('click',()=>{const blob=new Blob([notesPlainText()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(topic||'QuickRN-study-notes').replace(/[^a-z0-9]+/gi,'-')+'.txt';a.click();URL.revokeObjectURL(a.href);});
