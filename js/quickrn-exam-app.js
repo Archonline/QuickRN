@@ -44,11 +44,10 @@ function diversityShuffle(list){const buckets=new Map();shuffle(list).forEach(q=
 const SEEN_QUESTION_KEY='quickrn_seen_question_ids_v1';
 function seenQuestionIds(){return new Set([...(readJSON(SEEN_QUESTION_KEY,[])||[]),...(readJSON('quickrn_used_q_ids',[])||[])].map(String));}
 function rememberQuestionSeen(q){
- if(mode!=='selfstudy'||!q)return;
- const ids=seenQuestionIds(),sequencer=window.QuickRNCaseStudySequencer;
- const group=sequencer?.units?sequencer.units(bank).find(unit=>unit.items.some(item=>String(item.id)===String(q.id))):null;
- (group?.items||[q]).forEach(item=>ids.add(String(item.id)));
- writeJSON(SEEN_QUESTION_KEY,[...ids]);
+ if(mode!=='selfstudy'||!q||!isQuickRNWebmaster())return;
+ const ids=new Set((readJSON(EDUCATOR_SEEN_KEY,[])||[]).map(String));
+ ids.add(String(q.id));
+ writeJSON(EDUCATOR_SEEN_KEY,[...ids]);
 }
 function unseenSelfStudyPool(list){
  const seen=seenQuestionIds(),sequencer=window.QuickRNCaseStudySequencer;
@@ -63,6 +62,7 @@ function randomizedSelfStudyPick(list,count){
 }
 const EDUCATOR_REVIEW_KEY='quickrn_educator_reviewed_ids_v1';
 const EDUCATOR_REVISION_KEY='quickrn_educator_revision_requested_ids_v1';
+const EDUCATOR_SEEN_KEY='quickrn_webmaster_seen_question_ids_v1';
 function isQuickRNWebmaster(){try{return localStorage.getItem('quickrn_signed_out')!=='true'&&(localStorage.getItem('quickrn_user_email')||'').trim().toLowerCase()==='toughluckstyle@gmail.com';}catch(_){return false;}}
 function educatorIds(key){return new Set((readJSON(key,[])||[]).map(String));}
 let educatorReviewBackfillDone=false;
@@ -70,7 +70,7 @@ function backfillEducatorReviewed(){
  if(educatorReviewBackfillDone||!isQuickRNWebmaster())return;
  educatorReviewBackfillDone=true;
  const reviewed=educatorIds(EDUCATOR_REVIEW_KEY),revision=educatorIds(EDUCATOR_REVISION_KEY);
- const previouslySeen=new Set([...(readJSON(SEEN_QUESTION_KEY,[])||[]),...(readJSON('quickrn_used_q_ids',[])||[])].map(String));
+ const previouslySeen=new Set((readJSON(EDUCATOR_SEEN_KEY,[])||[]).map(String));
  previouslySeen.forEach(id=>{if(!revision.has(id))reviewed.add(id);});
  writeJSON(EDUCATOR_REVIEW_KEY,[...reviewed]);
 }
@@ -106,24 +106,24 @@ function balancedPick(list,count){const sequencer=window.QuickRNCaseStudySequenc
 function difficultyValue(q){const v=q.difficulty;if(typeof v==='number'&&Number.isFinite(v))return Math.max(-3,Math.min(3,v));const s=String(v||'').toLowerCase();if(s.includes('easy'))return -1;if(s.includes('hard'))return 1;if(s.includes('very'))return 1.5;return 0;}
 function answeredResponses(){return session.slice(0,currentIndex+1).map(q=>{const a=answers[q.id]||{};if(!a.submitted)return null;const d=renderer().toDraft(q,a.draft),g=renderer().grade(q,d);return {q,earned:g&&typeof g==='object'?Number(g.earned)||0:(g?1:0),max:g&&typeof g==='object'?Number(g.max)||1:1,correct:g&&typeof g==='object'?!!g.isCorrect:!!g};}).filter(Boolean);}
 function chooseAdaptiveQuestion(){const used=new Set(session.map(q=>q.id));let candidates=pool.filter(q=>!used.has(q.id));if(!candidates.length)return null;const previous=session[session.length-1],sequencer=window.QuickRNCaseStudySequencer,caseKey=sequencer?.keyOf(previous);if(caseKey){const linked=candidates.filter(q=>sequencer.keyOf(q)===caseKey);if(linked.length){const sequence=q=>Number(q.caseQuestionNumber??q.caseQuestionIndex??q.questionSequence??q.sequenceNumber??q.stepNumber??q.questionNumber??q.questionIndex??q.caseStudyContext?.stepIndex??Number.MAX_SAFE_INTEGER);linked.sort((a,b)=>sequence(a)-sequence(b));return linked[0];}}const responses=answeredResponses();if(sequencer?.units){const caseUnits=sequencer.units(pool).filter(unit=>unit.items.length>1),caseKeys=new Set(caseUnits.map(unit=>sequencer.keyOf(unit.items[0])).filter(Boolean)),usedCaseKeys=new Set(session.map(q=>sequencer.keyOf(q)).filter(key=>key&&caseKeys.has(key))),thresholds=[6,30,55],threshold=thresholds[Math.min(usedCaseKeys.size,2)];if(usedCaseKeys.size<3&&responses.length>=threshold&&responses.length<85){const freshCaseItems=candidates.filter(q=>{const key=sequencer.keyOf(q);return key&&caseKeys.has(key)&&!usedCaseKeys.has(key);});const freshUnits=sequencer.units(freshCaseItems).filter(unit=>unit.items.length>1);if(freshUnits.length){const unit=freshUnits[Math.floor(Math.random()*freshUnits.length)];return unit.items[0];}}}const estimate=window.QuickRNCAT?.estimate(responses)||{theta:0};let targetNGN=previous?!isNGN(previous):null;if(targetNGN!==null){const matching=candidates.filter(q=>isNGN(q)===targetNGN);if(matching.length>0)candidates=matching;}candidates.sort((a,b)=>Math.abs(difficultyValue(a)-estimate.theta)-Math.abs(difficultyValue(b)-estimate.theta));const shortlist=candidates.slice(0,Math.min(8,candidates.length));return shortlist[Math.floor(Math.random()*shortlist.length)];}
-function setupOptions(){const formatSelect=$('format-filter'),setup=$('setup-modal');if(formatSelect&&setup){let wrap=$('setup-format-filter-wrap');if(!wrap){wrap=document.createElement('div');wrap.id='setup-format-filter-wrap';wrap.className='mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3';wrap.innerHTML='<label for="format-filter" class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-600">Question types</label>';const countSelect=$('session-count'),target=countSelect?.parentElement||setup;target.insertBefore(wrap,countSelect?.nextSibling||null);}formatSelect.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';wrap.appendChild(formatSelect);}const select=$('session-count');const countLabel=document.querySelector('label[for="session-count"]');if(select){const chooseCount=mode==='selfstudy'||mode==='timed';select.classList.toggle('hidden',!chooseCount);if(countLabel)countLabel.classList.toggle('hidden',!chooseCount);let opts=[];if(mode==='selfstudy')opts=[['15','15 questions'],['50','50 questions'],['85','85 questions'],['150','150 questions'],['all','All available questions']];else if(mode==='timed')opts=[['40','40 questions'],['60','60 questions']];select.innerHTML=opts.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join('');if(chooseCount)select.value=mode==='selfstudy'?'15':'40';}if(isNCLEXExamMode()){maxItems=150;formatSelect?.parentElement?.classList.add('hidden');select?.classList.add('hidden');countLabel?.classList.add('hidden');setup?.classList.add('hidden');return;}$('setup-title').textContent=titles[mode]+' Setup';$('setup-description').textContent=descriptions[mode];$('setup-start').textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];$('setup-modal').classList.remove('hidden');}
+function needsReviewPool(){if(!isQuickRNWebmaster())return [];backfillEducatorReviewed();const reviewed=educatorIds(EDUCATOR_REVIEW_KEY);return bank.filter(q=>!reviewed.has(String(q.id)));}
+function setupOptions(){const formatSelect=$('format-filter'),setup=$('setup-modal');if(formatSelect&&setup){let wrap=$('setup-format-filter-wrap');if(!wrap){wrap=document.createElement('div');wrap.id='setup-format-filter-wrap';wrap.className='mt-4 rounded-lg border border-slate-200 bg-slate-50 p-3';wrap.innerHTML='<label for="format-filter" class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-600">Question types</label>';const countSelect=$('session-count'),target=countSelect?.parentElement||setup;target.insertBefore(wrap,countSelect?.nextSibling||null);}formatSelect.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';wrap.appendChild(formatSelect);}const select=$('session-count');const countLabel=document.querySelector('label[for="session-count"]');if(select){const chooseCount=mode==='selfstudy'||mode==='timed';select.classList.toggle('hidden',!chooseCount);if(countLabel)countLabel.classList.toggle('hidden',!chooseCount);let opts=[];if(mode==='selfstudy'){opts=[['15','15 questions'],['50','50 questions'],['85','85 questions'],['150','150 questions'],['all','All available questions']];if(isQuickRNWebmaster())opts.unshift(['needs-review','Needs Review ('+needsReviewPool().length+')']);}else if(mode==='timed')opts=[['40','40 questions'],['60','60 questions']];select.innerHTML=opts.map(o=>'<option value="'+o[0]+'">'+o[1]+'</option>').join('');if(chooseCount)select.value=mode==='selfstudy'?'15':'40';}if(isNCLEXExamMode()){maxItems=150;formatSelect?.parentElement?.classList.add('hidden');select?.classList.add('hidden');countLabel?.classList.add('hidden');setup?.classList.add('hidden');return;}$('setup-title').textContent=titles[mode]+' Setup';$('setup-description').textContent=descriptions[mode];$('setup-start').textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];$('setup-modal').classList.remove('hidden');}
 function startExamSession(){
  try{
   if(!bank.length&&!loadBank())return;
+  const selectedCount=$('session-count')?.value||(mode==='selfstudy'?'15':'40');
+  const needsReviewMode=mode==='selfstudy'&&selectedCount==='needs-review'&&isQuickRNWebmaster();
   formatFilter=canonicalFormatFilter($('format-filter')?.value||'ALL');
-  pool=filteredPool();
+  pool=needsReviewMode?bank.slice():filteredPool();
   const required=mode==='predictor'?150:mode==='cat'?85:0;
   window.quickRNExamDiagnostics={mode,stage:'pool-ready',sourceCount:rawBank().length,normalizedCount:bank.length,poolCount:pool.length,requiredCount:required,sessionCount:0};
   if(!pool.length){showBankLoadError('The question bank loaded ('+bank.length+' records), but no eligible questions were available for this exam.');return;}
   if(required&&pool.length<required){showBankLoadError(titles[mode]+' requires '+required+' unique questions, but only '+pool.length+' are available. The exam was not started with an incomplete pool.');return;}
-  const selected=(mode==='selfstudy'||mode==='timed')?($('session-count')?.value||(mode==='selfstudy'?'15':'40')):'150';
+  const selected=(mode==='selfstudy'||mode==='timed')?selectedCount:'150';
   maxItems=(mode==='selfstudy'||mode==='timed')?(selected==='all'?pool.length:Number(selected)):150;
   if(mode==='selfstudy'){
-   const focused=!!(new URLSearchParams(window.location.search||'').get('q'));
-   const freshPool=unseenSelfStudyPool(pool);
-   if(!freshPool.length){notice(formatFilter==='ALL'?'You have exhausted all available Self-Study questions. No questions will be repeated.':'No unseen questions remain in this filter. Choose All Question Types to continue with other unused questions.');return;}
-   if(focused){maxItems=freshPool.length;session=window.QuickRNCaseStudySequencer?.randomizeAll?window.QuickRNCaseStudySequencer.randomizeAll(freshPool):diversityShuffle(freshPool.slice());}
-   else{const requested=selected==='all'?freshPool.length:Math.min(maxItems,freshPool.length);session=randomizedSelfStudyPick(freshPool,requested);}
+   if(needsReviewMode){const outstanding=needsReviewPool();if(!outstanding.length){notice('All questions have been marked Educator Reviewed. No questions remain in your review queue.');return;}maxItems=outstanding.length;session=window.QuickRNCaseStudySequencer?.randomizeAll?window.QuickRNCaseStudySequencer.randomizeAll(outstanding):diversityShuffle(outstanding.slice());}
+   else{const focused=!!(new URLSearchParams(window.location.search||'').get('q'));const freshPool=unseenSelfStudyPool(pool);if(!freshPool.length){notice(formatFilter==='ALL'?'You have exhausted all available Self-Study questions. No questions will be repeated.':'No unseen questions remain in this filter. Choose All Question Types to continue with other unused questions.');return;}if(focused){maxItems=freshPool.length;session=window.QuickRNCaseStudySequencer?.randomizeAll?window.QuickRNCaseStudySequencer.randomizeAll(freshPool):diversityShuffle(freshPool.slice());}else{const requested=selected==='all'?freshPool.length:Math.min(maxItems,freshPool.length);session=randomizedSelfStudyPick(freshPool,requested);}}
   }else if(mode==='cat'){
    maxItems=Math.min(150,pool.length);session=[];
    const first=chooseFirstAdaptive();if(first)session.push(first);
@@ -134,7 +134,7 @@ function startExamSession(){
   }
   if(!session.length){showBankLoadError('The question bank contains '+pool.length+' eligible items, but session selection returned no questions.');return;}
   if(mode==='predictor'&&session.length<150){showBankLoadError('Predictor could select only '+session.length+' of the required 150 unique questions.');return;}
-  originalSession=session.slice();session.forEach(q=>{delete answers[q.id];});
+  originalSession=session.slice();if(!needsReviewMode)session.forEach(q=>{delete answers[q.id];});
   currentIndex=0;started=true;finished=false;paused=false;reviewMode=false;breaksOffered=new Set();timerWarnings=new Set();catDecision=null;elapsedSeconds=0;elapsedStartedAt=null;timerDeadlineMs=null;
   timerSeconds=mode==='selfstudy'?0:mode==='timed'?session.length*72:5*60*60;
   $('setup-modal')?.classList.add('hidden');$('summary-screen')?.classList.add('hidden');if($('exam-footer'))$('exam-footer').style.display='flex';
