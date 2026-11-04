@@ -65,3 +65,16 @@ Latest strict CI audit: 3,969 unique records; 0 pass; 12,144 field-level issues 
 
 
 The exact-label Client Needs migration maps a source category only when it is already one of the eight NCLEX Client Needs labels; it reduced missing Client Needs from 1,033 to 603 without inferring from broad subject labels such as Adult Health or Pediatrics. The latest CI run after this mapping reports 11,686 field-level issues.
+
+
+## Global question ID reconciliation — 2026-11-05
+
+A subsequent full production-module ID audit expanded the validator bootstrap to load every source module included by Self Study, Timed Practice, CAT, and NCLEX Predictor. The active inventory is now **3,992 unique questions**. The earlier 3,969 count reflected the bank after ID-based de-duplication had silently discarded 23 different records that shared IDs; it was not the full distinct-record inventory.
+
+- 23 conflicting question records were assigned new canonical IDs while preserving their previous identifiers.
+- 60 legacy-format active IDs were migrated to the canonical `QR-######` format.
+- One exact duplicate copy of `QR-002150` was consolidated; the base-bank record remains.
+- All 3,992 active production records now have unique canonical IDs, with the highest assigned ID `QR-004602`.
+- Detailed mappings are in `question-bank-rebuild/id-migration-map.json` and `question-bank-rebuild/question-id-migration-2026-11-05.json`; the audit summary is `reports/question-id-audit-2026-11-05.md`.
+
+The clinical schema and educator-review release gates documented above remain separate from ID integrity. This ID repair does not mark any additional question as clinically approved.
