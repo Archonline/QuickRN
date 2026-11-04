@@ -13,15 +13,15 @@
     body{min-height:100%;background:#f8fafc;color:#1e293b;font-family:Inter,system-ui,sans-serif}
     #app-shell{display:flex;height:100%;min-height:100vh;overflow:hidden}
     .feedback-workspace{display:flex;flex:1;min-width:0;min-height:0;flex-direction:column;overflow:hidden}
-    .feedback-workspace>header{height:84px;min-height:84px;flex:0 0 84px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:#fff!important;color:#0f172a!important;border-bottom:1px solid #e2e8f0!important}
+    .feedback-workspace>header{height:84px;min-height:84px;max-height:84px;flex:0 0 84px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:#16324f!important;color:#fff!important;border-bottom:1px solid #294b62!important}
     .feedback-workspace>header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
     .feedback-header-title{display:flex;align-items:center;gap:12px;min-width:0}
-    .feedback-header-title .eyebrow{margin:0 0 2px;color:#64748b;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
-    .feedback-header-title h1{margin:0;color:#0f172a;font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.025em}
-    .feedback-header-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;background:#087f8c;color:#fff}
+    .feedback-header-title .eyebrow{margin:0 0 2px;color:#b9d2df;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .feedback-header-title h1{margin:0;color:#fff;font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.025em}
+    .feedback-header-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#087f8c;color:#fff}
     .feedback-header-icon i{color:#fff!important}
-    .feedback-header-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #e2e8f0;border-radius:10px;color:#334155!important;text-decoration:none;font-size:12px;font-weight:700}
-    .feedback-header-link:hover{background:#f8fafc}
+    .feedback-header-link{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff!important;text-decoration:none;font-size:12px;font-weight:700}
+    .feedback-header-link:hover{background:rgba(255,255,255,.1)}
     .feedback-workspace>main{flex:1;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0;padding:16px;display:flex;flex-direction:column;gap:12px}
     .panel,.report{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin:0;box-shadow:0 1px 2px rgba(15,23,42,.04)}
     .panel h2{font-size:16px;line-height:1.3;font-weight:800;margin:0 0 7px;color:#1e293b}
@@ -37,7 +37,7 @@
     .pill{display:inline-block;border-radius:20px;padding:5px 9px;background:#e6f3f4;color:#075b64;font-size:10px;font-weight:800;letter-spacing:.04em}
     .report>p:not(.muted){line-height:1.65;overflow-wrap:anywhere}
     pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f8fafc;padding:12px;border-radius:8px;font-size:12px}
-    @media(max-width:767px){.feedback-workspace>header{height:84px;min-height:84px;flex-basis:84px;padding:0 15px}.feedback-workspace>main{padding:12px}.panel,.report{padding:14px}.feedback-header-title .eyebrow{font-size:9px}}
+    @media(max-width:767px){.feedback-workspace>header{height:84px;min-height:84px;max-height:84px;flex-basis:84px;padding:0 15px}.feedback-workspace>main{padding:12px}.panel,.report{padding:14px}.feedback-header-title .eyebrow{font-size:9px}}
     @media(max-width:420px){.feedback-header-link span{display:none}.feedback-header-link{padding:9px 10px}}
   </style>
 </head>
