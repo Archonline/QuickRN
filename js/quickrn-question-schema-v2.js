@@ -44,7 +44,7 @@
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
    caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
-   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
+   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
    tabs:canonicalTabs
   });
   const interaction=Object.assign({},oldInteraction,{
