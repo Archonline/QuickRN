@@ -22,7 +22,9 @@
       '<div class="space-y-3 p-5"><label for="quickrn-revision-details" class="block text-xs font-bold text-slate-700">Describe the fix needed</label><textarea id="quickrn-revision-details" maxlength="4000" rows="6" class="w-full rounded-lg border border-slate-300 p-3 text-sm text-slate-800 outline-none focus:border-cyan-600 focus:ring-2 focus:ring-cyan-100" placeholder="Describe the correction needed for this question..."></textarea><p class="text-[11px] text-slate-500">Continue opens ChatGPT with the question details and your requested fix. Review and press Send there.</p></div>' +
       '<footer class="flex justify-end gap-2 border-t border-slate-100 bg-slate-50 px-5 py-3"><button type="button" id="quickrn-revision-cancel" class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700">Cancel</button><button type="button" id="quickrn-revision-send" class="rounded-lg bg-cyan-700 px-4 py-2 text-xs font-bold text-white hover:bg-cyan-800"><i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> Continue to ChatGPT</button></footer></section>';
     document.body.appendChild(modal);
-    const close = () => modal.classList.add('hidden');
+    const detailsField = modal.querySelector('#quickrn-revision-details');
+    const clearPreviousEntry = () => { detailsField.value = ''; };
+    const close = () => { clearPreviousEntry(); modal.classList.add('hidden'); };
     modal.querySelector('#quickrn-revision-close').addEventListener('click', close);
     modal.querySelector('#quickrn-revision-cancel').addEventListener('click', close);
     modal.addEventListener('click', event => { if (event.target === modal) close(); });
@@ -64,8 +66,8 @@
     row.querySelector('button').addEventListener('click', () => {
       const modal = document.getElementById('quickrn-admin-revision-modal');
       modal.classList.remove('hidden');
-      modal.querySelector('#quickrn-revision-details').value = '';
-      modal.querySelector('#quickrn-revision-details').focus();
+      clearPreviousEntry();
+      detailsField.focus();
     });
   }
 
