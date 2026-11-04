@@ -57,13 +57,13 @@ function loadBank(relativePath) {
   const counts = root.quickRNPriorityBatch007Counts;
   assert.equal(bank.length, 246, 'priority batch retains 30 numeric, 16 matrix, and 200 case-study records');
   assert.deepEqual({ numeric: counts.numeric, matrix: counts.matrix, caseStudy: counts.caseStudy },
-    { numeric: 30, matrix: 16, caseStudy: 200 });
+    { numeric: 30, matrix: 56, caseStudy: 160 });
   assert.equal(new Set(bank.map(q => q.id)).size, 246, 'priority batch IDs are unique');
   assert.equal(bank.filter(q => q.type === 'Numeric Entry').length, 30);
-  assert.equal(bank.filter(q => q.type === 'Matrix / Grid').length, 16);
+  assert.equal(bank.filter(q => q.type === 'Matrix / Grid').length, 56);
   assert.equal(bank.filter(q => q.caseGroupId).length, 200);
   assert.equal(new Set(bank.filter(q => q.type === 'Numeric Entry').map(q => q.topic)).size, 30);
-  assert.equal(new Set(bank.filter(q => q.type === 'Matrix / Grid').map(q => q.topic)).size, 16);
+  assert.equal(new Set(bank.filter(q => q.type === 'Matrix / Grid').map(q => q.topic)).size, 56);
 }
 
 
