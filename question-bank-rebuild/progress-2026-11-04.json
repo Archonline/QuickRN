@@ -18,7 +18,7 @@
     "Batch 004 extends IDs through QR-002419; total newly authored records tracked separately from legacy bank counts.",
     "The four exam pages include the NGN batch 004 script; browser/runtime verification remains pending."
   ],
-  "note": "Repository audit on main found 1,205 unique top-level question records loaded from the nine bank modules (125 legacy + 1,080 newly authored). No duplicate IDs were found in the assembled array. 795 additional records are needed to reach 2,000 available records. Batch 004 contributes 500 NGN records across 50 case contexts and 10 formats; educator review remains pending.",
+  "note": "Repository audit after NGN batches 005 and 006: 2,205 unique top-level records load in Self Study (125 legacy + 2,080 newly authored). The 1,000 new NGN records are 500 sequential case-study items across 100 linked case groups and 500 standalone NGN supplement items across 10 formats. All new records are beta drafts pending nurse-educator review. The four exam pages load both new modules. Browser-level rendering/scoring remains to be verified.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -60,10 +60,45 @@
       },
       "reviewStatus": "pending_nurse_educator_review",
       "note": "50 clinical case scenarios with 10 NGN item-format presentations per scenario. Formats are represented as individual item records; items within each scenario share the clinical case context."
+    },
+    {
+      "file": "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
+      "firstId": "QR-002420",
+      "lastId": "QR-002919",
+      "authored": 500,
+      "formatCounts": {
+        "Multiple Response": 100,
+        "Highlight": 100,
+        "Cloze (Drop-down)": 100,
+        "Matrix Single": 100,
+        "Bowtie": 100
+      },
+      "caseGroups": 100,
+      "questionsPerCase": 5,
+      "reviewStatus": "pending_nurse_educator_review"
+    },
+    {
+      "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
+      "firstId": "QR-002920",
+      "lastId": "QR-003419",
+      "authored": 500,
+      "formatCounts": {
+        "Bowtie": 50,
+        "Matrix Single": 50,
+        "Matrix Multiple": 50,
+        "Cloze (Drop-down)": 50,
+        "Dropdown Rationale": 50,
+        "Highlight": 50,
+        "Trend": 50,
+        "Extended Drag and Drop": 50,
+        "Extended Multiple Response": 50,
+        "Select N": 50
+      },
+      "reviewStatus": "pending_nurse_educator_review"
     }
   ],
-  "newlyAuthoredTotal": 1080,
-  "remainingToTarget": 795,
+  "newlyAuthoredTotal": 2080,
+  "remainingToTarget": 0,
   "integration": {
     "examPages": [
       "selfstudy.html",
@@ -73,7 +108,7 @@
     ],
     "status": "script tags committed; browser/runtime verification pending"
   },
-  "totalAssignedIncludingReserved": 1205,
+  "totalAssignedIncludingReserved": 2205,
   "bankAudit": {
     "branch": "main",
     "auditedFiles": [
@@ -85,17 +120,19 @@
       "questions-bank-expansion-2026-11-04.js",
       "questions-bank-expansion-2026-11-04-batch-002.js",
       "questions-bank-expansion-2026-11-04-batch-003.js",
-      "questions-bank-ngn-expansion-2026-11-04-batch-004.js"
+      "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
+      "questions-bank-ngn-supplement-2026-11-04-batch-006.js"
     ],
-    "uniqueTopLevelQuestionRecords": 1205,
+    "uniqueTopLevelQuestionRecords": 2205,
     "duplicateIdsAcrossLoadedFiles": 0,
     "legacyRecordsLoaded": 125,
-    "newlyAuthoredRecordsLoaded": 1080,
-    "remainingTo2000TotalRecords": 795,
+    "newlyAuthoredRecordsLoaded": 2080,
+    "remainingTo2000TotalRecords": 0,
     "actualModuleContribution": [
       {
         "file": "questions-ngn-supplement.js",
-        "added": 26
+        "added": 27
       },
       {
         "file": "questions-bank-v2.js",
@@ -103,7 +140,7 @@
       },
       {
         "file": "questions-bank-v2-curated.js",
-        "added": 60
+        "added": 59
       },
       {
         "file": "questions-bank-v3-clinical.js",
@@ -128,13 +165,22 @@
       {
         "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
         "added": 500
+      },
+      {
+        "file": "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
+        "added": 500
+      },
+      {
+        "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
+        "added": 500
       }
     ],
     "excluded": [
-      "questions.js (empty file; contributes 0 records)"
+      "questions.js (empty file; contributes 0 records)",
+      "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
     ],
-    "method": "Executed the nine bank scripts in exam-page load order in an isolated JavaScript context, counted resulting top-level question objects, and checked ID uniqueness.",
-    "limitations": "Counts are top-level records available from the audited modules. Browser rendering/scoring is not included; nested case-study sub-items not pushed into root.questions are not counted separately."
+    "method": "Executed all 11 bank modules in Self Study script order and counted top-level objects appended to root.questions; verified all 2,205 IDs are unique. Repeated legacy batch-004 script include was removed from all four exam pages.",
+    "limitations": "Counts are top-level question records. Each of the 100 new case groups contains five sequential records sharing one clinical context. Clinical validation and browser-level rendering/scoring are still pending."
   },
-  "totalAvailableUniqueRecords": 1205
+  "totalAvailableUniqueRecords": 2205
 }
