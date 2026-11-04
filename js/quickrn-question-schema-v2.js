@@ -103,6 +103,7 @@
   if(['Bowtie','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Highlight','Numeric Entry','Extended Drag and Drop'].includes(it.type)&&(!q.stimulus||!Object.keys(q.stimulus).length)&&!q.bowtieData&&!q.matrixData&&!q.highlightSegments&&!q.trendData&&!q.dropdowns&&!q.clozeTemplate&&!q.availableItems&&!q.numericRange)issue('V2_MISSING_FORMAT_DATA','This NGN format requires its format-specific clinical or interaction data.');
   if(q.caseGroupId||q.stimulus?.caseGroupId){
    const tabs=obj(q.stimulus?.tabs);
+   Object.entries(tabs).forEach(([name,value])=>{if(value!=null&&!Array.isArray(value)&&typeof value!=='object')issue('V2_INVALID_EHR_TAB','EHR tab '+name+' must be an array or key-value object.');});
    if(!q.stimulus?.patientProfile&&!Object.values(tabs).some(v=>v&&((Array.isArray(v)&&v.length)||(!Array.isArray(v)&&Object.keys(obj(v)).length))))issue('V2_CASE_STIMULUS_EMPTY','Linked NGN case requires patient information or at least one populated EHR tab.');
   }
   return issues;
