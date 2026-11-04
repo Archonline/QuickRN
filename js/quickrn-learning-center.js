@@ -193,7 +193,8 @@ const VIDEO_ID_CATALOG={
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
     'Shock types and hemodynamic monitoring':'FPVvXI7Lkg4',
-    'Sodium imbalances':'ZGNqpWurYMw'
+    'Sodium imbalances':'ZGNqpWurYMw',
+    'Immunization schedule and safety':'9HxeaylySf0'
   }
 };
 const $=id=>document.getElementById(id);
@@ -329,9 +330,7 @@ function renderSystems(){
     const label=labels[item.category]||item.category;
     const key=label+' · '+item.system;
     (acc[key]||(acc[key]=[])).push(item.topic);
-    return acc;,
-    "Immunization schedule and safety":"9HxeaylySf0"
-  },{});
+    return acc;,{});
   const total=items.length;
   $('topic-count').textContent=total+' topics';
   $('system-list').innerHTML=Object.entries(systems).map(([system,topics],i)=>
