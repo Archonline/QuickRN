@@ -360,6 +360,59 @@ const CHEAT_SHEETS={
   'Standard precautions and hand hygiene':{focus:'Standard precautions apply to every patient. Add transmission-based precautions when infection risk requires them.',cues:['Expected exposure to blood/body fluids, mucous membranes or nonintact skin','Suspected/confirmed organism and transmission route','PPE needs based on task and isolation signage'],actions:['Perform hand hygiene at indicated moments and use task-appropriate PPE','Use safe injection practices and sharps disposal','Add contact, droplet or airborne precautions based on organism guidance'],red:'Unprotected exposure, sharps injury or breach involving a high-risk pathogen requires immediate reporting and exposure protocol.',memory:'Gloves do not replace hand hygiene.'},
   'ABG interpretation and ROME':{focus:'Interpret pH first, then PaCO₂ and HCO₃⁻; determine primary respiratory/metabolic process and compensation.',cues:['pH below 7.35 = acidemia; above 7.45 = alkalemia','PaCO₂ reflects respiratory component; HCO₃⁻ reflects metabolic component','Assess oxygenation and clinical context separately'],actions:['Use the same ABG sample and reference ranges','Identify primary process, compensation and possible mixed disorder','Correlate with respiratory status, medications and underlying cause'],red:'Severe acidemia/alkalemia, deteriorating consciousness or respiratory failure requires urgent escalation.',memory:'ROME: Respiratory Opposite, Metabolic Equal—use it to identify the primary direction, not to replace full interpretation.'}
 };
+// Openly licensed nursing references (Open RN books are CC BY 4.0).
+// Each selected topic receives resources mapped from its parent library category,
+// plus a direct NCBI Bookshelf search for that exact topic.
+const OPEN_NURSING_RESOURCES={
+  fundamentals:[
+    {title:'Nursing Fundamentals, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610815/'},
+    {title:'Nursing Skills, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK596735/'},
+    {title:'Nursing Advanced Skills',url:'https://www.ncbi.nlm.nih.gov/books/NBK594492/'}
+  ],
+  adult:[
+    {title:'Health Alterations',url:'https://www.ncbi.nlm.nih.gov/books/NBK613078/'},
+    {title:'Nursing Advanced Skills',url:'https://www.ncbi.nlm.nih.gov/books/NBK594492/'},
+    {title:'Nursing Fundamentals, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610815/'}
+  ],
+  child:[
+    {title:'Nursing Health Promotion',url:'https://www.ncbi.nlm.nih.gov/books/NBK615319/'},
+    {title:'Health Alterations',url:'https://www.ncbi.nlm.nih.gov/books/NBK613078/'},
+    {title:'Nursing Fundamentals, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610815/'}
+  ],
+  maternal:[
+    {title:'Nursing Health Promotion',url:'https://www.ncbi.nlm.nih.gov/books/NBK615319/'},
+    {title:'Health Alterations',url:'https://www.ncbi.nlm.nih.gov/books/NBK613078/'}
+  ],
+  pharm:[
+    {title:'Nursing Pharmacology, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK595000/'},
+    {title:'Nursing Fundamentals, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610815/'}
+  ],
+  mental:[
+    {title:'Mental Health & Community Concepts, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK616982/'},
+    {title:'Nursing Health Promotion',url:'https://www.ncbi.nlm.nih.gov/books/NBK615319/'}
+  ],
+  leadership:[
+    {title:'Nursing Management & Professional Concepts, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610445/'},
+    {title:'Nursing Fundamentals, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK610815/'}
+  ],
+  community:[
+    {title:'Mental Health & Community Concepts, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK616982/'},
+    {title:'Nursing Health Promotion',url:'https://www.ncbi.nlm.nih.gov/books/NBK615319/'}
+  ],
+  specialty:[
+    {title:'Health Alterations',url:'https://www.ncbi.nlm.nih.gov/books/NBK613078/'},
+    {title:'Nursing Advanced Skills',url:'https://www.ncbi.nlm.nih.gov/books/NBK594492/'},
+    {title:'Nursing Skills, 2e',url:'https://www.ncbi.nlm.nih.gov/books/NBK596735/'}
+  ]
+};
+function openNursingResourcesFor(topicText){
+  const match=allTopics().find(item=>item.topic===topicText);
+  const category=match&&match.category;
+  const resources=OPEN_NURSING_RESOURCES[category]||OPEN_NURSING_RESOURCES.fundamentals;
+  const queryUrl='https://www.ncbi.nlm.nih.gov/books/?term='+encodeURIComponent(topicText+' nursing');
+  const links=resources.map(item=>'<a class="open-oer-link" href="'+item.url+'" target="_blank" rel="noopener noreferrer">'+safe(item.title)+' <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>').join('');
+  return '<section class="open-oer-panel" aria-label="Open educational nursing references"><div><strong><i class="fa-solid fa-book-open" aria-hidden="true"></i> Open-access study sheets & references</strong><span>Free Open RN nursing textbooks · CC BY 4.0</span></div><div class="open-oer-links">'+links+'<a class="open-oer-link open-oer-search" href="'+queryUrl+'" target="_blank" rel="noopener noreferrer">Search this topic in NCBI Bookshelf <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i></a></div><small>Open RN materials are openly licensed educational resources. Follow each source’s attribution and license terms when reusing or adapting content.</small></section>';
+}
 function renderCheatSheet(topicText){
   const host=$('topic-cheat-sheet');if(!host)return;
   const sheet=CHEAT_SHEETS[topicText];
@@ -379,7 +432,7 @@ function renderCheatSheet(topicText){
   ];
   const htmlSections=sections.map(([heading,body])=>'<section class="cheat-section"><h4>'+safe(heading)+'</h4>'+(Array.isArray(body)?'<ul>'+body.map(item=>'<li>'+safe(item)+'</li>').join('')+'</ul>':'<p>'+safe(body)+'</p>')+'</section>').join('');
   const imageHtml=image?'<a class="cheat-image-link" href="'+safe(image.url)+'" target="_blank" rel="noopener noreferrer"><img src="'+safe(image.src)+'" alt="'+safe(image.title)+' reference sheet" loading="lazy"><span>Image reference: '+safe(image.source)+' · Open source</span></a>':'<div class="cheat-image-empty"><i class="fa-regular fa-image"></i><span>No topic-specific image preview is curated yet. Search Google Images for visual references.</span></div>';
-  host.innerHTML='<div class="flex flex-wrap items-center justify-between gap-2"><div><p class="text-[11px] font-bold uppercase tracking-wider text-teal-700">Topic quick sheet</p><h3 class="text-lg font-extrabold">'+safe(topicText)+'</h3></div><a class="cheat-google-link" href="'+safe(googleUrl)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-google"></i> Google Images</a></div><div class="cheat-sheet-grid">'+imageHtml+'<div class="cheat-sections">'+htmlSections+'</div></div><p class="cheat-disclaimer">Study aid only. Confirm medication doses, laboratory ranges, obstetric/pediatric thresholds and emergency actions against current institutional guidance and authoritative references.</p>';
+  host.innerHTML='<div class="flex flex-wrap items-center justify-between gap-2"><div><p class="text-[11px] font-bold uppercase tracking-wider text-teal-700">Topic quick sheet</p><h3 class="text-lg font-extrabold">'+safe(topicText)+'</h3></div><a class="cheat-google-link" href="'+safe(googleUrl)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-google"></i> Google Images</a></div><div class="cheat-sheet-grid">'+imageHtml+'<div class="cheat-sections">'+htmlSections+'</div></div>'+openNursingResourcesFor(topicText)+'<p class="cheat-disclaimer">Study aid only. Confirm medication doses, laboratory ranges, obstetric/pediatric thresholds and emergency actions against current institutional guidance and authoritative references.</p>';
 }
 
 function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 4 · '+message;}
