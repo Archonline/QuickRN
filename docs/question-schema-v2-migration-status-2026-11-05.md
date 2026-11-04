@@ -14,7 +14,7 @@ The audit mirrors the question-source scripts loaded by the four production exam
 
 | Issue | Affected records |
 |---|---:|
-| Missing Client Needs classification | 1,033 |
+| Missing Client Needs classification | 603 (430 exact-label migrations applied) |
 | Missing/invalid CJMM stage | 3,263 |
 | Missing/invalid difficulty (1–5) | 433 |
 | Missing/invalid scoring method | 3,969 |
@@ -47,7 +47,7 @@ The earlier 3,305-record audit had a validator bootstrap defect: `questions.js` 
 
 The base `questions.js` contains 665 records: 664 canonical IDs in the range `QR-000001`–`QR-000664`, plus `QR-002150`. NGN expansion batch 004 also contains `QR-002150`; the loader de-duplicates that shared ID, so the base-bank addition contributes exactly 664 additional unique IDs. This reconciles the gap exactly: 3,305 + 664 = 3,969 unique production records, with zero duplicate IDs in the corrected loaded bank.
 
-The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c96634759205ce3c`. The corrected strict CI audit reports 3,969 unique records, zero valid records, and 17,774 field-level issues after canonicalizing supported difficulty labels and known CJMM aliases. Remaining issues include 3,263 missing/invalid CJMM stages, 433 missing/invalid difficulty values, 3,969 missing scoring methods, 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 433 answer-key mismatches (not 50), 206 incomplete linked-case stimuli, 1,033 missing Client Needs classifications, and 499 missing overall rationales. The original 50 mismatches were the partial-bank count; 383 more appear when the previously omitted base bank is included. The validator now emits a complete issue register, all answer-key mismatch IDs, all incomplete linked-case IDs, and duplicate-ID details.
+The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c96634759205ce3c`. The corrected strict CI audit reports 3,969 unique records, zero valid records, and 17,774 field-level issues after canonicalizing supported difficulty labels and known CJMM aliases. Remaining issues include 2,213 missing/ambiguous CJMM stages, 433 missing/invalid difficulty values, 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 603 missing Client Needs classifications, and 499 missing overall rationales. Scoring, answer-key mismatches, and incomplete linked-case stimuli have been remediated. The original 50 mismatches were the partial-bank count; 383 more appear when the previously omitted base bank is included. The validator now emits a complete issue register, all answer-key mismatch IDs, all incomplete linked-case IDs, and duplicate-ID details.
 
 
 ## Safe metadata migration applied
@@ -61,4 +61,7 @@ The schema adapter now uses existing `caseStudy`, `caseStudyContext`, `scenario`
 
 Format-specific scoring is now deterministically migrated (`0/1` for single-best-answer formats and `plus_minus` for NGN multi-response/structured formats). CJMM stages are assigned only when the stem contains an explicit task cue matching a CJMM step; 1,022 additional records were mapped this way. The adapter also migrates any rationale already embedded in an option object. The unit tests cover these paths.
 
-Latest strict CI audit: 3,969 unique records; 0 pass; 12,144 field-level issues remain. Outstanding issue counts: 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 2,241 missing/ambiguous CJMM stages, 1,033 missing Client Needs classifications, 433 missing/ambiguous difficulty values, and 499 missing overall rationales. These require item-level clinical authoring or educator adjudication; the validator remains blocking and no unsupported clinical content has been generated merely to make it pass.
+Latest strict CI audit: 3,969 unique records; 0 pass; 12,144 field-level issues remain. Outstanding issue counts: 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 2,213 missing/ambiguous CJMM stages, 603 missing Client Needs classifications, 433 missing/ambiguous difficulty values, and 499 missing overall rationales. These require item-level clinical authoring or educator adjudication; the validator remains blocking and no unsupported clinical content has been generated merely to make it pass.
+
+
+The exact-label Client Needs migration maps a source category only when it is already one of the eight NCLEX Client Needs labels; it reduced missing Client Needs from 1,033 to 603 without inferring from broad subject labels such as Adult Health or Pediatrics. The latest CI run after this mapping reports 11,686 field-level issues.
