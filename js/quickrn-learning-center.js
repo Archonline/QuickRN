@@ -187,7 +187,8 @@ const VIDEO_ID_CATALOG={
     'Increased intracranial pressure':'2_uXDgUSH0k',
     'Cirrhosis and hepatic encephalopathy':'Shx-hmyLdXA',
     'Cystic fibrosis nursing care':'FugzsYln-8E',
-    'Meningitis in children':'MUtoTIro8fU'
+    'Meningitis in children':'MUtoTIro8fU',
+    "Croup vs epiglottitis":"QCgcUtWkWqE"
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
@@ -328,7 +329,8 @@ function renderSystems(){
     const label=labels[item.category]||item.category;
     const key=label+' · '+item.system;
     (acc[key]||(acc[key]=[])).push(item.topic);
-    return acc;
+    return acc;,
+    "Immunization schedule and safety":"9HxeaylySf0"
   },{});
   const total=items.length;
   $('topic-count').textContent=total+' topics';
