@@ -4,8 +4,8 @@
   "fullProductionBank": false,
   "counts": {
     "recordsLoaded": 80,
-    "pending": 40,
-    "notStarted": 40,
+    "pending": 45,
+    "notStarted": 35,
     "approved": 0
   },
   "policy": "Schema validation and educator review are independent. No record is educator-approved without educatorReview.status=approved, reviewedBy, and reviewedAt.",
@@ -329,6 +329,46 @@
       "format": "Numeric Entry",
       "evidenceCount": 1,
       "status": "pending"
+    },
+    {
+      "id": "QB2R-0029",
+      "topic": "Triage: airway compromise",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QB2R-0030",
+      "topic": "Postoperative complication",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QB2R-0031",
+      "topic": "Reinforcing teaching",
+      "clientNeeds": "Management of Care",
+      "format": "Single Choice",
+      "evidenceCount": 2,
+      "status": "pending"
+    },
+    {
+      "id": "QB2R-0032",
+      "topic": "Fluid volume deficit",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 1,
+      "status": "pending"
+    },
+    {
+      "id": "QB2R-0033",
+      "topic": "ABG interpretation",
+      "clientNeeds": "Physiological Adaptation",
+      "format": "Single Choice",
+      "evidenceCount": 2,
+      "status": "pending"
     }
   ],
   "notStartedRecords": [
@@ -386,41 +426,6 @@
       "topic": "Sepsis case study — evaluate outcomes",
       "clientNeeds": "Physiological Adaptation",
       "format": "Trend",
-      "status": "not_started"
-    },
-    {
-      "id": "QB2R-0029",
-      "topic": "Triage: airway compromise",
-      "clientNeeds": "Physiological Adaptation",
-      "format": "Single Choice",
-      "status": "not_started"
-    },
-    {
-      "id": "QB2R-0030",
-      "topic": "Postoperative complication",
-      "clientNeeds": "Physiological Adaptation",
-      "format": "Single Choice",
-      "status": "not_started"
-    },
-    {
-      "id": "QB2R-0031",
-      "topic": "Reinforcing teaching",
-      "clientNeeds": "Physiological Adaptation",
-      "format": "Single Choice",
-      "status": "not_started"
-    },
-    {
-      "id": "QB2R-0032",
-      "topic": "Fluid volume deficit",
-      "clientNeeds": "Physiological Adaptation",
-      "format": "Single Choice",
-      "status": "not_started"
-    },
-    {
-      "id": "QB2R-0033",
-      "topic": "ABG interpretation",
-      "clientNeeds": "Physiological Adaptation",
-      "format": "Single Choice",
       "status": "not_started"
     },
     {
