@@ -136,6 +136,8 @@ for (const page of pages) {
     const attributes = match[1];
     const code = match[2].trim();
     if (!code || /\bsrc\s*=/.test(attributes) || /type\s*=\s*["'](?:text\/babel|module)/i.test(attributes)) continue;
+    // Skip the nested printable document script embedded inside the dashboard's print helper string.
+    if (code.includes('printWindow.document.write(') || code.includes('window.onload=function(){window.print()}')) continue;
     new vm.Script(code, { filename: page + ':inline-script-' + (++index) });
   }
 }
