@@ -46,7 +46,20 @@
       if(active===href.split('#')[0]&&!tab){a.classList.add('is-active');a.setAttribute('aria-current','page');} section.appendChild(a);
     });nav.appendChild(section);
   }); aside.appendChild(nav);
-  const footer=document.createElement('div');footer.className='qr-sidebar-footer';footer.innerHTML='<i class="fa-solid fa-shield-heart" aria-hidden="true"></i><span>Study with confidence</span>';aside.appendChild(footer);
+  const footer=document.createElement('div');footer.className='qr-sidebar-footer';
+  footer.innerHTML='<i class="fa-solid fa-shield-heart" aria-hidden="true"></i><span>Study with confidence</span>';
+  if(path==='dashboard.html'){
+    const signOutButton=document.createElement('button');
+    signOutButton.type='button';
+    signOutButton.className='qr-sidebar-signout';
+    signOutButton.innerHTML='<i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i><span>Sign Out</span>';
+    signOutButton.addEventListener('click',()=>{
+      if(typeof window.handleSignOut==='function')window.handleSignOut();
+      else window.location.assign('index.html');
+    });
+    footer.appendChild(signOutButton);
+  }
+  aside.appendChild(footer);
   const shell=document.getElementById('app-shell');
   if(shell){const old=shell.querySelector(':scope > aside');if(old)old.replaceWith(aside);else shell.insertBefore(aside,shell.firstChild);shell.classList.add('qr-sidebar-shell');}
   else{const legacy=document.querySelector('body > div > aside');if(legacy)legacy.replaceWith(aside);else document.body.insertBefore(aside,document.body.firstChild);document.body.classList.add('qr-has-sidebar');}
