@@ -172,6 +172,8 @@ const VIDEO_ID_CATALOG={
     'Asthma and status asthmaticus':'lPOtUH-A-yQ',
     'COPD exacerbation':'PYatQP1350c',
     'Electrolyte imbalances':'T_pCeQkpNX8',
+    'Acute kidney injury':'p0Srm7OLvWk',
+    'Hemodialysis and peritoneal dialysis':'vf-uL6saYd0',
   },
   registerednursern:{
     'Heart failure':'mGchzG3Ya7c',
@@ -182,7 +184,8 @@ const VIDEO_ID_CATALOG={
     'Pediatric vital signs and assessment':'pXrGIZOLz4k',
     'Medication administration rights':'TqVrR69Swr0',
     'Immunization schedule and safety':'piO71GcUa1s',
-    'Increased intracranial pressure':'2_uXDgUSH0k'
+    'Increased intracranial pressure':'2_uXDgUSH0k',
+    'Cirrhosis and hepatic encephalopathy':'Shx-hmyLdXA'
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
