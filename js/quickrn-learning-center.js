@@ -71,6 +71,78 @@ community:{
 }
 };
 
+
+/* NCLEX-RN coverage expansion aligned to the 2026 test-plan content domains.
+   Existing lessons are retained; these additional topics broaden specialty and
+   high-frequency clinical coverage without creating duplicate topic labels. */
+Object.assign(DATA.adult,{
+  "Cardiovascular — Advanced":["Valvular heart disease","Infective endocarditis","Pericarditis and cardiac tamponade","Peripheral arterial disease and chronic venous insufficiency","Aortic aneurysm and dissection","Cardiogenic shock and intra-aortic balloon pump basics"],
+  "Respiratory — Advanced":["Acute respiratory distress syndrome","Mechanical ventilation and alarm priorities","Tracheostomy care and complications","Chest trauma and flail chest","Tuberculosis nursing care","Pleural effusion and pneumothorax"],
+  "Neurologic — Advanced":["Guillain-Barré syndrome","Myasthenia gravis and myasthenic crisis","Multiple sclerosis","Spinal cord injury and neurogenic shock","Meningitis and encephalitis in adults","Delirium versus dementia"],
+  "Gastrointestinal — Advanced":["Appendicitis and peritonitis","Bowel obstruction and ileus","Cholecystitis and cholelithiasis","Diverticulitis and diverticular disease","Ostomy complications and care","Hepatitis and acute liver failure"],
+  "Renal — Advanced":["Nephrotic and nephritic syndromes","Renal calculi and urinary obstruction","Dialysis access complications","Peritoneal dialysis peritonitis","Chronic kidney disease mineral-bone disorder","Urinary retention and bladder irrigation"],
+  "Endocrine — Advanced":["SIADH and diabetes insipidus","Adrenal crisis","Pheochromocytoma","Hyperparathyroidism and hypoparathyroidism","Thyroidectomy complications","Metabolic syndrome and obesity care"],
+  "Hematology — Advanced":["Disseminated intravascular coagulation","Thrombocytopenia and bleeding precautions","Aplastic anemia and pancytopenia","Polycythemia vera","Sickle cell disease complications","Blood component administration and massive transfusion"],
+  "Oncology Nursing":["Tumor lysis syndrome","Superior vena cava syndrome","Spinal cord compression in cancer","Chemotherapy precautions and extravasation","Radiation therapy safety","Neutropenic fever and oncologic emergencies"],
+  "Immune & Inflammatory Disorders":["Systemic lupus erythematosus","Rheumatoid arthritis complications","Anaphylaxis and angioedema","Organ transplant rejection","Immunosuppressant monitoring","HIV antiretroviral therapy and opportunistic infections"]
+});
+Object.assign(DATA.child,{
+  "Pediatric Emergency & Critical Care":["Pediatric respiratory distress and failure","Pediatric dehydration and fluid resuscitation","Pediatric sepsis recognition","Pediatric burns and injury prevention"],
+  "Pediatric Development & Special Needs":["Autism spectrum disorder","Attention-deficit/hyperactivity disorder","Down syndrome nursing considerations","Childhood developmental and learning disorders"],
+  "Pediatric Cardiac & Hematologic Disorders":["Pediatric dysrhythmias","Rheumatic fever and rheumatic heart disease","Thalassemia in children","Aplastic anemia in children"],
+  "Pediatric Renal & Endocrine Disorders":["Hypospadias and epispadias","Hydrocephalus and shunt complications","Type 1 diabetes sick-day management","Adolescent eating and growth concerns"]
+});
+Object.assign(DATA.maternal,{
+  "High-Risk Pregnancy":["Multiple gestation","Gestational hypertension","HELLP syndrome","Intrauterine growth restriction","Oligohydramnios and polyhydramnios"],
+  "Labor & Birth Emergencies":["Shoulder dystocia","Umbilical cord prolapse","Uterine rupture","Uterine tachysystole","Trial of labor after cesarean considerations"],
+  "Newborn Complications":["Neonatal hypoglycemia","Neonatal respiratory distress syndrome","Neonatal abstinence syndrome","Neonatal sepsis","Hyperbilirubinemia and phototherapy"],
+  "Reproductive & Genetic Health":["Polycystic ovary syndrome","Cervical and breast cancer screening","Menopause and hormone therapy teaching","Genetic screening and prenatal testing"]
+});
+Object.assign(DATA.mental,{
+  "Cognitive & Neurocognitive Disorders":["Delirium assessment and prevention","Alzheimer disease and dementia care","Personality disorders","Somatic symptom and dissociative disorders"],
+  "Child & Adolescent Mental Health":["Eating disorders in adolescents","ADHD and behavioral disorders","Autism and therapeutic approaches","Self-harm and suicide prevention in adolescents"],
+  "Psychiatric Crisis & Safety":["Acute agitation and de-escalation","Violence risk assessment","Seclusion and restraint safety","Grief, loss and end-of-life distress"]
+});
+Object.assign(DATA.fundamentals,{
+  "Critical Care & Emergency Nursing":["Shock types and hemodynamic monitoring","Rapid response and code blue roles","Ventilator-associated event prevention","Acute respiratory failure priorities"],
+  "Perioperative & Procedural Nursing":["Surgical time-out and site verification","Anesthesia complications and malignant hyperthermia","Post-anesthesia care and airway priorities","Procedural sedation monitoring"],
+  "Diagnostic Procedures & Monitoring":["12-lead ECG and telemetry priorities","Cardiac catheterization nursing care","Lumbar puncture and post-procedure care","Endoscopy and colonoscopy preparation"],
+  "Blood & Vascular Access":["Central venous catheter care","PICC line complications","Blood transfusion verification and reactions","Extravasation and infiltration management"],
+  "Pain, Palliative & Rehabilitation Care":["Acute and chronic pain management","Palliative care and hospice principles","Rehabilitation and assistive devices","End-of-life signs and family support"],
+  "Nutrition & Metabolic Support — Advanced":["Dysphagia screening and aspiration prevention","Malnutrition and refeeding syndrome","Parenteral nutrition complications","Obesity and bariatric surgery nursing care"]
+});
+Object.assign(DATA.pharm,{
+  "Neurologic & Emergency Medications":["Antiplatelets and stroke medications","Antiparkinsonian medications","Anticonvulsants and therapeutic monitoring","Sedatives and neuromuscular blockers"],
+  "Maternal & Pediatric Medications":["Oxytocin and uterotonic medications","Magnesium sulfate monitoring","Newborn vitamin K and prophylaxis","Weight-based pediatric medication safety"],
+  "Oncology & Immunology Medications":["Chemotherapy safety and hazardous drug handling","Immunosuppressants and transplant medications","Biologic agents and immunomodulators","Colony-stimulating factors"],
+  "Pain & Anesthesia Medications":["Nonopioid analgesics and NSAIDs","Opioid safety and respiratory depression","Local anesthetics and toxicity","Reversal agents and antidote principles"],
+  "Psychiatric & Other High-Risk Medications":["MAOIs and food interactions","Antidepressant discontinuation and monitoring","Antipsychotic metabolic monitoring","Anticoagulant reversal and bleeding response"]
+});
+Object.assign(DATA.leadership,{
+  "Care Coordination & Transitions":["Discharge planning and readmission prevention","Interprofessional collaboration and referrals","Continuity of care and transfer safety","Case management and resource allocation"],
+  "Legal, Ethical & Cultural Practice":["Capacity and surrogate decision-making","Mandatory reporting and duty to protect","Cultural humility and interpreter use","Spiritual care and ethical conflict"]
+});
+Object.assign(DATA.community,{
+  "Public & Occupational Health":["Occupational exposure and needlestick response","Environmental health and disaster-related illness","School nursing and population screening","Maternal-child community health programs"],
+  "Home, Hospice & Vulnerable Populations":["Home safety and medication reconciliation","Hospice eligibility concepts and symptom support","Care of older adults in the community","Housing insecurity, food insecurity and access to care"]
+});
+Object.assign(DATA,{
+  specialty:{
+    "Gerontological Nursing":["Age-related physiologic changes","Polypharmacy and potentially inappropriate medications","Falls, frailty and functional assessment","Pressure injury and skin integrity in older adults"],
+    "Emergency & Trauma Nursing":["Primary and secondary trauma survey","Head injury and intracranial trauma","Spinal trauma and spinal precautions","Hemorrhage control and hypovolemic shock"],
+    "Critical Care Nursing":["Hemodynamic monitoring and shock","Acute coronary and respiratory deterioration","Multiorgan dysfunction syndrome","Sedation, delirium and ICU mobility"],
+    "Perioperative Nursing":["Preoperative risk assessment","Intraoperative positioning and surgical safety","Postoperative airway and circulation priorities","Postoperative infection and venous thromboembolism prevention"],
+    "Oncology Nursing":["Cancer staging and treatment goals","Safe handling of antineoplastic agents","Neutropenic and thrombocytopenic precautions","Oncologic emergencies and symptom management"],
+    "Infection Prevention & Control":["Transmission-based precautions by organism","Healthcare-associated infection prevention","C. difficile and multidrug-resistant organisms","Needlestick exposure and postexposure response"],
+    "Transplant Nursing":["Solid-organ transplant assessment","Acute and chronic rejection","Graft-versus-host disease","Immunosuppression and infection prevention"],
+    "Rehabilitation Nursing":["Stroke rehabilitation and functional recovery","Spinal cord injury rehabilitation","Dysphagia and communication support","Mobility aids and activities of daily living"],
+    "Palliative & End-of-Life Nursing":["Goals-of-care conversations","Symptom management near end of life","Advance care planning","Grief support and postmortem care"],
+    "Diagnostic & Laboratory Nursing":["Critical laboratory values and escalation","Diagnostic imaging contrast precautions","Specimen collection and handling","Point-of-care testing and quality control"],
+    "Nutrition & Metabolic Support":["Enteral access devices and tube complications","Parenteral nutrition monitoring","Electrolyte replacement safety","Refeeding syndrome recognition"],
+    "Ethical, Cultural & Spiritual Care":["Informed consent and decision-making capacity","Interpreter use and communication access","Religious and spiritual preferences in care","Moral distress and ethical consultation"]
+  }
+});
+
 // Only verified, topic-specific video IDs belong in this catalog.
 // Missing entries intentionally show an unavailable placeholder instead of unrelated content.
 const VIDEO_PROVIDERS=[
@@ -170,7 +242,7 @@ function selectTopic(value){
 const CLIENT_NEEDS=[
   {name:'Safe and Effective Care Environment',subs:[
     {name:'Management of Care',test:item=>item.category==='leadership'&&!/Quality & Safety/.test(item.system)},
-    {name:'Safety and Infection Control',test:item=>item.category==='fundamentals'&&/Patient Safety/.test(item.system)||item.category==='leadership'&&/Quality & Safety/.test(item.system)||item.category==='community'&&/Disaster/.test(item.system)||/child abuse|poisoning|ingestion|precautions|hand hygiene|sterile technique/i.test(item.topic)}
+    {name:'Safety and Infection Prevention and Control',test:item=>item.category==='fundamentals'&&/Patient Safety/.test(item.system)||item.category==='leadership'&&/Quality & Safety/.test(item.system)||item.category==='community'&&/Disaster/.test(item.system)||/child abuse|poisoning|ingestion|precautions|hand hygiene|sterile technique/i.test(item.topic)}
   ]},
   {name:'Health Promotion and Maintenance',subs:[
     {name:'Health Promotion and Maintenance',test:item=>item.category==='maternal'&&!/preeclampsia|eclampsia|hemorrhage|ectopic|embolism|hyperemesis|previa|abruption|preterm labor|gestational diabetes/i.test(item.topic)||item.category==='community'&& !/Disaster/.test(item.system)||item.category==='child'&&/Growth & Development/.test(item.system)}
@@ -194,7 +266,7 @@ function clientNeedFor(item){
 }
 function renderSystems(){
   const items=allTopics();
-  const labels={child:'Pediatrics',adult:'Adult Health',pharm:'Pharmacology',fundamentals:'Nursing Fundamentals',maternal:'Maternal-Newborn',mental:'Mental Health',leadership:'Leadership & Management',community:'Community Health'};
+  const labels={child:'Pediatrics',adult:'Adult Health',pharm:'Pharmacology',fundamentals:'Nursing Fundamentals',maternal:'Maternal-Newborn',mental:'Mental Health',leadership:'Leadership & Management',community:'Community Health',specialty:'Clinical Specialties'};
   const needs=CLIENT_NEEDS.map(group=>{
     const subs=group.subs.map(sub=>({name:sub.name,topics:items.filter(item=>{const assigned=clientNeedFor(item);return assigned.group===group.name&&assigned.sub===sub.name;}).map(item=>item.topic)})).filter(sub=>sub.topics.length);
     return {name:group.name,subs};
