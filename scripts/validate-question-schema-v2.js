@@ -2,10 +2,15 @@
 /* Strict additive Schema v2 audit. Does not invent missing clinical metadata or rationales. */
 const fs=require('fs'),vm=require('vm'),path=require('path');
 const schema=require('../js/quickrn-question-schema-v2');
-const root=path.resolve(__dirname,'..'),context={console,window:{}};
+const root=path.resolve(__dirname,'..'),browserWindow={},context={console,window:browserWindow};
 const load=p=>{const f=path.join(root,p);if(fs.existsSync(f))vm.runInNewContext(fs.readFileSync(f,'utf8'),context,{timeout:120000,filename:f});};
+// Load the base bank into its original browser window, then promote that exact array
+// onto the shared VM global before loading supplements. Do not replace window first:
+// doing so silently discarded the 664 canonical QR-000001–QR-000664 records.
 load('questions.js');
-context.window=context;context.questions=context.questions||context.window.questions||[];
+context.questions=context.questions||browserWindow.questions||[];
+context.window=context;
+context.globalThis=context;
 const pageFiles=['js/quickrn-ngn-case-study-addon.js','questions-ngn-supplement.js','questions-bank-v2.js','questions-bank-v2-curated.js','questions-bank-v3-clinical.js','questions-bank-expansion-2026-11-04.js','questions-bank-expansion-2026-11-04-batch-002.js','questions-bank-expansion-2026-11-04-batch-003.js','questions-bank-ngn-expansion-2026-11-04-batch-004.js','questions-bank-ngn-case-studies-2026-11-04-batch-005.js','questions-bank-ngn-supplement-2026-11-04-batch-006.js','questions-bank-numeric-entry-2026-11-04-batch-007.js','questions-bank-matrix-grid-2026-11-04-batch-008.js','questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js','questions-bank-ngn-priority-2026-11-04-batch-007.js'];
 pageFiles.forEach(load);
 const bank=Array.isArray(context.questions)?context.questions:[];
