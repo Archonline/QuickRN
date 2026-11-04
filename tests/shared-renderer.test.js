@@ -15,6 +15,10 @@ const fixtures=[
 ];
 for(const [expected,q] of fixtures)assert.equal(api.detect(q),expected,expected+' detection');
 const highlight=fixtures[7][1];
+const highlightHtml=api.renderReact(highlight,undefined,()=>{},false);
+assert.match(highlightHtml,/qr-highlight-inline-text/,'highlight findings render inline in the question text');
+assert.match(highlightHtml,/qr-highlight-inline-token/,'each highlightable finding is an inline selectable token');
+assert.doesNotMatch(highlightHtml,/qr-highlight-list|qr-highlight-check/,'highlight items are not rendered as separate SATA-style option cards');
 assert.equal(api.hasAnswer(highlight,{highlights:['s1']}),true);
 assert.equal(api.grade(highlight,{highlights:['s1']}),true);
 assert.equal(api.grade(highlight,{highlights:['s2']}),false);
