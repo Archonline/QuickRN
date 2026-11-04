@@ -1537,7 +1537,7 @@ function renderSystems(){
     return {name:group.name,subs};
   }).filter(group=>group.subs.length);
   $('client-needs-list').innerHTML=needs.map((group,i)=>
-    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(group.name)+'</span><span class="text-[11px] font-normal text-slate-500">'+group.subs.reduce((n,sub)=>n+sub.topics.length,0)+'</span></summary><div class="p-2 border-t space-y-2">'+group.subs.map(sub=>'<details class="rounded-lg bg-slate-50 overflow-hidden"><summary class="cursor-pointer px-2 py-2 text-[11px] font-bold text-slate-700 flex justify-between gap-2"><span>'+safe(sub.name)+'</span><span class="font-normal text-slate-500">'+sub.topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2">'+sub.topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'"'>'+renderTopicLabel(t)+'</button>').join('')+'</div></details>').join('')+'</div></details>'
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(group.name)+'</span><span class="text-[11px] font-normal text-slate-500">'+group.subs.reduce((n,sub)=>n+sub.topics.length,0)+'</span></summary><div class="p-2 border-t space-y-2">'+group.subs.map(sub=>'<details class="rounded-lg bg-slate-50 overflow-hidden"><summary class="cursor-pointer px-2 py-2 text-[11px] font-bold text-slate-700 flex justify-between gap-2"><span>'+safe(sub.name)+'</span><span class="font-normal text-slate-500">'+sub.topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2">'+sub.topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+renderTopicLabel(t)+'</button>').join('')+'</div></details>').join('')+'</div></details>'
   ).join('');
   const systems=items.reduce((acc,item)=>{
     const label=labels[item.category]||item.category;
@@ -1548,7 +1548,7 @@ function renderSystems(){
   const total=items.length;
   $('topic-count').textContent=total+' topics';
   $('system-list').innerHTML=Object.entries(systems).map(([system,topics],i)=>
-    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'"'>'+renderTopicLabel(t)+'</button>').join('')+'</div></details>'
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+renderTopicLabel(t)+'</button>').join('')+'</div></details>'
   ).join('');
 }
 function showVideoMessage(message){
