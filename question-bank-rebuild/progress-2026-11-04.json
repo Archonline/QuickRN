@@ -6,17 +6,29 @@
     "file": "questions-bank-expansion-2026-11-04.js",
     "firstId": "QR-001340",
     "lastId": "QR-001369",
-    "authored": 30,
+    "authored": 80,
     "formatCounts": {
-      "Single Choice": 29,
+      "Single Choice": 79,
       "Multiple Response": 1
     },
     "reviewStatus": "pending_nurse_educator_review"
   },
   "gaps": [
-    "QR-001330–QR-001339 already reserved in prior draft work; confirm integration and IDs",
-    "QR-001370–QR-002000 remain to be authored",
-    "New expansion file must be loaded after questions-bank-v3-clinical.js in selfstudy.html, timed.html, predictor.html, and cat.html"
+    "QR-001330–QR-001339 are reserved in prior draft work; confirm integration and IDs",
+    "QR-001420–QR-002000 remain to be authored",
+    "Both expansion files must be loaded after questions-bank-v3-clinical.js in selfstudy.html, timed.html, predictor.html, and cat.html"
   ],
-  "note": "This batch is independently authored and is not copied from GalePrep. Structural and clinical educator review remain pending."
+  "note": "80 newly authored original draft questions across two committed batches. These files are not yet confirmed as loaded by all exam pages. Nurse-educator review remains pending.",
+  "additionalBatches": [
+    {
+      "file": "questions-bank-expansion-2026-11-04-batch-002.js",
+      "firstId": "QR-001370",
+      "lastId": "QR-001419",
+      "authored": 50,
+      "formatCounts": {
+        "Single Choice": 50
+      },
+      "reviewStatus": "pending_nurse_educator_review"
+    }
+  ]
 }
