@@ -155,7 +155,35 @@ let topic='',recognition=null,currentVideoUrl='';
 // Only manually reviewed video IDs are eligible for automatic playback.
 const VIDEO_ID_CATALOG={
   simplenursing:{
-    'Heart failure':'r5W1ns5C1ik'
+    'Developmental milestones by age':'VVmMK4ZcPxY',
+    'Piaget Erikson and Kohlberg':'93ckmflkD6o',
+    'Pediatric heart failure':'r5W1ns5C1ik',
+    'Heart failure':'r5W1ns5C1ik',
+    'ACE inhibitors and ARBs':'MygRkw2Sdo4',
+    'Beta blockers':'MygRkw2Sdo4',
+    'Therapeutic communication techniques':'r6amCqy3V2E',
+    'Bipolar disorder and mania':'wtwNBf7mi6g',
+    'Lithium monitoring and toxicity':'fXHTXLFBFMo',
+    'ABCs and unstable vs stable clients':'SNpElSShOpo',
+    'Acute vs chronic and new vs expected findings':'SNpElSShOpo',
+    'Who to see first NCLEX strategy':'SNpElSShOpo'
+  },
+  registerednursern:{
+    'Pediatric vital signs and assessment':'VqO6t3_9-PE',
+    'Standard precautions and hand hygiene':'vLq6B3Qjy98',
+    'Contact droplet and airborne precautions':'esE1T39KgqY',
+    'Fluid volume deficit vs excess':'-PaHC8fleO0',
+    'Potassium imbalances':'-PaHC8fleO0',
+    'Sodium imbalances':'T_pCeQkpNX8',
+    'Calcium and magnesium imbalances':'T_pCeQkpNX8',
+    'Pediatric dehydration':'T_pCeQkpNX8',
+    'Stages of labor':'uMmbpbpmDes'
+  },
+  picmonicvideo:{
+    'Penicillins and cephalosporins':'saxaFkiMjY8',
+    'Vancomycin and trough monitoring':'saxaFkiMjY8',
+    'Aminoglycosides':'saxaFkiMjY8',
+    'Antitubercular medications':'saxaFkiMjY8'
   }
 };
 const $=id=>document.getElementById(id);
