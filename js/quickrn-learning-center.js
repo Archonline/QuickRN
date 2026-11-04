@@ -719,10 +719,6 @@ function renderSystems(){
 function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
-function renderProviderButtons(){
-  const host=$('video-provider-controls');
-  if(host)host.remove();
-}
 function buildVideoReportUrl(topicText,provider,videoUrl){
   const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
   const body=['Please review this Learning Center video mapping.','','**Topic:** '+topicText,'**Channel:** '+provider.label,'**Video URL / ID:** '+(videoUrl||'No video currently mapped'),'**Report type:** Unavailable, broken, incorrect, or cannot be embedded','','Please verify the video and remap this topic if a suitable replacement is available.'].join('\n');
@@ -740,7 +736,8 @@ function loadTopicVideo(topicText,providerId){
   const videoId=VIDEO_ID_CATALOG[providerId]&&VIDEO_ID_CATALOG[providerId][topicText];
   if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){
     currentVideoUrl='https://www.youtube.com/watch?v='+videoId;
-    $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" loading="eager" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
+    const embedUrl='https://www.youtube.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(window.location.origin);
+     $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="'+embedUrl+'" title="'+safe(provider.label)+' — '+safe(topicText)+'" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
     $('player-caption').textContent='Now playing: '+provider.label+' · '+topicText+' · Report a problem if this video is unavailable.';
     return;
   }
