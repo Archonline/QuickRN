@@ -10,12 +10,12 @@ The audit mirrors the question-source scripts loaded by the four production exam
 - Records passing the complete v2 contract: 0
 - Records requiring migration/completion: 3,969
 - Duplicate IDs in the loaded page bank: 0
-- Total field-level issues after evidence-based metadata and case/key migrations: 12,144
+- Total field-level issues after evidence-based metadata and case/key migrations: 11,686
 
 | Issue | Affected records |
 |---|---:|
 | Missing Client Needs classification | 603 (430 exact-label migrations applied) |
-| Missing/invalid CJMM stage | 3,263 |
+| Missing/invalid CJMM stage | 2,213 |
 | Missing/invalid difficulty (1–5) | 433 |
 | Missing/invalid scoring method | 3,969 |
 | Missing option/response-specific rationales | 3,969 |
