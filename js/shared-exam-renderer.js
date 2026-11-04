@@ -351,7 +351,7 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
      const feedback=submitted?(correct?'background:#dcfce7;color:#166534;border-bottom:2px solid #16a34a;':(on?'background:#fee2e2;color:#991b1b;border-bottom:2px solid #dc2626;':'')):'';
      const style='display:inline;padding:2px 3px;margin:0 1px;border:0;border-bottom:2px dotted #64748b;border-radius:3px;background:'+(on?'#dbeafe':'transparent')+';color:inherit;font:inherit;line-height:inherit;cursor:'+(submitted?'default':'pointer')+';'+feedback;
      const separator=i<segments.length-1?'; ':'';
-     return "<button type='button' class='qr-highlight-inline-token "+(on?'is-selected':'')+"' style='"+style+"' aria-pressed='"+on+"' "+(submitted?'disabled':'')+" onclick='quickRNToggleDraft(\\\"highlights\\\","+JSON.stringify(seg.id)+")'>"+esc(seg.text)+"</button>"+separator;
+     return "<button type='button' class='qr-highlight-inline-token "+(on?'is-selected':'')+"' style='"+style+"' aria-pressed='"+on+"' "+(submitted?'disabled':'')+" onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'>"+esc(seg.text)+"</button>"+separator;
    }).join('');
    response=segments.length?'<div class="qr-highlight-instructions">Highlight the findings that require immediate attention by selecting the words or phrases in the question.</div><div class="qr-highlight-inline-text" style="font-size:1rem;line-height:2.1;white-space:normal">'+esc(prefix)+inlineSegments+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
  } else {
