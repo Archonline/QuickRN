@@ -18,20 +18,24 @@ for(const page of pages){
  assert.match(html,/flex items-center justify-end gap-4/,page+' right-aligns the Check Answer action');
  assert.ok(html.includes('quickrn-unified-nclex-split-screen'),page+' includes reference split-screen styles');
 }
-for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','quickrn_question_reports','quickrn_used_q_ids','quickrn_student_state'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
+for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','quickrn_used_q_ids','quickrn_student_state'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
+const reporting=fs.readFileSync('js/quickrn-question-reporting.js','utf8');
+assert.ok(reporting.includes('quickrn_question_reports'),'shared question-reporting module persists reports');
+for(const page of pages)assert.ok(fs.readFileSync(page,'utf8').includes('js/quickrn-question-reporting.js'),page+' loads shared question reporting');
 assert.ok(!app.includes('Retake same session'),'exam summaries do not expose the removed retake-same-session action');
 const renderer=fs.readFileSync('js/shared-exam-renderer.js','utf8');
-const examHtml=fs.readFileSync('correct_view.html','utf8');
-const examCss=fs.readFileSync('css/quickrn-unified-exam.css','utf8');
+const examHtml=fs.readFileSync('selfstudy.html','utf8');
+const examCss=fs.readFileSync('css/quickrn-brand-system.css','utf8');
 assert.ok(app.includes('question-only-panel'),'no-case items move the question stem into the left pane');
 assert.ok(app.includes("right.insertBefore(prompt,answerWorkspace)"),'question prompt remains above the answer workspace in the right pane');
 assert.ok(app.includes("content.innerHTML=scenario?"),'separate clinical scenario content is rendered in the left pane');
 assert.ok(!app.includes('No additional clinical exhibits are attached'),'no-case items do not fabricate a Clinical Record');
 assert.ok(!renderer.includes('Report this item')&&!renderer.includes('qr-report-row'),'standalone report item action is removed from the renderer');
 assert.ok(pages.some(page=>{const html=fs.readFileSync(page,'utf8');return html.includes('id="feedback-category"')&&html.includes('id="feedback-details"');}),'a current exam page provides the shared feedback modal with report categories and free-text details');
-assert.ok(app.includes("feedback-category")&&app.includes("snapshot:q?"),"feedback saves the selected issue category with question context");
+assert.ok(reporting.includes("reason:fd.get('reason')")&&reporting.includes("question:snapshot(q)"),"question reporting saves the selected issue category with a question snapshot");
 assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
-assert.ok(examCss.includes('#left-panel.question-only-panel #question-prompt'),'question-only left pane has dedicated layout styling');
+assert.ok(examCss.includes('qr-ehr'),'shared brand stylesheet retains the clinical-record workspace styles');
+assert.ok(app.includes('question-only-panel'),'question-only left pane has dedicated layout styling');
 
 const dashboard=fs.readFileSync('dashboard.html','utf8');
 for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard links to '+page);

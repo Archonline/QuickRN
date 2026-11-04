@@ -35,7 +35,7 @@ const numeric=[
 ['Oxygen cylinder estimate','Available pressure P psi; flow F L/min; factor 0.28. Estimate minutes.',v=>v.psi*0.28/v.flow,'minutes',0],
 ['Dose calculation','A client weighs W kg and the order is D mg/kg. Calculate total mg.',v=>v.w*v.d,'mg',0]
 ];
-for(let i=0;i<150;i++){
+for(let i=0;i<30;i++){
  const s=numeric[i%numeric.length],k=Math.floor(i/numeric.length),j=i%numeric.length;
  const v={v:500+50*i,h:4+(i%4)*2,d:100+25*(i%8),c:100+25*(i%5),w:12+(i%9),a:120+20*(i%7),b:90+15*(i%6),s:110+2*(i%20),db:65+5*(i%5),u:1000+250*(i%5),m:100+25*(i%4),r:40+10*(i%5),f:10+5*(i%3),k:55+(i%35),met:1.45+0.05*(i%6),t:20+2*(i%6),n:55+(i%30),bands:4+(i%6),wbc:5000+500*(i%15),calcium:9+0.5*(i%6),albumin:2+0.2*(i%5),na:130+(i%10),cl:95+(i%8),hco:18+(i%6),remainingTotal:1500+100*(i%5),alreadyGiven:300+50*(i%4),age:35+(i%40),wt:48+(i%35),cr:0.8+(i%5)*0.2,vol:50+10*(i%8),min:30+15*(i%5),rate:25+5*(i%8),hours:2+(i%6),dose:250+50*(i%6),tab:125+25*(i%4),conc:10+5*(i%4),birth:3000+100*i,current:2700+80*i,mlkg:50+10*(i%5),units:2+i%10,psi:1900+100*(i%5),flow:5+(i%4)};
  if(j===2||j===29)v.d=5+(i%4);if(j===8)v.d=2+(i%10);if(j===18){v.t=v.tab;v.d=v.tab*(1+(i%3));}if(j===9)v.d=20+5*(i%5);if(j===5)v.d=v.db;if(j===10)v.m=v.met;if(j===12){v.a=v.alreadyGiven;v.b=v.remainingTotal;}if(j===14){v.w=v.wbc;v.n=55+(i%30);v.b=v.bands;}if(j===15){v.c=v.calcium;v.a=v.albumin;}if(j===16){v.n=v.na;v.c=v.cl;v.b=v.hco;}if(j===17)v.d=v.db;if(j===18)v.t=v.tab;if(j===19)v.c=v.conc;if(j===24){v.b=3000+100*(i%5);v.c=v.b-(100+20*(i%4));}if(j===25){v.a=v.age;v.w=v.wt;v.c=v.cr;}if(j===26)v.t=v.min;if(j===28)v.f=v.flow;
@@ -61,7 +61,7 @@ const grids=[
 ['Burn complications',['Hoarseness and soot after enclosed fire','Circumferential chest burn','Increasing pain and tense limb','Low urine output after major burn'],['Inhalation injury','Restricted chest expansion','Compartment syndrome','Inadequate resuscitation'],['Inhalation injury','Restricted chest expansion','Compartment syndrome','Inadequate resuscitation']],
 ['Psychiatric safety',['Current suicide plan and access to means','Command hallucinations to harm another','Anxiety without safety threat','Intoxicated and unable to maintain safety'],['Immediate suicide precautions','Immediate safety escalation','Therapeutic support','Protect from injury'],['Immediate suicide precautions','Immediate safety escalation','Therapeutic support','Protect from injury']]
 ];
-for(let i=0;i<150;i++){
+for(let i=0;i<16;i++){
  const g=grids[i%grids.length],variant=Math.floor(i/grids.length),rows=g[1].map((x,j)=>({id:'r'+(j+1),text:x+(variant?' — presentation '+(variant+1):'')}));
  const correct={};rows.forEach((r,j)=>correct[r.id]=g[3][j]);
  add({id:'QR-'+String(4170+i).padStart(6,'0'),type:'Matrix / Grid',ngnType:'Matrix / Grid',category:'Clinical Judgment',topic:g[0],clientNeed:'Safety and Infection Control',difficulty:'Moderate',title:'For each clinical finding, select the best matching classification.',rows,columns:g[2],correctAnswers:correct,source:'QuickRN original beta draft',reviewStatus:'pending_nurse_educator_review',rationale:'Classify each row independently using the clinical cues and current nursing priorities. Follow current facility protocols.'});

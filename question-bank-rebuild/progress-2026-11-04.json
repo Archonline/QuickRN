@@ -150,7 +150,7 @@
       "note": "Priority batch: 150 standalone Numeric Entry items, 150 standalone Matrix / Grid items, and 40 distinct NGN case groups × 5 sequential records. Matrix / Grid format count includes 40 additional Matrix / Grid case-study records."
     }
   ],
-  "newlyAuthoredTotal": 3180,
+  "newlyAuthoredTotal": 2150,
   "remainingToTarget": 0,
   "integration": {
     "examPages": [
@@ -161,9 +161,9 @@
     ],
     "status": "The four exam pages load all existing question-bank modules plus the new priority batch after the prior batches; browser/runtime rendering and scoring verification remains pending."
   },
-  "totalAssignedIncludingReserved": 3305,
+  "totalAssignedIncludingReserved": 2815,
   "bankAudit": {
-    "branch": "main",
+    "branch": "fix/question-bank-duplicate-matrix-items-2026-11-05",
     "auditedFiles": [
       "questions-ngn-supplement.js",
       "questions-bank-v2.js",
@@ -177,14 +177,14 @@
       "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
       "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
       "questions-bank-numeric-entry-2026-11-04-batch-007.js",
-      "questions-bank-matrix-grid-2026-11-04-batch-008.js",
       "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
-      "questions-bank-ngn-priority-2026-11-04-batch-007.js"
+      "questions-bank-ngn-priority-2026-11-04-batch-007.js",
+      "js/quickrn-question-bank-case-fixes.js"
     ],
-    "uniqueTopLevelQuestionRecords": 3305,
+    "uniqueTopLevelQuestionRecords": 2815,
     "duplicateIdsAcrossLoadedFiles": 0,
-    "legacyRecordsLoaded": 125,
-    "newlyAuthoredRecordsLoaded": 3180,
+    "legacyRecordsLoaded": 665,
+    "newlyAuthoredRecordsLoaded": 2150,
     "remainingTo2000TotalRecords": 0,
     "actualModuleContribution": [
       {
@@ -217,7 +217,7 @@
       },
       {
         "file": "questions-bank-expansion-2026-11-04-batch-003.js",
-        "added": 498
+        "added": 50
       },
       {
         "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
@@ -225,7 +225,7 @@
       },
       {
         "file": "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
-        "added": 500
+        "added": 250
       },
       {
         "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
@@ -236,24 +236,71 @@
         "added": 200
       },
       {
-        "file": "questions-bank-matrix-grid-2026-11-04-batch-008.js",
-        "added": 200
-      },
-      {
         "file": "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
         "added": 200
       },
       {
         "file": "questions-bank-ngn-priority-2026-11-04-batch-007.js",
-        "added": 500
+        "added": 246
       }
     ],
     "excluded": [
       "questions.js (empty file; contributes 0 records)",
-      "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
+      "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)",
+      "questions-bank-matrix-grid-2026-11-04-batch-008.js (retired after the 40 remaining records failed Matrix/Grid schema validation; removed from all four exam pages)"
     ],
-    "method": "Executed all 15 non-empty bank modules in Self Study script order and counted top-level objects appended to root.questions; verified 3,305 IDs are unique with zero duplicate IDs. The priority batch was assigned IDs QR-004020–QR-004519 to preserve the existing Numeric Entry, Matrix / Grid, and NGN case-study batches.",
-    "limitations": "Counts are top-level question records. The latest priority batch contains 40 distinct clinical case groups with five sequential records each. Structural load, required fields, numeric answer presence, matrix structure, group size, and ID uniqueness passed. All new drafts require qualified nurse-educator validation; browser-level rendering/scoring in all four exam modes remains pending."
+    "method": "Executed the complete production exam-page question-bank script sequence in the CI validator, including all active expansion modules and the QR-002150 case fix. After duplicate-template cleanup and retiring the invalid Matrix/Grid batch, the validator loaded 2,815 records, found zero duplicate IDs and zero schema validation errors.",
+    "limitations": "The production loader count is 2,815 (verified by CI), not the user-reported 3,969. The count exceeds the 2,000 target. Clinical approval metadata is still 0/2,000, so the release clinical-review gate remains unmet. Dashboard/branding CI failures are separate existing failures and are not caused by this question-bank change.",
+    "duplicateIdsSkippedDuringModuleLoad": 3,
+    "validationErrors": 0,
+    "clinicallyReviewedCount": 0,
+    "formatCounts": {
+      "Single Choice": 704,
+      "Multiple Response": 201,
+      "Select N": 150,
+      "Matrix Single": 278,
+      "Matrix Multiple": 120,
+      "Cloze (Drop-down)": 220,
+      "Dropdown Rationale": 102,
+      "Bowtie": 221,
+      "Extended Drag and Drop": 118,
+      "Extended Multiple Response": 123,
+      "Highlight": 184,
+      "Trend": 132,
+      "Numeric Entry": 262
+    },
+    "distinctCaseGroups": 133,
+    "integrationStatus": "All four exam pages load the active bank modules in the same order; the retired Matrix/Grid batch is removed. CI confirms 2,815 records and zero schema validation errors. Browser visual/regression tests remain separate."
   },
-  "totalAvailableUniqueRecords": 3305
+  "totalAvailableUniqueRecords": 2815,
+  "contentDuplicateAudit": {
+    "date": "2026-11-05",
+    "status": "duplicate-cleanup-and-schema-repair-applied",
+    "exactDuplicateRecordsRemoved": 160,
+    "generatedTemplateVariantsRemoved": 954,
+    "invalidMatrixRecordsRetired": 40,
+    "cumulativeSourceRecordsRemovedOrRetired": 1154,
+    "finalDisposition": {
+      "questions-bank-matrix-grid-2026-11-04-batch-008.js": "All 200 records retired: 160 exact duplicates plus 40 remaining records with invalid matrix schema; module deleted and removed from all four exam pages.",
+      "questions-bank-expansion-2026-11-04-batch-003.js": "50 distinct single-choice tasks retained.",
+      "questions-bank-ngn-case-studies-2026-11-04-batch-005.js": "50 distinct five-question case groups retained (250 records).",
+      "questions-bank-ngn-priority-2026-11-04-batch-007.js": "30 numeric templates + 16 matrix templates + 200 case-study records retained (246)."
+    },
+    "additionalSchemaRepairs": [
+      "NGN batch 004: removed misleading caseGroupId labels from parallel format variants and corrected all 50 bowtie action keys.",
+      "NGN supplement batch 006: corrected 50 Matrix Multiple answer mappings and 50 ordered-response schemas.",
+      "NGN distinct case studies batch 009: added explicit caseQuestionNumber 1–5 to all 200 items.",
+      "QR-002150: added a separately stored alcohol-withdrawal clinical case record and removed the invalid linked-case group label."
+    ],
+    "runtimeValidation": {
+      "totalRecords": 2815,
+      "requiredQuestionCount": 2000,
+      "meetsQuestionCount": true,
+      "duplicateIdsNormalized": 0,
+      "validationErrors": 0,
+      "clinicallyReviewedCount": 0,
+      "clinicalReviewGate": "not_met"
+    },
+    "note": "The production CI validator now loads the same active bank modules as the exam pages. The 3,969 user-reported count remains unreconciled; CI verifies 2,815 loaded records."
+  }
 }

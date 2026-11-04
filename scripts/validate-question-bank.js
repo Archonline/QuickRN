@@ -22,6 +22,28 @@ const curatedBank=path.resolve(__dirname,'../questions-bank-v2-curated.js');
 if(fs.existsSync(curatedBank))vm.runInNewContext(fs.readFileSync(curatedBank,'utf8'),context,{timeout:30000,filename:curatedBank});
 const clinicalV3Bank=path.resolve(__dirname,'../questions-bank-v3-clinical.js');
 if(fs.existsSync(clinicalV3Bank))vm.runInNewContext(fs.readFileSync(clinicalV3Bank,'utf8'),context,{timeout:30000,filename:clinicalV3Bank});
+const productionBankModules=[
+ '../questions-bank-expansion-2026-11-04.js',
+ '../questions-bank-expansion-2026-11-04-batch-002.js',
+ '../questions-bank-expansion-2026-11-04-batch-003.js',
+ '../questions-bank-ngn-expansion-2026-11-04-batch-004.js',
+ '../questions-bank-ngn-case-studies-2026-11-04-batch-005.js',
+ '../questions-bank-ngn-supplement-2026-11-04-batch-006.js',
+ '../questions-bank-numeric-entry-2026-11-04-batch-007.js',
+ '../questions-bank-matrix-grid-2026-11-04-batch-008.js',
+ '../questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js',
+ '../questions-bank-ngn-priority-2026-11-04-batch-007.js'
+];
+for(const relative of productionBankModules){
+ const modulePath=path.resolve(__dirname,relative);
+ if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:120000,filename:modulePath});
+}
+const caseFixPath=path.resolve(__dirname,'../js/quickrn-question-bank-case-fixes.js');
+if(fs.existsSync(caseFixPath))vm.runInNewContext(fs.readFileSync(caseFixPath,'utf8'),context,{timeout:30000,filename:caseFixPath});
+for(const relative of ['../js/quickrn-question-bank-normalizer.js','../js/quickrn-question-id-normalizer.js']){
+ const modulePath=path.resolve(__dirname,relative);
+ if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:30000,filename:modulePath});
+}
 bank=context.questions||bank;
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
@@ -118,7 +140,7 @@ const requiredQuestionCount=2000;
 const isClinicallyApproved=q=>q&&q.clinicalReview&&q.clinicalReview.status==='approved'&&String(q.clinicalReview.reviewedBy||'').trim()&&String(q.clinicalReview.reviewedAt||'').trim();
 const clinicallyReviewedCount=bank.filter(isClinicallyApproved).length;
 const clinicalReviewGap=Math.max(0,requiredQuestionCount-clinicallyReviewedCount);
-const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,requiredQuestionCount,questionCountGap:Math.max(0,requiredQuestionCount-bank.length),meetsQuestionCount:bank.length>=requiredQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:clinicallyReviewedCount>=requiredQuestionCount,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,qualityWarningSamples,duplicateIdsNormalized,errorSamples:errors.slice(0,500),sampleIds:samples};
+const report={generatedAt:new Date().toISOString(),source:file,totalRecords:bank.length,requiredQuestionCount,questionCountGap:Math.max(0,requiredQuestionCount-bank.length),meetsQuestionCount:bank.length>=requiredQuestionCount,clinicallyReviewedCount,clinicalReviewGap,meetsClinicalReviewGate:clinicallyReviewedCount>=requiredQuestionCount,formatCounts:counts,distinctCaseGroups:caseGroups.size,validationErrors:errors.length,qualityWarnings:qualityWarnings.length,qualityWarningCountsByFormat,qualityWarningSamples,duplicateIdsNormalized,errorSamples:errors,sampleIds:samples};
 fs.mkdirSync('reports',{recursive:true});fs.writeFileSync('reports/ngn-bank-validation.json',JSON.stringify(report,null,2));
 const md=['# QuickRN real question-bank validation','',`- Generated: ${report.generatedAt}`,`- Source: ${file}`,`- Total records: ${bank.length}`,`- Required release count: ${requiredQuestionCount}`,`- Count gate: ${report.meetsQuestionCount?'PASS':'NOT MET ('+report.questionCountGap+' additional records required)'}`,`- Clinically reviewed records: ${clinicallyReviewedCount}`,`- Clinical approval gate: ${report.meetsClinicalReviewGate?'PASS':'NOT MET ('+clinicalReviewGap+' approved reviews required)'}`,`- Distinct case groups: ${caseGroups.size}`,`- Duplicate IDs normalized: ${duplicateIdsNormalized}`,`- Validation errors: ${errors.length}`,`- Generic/template stems requiring educator review: ${qualityWarnings.length}`,'','## Format distribution','','| Format | Records |','|---|---:|',...Object.entries(counts).map(([k,v])=>`| ${k} | ${v} |`),'','## Quality warnings','','| Format | Records requiring review |','|---|---:|',...Object.entries(qualityWarningCountsByFormat).map(([k,v])=>`| ${k} | ${v} |`),'',...(qualityWarningSamples.length?qualityWarningSamples.map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No generic/template stem warnings detected.']),'','## Validation errors','',...(errors.length?errors.slice(0,100).map(e=>`- [${e.code}] ${e.id||e.index}: ${e.message}`):['No schema errors detected.']),''].join('\n');
 fs.writeFileSync('reports/ngn-bank-validation.md',md);

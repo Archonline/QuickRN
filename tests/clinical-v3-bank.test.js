@@ -8,7 +8,7 @@ for(const file of ['questions.js','questions-bank-v3-clinical.js']){
 }
 const bank=context.questions;
 assert.ok(Array.isArray(bank),'production bank is available');
-const batch=bank.filter(q=>String(q.id||'').startsWith('QRV3-'));
+const batch=bank.filter(q=>String(q.id||'').startsWith('QRV3-')||String(q.legacyId||'').startsWith('QRV3-'));
 assert.equal(batch.length,13,'v3 batch contains 13 actual questions');
 assert.equal(new Set(batch.map(q=>q.id)).size,13,'v3 question IDs are unique');
 const expected=['Single Choice','Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry'];
@@ -19,7 +19,7 @@ for(const q of batch){
  assert.ok(q.rationale&&q.rationale.length>80,q.id+' has a clinical rationale');
  assert.ok(q.patientInfo||q.ehr,q.id+' includes patient context or record data');
 }
-const byId=id=>batch.find(q=>q.id===id);
+const byId=id=>batch.find(q=>q.id===id||q.legacyId===id);
 assert.ok(byId('QRV3-0001').options.includes(byId('QRV3-0001').correctAnswer));
 assert.equal(byId('QRV3-0003').correctAnswers.length,byId('QRV3-0003').selectN);
 for(const q of batch.filter(x=>x.type.startsWith('Matrix'))){
