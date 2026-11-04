@@ -335,7 +335,9 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
  if(f==='Highlight'){
    const raw=q.highlightSegments||q.segments;
    const source=q.highlightText||q.passage||q.caseStudyText||q.textToHighlight||q.questionText||q.question||'';
-   const segments=Array.isArray(raw)&&raw.length?raw.map((x,i)=>({id:String(x.id??i),text:String(x.text??x.label??x)})):String(source).match(/[^.!?]+[.!?]?/g)?.map((text,i)=>({id:String(i),text:text.trim()}))||[];
+   const fallbackText=String(source||'').trim();
+   const fallbackParts=fallbackText.includes(';')?fallbackText.split(/;\\s*/).map(text=>text.trim()).filter(Boolean):(fallbackText.match(/[^.!?]+[.!?]?/g)||[]).map(text=>text.trim()).filter(Boolean);
+   const segments=Array.isArray(raw)&&raw.length?raw.map((x,i)=>({id:String(x.id??i),text:String(x.text??x.label??x)})):fallbackParts.map((text,i)=>({id:String(i),text}));
    response=segments.length?'<div class="qr-highlight-instructions">Select the symptoms and clinical information that require attention.</div><div class="qr-highlight-list">'+segments.map(seg=>{const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);const correct=(q.correctHighlights||q.correctAnswers?.highlights||[]).some(x=>String(x)===String(seg.id)||String(x)===String(seg.text));const feedback=submitted?(correct?' is-correct':(on?' is-incorrect':'')):'';return "<button type='button' class='qr-highlight-segment "+(on?'is-selected':'')+feedback+"' aria-pressed='"+on+"' onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'><span class='qr-highlight-check'>"+(on?'✓':'+')+"</span>"+esc(seg.text)+"</button>";}).join('')+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
  } else {
    const data=q.trendData||q.trends||q.trendTable||{}, rows=Array.isArray(data)?data:(data.rows||data.observations||[]), headers=Array.isArray(data.headers)?data.headers:(rows.length?Object.keys(rows[0]):[]);
