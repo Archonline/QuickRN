@@ -8,7 +8,7 @@
  const first=(...xs)=>xs.find(v=>v!==undefined&&v!==null&&v!=='');
  const normalizeDifficulty=v=>{if(Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=5)return Number(v);const s=String(v??'').trim().toLowerCase();return ({easy:1,low:1,basic:1,moderate:3,medium:3,intermediate:3,hard:5,high:5,advanced:5,'very hard':5})[s]??v;};
  const normalizeCJMM=v=>{const s=String(v??'').trim().toLowerCase().replace(/[_-]+/g,' ').replace(/\s+/g,' ');const aliases={'recognize cues':'Recognize Cues','recognising cues':'Recognize Cues','recognizing cues':'Recognize Cues','analyze cues':'Analyze Cues','analyse cues':'Analyze Cues','prioritize hypotheses':'Prioritize Hypotheses','prioritise hypotheses':'Prioritize Hypotheses','generate solutions':'Generate Solutions','take action':'Take Action','evaluate outcomes':'Evaluate Outcomes'};return aliases[s]||v;};
- function inferCJMM(q){const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase();if(/which finding|which cue|which assessment data|which observation|which symptom/.test(s))return 'Recognize Cues';if(/most likely (cause|condition|problem)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e/.test(s))return 'Analyze Cues';if(/priority (problem|hypothesis)|which client should|which problem is (most )?urgent|prioriti[sz]e/.test(s))return 'Prioritize Hypotheses';if(/plan of care|which interventions? should.*plan|which outcomes? should.*establish|develop.*plan/.test(s))return 'Generate Solutions';if(/which action|what should the nurse do|which intervention should.*implement|take first|administer/.test(s))return 'Take Action';if(/evaluate|response to (the )?intervention|indicates? improvement|effective|outcome/.test(s))return 'Evaluate Outcomes';return undefined;}
+ function inferCJMM(q){const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase();if(/evaluate|response to (the )?intervention|indicates? improvement|effective|outcome/.test(s))return 'Evaluate Outcomes';if(/priority (problem|hypothesis)|which client should|which problem is (most )?urgent|prioriti[sz]e/.test(s))return 'Prioritize Hypotheses';if(/plan of care|which interventions? should.*plan|which outcomes? should.*establish|develop.*plan/.test(s))return 'Generate Solutions';if(/which action|what should the nurse do|which intervention should.*implement|take first|administer/.test(s))return 'Take Action';if(/most likely (cause|condition|problem)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e/.test(s))return 'Analyze Cues';if(/which finding|which cue|which assessment data|which observation|which symptom/.test(s))return 'Recognize Cues';return undefined;}
  function inferScoring(type){return ['Multiple Response','Select N','Matrix Single','Matrix Multiple','Bowtie','Highlight','Cloze (Drop-down)','Dropdown Rationale','Extended Drag and Drop','Extended Multiple Response','Trend'].includes(type)?'plus_minus':'0/1';}
  const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
  const arr=v=>Array.isArray(v)?v:[];
@@ -43,7 +43,7 @@
   const canonicalTabs=Object.assign({},tabs);
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
-   caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyContext?.id),
+   caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
    patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
    tabs:canonicalTabs
   });
@@ -53,7 +53,7 @@
    options:first(oldInteraction.options,q.options),
    answerKey:first(oldInteraction.answerKey,q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer,q.numericAnswer),
    scoring:Object.assign({},obj(oldInteraction.scoring),{
-    method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule,inferScoring(first(oldInteraction.type,q.type,q.ngnType,detectFormat(q))))
+    method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule,inferScoring(detectFormat(q)))
    })
   });
   const rationales=Object.assign({},oldRationales,{
