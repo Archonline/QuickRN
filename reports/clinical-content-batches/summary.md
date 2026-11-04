@@ -21,7 +21,8 @@
 Every item now contains:
 
 - `metadata`: ID, category, Client Needs, CJMM step, integer difficulty (1–5), and topic.
-- `interaction`: type, stem, options, answer key, and scoring method.
+- `interaction`: type, stem, options, the correct single-choice response in `answerKey`, and scoring method.
+- `rationales.options`: object keyed by A–D, with each value a plain explanation string, matching the v2 adapter contract.
 - `rationales`: overall rationale, letter-keyed option rationales with correctness flags, and Clinical Judgment Tip.
 - `evidence`: named clinical source, organization, year, URL, and the claim supported.
 - `educatorReview`: initialized as `pending`, independent of schema validation.
@@ -35,7 +36,7 @@ Legacy top-level question fields were retained for compatibility with existing e
 | Question-bank module syntax | PASS |
 | Validator script syntax | PASS |
 | Isolated module execution | PASS — 20 records loaded |
-| Strict schema v2 checks on these 20 records | PASS — 0 failures |
+| Strict schema v2 checks on these 20 records | PASS — 0 failures (using the canonical adapter) |
 | Per-option rationale coverage | PASS — 80 option rationales across 20 records |
 | Evidence references | PASS — each record has at least one source |
 | Educator-review state | PASS — all 20 remain pending |
@@ -44,7 +45,7 @@ Legacy top-level question fields were retained for compatibility with existing e
 
 ## Review policy
 
-Automated schema validation and educator review are separate statuses:
+The dedicated v2 validator now writes separate schema-issue and educator-review queues. Automated schema validation and educator review are separate statuses:
 
 - `schemaValidation` is determined by the validator.
 - `educatorReview.status` remains `pending` until a qualified educator records a decision, reviewer identity, and timestamp.
