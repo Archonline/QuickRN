@@ -4,8 +4,10 @@
 - Date: 2026-11-05
 - Target branch: `main`
 - Question-bank file: `questions-bank-v2.js`
-- Item-content commit: `2894cbfb683fd21484068a70c81cebeea8308290`
+- Initial item-content commit: `2894cbfb683fd21484068a70c81cebeea8308290`
+- Canonical schema v2 migration commit: `262f301a6e79eb3b1f6338f70a71487bd3f00c77`
 - Validator-separation commit: `8b2b14d100ffc5cab12ce01528db08e7a3f76bee`
+- Canonical schema v2 validator commit: `bf1ca87217a81d01fa301408b591fb1f627692f6`
 
 ## Scope
 
@@ -19,23 +21,22 @@ Added missing clinical metadata and answer-option teaching content to five exist
 | QR-001280 | Alcohol withdrawal | Psychosocial Integrity | Take Action | ASAM alcohol withdrawal management guideline |
 | QR-001284 | DKA with hypokalemia | Physiological Adaptation | Take Action | 2024 hyperglycemic crises consensus report |
 
-## Fields added per record
+## Canonical schema v2 fields added per record
 
-- `clientNeed`
-- `cjmmStep`
-- `scoringMethod`
-- `optionRationales` (one rationale for each displayed option)
-- `clinicalJudgmentTip`
-- `evidence` (source title, organization, year, URL, and supported claim)
+- `metadata`: `id`, `category`, `clientNeeds`, `cjmmStep`, integer `difficulty` (1–5), and `topic`
+- `interaction`: `type`, `stem`, `options`, `answerKey`, and `scoring.method` (`0/1` for these single-best-answer items)
+- `rationales`: `overall`, letter-keyed `options` entries with `correct` and `explanation`, and `clinicalJudgmentTip`
+- `evidence`: source title, organization, year, URL, and supported claim
 - `educatorReview` initialized to `pending`
+- Legacy top-level fields retained for compatibility with existing exam renderers
 
 ## Review and validation status
 
 | Gate | Batch status | Notes |
 |---|---|---|
 | Source JavaScript syntax | PASS | `questions-bank-v2.js` passed a syntax parse check. |
-| Metadata field presence | PASS | All five records contain the required metadata and evidence fields. |
-| Option rationale coverage | PASS | Four option rationales are present for each of the five records. |
+| Schema v2 field presence | PASS | All five records contain nested `metadata`, `interaction`, `rationales`, and `evidence` structures. |
+| Option rationale coverage | PASS | Each of the four choices has a letter-keyed `correct` flag and explanation. |
 | Full production schema validator | NOT RUN | The repository file interface returned empty content for `questions.js`; the complete production bank could not be assembled in this session. |
 | CI | BLOCKED | The Vercel status for the validator commit reports a build-rate-limit failure; this is not a passing test. |
 | Educator review | PENDING | No item is marked educator-approved by this batch. |
