@@ -378,7 +378,7 @@ body:not([data-exam-mode]) header :is(a,button):hover{
    No hover expansion, so the content never jumps or gets covered. */
 #quickrn-unified-sidebar.qr-sidebar{position:fixed;isolation:isolate;transition:width .18s ease}
 #quickrn-unified-sidebar .qr-sidebar-brand{position:relative;padding-right:54px}
-#quickrn-unified-sidebar .qr-sidebar-toggle{position:absolute;right:12px;left:auto;top:50%;bottom:auto;transform:translateY(-50%);z-index:3}
+#quickrn-unified-sidebar .qr-sidebar-toggle{position:absolute;right:12px;left:auto;top:26px;bottom:auto;transform:none;z-index:3}
 @media(min-width:768px){
   :root{--qr-sidebar-collapsed-width:68px}
   body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:var(--qr-sidebar-collapsed-width)!important}
@@ -539,7 +539,7 @@ body header>div:first-child{
 .calendar-workspace{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
 .calendar-main{min-height:0;overflow-y:auto}
 .calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;max-height:84px!important;flex:0 0 84px!important;padding-top:0!important;padding-bottom:0!important;background:#16324f!important;color:#fff!important;border-bottom:1px solid #294b62!important}
-.calendar-workspace>header.calendar-header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
+.calendar-workspace>header.calendar-header :is(h1,h2,h3,p,span,strong,a,i,button){color:#fff!important}
 .calendar-workspace>header.calendar-header a{border-color:rgba(255,255,255,.25)}
 .calendar-workspace>header.calendar-header a:hover{background:rgba(255,255,255,.1)}
 @media(max-width:767px){#app-shell.calendar-shell.qr-sidebar-shell{width:100%;margin-left:0}.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;flex-basis:84px!important}}
