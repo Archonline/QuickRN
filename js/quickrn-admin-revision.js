@@ -13,7 +13,8 @@
   };
 
   function ensureModal() {
-    if (document.getElementById('quickrn-admin-revision-modal')) return;
+    const existing = document.getElementById('quickrn-admin-revision-modal');
+    if (existing) return existing;
     const modal = document.createElement('div');
     modal.id = 'quickrn-admin-revision-modal';
     modal.className = 'hidden fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/60 p-4';
@@ -32,6 +33,7 @@
       const details = modal.querySelector('#quickrn-revision-details').value.trim();
       if (!details) { modal.querySelector('#quickrn-revision-details').focus(); return; }
       const qid = document.getElementById('qid-display')?.textContent?.trim() || 'Not displayed';
+      window.QuickRNEducatorReview?.markRevisionRequested?.(qid);
       const question = document.getElementById('question-prompt')?.innerText?.trim() || '(Question prompt unavailable)';
       const clinicalRecord = document.getElementById('case-study-content')?.innerText?.trim() || '(No separate clinical record)';
       const prompt = [
@@ -47,6 +49,7 @@
       if (navigator.clipboard?.writeText) navigator.clipboard.writeText(prompt).catch(() => {});
       close();
     });
+    return modal;
   }
 
   function addButtonAfterCoach() {
@@ -64,9 +67,10 @@
     row.innerHTML = '<button type="button" id="quickrn-admin-revision-button" class="inline-flex items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-bold text-amber-900 shadow-sm hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-400"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i> Need a Revision</button>';
     coachCard.insertAdjacentElement('afterend', row);
     row.querySelector('button').addEventListener('click', () => {
-      const modal = document.getElementById('quickrn-admin-revision-modal');
+      const modal = ensureModal();
+      const detailsField = modal.querySelector('#quickrn-revision-details');
+      detailsField.value = '';
       modal.classList.remove('hidden');
-      clearPreviousEntry();
       detailsField.focus();
     });
   }
