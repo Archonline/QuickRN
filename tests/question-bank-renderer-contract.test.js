@@ -15,9 +15,9 @@ for(const file of [
  'questions-bank-ngn-case-studies-2026-11-04-batch-005.js',
  'questions-bank-ngn-supplement-2026-11-04-batch-006.js',
  'questions-bank-numeric-entry-2026-11-04-batch-007.js',
- 'questions-bank-matrix-grid-2026-11-04-batch-008.js',
  'questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js',
  'questions-bank-ngn-priority-2026-11-04-batch-007.js',
+ 'js/quickrn-question-bank-case-fixes.js',
  'js/quickrn-question-bank-normalizer.js',
  'js/quickrn-question-id-normalizer.js',
  'js/shared-exam-renderer.js'
