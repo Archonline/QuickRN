@@ -277,6 +277,21 @@ function renderCheatSheet(topicText){
 
 function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 4 · '+message;}
 function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. Choose a channel to start the lesson.');renderProviderButtons();$('player-caption').textContent='Choose a channel to check whether a verified lesson is available for '+topicText+'.';showVideoMessage('Topic selected: '+topicText+'. Choose your preferred channel below to continue.');}
+// Sidebar can collapse to a slim rail to give the lesson and notebook more room.
+const sidebar=$('learning-topic-sidebar');
+const sidebarToggle=$('toggle-learning-sidebar');
+const sidebarPreferenceKey='quickrn-learning-sidebar-collapsed';
+function setSidebarCollapsed(collapsed){
+  sidebar.classList.toggle('is-collapsed',collapsed);
+  document.querySelector('.learning-layout').classList.toggle('sidebar-collapsed',collapsed);
+  sidebarToggle.setAttribute('aria-expanded',String(!collapsed));
+  sidebarToggle.setAttribute('aria-label',collapsed?'Expand Learning Library sidebar':'Collapse Learning Library sidebar');
+  sidebarToggle.title=collapsed?'Expand sidebar':'Collapse sidebar';
+  localStorage.setItem(sidebarPreferenceKey,collapsed?'1':'0');
+}
+setSidebarCollapsed(localStorage.getItem(sidebarPreferenceKey)==='1');
+sidebarToggle.addEventListener('click',()=>setSidebarCollapsed(!sidebar.classList.contains('is-collapsed')));
+
 // Event Listeners
 $('system-list').addEventListener('click',e=>{const summary=e.target.closest('summary');if(summary){updateLearningFlow(2,'Body system selected. Now choose a topic from its list.');}const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
 
