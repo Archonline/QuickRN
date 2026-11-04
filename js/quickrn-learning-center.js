@@ -157,11 +157,18 @@ let topic='',recognition=null,currentVideoUrl='';
 const VIDEO_ID_CATALOG={
   simplenursing:{
     'Heart failure':'r5W1ns5C1ik',
-    'Diabetes mellitus and insulin':'NyMigFpOnpM'
+    'Diabetes mellitus and insulin':'NyMigFpOnpM',
+    'Asthma management':'lPOtUH-A-yQ',
+    'COPD exacerbation':'PYatQP1350c',
+    'Electrolyte imbalances':'T_pCeQkpNX8',
+    'Heparin and aPTT monitoring':'LpVyqHeyTcA',
+    'Warfarin and INR':'LpVyqHeyTcA'
   },
   registerednursern:{
     'Heart failure':'mGchzG3Ya7c',
-    'Preeclampsia and eclampsia':'pnGyENcL2j0'
+    'Preeclampsia and eclampsia':'pnGyENcL2j0',
+    'Asthma management':'GVTXJwv8ndY',
+    'Electrolyte imbalances':'-PaHC8fleO0'
   },
   picmonicvideo:{}
 };
