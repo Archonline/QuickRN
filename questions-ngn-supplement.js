@@ -37,5 +37,32 @@
   ];
  const known=new Set(bank.map(q=>q&&q.id).filter(Boolean).map(String));
  items.forEach(q=>{if(!known.has(q.id)){bank.push(q);known.add(q.id);}});
+
+/* QR-001291: restore a complete clinical record for the bow-tie item. */
+(function(root){
+ 'use strict';
+ const bank=Array.isArray(root.questions)?root.questions:[];
+ const item=bank.find(q=>q&&String(q.id)==='QR-001291');
+ if(!item)return;
+ Object.assign(item,{
+  type:'Bowtie',ngnType:'Bowtie',category:'Adult Health',topic:'Sepsis and septic shock',
+  title:'Complete the bow-tie by selecting the most likely condition, two priority actions, and two parameters to monitor.',
+  instruction:'Review the clinical record. Select one condition, two actions, and two parameters to monitor.',
+  patientInfo:{name:'Jordan Lee',age:'68 years',sex:'Female',code:'ED-2048',allergies:'No known drug allergies',history:'Type 2 diabetes mellitus and hypertension. Admitted from home with fever, productive cough, and increasing weakness.'},
+  ehr:{
+   nursesNotes:'1430: Client arrived with fever, chills, productive cough, and confusion. Skin warm and diaphoretic. Reports severe weakness. Urine output has decreased.\n1500: Client is increasingly lethargic. Peripheral pulses are weak; capillary refill is 4 seconds. Oxygen administered by nasal cannula as prescribed.',
+   vitalSigns:'1430: Temperature 39.3 °C (102.7 °F), HR 118/min, RR 28/min, BP 88/52 mm Hg, SpO₂ 91% on room air.\n1500: HR 132/min, RR 32/min, BP 78/44 mm Hg, SpO₂ 94% on 2 L/min nasal cannula. MAP approximately 55 mm Hg.',
+   diagnosticResults:'WBC 19,800/mm³; serum lactate 4.6 mmol/L; creatinine 2.1 mg/dL (baseline 0.9 mg/dL); glucose 214 mg/dL. Blood cultures are collected. Chest radiograph shows a right lower-lobe infiltrate.',
+   historyPhysical:'Client is acutely confused and lethargic. Coarse crackles are heard over the right lower lung field. Extremities are cool with delayed capillary refill. Urine output is 15 mL during the last hour. Findings are consistent with infection and worsening tissue perfusion.'
+  },
+  bowtieData:{
+   conditions:['Septic shock with impaired tissue perfusion','Uncomplicated community-acquired pneumonia','Acute pulmonary embolism','Hypovolemic shock from acute blood loss'],
+   actions:['Activate the rapid response team and escalate care immediately','Initiate the prescribed sepsis bundle, including IV crystalloid and timely broad-spectrum antibiotics','Encourage oral fluids and reassess in 2 hours','Administer an antipyretic and defer further assessment','Assist the client to ambulate to improve ventilation'],
+   monitoring:['Mean arterial pressure (MAP)','Hourly urine output','Daily body weight','Bowel sounds','Visual acuity']
+  },
+  correctAnswers:{condition:'Septic shock with impaired tissue perfusion',actions:['Activate the rapid response team and escalate care immediately','Initiate the prescribed sepsis bundle, including IV crystalloid and timely broad-spectrum antibiotics'],monitoring:['Mean arterial pressure (MAP)','Hourly urine output']},
+  rationale:'The client has a suspected infection with worsening hypotension, MAP below 65 mm Hg, elevated lactate, acute confusion, delayed capillary refill, and oliguria, indicating septic shock and impaired tissue perfusion. Immediate escalation and time-sensitive sepsis treatment are priorities. Trend MAP and hourly urine output to evaluate perfusion and response to treatment.'
+ });
+})(typeof window!=='undefined'?window:globalThis);
  root.quickRNSupplementalQuestionCount=items.length;
 })(typeof window!=='undefined'?window:globalThis);
