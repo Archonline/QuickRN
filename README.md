@@ -90,3 +90,15 @@ Dashboard, Calendar, Learning Center, Saved Questions, Help, Reports, Self-Study
 - The local model keeps prompts and generated responses in the browser. An optional Gemini fallback is available only when a student supplies their own Google AI Studio API key; it sends prompts/notes directly to Google, uses the free-tier `gemini-2.5-flash-lite` model, and is subject to Google's changing quotas and data terms. The key is held in page memory only and is not saved.
 - Firebase supports both Google OAuth sign-in and email/password sign-in. The login provider is recorded locally for session context. Google sign-in does not itself grant Gemini API access; the optional fallback requires a separate student-owned AI Studio key.
 - Limitations: this compact model is less capable than larger hosted models; speed and availability depend on the student's device, browser storage, and WebGPU/CPU support. The first model download is several hundred MB and requires internet. Gemini fallback is optional and may be unavailable after free quota limits are reached. Do not use for clinical decisions or identifiable patient data.
+
+
+## Canonical Question Schema v2 — November 5, 2026
+
+All four exam modes load `js/quickrn-question-schema-v2.js` after the question sources and before the shared normalizers/renderers. The adapter adds canonical `metadata`, `stimulus`, `interaction`, and `rationales` blocks while retaining original fields for backwards compatibility. It bridges canonical v2 prompt, option, answer-key, rationale, and scoring fields to the legacy shared-renderer contract; unknown legacy fields are not deleted.
+
+- Metadata: `id`, `category`, `clientNeeds`, one of the six CJMM stages, and integer difficulty 1–5.
+- Stimulus: shared case ID, patient profile, and structured EHR tabs (`history`, `nursesNotes`, `vitalSigns`, `labResults`, `providerOrders`) represented as arrays or key-value objects.
+- Interaction: one of the 13 supported formats, stem, choices, format-specific answer key, and scoring method (`plus_minus`, `0/1`, or `rationale`).
+- Rationales: overall explanation, option/response-specific explanations, and a Clinical Judgment Tip.
+
+Run `node tests/question-schema-v2.test.js` for adapter contract tests and `node scripts/validate-question-schema-v2.js` for the strict full-bank migration audit. The strict validator writes `reports/question-schema-v2-validation.md` and `.json` and fails on missing required metadata, scoring, answer keys, structured case stimuli, or rationale content. Legacy data is preserved rather than assigned fabricated CJMM stages, difficulty, scoring, or clinical explanations. A failed strict audit means the bank is not yet Schema-v2 production-ready; complete the reported educator-authored gaps before release.
