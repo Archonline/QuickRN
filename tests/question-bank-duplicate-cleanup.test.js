@@ -23,6 +23,19 @@ function loadBank(relativePath) {
 }
 
 {
+  const root = loadBank('questions-bank-ngn-expansion-2026-11-04-batch-004.js');
+  const bank = root.questions;
+  assert.equal(bank.length, 500, 'batch 004 retains all ten distinct NGN format tasks for each scenario');
+  assert.ok(bank.every(q => !q.caseGroupId), 'parallel format variants are not mislabeled as sequential case-study questions');
+  const bowties = bank.filter(q => q.type === 'Bowtie');
+  assert.equal(bowties.length, 50);
+  for (const q of bowties) {
+    assert.ok(q.correctAnswers.actions.every(x => q.bowtieData.actions.includes(x)), q.id + ' bowtie action keys map to action choices');
+    assert.ok(q.correctAnswers.monitoring.every(x => q.bowtieData.monitoring.includes(x)), q.id + ' bowtie monitoring keys map to monitoring choices');
+  }
+}
+
+{
   const root = loadBank('questions-bank-ngn-case-studies-2026-11-04-batch-005.js');
   const bank = root.questions;
   assert.equal(bank.length, 250, 'batch 005 keeps 50 five-question case groups');
