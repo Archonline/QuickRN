@@ -3,7 +3,7 @@
   "canonicalPrefix": "QR-",
   "firstId": "QR-000001",
   "lastId": "QR-004602",
-  "count": 1412,
+  "count": 1411,
   "backupBranch": "backup/pre-question-id-renumber-2026-11-02",
   "mapping": [
     {
@@ -5886,6 +5886,7 @@
   "notes": [
     "2026-11-05: Active production question IDs were audited across all four exam-mode script stacks. Conflicting records were assigned new QR IDs while their prior IDs were retained as legacyId/previousQuestionId and recorded in this map.",
     "2026-11-05: Exact duplicate QR-002150 was consolidated to the single base-bank record; 23 conflicting IDs were separated; 60 noncanonical active IDs were migrated to canonical QR-###### IDs.",
-    "2026-11-05: Active production inventory after migration: 3,992 unique questions; all active question IDs use QR-######. Historical rebuild/archive snapshots remain unchanged and are not loaded into production."
+    "2026-11-05: Active production inventory after migration: 3,992 unique questions; all active question IDs use QR-######. Historical rebuild/archive snapshots remain unchanged and are not loaded into production.",
+    "The migration-map count is maintained as the exact number of unique legacyId entries; historical map count discrepancies are corrected to match mapping.length."
   ]
 }
