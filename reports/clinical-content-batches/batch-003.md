@@ -34,6 +34,7 @@ Added canonical schema v2 metadata, structured interactions, four letter-keyed o
 | Schema v2 field presence | PASS | All five records contain nested metadata, interaction, and rationales structures. |
 | Option rationale coverage | PASS | Each of the four choices has a letter-keyed explanation string; the correct response is stored in `interaction.answerKey`. |
 | Evidence retention | PASS | Each item has a titled source, organization, year, URL, and supported claim. |
+| Canonical schema v2 adapter validation | PASS | The five records in this batch passed `schema.normalize` and `schema.validate` with zero issues. |
 | Full production schema validator | NOT RUN | The complete production bank could not be assembled in this session because the repository file interface returned empty content for `questions.js`. |
 | Educator review | PENDING | All five records remain pending; none is educator-approved. |
 
