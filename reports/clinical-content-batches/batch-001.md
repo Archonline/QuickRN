@@ -37,6 +37,7 @@ Added missing clinical metadata and answer-option teaching content to five exist
 | Source JavaScript syntax | PASS | `questions-bank-v2.js` passed a syntax parse check. |
 | Schema v2 field presence | PASS | All five records contain nested `metadata`, `interaction`, `rationales`, and `evidence` structures. |
 | Option rationale coverage | PASS | Each of the four choices has a letter-keyed explanation string; the correct response is stored in `interaction.answerKey`. |
+| Canonical schema v2 adapter validation | PASS | The five records in this batch passed `schema.normalize` and `schema.validate` with zero issues. |
 | Full production schema validator | NOT RUN | The repository file interface returned empty content for `questions.js`; the complete production bank could not be assembled in this session. |
 | CI | BLOCKED | The Vercel status for the validator commit reports a build-rate-limit failure; this is not a passing test. |
 | Educator review | PENDING | No item is marked educator-approved by this batch. |
