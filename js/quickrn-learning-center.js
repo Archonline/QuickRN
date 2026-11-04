@@ -658,7 +658,6 @@ function selectTopic(value){
   // Stop an active dictation session before changing the note context.
   if(recognition){recognition.stop();recognition=null;}
   topic=value;
-  selectedProvider=null;
   $('notes-topic').textContent=value;
   const savedNotes=loadNotes();
   const hasSavedNotes=Object.prototype.hasOwnProperty.call(savedNotes,value);
@@ -722,11 +721,8 @@ function showVideoMessage(message){
   $('player-shell').innerHTML='<div class="w-full h-full min-h-48 flex flex-col items-center justify-center gap-2 p-5 text-center text-white"><i class="fa-brands fa-youtube text-4xl text-red-500"></i><p class="text-sm font-semibold">'+safe(message)+'</p></div>';
 }
 function renderProviderButtons(){
-  const host=$('video-provider-controls');if(!host)return;
-  host.innerHTML=VIDEO_PROVIDERS.map(p=>'<button type="button" class="video-provider-button'+(p.id===selectedProvider?' is-selected':'')+'" data-provider="'+p.id+'" aria-pressed="'+(p.id===selectedProvider?'true':'false')+'">'+safe(p.label)+'</button>').join('');
-  host.querySelectorAll('[data-provider]').forEach(button=>button.addEventListener('click',()=>{
-    if(!topic){$('player-caption').textContent='Choose a body system and topic first.';showVideoMessage('Step 1: choose a body system. Step 2: choose a topic. Then select a channel.');return;}selectedProvider=button.dataset.provider;renderProviderButtons();loadTopicVideo(topic,selectedProvider);
-  }));
+  const host=$('video-provider-controls');
+  if(host)host.innerHTML='';
 }
 function buildVideoReportUrl(topicText,provider,videoUrl){
   const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
@@ -741,11 +737,11 @@ function loadTopicVideo(topicText,providerId){
   const provider=VIDEO_PROVIDERS.find(p=>p.id===providerId);
   if(!provider)return;
   currentVideoUrl='';
-  updateLearningFlow(4,'Channel selected. Checking for a verified lesson mapping.');
+  updateLearningFlow(3,'Loading the mapped lesson automatically.');
   const videoId=VIDEO_ID_CATALOG[providerId]&&VIDEO_ID_CATALOG[providerId][topicText];
   if(videoId&&/^[A-Za-z0-9_-]{11}$/.test(videoId)){
     currentVideoUrl='https://www.youtube.com/watch?v='+videoId;
-    $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
+    $('player-shell').innerHTML='<div class="w-full h-full flex flex-col"><div class="relative w-full flex-1 min-h-0"><iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/'+videoId+'?autoplay=1&mute=1&playsinline=1&rel=0" title="'+safe(provider.label)+' — '+safe(topicText)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="flex shrink-0 justify-end bg-slate-900 p-2">'+videoReportLink(topicText,provider,currentVideoUrl)+'</div></div>';
     $('player-caption').textContent='Now playing: '+provider.label+' · '+topicText+' · Report a problem if this video is unavailable.';
     return;
   }
@@ -858,8 +854,8 @@ function renderCheatSheet(topicText){
   host.innerHTML='<div class="flex flex-wrap items-center justify-between gap-2"><div><p class="text-[11px] font-bold uppercase tracking-wider text-teal-700">Topic quick sheet</p><h3 class="text-lg font-extrabold">'+safe(topicText)+'</h3></div><a class="cheat-google-link" href="'+safe(googleUrl)+'" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-google"></i> Google Images</a></div><div class="cheat-sheet-grid">'+imageHtml+'<div class="cheat-sections">'+htmlSections+'</div></div>'+openNursingResourcesFor(topicText)+'<p class="cheat-disclaimer">Study aid only. Confirm medication doses, laboratory ranges, obstetric/pediatric thresholds and emergency actions against current institutional guidance and authoritative references.</p>';
 }
 
-function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 4 · '+message;}
-function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. Choose a channel to start the lesson.');renderProviderButtons();$('player-caption').textContent='Choose a channel to check whether a verified lesson is available for '+topicText+'.';showVideoMessage('Topic selected: '+topicText+'. Choose your preferred channel below to continue.');}
+function updateLearningFlow(step,message){document.querySelectorAll('[data-flow-step]').forEach(el=>{const n=Number(el.dataset.flowStep);el.classList.toggle('is-current',n===step);el.classList.toggle('is-complete',n<step);});const status=$('learning-flow-status');if(status)status.textContent='Step '+step+' of 3 · '+message;}
+function playTopicPlaylist(topicText){updateLearningFlow(3,'Topic selected. The lesson loads automatically.');renderProviderButtons();loadTopicVideo(topicText,VIDEO_PROVIDERS[0].id);}
 // Sidebar can collapse to a slim rail to give the lesson and notebook more room.
 const sidebar=$('learning-topic-sidebar');
 const sidebarToggle=$('toggle-learning-sidebar');
