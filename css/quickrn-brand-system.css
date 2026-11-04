@@ -554,3 +554,28 @@ body header>div:first-child{
 .open-oer-link{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid #c5d6d5;border-radius:8px;background:#fff;color:#174e55;font-size:10px;font-weight:750;text-decoration:none}
 .open-oer-link:hover{background:#e8f2f1;border-color:#7daaa6}
 .open-oer-panel>small{display:block;margin-top:9px;color:#536b6d;font-size:9px;line-height:1.5}
+
+
+/* Automatic sidebar: icon-only rail by default, full navigation on hover/focus.
+   No manual toggle; content keeps only a narrow icon gutter while browsing. */
+@media(min-width:768px){
+  :root{--qr-sidebar-collapsed-width:56px}
+  body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:56px!important}
+  #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:calc(100% - 56px)!important;margin-left:56px!important}
+  #quickrn-unified-sidebar.qr-sidebar{width:256px;overflow:hidden;transition:width .18s ease}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar.qr-sidebar{width:56px!important}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-brand{justify-content:center;min-height:64px;padding:10px 6px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-wordmark,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-group h2,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link span,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-footer span{display:none!important}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-mark{width:34px;height:34px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-nav{padding:12px 5px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link{justify-content:center;min-height:42px;padding:9px 4px;gap:0}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link>i{width:22px;flex:0 0 22px;font-size:16px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-footer{justify-content:center;padding:12px 4px}
+}
+@media(max-width:767px){
+  body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:0!important}
+  #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:100%!important;margin-left:0!important}
+}
