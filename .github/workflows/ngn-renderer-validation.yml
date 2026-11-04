@@ -113,5 +113,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: quickrn-real-bank-validation
-          path: reports/ngn-bank-validation.*
+          path: |
+            reports/ngn-bank-validation.*
+            reports/question-schema-v2-validation.*
           if-no-files-found: warn
