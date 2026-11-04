@@ -173,7 +173,8 @@ const VIDEO_ID_CATALOG={
     'COPD exacerbation':'PYatQP1350c',
     'Electrolyte imbalances':'T_pCeQkpNX8',
     'Acute kidney injury':'p0Srm7OLvWk',
-    'Hemodialysis and peritoneal dialysis':'vf-uL6saYd0',
+    'Hemodialysis and peritoneal dialysis':'vf-uL6saYd0',,
+    "Piaget Erikson and Kohlberg":"93ckmflkD6o"
   },
   registerednursern:{
     'Heart failure':'mGchzG3Ya7c',
@@ -188,7 +189,8 @@ const VIDEO_ID_CATALOG={
     'Cirrhosis and hepatic encephalopathy':'Shx-hmyLdXA',
     'Cystic fibrosis nursing care':'FugzsYln-8E',
     'Meningitis in children':'MUtoTIro8fU',
-    "Croup vs epiglottitis":"QCgcUtWkWqE"
+    "Croup vs epiglottitis":"QCgcUtWkWqE",
+    "Congenital heart defects":"qKlSOp5dPtw"
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
