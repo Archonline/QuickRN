@@ -400,7 +400,26 @@ setSidebarCollapsed(localStorage.getItem(sidebarPreferenceKey)==='1');
 sidebarToggle.addEventListener('click',()=>setSidebarCollapsed(!sidebar.classList.contains('is-collapsed')));
 
 // Event Listeners
-$('system-list').addEventListener('click',e=>{const summary=e.target.closest('summary');if(summary){updateLearningFlow(2,'Body system selected. Now choose a topic from its list.');}const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);});
+['system-list','client-needs-list'].forEach(listId=>$(listId).addEventListener('click',e=>{const summary=e.target.closest('summary');if(summary)updateLearningFlow(2,'Category selected. Choose a topic from its list.');const b=e.target.closest('[data-topic]');if(b)selectTopic(b.dataset.topic);}));
+function filterLearningLibrary(){
+  const field=$('learning-library-search'),query=(field.value||'').trim().toLowerCase();
+  let visible=0;
+  ['system-list','client-needs-list'].forEach(listId=>{
+    const host=$(listId);
+    host.querySelectorAll('[data-topic]').forEach(button=>{
+      const match=!query||button.textContent.toLowerCase().includes(query);
+      button.hidden=!match;
+      if(match&&listId==='system-list')visible++;
+    });
+    host.querySelectorAll('details').forEach(details=>{
+      const matching=details.querySelector('[data-topic]:not([hidden])');
+      details.hidden=!!query&&!matching;
+      if(query&&matching)details.open=true;
+    });
+  });
+  $('learning-library-search-status').textContent=query?visible+' matching topics':'Browse all topics by NCLEX category or clinical specialty.';
+}
+$('learning-library-search').addEventListener('input',filterLearningLibrary);
 
 
 
