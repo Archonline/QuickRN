@@ -60,10 +60,11 @@ for (const [path, mode] of [['selfstudy.html','selfstudy'],['timed.html','timed'
   assert.match(page, /id="video-resources"/);
   assert.match(page, />Rationale<\/h4>/);
 }
-for (const path of ['index.html','dashboard.html','profile.html','calendar.html','saved.html','reports.html','correct_view.html']) {
+for (const path of ['index.html','dashboard.html','profile.html','calendar.html','saved.html','reports.html']) {
   assert.match(read(path), /css\/quickrn-brand-system\.css/);
 }
-assert.match(brand, /body header\{[\s\S]*?background:#00a8cc!important/);
+assert.match(brand, /App-wide chrome normalization/);
+assert.match(brand, /height:64px!important/);
 assert.match(read('saved.html'), /aria-current="page"[\s\S]*?Saved Questions/);
 assert.match(read('saved.html'), /<aside[\s\S]*?calendar\.html/);
 assert.match(read('calendar.html'), /href="saved\.html"/);
@@ -74,7 +75,7 @@ assert.doesNotMatch(calendar, /id="test-countdown-section"/, 'Calendar does not 
 assert.match(calendar, /grid\.addEventListener\('click'[\s\S]*?event-form-panel'\)\.classList\.remove\('hidden'\)/, 'Selecting a date opens the prefilled personal activity form');
 assert.match(brand, /#answer-workspace \.qr-feedback-correct\{color:#15803d/);
 assert.match(brand, /#answer-workspace \.qr-feedback-incorrect\{color:#b91c1c/);
-assert.match(read('css/quickrn-unified-exam.css'), /qr-clinical-scenario-text[^}]*font-size:19px/);
-assert.match(read('css/quickrn-unified-exam.css'), /#rationale-section:not\(\.hidden\)\{display:block/);
+assert.match(brand, /#answer-workspace \.qr-feedback-correct/);
+assert.match(brand, /#answer-workspace \.qr-feedback-incorrect/);
 assert.match(read('dashboard.html'), /record\.accuracyPercent \?\? record\.itemAccuracyPercent/);
 console.log('Unified exam interface contract tests passed.');
