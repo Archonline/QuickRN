@@ -66,22 +66,20 @@ for(let i=0;i<bank.length;i++){
   qualityWarnings.push({index:i,id:q.id||null,format:f,code:'GENERIC_TEMPLATE_STEM',message:'Stem contains generic/template wording; requires clinical educator review before beta use.'});
  }
  const options=Array.isArray(q.options)?q.options:[];
+ const metadata=q.metadata||{},interaction=q.interaction||{},rationales=q.rationales||{};
  const allowedCjmmSteps=['Recognize Cues','Analyze Cues','Prioritize Hypotheses','Generate Solutions','Take Action','Evaluate Outcomes'];
- if(!String(q.clientNeed||'').trim())issue('MISSING_CLIENT_NEED','Question has no NCLEX Client Needs classification');
- if(!String(q.cjmmStep||'').trim()||!allowedCjmmSteps.includes(q.cjmmStep))issue('MISSING_OR_INVALID_CJMM_STEP','Question must have one valid CJMM step');
- if(!String(q.difficulty||'').trim())issue('MISSING_DIFFICULTY','Question has no difficulty classification');
- if(!String(q.scoringMethod||'').trim())issue('MISSING_SCORING_METHOD','Question has no scoring method');
- if(!String(q.clinicalJudgmentTip||'').trim())issue('MISSING_CLINICAL_JUDGMENT_TIP','Question has no Clinical Judgment Tip');
+ if(!String(metadata.id||'').trim()||String(metadata.id)!==String(q.id))issue('MISSING_OR_MISMATCHED_METADATA_ID','metadata.id must match the production question ID');
+ if(!String(metadata.category||'').trim())issue('MISSING_METADATA_CATEGORY','metadata.category is required');
+ if(!String(metadata.clientNeeds||'').trim())issue('MISSING_CLIENT_NEEDS','metadata.clientNeeds is required');
+ if(!String(metadata.cjmmStep||'').trim()||!allowedCjmmSteps.includes(metadata.cjmmStep))issue('MISSING_OR_INVALID_CJMM_STEP','metadata.cjmmStep must use a supported CJMM value');
+ if(!Number.isInteger(metadata.difficulty)||metadata.difficulty<1||metadata.difficulty>5)issue('INVALID_METADATA_DIFFICULTY','metadata.difficulty must be an integer from 1 through 5');
+ if(!String(metadata.topic||'').trim())issue('MISSING_METADATA_TOPIC','metadata.topic is required');
+ if(!String(interaction.type||'').trim()||!String(interaction.stem||'').trim()||!Array.isArray(interaction.options)||!Array.isArray(interaction.answerKey)||!interaction.scoring||!['plus_minus','0/1','rationale'].includes(interaction.scoring.method))issue('INVALID_INTERACTION_SCHEMA','interaction requires type, stem, options, answerKey, and a supported scoring.method');
+ if(!String(rationales.overall||'').trim()||!rationales.options||typeof rationales.options!=='object'||!String(rationales.clinicalJudgmentTip||'').trim())issue('INVALID_RATIONALES_SCHEMA','rationales requires overall, per-option rationales, and clinicalJudgmentTip');
+ const rationaleOptions=rationales.options&&typeof rationales.options==='object'?rationales.options:{};
+ const schemaOptions=Array.isArray(interaction.options)?interaction.options:options;
+ if(schemaOptions.length&&schemaOptions.some((option,index)=>{const key=String.fromCharCode(65+index),entry=rationaleOptions[key];return !entry||typeof entry.correct!=='boolean'||!String(entry.explanation||'').trim();}))issue('OPTION_RATIONALE_GAP','Every interaction option must have a letter-keyed rationale with correct flag and explanation');
  if(!Array.isArray(q.evidence)||!q.evidence.length||q.evidence.some(e=>!e||!String(e.title||'').trim()||!String(e.url||'').trim()||!String(e.supports||'').trim()))issue('MISSING_OR_INCOMPLETE_EVIDENCE','Question must retain at least one titled evidence source, URL, and supported claim');
- if(options.length){
-  const rationales=Array.isArray(q.optionRationales)?q.optionRationales:[];
-  const rationaleFor=option=>rationales.some(r=>{
-   if(!r||!String(r.rationale||'').trim())return false;
-   const label=typeof option==='string'?option:String(option&& (option.id??option.value??option.text??option.label) || '');
-   return String(r.option??r.optionId??r.id??'')===label;
-  });
-  if(!rationales.length||options.some(option=>!rationaleFor(option)))issue('OPTION_RATIONALE_GAP','Every displayed answer option must have its own rationale');
- }
  const optionHas=value=>options.some(option=>(typeof option==='string'&&String(option)===String(value))||[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
  if(f==='Numeric Entry'&&q.correctNumericAnswer===undefined&&q.numericAnswer===undefined&&q.correctAnswer===undefined)issue('MISSING_NUMERIC_KEY','Numeric entry item has no numeric answer key');
  if(f==='Select N'&&(!Number.isInteger(Number(q.selectN??q.numberToSelect??q.requiredSelections))||Number(q.selectN??q.numberToSelect??q.requiredSelections)<1||!Array.isArray(q.correctAnswers)||q.correctAnswers.length!==Number(q.selectN??q.numberToSelect??q.requiredSelections)))issue('INVALID_SELECT_N_SCHEMA','Select-N item must define a positive selection count and matching answer array');
