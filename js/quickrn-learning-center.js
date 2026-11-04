@@ -98,6 +98,19 @@ function sanitizeNotesHtml(html){
     Array.from(node.childNodes).forEach(child=>{
       if(child.nodeType===Node.TEXT_NODE)return;
       if(child.nodeType!==Node.ELEMENT_NODE){child.remove();return;}
+      if(child.tagName==='SPAN'){
+        const highlighted=/background(?:-color)?\\s*:\\s*(?:#fef08a|rgb\\(254\\s*,\\s*240\\s*,\\s*138\\))/i.test(child.getAttribute('style')||'');
+        if(highlighted){
+          const mark=document.createElement('mark');
+          mark.append(...Array.from(child.childNodes));
+          child.replaceWith(mark);
+          clean(mark);
+        }else{
+          clean(child);
+          child.replaceWith(...Array.from(child.childNodes));
+        }
+        return;
+      }
       if(!allowed.has(child.tagName)){clean(child);child.replaceWith(...Array.from(child.childNodes));return;}
       Array.from(child.attributes).forEach(attr=>child.removeAttribute(attr.name));
       clean(child);
@@ -294,8 +307,7 @@ $('voice-notes').addEventListener('click',()=>{
   if(!SR){$('voice-status').textContent='Speech recognition is not supported in this browser. Try Chrome or Edge.';return;}
   if(recognition){recognition.stop();recognition=null;$('voice-notes').innerHTML='<i class="fa-solid fa-microphone mr-1"></i>Dictate notes';return;}
   recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';
-  const initial=notesPlainText();
-  recognition.onresult=e=>{let finalText='',interim='';for(let i=e.resultIndex;i<e.results.length;i++){const text=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=text+' ';else interim+=text;}insertDictatedText((initial?'\n':'')+finalText+(interim?'\n'+interim:''));if(finalText)saveNotes();};
+  recognition.onresult=e=>{let finalText='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalText+=e.results[i][0].transcript+' ';}if(finalText){const existing=notesPlainText();insertDictatedText((existing?'\n':'')+finalText);saveNotes();}};
   recognition.onerror=e=>{$('voice-status').textContent='Speech recognition: '+e.error;};
   recognition.onend=()=>{recognition=null;$('voice-notes').innerHTML='<i class="fa-solid fa-microphone mr-1"></i>Dictate notes';};
   recognition.start();$('voice-notes').innerHTML='<i class="fa-solid fa-stop mr-1"></i>Stop dictation';$('voice-status').textContent='Listening…';
