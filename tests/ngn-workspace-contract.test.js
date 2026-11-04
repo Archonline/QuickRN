@@ -32,7 +32,7 @@ assert.ok(app.includes("content.innerHTML=scenario?"),'separate clinical scenari
 assert.ok(!app.includes('No additional clinical exhibits are attached'),'no-case items do not fabricate a Clinical Record');
 assert.ok(!renderer.includes('Report this item')&&!renderer.includes('qr-report-row'),'standalone report item action is removed from the renderer');
 assert.ok(pages.some(page=>{const html=fs.readFileSync(page,'utf8');return html.includes('id="feedback-category"')&&html.includes('id="feedback-details"');}),'a current exam page provides the shared feedback modal with report categories and free-text details');
-assert.ok(app.includes("feedback-category")&&app.includes("snapshot:q?"),"feedback saves the selected issue category with question context");
+assert.ok(reporting.includes("reason:fd.get('reason')")&&reporting.includes("question:snapshot(q)"),"question reporting saves the selected issue category with a question snapshot");
 assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
 assert.ok(examCss.includes('qr-ehr'),'shared brand stylesheet retains the clinical-record workspace styles');
 assert.ok(app.includes('question-only-panel'),'question-only left pane has dedicated layout styling');
