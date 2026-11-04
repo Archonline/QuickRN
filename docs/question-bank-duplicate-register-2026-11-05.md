@@ -211,3 +211,69 @@ The following generated records were removed from their source generators. These
 - Tracker-derived projected bank total: 2,193, not yet browser-runtime certified. The previous tracker had a two-record difference between generated and appended records in batch 003; exact runtime contribution after reduction must be re-run.
 - No files were changed on `main`; all edits remain on the review branch.
 - All remaining question content is still draft material pending qualified nurse-educator validation. Duplicate cleanup does not certify clinical correctness.
+
+
+---
+
+## Final disposition of the remaining Matrix/Grid records
+
+The first cleanup pass retained `QR-003620`–`QR-003659` as the 40 unique structures. The full production validator then showed that these 40 records did not conform to the renderer's Matrix/Grid schema: they nested their answer keys under `correctAnswers.matrix` and omitted the required shared `columns` array. They therefore failed schema validation and were not safe to keep in the active bank.
+
+**All remaining 40 were retired as well.** The entire Matrix/Grid batch 008 file was deleted from the review branch, and its script include was removed from Self Study, Timed Practice, CAT, and NCLEX Predictor. The 40 retired IDs are:
+
+- QR-003620
+- QR-003621
+- QR-003622
+- QR-003623
+- QR-003624
+- QR-003625
+- QR-003626
+- QR-003627
+- QR-003628
+- QR-003629
+- QR-003630
+- QR-003631
+- QR-003632
+- QR-003633
+- QR-003634
+- QR-003635
+- QR-003636
+- QR-003637
+- QR-003638
+- QR-003639
+- QR-003640
+- QR-003641
+- QR-003642
+- QR-003643
+- QR-003644
+- QR-003645
+- QR-003646
+- QR-003647
+- QR-003648
+- QR-003649
+- QR-003650
+- QR-003651
+- QR-003652
+- QR-003653
+- QR-003654
+- QR-003655
+- QR-003656
+- QR-003657
+- QR-003658
+- QR-003659
+
+The final disposition for batch 008 is therefore:
+- 160 exact duplicate records removed in the first pass.
+- 40 unique-but-invalid Matrix/Grid records retired after schema validation.
+- 0 records from batch 008 remain in the active question pool.
+- Replacement Matrix/Grid questions can be generated later using the supported shared-column schema.
+
+## Final production validation snapshot
+
+CI ran the production validator against the same active question-bank modules used by all four exam pages:
+- Loaded records: **2,815**
+- Duplicate IDs normalized: **0**
+- Schema validation errors: **0**
+- Required question count: 2,000 — **passed**
+- Clinical-review approvals recorded: **0** — release clinical-review gate remains unmet.
+- The user-reported 3,969 count remains unreconciled; the verified production loader currently reports 2,815.
