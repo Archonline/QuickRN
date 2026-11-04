@@ -733,3 +733,26 @@ body:not([data-exam-mode]) header [class*="ml-auto"] :is(button,a,[role="button"
 /* Single-choice item alignment: add breathing room beneath the clinical scenario
    so its visual baseline aligns with the question/task panel. */
 .qr-ehr.qr-single-choice-scenario{margin-bottom:24px!important;padding-bottom:8px!important;}
+
+
+/* App-wide chrome normalization (2026-11-05).
+   The Dashboard logo cell is 64px high; every non-exam page header,
+   including the custom Calendar and Support shells, must use that same height. */
+.support-workspace>header,
+.calendar-workspace>header.calendar-header{
+  height:64px!important;
+  min-height:64px!important;
+  max-height:64px!important;
+  flex:0 0 64px!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+@media(max-width:767px){
+  .support-workspace>header,
+  .calendar-workspace>header.calendar-header{
+    height:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+    flex-basis:64px!important;
+  }
+}
