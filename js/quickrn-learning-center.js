@@ -168,7 +168,8 @@ const VIDEO_ID_CATALOG={
     'Heart failure':'mGchzG3Ya7c',
     'Preeclampsia and eclampsia':'pnGyENcL2j0',
     'Asthma management':'GVTXJwv8ndY',
-    'Electrolyte imbalances':'-PaHC8fleO0'
+    'Electrolyte imbalances':'-PaHC8fleO0',
+    'Developmental milestones by age':'zzpmz5zDnb8'
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
