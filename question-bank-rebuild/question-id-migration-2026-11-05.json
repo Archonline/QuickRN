@@ -6,7 +6,7 @@
   "activeUniqueQuestionCount": 3992,
   "canonicalIdPattern": "^QR-\\d{6}$",
   "highestAssignedId": "QR-004602",
-  "newMigrationEntries": 84,
+  "newMigrationEntries": 83,
   "duplicateConflicts": [
     {
       "id": "QR-001291",
@@ -923,5 +923,9 @@
       "reason": "legacy_identifier"
     }
   ],
-  "existingMappingsUpdated": 32
+  "existingMappingsUpdated": 32,
+  "mappingAliases": 84,
+  "conflictingQuestionRecordsRemapped": 23,
+  "exactDuplicateRecordsConsolidated": 1,
+  "canonicalizedLegacyQuestionCount": 60
 }
