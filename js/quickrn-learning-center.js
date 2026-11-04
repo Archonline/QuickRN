@@ -170,10 +170,10 @@ function selectTopic(value){
 const CLIENT_NEEDS=[
   {name:'Safe and Effective Care Environment',subs:[
     {name:'Management of Care',test:item=>item.category==='leadership'&&!/Quality & Safety/.test(item.system)},
-    {name:'Safety and Infection Control',test:item=>item.category==='fundamentals'&&/Patient Safety|Perioperative & Wound/.test(item.system)||item.category==='leadership'&&/Quality & Safety/.test(item.system)||item.category==='community'&&/Disaster/.test(item.system)||/Emergency & Safety/.test(item.system)}
+    {name:'Safety and Infection Control',test:item=>item.category==='fundamentals'&&/Patient Safety/.test(item.system)||item.category==='leadership'&&/Quality & Safety/.test(item.system)||item.category==='community'&&/Disaster/.test(item.system)||/child abuse|poisoning|ingestion|precautions|hand hygiene|sterile technique/i.test(item.topic)}
   ]},
   {name:'Health Promotion and Maintenance',subs:[
-    {name:'Health Promotion and Maintenance',test:item=>item.category==='maternal'||item.category==='community'&& !/Disaster/.test(item.system)||item.category==='child'&&/Growth & Development/.test(item.system)}
+    {name:'Health Promotion and Maintenance',test:item=>item.category==='maternal'&&!/preeclampsia|eclampsia|hemorrhage|ectopic|embolism|hyperemesis|previa|abruption|preterm labor|gestational diabetes/i.test(item.topic)||item.category==='community'&& !/Disaster/.test(item.system)||item.category==='child'&&/Growth & Development/.test(item.system)}
   ]},
   {name:'Psychosocial Integrity',subs:[
     {name:'Psychosocial Integrity',test:item=>item.category==='mental'||/Postpartum mood disorders|Therapeutic communication/.test(item.topic)}
