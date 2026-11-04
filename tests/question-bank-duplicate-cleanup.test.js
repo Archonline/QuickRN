@@ -34,7 +34,7 @@ function loadBank(relativePath) {
   }
   assert.equal(groups.size, 50, 'batch 005 has 50 distinct case groups');
   for (const sequence of groups.values()) {
-    assert.deepEqual(sequence.sort((a, b) => a - b), [1, 2, 3, 4, 5], 'each retained case has five sequential items');
+    assert.deepEqual(Array.from(sequence).sort((a, b) => a - b), [1, 2, 3, 4, 5], 'each retained case has five sequential items');
   }
 }
 
