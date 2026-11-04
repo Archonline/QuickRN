@@ -28,6 +28,10 @@ const optionEvidence={id:'QR-T6',type:'Single Choice',question:'Which action sho
 schema.normalize(optionEvidence);
 assert.equal(optionEvidence.rationales.options.A,'Urgent escalation is required.','existing option rationales must migrate');
 assert.equal(optionEvidence.metadata.cjmmStep,'Take Action');
+const needsMapped={id:'QR-T7',category:'Safety and Infection Control',type:'Single Choice',question:'Which client is most appropriate to assign to the LPN/LVN?',options:['Stable client','Unstable client'],correctAnswer:'Stable client'};
+schema.normalize(needsMapped);
+assert.equal(needsMapped.metadata.clientNeeds,'Safety and Infection Control','exact NCLEX category labels migrate without guessing');
+assert.equal(needsMapped.metadata.cjmmStep,'Generate Solutions','assignment-planning stems map to solution generation');
 const v2Only={metadata:{id:'QR-T3',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Analyze Cues',difficulty:4},interaction:{type:'Matrix Multiple',stem:'Match findings.',options:[],answerKey:{row1:['A','B']},scoring:{method:'plus_minus'}},stimulus:{tabs:{nursesNotes:[{time:'0900',text:'Assessment'}]}},rationales:{overall:'Clinical explanation',options:{row1:'Why these selections fit.'},clinicalJudgmentTip:'Compare trends.'}};
 schema.normalize(v2Only);
 assert.equal(v2Only.question,'Match findings.');
