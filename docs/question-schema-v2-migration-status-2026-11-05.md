@@ -39,3 +39,12 @@ The adapter is a lossless runtime migration layer; it does not claim to have aut
 The bank is **not Schema-v2 production-ready**. Complete the missing fields and repair the 50 answer-key mismatches and 206 incomplete linked-case stimuli, then rerun `node scripts/validate-question-schema-v2.js`. The strict CI gate must pass before beta/release use.
 
 The loaded production page bank count (3,305) differs from the previously reported 3,969 total. The 3,305 figure is the reproducible count from the scripts currently included on all four exam pages; reconcile the remaining 664 records against the rebuild/archive batches before claiming the larger count as active production inventory.
+
+
+## Inventory discrepancy root cause (confirmed 2026-11-05)
+
+The earlier 3,305-record audit had a validator bootstrap defect: `questions.js` attaches its base array to the original VM `window`, but the validator replaced `context.window` before copying `window.questions` to the shared context. As a result, the audit omitted the base bank.
+
+The base `questions.js` contains 665 records: 664 canonical IDs in the range `QR-000001`–`QR-000664`, plus `QR-002150`. The NGN expansion batch 004 also contains `QR-002150`, so the base-bank addition contributes 664 additional unique IDs and one duplicate-ID collision. This accounts for the reported 664-record gap: 3,305 + 664 = 3,969 unique inventory records, with the duplicate `QR-002150` needing resolution rather than double-counting.
+
+The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c96634759205ce3c`. The validator now also emits a complete issue register, all answer-key mismatch IDs, all incomplete linked-case IDs, and duplicate-ID details. The strict audit must be rerun against this corrected inventory before replacing the counts in the tables above.
