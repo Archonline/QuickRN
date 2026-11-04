@@ -18,7 +18,7 @@
     "QR-001920–QR-002000 remain to be authored",
     "The three expansion scripts are now loaded by selfstudy.html, timed.html, predictor.html, and cat.html"
   ],
-  "note": "580 original beta-draft item records have been committed in three expansion files. Batch 003 contains 500 records built from 50 clinical concepts with 10 patient-context variants per concept; educator review and additional diversification remain pending.",
+  "note": "Batch 004 adds 20 distinct original scenario-based Single Choice items (QR-001920–QR-001939), loaded in Self-Study, CAT, Predictor, and Timed modes. All new items remain drafts pending qualified nurse-educator review and runtime verification.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -42,8 +42,8 @@
       "note": "500 distinct item IDs generated from 50 core clinical concepts with 10 patient-context variants per concept; further content diversification is still needed."
     }
   ],
-  "newlyAuthoredTotal": 580,
-  "remainingToTarget": 1420,
+  "newlyAuthoredTotal": 600,
+  "remainingToTarget": 61,
   "integration": {
     "examPages": [
       "selfstudy.html",
@@ -52,5 +52,16 @@
       "cat.html"
     ],
     "status": "script tags committed; browser/runtime verification pending"
-  }
+  },
+  "newDraftBatch004": {
+    "file": "questions-bank-expansion-2026-11-04-batch-004.js",
+    "firstId": "QR-001920",
+    "lastId": "QR-001939",
+    "authored": 20,
+    "formatCounts": {
+      "Single Choice": 20
+    },
+    "reviewStatus": "pending_nurse_educator_review"
+  },
+  "totalAssignedIncludingReserved": 1939
 }
