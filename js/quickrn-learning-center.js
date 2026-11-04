@@ -711,7 +711,7 @@ function renderSystems(){
     const label=labels[item.category]||item.category;
     const key=label+' · '+item.system;
     (acc[key]||(acc[key]=[])).push(item.topic);
-    return acc;,{});
+    return acc;},{});
   const total=items.length;
   $('topic-count').textContent=total+' topics';
   $('system-list').innerHTML=Object.entries(systems).map(([system,topics],i)=>
