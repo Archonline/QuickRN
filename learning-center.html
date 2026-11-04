@@ -41,7 +41,25 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 @media(max-width:1100px){.learning-layout{grid-template-columns:210px minmax(0,1fr)}.learning-layout>aside:last-child{grid-column:2}.learning-video-card,.learning-notes-card{min-height:520px}}
 @media(max-width:767px){.learning-workspace>header{padding:0 15px}.learning-workspace>main{padding:12px}.learning-layout{grid-template-columns:1fr}.learning-layout>aside:last-child{grid-column:auto}.learning-video-card,.learning-notes-card{min-height:0;height:auto}#player-shell{min-height:0;aspect-ratio:16/9}.learning-notes-card textarea{min-height:280px}}
 @media(max-width:420px){.learning-header-link span{display:none}.learning-header-link{padding:9px 10px}}
-.learning-steps{border:1px solid #bfdbfe;border-radius:18px;background:linear-gradient(115deg,#eff6ff,#f0f9ff 55%,#f5f3ff);padding:16px 18px;box-shadow:0 8px 24px rgba(30,64,175,.07)}.learning-steps-title{font-size:14px;font-weight:800;color:#12366b;text-align:center;margin:0 0 13px}.learning-steps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.learning-step{display:flex;align-items:center;gap:10px;min-width:0;padding:11px;border:1px solid #dbeafe;border-radius:13px;background:rgba(255,255,255,.86)}.learning-step-number{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#1674df;color:#fff;font-weight:900}.learning-step-icon{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#e0edff;color:#1554a3;font-size:19px}.learning-step strong{display:block;color:#15376b;font-size:12px;line-height:1.3}.learning-step small{display:block;color:#64748b;font-size:10px;line-height:1.35;margin-top:3px}.learning-step.is-current{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.13);background:#fff}.learning-flow-status{font-size:11px;color:#1d4ed8;font-weight:700;text-align:center;margin:11px 0 0}@media(max-width:760px){.learning-steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
+.learning-steps{border:1px solid #bfdbfe;border-radius:18px;background:linear-gradient(115deg,#eff6ff,#f0f9ff 55%,#f5f3ff);padding:16px 18px;box-shadow:0 8px 24px rgba(30,64,175,.07)}.learning-steps-title{font-size:14px;font-weight:800;color:#12366b;text-align:center;margin:0 0 13px}.learning-steps-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.learning-step{display:flex;align-items:center;gap:10px;min-width:0;padding:11px;border:1px solid #dbeafe;border-radius:13px;background:rgba(255,255,255,.86)}.learning-step-number{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#1674df;color:#fff;font-weight:900}.learning-step-icon{flex:0 0 34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#e0edff;color:#1554a3;font-size:19px}.learning-step strong{display:block;color:#15376b;font-size:12px;line-height:1.3}.learning-step small{display:block;color:#64748b;font-size:10px;line-height:1.35;margin-top:3px}.learning-step.is-current{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.13);background:#fff}.learning-flow-status{font-size:11px;color:#1d4ed8;font-weight:700;text-align:center;margin:11px 0 0}@media(max-width:760px){.learning-steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cheat-sheet-card{margin-top:14px;border:1px solid #dbe4ea;border-radius:16px;background:#fff;padding:16px;box-shadow:0 3px 12px rgba(15,23,42,.04)}
+.cheat-sheet-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:14px;margin-top:12px;align-items:start}
+.cheat-image-link{display:block;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;background:#f8fafc;text-decoration:none;color:#475569;font-size:11px;font-weight:700}
+.cheat-image-link img{display:block;width:100%;max-height:420px;object-fit:contain;background:#f1f5f9}
+.cheat-image-link span{display:block;padding:9px 10px}
+.cheat-image-empty{min-height:140px;border:1px dashed #cbd5e1;border-radius:12px;background:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:18px;text-align:center;color:#64748b;font-size:12px}
+.cheat-image-empty i{font-size:26px;color:#94a3b8}
+.cheat-google-link{display:inline-flex;align-items:center;gap:7px;border:1px solid #cbd5e1;border-radius:9px;padding:8px 11px;color:#334155;font-size:11px;font-weight:800;text-decoration:none}
+.cheat-google-link:hover{background:#f8fafc;border-color:#94a3b8}
+.cheat-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.cheat-section{border:1px solid #e2e8f0;border-radius:10px;padding:11px;background:#fff;min-width:0}
+.cheat-section h4{font-size:11px;font-weight:800;color:#0f766e;margin:0 0 6px}
+.cheat-section p,.cheat-section li{font-size:11px;line-height:1.55;color:#475569}
+.cheat-section p{margin:0}.cheat-section ul{margin:0;padding-left:16px}.cheat-section li+li{margin-top:4px}
+.cheat-disclaimer{margin:12px 0 0;color:#64748b;font-size:10px;line-height:1.5}
+@media(max-width:850px){.cheat-sheet-grid{grid-template-columns:1fr}.cheat-image-link img{max-height:320px}}
+@media(max-width:520px){.cheat-sections{grid-template-columns:1fr}}
+</style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 antialiased">
 <div id="app-shell">
@@ -63,6 +81,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <div class="flex justify-between items-center gap-2"><div><h2 class="font-extrabold text-lg">Video lesson</h2><p class="text-xs text-slate-500" id="player-caption">Choose a topic and channel. Verified lessons play here when available.</p></div><span class="text-xs font-bold text-purple-700">PLAYER</span></div>
 <div class="rounded-xl overflow-hidden bg-slate-950 w-full" id="player-shell"><div class="w-full h-full flex flex-col items-center justify-center p-6 text-center text-white/80"><i class="fa-brands fa-youtube text-4xl text-amber-400"></i><p class="text-sm mt-3">Choose a topic and channel to play a verified lesson.</p></div></div>
 <div id="video-provider-controls" class="flex flex-wrap items-center gap-2 pt-1" aria-label="Choose video provider"></div>
+<div id="topic-cheat-sheet" class="cheat-sheet-card" aria-live="polite"><div class="text-sm text-slate-500">Choose a topic to load its quick sheet.</div></div>
 </div>
 </section>
 <aside class="learning-notes-card rounded-2xl border bg-white p-4 space-y-3 min-w-0">
