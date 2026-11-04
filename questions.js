@@ -52,5 +52,40 @@
 }
 ];
  root.questions=data;
+ // The production bank is assembled by this base file plus the additive modules
+ // loaded by Self-Study, Timed Practice, CAT, and Predictor. Keep this inventory
+ // explicit so the base-file count is never mistaken for the complete bank count.
+ root.QuickRNQuestionBankManifest={
+  auditDate:'2026-11-05',
+  branch:'main',
+  expectedUniqueProductionRecords:3969,
+  baseRecords:665,
+  additionalUniqueRecords:3304,
+  duplicateIdsAcrossLoadedFiles:0,
+  clinicalReviewStatus:'pending_nurse_educator_review',
+  integrationStatus:'loaded_by_all_four_exam_modes; browser_runtime_validation_pending',
+  sourceModules:[
+   'questions.js',
+   'questions-ngn-supplement.js',
+   'questions-bank-v2.js',
+   'questions-bank-v2-curated.js',
+   'questions-bank-v3-clinical.js',
+   'js/quickrn-ngn-case-study-addon.js',
+   'questions-bank-expansion-2026-11-04.js',
+   'questions-bank-expansion-2026-11-04-batch-002.js',
+   'questions-bank-expansion-2026-11-04-batch-003.js',
+   'questions-bank-ngn-expansion-2026-11-04-batch-004.js',
+   'questions-bank-ngn-case-studies-2026-11-04-batch-005.js',
+   'questions-bank-ngn-supplement-2026-11-04-batch-006.js',
+   'questions-bank-numeric-entry-2026-11-04-batch-007.js',
+   'questions-bank-matrix-grid-2026-11-04-batch-008.js',
+   'questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js',
+   'questions-bank-ngn-priority-2026-11-04-batch-007.js'
+  ],
+  getLoadedUniqueCount:function(){
+   const bank=Array.isArray(root.questions)?root.questions:[];
+   return new Set(bank.filter(Boolean).map(q=>String(q.id||'').trim()).filter(Boolean)).size;
+  }
+ };
  if(typeof module!=='undefined'&&module.exports)module.exports=data;
 })(typeof window!=='undefined'?window:globalThis);
