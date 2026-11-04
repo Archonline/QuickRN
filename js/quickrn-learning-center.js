@@ -91,7 +91,51 @@ const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;
 const noteKey=()=> 'quickrn_learning_notes_v1';
 function allTopics(){return Object.entries(DATA).flatMap(([category,systems])=>Object.entries(systems).flatMap(([system,topics])=>topics.map(topic=>({category,system,topic}))));}
 function loadNotes(){try{return JSON.parse(localStorage.getItem(noteKey())||'{}')}catch(e){return {};}}
-function saveNotes(){const notes=loadNotes();notes[topic||'General']=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
+function sanitizeNotesHtml(html){
+  const parsed=new DOMParser().parseFromString(String(html||''),'text/html');
+  const allowed=new Set(['B','STRONG','U','MARK','BR','P','DIV','UL','OL','LI']);
+  function clean(node){
+    Array.from(node.childNodes).forEach(child=>{
+      if(child.nodeType===Node.TEXT_NODE)return;
+      if(child.nodeType!==Node.ELEMENT_NODE){child.remove();return;}
+      if(!allowed.has(child.tagName)){clean(child);child.replaceWith(...Array.from(child.childNodes));return;}
+      Array.from(child.attributes).forEach(attr=>child.removeAttribute(attr.name));
+      clean(child);
+    });
+  }
+  clean(parsed.body);
+  return parsed.body.innerHTML;
+}
+function setNotesContent(value){
+  const editor=$('topic-notes');
+  const text=String(value||'');
+  if(/<\/?(?:b|strong|u|mark|br|p|div|ul|ol|li)\b/i.test(text)){
+    editor.innerHTML=sanitizeNotesHtml(text);
+  }else{
+    editor.textContent=text;
+    editor.innerHTML=editor.innerHTML.replace(/\n/g,'<br>');
+  }
+}
+function notesPlainText(){
+  return $('topic-notes').innerText||'';
+}
+function insertDictatedText(text){
+  const editor=$('topic-notes');
+  editor.focus();
+  const selection=window.getSelection();
+  if(selection&&selection.rangeCount&&editor.contains(selection.anchorNode)){
+    const range=selection.getRangeAt(0);
+    range.deleteContents();
+    const node=document.createTextNode(text);
+    range.insertNode(node);
+    range.setStartAfter(node);range.collapse(true);
+    selection.removeAllRanges();selection.addRange(range);
+  }else{
+    editor.appendChild(document.createTextNode(text));
+  }
+}
+
+function saveNotes(){const notes=loadNotes();notes[topic||'General']=sanitizeNotesHtml($('topic-notes').innerHTML);localStorage.setItem(noteKey(),JSON.stringify(notes));$('voice-status').textContent='Notes saved in this browser.';}
 function selectTopic(value){
   // Stop an active dictation session before changing the note context.
   if(recognition){recognition.stop();recognition=null;}
@@ -100,7 +144,7 @@ function selectTopic(value){
   $('notes-topic').textContent=value;
   const savedNotes=loadNotes();
   const hasSavedNotes=Object.prototype.hasOwnProperty.call(savedNotes,value);
-  $('topic-notes').value=hasSavedNotes?savedNotes[value]:'';
+  setNotesContent(hasSavedNotes?savedNotes[value]:'');
   $('voice-status').textContent=hasSavedNotes
     ? 'Loaded your saved notes for '+value+'. Changes are saved automatically in this browser.'
     : 'No saved notes for '+value+' yet. Your notes will be saved automatically as you type.';
@@ -227,18 +271,31 @@ $('system-list').addEventListener('click',e=>{const summary=e.target.closest('su
 
 
 $('save-notes').addEventListener('click',saveNotes);
-$('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=$('topic-notes').value;localStorage.setItem(noteKey(),JSON.stringify(n));}});
+$('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=sanitizeNotesHtml($('topic-notes').innerHTML);localStorage.setItem(noteKey(),JSON.stringify(n));}});
+document.querySelectorAll('[data-note-format]').forEach(button=>button.addEventListener('mousedown',e=>e.preventDefault()));
+document.querySelectorAll('[data-note-format]').forEach(button=>button.addEventListener('click',()=>{
+  const editor=$('topic-notes');editor.focus();
+  const format=button.dataset.noteFormat;
+  if(format==='bold')document.execCommand('bold',false,null);
+  else if(format==='underline')document.execCommand('underline',false,null);
+  else if(format==='highlight'){
+    const selection=window.getSelection();
+    if(selection&&selection.isCollapsed){$('voice-status').textContent='Select some text first, then choose Highlight.';return;}
+    document.execCommand('hiliteColor',false,'#fef08a');
+  }
+  saveNotes();
+}));
 
 const exportNotes=$('export-notes');
-if(exportNotes)exportNotes.addEventListener('click',()=>{const blob=new Blob([$('topic-notes').value],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(topic||'QuickRN-study-notes').replace(/[^a-z0-9]+/gi,'-')+'.txt';a.click();URL.revokeObjectURL(a.href);});
+if(exportNotes)exportNotes.addEventListener('click',()=>{const blob=new Blob([notesPlainText()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(topic||'QuickRN-study-notes').replace(/[^a-z0-9]+/gi,'-')+'.txt';a.click();URL.revokeObjectURL(a.href);});
 
 $('voice-notes').addEventListener('click',()=>{
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){$('voice-status').textContent='Speech recognition is not supported in this browser. Try Chrome or Edge.';return;}
   if(recognition){recognition.stop();recognition=null;$('voice-notes').innerHTML='<i class="fa-solid fa-microphone mr-1"></i>Dictate notes';return;}
   recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';
-  const initial=$('topic-notes').value;
-  recognition.onresult=e=>{let finalText='',interim='';for(let i=e.resultIndex;i<e.results.length;i++){const text=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=text+' ';else interim+=text;}$('topic-notes').value=initial+(initial?'\n':'')+finalText+(interim?'\n'+interim:'');if(finalText)saveNotes();};
+  const initial=notesPlainText();
+  recognition.onresult=e=>{let finalText='',interim='';for(let i=e.resultIndex;i<e.results.length;i++){const text=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=text+' ';else interim+=text;}insertDictatedText((initial?'\n':'')+finalText+(interim?'\n'+interim:''));if(finalText)saveNotes();};
   recognition.onerror=e=>{$('voice-status').textContent='Speech recognition: '+e.error;};
   recognition.onend=()=>{recognition=null;$('voice-notes').innerHTML='<i class="fa-solid fa-microphone mr-1"></i>Dictate notes';};
   recognition.start();$('voice-notes').innerHTML='<i class="fa-solid fa-stop mr-1"></i>Stop dictation';$('voice-status').textContent='Listening…';
