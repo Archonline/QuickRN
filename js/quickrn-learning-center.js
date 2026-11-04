@@ -170,7 +170,14 @@ const VIDEO_ID_CATALOG={
     'Asthma management':'GVTXJwv8ndY',
     'Electrolyte imbalances':'-PaHC8fleO0'
   },
-  picmonicvideo:{}
+  picmonicvideo:{
+    'Heart failure':'4NjmXFBvxxk',
+    'Shock types and hemodynamic monitoring':'FPVvXI7Lkg4',
+    'Sodium imbalances':'ZGNqpWurYMw',
+    'ACE inhibitors and ARBs':'ivBRz8zwXOU',
+    'Beta blockers':'ivBRz8zwXOU',
+    'Calcium channel blockers':'ivBRz8zwXOU'
+  }
 };
 const $=id=>document.getElementById(id);
 const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
