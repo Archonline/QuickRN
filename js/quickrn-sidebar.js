@@ -21,6 +21,21 @@
   const aside = document.createElement('aside'); aside.id='quickrn-unified-sidebar'; aside.className='qr-sidebar';
   const brand=document.createElement('a'); brand.className='qr-sidebar-brand'; brand.href='dashboard.html';
   brand.innerHTML='<span class="qr-sidebar-mark"><i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i></span><span class="qr-sidebar-wordmark"><strong>Quick<span>RN</span></strong><small>NCLEX PREP ENGINE</small></span>'; aside.appendChild(brand);
+  const toggle=document.createElement('button');
+  toggle.type='button'; toggle.className='qr-sidebar-toggle'; toggle.setAttribute('aria-label','Collapse main sidebar'); toggle.setAttribute('aria-expanded','true'); toggle.title='Collapse sidebar';
+  toggle.innerHTML='<i class="fa-solid fa-angles-left" aria-hidden="true"></i>';
+  brand.appendChild(toggle);
+  const applySidebarState=(collapsed)=>{
+    document.body.classList.toggle('qr-main-sidebar-collapsed',collapsed);
+    const shell=document.getElementById('app-shell'); if(shell)shell.classList.toggle('qr-main-sidebar-collapsed',collapsed);
+    toggle.setAttribute('aria-expanded',String(!collapsed));
+    toggle.setAttribute('aria-label',collapsed?'Expand main sidebar':'Collapse main sidebar');
+    toggle.title=collapsed?'Expand sidebar':'Collapse sidebar';
+    toggle.innerHTML='<i class="fa-solid '+(collapsed?'fa-angles-right':'fa-angles-left')+'" aria-hidden="true"></i>';
+  };
+  let sidebarCollapsed=false;
+  try{sidebarCollapsed=localStorage.getItem('quickrn-main-sidebar-collapsed')==='true';}catch(_e){}
+  toggle.addEventListener('click',()=>{sidebarCollapsed=!sidebarCollapsed;applySidebarState(sidebarCollapsed);try{localStorage.setItem('quickrn-main-sidebar-collapsed',String(sidebarCollapsed));}catch(_e){}});
   const nav=document.createElement('nav'); nav.className='qr-sidebar-nav'; nav.setAttribute('aria-label','Main navigation');
   groups.forEach(group=>{const section=document.createElement('section');section.className='qr-sidebar-group';const heading=document.createElement('h2');heading.textContent=group.label;section.appendChild(heading);
     group.links.forEach(([href,icon,label,tab])=>{const a=document.createElement('a');a.href=href;a.className='qr-sidebar-link';a.innerHTML='<i class="fa-solid '+icon+'" aria-hidden="true"></i><span>'+label+'</span>';
