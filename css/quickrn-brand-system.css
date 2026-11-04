@@ -374,47 +374,32 @@ body:not([data-exam-mode]) header :is(a,button):hover{
 }
 @media(max-width:767px){.qr-sidebar-toggle{display:none}}
 
-/* Main navigation auto-hide: compact icon rail, reveal labels on hover/focus. */
-#quickrn-unified-sidebar.qr-sidebar{position:fixed;isolation:isolate;transition:width .2s ease,box-shadow .2s ease}
-#quickrn-unified-sidebar .qr-sidebar-brand{position:static}
-#quickrn-unified-sidebar .qr-sidebar-toggle{position:absolute;left:18px;right:auto;top:auto;bottom:14px;transform:none;z-index:3}
+/* Stable sidebar collapse: the rail stays compact until the user toggles it.
+   No hover expansion, so the content never jumps or gets covered. */
+#quickrn-unified-sidebar.qr-sidebar{position:fixed;isolation:isolate;transition:width .18s ease}
+#quickrn-unified-sidebar .qr-sidebar-brand{position:relative;padding-right:54px}
+#quickrn-unified-sidebar .qr-sidebar-toggle{position:absolute;right:12px;left:auto;top:50%;bottom:auto;transform:translateY(-50%);z-index:3}
 @media(min-width:768px){
- :root{--qr-sidebar-autohide-width:68px}
- body.qr-has-sidebar.qr-main-sidebar-autohide{padding-left:var(--qr-sidebar-autohide-width)!important}
- #app-shell.qr-sidebar-shell.qr-main-sidebar-autohide{width:calc(100% - var(--qr-sidebar-autohide-width));margin-left:var(--qr-sidebar-autohide-width)}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar.qr-sidebar{width:var(--qr-sidebar-autohide-width);overflow:visible}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-brand{justify-content:center;padding:18px 8px;min-height:84px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-wordmark,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-group h2,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link span,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-footer span{display:none}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-nav{padding:14px 8px 58px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link{justify-content:center;padding:11px 8px;gap:0}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link>i{width:22px;flex-basis:22px;font-size:16px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-footer{justify-content:center;padding:15px 8px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-toggle{left:18px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within{width:256px;box-shadow:12px 0 32px rgba(10,28,44,.24);z-index:100}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-wordmark,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-wordmark,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-group h2,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-group h2,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link span,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link span,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-footer span,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-footer span{display:block}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-brand,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-brand{justify-content:flex-start;padding:18px 22px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-nav,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-nav{padding:16px 13px 58px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link{justify-content:flex-start;padding:9px 12px;gap:12px}
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link>i,
- body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link>i{width:18px;flex-basis:18px;font-size:14px}
+  :root{--qr-sidebar-collapsed-width:68px}
+  body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:var(--qr-sidebar-collapsed-width)!important}
+  #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:calc(100% - var(--qr-sidebar-collapsed-width));margin-left:var(--qr-sidebar-collapsed-width)}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar.qr-sidebar{width:var(--qr-sidebar-collapsed-width);overflow:hidden}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-brand{justify-content:center;padding:14px 8px 54px;min-height:84px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-wordmark,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-group h2,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link span,
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-footer span{display:none}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-nav{padding:14px 8px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link{justify-content:center;padding:10px 8px;gap:0}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-link>i{width:20px;flex-basis:20px;font-size:16px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-footer{justify-content:center;padding:15px 8px}
+  body.qr-main-sidebar-collapsed #quickrn-unified-sidebar .qr-sidebar-toggle{right:50%;top:auto;bottom:9px;transform:translateX(50%)}
 }
-@media(max-width:767px){body.qr-has-sidebar.qr-main-sidebar-autohide{padding-left:0!important}#app-shell.qr-sidebar-shell.qr-main-sidebar-autohide{width:100%;margin-left:0}#quickrn-unified-sidebar .qr-sidebar-toggle{display:none}}
-
-
+@media(max-width:767px){
+  body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:0!important}
+  #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:100%;margin-left:0}
+  #quickrn-unified-sidebar .qr-sidebar-toggle{display:none}
+}
 /* Application-wide header and navigation alignment.
    Keep the top bar exactly 64px so its vertical bounds align with the
    40px QuickRN brand mark and wordmark container used in the app shell. */
@@ -547,3 +532,14 @@ body header>div:first-child{
 @media(max-width:767px){
   #app-shell.support-shell.qr-sidebar-shell{width:100%;margin-left:0}
 }
+
+/* Calendar uses the shared fixed sidebar and 84px page header geometry. */
+#app-shell.calendar-shell{display:flex;width:100%;height:100vh;min-height:100vh;overflow:hidden}
+#app-shell.calendar-shell.qr-sidebar-shell{width:calc(100% - var(--qr-sidebar-width));margin-left:var(--qr-sidebar-width)}
+.calendar-workspace{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
+.calendar-main{min-height:0;overflow-y:auto}
+.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;max-height:84px!important;flex:0 0 84px!important;padding-top:0!important;padding-bottom:0!important;background:#16324f!important;color:#fff!important;border-bottom:1px solid #294b62!important}
+.calendar-workspace>header.calendar-header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
+.calendar-workspace>header.calendar-header a{border-color:rgba(255,255,255,.25)}
+.calendar-workspace>header.calendar-header a:hover{background:rgba(255,255,255,.1)}
+@media(max-width:767px){#app-shell.calendar-shell.qr-sidebar-shell{width:100%;margin-left:0}.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;flex-basis:84px!important}}
