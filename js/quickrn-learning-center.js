@@ -165,8 +165,6 @@ const VIDEO_ID_CATALOG={
     'Asthma management':'lPOtUH-A-yQ',
     'COPD exacerbation':'PYatQP1350c',
     'Electrolyte imbalances':'T_pCeQkpNX8',
-    'Heparin and aPTT monitoring':'LpVyqHeyTcA',
-    'Warfarin and INR':'LpVyqHeyTcA'
   },
   registerednursern:{
     'Heart failure':'mGchzG3Ya7c',
@@ -181,10 +179,7 @@ const VIDEO_ID_CATALOG={
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
     'Shock types and hemodynamic monitoring':'FPVvXI7Lkg4',
-    'Sodium imbalances':'ZGNqpWurYMw',
-    'ACE inhibitors and ARBs':'ivBRz8zwXOU',
-    'Beta blockers':'ivBRz8zwXOU',
-    'Calcium channel blockers':'ivBRz8zwXOU'
+    'Sodium imbalances':'ZGNqpWurYMw'
   }
 };
 const $=id=>document.getElementById(id);
