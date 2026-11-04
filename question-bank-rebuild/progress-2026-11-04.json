@@ -14,11 +14,11 @@
     "reviewStatus": "pending_nurse_educator_review"
   },
   "gaps": [
-    "QR-001330–QR-001339 are reserved in prior draft work; confirm integration and IDs",
-    "QR-001920–QR-002000 remain to be authored",
-    "The three expansion scripts are now loaded by selfstudy.html, timed.html, predictor.html, and cat.html"
+    "QR-001330–QR-001339 remain reserved in prior draft work; confirm integration and IDs",
+    "Batch 004 extends IDs through QR-002419; total newly authored records tracked separately from legacy bank counts.",
+    "The four exam pages include the NGN batch 004 script; browser/runtime verification remains pending."
   ],
-  "note": "Batch 004 adds 20 distinct original scenario-based Single Choice items (QR-001920–QR-001939), loaded in Self-Study, CAT, Predictor, and Timed modes. All new items remain drafts pending qualified nurse-educator review and runtime verification.",
+  "note": "1,080 new beta-draft records are committed across four expansion files. Batch 004 adds 500 NGN records across 50 clinical scenarios and 10 NGN item formats per scenario; nurse-educator review and independent content validation remain pending.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -40,10 +40,30 @@
       },
       "reviewStatus": "pending_nurse_educator_review",
       "note": "500 distinct item IDs generated from 50 core clinical concepts with 10 patient-context variants per concept; further content diversification is still needed."
+    },
+    {
+      "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "firstId": "QR-001920",
+      "lastId": "QR-002419",
+      "authored": 500,
+      "formatCounts": {
+        "Bowtie": 50,
+        "Matrix Single": 50,
+        "Matrix Multiple": 50,
+        "Cloze (Drop-down)": 50,
+        "Dropdown Rationale": 50,
+        "Highlight": 50,
+        "Trend": 50,
+        "Extended Drag and Drop": 50,
+        "Extended Multiple Response": 50,
+        "Select N": 50
+      },
+      "reviewStatus": "pending_nurse_educator_review",
+      "note": "50 clinical case scenarios with 10 NGN item-format presentations per scenario. Formats are represented as individual item records; items within each scenario share the clinical case context."
     }
   ],
-  "newlyAuthoredTotal": 600,
-  "remainingToTarget": 61,
+  "newlyAuthoredTotal": 1080,
+  "remainingToTarget": 920,
   "integration": {
     "examPages": [
       "selfstudy.html",
