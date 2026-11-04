@@ -52,6 +52,11 @@ jobs:
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
           node --check tests/curated-question-bank.test.js
+          node --check questions-bank-expansion-2026-11-04-batch-003.js
+          node --check questions-bank-ngn-case-studies-2026-11-04-batch-005.js
+          node --check questions-bank-ngn-priority-2026-11-04-batch-007.js
+          node --check questions-bank-matrix-grid-2026-11-04-batch-008.js
+          node --check tests/question-bank-duplicate-cleanup.test.js
       - name: Verify shared QuickRN brand system across pages
         run: node tests/brand-system-contract.test.js
       - name: Test shared platform safeguards
@@ -60,6 +65,8 @@ jobs:
         run: node tests/case-study-sequencer.test.js
       - name: Verify Self-Study finish, analytics reset, and no-repeat contracts
         run: node tests/selfstudy-lifecycle.test.js
+      - name: Verify duplicate-template cleanup and retained NGN sequences
+        run: node tests/question-bank-duplicate-cleanup.test.js
       - name: Validate curated NCLEX and NGN replacement questions
         run: node tests/curated-question-bank.test.js
       - name: Validate clinical v3 bank and all 13 formats across exam modes
