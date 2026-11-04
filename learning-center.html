@@ -77,6 +77,41 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 .cheat-disclaimer{margin:12px 0 0;color:#64748b;font-size:10px;line-height:1.5}
 @media(max-width:850px){.cheat-sheet-grid{grid-template-columns:1fr}.cheat-image-link img{max-height:320px}}
 @media(max-width:520px){.cheat-sections{grid-template-columns:1fr}}
+
+/* Learning Library visual refresh: consistent, accessible neutral + teal palette */
+.learning-steps{border:1px solid #cbd5e1!important;border-radius:16px!important;background:#f1f5f7!important;padding:18px!important;box-shadow:0 2px 8px rgba(15,23,42,.05)!important}
+.learning-steps-intro{text-align:center;max-width:820px;margin:0 auto 16px}
+.learning-steps-kicker{display:inline-block;margin-bottom:5px;color:#0f6670;font-size:10px;font-weight:800;letter-spacing:.13em}
+.learning-steps-title{margin:0 0 5px!important;color:#172b3a!important;font-size:17px!important;font-weight:800!important}
+.learning-steps-description{margin:0;color:#475569;font-size:12px;line-height:1.5}
+.learning-steps-grid{gap:10px}
+.learning-step{background:#fff!important;border:1px solid #d5dee5!important;border-radius:12px!important;padding:12px!important;box-shadow:none!important}
+.learning-step-number{background:#176b73!important;color:#fff!important}
+.learning-step-icon{background:#e8eff1!important;color:#28545b!important}
+.learning-step strong{color:#203542!important;font-size:12px!important}
+.learning-step small{color:#536574!important;font-size:10px!important}
+.learning-step.is-current{border-color:#176b73!important;box-shadow:0 0 0 2px rgba(23,107,115,.12)!important;background:#fff!important}
+.learning-flow-status{color:#28545b!important;font-size:11px!important;font-weight:700!important}
+#learning-topic-sidebar{background:#fff!important;border-color:#cbd5e1!important;color:#243746!important}
+#learning-topic-sidebar .sidebar-heading{color:#172b3a!important}
+#learning-topic-sidebar h3{color:#536574!important}
+#learning-library-search{background:#fff!important;border-color:#b8c6d0!important;color:#172b3a!important}
+#learning-library-search::placeholder{color:#64748b!important;opacity:1}
+#learning-library-search:focus{border-color:#176b73!important;box-shadow:0 0 0 2px rgba(23,107,115,.13)!important}
+#learning-library-search-status{color:#536574!important}
+.subject-card{border-color:#d5dee5!important;background:#fff!important}
+.subject-card>summary{background:#f6f8f9!important;color:#263b49!important}
+.subject-card>summary:hover,.subject-card[open]>summary{background:#e9f0f1!important;color:#174f57!important}
+.subject-card details{background:#f5f7f8!important}
+.subject-card details>summary{color:#334957!important}
+.lesson-link{border-color:#d5dee5!important;background:#fff!important;color:#293e4b!important}
+.lesson-link:hover,.lesson-link[aria-pressed=true],.lesson-link.is-active-topic{border-color:#176b73!important;background:#edf4f4!important;color:#15545b!important}
+.video-provider-button{border-color:#c5d0d8!important;background:#fff!important;color:#344957!important}
+.video-provider-button:hover{border-color:#176b73!important;background:#f1f6f6!important;color:#15545b!important}
+.video-provider-button.is-selected{background:#176b73!important;border-color:#176b73!important;color:#fff!important;box-shadow:0 0 0 2px rgba(23,107,115,.14)!important}
+.learning-browse .is-active-topic{border-color:#176b73!important;background:#edf4f4!important;color:#15545b!important}
+@media(max-width:760px){.learning-steps{padding:14px!important}.learning-steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 </head>
 <body class="h-full bg-slate-50 text-slate-800 antialiased">
@@ -90,7 +125,7 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
       <a href="dashboard.html" class="learning-header-link"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i><span>Dashboard</span></a>
     </header>
     <main>
-<section class="learning-steps" aria-labelledby="learning-steps-heading"><h2 id="learning-steps-heading" class="learning-steps-title">Follow these 4 steps to start your lesson</h2><div class="learning-steps-grid"><div class="learning-step is-current" data-flow-step="1"><b class="learning-step-number">1</b><i class="fa-solid fa-heart-pulse learning-step-icon"></i><div><strong>Choose a body system</strong><small>Open a system in the Learning Library</small></div></div><div class="learning-step" data-flow-step="2"><b class="learning-step-number">2</b><i class="fa-solid fa-book-medical learning-step-icon"></i><div><strong>Choose a topic</strong><small>Select the lesson you want to study</small></div></div><div class="learning-step" data-flow-step="3"><b class="learning-step-number">3</b><i class="fa-solid fa-tv learning-step-icon"></i><div><strong>Choose a channel</strong><small>Pick your preferred nursing educator</small></div></div><div class="learning-step" data-flow-step="4"><b class="learning-step-number">4</b><i class="fa-solid fa-circle-play learning-step-icon"></i><div><strong>Video plays</strong><small>Autoplay when a verified video is available</small></div></div></div><p class="learning-flow-status" id="learning-flow-status" role="status">Step 1 of 4 · Choose a body system to begin.</p></section><div class="learning-layout"><aside id="learning-topic-sidebar" class="learning-topic-sidebar rounded-2xl border bg-white p-3 space-y-3 h-fit">
+<section class="learning-steps" aria-labelledby="learning-steps-heading"><div class="learning-steps-intro"><span class="learning-steps-kicker">QUICK START GUIDE</span><h2 id="learning-steps-heading" class="learning-steps-title">How to use the Learning Center</h2><p class="learning-steps-description">Start from either NCLEX Client Needs or Body Systems &amp; Clinical Specialties. Both routes lead to the same lessons.</p></div><div class="learning-steps-grid"><div class="learning-step is-current" data-flow-step="1"><b class="learning-step-number">1</b><i class="fa-solid fa-layer-group learning-step-icon"></i><div><strong>Browse a category</strong><small>Choose an NCLEX need, body system, or specialty.</small></div></div><div class="learning-step" data-flow-step="2"><b class="learning-step-number">2</b><i class="fa-solid fa-book-medical learning-step-icon"></i><div><strong>Open a topic</strong><small>Select a lesson to load its quick sheet and notes.</small></div></div><div class="learning-step" data-flow-step="3"><b class="learning-step-number">3</b><i class="fa-solid fa-tv learning-step-icon"></i><div><strong>Select a video channel</strong><small>Choose RegisteredNurseRN, Simple Nursing, or PicmonicVideo.</small></div></div><div class="learning-step" data-flow-step="4"><b class="learning-step-number">4</b><i class="fa-solid fa-circle-play learning-step-icon"></i><div><strong>Study and take notes</strong><small>A verified video plays when available; use the quick sheet and notebook anytime.</small></div></div></div><p class="learning-flow-status" id="learning-flow-status" role="status">Step 1 of 4 · Browse either library view to begin.</p></section><div class="learning-layout"><aside id="learning-topic-sidebar" class="learning-topic-sidebar rounded-2xl border bg-white p-3 space-y-3 h-fit">
 <div class="flex items-center justify-between gap-2"><h2 class="sidebar-heading text-sm font-extrabold text-slate-900">Learning Library</h2><button id="toggle-learning-sidebar" type="button" class="sidebar-toggle" aria-label="Collapse Learning Library sidebar" aria-expanded="true" title="Collapse sidebar"><i class="fa-solid fa-angles-left" aria-hidden="true"></i></button></div>
 <div class="sidebar-content space-y-3"><label class="block"><span class="sr-only">Search all Learning Library topics</span><input id="learning-library-search" type="search" class="w-full rounded-lg border border-slate-300 px-3 py-2 text-xs outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-100" placeholder="Search topics, systems, specialties..." autocomplete="off"></label><p id="learning-library-search-status" class="text-[10px] text-slate-500" aria-live="polite"></p><section aria-labelledby="client-needs-heading" class="space-y-2"><div class="flex items-center justify-between gap-2"><h3 id="client-needs-heading" class="text-[11px] font-black uppercase tracking-wider text-slate-500">NCLEX Client Needs</h3><span id="topic-count" class="text-[10px] text-slate-400"></span></div><div id="client-needs-list" class="space-y-2"></div></section><section aria-labelledby="systems-heading" class="space-y-2 pt-2 border-t"><h3 id="systems-heading" class="text-[11px] font-black uppercase tracking-wider text-slate-500">Body Systems &amp; Clinical Specialties</h3><div id="system-list" class="space-y-2"></div></section></div>
 </aside>
