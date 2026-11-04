@@ -1,4 +1,4 @@
-/* QuickRN NGN case-study batch 005: 100 original case groups × 5 sequential items = 500 records.
+/* QuickRN NGN case-study batch 005: 50 distinct case groups × 5 sequential items = 250 records; repeated second variants removed.
  * Original beta drafts; all require qualified nurse-educator review before clinical release.
  */
 (function(root){
@@ -8,7 +8,7 @@ const topics=[["Sepsis with pneumonia","Fever, tachycardia, hypotension, confusi
 const existing=new Set(bank.map(q=>String(q&&q.id||'')));
 let added=0;
 topics.slice(0,50).forEach((t,ti)=>{
-  for(let variant=0;variant<2;variant++){
+  for(let variant=0;variant<1;variant++){
     const n=ti*2+variant+1, group='QR-NGN-CS-005-'+String(n).padStart(3,'0');
     const age=variant===0? (ti%2? '58-year-old':'67-year-old') : (ti%2? '74-year-old':'42-year-old');
     const context={id:group,summary:t[0],scenario:'The nurse is caring for a '+age+' client. '+t[1],medicalHistory:'Relevant history and current therapies are being reviewed; allergies and baseline status must be verified.',nursesNotes:'Current assessment: '+t[1],vitalSigns:'Trend vital signs and reassess promptly; obtain complete values at the bedside.',labResults:'Review ordered laboratory and diagnostic results relevant to the current presentation.',orders:'Implement prescribed emergency and condition-specific interventions; clarify incomplete or unsafe orders.'};
