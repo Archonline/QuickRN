@@ -53,6 +53,7 @@ jobs:
           node --check scripts/validate-question-bank.js
           node --check tests/curated-question-bank.test.js
           node --check questions-bank-expansion-2026-11-04-batch-003.js
+          node --check questions-bank-ngn-expansion-2026-11-04-batch-004.js
           node --check questions-bank-ngn-case-studies-2026-11-04-batch-005.js
           node --check questions-bank-ngn-priority-2026-11-04-batch-007.js
           node --check questions-bank-matrix-grid-2026-11-04-batch-008.js
