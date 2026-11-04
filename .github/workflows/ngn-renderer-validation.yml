@@ -67,6 +67,7 @@ jobs:
       - name: Verify Self-Study finish, analytics reset, and no-repeat contracts
         run: node tests/selfstudy-lifecycle.test.js
       - name: Verify duplicate-template cleanup and retained NGN sequences
+        if: always()
         run: node tests/question-bank-duplicate-cleanup.test.js
       - name: Validate curated NCLEX and NGN replacement questions
         run: node tests/curated-question-bank.test.js
