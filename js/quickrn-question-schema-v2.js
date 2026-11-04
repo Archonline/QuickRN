@@ -60,12 +60,24 @@
   q.schemaVersion=2;q.metadata=metadata;q.stimulus=stimulus;q.interaction=interaction;q.rationales=rationales;
   // Bridge canonical v2 fields to the legacy renderer contract without deleting source fields.
   if(q.id==null&&metadata.id!=null)q.id=metadata.id;
+  if(q.category==null&&metadata.category!=null)q.category=metadata.category;
+  if(q.clientNeeds==null&&metadata.clientNeeds!=null)q.clientNeeds=metadata.clientNeeds;
+  if(q.cjmmStep==null&&metadata.cjmmStep!=null)q.cjmmStep=metadata.cjmmStep;
+  if(q.difficulty==null&&metadata.difficulty!=null)q.difficulty=metadata.difficulty;
   if(q.question==null&&interaction.stem!=null)q.question=interaction.stem;
   if(q.type==null&&interaction.type!=null)q.type=interaction.type;
   if(q.options==null&&interaction.options!=null)q.options=interaction.options;
-  if(q.correctAnswers==null&&Array.isArray(interaction.answerKey))q.correctAnswers=interaction.answerKey;
-  else if(q.correctAnswer==null&&interaction.answerKey!=null&&!Array.isArray(interaction.answerKey)&&typeof interaction.answerKey!=='object')q.correctAnswer=interaction.answerKey;
+  if(q.correctAnswers==null&&interaction.answerKey!=null&&typeof interaction.answerKey==='object'&&!Array.isArray(interaction.answerKey))q.correctAnswers=interaction.answerKey;
+  else if(q.correctAnswers==null&&Array.isArray(interaction.answerKey))q.correctAnswers=interaction.answerKey;
+  if(q.correctHighlights==null&&interaction.type==='Highlight'&&Array.isArray(interaction.answerKey))q.correctHighlights=interaction.answerKey;
+  if(q.correctOrder==null&&interaction.type==='Extended Drag and Drop'&&Array.isArray(interaction.answerKey))q.correctOrder=interaction.answerKey;
+  if(q.correctNumericAnswer==null&&interaction.type==='Numeric Entry'&&typeof interaction.answerKey==='number')q.correctNumericAnswer=interaction.answerKey;
+  if(q.correctAnswer==null&&interaction.answerKey!=null&&!Array.isArray(interaction.answerKey)&&typeof interaction.answerKey!=='object')q.correctAnswer=interaction.answerKey;
   if(q.rationale==null&&rationales.overall!=null)q.rationale=rationales.overall;
+  if(q.optionRationales==null&&rationales.options!=null)q.optionRationales=rationales.options;
+  if(q.clinicalJudgmentTip==null&&rationales.clinicalJudgmentTip!=null)q.clinicalJudgmentTip=rationales.clinicalJudgmentTip;
+  if(q.patientInfo==null&&stimulus.patientProfile!=null)q.patientInfo=stimulus.patientProfile;
+  if(q.ehr==null&&Object.keys(canonicalTabs).length)q.ehr={tabs:canonicalTabs};
   if(q.scoringMethod==null&&interaction.scoring?.method!=null)q.scoringMethod=interaction.scoring.method;
   return q;
  }
