@@ -342,7 +342,24 @@
     <style id="quickrn-unified-nclex-split-screen">
         html,body{height:100%;min-height:100%;}body{user-select:text!important}#left-panel,#right-panel{min-width:0;min-height:0}#case-study-content{overflow-wrap:anywhere;user-select:text}#case-study-tabs button{font-weight:700}#answer-workspace{min-width:0}#answer-workspace .qr-response-area{padding:0!important;overflow:visible!important;display:flex;flex-direction:column;gap:10px}#answer-workspace .qr-report-row{padding:10px 0 0!important;display:flex;justify-content:flex-end}#answer-workspace .qr-choice{font-size:13px}#answer-workspace .qr-table-wrap{overflow-x:auto}#answer-workspace .qr-bowtie{grid-template-columns:repeat(3,minmax(0,1fr))}#answer-workspace .qr-sort-item{cursor:grab}#answer-workspace .qr-numeric-entry{display:grid;gap:8px}#answer-workspace .qr-numeric-entry input{max-width:240px;border:1px solid #94a3b8;border-radius:7px;padding:10px}#answer-workspace.answer-locked{pointer-events:none;opacity:.9}#question-prompt{overflow-wrap:anywhere}#rationale-text{overflow-wrap:anywhere}#video-resources a{color:#0e7490;text-decoration:none}#video-resources a:hover{text-decoration:underline}@media(max-width:767px){body{height:auto;min-height:100%;overflow-y:auto!important}main{overflow:visible!important;flex-direction:column!important}#left-panel,#right-panel{width:100%!important;height:auto!important;min-height:320px;overflow:visible!important}#case-study-content{min-height:220px;max-height:42vh;overflow-y:auto}#right-panel{min-height:480px}footer#exam-footer{position:sticky;bottom:0;gap:8px;flex-wrap:wrap}footer#exam-footer>div{gap:6px}#answer-workspace .qr-bowtie{grid-template-columns:1fr}header{gap:8px}header>div{flex-wrap:wrap}}
     </style>
-    <script src="questions.js"></script>
+    <script id="quickrn-bank-load-audit">
+(function(w){
+ 'use strict';
+ const audit=w.QuickRNBankLoadAudit={assets:Object.create(null),startedAt:Date.now()};
+ const bankAsset=/^(questions\.js|questions-ngn-supplement\.js|questions-bank-v2\.js|questions-bank-v2-curated\.js|questions-bank-v3-clinical\.js|questions-bank-expansion-2026-11-04\.js|questions-bank-expansion-2026-11-04-batch-002\.js|questions-bank-expansion-2026-11-04-batch-003\.js|questions-bank-ngn-expansion-2026-11-04-batch-004\.js|questions-bank-ngn-case-studies-2026-11-04-batch-005\.js|questions-bank-ngn-supplement-2026-11-04-batch-006\.js|questions-bank-numeric-entry-2026-11-04-batch-007\.js|questions-bank-matrix-grid-2026-11-04-batch-008\.js|questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009\.js|questions-bank-ngn-priority-2026-11-04-batch-007\.js|quickrn-ngn-case-study-addon\.js)$/;
+ function record(event){
+  const script=event.target;
+  if(!script||script.tagName!=='SCRIPT'||!script.src)return;
+  const name=script.src.split('/').pop().split('?')[0];
+  if(!bankAsset.test(name))return;
+  audit.assets[name]={status:event.type==='error'?'failed':'loaded',src:script.src};
+  if(event.type==='error')audit.assets[name].error='The browser reported a script load failure.';
+ }
+ w.addEventListener('load',record,true);
+ w.addEventListener('error',record,true);
+})(window);
+</script>
+\n    <script src="questions.js"></script>
   <script src="js/quickrn-ngn-case-study-addon.js"></script>
     <script src="questions-ngn-supplement.js"></script>
     <script src="questions-bank-v2.js"></script>
