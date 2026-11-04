@@ -1,0 +1,17 @@
+const assert=require('assert');
+const schema=require('../js/quickrn-question-schema-v2');
+const legacy={id:'QR-T1',type:'Multiple Response',category:'Pharmacology',title:'Select findings',options:['A','B'],correctAnswers:['A'],rationale:'Clinical rationale',nursesNotes:['Note'],vitalSigns:{HR:110}};
+schema.normalize(legacy);
+assert.equal(legacy.schemaVersion,2);
+assert.equal(legacy.metadata.id,'QR-T1');
+assert.equal(legacy.interaction.stem,'Select findings');
+assert.deepEqual(legacy.interaction.answerKey,['A']);
+assert.equal(legacy.rationales.overall,'Clinical rationale');
+assert.deepEqual(legacy.stimulus.tabs.nursesNotes,['Note']);
+assert.deepEqual(legacy.stimulus.tabs.vitalSigns,{HR:110});
+assert.equal(legacy.options.length,2,'legacy renderer fields must remain intact');
+assert(schema.validate(legacy,0).some(x=>x.code==='V2_MISSING_CLIENT_NEEDS'));
+const complete={id:'QR-T2',metadata:{id:'QR-T2',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Recognize Cues',difficulty:3},interaction:{type:'Single Choice',stem:'Which action?',options:['A','B'],answerKey:'A',scoring:{method:'0/1'}},rationales:{overall:'Why',options:{A:'Correct',B:'Incorrect'},clinicalJudgmentTip:'Prioritize safety.'}};
+schema.normalize(complete);
+assert.equal(schema.validate(complete,1).length,0);
+console.log('Question Schema v2 adapter tests passed.');
