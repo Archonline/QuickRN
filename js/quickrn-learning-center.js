@@ -302,6 +302,28 @@ $('save-notes').addEventListener('click',saveNotes);
 $('topic-notes').addEventListener('input',()=>{if(topic){const n=loadNotes();n[topic]=sanitizeNotesHtml($('topic-notes').innerHTML);localStorage.setItem(noteKey(),JSON.stringify(n));}});
 let savedNoteSelection=null;
 const noteEditor=$('topic-notes');
+// End highlighting at the next space so only the selected word remains highlighted.
+noteEditor.addEventListener('keydown',event=>{
+  if(event.key!==' '||event.shiftKey||event.ctrlKey||event.metaKey||event.altKey)return;
+  const selection=window.getSelection();
+  if(!selection||!selection.isCollapsed||!selection.rangeCount)return;
+  const range=selection.getRangeAt(0);
+  if(!noteEditor.contains(range.startContainer))return;
+  let node=range.startContainer.nodeType===Node.TEXT_NODE?range.startContainer.parentElement:range.startContainer;
+  const mark=node&&node.closest('mark');
+  if(!mark||!noteEditor.contains(mark))return;
+  const before=range.cloneRange();
+  before.selectNodeContents(mark);
+  before.setEnd(range.startContainer,range.startOffset);
+  if(before.toString().length!==mark.textContent.length)return;
+  event.preventDefault();
+  const space=document.createTextNode(' ');
+  mark.parentNode.insertBefore(space,mark.nextSibling);
+  const after=document.createRange();
+  after.setStartAfter(space);after.collapse(true);
+  selection.removeAllRanges();selection.addRange(after);
+  saveNotes();
+});
 document.querySelectorAll('[data-note-format]').forEach(button=>{
   button.addEventListener('mousedown',event=>{
     const selection=window.getSelection();
