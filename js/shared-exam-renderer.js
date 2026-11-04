@@ -19,12 +19,15 @@ function quickRNDetectItemFormat(q){
 function quickRNEscape(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function quickRNDecodeClinicalEntities(value){
  let text=String(value==null?'':value);
- return text.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi,(match,entity)=>{
+ const decode=source=>source.replace(/&(#x[0-9a-f]+|#\d+|amp|lt|gt|quot|apos|nbsp);/gi,(match,entity)=>{
   const key=entity.toLowerCase();
   if(key==='amp')return '&';if(key==='lt')return '<';if(key==='gt')return '>';if(key==='quot')return '"';if(key==='apos')return "'";if(key==='nbsp')return ' ';
   const code=key.startsWith('#x')?parseInt(key.slice(2),16):parseInt(key.slice(1),10);
   return Number.isFinite(code)&&code>0&&code<=0x10ffff?String.fromCodePoint(code):match;
  });
+ // Some imported records are double-escaped (for example &amp;lt;div&amp;gt;).
+ for(let pass=0;pass<3;pass++){const next=decode(text);if(next===text)break;text=next;}
+ return text;
 }
 function quickRNPlainClinicalText(value){
  let text=quickRNDecodeClinicalEntities(value).replace(/\r/g,'');
