@@ -31,6 +31,8 @@
   const seenContent=new Map();
   sections.forEach(s=>{if(seenContent.has(s.value))issues.push({id,code:'DUPLICATE_PATIENT_CONTENT',fields:[seenContent.get(s.value),s.label]});else seenContent.set(s.value,s.label);});
  });
- root.quickRNQuestionBankAudit={total:bank.length,issueCount:issues.length,issues,passed:issues.length===0,checkedAt:new Date().toISOString()};
+ const schemaApi=root.QuickRNQuestionSchemaV2;
+ const schemaIssues=schemaApi?bank.flatMap((q,index)=>schemaApi.validate(q,index)):[];
+ root.quickRNQuestionBankAudit={total:bank.length,issueCount:issues.length,issues,passed:issues.length===0,checkedAt:new Date().toISOString(),schemaVersion:2,schemaIssueCount:schemaIssues.length,schemaIssues,schemaPassed:schemaIssues.length===0};
  if(issues.length&&root.console&&typeof root.console.warn==='function')root.console.warn('[QuickRN] Question-bank integrity audit found '+issues.length+' issue(s).',issues);
 })(typeof window!=='undefined'?window:globalThis);
