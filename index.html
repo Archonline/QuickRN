@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickRN | Next Generation NCLEX Prep & Test Simulator</title>
+    <title>QuickRN | NCLEX-RN & Next Generation NCLEX Preparation</title>
+    <meta name="description" content="Prepare for the NCLEX-RN with QuickRN: Self Study, Timed Practice, CAT, Predictor exams, NGN question formats, learning resources, and progress tracking.">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,6 +38,13 @@
         body { font-family: 'Inter', sans-serif; }
     </style>
     <link rel="stylesheet" href="css/quickrn-brand-system.css">
+    <style id="quickrn-landing-brand">
+:root{--qr-landing-navy:#12304a;--qr-landing-teal:#00a8cc;--qr-landing-teal-dark:#008ba8}
+.qr-logo-mark{display:inline-flex;width:44px;height:44px;flex:0 0 44px;filter:drop-shadow(0 5px 12px rgba(0,168,204,.18));transition:transform .2s ease}.qr-logo-mark svg,.qr-footer-logo svg{display:block;width:100%;height:100%}.group:hover .qr-logo-mark{transform:translateY(-1px) scale(1.03)}
+.qr-logo-wordmark{display:flex;flex-direction:column;line-height:1.1}.qr-logo-wordmark strong{font-size:22px;font-weight:850;letter-spacing:-.055em;color:#12304a}.qr-logo-wordmark strong span{color:#008ba8}.qr-logo-wordmark small{margin-top:5px;font-size:9px;font-weight:800;letter-spacing:.14em;color:#64748b}.qr-footer-logo{display:inline-flex;width:34px;height:34px;flex:0 0 34px}
+.qr-mode-card{border:1px solid #dbe5eb;border-radius:20px;background:#fff;padding:24px;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}.qr-mode-card:hover{transform:translateY(-3px);border-color:#7dd3df;box-shadow:0 16px 34px rgba(18,48,74,.09)}.qr-section-eyebrow{color:#008ba8;font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+@media(max-width:640px){.qr-logo-mark{width:40px;height:40px;flex-basis:40px}.qr-logo-wordmark strong{font-size:20px}}
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-500 selection:text-white">
 
@@ -45,13 +53,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-medical-600 to-clinical-600 flex items-center justify-center text-white shadow-md shadow-medical-500/20 group-hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-user-nurse text-lg"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-extrabold tracking-tight text-slate-900">Quick<span class="text-medical-600">RN</span></span>
-                    <span class="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">NGN Test Prep</span>
-                </div>
+                <span class="qr-logo-mark" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><rect x="1" y="1" width="46" height="46" rx="13" fill="#00A8CC"/><path d="M13 13h11.5a10.5 10.5 0 0 1 0 21H13V13Zm7 6v9h4.5a4.5 4.5 0 0 0 0-9H20Z" fill="#fff"/><path d="M29 27.5 37 36h-8l-5-5.5" fill="#8DE8F6"/></svg></span><span class="qr-logo-wordmark"><strong>Quick<span>RN</span></strong><small>NCLEX PREP ENGINE</small></span>
             </a>
 
             <!-- Navigation Links -->
@@ -77,13 +79,13 @@
                 <!-- Left Text Content -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-medical-100 text-medical-700 text-xs font-bold tracking-wide uppercase">
-                        <i class="fa-solid fa-shield-heart"></i> Next Generation NCLEX (NGN) Ready
+                        <i class="fa-solid fa-shield-heart"></i> A focused NCLEX-RN study workspace
                     </div>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-                        Master Clinical Judgment. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-600 to-clinical-600">Pass the NCLEX-RN.</span>
+                        Practice with purpose. <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-medical-600 to-clinical-600">Prepare for the NCLEX-RN.</span>
                     </h1>
                     <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                        Prepare with high-yield clinical case studies, dynamic question banks, and a realistic Computerized Adaptive Testing simulator modeled strictly after the latest NGN standards.
+                        Build NCLEX readiness through focused practice, NGN clinical judgment questions, realistic exam modes, and learning resources—all in one study workspace.
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                         <button type="button" onclick="openModal('signin')" class="w-full sm:w-auto px-8 py-4 bg-medical-600 hover:bg-medical-700 text-white font-bold rounded-2xl shadow-xl shadow-medical-600/25 transition-all hover:scale-[1.02] flex items-center justify-center gap-3 text-base cursor-pointer">
@@ -95,9 +97,9 @@
                     </div>
                     <!-- Quick Trust Indicators -->
                     <div class="pt-6 flex items-center justify-center lg:justify-start gap-6 text-xs text-slate-500 font-medium">
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> 4,000+ NGN & Traditional Items</div>
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> Rationales Included</div>
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> CAT Exam Engine</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> 13 NCLEX-style question formats</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> Learning resources & rationales</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-medical-600"></i> Four exam modes</div>
                     </div>
                 </div>
 
@@ -115,7 +117,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold text-slate-900 text-sm">Clinical Simulation</h4>
-                                        <p class="text-xs text-slate-500">Passing Standard: 99.4%</p>
+                                        <p class="text-xs text-slate-500">Four ways to practice</p>
                                     </div>
                                 </div>
                                 <span class="px-2.5 py-1 bg-medical-50 text-medical-700 text-xs font-bold rounded-lg">Active Session</span>
@@ -123,19 +125,19 @@
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                                    <span class="text-xs text-slate-500 block mb-1">Total Questions Solved</span>
-                                    <span class="text-2xl font-black text-slate-900">1,420</span>
+                                    <span class="text-xs text-slate-500 block mb-1">Question formats</span>
+                                    <span class="text-2xl font-black text-slate-900">13</span>
                                 </div>
                                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                                    <span class="text-xs text-slate-500 block mb-1">Readiness Score</span>
-                                    <span class="text-2xl font-black text-medical-600">89%</span>
+                                    <span class="text-xs text-slate-500 block mb-1">Study tools</span>
+                                    <span class="text-2xl font-black text-medical-600">All-in-one</span>
                                 </div>
                             </div>
 
                             <div class="relative rounded-2xl overflow-hidden h-40 shadow-inner">
                                 <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=600&q=80" alt="Medical team studying" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent flex items-end p-4">
-                                    <p class="text-white text-xs font-medium">Built by nursing professionals for future RNs.</p>
+                                    <p class="text-white text-xs font-medium">Practice, review, and build clinical judgment at your own pace.</p>
                                 </div>
                             </div>
                         </div>
@@ -150,9 +152,9 @@
     <section id="features" class="py-20 bg-white border-y border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-                <h2 class="text-xs font-bold uppercase tracking-widest text-medical-600">Comprehensive Question Bank</h2>
-                <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Designed Around the Clinical Judgment Measurement Model</h3>
-                <p class="text-slate-600 text-base">Every feature on QuickRN is engineered to build critical thinking, test stamina, and confidence for test day.</p>
+                <h2 class="text-xs font-bold uppercase tracking-widest text-medical-600">Practice · Review · Improve</h2>
+                <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Everything you need in one study workspace</h3>
+                <p class="text-slate-600 text-base">Choose a practice mode, review clinical rationales, identify learning priorities, and organize your preparation.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -162,29 +164,47 @@
                     </div>
                     <h4 class="text-xl font-bold text-slate-900 mb-3">Next-Gen Case Studies</h4>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        Complex multi-part clinical scenarios featuring Trend Data, Nurses' Notes, and Laboratory results that test complete clinical judgment.
+                        Work through NGN formats including case studies, trend items, matrix, bow-tie, highlight, cloze, and other clinical judgment tasks.
                     </p>
                 </div>
                 <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-medical-500/50 transition-all hover:shadow-xl group">
                     <div class="w-14 h-14 rounded-2xl bg-clinical-50 text-clinical-600 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-brain"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Adaptive Rationales</h4>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Answer Review & Rationales</h4>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        Detailed explanations breakdown why correct choices save patient lives and why distractors are clinically unsafe.
+                        Review submitted answers with clear feedback and clinical rationales to understand priority nursing actions and strengthen decision-making.
                     </p>
                 </div>
                 <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200/80 hover:border-medical-500/50 transition-all hover:shadow-xl group">
                     <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
-                    <h4 class="text-xl font-bold text-slate-900 mb-3">Performance Analytics</h4>
+                    <h4 class="text-xl font-bold text-slate-900 mb-3">Progress & Weak Areas</h4>
                     <p class="text-slate-600 text-sm leading-relaxed">
-                        Pinpoint your weak client needs categories (Pharmacology, Physiological Adaptation, Safety) and track your mastery level.
+                        Use completed-exam performance and Client Needs insights to recognize strengths, identify topics that need more practice, and guide your next study session.
                     </p>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- FOUR EXAM MODES AND STUDY TOOLS -->
+    <section id="study-modes" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center space-y-3 mb-12"><p class="qr-section-eyebrow">Your preparation, your pace</p><h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Choose how you want to practice</h2><p class="text-slate-600">Switch between focused learning, timed sessions, adaptive practice, and readiness assessment.</p></div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <article class="qr-mode-card"><div class="w-11 h-11 rounded-xl bg-cyan-50 text-cyan-700 grid place-items-center mb-4"><i class="fa-solid fa-book-open text-lg"></i></div><h3 class="font-extrabold text-slate-900 text-lg mb-2">Self Study</h3><p class="text-sm text-slate-600 leading-relaxed">Practice at your own pace, submit answers, and review feedback and rationales as you learn.</p></article>
+          <article class="qr-mode-card"><div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 grid place-items-center mb-4"><i class="fa-solid fa-stopwatch text-lg"></i></div><h3 class="font-extrabold text-slate-900 text-lg mb-2">Timed Practice</h3><p class="text-sm text-slate-600 leading-relaxed">Build pacing and test stamina with timed question sets and an exam-style workflow.</p></article>
+          <article class="qr-mode-card"><div class="w-11 h-11 rounded-xl bg-violet-50 text-violet-700 grid place-items-center mb-4"><i class="fa-solid fa-chart-line text-lg"></i></div><h3 class="font-extrabold text-slate-900 text-lg mb-2">CAT Exam</h3><p class="text-sm text-slate-600 leading-relaxed">Experience adaptive testing designed to adjust question difficulty as your session progresses.</p></article>
+          <article class="qr-mode-card"><div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 grid place-items-center mb-4"><i class="fa-solid fa-clipboard-check text-lg"></i></div><h3 class="font-extrabold text-slate-900 text-lg mb-2">NCLEX Predictor</h3><p class="text-sm text-slate-600 leading-relaxed">Take a structured readiness assessment and review performance after completing your exam.</p></article>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5 mt-6">
+          <article class="rounded-2xl bg-slate-50 border border-slate-200 p-6"><div class="flex items-center gap-3 mb-3"><i class="fa-solid fa-graduation-cap text-cyan-700"></i><h3 class="font-bold text-slate-900">Learning Center</h3></div><p class="text-sm text-slate-600 leading-relaxed">Browse NCLEX Client Needs, body systems, and clinical topics with curated learning videos and study notes.</p></article>
+          <article class="rounded-2xl bg-slate-50 border border-slate-200 p-6"><div class="flex items-center gap-3 mb-3"><i class="fa-solid fa-calendar-days text-cyan-700"></i><h3 class="font-bold text-slate-900">Study Calendar</h3></div><p class="text-sm text-slate-600 leading-relaxed">Organize study activities and keep your exam preparation schedule in one place.</p></article>
+          <article class="rounded-2xl bg-slate-50 border border-slate-200 p-6"><div class="flex items-center gap-3 mb-3"><i class="fa-solid fa-bookmark text-cyan-700"></i><h3 class="font-bold text-slate-900">Saved Questions & Reports</h3></div><p class="text-sm text-slate-600 leading-relaxed">Bookmark questions for later review and revisit completed-exam performance and learning priorities.</p></article>
+        </div>
+      </div>
     </section>
 
     <!-- INTERACTIVE NGN TEST SIMULATOR DEMO -->
@@ -309,10 +329,7 @@
     <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-xl bg-medical-600 text-white flex items-center justify-center font-bold">
-                    <i class="fa-solid fa-stethoscope text-sm"></i>
-                </div>
-                <span class="text-white font-bold tracking-tight text-lg">Quick<span class="text-medical-500">RN</span></span>
+                <span class="qr-footer-logo" aria-hidden="true"><svg viewBox="0 0 48 48"><rect x="1" y="1" width="46" height="46" rx="13" fill="#00A8CC"/><path d="M13 13h11.5a10.5 10.5 0 0 1 0 21H13V13Zm7 6v9h4.5a4.5 4.5 0 0 0 0-9H20Z" fill="#fff"/><path d="M29 27.5 37 36h-8l-5-5.5" fill="#8DE8F6"/></svg></span><span class="text-white font-bold tracking-tight text-lg">Quick<span class="text-cyan-300">RN</span></span>
             </div>
             <p class="text-xs text-slate-500 text-center">
                 &copy; 2026 QuickRN. Educational NCLEX-RN preparation platform. All rights reserved.
