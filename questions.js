@@ -1,7 +1,19 @@
-/* QuickRN consolidated canonical question bank.
- * 664 base and archived rebuild items are included here (QR-000001–QR-000664).
- * Additional NGN/v2/curated batches are loaded by their existing script tags.
- * Structural validation passed; clinical educator review remains pending for rebuild batches.
+/* QuickRN production question bank — COUNT OF RECORDS.
+ * TOTAL: 3,969 UNIQUE PRODUCTION QUESTIONS across the complete set of bank modules
+ * loaded by Self Study, Timed Practice, CAT, and NCLEX Predictor.
+ *
+ * THIS FILE (questions.js): 665 base records:
+ *   - 664 sequential records: QR-000001 through QR-000664
+ *   - 1 additional base record: QR-002150
+ * OTHER BANK MODULES: 3,304 additional unique records.
+ *
+ * The 3,969 figure is the de-duplicated production-bank total, NOT the number of
+ * records physically stored in this file. Keep the manifest below in sync whenever
+ * bank modules or unique question records are added, removed, or consolidated.
+ *
+ * Structural/schema validation and clinical educator approval are separate statuses.
+ * Do not interpret inclusion in this count as educator approval; pending reviews
+ * remain pending until an authorized educator records an explicit decision.
  */
 (function(root){
  'use strict';
