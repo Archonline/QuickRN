@@ -469,3 +469,72 @@ body:not([data-exam-mode]) aside.qr-sidebar nav a i{
 @media(max-width:767px){
   body:not([data-exam-mode]) header{height:64px!important;min-height:64px!important;flex-basis:64px}
 }
+
+
+/* Header height is matched to the 84px QuickRN sidebar brand block.
+   This deliberately overrides page-specific h-16 / py-4 header sizing. */
+body header{
+  height:84px!important;
+  min-height:84px!important;
+  max-height:84px!important;
+  flex:0 0 84px!important;
+  box-sizing:border-box!important;
+  display:flex;
+  align-items:center;
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+body header>div:first-child{
+  min-height:0;
+}
+@media(max-width:767px){
+  body header{
+    height:84px!important;
+    min-height:84px!important;
+    max-height:84px!important;
+    flex-basis:84px!important;
+  }
+}
+/* Shared support-page shell: same sidebar placement and workspace geometry. */
+#app-shell.support-shell{
+  display:flex;
+  width:100%;
+  height:100vh;
+  min-height:100vh;
+  overflow:hidden;
+}
+#app-shell.support-shell>.support-workspace{
+  display:flex;
+  flex:1 1 auto;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+}
+.support-workspace>header{
+  flex:0 0 84px;
+  height:84px;
+  min-height:84px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:0 24px;
+  box-sizing:border-box;
+  background:#16324f;
+  color:#fff;
+  border-bottom:1px solid #294b62;
+}
+.support-workspace>header :is(h1,h2,h3,p,span,strong,a,i,button){color:inherit}
+.support-header-title{display:flex;align-items:center;gap:12px;min-width:0}
+.support-header-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#087f8c;color:#fff}
+.support-header-title .eyebrow{margin:0 0 3px;color:#b9d2df;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.support-header-title h1{margin:0;color:#fff;font-size:20px;font-weight:800;line-height:1.25;letter-spacing:-.025em}
+.support-header-link{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.25);border-radius:10px;color:#fff;text-decoration:none;font-size:12px;font-weight:700}
+.support-header-link:hover{background:rgba(255,255,255,.1)}
+.support-workspace>main{flex:1 1 auto;min-height:0;overflow-y:auto;box-sizing:border-box;width:100%;margin:0}
+@media(max-width:767px){
+  .support-workspace>header{padding:0 15px}
+  #app-shell.support-shell{height:100vh;min-height:100vh}
+  #app-shell.support-shell>.support-workspace{min-height:0}
+}
