@@ -157,6 +157,8 @@ let topic='',recognition=null,currentVideoUrl='';
 const VIDEO_ID_CATALOG={
   simplenursing:{
     'Congenital heart defects':'sqk9ZuYLEDE',
+    'Pediatric heart failure':'sqk9ZuYLEDE',
+    'Tetralogy of Fallot':'85pGbcapTdc',
     'Heart failure':'r5W1ns5C1ik',
     'Hypertension and hypertensive crisis':'4T3kgM-8nNI',
     'ACE inhibitors and ARBs':'VtjIUnpKUI0',
@@ -167,6 +169,7 @@ const VIDEO_ID_CATALOG={
     'Pediatric vital signs and assessment':'CTcZf6jklXE',
     'Dysrhythmias and ECG interpretation':'AsWSicdwGLk',
     'Asthma management':'lPOtUH-A-yQ',
+    'Asthma and status asthmaticus':'lPOtUH-A-yQ',
     'COPD exacerbation':'PYatQP1350c',
     'Electrolyte imbalances':'T_pCeQkpNX8',
   },
