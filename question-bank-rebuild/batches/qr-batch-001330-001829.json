@@ -1,0 +1,374 @@
+{
+  "batch": 11,
+  "range": "QR-001330–QR-001339",
+  "count": 10,
+  "questionTypes": [
+    "Single Choice",
+    "Multiple Response",
+    "Select N",
+    "Matrix Single",
+    "Matrix Multiple",
+    "Cloze (Drop-down)",
+    "Bowtie",
+    "Highlight",
+    "Numeric Entry",
+    "Trend"
+  ],
+  "validation": {
+    "exactCount": true,
+    "uniqueIds": true,
+    "requiredFields": true,
+    "formatCoverage": "partial batch; full 13-format coverage to be assessed across 500-item batch",
+    "clinicalReview": "required before release",
+    "rendererIntegration": "pending"
+  },
+  "items": [
+    {
+      "id": "QR-001330",
+      "type": "Single Choice",
+      "category": "Adult Health",
+      "topic": "Acute exacerbation of COPD",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "A 68-year-old client with COPD is increasingly drowsy. Respiratory rate is 8/min, SpO₂ is 86% on prescribed oxygen at 2 L/min, and the client is difficult to arouse. Which action should the nurse take first?",
+      "patientInfo": {
+        "age": "68-year-old adult",
+        "history": "Severe COPD; uses long-term oxygen at 2 L/min."
+      },
+      "ehr": {
+        "vitalSigns": "RR 8/min; SpO₂ 86%; HR 112/min.",
+        "assessment": "New drowsiness and shallow respirations."
+      },
+      "options": [
+        "Activate rapid response and support airway and ventilation.",
+        "Increase oxygen to 15 L/min by nonrebreather and leave the client unattended.",
+        "Administer a sedative to reduce respiratory effort.",
+        "Encourage oral fluids and reassess in 1 hour."
+      ],
+      "correctAnswer": "Activate rapid response and support airway and ventilation.",
+      "rationale": "Bradypnea and declining consciousness indicate impending ventilatory failure, not simply chronic hypoxemia. Immediate emergency assessment and ventilatory support take priority; oxygen delivery should be titrated while avoiding delay in escalation."
+    },
+    {
+      "id": "QR-001331",
+      "type": "Multiple Response",
+      "category": "Maternal Newborn",
+      "topic": "Severe preeclampsia",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "A client at 35 weeks gestation is admitted with severe preeclampsia. Which findings require immediate escalation? Select all that apply.",
+      "patientInfo": {
+        "age": "30-year-old pregnant client at 35 weeks gestation",
+        "history": "New diagnosis of preeclampsia with severe features."
+      },
+      "ehr": {
+        "vitalSigns": "BP 168/112 mm Hg; HR 96/min.",
+        "assessment": "Persistent severe headache, visual spots, and right upper-quadrant pain."
+      },
+      "options": [
+        "Persistent severe headache.",
+        "Visual disturbances.",
+        "Right upper-quadrant or epigastric pain.",
+        "Mild dependent ankle edema at the end of the day.",
+        "New clonus or seizure activity."
+      ],
+      "correctAnswers": [
+        "Persistent severe headache.",
+        "Visual disturbances.",
+        "Right upper-quadrant or epigastric pain.",
+        "New clonus or seizure activity."
+      ],
+      "rationale": "Neurologic symptoms, visual changes, epigastric or right upper-quadrant pain, and clonus suggest severe disease and risk of eclampsia or HELLP syndrome. Mild dependent edema alone is nonspecific."
+    },
+    {
+      "id": "QR-001332",
+      "type": "Select N",
+      "category": "Pediatrics",
+      "topic": "Pediatric epiglottitis",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "selectN": 3,
+      "title": "A 4-year-old arrives sitting upright, drooling, febrile, and leaning forward with inspiratory stridor. Which three nursing actions are appropriate?",
+      "patientInfo": {
+        "age": "4-year-old child",
+        "history": "Previously healthy; abrupt onset of fever, sore throat, and difficulty swallowing."
+      },
+      "ehr": {
+        "vitalSigns": "T 39.4 °C; HR 148/min; RR 34/min; SpO₂ 92%.",
+        "assessment": "Drooling, muffled voice, tripod positioning, inspiratory stridor."
+      },
+      "options": [
+        "Keep the child calm and in the position of comfort.",
+        "Notify the airway team and prepare for controlled airway management.",
+        "Avoid examining the throat with a tongue depressor.",
+        "Lay the child supine for a complete oral examination.",
+        "Obtain a throat swab before airway assessment."
+      ],
+      "correctAnswers": [
+        "Keep the child calm and in the position of comfort.",
+        "Notify the airway team and prepare for controlled airway management.",
+        "Avoid examining the throat with a tongue depressor."
+      ],
+      "rationale": "The presentation is concerning for epiglottitis with risk of complete airway obstruction. Minimize agitation, avoid pharyngeal manipulation, and obtain expert airway support. Diagnostic procedures must not precipitate obstruction."
+    },
+    {
+      "id": "QR-001333",
+      "type": "Matrix Single",
+      "category": "Pharmacology",
+      "topic": "Insulin onset and peak",
+      "clientNeed": "Pharmacological and Parenteral Therapies",
+      "difficulty": "Moderate",
+      "title": "Match each insulin preparation with its usual clinical profile.",
+      "patientInfo": {
+        "history": "The nurse is reviewing insulin administration with a client newly prescribed basal-bolus therapy."
+      },
+      "rows": [
+        {
+          "id": "lispro",
+          "text": "Insulin lispro"
+        },
+        {
+          "id": "regular",
+          "text": "Regular insulin"
+        },
+        {
+          "id": "glargine",
+          "text": "Insulin glargine"
+        }
+      ],
+      "columns": [
+        "Rapid-acting; administer with meals",
+        "Short-acting; may be given IV in selected protocols",
+        "Long-acting basal insulin with no pronounced peak"
+      ],
+      "correctAnswers": {
+        "lispro": "Rapid-acting; administer with meals",
+        "regular": "Short-acting; may be given IV in selected protocols",
+        "glargine": "Long-acting basal insulin with no pronounced peak"
+      },
+      "rationale": "Lispro is rapid acting and is coordinated with meals. Regular insulin is short acting and is the insulin commonly used IV for DKA protocols. Glargine provides basal coverage and should not be mixed in the same syringe with other insulins."
+    },
+    {
+      "id": "QR-001334",
+      "type": "Matrix Multiple",
+      "category": "Adult Health",
+      "topic": "Acute pancreatitis complications",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "For each assessment finding in a client with acute pancreatitis, select all complications it may indicate.",
+      "patientInfo": {
+        "age": "52-year-old adult",
+        "history": "Admitted with acute pancreatitis related to gallstones."
+      },
+      "ehr": {
+        "vitalSigns": "HR 124/min; BP 88/54 mm Hg; RR 28/min.",
+        "labs": "Lipase markedly elevated; hematocrit rising.",
+        "assessment": "New crackles, increasing abdominal distention, and reduced urine output."
+      },
+      "rows": [
+        {
+          "id": "shock",
+          "text": "Hypotension and tachycardia"
+        },
+        {
+          "id": "lung",
+          "text": "New crackles and increasing oxygen requirement"
+        },
+        {
+          "id": "renal",
+          "text": "Urine output 15 mL/hr"
+        }
+      ],
+      "columns": [
+        "Intravascular volume depletion or shock",
+        "Pulmonary complication or respiratory failure",
+        "Renal hypoperfusion or acute kidney injury",
+        "Expected uncomplicated recovery"
+      ],
+      "correctAnswers": {
+        "shock": [
+          "Intravascular volume depletion or shock"
+        ],
+        "lung": [
+          "Pulmonary complication or respiratory failure"
+        ],
+        "renal": [
+          "Renal hypoperfusion or acute kidney injury"
+        ]
+      },
+      "rationale": "Severe pancreatitis can cause third spacing, systemic inflammation, respiratory complications, and renal hypoperfusion. These findings require prompt escalation and reassessment rather than being considered expected recovery."
+    },
+    {
+      "id": "QR-001335",
+      "type": "Cloze (Drop-down)",
+      "category": "Adult Health",
+      "topic": "Hyperkalemia with ECG changes",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "A client with kidney failure has potassium 6.8 mEq/L and peaked T waves. Complete the priority plan.",
+      "patientInfo": {
+        "age": "71-year-old adult",
+        "history": "End-stage kidney disease; missed a scheduled dialysis session."
+      },
+      "ehr": {
+        "vitalSigns": "HR 52/min; BP 104/62 mm Hg.",
+        "labs": "Potassium 6.8 mEq/L; peaked T waves on ECG."
+      },
+      "clozeTemplate": "The immediate priority is to {{priority}}. The nurse should anticipate {{therapy}} and continuous {{monitor}}.",
+      "dropdowns": [
+        {
+          "id": "priority",
+          "options": [
+            "place the client on cardiac monitoring and notify the emergency response/provider",
+            "offer a high-potassium snack",
+            "recheck potassium at the next routine appointment"
+          ],
+          "correct": "place the client on cardiac monitoring and notify the emergency response/provider"
+        },
+        {
+          "id": "therapy",
+          "options": [
+            "IV calcium to stabilize the myocardium, followed by potassium-shifting/removal measures as prescribed",
+            "oral potassium replacement",
+            "a loop diuretic without assessing volume status"
+          ],
+          "correct": "IV calcium to stabilize the myocardium, followed by potassium-shifting/removal measures as prescribed"
+        },
+        {
+          "id": "monitor",
+          "options": [
+            "ECG rhythm and repeat potassium",
+            "visual acuity only",
+            "daily weight only"
+          ],
+          "correct": "ECG rhythm and repeat potassium"
+        }
+      ],
+      "correctAnswers": {
+        "priority": "place the client on cardiac monitoring and notify the emergency response/provider",
+        "therapy": "IV calcium to stabilize the myocardium, followed by potassium-shifting/removal measures as prescribed",
+        "monitor": "ECG rhythm and repeat potassium"
+      },
+      "rationale": "Severe hyperkalemia with ECG changes is life-threatening. Cardiac monitoring and urgent escalation are essential. IV calcium stabilizes cardiac membranes but does not lower potassium; additional prescribed therapies shift potassium intracellularly or remove it, with repeat laboratory and ECG assessment."
+    },
+    {
+      "id": "QR-001336",
+      "type": "Bowtie",
+      "category": "Adult Health",
+      "topic": "Anaphylaxis",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "Minutes after receiving an IV antibiotic, a client develops generalized urticaria, wheezing, facial swelling, and BP 76/40 mm Hg. Complete the bowtie.",
+      "patientInfo": {
+        "age": "44-year-old adult",
+        "history": "Receiving first dose of a prescribed IV antibiotic."
+      },
+      "ehr": {
+        "vitalSigns": "BP 76/40 mm Hg; HR 138/min; RR 30/min; SpO₂ 88%.",
+        "assessment": "Urticaria, wheezing, facial and tongue swelling."
+      },
+      "bowtieData": {
+        "conditions": [
+          "Anaphylaxis with airway and circulatory compromise",
+          "Mild localized infusion irritation",
+          "Vasovagal episode without airway involvement"
+        ],
+        "actions": [
+          "Stop the triggering infusion and summon emergency assistance",
+          "Administer IM epinephrine promptly per emergency protocol and support airway/oxygenation",
+          "Continue the antibiotic at a slower rate",
+          "Offer oral fluids and observe"
+        ],
+        "monitoring": [
+          "Airway patency, respiratory effort, and oxygenation",
+          "Blood pressure, heart rate, and response to epinephrine",
+          "Bowel sounds only",
+          "Urine color only"
+        ]
+      },
+      "correctAnswers": {
+        "condition": "Anaphylaxis with airway and circulatory compromise",
+        "actions": [
+          "Stop the triggering infusion and summon emergency assistance",
+          "Administer IM epinephrine promptly per emergency protocol and support airway/oxygenation"
+        ],
+        "monitoring": [
+          "Airway patency, respiratory effort, and oxygenation",
+          "Blood pressure, heart rate, and response to epinephrine"
+        ]
+      },
+      "rationale": "Rapid-onset skin, airway, and circulatory findings after medication exposure indicate anaphylaxis. IM epinephrine is first-line; stop the trigger, call emergency support, and continuously reassess airway, breathing, and circulation."
+    },
+    {
+      "id": "QR-001337",
+      "type": "Highlight",
+      "category": "Adult Health",
+      "topic": "Acute upper gastrointestinal bleeding",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "A client reports black stools and coffee-ground emesis. Highlight the findings that indicate hemodynamic compromise: BP 86/50 mm Hg; HR 128/min; cool clammy skin; capillary refill 4 seconds; hemoglobin 8.1 g/dL; chronic heartburn for 5 years.",
+      "patientInfo": {
+        "age": "63-year-old adult",
+        "history": "History of peptic ulcer disease and intermittent NSAID use."
+      },
+      "ehr": {
+        "vitalSigns": "BP 86/50 mm Hg; HR 128/min.",
+        "assessment": "Melena, coffee-ground emesis, cool clammy skin, capillary refill 4 seconds.",
+        "labs": "Hemoglobin 8.1 g/dL."
+      },
+      "highlightSegments": [
+        "BP 86/50 mm Hg",
+        "HR 128/min",
+        "cool clammy skin",
+        "capillary refill 4 seconds",
+        "hemoglobin 8.1 g/dL",
+        "chronic heartburn for 5 years"
+      ],
+      "correctHighlights": [
+        "BP 86/50 mm Hg",
+        "HR 128/min",
+        "cool clammy skin",
+        "capillary refill 4 seconds",
+        "hemoglobin 8.1 g/dL"
+      ],
+      "rationale": "Hypotension, tachycardia, cool clammy skin, delayed capillary refill, and low hemoglobin in the setting of gastrointestinal bleeding suggest significant blood loss and impaired perfusion. Chronic heartburn is relevant history but does not establish current hemodynamic compromise."
+    },
+    {
+      "id": "QR-001338",
+      "type": "Numeric Entry",
+      "category": "Pharmacology",
+      "topic": "Weight-based medication calculation",
+      "clientNeed": "Pharmacological and Parenteral Therapies",
+      "difficulty": "Moderate",
+      "title": "A child weighs 18 kg. The prescription is 10 mg/kg of a medication. The oral solution contains 120 mg per 5 mL. How many mL should be administered for one dose? Round to the nearest tenth.",
+      "patientInfo": {
+        "age": "6-year-old child",
+        "history": "Weight verified at 18 kg; medication prescribed as a single oral dose."
+      },
+      "ehr": {
+        "medication": "Prescribed dose 10 mg/kg; concentration 120 mg/5 mL."
+      },
+      "correctNumericAnswer": 7.5,
+      "tolerance": 0.1,
+      "unit": "mL",
+      "rationale": "Required dose: 18 kg × 10 mg/kg = 180 mg. Concentration: 120 mg ÷ 5 mL = 24 mg/mL. Volume: 180 mg ÷ 24 mg/mL = 7.5 mL. Verify the medication, weight, dose range, and measuring device before administration."
+    },
+    {
+      "id": "QR-001339",
+      "type": "Trend",
+      "category": "Adult Health",
+      "topic": "Acute coronary syndrome",
+      "clientNeed": "Physiological Adaptation",
+      "difficulty": "High",
+      "title": "A client being evaluated for chest pain has the following trend: 0900 pain 3/10, HR 88/min, BP 132/78 mm Hg; 0915 pain 7/10, HR 108/min, BP 148/86 mm Hg; 0930 pain 8/10 with diaphoresis and new ST-segment elevation. What is the priority interpretation and response?",
+      "patientInfo": {
+        "age": "59-year-old adult",
+        "history": "Hypertension and tobacco use; chest discomfort began 45 minutes ago."
+      },
+      "ehr": {
+        "trend": "0900: pain 3/10, HR 88, BP 132/78. 0915: pain 7/10, HR 108, BP 148/86. 0930: pain 8/10, diaphoresis, new ST elevation."
+      },
+      "correctAnswer": "The client may be experiencing an acute ST-elevation myocardial infarction; activate the STEMI/emergency pathway immediately and prepare for urgent reperfusion evaluation.",
+      "rationale": "Worsening ischemic chest pain with diaphoresis and new ST elevation is a time-critical STEMI pattern. Activate the emergency pathway, obtain/continue ECG monitoring, establish access, and prepare for urgent reperfusion; do not delay escalation for routine reassessment."
+    }
+  ]
+}
