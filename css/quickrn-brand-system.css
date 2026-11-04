@@ -538,3 +538,12 @@ body header>div:first-child{
   #app-shell.support-shell{height:100vh;min-height:100vh}
   #app-shell.support-shell>.support-workspace{min-height:0}
 }
+
+/* Keep the support shell aligned beside the fixed shared sidebar. */
+#app-shell.support-shell.qr-sidebar-shell{
+  width:calc(100% - var(--qr-sidebar-width));
+  margin-left:var(--qr-sidebar-width);
+}
+@media(max-width:767px){
+  #app-shell.support-shell.qr-sidebar-shell{width:100%;margin-left:0}
+}
