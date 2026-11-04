@@ -24,7 +24,7 @@
   const toggle=document.createElement('button');
   toggle.type='button'; toggle.className='qr-sidebar-toggle'; toggle.setAttribute('aria-label','Collapse sidebar'); toggle.setAttribute('aria-pressed','false'); toggle.title='Collapse sidebar';
   toggle.innerHTML='<i class="fa-solid fa-eye-slash" aria-hidden="true"></i>';
-  brand.appendChild(toggle);
+  aside.appendChild(toggle);
   let collapsed=false;
   try{collapsed=localStorage.getItem('quickrn-main-sidebar-collapsed')==='true'||localStorage.getItem('quickrn-main-sidebar-autohide')==='true';}catch(_e){}
   const applySidebarState=(isCollapsed)=>{
