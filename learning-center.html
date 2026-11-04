@@ -32,7 +32,15 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 #player-shell{display:block;width:100%;height:auto;min-height:0;aspect-ratio:16/9}
 #player-shell>div{width:100%;height:100%;min-height:0}
 .learning-notes-card{display:flex;flex-direction:column}
-.learning-notes-card textarea{flex:1;min-height:340px;resize:vertical}
+.learning-notes-card #topic-notes{flex:1;min-height:340px;resize:vertical;overflow:auto;color:#000;background:#fff;white-space:pre-wrap;overflow-wrap:anywhere;outline:none}
+.learning-notes-card #topic-notes:empty:before{content:attr(data-placeholder);color:#64748b;pointer-events:none}
+.notes-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.notes-format-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:36px;padding:8px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#111827;font-size:12px;font-weight:800}
+.notes-format-button:hover,.notes-format-button:focus-visible{background:#f1f5f9;border-color:#64748b}
+.notes-format-button[aria-label="Highlight"]{background:#fef08a;border-color:#eab308}
+.notes-format-button[aria-label="Bold"]{font-weight:900}
+.notes-format-button[aria-label="Underline"]{text-decoration:underline}
+
 .learning-browse{margin-top:14px}.is-active-topic{border-color:#087f8c!important;background:#eef8f9!important;color:#087f8c!important}
 
 .lesson-link{display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid #d9dde4;border-radius:10px;background:#fff;font-size:12px;color:#4a4a4a}
@@ -89,7 +97,12 @@ body{min-height:100%;font-family:Inter,system-ui,sans-serif;background:#f8fafc;c
 <p class="text-xs text-slate-500">Write key findings, assessment cues, interventions, medications, and NCLEX reminders. Notes are saved in this browser.</p>
 <div class="flex flex-wrap items-center gap-2"><button id="save-notes" class="rounded-lg px-4 py-2 text-xs font-bold text-white" style="background:#6C4B9F"><i class="fa-solid fa-floppy-disk mr-1"></i>Save notes</button><button id="voice-notes" class="rounded-lg border px-4 py-2 text-xs font-bold text-slate-700"><i class="fa-solid fa-microphone mr-1"></i>Dictate notes</button></div>
 <p id="voice-status" class="text-xs text-slate-500" role="status">Voice dictation uses your browser's speech-recognition support. It is transcription, not an AI clinical documentation service.</p>
-<textarea id="topic-notes" rows="18" class="w-full rounded-xl border p-4 text-sm leading-6" placeholder="Start typing your notes here..."></textarea>
+<div class="notes-toolbar" role="toolbar" aria-label="Note formatting">
+<button type="button" class="notes-format-button" data-note-format="bold" aria-label="Bold" title="Bold"><i class="fa-solid fa-bold"></i></button>
+<button type="button" class="notes-format-button" data-note-format="underline" aria-label="Underline" title="Underline"><i class="fa-solid fa-underline"></i></button>
+<button type="button" class="notes-format-button" data-note-format="highlight" aria-label="Highlight" title="Highlight selected text"><i class="fa-solid fa-highlighter"></i> Highlight</button>
+</div>
+<div id="topic-notes" class="w-full rounded-xl border p-4 text-sm leading-6" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Start typing your notes here..."></div>
 </aside>
 </div>
 
