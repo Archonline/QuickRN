@@ -185,7 +185,9 @@ const VIDEO_ID_CATALOG={
     'Medication administration rights':'TqVrR69Swr0',
     'Immunization schedule and safety':'piO71GcUa1s',
     'Increased intracranial pressure':'2_uXDgUSH0k',
-    'Cirrhosis and hepatic encephalopathy':'Shx-hmyLdXA'
+    'Cirrhosis and hepatic encephalopathy':'Shx-hmyLdXA',
+    'Cystic fibrosis nursing care':'FugzsYln-8E',
+    'Meningitis in children':'MUtoTIro8fU'
   },
   picmonicvideo:{
     'Heart failure':'4NjmXFBvxxk',
