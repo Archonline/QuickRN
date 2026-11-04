@@ -1,7 +1,6 @@
 (function(){
   'use strict';
   const KEY='quickrn_question_reports';
-  const ISSUE_URL='https://github.com/Archonline/QuickRN/issues/new';
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function read(){try{const v=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(v)?v:[];}catch(_){return [];}}
   function snapshot(q){
@@ -27,7 +26,9 @@
       const reports=read();reports.push(report);
       try{localStorage.setItem(KEY,JSON.stringify(reports));}
       catch(err){alert('Could not save this report. Export your browser data or free storage space, then try again.');return;}
-      overlay.innerHTML='<div class="qr-report-modal"><h3>Report saved on this device</h3><p style="font-size:13px;color:#475569">It is queued locally and has not been sent to the QuickRN team. Export the report now or use the dashboard backup to preserve it.</p><div><button type="button" data-download>Download report</button><button type="button" data-done>Done</button></div></div>';
+      const issueBody=['Please review this question report.','','**Mode:** '+report.mode,'**Page:** '+report.page,'**Question ID:** '+(report.question?.id||'Not available'),'**Category / topic:** '+[report.question?.category,report.question?.topic].filter(Boolean).join(' / '),'**Question type:** '+(report.question?.type||'Not specified'),'**Problem:** '+report.reason,'**Details:** '+report.details,'','**Question snapshot:**',report.question?.prompt||'Not available','','**Reported at:** '+report.reportedAt].join('\\n');
+      if(window.QuickRNReport) window.QuickRNReport.openIssue('Question Report',report.question?.id||report.reason,issueBody);
+      overlay.innerHTML='<div class="qr-report-modal"><h3>Report prepared for submission</h3><p style="font-size:13px;color:#475569">A prefilled GitHub issue has opened in a new tab. Review the details and press <strong>Submit new issue</strong> there to send it to the QuickRN team. A local backup is also saved on this device.</p><div><button type="button" data-download>Download report</button><button type="button" data-done>Done</button></div></div>';
       overlay.querySelector('[data-download]').addEventListener('click',()=>downloadReport(report));
       overlay.querySelector('[data-done]').addEventListener('click',()=>overlay.remove());
     });
