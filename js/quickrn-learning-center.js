@@ -1563,7 +1563,7 @@ function renderProviderButtons(){
 }
 function buildVideoReportUrl(topicText,provider,videoUrl){
   const title='Learning Center video unavailable: '+topicText+' ('+provider.label+')';
-  const body=['Please review this Learning Center video mapping.','','**Topic:** '+topicText,'**Channel:** '+provider.label,'**Video URL / ID:** '+(videoUrl||'No video currently mapped'),'**Report type:** Unavailable, broken, incorrect, or cannot be embedded','','Please verify the video and remap this topic if a suitable replacement is available.'].join('\\n');
+  const body=['Please review this Learning Center video mapping.','','**Topic:** '+topicText,'**Channel:** '+provider.label,'**Video URL / ID:** '+(videoUrl||'No video currently mapped'),'**Report type:** Unavailable, broken, incorrect, or cannot be embedded','','Please verify the video and remap this topic if a suitable replacement is available.'].join('\n');
   return window.QuickRNReport?window.QuickRNReport.buildUrl('Video Report',title,body):'https://github.com/Archonline/QuickRN/issues/new?title='+encodeURIComponent('[Video Report] '+title)+'&body='+encodeURIComponent(body);
 }
 function videoReportLink(topicText,provider,videoUrl){
