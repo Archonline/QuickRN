@@ -10,13 +10,13 @@ The audit mirrors the question-source scripts loaded by the four production exam
 - Records passing the complete v2 contract: 0
 - Records requiring migration/completion: 3,969
 - Duplicate IDs in the loaded page bank: 0
-- Total field-level issues: 22,016
+- Total field-level issues after safe label canonicalization: 17,774
 
 | Issue | Affected records |
 |---|---:|
 | Missing Client Needs classification | 1,033 |
-| Missing/invalid CJMM stage | 3,969 |
-| Missing/invalid difficulty (1–5) | 3,969 |
+| Missing/invalid CJMM stage | 3,263 |
+| Missing/invalid difficulty (1–5) | 433 |
 | Missing/invalid scoring method | 3,969 |
 | Missing option/response-specific rationales | 3,969 |
 | Missing Clinical Judgment Tip | 3,969 |
@@ -47,4 +47,9 @@ The earlier 3,305-record audit had a validator bootstrap defect: `questions.js` 
 
 The base `questions.js` contains 665 records: 664 canonical IDs in the range `QR-000001`–`QR-000664`, plus `QR-002150`. NGN expansion batch 004 also contains `QR-002150`; the loader de-duplicates that shared ID, so the base-bank addition contributes exactly 664 additional unique IDs. This reconciles the gap exactly: 3,305 + 664 = 3,969 unique production records, with zero duplicate IDs in the corrected loaded bank.
 
-The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c96634759205ce3c`. The corrected strict CI audit now reports 3,969 unique records, zero valid records, 22,016 field-level issues, 433 answer-key mismatches (not 50), 206 incomplete linked-case stimuli, and 1,033 missing Client Needs classifications. The original 50 mismatches were the partial-bank count; 383 more appear when the previously omitted base bank is included. The validator now emits a complete issue register, all answer-key mismatch IDs, all incomplete linked-case IDs, and duplicate-ID details.
+The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c96634759205ce3c`. The corrected strict CI audit reports 3,969 unique records, zero valid records, and 17,774 field-level issues after canonicalizing supported difficulty labels and known CJMM aliases. Remaining issues include 3,263 missing/invalid CJMM stages, 433 missing/invalid difficulty values, 3,969 missing scoring methods, 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 433 answer-key mismatches (not 50), 206 incomplete linked-case stimuli, 1,033 missing Client Needs classifications, and 499 missing overall rationales. The original 50 mismatches were the partial-bank count; 383 more appear when the previously omitted base bank is included. The validator now emits a complete issue register, all answer-key mismatch IDs, all incomplete linked-case IDs, and duplicate-ID details.
+
+
+## Safe metadata migration applied
+
+The canonical adapter now converts only explicit legacy difficulty labels (`Easy`/`Low`/`Basic` → 1; `Moderate`/`Medium`/`Intermediate` → 3; `Hard`/`High`/`Advanced`/`Very hard` → 5), retaining the original label in `metadata.difficultyLabel`. It also canonicalizes recognized CJMM spelling/case aliases without assigning a stage where no stage exists. Unit tests cover this mapping. The next CI audit reduced invalid difficulty records from 3,969 to 433 and invalid CJMM records from 3,969 to 3,263; no guessed clinical metadata was inserted.
