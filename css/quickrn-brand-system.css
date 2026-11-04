@@ -352,3 +352,24 @@ body:not([data-exam-mode]) header :is(a,button){
 body:not([data-exam-mode]) header :is(a,button):hover{
   background-color:rgba(255,255,255,.1);
 }
+
+/* Collapsible site-wide navigation sidebar */
+.qr-sidebar-brand{position:relative;padding-right:54px}
+.qr-sidebar-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:32px;height:32px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:rgba(255,255,255,.08);color:#e5f2f7;cursor:pointer;transition:background .16s ease,color .16s ease}
+.qr-sidebar-toggle:hover{background:rgba(0,168,204,.25);color:#fff}
+.qr-sidebar-toggle:focus-visible{outline:2px solid #8de8f6;outline-offset:2px}
+@media(min-width:768px){
+ :root{--qr-sidebar-collapsed-width:68px}
+ body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:var(--qr-sidebar-collapsed-width)!important}
+ #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:calc(100% - var(--qr-sidebar-collapsed-width));margin-left:var(--qr-sidebar-collapsed-width)}
+ #quickrn-unified-sidebar.qr-sidebar{transition:width .2s ease}
+ body.qr-main-sidebar-collapsed #quickrn-unified-sidebar.qr-sidebar{width:var(--qr-sidebar-collapsed-width)}
+ body.qr-main-sidebar-collapsed .qr-sidebar-brand{justify-content:center;padding:14px 8px 54px;min-height:84px}
+ body.qr-main-sidebar-collapsed .qr-sidebar-wordmark,body.qr-main-sidebar-collapsed .qr-sidebar-group h2,body.qr-main-sidebar-collapsed .qr-sidebar-link span,body.qr-main-sidebar-collapsed .qr-sidebar-footer span{display:none}
+ body.qr-main-sidebar-collapsed .qr-sidebar-nav{padding:14px 8px}
+ body.qr-main-sidebar-collapsed .qr-sidebar-link{justify-content:center;padding:10px 8px;gap:0}
+ body.qr-main-sidebar-collapsed .qr-sidebar-link>i{width:20px;flex-basis:20px;font-size:16px}
+ body.qr-main-sidebar-collapsed .qr-sidebar-footer{justify-content:center;padding:15px 8px}
+ body.qr-main-sidebar-collapsed .qr-sidebar-toggle{right:50%;top:auto;bottom:9px;transform:translateX(50%)}
+}
+@media(max-width:767px){.qr-sidebar-toggle{display:none}}
