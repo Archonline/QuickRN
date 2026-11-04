@@ -8,6 +8,8 @@
  const first=(...xs)=>xs.find(v=>v!==undefined&&v!==null&&v!=='');
  const normalizeDifficulty=v=>{if(Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=5)return Number(v);const s=String(v??'').trim().toLowerCase();return ({easy:1,low:1,basic:1,moderate:3,medium:3,intermediate:3,hard:5,high:5,advanced:5,'very hard':5})[s]??v;};
  const normalizeCJMM=v=>{const s=String(v??'').trim().toLowerCase().replace(/[_-]+/g,' ').replace(/\s+/g,' ');const aliases={'recognize cues':'Recognize Cues','recognising cues':'Recognize Cues','recognizing cues':'Recognize Cues','analyze cues':'Analyze Cues','analyse cues':'Analyze Cues','prioritize hypotheses':'Prioritize Hypotheses','prioritise hypotheses':'Prioritize Hypotheses','generate solutions':'Generate Solutions','take action':'Take Action','evaluate outcomes':'Evaluate Outcomes'};return aliases[s]||v;};
+ function inferCJMM(q){const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase();if(/which finding|which cue|which assessment data|which observation|which symptom/.test(s))return 'Recognize Cues';if(/most likely (cause|condition|problem)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e/.test(s))return 'Analyze Cues';if(/priority (problem|hypothesis)|which client should|which problem is (most )?urgent|prioriti[sz]e/.test(s))return 'Prioritize Hypotheses';if(/plan of care|which interventions? should.*plan|which outcomes? should.*establish|develop.*plan/.test(s))return 'Generate Solutions';if(/which action|what should the nurse do|which intervention should.*implement|take first|administer/.test(s))return 'Take Action';if(/evaluate|response to (the )?intervention|indicates? improvement|effective|outcome/.test(s))return 'Evaluate Outcomes';return undefined;}
+ function inferScoring(type){return ['Multiple Response','Select N','Matrix Single','Matrix Multiple','Bowtie','Highlight','Cloze (Drop-down)','Dropdown Rationale','Extended Drag and Drop','Extended Multiple Response','Trend'].includes(type)?'plus_minus':'0/1';}
  const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
  const arr=v=>Array.isArray(v)?v:[];
  function detectFormat(q){
@@ -33,7 +35,7 @@
    id:first(oldMeta.id,q.id),
    category:first(oldMeta.category,q.category,q.subject),
    clientNeeds:first(oldMeta.clientNeeds,q.clientNeeds,q.clientNeed,q.client_needs),
-   cjmmStep:normalizeCJMM(first(oldMeta.cjmmStep,q.cjmmStep,q.clinicalJudgmentStep,q.cjmm_stage)),
+   cjmmStep:normalizeCJMM(first(oldMeta.cjmmStep,q.cjmmStep,q.clinicalJudgmentStep,q.cjmm_stage,inferCJMM(q))),
    difficulty:normalizeDifficulty(first(oldMeta.difficulty,q.difficulty,q.difficultyLevel,q.level)),
    difficultyLabel:first(oldMeta.difficultyLabel,q.difficulty,q.difficultyLevel,q.level)
   });
@@ -42,7 +44,7 @@
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
    caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyContext?.id),
-   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation),
+   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
    tabs:canonicalTabs
   });
   const interaction=Object.assign({},oldInteraction,{
@@ -51,12 +53,12 @@
    options:first(oldInteraction.options,q.options),
    answerKey:first(oldInteraction.answerKey,q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer,q.numericAnswer),
    scoring:Object.assign({},obj(oldInteraction.scoring),{
-    method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule)
+    method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule,inferScoring(first(oldInteraction.type,q.type,q.ngnType,detectFormat(q))))
    })
   });
   const rationales=Object.assign({},oldRationales,{
    overall:first(oldRationales.overall,q.rationale,q.generalRationale,q.explanation),
-   options:first(oldRationales.options,q.optionRationales,q.rationaleByOption,q.rationalesByOption),
+   options:first(oldRationales.options,q.optionRationales,q.rationaleByOption,q.rationalesByOption,Array.isArray(q.options)&&q.options.some(o=>o&&typeof o==='object'&&o.rationale)?Object.fromEntries(q.options.filter(o=>o&&typeof o==='object'&&o.rationale).map(o=>[first(o.id,o.value,o.text,o.label),o.rationale])):undefined),
    clinicalJudgmentTip:first(oldRationales.clinicalJudgmentTip,q.clinicalJudgmentTip,q.cjmmTip)
   });
   // Preserve every source field. Canonical blocks are additive; unknown legacy data is never discarded.
@@ -96,12 +98,12 @@
   if(!it.type||!FORMATS.includes(it.type))issue('V2_UNKNOWN_FORMAT','Interaction type must be one of the 13 supported formats.');
   if(!SCORING.includes(sc.method))issue('V2_INVALID_SCORING','Scoring method must be plus_minus, 0/1, or rationale.');
   if(!r.overall)issue('V2_MISSING_OVERALL_RATIONALE','Rationales require an overall clinical explanation.');
-  if(!r.options||typeof r.options!=='object')issue('V2_MISSING_OPTION_RATIONALES','Rationales require option/response-specific explanations.');
+  if(!r.options||typeof r.options!=='object'||!Object.keys(r.options).length||Object.values(r.options).some(v=>!v||typeof v!=='string'||!v.trim()))issue('V2_MISSING_OPTION_RATIONALES','Rationales require non-empty option/response-specific explanations.');
   if(!r.clinicalJudgmentTip)issue('V2_MISSING_CJ_TIP','Rationales require a Clinical Judgment Tip.');
   const key=it.answerKey,opts=it.options;
   if(['Single Choice','Multiple Response','Select N','Trend'].includes(it.type)&&(!Array.isArray(opts)||!opts.length))issue('V2_MISSING_OPTIONS','This format requires response options.');
   if(key===undefined||key===null||key===''||(Array.isArray(key)&&!key.length)||(typeof key==='object'&&!Array.isArray(key)&&!Object.keys(key).length))issue('V2_MISSING_ANSWER_KEY','Interaction requires a non-empty answer key.');
-  const optionValues=arr(opts).map(v=>typeof v==='object'?first(v.id,v.value,v.text,v.label):v).map(String);
+  const optionValues=arr(opts).flatMap(v=>typeof v==='object'&&v!==null?[v.id,v.value,v.text,v.label].filter(x=>x!==undefined&&x!==null).map(String):[String(v)]);
   const keyValues=Array.isArray(key)?key:(typeof key==='string'||typeof key==='number'?[key]:[]);
   if(['Single Choice','Multiple Response','Select N','Trend'].includes(it.type)&&keyValues.length&&optionValues.length&&keyValues.some(v=>!optionValues.includes(String(v))))issue('V2_ANSWER_KEY_NOT_IN_OPTIONS','Answer key contains a response not present in the option list.');
   if(it.type==='Select N'&&(!Number.isInteger(Number(q.selectN??q.numberToSelect??q.requiredSelections))||Number(q.selectN??q.numberToSelect??q.requiredSelections)<1||keyValues.length!==Number(q.selectN??q.numberToSelect??q.requiredSelections)))issue('V2_INVALID_SELECT_N','Select N requires a positive selection count matching the keyed responses.');
