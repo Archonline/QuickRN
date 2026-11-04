@@ -428,8 +428,7 @@ body:not([data-exam-mode]) header{
   align-items:center;
 }
 body:not([data-exam-mode]) #app-shell>aside,
-body:not([data-exam-mode]) aside.qr-sidebar,
-body:not([data-exam-mode]) #quickrn-unified-sidebar{
+body:not([data-exam-mode]) aside.qr-sidebar{
   width:256px;
   min-width:256px;
   box-sizing:border-box;
@@ -441,15 +440,13 @@ body:not([data-exam-mode]) aside.qr-sidebar{
   min-height:0;
 }
 body:not([data-exam-mode]) #app-shell>aside nav,
-body:not([data-exam-mode]) aside.qr-sidebar nav,
-body:not([data-exam-mode]) #quickrn-unified-sidebar nav{
+body:not([data-exam-mode]) aside.qr-sidebar nav{
   flex:1 1 auto;
   min-height:0;
   overflow-y:auto;
 }
 body:not([data-exam-mode]) #app-shell>aside nav a,
-body:not([data-exam-mode]) aside.qr-sidebar nav a,
-body:not([data-exam-mode]) #quickrn-unified-sidebar nav a{
+body:not([data-exam-mode]) aside.qr-sidebar nav a{
   min-height:40px;
   display:flex;
   align-items:center;
@@ -464,8 +461,7 @@ body:not([data-exam-mode]) #quickrn-unified-sidebar nav a{
   transition:background-color .16s ease,color .16s ease,border-color .16s ease;
 }
 body:not([data-exam-mode]) #app-shell>aside nav a i,
-body:not([data-exam-mode]) aside.qr-sidebar nav a i,
-body:not([data-exam-mode]) #quickrn-unified-sidebar nav a i{
+body:not([data-exam-mode]) aside.qr-sidebar nav a i{
   width:18px;
   flex:0 0 18px;
   text-align:center;
