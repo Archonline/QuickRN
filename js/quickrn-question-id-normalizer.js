@@ -3,7 +3,7 @@
  'use strict';
  const bank=Array.isArray(root.questions)?root.questions:(Array.isArray(root.embeddedQuestionsData)?root.embeddedQuestionsData:null);
  if(!bank)return;
- const reserved=new Set(bank.filter(item=>item&&/^QR-\\d{6}$/.test(String(item.id||'').trim())).map(item=>String(item.id).trim()));
+ const reserved=new Set(bank.filter(item=>item&&/^QR-\d{6}$/.test(String(item.id||'').trim())).map(item=>String(item.id).trim()));
  const used=new Set();let normalized=0;const changes=[];
  let nextNumber=Math.max(0,...Array.from(reserved,id=>Number(id.slice(3))))+1;
  bank.forEach((item,index)=>{
