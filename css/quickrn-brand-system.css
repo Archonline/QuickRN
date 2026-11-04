@@ -543,3 +543,14 @@ body header>div:first-child{
 .calendar-workspace>header.calendar-header a{border-color:rgba(255,255,255,.25)}
 .calendar-workspace>header.calendar-header a:hover{background:rgba(255,255,255,.1)}
 @media(max-width:767px){#app-shell.calendar-shell.qr-sidebar-shell{width:100%;margin-left:0}.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;flex-basis:84px!important}}
+
+/* Open-licensed study references shown on every Learning Library topic sheet. */
+.open-oer-panel{grid-column:1/-1;margin-top:2px;padding:14px;border:1px solid #cbdedc;border-radius:12px;background:#f4f8f7}
+.open-oer-panel>div:first-child{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:5px 12px}
+.open-oer-panel>div:first-child strong{font-size:12px;color:#173b43}
+.open-oer-panel>div:first-child strong i{margin-right:6px;color:#176b73}
+.open-oer-panel>div:first-child span{font-size:10px;font-weight:700;color:#176b73}
+.open-oer-links{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.open-oer-link{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid #c5d6d5;border-radius:8px;background:#fff;color:#174e55;font-size:10px;font-weight:750;text-decoration:none}
+.open-oer-link:hover{background:#e8f2f1;border-color:#7daaa6}
+.open-oer-panel>small{display:block;margin-top:9px;color:#536b6d;font-size:9px;line-height:1.5}
