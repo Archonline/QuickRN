@@ -167,15 +167,50 @@ function selectTopic(value){
   renderCheatSheet(value);
   playTopicPlaylist(value);
 }
+const CLIENT_NEEDS=[
+  {name:'Safe and Effective Care Environment',subs:[
+    {name:'Management of Care',test:item=>item.category==='leadership'&&!/Quality & Safety/.test(item.system)},
+    {name:'Safety and Infection Control',test:item=>item.category==='fundamentals'&&/Patient Safety|Perioperative & Wound/.test(item.system)||item.category==='leadership'&&/Quality & Safety/.test(item.system)||item.category==='community'&&/Disaster/.test(item.system)||/Emergency & Safety/.test(item.system)}
+  ]},
+  {name:'Health Promotion and Maintenance',subs:[
+    {name:'Health Promotion and Maintenance',test:item=>item.category==='maternal'||item.category==='community'&& !/Disaster/.test(item.system)||item.category==='child'&&/Growth & Development/.test(item.system)}
+  ]},
+  {name:'Psychosocial Integrity',subs:[
+    {name:'Psychosocial Integrity',test:item=>item.category==='mental'||/Postpartum mood disorders|Therapeutic communication/.test(item.topic)}
+  ]},
+  {name:'Physiological Integrity',subs:[
+    {name:'Basic Care and Comfort',test:item=>item.category==='fundamentals'&&/Mobility|Nutrition & Elimination/.test(item.system)||/pain management|feeding|comfort|elimination|ostomy/i.test(item.topic)},
+    {name:'Pharmacological and Parenteral Therapies',test:item=>item.category==='pharm'||/medication|insulin|anticoagulant|antidote|drug toxicity|pharmac/i.test(item.topic)},
+    {name:'Reduction of Risk Potential',test:item=>item.category==='fundamentals'&&/Assessment & Vital Signs|Fluids & Electrolytes|Acid-Base|Perioperative/.test(item.system)||/monitoring|assessment|laboratory|lab values|complication|precautions|screening|diagnostic|transfusion|dialysis/i.test(item.topic)},
+    {name:'Physiological Adaptation',test:item=>true}
+  ]}
+];
+function clientNeedFor(item){
+  for(const group of CLIENT_NEEDS)for(const sub of group.subs){
+    if(sub.name==='Physiological Adaptation')continue;
+    if(sub.test(item))return {group:group.name,sub:sub.name};
+  }
+  return {group:'Physiological Integrity',sub:'Physiological Adaptation'};
+}
 function renderSystems(){
-  const groups=allTopics().reduce((acc,item)=>{
-    const labels={child:'Pediatrics',adult:'Adult Health',pharm:'Pharmacology',fundamentals:'Nursing Fundamentals',maternal:'Maternal-Newborn',mental:'Mental Health',leadership:'Leadership & Management',community:'Community Health'};
+  const items=allTopics();
+  const labels={child:'Pediatrics',adult:'Adult Health',pharm:'Pharmacology',fundamentals:'Nursing Fundamentals',maternal:'Maternal-Newborn',mental:'Mental Health',leadership:'Leadership & Management',community:'Community Health'};
+  const needs=CLIENT_NEEDS.map(group=>{
+    const subs=group.subs.map(sub=>({name:sub.name,topics:items.filter(item=>{const assigned=clientNeedFor(item);return assigned.group===group.name&&assigned.sub===sub.name;}).map(item=>item.topic)})).filter(sub=>sub.topics.length);
+    return {name:group.name,subs};
+  }).filter(group=>group.subs.length);
+  $('client-needs-list').innerHTML=needs.map((group,i)=>
+    '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(group.name)+'</span><span class="text-[11px] font-normal text-slate-500">'+group.subs.reduce((n,sub)=>n+sub.topics.length,0)+'</span></summary><div class="p-2 border-t space-y-2">'+group.subs.map(sub=>'<details class="rounded-lg bg-slate-50 overflow-hidden"><summary class="cursor-pointer px-2 py-2 text-[11px] font-bold text-slate-700 flex justify-between gap-2"><span>'+safe(sub.name)+'</span><span class="font-normal text-slate-500">'+sub.topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2">'+sub.topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>').join('')+'</div></details>'
+  ).join('');
+  const systems=items.reduce((acc,item)=>{
     const label=labels[item.category]||item.category;
-    const key=label+' · '+item.system;(acc[key]||(acc[key]=[])).push(item.topic);return acc;
+    const key=label+' · '+item.system;
+    (acc[key]||(acc[key]=[])).push(item.topic);
+    return acc;
   },{});
-  const total=Object.values(groups).reduce((n,a)=>n+a.length,0);
+  const total=items.length;
   $('topic-count').textContent=total+' topics';
-  $('system-list').innerHTML=Object.entries(groups).map(([system,topics],i)=>
+  $('system-list').innerHTML=Object.entries(systems).map(([system,topics],i)=>
     '<details class="subject-card rounded-xl border overflow-hidden" '+(i===0?'open':'')+'><summary class="cursor-pointer px-3 py-3 font-bold text-xs flex justify-between gap-2"><span>'+safe(system)+'</span><span class="text-[11px] font-normal text-slate-500">'+topics.length+'</span></summary><div class="grid grid-cols-1 gap-1 p-2 border-t">'+topics.map(t=>'<button type="button" class="lesson-link topic-select" data-topic="'+safe(t)+'">'+safe(t)+'</button>').join('')+'</div></details>'
   ).join('');
 }
