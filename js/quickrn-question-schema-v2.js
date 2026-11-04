@@ -1,0 +1,98 @@
+/* QuickRN Question Schema v2: lossless canonical adapter for legacy and new bank records. */
+(function(root){
+ 'use strict';
+ const CJMM=['Recognize Cues','Analyze Cues','Prioritize Hypotheses','Generate Solutions','Take Action','Evaluate Outcomes'];
+ const SCORING=['plus_minus','0/1','rationale'];
+ const FORMATS=['Single Choice','Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry'];
+ const own=(o,k)=>Object.prototype.hasOwnProperty.call(o||{},k);
+ const first=(...xs)=>xs.find(v=>v!==undefined&&v!==null&&v!=='');
+ const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
+ const arr=v=>Array.isArray(v)?v:[];
+ function detectFormat(q){
+  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
+  if(s.includes('numeric')||q.numericAnswer!==undefined||q.correctNumericAnswer!==undefined||q.numericRange)return 'Numeric Entry';
+  if(s.includes('select n')||q.selectN!==undefined||q.numberToSelect!==undefined||q.requiredSelections!==undefined)return 'Select N';
+  if(s.includes('highlight')||q.highlightSegments||q.correctHighlights)return 'Highlight';
+  if(s.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
+  if(s.includes('matrix')||s.includes('grid')||q.matrixData||(q.rows&&q.columns))return /multiple/.test(s)?'Matrix Multiple':'Matrix Single';
+  if(s.includes('dropdown rationale')||q.dropdownRationale===true)return 'Dropdown Rationale';
+  if(s.includes('cloze')||s.includes('drop-down')||s.includes('dropdown')||q.clozeTemplate||q.dropdowns)return 'Cloze (Drop-down)';
+  if(s.includes('bowtie')||q.bowtieData)return 'Bowtie';
+  if(s.includes('drag')||s.includes('order')||q.availableItems||q.correctOrder)return 'Extended Drag and Drop';
+  if(s.includes('extended multiple response'))return 'Extended Multiple Response';
+  if(s.includes('multiple response')||s.includes('sata')||s.includes('select all'))return 'Multiple Response';
+  if(s.includes('single')||s.includes('multiple choice'))return 'Single Choice';
+  return Array.isArray(q.correctAnswers)&&q.correctAnswers.length>1?'Multiple Response':'Single Choice';
+ }
+ function normalize(q){
+  if(!q||typeof q!=='object')return q;
+  const oldMeta=obj(q.metadata),oldInteraction=obj(q.interaction),oldStimulus=obj(q.stimulus),oldRationales=obj(q.rationales);
+  const metadata=Object.assign({},oldMeta,{
+   id:first(oldMeta.id,q.id),
+   category:first(oldMeta.category,q.category,q.subject),
+   clientNeeds:first(oldMeta.clientNeeds,q.clientNeeds,q.clientNeed,q.client_needs),
+   cjmmStep:first(oldMeta.cjmmStep,q.cjmmStep,q.clinicalJudgmentStep,q.cjmm_stage),
+   difficulty:first(oldMeta.difficulty,q.difficulty,q.difficultyLevel,q.level)
+  });
+  const tabs=obj(first(oldStimulus.tabs,q.ehr?.tabs,q.clinicalRecord?.tabs,q.medicalRecord?.tabs));
+  const stimulus=Object.assign({},oldStimulus,{
+   caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyContext?.id),
+   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation),
+   tabs:Object.assign({},tabs,{
+    history:first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical),
+    nursesNotes:first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes),
+    vitalSigns:first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals),
+    labResults:first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults),
+    providerOrders:first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)
+   })
+  });
+  const interaction=Object.assign({},oldInteraction,{
+   type:first(oldInteraction.type,detectFormat(q)),
+   stem:first(oldInteraction.stem,q.stem,q.question,q.questionText,q.title,q.cleanTitle),
+   options:first(oldInteraction.options,q.options),
+   answerKey:first(oldInteraction.answerKey,q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer,q.numericAnswer),
+   scoring:Object.assign({},obj(oldInteraction.scoring),{
+    method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule)
+   })
+  });
+  const rationales=Object.assign({},oldRationales,{
+   overall:first(oldRationales.overall,q.rationale,q.generalRationale,q.explanation),
+   options:first(oldRationales.options,q.optionRationales,q.rationaleByOption,q.rationalesByOption),
+   clinicalJudgmentTip:first(oldRationales.clinicalJudgmentTip,q.clinicalJudgmentTip,q.cjmmTip)
+  });
+  // Preserve every source field. Canonical blocks are additive; unknown legacy data is never discarded.
+  q.schemaVersion=2;q.metadata=metadata;q.stimulus=stimulus;q.interaction=interaction;q.rationales=rationales;
+  return q;
+ }
+ function validate(q,index){
+  const issues=[],id=q?.metadata?.id||q?.id||'record-'+(index+1),m=obj(q?.metadata),it=obj(q?.interaction),sc=obj(it.scoring),r=obj(q?.rationales);
+  const issue=(code,message)=>issues.push({index,id,code,message});
+  if(!m.id)issue('V2_MISSING_ID','Metadata requires a unique ID.');
+  if(!m.category)issue('V2_MISSING_CATEGORY','Metadata requires a clinical category.');
+  if(!m.clientNeeds)issue('V2_MISSING_CLIENT_NEEDS','Metadata requires an NCLEX Client Needs classification.');
+  if(!CJMM.includes(m.cjmmStep))issue('V2_INVALID_CJMM','Metadata requires one of the six CJMM stages.');
+  if(!Number.isInteger(Number(m.difficulty))||Number(m.difficulty)<1||Number(m.difficulty)>5)issue('V2_INVALID_DIFFICULTY','Difficulty must be an integer from 1 to 5.');
+  if(!it.stem)issue('V2_MISSING_STEM','Interaction requires a question stem.');
+  if(!it.type||!FORMATS.includes(it.type))issue('V2_UNKNOWN_FORMAT','Interaction type must be one of the 13 supported formats.');
+  if(!SCORING.includes(sc.method))issue('V2_INVALID_SCORING','Scoring method must be plus_minus, 0/1, or rationale.');
+  if(!r.overall)issue('V2_MISSING_OVERALL_RATIONALE','Rationales require an overall clinical explanation.');
+  if(!r.options||typeof r.options!=='object')issue('V2_MISSING_OPTION_RATIONALES','Rationales require option/response-specific explanations.');
+  if(!r.clinicalJudgmentTip)issue('V2_MISSING_CJ_TIP','Rationales require a Clinical Judgment Tip.');
+  const key=it.answerKey,opts=it.options;
+  if(['Single Choice','Multiple Response','Select N','Trend'].includes(it.type)&&(!Array.isArray(opts)||!opts.length))issue('V2_MISSING_OPTIONS','This format requires response options.');
+  if(key===undefined||key===null||key===''||(Array.isArray(key)&&!key.length))issue('V2_MISSING_ANSWER_KEY','Interaction requires a non-empty answer key.');
+  if(['Bowtie','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Highlight','Numeric Entry','Extended Drag and Drop'].includes(it.type)&&(!q.stimulus||!Object.keys(q.stimulus).length)&&!q.bowtieData&&!q.matrixData&&!q.highlightSegments&&!q.trendData&&!q.dropdowns&&!q.clozeTemplate&&!q.availableItems&&!q.numericRange)issue('V2_MISSING_FORMAT_DATA','This NGN format requires its format-specific clinical or interaction data.');
+  if(q.caseGroupId||q.stimulus?.caseGroupId){
+   const tabs=obj(q.stimulus?.tabs);
+   if(!q.stimulus?.patientProfile&&!Object.values(tabs).some(v=>v&&((Array.isArray(v)&&v.length)||(!Array.isArray(v)&&Object.keys(obj(v)).length))))issue('V2_CASE_STIMULUS_EMPTY','Linked NGN case requires patient information or at least one populated EHR tab.');
+  }
+  return issues;
+ }
+ function normalizeBank(bank){
+  const records=arr(bank);records.forEach(normalize);
+  return {total:records.length,normalized:records.filter(q=>q&&q.schemaVersion===2).length};
+ }
+ const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate};
+ root.QuickRNQuestionSchemaV2=api;
+ if(typeof module!=='undefined'&&module.exports)module.exports=api;
+})(typeof window!=='undefined'?window:globalThis);
