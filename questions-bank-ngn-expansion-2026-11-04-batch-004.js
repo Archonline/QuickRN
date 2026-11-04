@@ -10248,50 +10248,44 @@ const items=[
   "topic": "Alcohol withdrawal",
   "clientNeed": "Physiological Adaptation",
   "difficulty": "High",
-  "patientInfo": {
-   "age": "52-year-old adult",
-   "history": "18 hours after last drink, client has tremor, diaphoresis, tachycardia, and visual disturbances."
-  },
-  "ehr": {
-   "assessment": "18 hours after last drink, client has tremor, diaphoresis, tachycardia, and visual disturbances.",
-   "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
-  },
+  "patientInfo": "52-year-old adult. Last alcohol intake was 18 hours ago. The client has tremor, diaphoresis, tachycardia, and visual disturbances.",
   "source": "QuickRN original NGN beta draft",
   "reviewStatus": "pending_nurse_educator_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002150",
   "type": "Bowtie",
-  "title": "A nurse is caring for a 52-year-old adult with alcohol withdrawal. 18 hours after last drink, client has tremor, diaphoresis, tachycardia, and visual disturbances. Complete the bowtie by identifying the likely clinical problem, selecting two appropriate nursing actions, and choosing two parameters to monitor.",
+  "title": "Complete the bowtie by identifying the likely clinical problem, selecting two appropriate nursing actions, and choosing two parameters to monitor.",
   "bowtieData": {
    "conditions": [
-    "Alcohol withdrawal requiring urgent clinical management",
-    "Expected finding without complication",
+    "Acute alcohol withdrawal with risk for progression",
+    "Expected uncomplicated recovery",
     "Unrelated chronic condition"
    ],
    "actions": [
-    "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol",
-    "Give alcohol to prevent seizures",
-    "Leave the client unmonitored",
-    "Withdrawal can progress to seizures and delirium; structured monitoring and prescribed treatment are needed."
+    "Initiate a structured withdrawal assessment (such as CIWA-Ar) and administer the prescribed benzodiazepine protocol.",
+    "Institute seizure and fall precautions and maintain a calm, low-stimulation environment.",
+    "Give alcohol to prevent withdrawal seizures.",
+    "Leave the client unmonitored until the next routine assessment."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "CIWA-Ar score and changes in withdrawal symptoms.",
+    "Vital signs, respiratory status, and response to prescribed treatment.",
+    "Unrelated routine measurement.",
+    "Delay reassessment until the end of the shift."
    ]
   },
   "correctAnswers": {
-   "condition": "Alcohol withdrawal requiring urgent clinical management",
+   "condition": "Acute alcohol withdrawal with risk for progression",
    "actions": [
-    "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Initiate a structured withdrawal assessment (such as CIWA-Ar) and administer the prescribed benzodiazepine protocol.",
+    "Institute seizure and fall precautions and maintain a calm, low-stimulation environment."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "CIWA-Ar score and changes in withdrawal symptoms.",
+    "Vital signs, respiratory status, and response to prescribed treatment."
    ]
-  }
+  },
+  "rationale": "The findings 18 hours after the last drink are consistent with acute alcohol withdrawal. Withdrawal commonly begins within 6–24 hours after alcohol cessation and may progress to seizures or delirium tremens. Tremor, diaphoresis, tachycardia, and visual disturbances indicate clinically significant central nervous system hyperexcitability. Perform a structured assessment such as CIWA-Ar and administer prescribed benzodiazepines according to the authorized protocol. Institute seizure and fall precautions, maintain a calm low-stimulation environment, and provide supportive care including thiamine and hydration as prescribed. Monitor the CIWA-Ar score, vital signs, respiratory status, and response to treatment. Escalate promptly for worsening confusion, hallucinations, seizures, unstable vital signs, or respiratory depression. Do not administer alcohol as treatment."
  },
  {
   "category": "Mental Health",
