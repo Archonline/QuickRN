@@ -87,8 +87,8 @@ const cases=[
 ['Opioid respiratory depression','A 70-year-old is difficult to arouse 30 minutes after IV opioid for postoperative pain.','70-year-old adult','RR 6; SpO₂ 82%; HR 58; minimally responsive','Medication record confirms recent opioid dose','Opioid-induced respiratory depression','Support airway and ventilation; summon assistance','Administer prescribed naloxone and reassess','Respiratory rate and oxygenation','Sedation and recurrence'],
 ['Neonatal hypoglycemia','A 3-hour-old infant of a parent with diabetes is jittery and feeding poorly.','3-hour-old newborn','T 36.2°C; HR 158; RR 54','Bedside glucose 28 mg/dL','Neonatal hypoglycemia','Follow neonatal glucose protocol immediately','Provide prescribed feeding or glucose treatment','Glucose response and neurologic behavior','Temperature and feeding tolerance']
 ];
-for(let i=0;i<200;i++){
- const c=cases[i%cases.length],v=Math.floor(i/cases.length),id=3720+i,group='QR-NGN-PRIORITY-007-'+String(v*cases.length+(i%cases.length)+1).padStart(3,'0');
+for(let i=0;i<40;i++){
+ const c=cases[i%cases.length],v=Math.floor(i/cases.length),id=3720+i*5,group='QR-NGN-PRIORITY-007-'+String(v*cases.length+(i%cases.length)+1).padStart(3,'0');
  const scenario=c[1]+(v?' On reassessment, the nurse compares current findings with the documented baseline and evaluates response to initial care.':'');
  const context={id:group,summary:c[0],scenario,medicalHistory:'Verify allergies, baseline status, current medication record, and patient-specific goals.',nursesNotes:scenario,vitalSigns:c[3],labResults:c[4],orders:c[6]+'. '+c[7]};
  const sh={category:'Clinical Judgment',topic:c[0],clientNeed:'Physiological Adaptation',difficulty:'High',patientInfo:{age:c[2],history:scenario},caseGroupId:group,caseStudyContext:context,caseStudy:{id:group,summary:c[0],nursesNotes:scenario,vitalSigns:c[3],labResults:c[4],orders:context.orders},ehr:{assessment:scenario,nursesNotes:scenario,vitalSigns:c[3],diagnosticResults:c[4],orders:context.orders},source:'QuickRN original NGN case-study beta draft',reviewStatus:'pending_nurse_educator_review'};
