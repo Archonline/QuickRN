@@ -9,14 +9,13 @@
  bank.forEach((item,index)=>{
   if(!item||typeof item!=='object')return;
   const original=String(item.id||'').trim();
-  let candidate=original||('QR-'+String(nextNumber++).padStart(6,'0'));
-  if(used.has(candidate)){
-   const previousId=candidate;
+  let candidate=original;
+  if(!/^QR-\d{6}$/.test(original)||used.has(original)){
+   const previousId=original||null;
    do{candidate='QR-'+String(nextNumber++).padStart(6,'0');}while(reserved.has(candidate)||used.has(candidate));
-   item.legacyId=item.legacyId||previousId;
-   item.previousQuestionId=previousId;
+   if(previousId){item.legacyId=item.legacyId||previousId;item.previousQuestionId=previousId;}
    changes.push({index,previousId,id:candidate});
-  }else if(!original){changes.push({index,previousId:null,id:candidate});}
+  }
   if(candidate!==item.id){item.id=candidate;normalized++;}
   used.add(candidate);
  });
