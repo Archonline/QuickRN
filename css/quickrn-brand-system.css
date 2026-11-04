@@ -579,3 +579,22 @@ body header>div:first-child{
   body.qr-has-sidebar.qr-main-sidebar-collapsed{padding-left:0!important}
   #app-shell.qr-sidebar-shell.qr-main-sidebar-collapsed{width:100%!important;margin-left:0!important}
 }
+
+
+/* High-specificity override for the global 256px sidebar sizing rule.
+   The previous icon-only state hid labels but left the rail at 256px,
+   causing the workspace to sit underneath it and clip its left edge. */
+@media(min-width:768px){
+  body.qr-main-sidebar-collapsed:not([data-exam-mode]) #app-shell>aside#quickrn-unified-sidebar{
+    width:56px!important;
+    min-width:56px!important;
+    max-width:56px!important;
+    flex:0 0 56px!important;
+    overflow:hidden!important;
+  }
+  body.qr-main-sidebar-collapsed:not([data-exam-mode]) #app-shell.qr-sidebar-shell{
+    width:calc(100% - 56px)!important;
+    margin-left:56px!important;
+  }
+  #app-shell>aside#quickrn-unified-sidebar{transition:width .18s ease,min-width .18s ease}
+}
