@@ -40,6 +40,9 @@ jobs:
           node --check js/quickrn-question-reporting.js
           node --check js/quickrn-data-backup.js
           node --check js/quickrn-question-id-normalizer.js
+          node --check js/quickrn-question-schema-v2.js
+          node --check scripts/validate-question-schema-v2.js
+          node --check tests/question-schema-v2.test.js
           node --check js/quickrn-question-bank-normalizer.js
           node --check js/quickrn-case-study-sequencer.js
           node --check tests/case-study-sequencer.test.js
@@ -52,6 +55,11 @@ jobs:
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
           node --check tests/curated-question-bank.test.js
+      - name: Test canonical Question Schema v2 and lossless legacy normalization
+        run: node tests/question-schema-v2.test.js
+      - name: Verify Question Schema v2 production bank migration status
+        continue-on-error: true
+        run: node scripts/validate-question-schema-v2.js
       - name: Verify shared QuickRN brand system across pages
         run: node tests/brand-system-contract.test.js
       - name: Test shared platform safeguards
