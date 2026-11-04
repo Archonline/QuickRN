@@ -413,3 +413,63 @@ body:not([data-exam-mode]) header :is(a,button):hover{
  body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link>i{width:18px;flex-basis:18px;font-size:14px}
 }
 @media(max-width:767px){body.qr-has-sidebar.qr-main-sidebar-autohide{padding-left:0!important}#app-shell.qr-sidebar-shell.qr-main-sidebar-autohide{width:100%;margin-left:0}#quickrn-unified-sidebar .qr-sidebar-toggle{display:none}}
+
+
+/* Application-wide header and navigation alignment.
+   Keep the top bar exactly 64px so its vertical bounds align with the
+   40px QuickRN brand mark and wordmark container used in the app shell. */
+body:not([data-exam-mode]) header{
+  height:64px!important;
+  min-height:64px!important;
+  max-height:64px;
+  flex:0 0 64px;
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+}
+body:not([data-exam-mode]) #app-shell>aside,
+body:not([data-exam-mode]) aside.qr-sidebar,
+body:not([data-exam-mode]) #quickrn-unified-sidebar{
+  width:256px;
+  min-width:256px;
+  box-sizing:border-box;
+}
+body:not([data-exam-mode]) #app-shell>aside,
+body:not([data-exam-mode]) aside.qr-sidebar{
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+body:not([data-exam-mode]) #app-shell>aside nav,
+body:not([data-exam-mode]) aside.qr-sidebar nav,
+body:not([data-exam-mode]) #quickrn-unified-sidebar nav{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+}
+body:not([data-exam-mode]) #app-shell>aside nav a,
+body:not([data-exam-mode]) aside.qr-sidebar nav a,
+body:not([data-exam-mode]) #quickrn-unified-sidebar nav a{
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:9px 12px;
+  border:1px solid transparent;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:600;
+  line-height:1.35;
+  text-decoration:none;
+  transition:background-color .16s ease,color .16s ease,border-color .16s ease;
+}
+body:not([data-exam-mode]) #app-shell>aside nav a i,
+body:not([data-exam-mode]) aside.qr-sidebar nav a i,
+body:not([data-exam-mode]) #quickrn-unified-sidebar nav a i{
+  width:18px;
+  flex:0 0 18px;
+  text-align:center;
+}
+@media(max-width:767px){
+  body:not([data-exam-mode]) header{height:64px!important;min-height:64px!important;flex-basis:64px}
+}
