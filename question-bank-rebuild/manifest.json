@@ -59,13 +59,13 @@
     }
   ],
   "nextBatch": {
-    "number": 11,
-    "firstId": "QR-001330",
-    "lastId": "QR-001829",
-    "status": "in_progress",
-    "authored": 10,
-    "remaining": 490,
-    "file": "question-bank-rebuild/batches/qr-batch-001330-001829.json"
+    "number": 12,
+    "firstId": "QR-001940",
+    "lastId": "QR-002000",
+    "status": "not_started",
+    "authored": 0,
+    "remaining": 61,
+    "file": "questions-bank-expansion-2026-11-04-batch-005.js"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -89,7 +89,8 @@
     "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes.",
     "2026-11-02: Standardized 1,329 main-branch question records to contiguous QR-000001 through QR-001329 IDs. Original IDs are retained as legacyId and the complete mapping is stored in question-bank-rebuild/id-migration-map.json. Archived batch filenames remain unchanged for traceability; question IDs inside them use the canonical sequence. Historical branches remain unchanged.",
     "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
-    "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending."
+    "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending.",
+    "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending."
   ],
   "progress": {
     "questionsAuthored": 410,
@@ -145,24 +146,45 @@
   "historicalBatchSize": 100,
   "expansionPlan": {
     "targetTotal": 2000,
-    "currentAssignedIds": 1329,
-    "remainingQuestions": 671,
+    "currentAssignedIds": 1939,
+    "remainingQuestions": 61,
     "batches": [
       {
         "number": 1,
         "firstId": "QR-001330",
-        "lastId": "QR-001829",
-        "count": 500,
-        "status": "in_progress"
+        "lastId": "QR-001919",
+        "count": 590,
+        "status": "authored_pending_review",
+        "note": "Includes 10 structured records in question-bank-rebuild/batches/qr-batch-001330-001829.json and 580 records across expansion batches 001–003."
       },
       {
         "number": 2,
-        "firstId": "QR-001830",
+        "firstId": "QR-001920",
         "lastId": "QR-002000",
-        "count": 171,
-        "status": "not_started"
+        "count": 81,
+        "status": "in_progress",
+        "authored": 20,
+        "remaining": 61,
+        "file": "questions-bank-expansion-2026-11-04-batch-004.js"
       }
     ],
-    "note": "Historical 100-item archive batches are preserved. New expansion batches use 500 items, with a final 171-item batch to reach exactly 2,000 assigned question IDs. Draft items remain subject to educator review and renderer/integration validation."
-  }
+    "note": "Canonical base contains 1,329 assigned IDs. New expansion IDs QR-001330–QR-001919 account for 590 authored drafts; batch 004 adds QR-001920–QR-001939. Remaining IDs QR-001940–QR-002000 must be authored. Drafts do not count as clinically reviewed or release-ready."
+  },
+  "recentExpansionBatches": [
+    {
+      "file": "questions-bank-expansion-2026-11-04-batch-004.js",
+      "firstId": "QR-001920",
+      "lastId": "QR-001939",
+      "count": 20,
+      "uniqueIds": true,
+      "formatsCovered": 1,
+      "validationStatus": "structural_presence_only_clinical_review_pending",
+      "loadedIn": [
+        "selfstudy.html",
+        "timed.html",
+        "predictor.html",
+        "cat.html"
+      ]
+    }
+  ]
 }
