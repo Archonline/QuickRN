@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "canonicalPrefix": "QR-",
   "firstId": "QR-000001",
-  "lastId": "QR-001329",
-  "count": 1329,
+  "lastId": "QR-004602",
+  "count": 1412,
   "backupBranch": "backup/pre-question-id-renumber-2026-11-02",
   "mapping": [
     {
@@ -4668,7 +4668,9 @@
     },
     {
       "legacyId": "QR-001291",
-      "id": "QR-001166"
+      "id": "QR-004520",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "conflicting_question_id"
     },
     {
       "legacyId": "QR-001292",
@@ -5144,91 +5146,135 @@
     },
     {
       "legacyId": "QB2R-0001",
-      "id": "QR-001285"
+      "id": "QR-001285",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0002",
-      "id": "QR-001286"
+      "id": "QR-001286",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0003",
-      "id": "QR-001287"
+      "id": "QR-001287",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0004",
-      "id": "QR-001288"
+      "id": "QR-001288",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0005",
-      "id": "QR-001289"
+      "id": "QR-001289",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0006",
-      "id": "QR-001290"
+      "id": "QR-001290",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0007",
-      "id": "QR-001291"
+      "id": "QR-004520",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0008",
-      "id": "QR-001292"
+      "id": "QR-001292",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0009",
-      "id": "QR-001293"
+      "id": "QR-001293",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0010",
-      "id": "QR-001294"
+      "id": "QR-001294",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0011",
-      "id": "QR-001295"
+      "id": "QR-001295",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0012",
-      "id": "QR-001296"
+      "id": "QR-001296",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0013",
-      "id": "QR-001297"
+      "id": "QR-001297",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0014",
-      "id": "QR-001298"
+      "id": "QR-001298",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0015",
-      "id": "QR-001299"
+      "id": "QR-001299",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0016",
-      "id": "QR-001300"
+      "id": "QR-001300",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0017",
-      "id": "QR-001301"
+      "id": "QR-001301",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0018",
-      "id": "QR-001302"
+      "id": "QR-001302",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0019",
-      "id": "QR-001303"
+      "id": "QR-001303",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0020",
-      "id": "QR-001304"
+      "id": "QR-001304",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0021",
-      "id": "QR-001305"
+      "id": "QR-001305",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QB2R-0022",
-      "id": "QR-001306"
+      "id": "QR-001306",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QRV3-0001",
@@ -5284,43 +5330,562 @@
     },
     {
       "legacyId": "QR-MR-0001",
-      "id": "QR-001320"
+      "id": "QR-001320",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-MR-0002",
-      "id": "QR-001321"
+      "id": "QR-001321",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-MR-0003",
-      "id": "QR-001322"
+      "id": "QR-001322",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-MR-0004",
-      "id": "QR-001323"
+      "id": "QR-001323",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-MR-0005",
-      "id": "QR-001324"
+      "id": "QR-001324",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-HL-0001",
-      "id": "QR-001325"
+      "id": "QR-001325",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-HL-0002",
-      "id": "QR-001326"
+      "id": "QR-001326",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-HL-0003",
-      "id": "QR-001327"
+      "id": "QR-001327",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-HL-0004",
-      "id": "QR-001328"
+      "id": "QR-001328",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
     },
     {
       "legacyId": "QR-HL-0005",
-      "id": "QR-001329"
+      "id": "QR-001329",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001420",
+      "id": "QR-004521",
+      "sourcePath": "questions-bank-expansion-2026-11-04-batch-003.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001421",
+      "id": "QR-004522",
+      "sourcePath": "questions-bank-expansion-2026-11-04-batch-003.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001920",
+      "id": "QR-004523",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001921",
+      "id": "QR-004524",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001922",
+      "id": "QR-004525",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001923",
+      "id": "QR-004526",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001924",
+      "id": "QR-004527",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001925",
+      "id": "QR-004528",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001926",
+      "id": "QR-004529",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001927",
+      "id": "QR-004530",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001928",
+      "id": "QR-004531",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001929",
+      "id": "QR-004532",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001930",
+      "id": "QR-004533",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001931",
+      "id": "QR-004534",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001932",
+      "id": "QR-004535",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001933",
+      "id": "QR-004536",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001934",
+      "id": "QR-004537",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001935",
+      "id": "QR-004538",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001936",
+      "id": "QR-004539",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001937",
+      "id": "QR-004540",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001938",
+      "id": "QR-004541",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-001939",
+      "id": "QR-004542",
+      "sourcePath": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-01",
+      "id": "QR-004543",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-02",
+      "id": "QR-004544",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-03",
+      "id": "QR-004545",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-04",
+      "id": "QR-004546",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-05",
+      "id": "QR-004547",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-CS-001-06",
+      "id": "QR-004548",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0029",
+      "id": "QR-004549",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0030",
+      "id": "QR-004550",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0031",
+      "id": "QR-004551",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0032",
+      "id": "QR-004552",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0033",
+      "id": "QR-004553",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0034",
+      "id": "QR-004554",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0035",
+      "id": "QR-004555",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0036",
+      "id": "QR-004556",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0037",
+      "id": "QR-004557",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0038",
+      "id": "QR-004558",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0039",
+      "id": "QR-004559",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0040",
+      "id": "QR-004560",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0041",
+      "id": "QR-004561",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0042",
+      "id": "QR-004562",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0043",
+      "id": "QR-004563",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0044",
+      "id": "QR-004564",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0045",
+      "id": "QR-004565",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0046",
+      "id": "QR-004566",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0047",
+      "id": "QR-004567",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0048",
+      "id": "QR-004568",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0049",
+      "id": "QR-004569",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0050",
+      "id": "QR-004570",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0051",
+      "id": "QR-004571",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0052",
+      "id": "QR-004572",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0053",
+      "id": "QR-004573",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0054",
+      "id": "QR-004574",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0055",
+      "id": "QR-004575",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0056",
+      "id": "QR-004576",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0057",
+      "id": "QR-004577",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0058",
+      "id": "QR-004578",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0059",
+      "id": "QR-004579",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QB2R-0060",
+      "id": "QR-004580",
+      "sourcePath": "questions-bank-v2-curated.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-TR-0001",
+      "id": "QR-004581",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-TR-0002",
+      "id": "QR-004582",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-TR-0003",
+      "id": "QR-004583",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-TR-0004",
+      "id": "QR-004584",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-TR-0005",
+      "id": "QR-004585",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-NE-0001",
+      "id": "QR-004586",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-NE-0002",
+      "id": "QR-004587",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-NE-0003",
+      "id": "QR-004588",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-NE-0004",
+      "id": "QR-004589",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-NE-0005",
+      "id": "QR-004590",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-SN-0001",
+      "id": "QR-004591",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-SN-0002",
+      "id": "QR-004592",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-SN-0003",
+      "id": "QR-004593",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-SN-0004",
+      "id": "QR-004594",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-SN-0005",
+      "id": "QR-004595",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-DR-0001",
+      "id": "QR-004596",
+      "sourcePath": "questions-ngn-supplement.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-1",
+      "id": "QR-004597",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-2",
+      "id": "QR-004598",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-3",
+      "id": "QR-004599",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-4",
+      "id": "QR-004600",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-5",
+      "id": "QR-004601",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
+    },
+    {
+      "legacyId": "QR-CS-ADULT-001-6",
+      "id": "QR-004602",
+      "sourcePath": "js/quickrn-ngn-case-study-addon.js",
+      "reason": "legacy_identifier"
     }
+  ],
+  "lastMigrationDate": "2026-11-05",
+  "activeProductionUniqueCount": 3992,
+  "notes": [
+    "2026-11-05: Active production question IDs were audited across all four exam-mode script stacks. Conflicting records were assigned new QR IDs while their prior IDs were retained as legacyId/previousQuestionId and recorded in this map.",
+    "2026-11-05: Exact duplicate QR-002150 was consolidated to the single base-bank record; 23 conflicting IDs were separated; 60 noncanonical active IDs were migrated to canonical QR-###### IDs.",
+    "2026-11-05: Active production inventory after migration: 3,992 unique questions; all active question IDs use QR-######. Historical rebuild/archive snapshots remain unchanged and are not loaded into production."
   ]
 }
