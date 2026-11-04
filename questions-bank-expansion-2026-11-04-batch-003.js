@@ -1,5 +1,5 @@
 /* QuickRN original NCLEX beta expansion — Batch 003.
- * 500 item records, QR-001420–QR-001919.
+ * 50 distinct single-choice tasks retained; 450 repeated contextual variants removed.
  * Original scenario variants across 50 clinical concepts. All pending nurse-educator review.
  * Additive loader; IDs are de-duplicated against the shared question bank.
  */
@@ -75,7 +75,7 @@
  'A 68-year-old client on a medical unit','A 42-year-old client admitted from the emergency department','A 76-year-old client with several chronic conditions','A 55-year-old client on the postoperative unit','A 31-year-old client receiving inpatient treatment','A 19-year-old client admitted for acute symptoms','A 83-year-old client in a long-term care setting','A 47-year-old client being prepared for discharge','A 60-year-old client receiving a new treatment','A 25-year-old client undergoing an initial evaluation'
  ];
  const items=[];
- for(let i=0;i<500;i++){
+ for(let i=0;i<50;i++){
    const concept=concepts[i%concepts.length];
    const context=contexts[Math.floor(i/concepts.length)];
    const variant=Math.floor(i/concepts.length)+1;
@@ -101,5 +101,5 @@
  const known=new Set(bank.map(q=>q&&q.id));
  for(const item of items)if(!known.has(item.id)){bank.push(item);known.add(item.id);}
  root.questions=bank;
- root.quickRNExpansionBatch20261104C={count:items.length,firstId:'QR-001420',lastId:'QR-001919',reviewStatus:'pending_nurse_educator_review'};
+ root.quickRNExpansionBatch20261104C={count:items.length,firstId:'QR-001420',lastId:'QR-001469',reviewStatus:'pending_nurse_educator_review'};
 })(typeof window!=='undefined'?window:globalThis);
