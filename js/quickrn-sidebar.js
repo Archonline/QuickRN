@@ -22,20 +22,20 @@
   const brand=document.createElement('a'); brand.className='qr-sidebar-brand'; brand.href='dashboard.html';
   brand.innerHTML='<span class="qr-sidebar-mark"><i class="fa-solid fa-bolt-lightning" aria-hidden="true"></i></span><span class="qr-sidebar-wordmark"><strong>Quick<span>RN</span></strong><small>NCLEX PREP ENGINE</small></span>'; aside.appendChild(brand);
   const toggle=document.createElement('button');
-  toggle.type='button'; toggle.className='qr-sidebar-toggle'; toggle.setAttribute('aria-label','Enable sidebar auto-hide'); toggle.setAttribute('aria-pressed','false'); toggle.title='Enable auto-hide';
+  toggle.type='button'; toggle.className='qr-sidebar-toggle'; toggle.setAttribute('aria-label','Collapse sidebar'); toggle.setAttribute('aria-pressed','false'); toggle.title='Collapse sidebar';
   toggle.innerHTML='<i class="fa-solid fa-eye-slash" aria-hidden="true"></i>';
   brand.appendChild(toggle);
-  let autoHide=false;
-  try{autoHide=localStorage.getItem('quickrn-main-sidebar-autohide')==='true';}catch(_e){}
-  const applySidebarState=(enabled)=>{
-    document.body.classList.toggle('qr-main-sidebar-autohide',enabled);
-    const shell=document.getElementById('app-shell'); if(shell)shell.classList.toggle('qr-main-sidebar-autohide',enabled);
-    toggle.setAttribute('aria-pressed',String(enabled));
-    toggle.setAttribute('aria-label',enabled?'Turn off sidebar auto-hide':'Enable sidebar auto-hide');
-    toggle.title=enabled?'Turn off auto-hide':'Enable auto-hide';
-    toggle.innerHTML='<i class="fa-solid '+(enabled?'fa-eye':'fa-eye-slash')+'" aria-hidden="true"></i>';
+  let collapsed=false;
+  try{collapsed=localStorage.getItem('quickrn-main-sidebar-collapsed')==='true'||localStorage.getItem('quickrn-main-sidebar-autohide')==='true';}catch(_e){}
+  const applySidebarState=(isCollapsed)=>{
+    document.body.classList.toggle('qr-main-sidebar-collapsed',isCollapsed);
+    const shell=document.getElementById('app-shell'); if(shell)shell.classList.toggle('qr-main-sidebar-collapsed',isCollapsed);
+    toggle.setAttribute('aria-pressed',String(isCollapsed));
+    toggle.setAttribute('aria-label',isCollapsed?'Expand sidebar':'Collapse sidebar');
+    toggle.title=isCollapsed?'Expand sidebar':'Collapse sidebar';
+    toggle.innerHTML='<i class="fa-solid '+(isCollapsed?'fa-angles-right':'fa-angles-left')+'" aria-hidden="true"></i>';
   };
-  toggle.addEventListener('click',(event)=>{event.preventDefault();event.stopPropagation();autoHide=!autoHide;applySidebarState(autoHide);try{localStorage.setItem('quickrn-main-sidebar-autohide',String(autoHide));}catch(_e){}});
+  toggle.addEventListener('click',(event)=>{event.preventDefault();event.stopPropagation();collapsed=!collapsed;applySidebarState(collapsed);try{localStorage.setItem('quickrn-main-sidebar-collapsed',String(collapsed));localStorage.removeItem('quickrn-main-sidebar-autohide');}catch(_e){}});
   const nav=document.createElement('nav'); nav.className='qr-sidebar-nav'; nav.setAttribute('aria-label','Main navigation');
   groups.forEach(group=>{const section=document.createElement('section');section.className='qr-sidebar-group';const heading=document.createElement('h2');heading.textContent=group.label;section.appendChild(heading);
     group.links.forEach(([href,icon,label,tab])=>{const a=document.createElement('a');a.href=href;a.className='qr-sidebar-link';a.innerHTML='<i class="fa-solid '+icon+'" aria-hidden="true"></i><span>'+label+'</span>';
@@ -47,6 +47,6 @@
   const shell=document.getElementById('app-shell');
   if(shell){const old=shell.querySelector(':scope > aside');if(old)old.replaceWith(aside);else shell.insertBefore(aside,shell.firstChild);shell.classList.add('qr-sidebar-shell');}
   else{const legacy=document.querySelector('body > div > aside');if(legacy)legacy.replaceWith(aside);else document.body.insertBefore(aside,document.body.firstChild);document.body.classList.add('qr-has-sidebar');}
-  applySidebarState(autoHide);
+  applySidebarState(collapsed);
   const requestedTab=String(window.location.hash||'').slice(1);if(path==='dashboard.html'&&['dashboard','learning','features','analytics'].includes(requestedTab))window.switchTab(requestedTab);
 })();
