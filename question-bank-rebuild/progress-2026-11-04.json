@@ -18,7 +18,7 @@
     "Batch 004 extends IDs through QR-002419; total newly authored records tracked separately from legacy bank counts.",
     "The four exam pages include the NGN batch 004 script; browser/runtime verification remains pending."
   ],
-  "note": "Repository audit update: prior verified 2,205 unique top-level records plus 600 additional beta drafts (200 Numeric Entry, 200 Matrix / Grid, 200 distinct NGN case-study items) yields 2,805 assigned records if all batches load without ID collisions. New additions require browser rendering/scoring checks and qualified nurse-educator review.",
+  "note": "Repository audit after the priority NGN batch: 3,305 unique top-level records load in Self Study (125 legacy + 3,180 newly authored). The latest 500-record priority batch adds 150 Numeric Entry items, 150 standalone Matrix / Grid items, and 200 NGN case-study items across 40 clinically distinct five-question case groups. Existing 200-item Numeric Entry, 200-item Matrix / Grid, and 200-item case-study batches were preserved and are loaded before the new batch. All new additions remain beta drafts pending nurse-educator review; browser-level rendering/scoring remains pending.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -128,9 +128,29 @@
       "caseGroups": 40,
       "questionsPerCase": 5,
       "reviewStatus": "pending_nurse_educator_review"
+    },
+    {
+      "file": "questions-bank-ngn-priority-2026-11-04-batch-007.js",
+      "firstId": "QR-004020",
+      "lastId": "QR-004519",
+      "authored": 500,
+      "formatCounts": {
+        "Numeric Entry": 150,
+        "Matrix / Grid": 190,
+        "Multiple Response": 40,
+        "Cloze (Drop-down)": 40,
+        "Matrix Single": 40,
+        "Bowtie": 40
+      },
+      "standaloneMatrixGrid": 150,
+      "caseStudyRecords": 200,
+      "caseGroups": 40,
+      "questionsPerCase": 5,
+      "reviewStatus": "pending_nurse_educator_review",
+      "note": "Priority batch: 150 standalone Numeric Entry items, 150 standalone Matrix / Grid items, and 40 distinct NGN case groups × 5 sequential records. Matrix / Grid format count includes 40 additional Matrix / Grid case-study records."
     }
   ],
-  "newlyAuthoredTotal": 2680,
+  "newlyAuthoredTotal": 3180,
   "remainingToTarget": 0,
   "integration": {
     "examPages": [
@@ -139,9 +159,9 @@
       "predictor.html",
       "cat.html"
     ],
-    "status": "Three additional batch scripts committed and included in all four exam pages; browser/runtime verification pending."
+    "status": "The four exam pages load all existing question-bank modules plus the new priority batch after the prior batches; browser/runtime rendering and scoring verification remains pending."
   },
-  "totalAssignedIncludingReserved": 2805,
+  "totalAssignedIncludingReserved": 3305,
   "bankAudit": {
     "branch": "main",
     "auditedFiles": [
@@ -158,12 +178,13 @@
       "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
       "questions-bank-numeric-entry-2026-11-04-batch-007.js",
       "questions-bank-matrix-grid-2026-11-04-batch-008.js",
-      "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js"
+      "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
+      "questions-bank-ngn-priority-2026-11-04-batch-007.js"
     ],
-    "uniqueTopLevelQuestionRecords": 2805,
+    "uniqueTopLevelQuestionRecords": 3305,
     "duplicateIdsAcrossLoadedFiles": 0,
     "legacyRecordsLoaded": 125,
-    "newlyAuthoredRecordsLoaded": 2680,
+    "newlyAuthoredRecordsLoaded": 3180,
     "remainingTo2000TotalRecords": 0,
     "actualModuleContribution": [
       {
@@ -209,14 +230,30 @@
       {
         "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
         "added": 500
+      },
+      {
+        "file": "questions-bank-numeric-entry-2026-11-04-batch-007.js",
+        "added": 200
+      },
+      {
+        "file": "questions-bank-matrix-grid-2026-11-04-batch-008.js",
+        "added": 200
+      },
+      {
+        "file": "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
+        "added": 200
+      },
+      {
+        "file": "questions-bank-ngn-priority-2026-11-04-batch-007.js",
+        "added": 500
       }
     ],
     "excluded": [
       "questions.js (empty file; contributes 0 records)",
       "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
     ],
-    "method": "Executed all 11 bank modules in Self Study script order and counted top-level objects appended to root.questions; verified all 2,205 IDs are unique. Repeated legacy batch-004 script include was removed from all four exam pages.",
-    "limitations": "Counts are top-level question records. Each of the 100 new case groups contains five sequential records sharing one clinical context. Clinical validation and browser-level rendering/scoring are still pending."
+    "method": "Executed all 15 non-empty bank modules in Self Study script order and counted top-level objects appended to root.questions; verified 3,305 IDs are unique with zero duplicate IDs. The priority batch was assigned IDs QR-004020–QR-004519 to preserve the existing Numeric Entry, Matrix / Grid, and NGN case-study batches.",
+    "limitations": "Counts are top-level question records. The latest priority batch contains 40 distinct clinical case groups with five sequential records each. Structural load, required fields, numeric answer presence, matrix structure, group size, and ID uniqueness passed. All new drafts require qualified nurse-educator validation; browser-level rendering/scoring in all four exam modes remains pending."
   },
-  "totalAvailableUniqueRecords": 2205
+  "totalAvailableUniqueRecords": 3305
 }
