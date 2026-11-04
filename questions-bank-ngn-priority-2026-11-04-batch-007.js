@@ -14,14 +14,14 @@ const numeric=[
 ['Gravity infusion','Infuse V mL over H hours with F gtt/mL tubing. Calculate gtt/min.',v=>v.v*v.f/(v.h*60),'gtt/min',0],
 ['Insulin volume','The prescribed insulin dose is D units. The vial is U-100. Calculate mL.',v=>v.d/100,'mL',2],
 ['Safe daily dose','A child weighs W kg. The dose is D mg/kg/day divided twice daily. Calculate mg/dose.',v=>v.w*v.d/2,'mg',1],
-['BMI','A client weighs K kg and is M meters tall. Calculate BMI.',v=>v.k/(v.m*v.m),'kg/m²',1],
+['BMI','A client weighs K kg and is M meters tall. Calculate BMI.',v=>v.k/(v.met*v.met),'kg/m²',1],
 ['Fahrenheit conversion','Convert T °C to °F using (°C × 9/5) + 32.',v=>v.t*9/5+32,'°F',1],
-['Fluid remaining','A prescribed replacement volume is B mL. A mL has infused. Calculate mL remaining.',v=>v.b-v.a,'mL',0],
+['Fluid remaining','A prescribed replacement volume is B mL. A mL has infused. Calculate mL remaining.',v=>v.remainingTotal-v.alreadyGiven,'mL',0],
 ['Infusion duration','A V mL bag runs at R mL/hr. Calculate hours to completion.',v=>v.v/v.r,'hours',1],
-['ANC','WBC is W cells/mm³, neutrophils N%, bands B%. Calculate ANC.',v=>v.w*(v.n+v.b)/100,'cells/mm³',0],
-['Corrected calcium','Calcium is C mg/dL and albumin A g/dL. Use Ca + 0.8 × (4 − albumin).',v=>v.c+0.8*(4-v.a),'mg/dL',1],
-['Anion gap','Na N, chloride C, bicarbonate B. Calculate Na − (Cl + HCO₃).',v=>v.n-v.c-v.b,'mEq/L',0],
-['Pulse pressure','BP is S/D mm Hg. Calculate pulse pressure.',v=>v.s-v.d,'mm Hg',0],
+['ANC','WBC is W cells/mm³, neutrophils N%, bands B%. Calculate ANC.',v=>v.wbc*(v.n+v.bands)/100,'cells/mm³',0],
+['Corrected calcium','Calcium is C mg/dL and albumin A g/dL. Use Ca + 0.8 × (4 − albumin).',v=>v.calcium+0.8*(4-v.albumin),'mg/dL',1],
+['Anion gap','Na N, chloride C, bicarbonate B. Calculate Na − (Cl + HCO₃).',v=>v.na-v.cl-v.hco,'mEq/L',0],
+['Pulse pressure','BP is S/D mm Hg. Calculate pulse pressure.',v=>v.s-v.db,'mm Hg',0],
 ['Tablet calculation','Prescribed dose is D mg; each tablet contains T mg. Calculate tablets.',v=>v.d/v.t,'tablets',0],
 ['Medication volume','A dose of D mg is ordered; concentration is C mg/mL. Calculate mL.',v=>v.d/v.c,'mL',2],
 ['Blood loss','Blood loss is A mL, then B mL. Calculate cumulative loss.',v=>v.a+v.b,'mL',0],
@@ -29,7 +29,7 @@ const numeric=[
 ['Dose per kg','A client receives D mg and weighs W kg. Calculate mg/kg.',v=>v.d/v.w,'mg/kg',2],
 ['Infused volume','An IV runs at R mL/hr for H hours. Calculate mL infused.',v=>v.r*v.h,'mL',0],
 ['Newborn weight loss','Birth weight B g; current weight C g. Calculate percent loss.',v=>(v.b-v.c)/v.b*100,'% ',1],
-['Creatinine clearance estimate','Use (140 − age) × weight ÷ (72 × creatinine). Age A, weight W kg, creatinine C.',v=>((140-v.a)*v.w)/(72*v.c),'mL/min',1],
+['Creatinine clearance estimate','Use (140 − age) × weight ÷ (72 × creatinine). Age A, weight W kg, creatinine C.',v=>((140-v.age)*v.wt)/(72*v.cr),'mL/min',1],
 ['IV medication rate','V mL must infuse over T minutes. Calculate mL/hr.',v=>v.v*60/v.t,'mL/hr',0],
 ['Maintenance fluids','Use 4-2-1. For a child weighing W kg (10–20 kg), calculate mL/hr.',v=>40+2*(v.w-10),'mL/hr',0],
 ['Oxygen cylinder estimate','Available pressure P psi; flow F L/min; factor 0.28. Estimate minutes.',v=>v.p*0.28/v.f,'minutes',0],
@@ -37,8 +37,8 @@ const numeric=[
 ];
 for(let i=0;i<150;i++){
  const s=numeric[i%numeric.length],k=Math.floor(i/numeric.length),j=i%numeric.length;
- const v={v:500+50*i,h:4+(i%4)*2,d:100+25*(i%8),c:100+25*(i%5),w:12+(i%9),a:120+20*(i%7),b:90+15*(i%6),s:110+2*(i%20),u:1000+250*(i%5),m:100+25*(i%4),r:40+10*(i%5),f:10+5*(i%3),k:55+(i%35),t:125+25*(i%4),n:130+(i%10),b:95+(i%8),p:1500+100*i,a:35+(i%40),c:0.8+(i%5)*0.2};
- let title=s[1].replace('V',String(v.v)).replace('H',String(v.h)).replace('D',String(v.d)).replace('C',String(v.c)).replace('W',String(v.w)).replace('A',String(v.a)).replace('B',String(v.b)).replace('S',String(v.s)).replace('U',String(v.u)).replace('M',String(v.m)).replace('R',String(v.r)).replace('F',String(v.f)).replace('K',String(v.k)).replace('T',String(v.t)).replace('N',String(v.n)).replace('P',String(v.p));
+ const v={v:500+50*i,h:4+(i%4)*2,d:100+25*(i%8),c:100+25*(i%5),w:12+(i%9),a:120+20*(i%7),b:90+15*(i%6),s:110+2*(i%20),db:65+5*(i%5),u:1000+250*(i%5),m:100+25*(i%4),r:40+10*(i%5),f:10+5*(i%3),k:55+(i%35),met:1.45+0.05*(i%6),t:20+2*(i%6),n:55+(i%30),bands:4+(i%6),wbc:5000+500*(i%15),calcium:9+0.5*(i%6),albumin:2+0.2*(i%5),na:130+(i%10),cl:95+(i%8),hco:18+(i%6),remainingTotal:1500+100*(i%5),alreadyGiven:300+50*(i%4),age:35+(i%40),wt:48+(i%35),cr:0.8+(i%5)*0.2,vol:50+10*(i%8),min:30+15*(i%5),rate:25+5*(i%8),hours:2+(i%6),dose:250+50*(i%6),tab:125+25*(i%4),conc:10+5*(i%4),birth:3000+100*i,current:2700+80*i,mlkg:50+10*(i%5),units:2+i%10,psi:1500+100*i,flow:5+(i%4)};
+ let title=s[1].replace(/^A /,'The ').replace(/\\bV\\b/g,String(v.v)).replace(/\\bH\\b/g,String(v.h)).replace(/\\bD\\b/g,String(v.d)).replace(/\\bC\\b/g,String(v.c)).replace(/\\bW\\b/g,String(v.w)).replace(/\\bA\\b/g,String(v.a)).replace(/\\bB\\b/g,String(v.b)).replace(/\\bS\\b/g,String(v.s)).replace(/\\bU\\b/g,String(v.u)).replace(/\\bM\\b/g,String(v.m)).replace(/\\bR\\b/g,String(v.r)).replace(/\\bF\\b/g,String(v.f)).replace(/\\bK\\b/g,String(v.k)).replace(/\\bT\\b/g,String(v.t)).replace(/\\bN\\b/g,String(v.n)).replace(/\\bP\\b/g,String(v.p)).replace(/\\bG\\b/g,String(v.g));
  const answer=Number(s[2](v).toFixed(s[4]));
  add({id:'QR-'+String(3420+i).padStart(6,'0'),type:'Numeric Entry',ngnType:'Numeric Entry',category:'Clinical Calculation',topic:s[0],clientNeed:'Pharmacological and Parenteral Therapies',difficulty:'Moderate',title,unit:s[3],correctNumericAnswer:answer,tolerance:s[4]===0?0:Math.pow(10,-s[4])/2,source:'QuickRN original beta draft',reviewStatus:'pending_nurse_educator_review',rationale:'Use the stated formula, preserve units, and round as instructed. Independently verify medication and infusion calculations before implementation.'});
 }
