@@ -47,5 +47,6 @@
   const shell=document.getElementById('app-shell');
   if(shell){const old=shell.querySelector(':scope > aside');if(old)old.replaceWith(aside);else shell.insertBefore(aside,shell.firstChild);shell.classList.add('qr-sidebar-shell');}
   else{const legacy=document.querySelector('body > div > aside');if(legacy)legacy.replaceWith(aside);else document.body.insertBefore(aside,document.body.firstChild);document.body.classList.add('qr-has-sidebar');}
+  applySidebarState(sidebarCollapsed);
   const requestedTab=String(window.location.hash||'').slice(1);if(path==='dashboard.html'&&['dashboard','learning','features','analytics'].includes(requestedTab))window.switchTab(requestedTab);
 })();
