@@ -42,8 +42,8 @@
 (function(root){
  'use strict';
  const bank=Array.isArray(root.questions)?root.questions:[];
- const item=bank.find(q=>q&&String(q.id)==='QR-001291');
- if(!item)return;
+ const item=bank.find(q=>q&&String(q.id)==='QR-001291')||{id:'QR-001291'};
+ if(!bank.includes(item))bank.push(item);
  Object.assign(item,{
   type:'Bowtie',ngnType:'Bowtie',category:'Adult Health',topic:'Sepsis and septic shock',
   title:'Complete the bow-tie by selecting the most likely condition, two priority actions, and two parameters to monitor.',
