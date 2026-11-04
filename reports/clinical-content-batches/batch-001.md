@@ -25,7 +25,7 @@ Added missing clinical metadata and answer-option teaching content to five exist
 
 - `metadata`: `id`, `category`, `clientNeeds`, `cjmmStep`, integer `difficulty` (1–5), and `topic`
 - `interaction`: `type`, `stem`, `options`, `answerKey`, and `scoring.method` (`0/1` for these single-best-answer items)
-- `rationales`: `overall`, letter-keyed `options` entries with `correct` and `explanation`, and `clinicalJudgmentTip`
+- `rationales`: `overall`, letter-keyed `options` string explanations (A–D), and `clinicalJudgmentTip`
 - `evidence`: source title, organization, year, URL, and supported claim
 - `educatorReview` initialized to `pending`
 - Legacy top-level fields retained for compatibility with existing exam renderers
@@ -36,7 +36,7 @@ Added missing clinical metadata and answer-option teaching content to five exist
 |---|---|---|
 | Source JavaScript syntax | PASS | `questions-bank-v2.js` passed a syntax parse check. |
 | Schema v2 field presence | PASS | All five records contain nested `metadata`, `interaction`, `rationales`, and `evidence` structures. |
-| Option rationale coverage | PASS | Each of the four choices has a letter-keyed `correct` flag and explanation. |
+| Option rationale coverage | PASS | Each of the four choices has a letter-keyed explanation string; the correct response is stored in `interaction.answerKey`. |
 | Full production schema validator | NOT RUN | The repository file interface returned empty content for `questions.js`; the complete production bank could not be assembled in this session. |
 | CI | BLOCKED | The Vercel status for the validator commit reports a build-rate-limit failure; this is not a passing test. |
 | Educator review | PENDING | No item is marked educator-approved by this batch. |
