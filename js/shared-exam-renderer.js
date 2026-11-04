@@ -336,9 +336,24 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
    const raw=q.highlightSegments||q.segments;
    const source=q.highlightText||q.passage||q.caseStudyText||q.textToHighlight||q.questionText||q.question||'';
    const fallbackText=String(source||'').trim();
-   const fallbackParts=fallbackText.includes(';')?fallbackText.split(/;\s*/).map(text=>text.trim()).filter(Boolean):(fallbackText.match(/[^.!?]+[.!?]?/g)||[]).map(text=>text.trim()).filter(Boolean);
+   let prefix='';
+   let fallbackParts=fallbackText.includes(';')?fallbackText.split(/;\\s*/).map(text=>text.trim()).filter(Boolean):(fallbackText.match(/[^.!?]+[.!?]?/g)||[]).map(text=>text.trim()).filter(Boolean);
+   // In inline highlight items, keep the instruction in the stem and make only the clinical findings selectable.
+   if(!(Array.isArray(raw)&&raw.length)&&fallbackParts.length){
+     const first=fallbackParts[0],colon=first.lastIndexOf(':');
+     if(colon>=0){prefix=first.slice(0,colon+1)+' ';fallbackParts[0]=first.slice(colon+1).trim();}
+   }
    const segments=Array.isArray(raw)&&raw.length?raw.map((x,i)=>({id:String(x.id??i),text:String(x.text??x.label??x)})):fallbackParts.map((text,i)=>({id:String(i),text}));
-   response=segments.length?'<div class="qr-highlight-instructions">Select the symptoms and clinical information that require attention.</div><div class="qr-highlight-list">'+segments.map(seg=>{const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);const correct=(q.correctHighlights||q.correctAnswers?.highlights||[]).some(x=>String(x)===String(seg.id)||String(x)===String(seg.text));const feedback=submitted?(correct?' is-correct':(on?' is-incorrect':'')):'';return "<button type='button' class='qr-highlight-segment "+(on?'is-selected':'')+feedback+"' aria-pressed='"+on+"' onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'><span class='qr-highlight-check'>"+(on?'✓':'+')+"</span>"+esc(seg.text)+"</button>";}).join('')+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
+   const correctSet=q.correctHighlights||q.correctAnswers?.highlights||[];
+   const inlineSegments=segments.map((seg,i)=>{
+     const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);
+     const correct=correctSet.some(x=>String(x)===String(seg.id)||String(x)===String(seg.text));
+     const feedback=submitted?(correct?'background:#dcfce7;color:#166534;border-bottom:2px solid #16a34a;':(on?'background:#fee2e2;color:#991b1b;border-bottom:2px solid #dc2626;':'')):'';
+     const style='display:inline;padding:2px 3px;margin:0 1px;border:0;border-bottom:2px dotted #64748b;border-radius:3px;background:'+(on?'#dbeafe':'transparent')+';color:inherit;font:inherit;line-height:inherit;cursor:'+(submitted?'default':'pointer')+';'+feedback;
+     const separator=i<segments.length-1?'; ':'';
+     return "<button type='button' class='qr-highlight-inline-token "+(on?'is-selected':'')+"' style='"+style+"' aria-pressed='"+on+"' "+(submitted?'disabled':'')+" onclick='quickRNToggleDraft(\\\"highlights\\\","+JSON.stringify(seg.id)+")'>"+esc(seg.text)+"</button>"+separator;
+   }).join('');
+   response=segments.length?'<div class="qr-highlight-instructions">Highlight the findings that require immediate attention by selecting the words or phrases in the question.</div><div class="qr-highlight-inline-text" style="font-size:1rem;line-height:2.1;white-space:normal">'+esc(prefix)+inlineSegments+'</div>':'<div class="qr-missing">This highlight item has no passage or highlightable segments.</div>';
  } else {
    const data=q.trendData||q.trends||q.trendTable||{}, rows=Array.isArray(data)?data:(data.rows||data.observations||[]), headers=Array.isArray(data.headers)?data.headers:(rows.length?Object.keys(rows[0]):[]);
    trendPanel='<section class="qr-trend-panel"><h3>Clinical Trends</h3>'+(data.title?'<p>'+esc(data.title)+'</p>':'')+(rows.length?'<div class="qr-table-wrap"><table class="qr-trend-table"><thead><tr>'+headers.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rows.map(row=>'<tr>'+headers.map(h=>'<td>'+esc(row[h]??'')+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>':'<div class="qr-missing">Trend data is missing from this item.</div>')+'</section>';
