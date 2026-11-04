@@ -290,16 +290,10 @@
                 </div>
 
                 <!-- FEATURE HUB TAB -->
-                <div id="tab-content-features" class="hidden space-y-6">
-                    <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 rounded-2xl p-8 text-white shadow-xl space-y-4 relative overflow-hidden">
-                        <div class="absolute right-0 top-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
-                        <div class="max-w-2xl space-y-3 relative z-10">
-                            <span class="px-3 py-1 bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider">Simulated NCLEX Environment & Reviewer Guide</span>
-                            <h2 class="text-3xl font-black tracking-tight text-white">QuickRN Feature Hub</h2>
-                            <p class="text-indigo-200 text-sm leading-relaxed">
-                                Explore clinical review modules, the shared Clinical Study Coach, adaptive testing simulators, and test-taking tools designed to prepare you for the NCLEX-RN exam.
-                            </p>
-                        </div>
+                <div id="tab-content-features" class="hidden space-y-4">
+                    <div class="flex flex-col gap-1 border-b border-slate-200 pb-3">
+                        <h2 class="text-xl font-extrabold tracking-tight text-slate-900">QuickRN Feature Hub</h2>
+                        <p class="text-sm text-slate-500">Explore study tools, clinical review resources, and NCLEX practice features.</p>
                     </div>
 
                     <!-- CURRENT RELEASE NOTES -->
@@ -337,9 +331,7 @@
                                 <p class="mt-2 text-xs leading-6 text-slate-600">QuickRN remains an evolving NCLEX preparation platform. Question-bank content and clinical rationales require ongoing review; practice readiness estimates are educational indicators and are not official NCLEX results. Some browser-local study records may not sync between devices, so retain backups before clearing browser data.</p>
                             </article>
                         </div>
-                    </section><div class="grid grid-cols-1 md:grid-cols-3 gap-3"><section class="p-3 bg-indigo-900/60 border border-indigo-500/30 rounded-xl space-y-2"><strong class="text-emerald-300 text-xs">Start here</strong><p class="text-indigo-100 text-xs">Your lowest measured area is <strong>' + escapeText(first.name) + '</strong> (' + first.percentage + '% across ' + first.solved + ' attempts). ' + (weakAreas.length ? 'Prioritize remediation before moving to on-track areas.' : 'Your measured domains are at or above 75%; continue consolidating them.') + '</p></section><section class="p-3 bg-indigo-900/60 border border-indigo-500/30 rounded-xl md:col-span-2"><strong class="text-amber-300 text-xs">Your 7-day study roadmap</strong><ul class="mt-2 space-y-2 text-indigo-100 text-xs">' + roadmapEvents.map((item,index)=>'<li><strong>Day '+(index+1)+':</strong> '+escapeText(item.title)+'</li>').join('') + '</ul><a href="calendar.html" class="inline-flex mt-3 px-3 py-2 rounded-lg bg-white text-indigo-900 font-bold text-xs hover:bg-indigo-50"><i class="fa-solid fa-calendar-days mr-2"></i>Open Calendar</a><p class="text-[10px] text-indigo-200 mt-2">The seven activities are saved to Calendar. Regenerating replaces only previous roadmap activities, not personal reminders.</p></section></div>';
-            showToast('Priority-first study roadmap saved to Calendar.', 'success');
-        }
+                    </section>
 
         <script>
         // Use the same loaded, de-duplicated bank as the exam pages for dashboard totals.
@@ -768,7 +760,7 @@
             const titles = {
                 dashboard: 'NCLEX Candidate Dashboard',
                 learning: 'Learning Center',
-                features: 'QuickRN Feature Hub & NCLEX Tour',
+                features: 'QuickRN Feature Hub',
                 analytics: 'Client Needs Mastery Analytics'
             };
             const pageTitle = document.getElementById('page-title');
