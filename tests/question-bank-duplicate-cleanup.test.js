@@ -66,17 +66,43 @@ function loadBank(relativePath) {
   assert.equal(new Set(bank.filter(q => q.type === 'Matrix / Grid').map(q => q.topic)).size, 16);
 }
 
+
+
 {
-  const root = loadBank('questions-bank-matrix-grid-2026-11-04-batch-008.js');
+  const root = loadBank('questions-bank-ngn-supplement-2026-11-04-batch-006.js');
   const bank = root.questions;
-  const signatures = new Set(bank.map(q => {
-    const item = { ...q };
-    delete item.id;
-    return JSON.stringify(item);
-  }));
-  assert.equal(bank.length, 40, 'matrix batch 008 retains 40 records');
-  assert.equal(signatures.size, 40, 'matrix batch 008 has no exact full-structure duplicates');
-  assert.equal(new Set(bank.map(q => q.id)).size, 40);
+  const matrices = bank.filter(q => q.type === 'Matrix Multiple');
+  const ordered = bank.filter(q => q.type === 'Extended Drag and Drop');
+  assert.equal(bank.length, 500);
+  assert.equal(matrices.length, 50);
+  assert.ok(matrices.every(q => q.rows.every(row => Array.isArray(q.correctAnswers[row.id]) && q.correctAnswers[row.id].length > 0)));
+  assert.equal(ordered.length, 50);
+  assert.ok(ordered.every(q => q.availableItems.length === q.correctOrder.length && q.correctOrder.every(x => q.availableItems.includes(x))));
+}
+
+{
+  const root = loadBank('questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js');
+  const bank = root.questions;
+  assert.equal(bank.length, 200);
+  assert.equal(new Set(bank.map(q => q.caseGroupId)).size, 40);
+  assert.ok(bank.every(q => Number.isInteger(q.caseQuestionNumber) && q.caseQuestionNumber >= 1 && q.caseQuestionNumber <= 5));
+}
+
+{
+  const sandbox = { console, window: { questions: [{ id: 'QR-002150', caseGroupId: 'legacy-group' }] } };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'js/quickrn-question-bank-case-fixes.js'), 'utf8'), sandbox);
+  const q = sandbox.window.questions[0];
+  assert.equal(q.caseGroupId, undefined);
+  assert.ok(q.caseStudy.scenario.includes('18 hours after the last alcohol intake'));
+  assert.ok(q.ehr.nursesNotes);
+}
+
+{
+  for (const page of ['selfstudy.html', 'timed.html', 'cat.html', 'predictor.html']) {
+    const html = fs.readFileSync(path.join(__dirname, '..', page), 'utf8');
+    assert.ok(!html.includes('questions-bank-matrix-grid-2026-11-04-batch-008.js'), page + ' no longer loads retired invalid Matrix/Grid batch');
+    assert.ok(html.includes('js/quickrn-question-bank-case-fixes.js'), page + ' applies the standalone case fix');
+  }
 }
 
 console.log('PASS: duplicate-template cleanup counts, retained IDs, unique tasks, and sequential NGN case groups.');
