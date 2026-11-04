@@ -176,7 +176,7 @@ function startExamSession(){
   formatFilter=canonicalFormatFilter($('format-filter')?.value||'ALL');
   pool=needsReviewMode?bank.slice():filteredPool();
   const required=mode==='predictor'?150:mode==='cat'?85:0;
-  window.quickRNExamDiagnostics={mode,stage:'pool-ready',sourceCount:rawBank().length,normalizedCount:bank.length,poolCount:pool.length,requiredCount:required,sessionCount:0};
+  window.quickRNExamDiagnostics={mode,stage:'pool-ready',sourceCount:rawBank().length,normalizedCount:bank.length,poolCount:pool.length,requiredCount:required,sessionCount:0,bankDiagnostics:window.quickRNQuestionBankDiagnostics||null};
   if(!pool.length){showBankLoadError('The question bank loaded ('+bank.length+' records), but no eligible questions were available for this exam.');return;}
   if(required&&pool.length<required){showBankLoadError(titles[mode]+' requires '+required+' unique questions, but only '+pool.length+' are available. The exam was not started with an incomplete pool.');return;}
   const selected=(mode==='selfstudy'||mode==='timed')?selectedCount:'150';
