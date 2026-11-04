@@ -59,11 +59,13 @@
     }
   ],
   "nextBatch": {
-    "number": 1,
+    "number": 11,
     "firstId": "QR-001330",
     "lastId": "QR-001829",
-    "status": "not_started",
-    "note": "First 500-item expansion batch; 671 additional records are needed to reach 2,000 total assigned IDs."
+    "status": "in_progress",
+    "authored": 10,
+    "remaining": 490,
+    "file": "question-bank-rebuild/batches/qr-batch-001330-001829.json"
   },
   "validationPolicy": {
     "exactBatchCount": 100,
@@ -86,10 +88,11 @@
     "The 1,000-record batch set previously created on question-bank-4500-rebuild is not promoted to main because it has not passed clinical review and renderer integration.",
     "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes.",
     "2026-11-02: Standardized 1,329 main-branch question records to contiguous QR-000001 through QR-001329 IDs. Original IDs are retained as legacyId and the complete mapping is stored in question-bank-rebuild/id-migration-map.json. Archived batch filenames remain unchanged for traceability; question IDs inside them use the canonical sequence. Historical branches remain unchanged.",
-    "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated."
+    "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
+    "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending."
   ],
   "progress": {
-    "questionsAuthored": 400,
+    "questionsAuthored": 410,
     "questionsStructurallyValidated": 400,
     "questionsClinicallyReviewed": 0,
     "questionsIntegratedIntoExamModes": 0
@@ -150,7 +153,7 @@
         "firstId": "QR-001330",
         "lastId": "QR-001829",
         "count": 500,
-        "status": "not_started"
+        "status": "in_progress"
       },
       {
         "number": 2,
