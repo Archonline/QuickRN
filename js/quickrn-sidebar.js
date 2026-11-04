@@ -15,7 +15,7 @@
       ['timed.html','fa-stopwatch','Timed Practice'], ['predictor.html','fa-clipboard-check','NCLEX Predictor'], ['cat.html','fa-laptop-code','CAT Simulator']
     ]},
     { label: 'Account & support', links: [
-      ['profile.html','fa-user-nurse','Profile'], ['reports.html','fa-inbox','Feedback Inbox'], ['help.html','fa-circle-question','Help & Disclaimer']
+      ['profile.html','fa-user-nurse','Profile'], ['help.html','fa-circle-question','Help & Disclaimer']
     ]}
   ];
   const aside = document.createElement('aside'); aside.id='quickrn-unified-sidebar'; aside.className='qr-sidebar';
