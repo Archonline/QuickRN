@@ -34,10 +34,67 @@ function splitTopicHeading(value, metadata){
 function stripClinicalLead(value, metadata){return stripQuestionLead(value,metadata);}
 function clean(value, metadata){return stripQuestionLead(String(value||''),metadata);}
 function rawBank(){if(Array.isArray(window.questions))return window.questions;if(Array.isArray(window.embeddedQuestionsData))return window.embeddedQuestionsData;if(Array.isArray(window.externalQuestions))return window.externalQuestions;return [];}
+function bankAssetReport(){
+ const manifest=window.QuickRNQuestionBankManifest||{},expected=Array.isArray(manifest.sourceModules)?manifest.sourceModules:[];
+ const scriptEls=[...document.querySelectorAll('script[src]')],audit=window.QuickRNBankLoadAudit?.assets||{};
+ const byName=new Map(scriptEls.map(el=>[String(el.src||'').split('/').pop(),el]));
+ const modules=expected.map(path=>{const name=String(path).split('/').pop(),el=byName.get(name),event=audit[name];return {path,name,present:!!el,status:!el?'missing':event?.status||'unconfirmed',src:el?.src||''};});
+ const missing=modules.filter(x=>x.status==='missing'),failed=modules.filter(x=>x.status==='failed'),unconfirmed=modules.filter(x=>x.status==='unconfirmed');
+ return {expectedCount:Number(manifest.expectedUniqueProductionRecords)||null,expectedModules:modules.length,modules,missing,failed,unconfirmed};
+}
+function renderBankStatus(uniqueCount,sourceCount,skipped,duplicates){
+ const report=bankAssetReport(),expected=report.expectedCount,exact=expected===null||expected===uniqueCount;
+ const allAssetsOk=!report.missing.length&&!report.failed.length&&!report.unconfirmed.length;
+ let label=uniqueCount.toLocaleString()+' unique questions loaded';
+ if(expected!==null&&!exact)label+=' · expected '+expected.toLocaleString();
+ if(report.failed.length||report.missing.length)label+=' · bank files need attention';
+ else if(report.unconfirmed.length)label+=' · file loads unconfirmed';
+ const header=document.querySelector('header');
+ if(header){
+  let details=document.getElementById('quickrn-bank-diagnostics');
+  if(!details){details=document.createElement('details');details.id='quickrn-bank-diagnostics';details.className='ml-auto relative text-xs';details.style.cssText='z-index:30;max-width:min(94vw,440px);';
+   const summary=document.createElement('summary');summary.id='quickrn-bank-status';summary.className='cursor-pointer rounded-full border px-3 py-1 font-semibold';summary.style.cssText='list-style:none;white-space:nowrap;background:#f8fafc;border-color:#cbd5e1;color:#0f172a;';details.appendChild(summary);
+   const panel=document.createElement('div');panel.id='quickrn-bank-diagnostics-panel';panel.className='absolute right-0 mt-2 w-80 max-w-[90vw] rounded-xl border bg-white p-3 shadow-xl';panel.style.cssText='background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px;box-shadow:0 12px 28px rgba(15,23,42,.16);max-height:60vh;overflow:auto;color:#0f172a;';details.appendChild(panel);header.appendChild(details);
+  }
+  const summary=document.getElementById('quickrn-bank-status');if(summary){summary.textContent=label;summary.style.borderColor=allAssetsOk&&exact?'#86efac':'#fbbf24';summary.style.background=allAssetsOk&&exact?'#f0fdf4':'#fffbeb';summary.style.color=allAssetsOk&&exact?'#166534':'#92400e';}
+  const panel=document.getElementById('quickrn-bank-diagnostics-panel');
+  if(panel){
+   const state=document.createElement('p');state.style.cssText='font-weight:700;margin:0 0 6px';state.textContent='Question bank runtime audit';
+   const count=document.createElement('p');count.style.cssText='margin:0 0 8px';count.textContent='Unique loaded: '+uniqueCount.toLocaleString()+' / '+(expected===null?'not declared':expected.toLocaleString())+' expected · Raw records: '+sourceCount.toLocaleString()+' · Duplicate IDs skipped: '+duplicates+' · Invalid records skipped: '+skipped;
+   panel.replaceChildren(state,count);
+   const groups=[['Missing script tags',report.missing],['Failed script loads',report.failed],['Unconfirmed script loads',report.unconfirmed]];
+   groups.forEach(([title,items])=>{const h=document.createElement('p');h.style.cssText='font-weight:700;margin:8px 0 3px';h.textContent=title+' ('+items.length+')';panel.appendChild(h);const list=document.createElement('ul');list.style.cssText='margin:0;padding-left:18px';if(!items.length){const li=document.createElement('li');li.textContent='None';list.appendChild(li);}else items.forEach(item=>{const li=document.createElement('li');li.textContent=item.path;list.appendChild(li);});panel.appendChild(list);});
+   const status=document.createElement('p');status.style.cssText='margin:8px 0 0;color:#475569';status.textContent=exact?'Runtime unique count matches the manifest.':(expected===null?'No expected total is declared.':'Runtime count does not match the manifest.');panel.appendChild(status);
+  }
+ }
+ window.quickRNQuestionBankDiagnostics={...report,uniqueLoaded:uniqueCount,rawRecords:sourceCount,invalidSkipped:skipped,duplicateIdsSkipped:duplicates,manifestCountMatches:exact,allModuleLoadsConfirmed:allAssetsOk};
+}
 function normalizeQuestion(q,index){const item=Object.assign({},q||{});item.id=String(item.id||item.questionId||('QR-'+(index+1)));item.ngnType=renderer()?.detect(item)||item.ngnType||item.type||'Single Choice';const stripMeta=v=>clean(String(v||''),item);const titleSource=item.questionOnly||item.actualQuestion||item.question||item.stem||item.cleanTitle||item.title||item.promptTitle||item.questionText||('NCLEX Item '+(index+1));item.cleanTitle=stripMeta(titleSource);const promptParts=[...new Set([item.questionText,item.question,item.instruction,item.prompt].filter(v=>v!==undefined&&v!==null&&String(v).trim()).map(stripMeta).filter(v=>v&&v.toLowerCase()!==item.cleanTitle.toLowerCase()))];item.cleanInstruction=stripMeta(item.cleanInstruction||promptParts.join(' '));item.keyPhrase=item.keyPhrase||item.topic||item.category||'Clinical Nursing';if(typeof item.difficulty!=='number'){const rawDifficulty=String(item.difficulty??'').toLowerCase();const numericDifficulty=Number(rawDifficulty);item.difficulty=Number.isFinite(numericDifficulty)?numericDifficulty:(rawDifficulty.includes('easy')?-1:rawDifficulty.includes('hard')?1:0);}return item;}
 function showBankLoadError(message){const host=$('case-study-content');if(host)host.innerHTML='<div role="alert" class="m-4 rounded-xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-900"><strong>QuickRN could not prepare the question bank.</strong><p class="mt-2">'+escapeHTML(message||'The question data is unavailable or could not be processed.')+'</p><p class="mt-2 text-xs">Check the question-bank asset and reload this exam. Your saved progress is preserved.</p><button type="button" class="mt-3 rounded-lg bg-slate-900 px-4 py-2 text-xs font-bold text-white" onclick="location.reload()">Retry loading exam</button></div>';const pill=$('session-info-pill');if(pill)pill.textContent='Question bank unavailable';}
 function loadBank(){const source=rawBank();if(!Array.isArray(source)){showBankLoadError('questions.js did not expose a question array.');return false;}bank=[];source.forEach((item,index)=>{try{const q=normalizeQuestion(item,index);if(q&&q.id)bank.push(q);}catch(error){console.warn('QuickRN skipped an invalid question record at index '+index,error);}});if(!bank.length){showBankLoadError('No valid question records were found in the loaded question bank.');return false;}return true;}
-function loadBankProgressively(){const source=rawBank();const button=$('setup-start');if(!Array.isArray(source)||!source.length){if(!loadBank())return;buildFormatFilterOptions();if(isNCLEXExamMode())startExamSession();return;}bank=[];let cursor=0,skipped=0;const chunkSize=250;if(button){button.disabled=true;button.textContent='Preparing questions…';button.classList.add('opacity-60','cursor-wait');}const processChunk=()=>{try{const end=Math.min(cursor+chunkSize,source.length);for(;cursor<end;cursor++){try{const item=normalizeQuestion(source[cursor],cursor);if(item&&item.id)bank.push(item);else skipped++;}catch(error){skipped++;console.warn('QuickRN skipped question '+cursor,error);}}if(cursor<source.length){window.setTimeout(processChunk,0);return;}if(!bank.length){if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];}showBankLoadError('All '+source.length+' source records failed validation.');return;}buildFormatFilterOptions();refreshNeedsReviewOption();if($('session-info-pill'))$('session-info-pill').textContent=bank.length.toLocaleString()+' questions loaded · 2,000-question target'+(skipped?' · '+skipped+' skipped':'');if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];button.classList.remove('opacity-60','cursor-wait');}if(isNCLEXExamMode())startExamSession();}catch(error){console.error('QuickRN bank preparation failed',error);showBankLoadError('The question bank stopped while processing record '+cursor+'. '+(error?.message||''));if(button){button.disabled=false;button.textContent='Retry loading questions';}}};window.setTimeout(processChunk,0);}
+function loadBankProgressively(){
+ const source=rawBank(),button=$('setup-start');
+ if(!Array.isArray(source)||!source.length){const report=bankAssetReport();renderBankStatus(0,0,0,0);showBankLoadError('No question records were exposed by the loaded bank scripts. '+(report.failed.length?'Failed files: '+report.failed.map(x=>x.path).join(', '):'Check the bank module diagnostics.'));return;}
+ bank=[];let cursor=0,skipped=0,duplicates=0;const seenIds=new Set(),chunkSize=250;
+ if(button){button.disabled=true;button.textContent='Preparing questions…';button.classList.add('opacity-60','cursor-wait');}
+ const processChunk=()=>{try{
+  const end=Math.min(cursor+chunkSize,source.length);
+  for(;cursor<end;cursor++){try{
+   const raw=source[cursor],rawId=String(raw?.id||raw?.questionId||'').trim();
+   if(!raw||!rawId){skipped++;continue;}
+   if(seenIds.has(rawId)){duplicates++;continue;}
+   const item=normalizeQuestion(raw,cursor);
+   if(item&&item.id){seenIds.add(String(item.id));bank.push(item);}else skipped++;
+  }catch(error){skipped++;console.warn('QuickRN skipped question '+cursor,error);}}
+  if(cursor<source.length){window.setTimeout(processChunk,0);return;}
+  if(!bank.length){if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];}renderBankStatus(0,source.length,skipped,duplicates);showBankLoadError('All '+source.length+' source records failed validation.');return;}
+  buildFormatFilterOptions();refreshNeedsReviewOption();renderBankStatus(bank.length,source.length,skipped,duplicates);
+  if($('session-info-pill'))$('session-info-pill').textContent=bank.length.toLocaleString()+' unique questions loaded'+(skipped||duplicates?' · '+(skipped+duplicates).toLocaleString()+' records skipped during de-duplication/validation':'');
+  if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];button.classList.remove('opacity-60','cursor-wait');}
+  if(isNCLEXExamMode())startExamSession();
+ }catch(error){console.error('QuickRN bank preparation failed',error);renderBankStatus(bank.length,source.length,skipped,duplicates);showBankLoadError('The question bank stopped while processing record '+cursor+'. '+(error?.message||''));if(button){button.disabled=false;button.textContent='Retry loading questions';}}};
+ window.setTimeout(processChunk,0);
+}
 function isNGN(q){const f=String(renderer()?.detect(q)||q.ngnType||'');return !!(q.isNGN||q.caseGroupId||q.caseStudyContext||['Matrix Single','Matrix Multiple','Matrix / Grid','Cloze (Drop-down)','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry','Select N'].includes(f)||/\bNGN\b/i.test([q.type,q.format,q.questionType,q.itemType,q.ngnType].join(' ')));}
 function shuffle(list){const a=list.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function diversityShuffle(list){const buckets=new Map();shuffle(list).forEach(q=>{const type=String(renderer()?.detect(q)||q.ngnType||'Other');const topic=String(q.topic||q.category||q.keyPhrase||'General').toLowerCase().replace(/\s+/g,' ').trim().slice(0,60);const key=type+'|'+topic;if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(q);});const groups=shuffle([...buckets.values()]),result=[];while(groups.length){for(let i=0;i<groups.length;i++){const group=groups[i];if(group.length)result.push(group.shift());if(!group.length){groups.splice(i,1);i--;}}}return result;}
