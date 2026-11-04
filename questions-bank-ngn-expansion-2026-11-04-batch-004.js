@@ -446,7 +446,8 @@ const items=[
    "Activate stroke pathway and obtain urgent noncontrast head CT",
    "Give aspirin before imaging",
    "Rapidly lower blood pressure to normal",
-   "Imaging excludes hemorrhage and guides time-sensitive reperfusion decisions."
+   "Imaging excludes hemorrhage and guides time-sensitive reperfusion decisions.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Activate stroke pathway and obtain urgent noncontrast head CT",
@@ -891,7 +892,8 @@ const items=[
    "Escalate immediately and initiate prescribed sepsis resuscitation",
    "Delay treatment until culture results return",
    "Restrict all IV fluids without reassessment",
-   "Hypotension, elevated lactate, and altered mentation indicate impaired perfusion requiring urgent escalation."
+   "Hypotension, elevated lactate, and altered mentation indicate impaired perfusion requiring urgent escalation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Escalate immediately and initiate prescribed sepsis resuscitation",
@@ -1336,7 +1338,8 @@ const items=[
    "Begin prescribed isotonic fluid replacement and monitor potassium closely",
    "Give IV insulin before checking potassium",
    "Give bicarbonate routinely to every client",
-   "DKA causes volume depletion and total-body potassium deficit; insulin timing depends on serum potassium."
+   "DKA causes volume depletion and total-body potassium deficit; insulin timing depends on serum potassium.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Begin prescribed isotonic fluid replacement and monitor potassium closely",
@@ -1781,7 +1784,8 @@ const items=[
    "Position upright, support oxygenation, and activate urgent response",
    "Encourage oral fluids",
    "Place supine and reassess in one hour",
-   "Acute pulmonary edema threatens gas exchange and requires immediate respiratory and hemodynamic support."
+   "Acute pulmonary edema threatens gas exchange and requires immediate respiratory and hemodynamic support.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Position upright, support oxygenation, and activate urgent response",
@@ -2226,7 +2230,8 @@ const items=[
    "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment",
    "Offer a high-potassium snack",
    "Wait for the next routine chemistry panel",
-   "Severe hyperkalemia with ECG changes can cause fatal dysrhythmias."
+   "Severe hyperkalemia with ECG changes can cause fatal dysrhythmias.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment",
@@ -2671,7 +2676,8 @@ const items=[
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
    "Encourage the client to walk",
    "Delay assessment until pain resolves",
-   "Time-sensitive evaluation and reperfusion reduce myocardial injury."
+   "Time-sensitive evaluation and reperfusion reduce myocardial injury.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
@@ -3116,7 +3122,8 @@ const items=[
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
    "Withhold all oxygen",
    "Encourage sedatives for dyspnea",
-   "Treat hypoxemia while monitoring response and ventilation; avoid withholding indicated oxygen."
+   "Treat hypoxemia while monitoring response and ventilation; avoid withholding indicated oxygen.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
@@ -3561,7 +3568,8 @@ const items=[
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
    "Massage the affected calf",
    "Encourage unassisted ambulation",
-   "The presentation suggests venous thromboembolism with possible pulmonary embolism."
+   "The presentation suggests venous thromboembolism with possible pulmonary embolism.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
@@ -4006,7 +4014,8 @@ const items=[
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
    "Offer a high-fat meal",
    "Apply deep abdominal massage",
-   "Pancreatitis care includes supportive treatment, hydration, pain control, and monitoring for complications."
+   "Pancreatitis care includes supportive treatment, hydration, pain control, and monitoring for complications.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
@@ -4451,7 +4460,8 @@ const items=[
    "Assess circulation, establish IV access, and urgently notify the provider",
    "Give an oral laxative",
    "Assist the client to walk to the bathroom alone",
-   "Tachycardia and hypotension with GI bleeding suggest hemodynamic compromise."
+   "Tachycardia and hypotension with GI bleeding suggest hemodynamic compromise.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Assess circulation, establish IV access, and urgently notify the provider",
@@ -4896,7 +4906,8 @@ const items=[
    "Institute safety measures and administer prescribed lactulose while monitoring response",
    "Restrict all bowel movements",
    "Give sedatives without assessment",
-   "Hepatic encephalopathy requires treatment of precipitating factors and prescribed ammonia-lowering therapy."
+   "Hepatic encephalopathy requires treatment of precipitating factors and prescribed ammonia-lowering therapy.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Institute safety measures and administer prescribed lactulose while monitoring response",
@@ -5341,7 +5352,8 @@ const items=[
    "Report oliguria and trend renal function, electrolytes, and fluid balance",
    "Encourage unmeasured fluid intake regardless of status",
    "Ignore the trend if blood pressure is normal",
-   "Oliguria and rising creatinine indicate worsening renal function requiring assessment and escalation."
+   "Oliguria and rising creatinine indicate worsening renal function requiring assessment and escalation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Report oliguria and trend renal function, electrolytes, and fluid balance",
@@ -5786,7 +5798,8 @@ const items=[
    "Stop oral intake and request formal swallowing assessment",
    "Offer thin liquids through a straw",
    "Place the client flat during meals",
-   "Coughing and wet voice suggest aspiration risk; oral intake should stop pending evaluation."
+   "Coughing and wet voice suggest aspiration risk; oral intake should stop pending evaluation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop oral intake and request formal swallowing assessment",
@@ -6231,7 +6244,8 @@ const items=[
    "Stop the transfusion and maintain IV access with new tubing and saline per protocol",
    "Flush the blood product into the client",
    "Restart after an antipyretic",
-   "A suspected acute transfusion reaction requires stopping the product and following the reaction protocol."
+   "A suspected acute transfusion reaction requires stopping the product and following the reaction protocol.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop the transfusion and maintain IV access with new tubing and saline per protocol",
@@ -6676,7 +6690,8 @@ const items=[
    "Notify the provider immediately and initiate febrile-neutropenia protocol",
    "Give a rectal suppository",
    "Wait until morning to repeat temperature",
-   "Fever with severe neutropenia is an oncologic emergency."
+   "Fever with severe neutropenia is an oncologic emergency.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Notify the provider immediately and initiate febrile-neutropenia protocol",
@@ -7121,7 +7136,8 @@ const items=[
    "Re-establish the water seal per facility emergency protocol and assess respiratory status",
    "Clamp the tube for an extended period",
    "Leave the system disconnected",
-   "A disconnection compromises the closed drainage system; follow emergency policy and reassess."
+   "A disconnection compromises the closed drainage system; follow emergency policy and reassess.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Re-establish the water seal per facility emergency protocol and assess respiratory status",
@@ -7566,7 +7582,8 @@ const items=[
    "Support airway and ventilation, summon help, and prepare prescribed naloxone",
    "Administer another opioid dose",
    "Offer food and fluids",
-   "Bradypnea and reduced consciousness indicate potentially life-threatening opioid toxicity."
+   "Bradypnea and reduced consciousness indicate potentially life-threatening opioid toxicity.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Support airway and ventilation, summon help, and prepare prescribed naloxone",
@@ -8011,7 +8028,8 @@ const items=[
    "Stop all heparin sources and urgently notify the provider",
    "Increase the heparin infusion",
    "Give vitamin K routinely",
-   "HIT can cause thrombosis despite thrombocytopenia; all heparin exposure must stop pending evaluation."
+   "HIT can cause thrombosis despite thrombocytopenia; all heparin exposure must stop pending evaluation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop all heparin sources and urgently notify the provider",
@@ -8456,7 +8474,8 @@ const items=[
    "Hold digoxin and notify the provider for evaluation",
    "Give the scheduled dose",
    "Encourage extra digoxin to improve rate control",
-   "Bradycardia, visual symptoms, and hypokalemia increase concern for digoxin toxicity."
+   "Bradycardia, visual symptoms, and hypokalemia increase concern for digoxin toxicity.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Hold digoxin and notify the provider for evaluation",
@@ -8901,7 +8920,8 @@ const items=[
    "Hold lithium and obtain urgent prescriber evaluation and serum level",
    "Give the next dose with food",
    "Encourage strenuous exercise",
-   "Neurologic and gastrointestinal changes can signal lithium toxicity."
+   "Neurologic and gastrointestinal changes can signal lithium toxicity.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Hold lithium and obtain urgent prescriber evaluation and serum level",
@@ -9346,7 +9366,8 @@ const items=[
    "Hold serotonergic agents and obtain urgent medical evaluation",
    "Administer another serotonergic dose",
    "Use restraints as the only intervention",
-   "Autonomic instability and neuromuscular hyperactivity suggest serotonin toxicity."
+   "Autonomic instability and neuromuscular hyperactivity suggest serotonin toxicity.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Hold serotonergic agents and obtain urgent medical evaluation",
@@ -9791,7 +9812,8 @@ const items=[
    "Maintain immediate safety observation and initiate emergency psychiatric response",
    "Leave the client alone to rest",
    "Promise to keep the plan secret",
-   "Specific plan, access, and intent indicate acute risk requiring immediate protective action."
+   "Specific plan, access, and intent indicate acute risk requiring immediate protective action.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Maintain immediate safety observation and initiate emergency psychiatric response",
@@ -10236,7 +10258,8 @@ const items=[
    "Reduce stimulation, set clear limits, and offer high-calorie finger foods",
    "Encourage competitive group activities",
    "Challenge grandiose statements in front of peers",
-   "A low-stimulation environment, consistent limits, and portable nutrition support safety."
+   "A low-stimulation environment, consistent limits, and portable nutrition support safety.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Reduce stimulation, set clear limits, and offer high-calorie finger foods",
@@ -10675,7 +10698,8 @@ const items=[
    "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol",
    "Give alcohol to prevent seizures",
    "Leave the client unmonitored",
-   "Withdrawal can progress to seizures and delirium; structured monitoring and prescribed treatment are needed."
+   "Withdrawal can progress to seizures and delirium; structured monitoring and prescribed treatment are needed.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol",
@@ -11120,7 +11144,8 @@ const items=[
    "Escalate urgently and implement prescribed seizure prophylaxis and BP management",
    "Encourage vigorous ambulation",
    "Delay assessment until the next prenatal visit",
-   "Severe-range hypertension with neurologic symptoms requires urgent maternal-fetal management."
+   "Severe-range hypertension with neurologic symptoms requires urgent maternal-fetal management.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Escalate urgently and implement prescribed seizure prophylaxis and BP management",
@@ -11565,7 +11590,8 @@ const items=[
    "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate",
    "Increase infusion rate",
    "Recheck in four hours",
-   "Respiratory depression, absent reflexes, and oliguria suggest magnesium toxicity."
+   "Respiratory depression, absent reflexes, and oliguria suggest magnesium toxicity.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate",
@@ -12010,7 +12036,8 @@ const items=[
    "Call for help, massage the fundus, and initiate prescribed hemorrhage response",
    "Leave client to ambulate",
    "Apply fundal pressure without assessment",
-   "Uterine atony is a common cause of postpartum hemorrhage and requires immediate action."
+   "Uterine atony is a common cause of postpartum hemorrhage and requires immediate action.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Call for help, massage the fundus, and initiate prescribed hemorrhage response",
@@ -12455,7 +12482,8 @@ const items=[
    "Avoid vaginal examination and notify obstetric team urgently",
    "Perform digital cervical examination",
    "Encourage intercourse to assess bleeding",
-   "Placenta previa can hemorrhage with cervical manipulation; avoid vaginal examination."
+   "Placenta previa can hemorrhage with cervical manipulation; avoid vaginal examination.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Avoid vaginal examination and notify obstetric team urgently",
@@ -12900,7 +12928,8 @@ const items=[
    "Notify provider and administer prescribed antimicrobial therapy",
    "Reassure that fever is expected",
    "Delay reporting until discharge",
-   "Fever, uterine tenderness, and malodorous lochia suggest postpartum infection."
+   "Fever, uterine tenderness, and malodorous lochia suggest postpartum infection.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Notify provider and administer prescribed antimicrobial therapy",
@@ -13345,7 +13374,8 @@ const items=[
    "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment",
    "Wait for symptoms to resolve",
    "Give plain water",
-   "Symptomatic neonatal hypoglycemia requires prompt protocol-based treatment and reassessment."
+   "Symptomatic neonatal hypoglycemia requires prompt protocol-based treatment and reassessment.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment",
@@ -13790,7 +13820,8 @@ const items=[
    "Keep child calm and prepare controlled airway management; do not inspect throat",
    "Use a tongue blade to inspect the pharynx",
    "Force the child supine",
-   "Suspected epiglottitis can cause sudden airway obstruction; avoid agitation and throat examination."
+   "Suspected epiglottitis can cause sudden airway obstruction; avoid agitation and throat examination.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Keep child calm and prepare controlled airway management; do not inspect throat",
@@ -14235,7 +14266,8 @@ const items=[
    "Assess airway and breathing and provide prescribed oxygen and supportive care",
    "Offer large-volume oral feeds during severe distress",
    "Use cough suppressant routinely",
-   "Hypoxemia and increased work of breathing require respiratory support and careful hydration."
+   "Hypoxemia and increased work of breathing require respiratory support and careful hydration.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Assess airway and breathing and provide prescribed oxygen and supportive care",
@@ -14680,7 +14712,8 @@ const items=[
    "Assess perfusion and initiate prescribed oral or IV rehydration based on severity",
    "Give undiluted juice as sole replacement",
    "Restrict fluids",
-   "Delayed refill and oliguria indicate volume depletion requiring appropriate rehydration."
+   "Delayed refill and oliguria indicate volume depletion requiring appropriate rehydration.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Assess perfusion and initiate prescribed oral or IV rehydration based on severity",
@@ -15125,7 +15158,8 @@ const items=[
    "Protect from injury, position side-lying, and assess airway after seizure",
    "Restrain limbs and place object in mouth",
    "Give oral medication during seizure",
-   "Seizure first aid prioritizes injury prevention and airway protection; nothing goes in the mouth."
+   "Seizure first aid prioritizes injury prevention and airway protection; nothing goes in the mouth.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Protect from injury, position side-lying, and assess airway after seizure",
@@ -15570,7 +15604,8 @@ const items=[
    "Keep child calm and administer prescribed corticosteroid or nebulized therapy",
    "Inspect throat with tongue depressor",
    "Encourage crying to assess voice",
-   "Agitation worsens upper-airway obstruction; calm handling and prescribed treatment are priorities."
+   "Agitation worsens upper-airway obstruction; calm handling and prescribed treatment are priorities.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Keep child calm and administer prescribed corticosteroid or nebulized therapy",
@@ -16015,7 +16050,8 @@ const items=[
    "Initiate appropriate isolation and urgent evaluation",
    "Place in a shared playroom",
    "Delay precautions until culture confirmation",
-   "Suspected bacterial meningitis requires prompt precautions and evaluation."
+   "Suspected bacterial meningitis requires prompt precautions and evaluation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Initiate appropriate isolation and urgent evaluation",
@@ -16460,7 +16496,8 @@ const items=[
    "Provide prescribed analgesia, hydration, and assessment for complications",
    "Apply ice packs to painful areas",
    "Withhold analgesia until imaging",
-   "Vaso-occlusive pain requires timely analgesia and supportive care; cold can worsen vasoconstriction."
+   "Vaso-occlusive pain requires timely analgesia and supportive care; cold can worsen vasoconstriction.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Provide prescribed analgesia, hydration, and assessment for complications",
@@ -16905,7 +16942,8 @@ const items=[
    "Administer IM epinephrine per emergency protocol and activate response",
    "Give oral antihistamine as the only treatment",
    "Wait for rash to spread",
-   "IM epinephrine is first-line treatment for anaphylaxis with airway or circulatory compromise."
+   "IM epinephrine is first-line treatment for anaphylaxis with airway or circulatory compromise.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Administer IM epinephrine per emergency protocol and activate response",
@@ -17350,7 +17388,8 @@ const items=[
    "Give prescribed IV dextrose or glucagon per protocol and reassess",
    "Give juice by mouth",
    "Administer more insulin",
-   "An unconscious or unsafe-to-swallow client needs nonoral rapid glucose treatment."
+   "An unconscious or unsafe-to-swallow client needs nonoral rapid glucose treatment.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Give prescribed IV dextrose or glucagon per protocol and reassess",
@@ -17795,7 +17834,8 @@ const items=[
    "Hold warfarin and urgently report suspected bleeding for reversal plan",
    "Give next warfarin dose",
    "Recommend aspirin",
-   "Melena and elevated INR suggest clinically significant bleeding requiring urgent evaluation."
+   "Melena and elevated INR suggest clinically significant bleeding requiring urgent evaluation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Hold warfarin and urgently report suspected bleeding for reversal plan",
@@ -18240,7 +18280,8 @@ const items=[
    "Clarify timing and coordinate insulin with food availability",
    "Give rapid-acting insulin and leave",
    "Double the dose",
-   "Rapid-acting insulin should be coordinated with food intake to reduce hypoglycemia risk."
+   "Rapid-acting insulin should be coordinated with food intake to reduce hypoglycemia risk.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Clarify timing and coordinate insulin with food availability",
@@ -18685,7 +18726,8 @@ const items=[
    "Stop infusion as indicated, assess, notify provider, and follow line infection protocol",
    "Ignore symptoms if insertion site looks normal",
    "Remove line without order or protocol",
-   "Bloodstream infection can occur without visible site inflammation; prompt assessment and protocol are needed."
+   "Bloodstream infection can occur without visible site inflammation; prompt assessment and protocol are needed.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop infusion as indicated, assess, notify provider, and follow line infection protocol",
@@ -19130,7 +19172,8 @@ const items=[
    "Offload pressure, reposition, and protect skin",
    "Massage reddened area",
    "Use a donut ring",
-   "Nonblanchable erythema over intact skin is consistent with stage 1 pressure injury; relieve pressure."
+   "Nonblanchable erythema over intact skin is consistent with stage 1 pressure injury; relieve pressure.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Offload pressure, reposition, and protect skin",
@@ -19575,7 +19618,8 @@ const items=[
    "Stop feeding, assess respiratory status, and follow swallowing plan",
    "Offer thin water to clear throat",
    "Continue feeding more slowly without reassessment",
-   "Cough and wet voice suggest aspiration; stop intake and assess."
+   "Cough and wet voice suggest aspiration; stop intake and assess.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Stop feeding, assess respiratory status, and follow swallowing plan",
@@ -20020,7 +20064,8 @@ const items=[
    "Initiate fall precautions and assist with mobility",
    "Encourage independent walking",
    "Keep call bell out of reach",
-   "Sedation increases fall risk; environmental precautions and assisted mobility are appropriate."
+   "Sedation increases fall risk; environmental precautions and assisted mobility are appropriate.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Initiate fall precautions and assist with mobility",
@@ -20465,7 +20510,8 @@ const items=[
    "Hold dose as appropriate and notify prescriber for parameters",
    "Administer without reassessment",
    "Give a second dose",
-   "Hypotension with symptoms warrants reassessment and clarification before medication administration."
+   "Hypotension with symptoms warrants reassessment and clarification before medication administration.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Hold dose as appropriate and notify prescriber for parameters",
@@ -20910,7 +20956,8 @@ const items=[
    "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered",
    "Maintain strict bed rest",
    "Suppress all coughing",
-   "Lung expansion and mobility help prevent and treat postoperative atelectasis."
+   "Lung expansion and mobility help prevent and treat postoperative atelectasis.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered",
@@ -21355,7 +21402,8 @@ const items=[
    "Notify orthopedic team immediately and prepare for urgent evaluation",
    "Elevate limb excessively above heart and wait",
    "Apply tight compression wrap",
-   "Pain out of proportion and pain with passive stretch are early warning signs of compartment syndrome."
+   "Pain out of proportion and pain with passive stretch are early warning signs of compartment syndrome.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Notify orthopedic team immediately and prepare for urgent evaluation",
@@ -21800,7 +21848,8 @@ const items=[
    "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention",
    "Perform repeated deep suction without indication",
    "Place in Trendelenburg",
-   "Declining consciousness and pupillary change suggest neurologic deterioration and possible herniation."
+   "Declining consciousness and pupillary change suggest neurologic deterioration and possible herniation.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention",
@@ -22245,7 +22294,8 @@ const items=[
    "Use contact precautions and soap-and-water hand hygiene",
    "Use alcohol gel as sole hand hygiene",
    "Share equipment between clients",
-   "C. difficile spores require contact precautions, dedicated equipment, and soap-and-water hand hygiene."
+   "C. difficile spores require contact precautions, dedicated equipment, and soap-and-water hand hygiene.",
+   "Reassess airway, breathing, circulation, and vital signs."
   ],
   "correctAnswers": [
    "Use contact precautions and soap-and-water hand hygiene",
