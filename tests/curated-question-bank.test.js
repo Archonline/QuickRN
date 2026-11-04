@@ -8,7 +8,7 @@ for(const file of ['questions-bank-v2.js','questions-bank-v2-curated.js','js/qui
 for(const page of ['selfstudy.html','cat.html','predictor.html','timed.html']){const html=fs.readFileSync(page,'utf8');assert.ok(html.includes('src=\"questions-bank-v2-curated.js\"'),page+' loads the curated bank');assert.ok(html.indexOf('src=\"questions-ngn-supplement.js\"')<html.indexOf('src=\"questions-bank-v2-curated.js\"'),page+' loads curated items after the supplemental bank');}
 const bank=context.window.questions;
 assert.ok(Array.isArray(bank));
-const curated=bank.filter(q=>String(q.id||'').startsWith('QB2R-'));
+const curated=bank.filter(q=>String(q.id||'').startsWith('QB2R-')||String(q.legacyId||'').startsWith('QB2R-'));
 assert.ok(curated.length>=28,'curated bank includes the original standalone and six linked case questions plus replacement batches');
 assert.equal(new Set(curated.map(q=>q.id)).size,curated.length,'curated IDs are unique');
 const clientNeeds=new Set(curated.map(q=>q.clientNeed).filter(Boolean));
@@ -17,7 +17,7 @@ for(const q of curated){
  assert.ok(q.title&&q.title.trim(),q.id+' has a stem');
  assert.ok(q.rationale&&q.rationale.trim(),q.id+' has a rationale');
 }
-const byId=id=>curated.find(q=>q.id===id);
+const byId=id=>curated.find(q=>q.id===id||q.legacyId===id);
 for(const q of curated){
  const f=String(q.type||'').toLowerCase(),opts=q.options||[];
  if(f==='single choice'||f==='trend'){
