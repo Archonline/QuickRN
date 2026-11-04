@@ -3,7 +3,7 @@
 - Date: 2026-11-05
 - Branch: `main`
 - Question-bank files updated: `questions-bank-v2.js` and `questions-bank-v2-curated.js`
-- Records authored/migrated in this session: 40
+- Records authored/migrated in this session: 45
 - Batch size: 5 records per batch
 - Latest item commits: `532423dc8105cb20765ea07cae79da7d1e44b9ad` (batch 008 rationale refinement) and `7e0a4d67bab851bad897713ad909648498efadfc` (batch 008 item content)
 
@@ -19,6 +19,7 @@
 | 006 | QR-001290–QR-001294 | [batch-006.md](batch-006.md) | `a50e3dabe89b7f992b9a292b4d65afbd0b9d8465` |
 | 007 | QR-001295–QR-001299 | [batch-007.md](batch-007.md) | `cf9394c502fe5f8452fd10ce0ff3d4655c736bd9` |
 | 008 | QR-001300–QR-001304 | [batch-008.md](batch-008.md) | `532423dc8105cb20765ea07cae79da7d1e44b9ad` |
+| 009 | QB2R-0029–QB2R-0033 | [batch-009.md](batch-009.md) | `2c05a6dca3ed01385a547e18d15dcdce4c9b496e` |
 
 ## Canonical schema v2 migration
 
@@ -57,7 +58,7 @@ The dedicated v2 validator writes separate schema-issue and educator-review queu
 - `schemaValidation` reports automated metadata, interaction, answer-key, and rationale validation.
 - `educatorReview.status` is tracked separately. Missing status is `not_started`; explicit states such as `pending`, `in_review`, `changes_requested`, and `approved` remain distinct.
 - Only an `approved` record with reviewer identity and review timestamp counts as educator-approved.
-- No item in these eight batches is marked educator-approved.
+- No item in these nine batches is marked educator-approved.
 
 ## Remaining work
 
