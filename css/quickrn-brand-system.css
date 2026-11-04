@@ -373,3 +373,43 @@ body:not([data-exam-mode]) header :is(a,button):hover{
  body.qr-main-sidebar-collapsed .qr-sidebar-toggle{right:50%;top:auto;bottom:9px;transform:translateX(50%)}
 }
 @media(max-width:767px){.qr-sidebar-toggle{display:none}}
+
+/* Main navigation auto-hide: compact icon rail, reveal labels on hover/focus. */
+#quickrn-unified-sidebar.qr-sidebar{position:fixed;isolation:isolate;transition:width .2s ease,box-shadow .2s ease}
+#quickrn-unified-sidebar .qr-sidebar-brand{position:static}
+#quickrn-unified-sidebar .qr-sidebar-toggle{position:absolute;left:18px;right:auto;top:auto;bottom:14px;transform:none;z-index:3}
+@media(min-width:768px){
+ :root{--qr-sidebar-autohide-width:68px}
+ body.qr-has-sidebar.qr-main-sidebar-autohide{padding-left:var(--qr-sidebar-autohide-width)!important}
+ #app-shell.qr-sidebar-shell.qr-main-sidebar-autohide{width:calc(100% - var(--qr-sidebar-autohide-width));margin-left:var(--qr-sidebar-autohide-width)}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar.qr-sidebar{width:var(--qr-sidebar-autohide-width);overflow:visible}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-brand{justify-content:center;padding:18px 8px;min-height:84px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-wordmark,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-group h2,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link span,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-footer span{display:none}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-nav{padding:14px 8px 58px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link{justify-content:center;padding:11px 8px;gap:0}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-link>i{width:22px;flex-basis:22px;font-size:16px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-footer{justify-content:center;padding:15px 8px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar .qr-sidebar-toggle{left:18px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within{width:256px;box-shadow:12px 0 32px rgba(10,28,44,.24);z-index:100}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-wordmark,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-wordmark,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-group h2,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-group h2,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link span,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link span,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-footer span,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-footer span{display:block}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-brand,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-brand{justify-content:flex-start;padding:18px 22px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-nav,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-nav{padding:16px 13px 58px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link{justify-content:flex-start;padding:9px 12px;gap:12px}
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:hover .qr-sidebar-link>i,
+ body.qr-main-sidebar-autohide #quickrn-unified-sidebar:focus-within .qr-sidebar-link>i{width:18px;flex-basis:18px;font-size:14px}
+}
+@media(max-width:767px){body.qr-has-sidebar.qr-main-sidebar-autohide{padding-left:0!important}#app-shell.qr-sidebar-shell.qr-main-sidebar-autohide{width:100%;margin-left:0}#quickrn-unified-sidebar .qr-sidebar-toggle{display:none}}
