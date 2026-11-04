@@ -10,7 +10,7 @@ The audit mirrors the question-source scripts loaded by the four production exam
 - Records passing the complete v2 contract: 0
 - Records requiring migration/completion: 3,969
 - Duplicate IDs in the loaded page bank: 0
-- Total field-level issues after safe label canonicalization: 17,774
+- Total field-level issues after evidence-based metadata and case/key migrations: 12,144
 
 | Issue | Affected records |
 |---|---:|
@@ -21,8 +21,8 @@ The audit mirrors the question-source scripts loaded by the four production exam
 | Missing option/response-specific rationales | 3,969 |
 | Missing Clinical Judgment Tip | 3,969 |
 | Missing overall rationale | 499 |
-| Linked case has no usable patient/EHR stimulus | 206 |
-| Answer key includes a value not present in options | 433 |
+| Linked case has no usable patient/EHR stimulus | 0 (206 repaired) |
+| Answer key includes a value not present in options | 0 (50 repaired) |
 
 ## Implementation state
 
@@ -53,3 +53,12 @@ The validator bootstrap was corrected in commit `457e16944e6efc9234d61f62c966347
 ## Safe metadata migration applied
 
 The canonical adapter now converts only explicit legacy difficulty labels (`Easy`/`Low`/`Basic` → 1; `Moderate`/`Medium`/`Intermediate` → 3; `Hard`/`High`/`Advanced`/`Very hard` → 5), retaining the original label in `metadata.difficultyLabel`. It also canonicalizes recognized CJMM spelling/case aliases without assigning a stage where no stage exists. Unit tests cover this mapping. The next CI audit reduced invalid difficulty records from 3,969 to 433 and invalid CJMM records from 3,969 to 3,263; no guessed clinical metadata was inserted.
+
+
+## Latest remediation pass
+
+The schema adapter now uses existing `caseStudy`, `caseStudyContext`, `scenario`, and clinical-record fields as patient stimulus when present; this repaired all 206 linked-case stimulus failures (the final six were `QB2R-CS-001-01` through `QB2R-CS-001-06`, whose source records already contained a complete `caseStudy.scenario`). The validator now checks every option object's `id`, `value`, `text`, and `label` instead of only the first property. The remaining 50 genuine mismatches were confined to Select-N items in NGN expansion batch 004: each answer key explicitly contained a second response missing from its options. That keyed response was added to the corresponding option list, preserving the existing `selectN: 2` instruction. The current audit reports zero answer-key mismatches and zero incomplete linked-case stimuli.
+
+Format-specific scoring is now deterministically migrated (`0/1` for single-best-answer formats and `plus_minus` for NGN multi-response/structured formats). CJMM stages are assigned only when the stem contains an explicit task cue matching a CJMM step; 1,022 additional records were mapped this way. The adapter also migrates any rationale already embedded in an option object. The unit tests cover these paths.
+
+Latest strict CI audit: 3,969 unique records; 0 pass; 12,144 field-level issues remain. Outstanding issue counts: 3,969 missing option-specific rationales, 3,969 missing Clinical Judgment Tips, 2,241 missing/ambiguous CJMM stages, 1,033 missing Client Needs classifications, 433 missing/ambiguous difficulty values, and 499 missing overall rationales. These require item-level clinical authoring or educator adjudication; the validator remains blocking and no unsupported clinical content has been generated merely to make it pass.
