@@ -650,3 +650,45 @@ body header>div:first-child{
   color:#334155!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   font-size:11px!important;font-weight:800!important;letter-spacing:.07em;
 }
+
+
+/* Final contrast correction: category and subcategory labels must stay dark
+   even when their markup carries Tailwind text-slate utility classes. */
+#client-needs-list details>summary,
+#system-list details>summary{
+  color:#172b3d!important;
+  opacity:1!important;
+  font-weight:750!important;
+}
+#client-needs-list details>summary>span:first-child,
+#system-list details>summary>span:first-child,
+#client-needs-list details>summary .font-bold,
+#system-list details>summary .font-bold,
+#client-needs-list details>summary .font-semibold,
+#system-list details>summary .font-semibold{
+  color:#172b3d!important;
+  opacity:1!important;
+  font-weight:750!important;
+}
+#client-needs-list details>summary>span:last-child,
+#system-list details>summary>span:last-child{
+  color:#526579!important;
+  opacity:1!important;
+  font-weight:600!important;
+}
+#client-needs-list details>summary:hover,
+#system-list details>summary:hover,
+#client-needs-list details[open]>summary,
+#system-list details[open]>summary{
+  color:#10283b!important;
+}
+#client-needs-list .lesson-link,
+#system-list .lesson-link{
+  color:#263b4f!important;
+  opacity:1!important;
+}
+#client-needs-list .lesson-link .topic-label-text,
+#system-list .lesson-link .topic-label-text{
+  color:inherit!important;
+  opacity:1!important;
+}
