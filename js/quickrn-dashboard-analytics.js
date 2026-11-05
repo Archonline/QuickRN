@@ -23,6 +23,8 @@
     return record.completed === true || String(record.completed).toLowerCase() === 'true' ||
       record.isFinished === true || record.finished === true ||
       ['completed','complete','finished','submitted'].includes(status) ||
+      record.scorePercent !== undefined || record.accuracyPercent !== undefined ||
+      record.isFinished === true || record.finished === true ||
       !!(record.completedAt || record.finishedAt);
   }
   function modeOf(record, fallback) {
