@@ -101,4 +101,12 @@ assert.ok(pilot.filter(item=>item.type==='Highlight').every(item=>item.correctHi
 assert.ok(pilot.filter(item=>item.type==='Select N').every(item=>item.correctAnswers.length===2&&item.correctAnswers.every(answer=>item.options.includes(answer))),'Select-N answer keys match the available choices');
 assert.ok(pilot.every(item=>/^QR-\\d{6}$/.test(item.id)),'existing canonical question ID shape is preserved');
 
+
+const nextTopics=['Acute coronary syndrome','COPD exacerbation','Pulmonary embolism','Acute pancreatitis','Upper GI bleeding'];
+const nextPilot=batch.filter(item=>nextTopics.includes(item.topic));
+assert.equal(nextPilot.length,50,'case groups 6 through 10 contain 50 records');
+assert.equal(nextPilot.filter(item=>item.rationale).length,45,'the second pilot batch has 45 case-specific rationales');
+assert.equal(nextPilot.filter(item=>item.type==='Trend'&&item.reviewStatus==='hold_for_content_revision').length,5,'the second pilot batch holds its five invalid Trend records');
+assert.ok(nextPilot.every(item=>item.webmasterReviewStatus),'all second-batch records have an explicit webmaster review status');
+
 console.log('PASS: new clinical schema maps patient profile and tabs, retains additional tabs, and separates scenario from task.');
