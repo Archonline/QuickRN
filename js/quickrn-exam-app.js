@@ -45,28 +45,7 @@ function bankAssetReport(){
 function renderBankStatus(uniqueCount,sourceCount,skipped,duplicates){
  const report=bankAssetReport(),expected=report.expectedCount,exact=expected===null||expected===uniqueCount;
  const allAssetsOk=!report.missing.length&&!report.failed.length&&!report.unconfirmed.length;
- let label=uniqueCount.toLocaleString()+' unique questions loaded';
- if(expected!==null&&!exact)label+=' · expected '+expected.toLocaleString();
- if(report.failed.length||report.missing.length)label+=' · bank files need attention';
- else if(report.unconfirmed.length)label+=' · file loads unconfirmed';
- const header=document.querySelector('header');
- if(header){
-  let details=document.getElementById('quickrn-bank-diagnostics');
-  if(!details){details=document.createElement('details');details.id='quickrn-bank-diagnostics';details.className='ml-auto relative text-xs';details.style.cssText='z-index:30;max-width:min(94vw,440px);';
-   const summary=document.createElement('summary');summary.id='quickrn-bank-status';summary.className='cursor-pointer rounded-full border px-3 py-1 font-semibold';summary.style.cssText='list-style:none;white-space:nowrap;background:#f8fafc;border-color:#cbd5e1;color:#0f172a;';details.appendChild(summary);
-   const panel=document.createElement('div');panel.id='quickrn-bank-diagnostics-panel';panel.className='absolute right-0 mt-2 w-80 max-w-[90vw] rounded-xl border bg-white p-3 shadow-xl';panel.style.cssText='background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:12px;box-shadow:0 12px 28px rgba(15,23,42,.16);max-height:60vh;overflow:auto;color:#0f172a;';details.appendChild(panel);header.appendChild(details);
-  }
-  const summary=document.getElementById('quickrn-bank-status');if(summary){summary.textContent=label;summary.style.borderColor=allAssetsOk&&exact?'#86efac':'#fbbf24';summary.style.background=allAssetsOk&&exact?'#f0fdf4':'#fffbeb';summary.style.color=allAssetsOk&&exact?'#166534':'#92400e';}
-  const panel=document.getElementById('quickrn-bank-diagnostics-panel');
-  if(panel){
-   const state=document.createElement('p');state.style.cssText='font-weight:700;margin:0 0 6px';state.textContent='Question bank runtime audit';
-   const count=document.createElement('p');count.style.cssText='margin:0 0 8px';count.textContent='Unique loaded: '+uniqueCount.toLocaleString()+' / '+(expected===null?'not declared':expected.toLocaleString())+' expected · Raw records: '+sourceCount.toLocaleString()+' · Duplicate IDs skipped: '+duplicates+' · Invalid records skipped: '+skipped;
-   panel.replaceChildren(state,count);
-   const groups=[['Missing script tags',report.missing],['Failed script loads',report.failed],['Unconfirmed script loads',report.unconfirmed]];
-   groups.forEach(([title,items])=>{const h=document.createElement('p');h.style.cssText='font-weight:700;margin:8px 0 3px';h.textContent=title+' ('+items.length+')';panel.appendChild(h);const list=document.createElement('ul');list.style.cssText='margin:0;padding-left:18px';if(!items.length){const li=document.createElement('li');li.textContent='None';list.appendChild(li);}else items.forEach(item=>{const li=document.createElement('li');li.textContent=item.path;list.appendChild(li);});panel.appendChild(list);});
-   const status=document.createElement('p');status.style.cssText='margin:8px 0 0;color:#475569';status.textContent=exact?'Runtime unique count matches the manifest.':(expected===null?'No expected total is declared.':'Runtime count does not match the manifest.');panel.appendChild(status);
-  }
- }
+ // Keep diagnostics available to developers without inserting a status badge or toast into the exam header.
  window.quickRNQuestionBankDiagnostics={...report,uniqueLoaded:uniqueCount,rawRecords:sourceCount,invalidSkipped:skipped,duplicateIdsSkipped:duplicates,manifestCountMatches:exact,allModuleLoadsConfirmed:allAssetsOk};
 }
 function normalizeQuestion(q,index){const item=Object.assign({},q||{});item.id=String(item.id||item.questionId||('QR-'+(index+1)));item.ngnType=renderer()?.detect(item)||item.ngnType||item.type||'Single Choice';const stripMeta=v=>clean(String(v||''),item);const titleSource=item.questionOnly||item.actualQuestion||item.question||item.stem||item.cleanTitle||item.title||item.promptTitle||item.questionText||('NCLEX Item '+(index+1));item.cleanTitle=stripMeta(titleSource);const promptParts=[...new Set([item.questionText,item.question,item.instruction,item.prompt].filter(v=>v!==undefined&&v!==null&&String(v).trim()).map(stripMeta).filter(v=>v&&v.toLowerCase()!==item.cleanTitle.toLowerCase()))];item.cleanInstruction=stripMeta(item.cleanInstruction||promptParts.join(' '));item.keyPhrase=item.keyPhrase||item.topic||item.category||'Clinical Nursing';if(typeof item.difficulty!=='number'){const rawDifficulty=String(item.difficulty??'').toLowerCase();const numericDifficulty=Number(rawDifficulty);item.difficulty=Number.isFinite(numericDifficulty)?numericDifficulty:(rawDifficulty.includes('easy')?-1:rawDifficulty.includes('hard')?1:0);}return item;}
