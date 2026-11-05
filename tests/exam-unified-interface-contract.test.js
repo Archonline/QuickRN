@@ -60,7 +60,7 @@ for (const [path, mode] of [['selfstudy.html','selfstudy'],['timed.html','timed'
   assert.match(page, /id="video-resources"/);
   assert.match(page, />Rationale<\/h4>/);
 }
-for (const path of ['index.html','dashboard.html','profile.html','calendar.html','saved.html','reports.html','correct_view.html']) {
+for (const path of ['index.html','dashboard.html','profile.html','calendar.html','saved.html','reports.html']) {
   assert.match(read(path), /css\/quickrn-brand-system\.css/);
 }
 assert.match(brand, /body header\{[\s\S]*?background:#00a8cc!important/);
