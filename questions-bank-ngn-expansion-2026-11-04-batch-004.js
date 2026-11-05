@@ -2385,7 +2385,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001970",
   "type": "Bowtie",
@@ -2398,28 +2398,30 @@ const items=[
    ],
    "actions": [
     "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
-    "Encourage the client to walk",
-    "Delay assessment until pain resolves",
-    "Time-sensitive evaluation and reperfusion reduce myocardial injury."
+    "Establish IV access and continuous cardiac monitoring; reassess chest pain and prepare for urgent reperfusion evaluation.",
+    "Delay or withhold the indicated urgent intervention",
+    "Perform an unrelated routine task before reassessing the client."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "Continuous ECG/rhythm and repeat 12-lead ECG findings, including ST-segment changes",
+    "Chest pain, blood pressure, oxygen saturation, and signs of hemodynamic instability",
+    "Routine hair and nail assessment",
+    "Delay reassessment until the end of the shift"
    ]
   },
   "correctAnswers": {
    "condition": "Acute coronary syndrome requiring urgent clinical management",
    "actions": [
     "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Establish IV access and continuous cardiac monitoring; reassess chest pain and prepare for urgent reperfusion evaluation."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "Continuous ECG/rhythm and repeat 12-lead ECG findings, including ST-segment changes",
+    "Chest pain, blood pressure, oxygen saturation, and signs of hemodynamic instability"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "**Clinical problem:** Crushing chest pressure with diaphoresis, nausea, and new ST-segment elevation is concerning for acute coronary occlusion/ST-elevation myocardial infarction. Myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required.\n\n**Nursing actions:** Activate the acute coronary syndrome/STEMI pathway, obtain an immediate 12-lead ECG, notify the responsible clinician, and prepare for time-sensitive reperfusion. Give prescribed antiplatelet or other therapy after checking orders and contraindications.\n\n**Monitoring:** Continuous ECG/rhythm and repeat 12-lead ECG findings, including ST-segment changes; Chest pain, blood pressure, oxygen saturation, and signs of hemodynamic instability."
  },
  {
   "category": "Adult Health",
@@ -2435,7 +2437,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001971",
   "type": "Matrix Single",
@@ -2463,7 +2465,9 @@ const items=[
    "cue1": "Priority response",
    "cue2": "Priority response",
    "cue3": "Unsafe or delayed response"
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** Crushing chest pressure with diaphoresis, nausea, and new ST-segment elevation is concerning for acute coronary occlusion/ST-elevation myocardial infarction. Myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required.\n- **Cue 2:** The indicated priority response addresses the immediate threat and should not be delayed.\n- **Cue 3:** The proposed alternative is unsafe or delays essential care: Encouraging ambulation increases myocardial workload during suspected acute ischemia. Delaying assessment until pain resolves can delay recognition and treatment of myocardial infarction."
  },
  {
   "category": "Adult Health",
@@ -2479,7 +2483,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001972",
   "type": "Matrix Multiple",
@@ -2512,9 +2516,12 @@ const items=[
     "Needs prompt escalation"
    ],
    "cue3": [
+    "Needs prompt escalation",
     "Requires focused reassessment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** The findings require prompt escalation and focused reassessment. Crushing chest pressure with diaphoresis, nausea, and new ST-segment elevation is concerning for acute coronary occlusion/ST-elevation myocardial infarction. Myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required.\n- **Cue 2:** The indicated intervention requires prompt action and reassessment.\n- **Cue 3:** The proposed action is unsafe or delays treatment and requires correction/escalation: Encouraging ambulation increases myocardial workload during suspected acute ischemia. Delaying assessment until pain resolves can delay recognition and treatment of myocardial infarction."
  },
  {
   "category": "Adult Health",
@@ -2530,7 +2537,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001973",
   "type": "Cloze (Drop-down)",
@@ -2558,18 +2565,20 @@ const items=[
    {
     "id": "monitor",
     "options": [
-     "Airway and hemodynamic status",
-     "Hair and nail growth",
-     "Routine meal preference only"
+     "ECG/rhythm, chest pain, blood pressure, oxygenation, and signs of poor perfusion",
+     "Routine assessment unrelated to the immediate problem",
+     "No reassessment until the next shift"
     ],
-    "correct": "Airway and hemodynamic status"
+    "correct": "ECG/rhythm, chest pain, blood pressure, oxygenation, and signs of poor perfusion"
    }
   ],
   "correctAnswers": {
    "problem": "Acute coronary syndrome requiring urgent intervention",
    "action": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
-   "monitor": "Airway and hemodynamic status"
-  }
+   "monitor": "ECG/rhythm, chest pain, blood pressure, oxygenation, and signs of poor perfusion"
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The clinical problem is Acute coronary syndrome requiring urgent intervention. The priority action is Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response. Monitor ecg/rhythm, chest pain, blood pressure, oxygenation, and signs of poor perfusion to evaluate immediate risk and response to treatment. Encouraging ambulation increases myocardial workload during suspected acute ischemia. Delaying assessment until pain resolves can delay recognition and treatment of myocardial infarction."
  },
  {
   "category": "Adult Health",
@@ -2585,7 +2594,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001974",
   "type": "Dropdown Rationale",
@@ -2613,16 +2622,20 @@ const items=[
    {
     "id": "reason",
     "options": [
-     null,
-     "The finding is unrelated to the current assessment.",
-     "Waiting is preferred whenever a client is unstable."
-    ]
+     "ST-segment elevation with ischemic symptoms may indicate acute coronary occlusion. Rapid ECG interpretation, escalation, and reperfusion evaluation limit myocardial injury; ambulation or delaying assessment is unsafe.",
+     "The findings are expected and require no follow-up.",
+     "Treatment should be postponed until additional complications develop."
+    ],
+    "correct": "ST-segment elevation with ischemic symptoms may indicate acute coronary occlusion. Rapid ECG interpretation, escalation, and reperfusion evaluation limit myocardial injury; ambulation or delaying assessment is unsafe."
    }
   ],
   "correctAnswers": {
    "interpretation": "Acute coronary syndrome requiring urgent clinical management",
-   "response": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
-  }
+   "response": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
+   "reason": "ST-segment elevation with ischemic symptoms may indicate acute coronary occlusion. Rapid ECG interpretation, escalation, and reperfusion evaluation limit myocardial injury; ambulation or delaying assessment is unsafe."
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The findings support Acute coronary syndrome requiring urgent clinical management. The appropriate response is Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response. ST-segment elevation with ischemic symptoms may indicate acute coronary occlusion. Rapid ECG interpretation, escalation, and reperfusion evaluation limit myocardial injury; ambulation or delaying assessment is unsafe."
  },
  {
   "category": "Adult Health",
@@ -2638,7 +2651,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001975",
   "type": "Highlight",
@@ -2646,29 +2659,29 @@ const items=[
   "highlightSegments": [
    {
     "id": "h1",
-    "text": "Crushing chest pressure, diaphoresis, nausea, and new ST-segment elevation."
+    "text": "Crushing chest pressure"
    },
    {
     "id": "h2",
-    "text": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
+    "text": "Diaphoresis"
    },
    {
     "id": "h3",
-    "text": "The client requests a preferred television channel."
+    "text": "Nausea"
    },
    {
     "id": "h4",
-    "text": "Encourage the client to walk"
-   },
-   {
-    "id": "h5",
-    "text": "The client asks when the next meal will arrive."
+    "text": "New ST-segment elevation"
    }
   ],
   "correctHighlights": [
    "h1",
-   "h2"
-  ]
+   "h2",
+   "h3",
+   "h4"
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The priority cues are Crushing chest pressure, Diaphoresis, Nausea, New ST-segment elevation. These findings support the need for follow-up because crushing chest pressure with diaphoresis, nausea, and new st-segment elevation is concerning for acute coronary occlusion/st-elevation myocardial infarction. myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required."
  },
  {
   "category": "Adult Health",
@@ -2739,7 +2752,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001977",
   "type": "Extended Drag and Drop",
@@ -2755,7 +2768,9 @@ const items=[
    "Perform focused assessment of airway, breathing, circulation, and relevant cues.",
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
    "Reassess the response and document/escalate changes."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Verify the client and assess the immediate threat first, then initiate the indicated urgent intervention, and reassess/document the response. Activate the acute coronary syndrome/STEMI pathway, obtain an immediate 12-lead ECG, notify the responsible clinician, and prepare for time-sensitive reperfusion. Give prescribed antiplatelet or other therapy after checking orders and contraindications."
  },
  {
   "category": "Adult Health",
@@ -2771,7 +2786,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001978",
   "type": "Extended Multiple Response",
@@ -2787,7 +2802,9 @@ const items=[
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
    "Reassess airway, breathing, circulation, and vital signs.",
    "Notify the appropriate clinician when deterioration or emergency cues are present."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Select actions that address the immediate threat, support safe treatment, and ensure reassessment. Activate the acute coronary syndrome/STEMI pathway, obtain an immediate 12-lead ECG, notify the responsible clinician, and prepare for time-sensitive reperfusion. Give prescribed antiplatelet or other therapy after checking orders and contraindications. Continued monitoring is essential because crushing chest pressure with diaphoresis, nausea, and new st-segment elevation is concerning for acute coronary occlusion/st-elevation myocardial infarction. myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required."
  },
  {
   "category": "Adult Health",
@@ -2803,7 +2820,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001979",
   "type": "Select N",
@@ -2811,15 +2828,17 @@ const items=[
   "title": "Select the two priority nursing responses for this Acute coronary syndrome scenario.",
   "options": [
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
-   "Encourage the client to walk",
-   "Delay assessment until pain resolves",
-   "Time-sensitive evaluation and reperfusion reduce myocardial injury.",
-   "Reassess airway, breathing, circulation, and vital signs."
+   "Establish IV access and continuous cardiac monitoring; reassess chest pain and prepare for urgent reperfusion evaluation.",
+   "Delay or withhold the indicated urgent intervention",
+   "Encourage the client to walk to determine whether the chest discomfort improves.",
+   "Perform an unrelated routine task before reassessing the client."
   ],
   "correctAnswers": [
    "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
-   "Reassess airway, breathing, circulation, and vital signs."
-  ]
+   "Establish IV access and continuous cardiac monitoring; reassess chest pain and prepare for urgent reperfusion evaluation."
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The two priority responses are Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response and Establish IV access and continuous cardiac monitoring; reassess chest pain and prepare for urgent reperfusion evaluation.. Crushing chest pressure with diaphoresis, nausea, and new ST-segment elevation is concerning for acute coronary occlusion/ST-elevation myocardial infarction. Myocardial oxygen supply is threatened and time-sensitive reperfusion evaluation is required. Encouraging ambulation increases myocardial workload during suspected acute ischemia. Delaying assessment until pain resolves can delay recognition and treatment of myocardial infarction."
  },
  {
   "category": "Adult Health",
@@ -2835,7 +2854,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001980",
   "type": "Bowtie",
@@ -2848,28 +2867,30 @@ const items=[
    ],
    "actions": [
     "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
-    "Withhold all oxygen",
-    "Encourage sedatives for dyspnea",
-    "Treat hypoxemia while monitoring response and ventilation; avoid withholding indicated oxygen."
+    "Reassess respiratory effort and response to bronchodilator therapy; obtain ordered blood gases and prepare prescribed corticosteroid or additional respiratory support.",
+    "Delay or withhold the indicated urgent intervention",
+    "Perform an unrelated routine task before reassessing the client."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "Oxygen saturation, respiratory rate, accessory-muscle use, and ability to speak",
+    "Mental status and ordered blood-gas results for worsening hypercapnia or respiratory failure",
+    "Routine hair and nail assessment",
+    "Delay reassessment until the end of the shift"
    ]
   },
   "correctAnswers": {
    "condition": "COPD exacerbation requiring urgent clinical management",
    "actions": [
     "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Reassess respiratory effort and response to bronchodilator therapy; obtain ordered blood gases and prepare prescribed corticosteroid or additional respiratory support."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "Oxygen saturation, respiratory rate, accessory-muscle use, and ability to speak",
+    "Mental status and ordered blood-gas results for worsening hypercapnia or respiratory failure"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "**Clinical problem:** Increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute COPD exacerbation with hypoxemia and increased work of breathing.\n\n**Nursing actions:** Assess respiratory status, position the client to ease ventilation, administer prescribed controlled oxygen and bronchodilator therapy, and escalate if respiratory distress persists or worsens.\n\n**Monitoring:** Oxygen saturation, respiratory rate, accessory-muscle use, and ability to speak; Mental status and ordered blood-gas results for worsening hypercapnia or respiratory failure."
  },
  {
   "category": "Adult Health",
@@ -2885,7 +2906,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001981",
   "type": "Matrix Single",
@@ -2913,7 +2934,9 @@ const items=[
    "cue1": "Priority response",
    "cue2": "Priority response",
    "cue3": "Unsafe or delayed response"
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** Increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute COPD exacerbation with hypoxemia and increased work of breathing.\n- **Cue 2:** The indicated priority response addresses the immediate threat and should not be delayed.\n- **Cue 3:** The proposed alternative is unsafe or delays essential care: Withholding all oxygen leaves hypoxemia untreated. Sedatives can depress ventilation and worsen carbon-dioxide retention in a client with respiratory compromise."
  },
  {
   "category": "Adult Health",
@@ -2929,7 +2952,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001982",
   "type": "Matrix Multiple",
@@ -2962,9 +2985,12 @@ const items=[
     "Needs prompt escalation"
    ],
    "cue3": [
+    "Needs prompt escalation",
     "Requires focused reassessment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** The findings require prompt escalation and focused reassessment. Increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute COPD exacerbation with hypoxemia and increased work of breathing.\n- **Cue 2:** The indicated intervention requires prompt action and reassessment.\n- **Cue 3:** The proposed action is unsafe or delays treatment and requires correction/escalation: Withholding all oxygen leaves hypoxemia untreated. Sedatives can depress ventilation and worsen carbon-dioxide retention in a client with respiratory compromise."
  },
  {
   "category": "Adult Health",
@@ -2980,7 +3006,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001983",
   "type": "Cloze (Drop-down)",
@@ -3008,18 +3034,20 @@ const items=[
    {
     "id": "monitor",
     "options": [
-     "Airway and hemodynamic status",
-     "Hair and nail growth",
-     "Routine meal preference only"
+     "Oxygen saturation, respiratory effort, mental status, and ordered blood-gas results",
+     "Routine assessment unrelated to the immediate problem",
+     "No reassessment until the next shift"
     ],
-    "correct": "Airway and hemodynamic status"
+    "correct": "Oxygen saturation, respiratory effort, mental status, and ordered blood-gas results"
    }
   ],
   "correctAnswers": {
    "problem": "COPD exacerbation requiring urgent intervention",
    "action": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
-   "monitor": "Airway and hemodynamic status"
-  }
+   "monitor": "Oxygen saturation, respiratory effort, mental status, and ordered blood-gas results"
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The clinical problem is COPD exacerbation requiring urgent intervention. The priority action is Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy. Monitor oxygen saturation, respiratory effort, mental status, and ordered blood-gas results to evaluate immediate risk and response to treatment. Withholding all oxygen leaves hypoxemia untreated. Sedatives can depress ventilation and worsen carbon-dioxide retention in a client with respiratory compromise."
  },
  {
   "category": "Adult Health",
@@ -3035,7 +3063,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001984",
   "type": "Dropdown Rationale",
@@ -3063,16 +3091,20 @@ const items=[
    {
     "id": "reason",
     "options": [
-     null,
-     "The finding is unrelated to the current assessment.",
-     "Waiting is preferred whenever a client is unstable."
-    ]
+     "The client is hypoxemic and using accessory muscles, so prompt respiratory assessment and prescribed bronchodilator/controlled oxygen therapy are indicated. Oxygen should not be withheld; titrate and monitor to the prescribed target.",
+     "The findings are expected and require no follow-up.",
+     "Treatment should be postponed until additional complications develop."
+    ],
+    "correct": "The client is hypoxemic and using accessory muscles, so prompt respiratory assessment and prescribed bronchodilator/controlled oxygen therapy are indicated. Oxygen should not be withheld; titrate and monitor to the prescribed target."
    }
   ],
   "correctAnswers": {
    "interpretation": "COPD exacerbation requiring urgent clinical management",
-   "response": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
-  }
+   "response": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
+   "reason": "The client is hypoxemic and using accessory muscles, so prompt respiratory assessment and prescribed bronchodilator/controlled oxygen therapy are indicated. Oxygen should not be withheld; titrate and monitor to the prescribed target."
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The findings support COPD exacerbation requiring urgent clinical management. The appropriate response is Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy. The client is hypoxemic and using accessory muscles, so prompt respiratory assessment and prescribed bronchodilator/controlled oxygen therapy are indicated. Oxygen should not be withheld; titrate and monitor to the prescribed target."
  },
  {
   "category": "Adult Health",
@@ -3088,7 +3120,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001985",
   "type": "Highlight",
@@ -3096,29 +3128,29 @@ const items=[
   "highlightSegments": [
    {
     "id": "h1",
-    "text": "Increased sputum, wheezing, accessory muscle use, and SpO2 86% on room air."
+    "text": "Increased sputum"
    },
    {
     "id": "h2",
-    "text": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
+    "text": "Wheezing"
    },
    {
     "id": "h3",
-    "text": "The client requests a preferred television channel."
+    "text": "Accessory-muscle use"
    },
    {
     "id": "h4",
-    "text": "Withhold all oxygen"
-   },
-   {
-    "id": "h5",
-    "text": "The client asks when the next meal will arrive."
+    "text": "Oxygen saturation 86% on room air"
    }
   ],
   "correctHighlights": [
    "h1",
-   "h2"
-  ]
+   "h2",
+   "h3",
+   "h4"
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The priority cues are Increased sputum, Wheezing, Accessory-muscle use, Oxygen saturation 86% on room air. These findings support the need for follow-up because increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute copd exacerbation with hypoxemia and increased work of breathing."
  },
  {
   "category": "Adult Health",
@@ -3189,7 +3221,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001987",
   "type": "Extended Drag and Drop",
@@ -3205,7 +3237,9 @@ const items=[
    "Perform focused assessment of airway, breathing, circulation, and relevant cues.",
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
    "Reassess the response and document/escalate changes."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Verify the client and assess the immediate threat first, then initiate the indicated urgent intervention, and reassess/document the response. Assess respiratory status, position the client to ease ventilation, administer prescribed controlled oxygen and bronchodilator therapy, and escalate if respiratory distress persists or worsens."
  },
  {
   "category": "Adult Health",
@@ -3221,7 +3255,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001988",
   "type": "Extended Multiple Response",
@@ -3237,7 +3271,9 @@ const items=[
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
    "Reassess airway, breathing, circulation, and vital signs.",
    "Notify the appropriate clinician when deterioration or emergency cues are present."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Select actions that address the immediate threat, support safe treatment, and ensure reassessment. Assess respiratory status, position the client to ease ventilation, administer prescribed controlled oxygen and bronchodilator therapy, and escalate if respiratory distress persists or worsens. Continued monitoring is essential because increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute copd exacerbation with hypoxemia and increased work of breathing."
  },
  {
   "category": "Adult Health",
@@ -3253,7 +3289,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001989",
   "type": "Select N",
@@ -3261,15 +3297,17 @@ const items=[
   "title": "Select the two priority nursing responses for this COPD exacerbation scenario.",
   "options": [
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
-   "Withhold all oxygen",
-   "Encourage sedatives for dyspnea",
-   "Treat hypoxemia while monitoring response and ventilation; avoid withholding indicated oxygen.",
-   "Reassess airway, breathing, circulation, and vital signs."
+   "Reassess respiratory effort and response to bronchodilator therapy; obtain ordered blood gases and prepare prescribed corticosteroid or additional respiratory support.",
+   "Delay or withhold the indicated urgent intervention",
+   "Withhold oxygen despite the documented oxygen saturation of 86%.",
+   "Perform an unrelated routine task before reassessing the client."
   ],
   "correctAnswers": [
    "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
-   "Reassess airway, breathing, circulation, and vital signs."
-  ]
+   "Reassess respiratory effort and response to bronchodilator therapy; obtain ordered blood gases and prepare prescribed corticosteroid or additional respiratory support."
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The two priority responses are Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy and Reassess respiratory effort and response to bronchodilator therapy; obtain ordered blood gases and prepare prescribed corticosteroid or additional respiratory support.. Increased sputum, wheezing, accessory-muscle use, and oxygen saturation of 86% on room air indicate an acute COPD exacerbation with hypoxemia and increased work of breathing. Withholding all oxygen leaves hypoxemia untreated. Sedatives can depress ventilation and worsen carbon-dioxide retention in a client with respiratory compromise."
  },
  {
   "category": "Adult Health",
@@ -3285,7 +3323,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001990",
   "type": "Bowtie",
@@ -3298,28 +3336,30 @@ const items=[
    ],
    "actions": [
     "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
-    "Massage the affected calf",
-    "Encourage unassisted ambulation",
-    "The presentation suggests venous thromboembolism with possible pulmonary embolism."
+    "Maintain bed rest during urgent evaluation, establish monitoring/IV access as indicated, and prepare to administer prescribed anticoagulation when ordered.",
+    "Delay or withhold the indicated urgent intervention",
+    "Perform an unrelated routine task before reassessing the client."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "Oxygen saturation, respiratory effort, heart rate, and blood pressure for cardiopulmonary deterioration",
+    "Signs of right-heart strain, perfusion changes, and response to prescribed treatment",
+    "Routine hair and nail assessment",
+    "Delay reassessment until the end of the shift"
    ]
   },
   "correctAnswers": {
    "condition": "Pulmonary embolism requiring urgent clinical management",
    "actions": [
     "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Maintain bed rest during urgent evaluation, establish monitoring/IV access as indicated, and prepare to administer prescribed anticoagulation when ordered."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "Oxygen saturation, respiratory effort, heart rate, and blood pressure for cardiopulmonary deterioration",
+    "Signs of right-heart strain, perfusion changes, and response to prescribed treatment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "**Clinical problem:** Sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. Acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle.\n\n**Nursing actions:** Support oxygenation as indicated and activate urgent evaluation. Keep the client at rest, assess hemodynamic and respiratory status, and prepare for prescribed diagnostic testing and anticoagulation after clinician evaluation.\n\n**Monitoring:** Oxygen saturation, respiratory effort, heart rate, and blood pressure for cardiopulmonary deterioration; Signs of right-heart strain, perfusion changes, and response to prescribed treatment."
  },
  {
   "category": "Adult Health",
@@ -3335,7 +3375,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001991",
   "type": "Matrix Single",
@@ -3363,7 +3403,9 @@ const items=[
    "cue1": "Priority response",
    "cue2": "Priority response",
    "cue3": "Unsafe or delayed response"
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** Sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. Acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle.\n- **Cue 2:** The indicated priority response addresses the immediate threat and should not be delayed.\n- **Cue 3:** The proposed alternative is unsafe or delays essential care: Massaging the affected calf may dislodge thrombus. Unassisted ambulation is inappropriate while acute pulmonary embolism is suspected and the client is symptomatic."
  },
  {
   "category": "Adult Health",
@@ -3379,7 +3421,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001992",
   "type": "Matrix Multiple",
@@ -3412,9 +3454,12 @@ const items=[
     "Needs prompt escalation"
    ],
    "cue3": [
+    "Needs prompt escalation",
     "Requires focused reassessment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** The findings require prompt escalation and focused reassessment. Sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. Acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle.\n- **Cue 2:** The indicated intervention requires prompt action and reassessment.\n- **Cue 3:** The proposed action is unsafe or delays treatment and requires correction/escalation: Massaging the affected calf may dislodge thrombus. Unassisted ambulation is inappropriate while acute pulmonary embolism is suspected and the client is symptomatic."
  },
  {
   "category": "Adult Health",
@@ -3430,7 +3475,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001993",
   "type": "Cloze (Drop-down)",
@@ -3458,18 +3503,20 @@ const items=[
    {
     "id": "monitor",
     "options": [
-     "Airway and hemodynamic status",
-     "Hair and nail growth",
-     "Routine meal preference only"
+     "Oxygenation, respiratory effort, heart rate, blood pressure, and perfusion",
+     "Routine assessment unrelated to the immediate problem",
+     "No reassessment until the next shift"
     ],
-    "correct": "Airway and hemodynamic status"
+    "correct": "Oxygenation, respiratory effort, heart rate, blood pressure, and perfusion"
    }
   ],
   "correctAnswers": {
    "problem": "Pulmonary embolism requiring urgent intervention",
    "action": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
-   "monitor": "Airway and hemodynamic status"
-  }
+   "monitor": "Oxygenation, respiratory effort, heart rate, blood pressure, and perfusion"
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The clinical problem is Pulmonary embolism requiring urgent intervention. The priority action is Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism. Monitor oxygenation, respiratory effort, heart rate, blood pressure, and perfusion to evaluate immediate risk and response to treatment. Massaging the affected calf may dislodge thrombus. Unassisted ambulation is inappropriate while acute pulmonary embolism is suspected and the client is symptomatic."
  },
  {
   "category": "Adult Health",
@@ -3485,7 +3532,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001994",
   "type": "Dropdown Rationale",
@@ -3513,16 +3560,20 @@ const items=[
    {
     "id": "reason",
     "options": [
-     null,
-     "The finding is unrelated to the current assessment.",
-     "Waiting is preferred whenever a client is unstable."
-    ]
+     "The postoperative client has symptoms concerning for DVT and pulmonary embolism. Urgent evaluation and support of oxygenation are needed; massaging the affected calf may dislodge thrombus and ambulation is unsafe before evaluation.",
+     "The findings are expected and require no follow-up.",
+     "Treatment should be postponed until additional complications develop."
+    ],
+    "correct": "The postoperative client has symptoms concerning for DVT and pulmonary embolism. Urgent evaluation and support of oxygenation are needed; massaging the affected calf may dislodge thrombus and ambulation is unsafe before evaluation."
    }
   ],
   "correctAnswers": {
    "interpretation": "Pulmonary embolism requiring urgent clinical management",
-   "response": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
-  }
+   "response": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
+   "reason": "The postoperative client has symptoms concerning for DVT and pulmonary embolism. Urgent evaluation and support of oxygenation are needed; massaging the affected calf may dislodge thrombus and ambulation is unsafe before evaluation."
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The findings support Pulmonary embolism requiring urgent clinical management. The appropriate response is Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism. The postoperative client has symptoms concerning for DVT and pulmonary embolism. Urgent evaluation and support of oxygenation are needed; massaging the affected calf may dislodge thrombus and ambulation is unsafe before evaluation."
  },
  {
   "category": "Adult Health",
@@ -3538,7 +3589,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001995",
   "type": "Highlight",
@@ -3546,29 +3597,29 @@ const items=[
   "highlightSegments": [
    {
     "id": "h1",
-    "text": "Sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery."
+    "text": "Sudden pleuritic chest pain"
    },
    {
     "id": "h2",
-    "text": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
+    "text": "Tachycardia"
    },
    {
     "id": "h3",
-    "text": "The client requests a preferred television channel."
+    "text": "Dyspnea"
    },
    {
     "id": "h4",
-    "text": "Massage the affected calf"
-   },
-   {
-    "id": "h5",
-    "text": "The client asks when the next meal will arrive."
+    "text": "Unilateral calf swelling after surgery"
    }
   ],
   "correctHighlights": [
    "h1",
-   "h2"
-  ]
+   "h2",
+   "h3",
+   "h4"
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The priority cues are Sudden pleuritic chest pain, Tachycardia, Dyspnea, Unilateral calf swelling after surgery. These findings support the need for follow-up because sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle."
  },
  {
   "category": "Adult Health",
@@ -3639,7 +3690,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001997",
   "type": "Extended Drag and Drop",
@@ -3655,7 +3706,9 @@ const items=[
    "Perform focused assessment of airway, breathing, circulation, and relevant cues.",
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
    "Reassess the response and document/escalate changes."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Verify the client and assess the immediate threat first, then initiate the indicated urgent intervention, and reassess/document the response. Support oxygenation as indicated and activate urgent evaluation. Keep the client at rest, assess hemodynamic and respiratory status, and prepare for prescribed diagnostic testing and anticoagulation after clinician evaluation."
  },
  {
   "category": "Adult Health",
@@ -3671,7 +3724,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001998",
   "type": "Extended Multiple Response",
@@ -3687,7 +3740,9 @@ const items=[
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
    "Reassess airway, breathing, circulation, and vital signs.",
    "Notify the appropriate clinician when deterioration or emergency cues are present."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Select actions that address the immediate threat, support safe treatment, and ensure reassessment. Support oxygenation as indicated and activate urgent evaluation. Keep the client at rest, assess hemodynamic and respiratory status, and prepare for prescribed diagnostic testing and anticoagulation after clinician evaluation. Continued monitoring is essential because sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle."
  },
  {
   "category": "Adult Health",
@@ -3703,7 +3758,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001999",
   "type": "Select N",
@@ -3711,15 +3766,17 @@ const items=[
   "title": "Select the two priority nursing responses for this Pulmonary embolism scenario.",
   "options": [
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
-   "Massage the affected calf",
-   "Encourage unassisted ambulation",
-   "The presentation suggests venous thromboembolism with possible pulmonary embolism.",
-   "Reassess airway, breathing, circulation, and vital signs."
+   "Maintain bed rest during urgent evaluation, establish monitoring/IV access as indicated, and prepare to administer prescribed anticoagulation when ordered.",
+   "Delay or withhold the indicated urgent intervention",
+   "Massage the swollen calf to relieve discomfort.",
+   "Perform an unrelated routine task before reassessing the client."
   ],
   "correctAnswers": [
    "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
-   "Reassess airway, breathing, circulation, and vital signs."
-  ]
+   "Maintain bed rest during urgent evaluation, establish monitoring/IV access as indicated, and prepare to administer prescribed anticoagulation when ordered."
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The two priority responses are Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism and Maintain bed rest during urgent evaluation, establish monitoring/IV access as indicated, and prepare to administer prescribed anticoagulation when ordered.. Sudden pleuritic chest pain, tachycardia, dyspnea, and unilateral calf swelling after surgery suggest venous thromboembolism with possible pulmonary embolism. Acute obstruction of pulmonary blood flow can impair oxygenation and strain the right ventricle. Massaging the affected calf may dislodge thrombus. Unassisted ambulation is inappropriate while acute pulmonary embolism is suspected and the client is symptomatic."
  },
  {
   "category": "Adult Health",
@@ -3735,7 +3792,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002000",
   "type": "Bowtie",
@@ -3748,28 +3805,30 @@ const items=[
    ],
    "actions": [
     "Maintain prescribed IV fluids, analgesia, and close monitoring",
-    "Offer a high-fat meal",
-    "Apply deep abdominal massage",
-    "Pancreatitis care includes supportive treatment, hydration, pain control, and monitoring for complications."
+    "Trend fluid balance and electrolytes, assess for worsening abdominal findings or systemic complications, and administer prescribed analgesia and fluids.",
+    "Delay or withhold the indicated urgent intervention",
+    "Perform an unrelated routine task before reassessing the client."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "Pain, abdominal assessment, vital signs, and signs of systemic deterioration",
+    "Intake/output, hydration status, electrolytes, glucose, and respiratory status",
+    "Routine hair and nail assessment",
+    "Delay reassessment until the end of the shift"
    ]
   },
   "correctAnswers": {
    "condition": "Acute pancreatitis requiring urgent clinical management",
    "actions": [
     "Maintain prescribed IV fluids, analgesia, and close monitoring",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Trend fluid balance and electrolytes, assess for worsening abdominal findings or systemic complications, and administer prescribed analgesia and fluids."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "Pain, abdominal assessment, vital signs, and signs of systemic deterioration",
+    "Intake/output, hydration status, electrolytes, glucose, and respiratory status"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "**Clinical problem:** Severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. Inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications.\n\n**Nursing actions:** Provide prescribed IV fluid replacement and analgesia, assess volume status, and monitor for complications. Follow orders for oral intake; do not offer a high-fat meal during the acute symptomatic phase.\n\n**Monitoring:** Pain, abdominal assessment, vital signs, and signs of systemic deterioration; Intake/output, hydration status, electrolytes, glucose, and respiratory status."
  },
  {
   "category": "Adult Health",
@@ -3785,7 +3844,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002001",
   "type": "Matrix Single",
@@ -3813,7 +3872,9 @@ const items=[
    "cue1": "Priority response",
    "cue2": "Priority response",
    "cue3": "Unsafe or delayed response"
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** Severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. Inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications.\n- **Cue 2:** The indicated priority response addresses the immediate threat and should not be delayed.\n- **Cue 3:** The proposed alternative is unsafe or delays essential care: A high-fat meal is inappropriate during acute pancreatitis and may worsen symptoms. Deep abdominal massage does not treat pancreatic inflammation and can increase discomfort."
  },
  {
   "category": "Adult Health",
@@ -3829,7 +3890,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002002",
   "type": "Matrix Multiple",
@@ -3862,9 +3923,12 @@ const items=[
     "Needs prompt escalation"
    ],
    "cue3": [
+    "Needs prompt escalation",
     "Requires focused reassessment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** The findings require prompt escalation and focused reassessment. Severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. Inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications.\n- **Cue 2:** The indicated intervention requires prompt action and reassessment.\n- **Cue 3:** The proposed action is unsafe or delays treatment and requires correction/escalation: A high-fat meal is inappropriate during acute pancreatitis and may worsen symptoms. Deep abdominal massage does not treat pancreatic inflammation and can increase discomfort."
  },
  {
   "category": "Adult Health",
@@ -3880,7 +3944,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002003",
   "type": "Cloze (Drop-down)",
@@ -3908,18 +3972,20 @@ const items=[
    {
     "id": "monitor",
     "options": [
-     "Airway and hemodynamic status",
-     "Hair and nail growth",
-     "Routine meal preference only"
+     "Pain and abdominal findings, intake/output, hydration, electrolytes, glucose, and respiratory status",
+     "Routine assessment unrelated to the immediate problem",
+     "No reassessment until the next shift"
     ],
-    "correct": "Airway and hemodynamic status"
+    "correct": "Pain and abdominal findings, intake/output, hydration, electrolytes, glucose, and respiratory status"
    }
   ],
   "correctAnswers": {
    "problem": "Acute pancreatitis requiring urgent intervention",
    "action": "Maintain prescribed IV fluids, analgesia, and close monitoring",
-   "monitor": "Airway and hemodynamic status"
-  }
+   "monitor": "Pain and abdominal findings, intake/output, hydration, electrolytes, glucose, and respiratory status"
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The clinical problem is Acute pancreatitis requiring urgent intervention. The priority action is Maintain prescribed IV fluids, analgesia, and close monitoring. Monitor pain and abdominal findings, intake/output, hydration, electrolytes, glucose, and respiratory status to evaluate immediate risk and response to treatment. A high-fat meal is inappropriate during acute pancreatitis and may worsen symptoms. Deep abdominal massage does not treat pancreatic inflammation and can increase discomfort."
  },
  {
   "category": "Adult Health",
@@ -3935,7 +4001,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002004",
   "type": "Dropdown Rationale",
@@ -3963,16 +4029,20 @@ const items=[
    {
     "id": "reason",
     "options": [
-     null,
-     "The finding is unrelated to the current assessment.",
-     "Waiting is preferred whenever a client is unstable."
-    ]
+     "Acute pancreatitis requires supportive management, including prescribed hydration, pain control, and close monitoring. A high-fat meal can worsen symptoms and is not an appropriate intervention during acute illness.",
+     "The findings are expected and require no follow-up.",
+     "Treatment should be postponed until additional complications develop."
+    ],
+    "correct": "Acute pancreatitis requires supportive management, including prescribed hydration, pain control, and close monitoring. A high-fat meal can worsen symptoms and is not an appropriate intervention during acute illness."
    }
   ],
   "correctAnswers": {
    "interpretation": "Acute pancreatitis requiring urgent clinical management",
-   "response": "Maintain prescribed IV fluids, analgesia, and close monitoring"
-  }
+   "response": "Maintain prescribed IV fluids, analgesia, and close monitoring",
+   "reason": "Acute pancreatitis requires supportive management, including prescribed hydration, pain control, and close monitoring. A high-fat meal can worsen symptoms and is not an appropriate intervention during acute illness."
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The findings support Acute pancreatitis requiring urgent clinical management. The appropriate response is Maintain prescribed IV fluids, analgesia, and close monitoring. Acute pancreatitis requires supportive management, including prescribed hydration, pain control, and close monitoring. A high-fat meal can worsen symptoms and is not an appropriate intervention during acute illness."
  },
  {
   "category": "Adult Health",
@@ -3988,7 +4058,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002005",
   "type": "Highlight",
@@ -3996,29 +4066,24 @@ const items=[
   "highlightSegments": [
    {
     "id": "h1",
-    "text": "Severe epigastric pain radiating to the back, vomiting, and elevated lipase."
+    "text": "Severe epigastric pain radiating to the back"
    },
    {
     "id": "h2",
-    "text": "Maintain prescribed IV fluids, analgesia, and close monitoring"
+    "text": "Vomiting"
    },
    {
     "id": "h3",
-    "text": "The client requests a preferred television channel."
-   },
-   {
-    "id": "h4",
-    "text": "Offer a high-fat meal"
-   },
-   {
-    "id": "h5",
-    "text": "The client asks when the next meal will arrive."
+    "text": "Elevated lipase"
    }
   ],
   "correctHighlights": [
    "h1",
-   "h2"
-  ]
+   "h2",
+   "h3"
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The priority cues are Severe epigastric pain radiating to the back, Vomiting, Elevated lipase. These findings support the need for follow-up because severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications."
  },
  {
   "category": "Adult Health",
@@ -4089,7 +4154,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002007",
   "type": "Extended Drag and Drop",
@@ -4105,7 +4170,9 @@ const items=[
    "Perform focused assessment of airway, breathing, circulation, and relevant cues.",
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
    "Reassess the response and document/escalate changes."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Verify the client and assess the immediate threat first, then initiate the indicated urgent intervention, and reassess/document the response. Provide prescribed IV fluid replacement and analgesia, assess volume status, and monitor for complications. Follow orders for oral intake; do not offer a high-fat meal during the acute symptomatic phase."
  },
  {
   "category": "Adult Health",
@@ -4121,7 +4188,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002008",
   "type": "Extended Multiple Response",
@@ -4137,7 +4204,9 @@ const items=[
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
    "Reassess airway, breathing, circulation, and vital signs.",
    "Notify the appropriate clinician when deterioration or emergency cues are present."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Select actions that address the immediate threat, support safe treatment, and ensure reassessment. Provide prescribed IV fluid replacement and analgesia, assess volume status, and monitor for complications. Follow orders for oral intake; do not offer a high-fat meal during the acute symptomatic phase. Continued monitoring is essential because severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications."
  },
  {
   "category": "Adult Health",
@@ -4153,7 +4222,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002009",
   "type": "Select N",
@@ -4161,15 +4230,17 @@ const items=[
   "title": "Select the two priority nursing responses for this Acute pancreatitis scenario.",
   "options": [
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
-   "Offer a high-fat meal",
-   "Apply deep abdominal massage",
-   "Pancreatitis care includes supportive treatment, hydration, pain control, and monitoring for complications.",
-   "Reassess airway, breathing, circulation, and vital signs."
+   "Trend fluid balance and electrolytes, assess for worsening abdominal findings or systemic complications, and administer prescribed analgesia and fluids.",
+   "Delay or withhold the indicated urgent intervention",
+   "Offer a high-fat meal while the client is vomiting and experiencing acute pancreatic pain.",
+   "Perform an unrelated routine task before reassessing the client."
   ],
   "correctAnswers": [
    "Maintain prescribed IV fluids, analgesia, and close monitoring",
-   "Reassess airway, breathing, circulation, and vital signs."
-  ]
+   "Trend fluid balance and electrolytes, assess for worsening abdominal findings or systemic complications, and administer prescribed analgesia and fluids."
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The two priority responses are Maintain prescribed IV fluids, analgesia, and close monitoring and Trend fluid balance and electrolytes, assess for worsening abdominal findings or systemic complications, and administer prescribed analgesia and fluids.. Severe epigastric pain radiating to the back, vomiting, and elevated lipase are consistent with acute pancreatitis. Inflammation can cause substantial fluid shifts, dehydration, electrolyte disturbances, and systemic complications. A high-fat meal is inappropriate during acute pancreatitis and may worsen symptoms. Deep abdominal massage does not treat pancreatic inflammation and can increase discomfort."
  },
  {
   "category": "Adult Health",
@@ -4185,7 +4256,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002010",
   "type": "Bowtie",
@@ -4198,28 +4269,30 @@ const items=[
    ],
    "actions": [
     "Assess circulation, establish IV access, and urgently notify the provider",
-    "Give an oral laxative",
-    "Assist the client to walk to the bathroom alone",
-    "Tachycardia and hypotension with GI bleeding suggest hemodynamic compromise."
+    "Obtain ordered blood work/type and crossmatch, monitor perfusion and urine output, and prepare prescribed fluid or blood-product replacement.",
+    "Delay or withhold the indicated urgent intervention",
+    "Perform an unrelated routine task before reassessing the client."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
+    "Blood pressure, heart rate, mental status, peripheral perfusion, and signs of shock",
+    "Hemoglobin/hematocrit as ordered and urine output as indicators of blood loss and perfusion",
+    "Routine hair and nail assessment",
+    "Delay reassessment until the end of the shift"
    ]
   },
   "correctAnswers": {
    "condition": "Upper GI bleeding requiring urgent clinical management",
    "actions": [
     "Assess circulation, establish IV access, and urgently notify the provider",
-    "Airway, breathing, circulation, and change in clinical status"
+    "Obtain ordered blood work/type and crossmatch, monitor perfusion and urine output, and prepare prescribed fluid or blood-product replacement."
    ],
    "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
+    "Blood pressure, heart rate, mental status, peripheral perfusion, and signs of shock",
+    "Hemoglobin/hematocrit as ordered and urine output as indicators of blood loss and perfusion"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "**Clinical problem:** Coffee-ground emesis and melena indicate upper gastrointestinal bleeding. Tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock.\n\n**Nursing actions:** Assess airway and circulation, urgently notify the clinician, establish/maintain large-bore IV access per protocol, and prepare for prescribed fluid or blood-product resuscitation and diagnostic evaluation.\n\n**Monitoring:** Blood pressure, heart rate, mental status, peripheral perfusion, and signs of shock; Hemoglobin/hematocrit as ordered and urine output as indicators of blood loss and perfusion."
  },
  {
   "category": "Adult Health",
@@ -4235,7 +4308,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002011",
   "type": "Matrix Single",
@@ -4263,7 +4336,9 @@ const items=[
    "cue1": "Priority response",
    "cue2": "Priority response",
    "cue3": "Unsafe or delayed response"
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** Coffee-ground emesis and melena indicate upper gastrointestinal bleeding. Tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock.\n- **Cue 2:** The indicated priority response addresses the immediate threat and should not be delayed.\n- **Cue 3:** The proposed alternative is unsafe or delays essential care: An oral laxative does not treat bleeding and may delay urgent care. Unassisted ambulation increases fall/syncope risk in a client who is hypotensive and dizzy."
  },
  {
   "category": "Adult Health",
@@ -4279,7 +4354,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002012",
   "type": "Matrix Multiple",
@@ -4312,9 +4387,12 @@ const items=[
     "Needs prompt escalation"
    ],
    "cue3": [
+    "Needs prompt escalation",
     "Requires focused reassessment"
    ]
-  }
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "- **Cue 1:** The findings require prompt escalation and focused reassessment. Coffee-ground emesis and melena indicate upper gastrointestinal bleeding. Tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock.\n- **Cue 2:** The indicated intervention requires prompt action and reassessment.\n- **Cue 3:** The proposed action is unsafe or delays treatment and requires correction/escalation: An oral laxative does not treat bleeding and may delay urgent care. Unassisted ambulation increases fall/syncope risk in a client who is hypotensive and dizzy."
  },
  {
   "category": "Adult Health",
@@ -4330,7 +4408,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002013",
   "type": "Cloze (Drop-down)",
@@ -4358,18 +4436,20 @@ const items=[
    {
     "id": "monitor",
     "options": [
-     "Airway and hemodynamic status",
-     "Hair and nail growth",
-     "Routine meal preference only"
+     "Hemodynamic status, mental status, hemoglobin/hematocrit, and urine output",
+     "Routine assessment unrelated to the immediate problem",
+     "No reassessment until the next shift"
     ],
-    "correct": "Airway and hemodynamic status"
+    "correct": "Hemodynamic status, mental status, hemoglobin/hematocrit, and urine output"
    }
   ],
   "correctAnswers": {
    "problem": "Upper GI bleeding requiring urgent intervention",
    "action": "Assess circulation, establish IV access, and urgently notify the provider",
-   "monitor": "Airway and hemodynamic status"
-  }
+   "monitor": "Hemodynamic status, mental status, hemoglobin/hematocrit, and urine output"
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The clinical problem is Upper GI bleeding requiring urgent intervention. The priority action is Assess circulation, establish IV access, and urgently notify the provider. Monitor hemodynamic status, mental status, hemoglobin/hematocrit, and urine output to evaluate immediate risk and response to treatment. An oral laxative does not treat bleeding and may delay urgent care. Unassisted ambulation increases fall/syncope risk in a client who is hypotensive and dizzy."
  },
  {
   "category": "Adult Health",
@@ -4385,7 +4465,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002014",
   "type": "Dropdown Rationale",
@@ -4413,16 +4493,20 @@ const items=[
    {
     "id": "reason",
     "options": [
-     null,
-     "The finding is unrelated to the current assessment.",
-     "Waiting is preferred whenever a client is unstable."
-    ]
+     "Hypotension and tachycardia with hematemesis/melena suggest active blood loss and impaired circulating volume. Immediate escalation, IV access, and preparation for resuscitation take priority over oral laxatives or unassisted ambulation.",
+     "The findings are expected and require no follow-up.",
+     "Treatment should be postponed until additional complications develop."
+    ],
+    "correct": "Hypotension and tachycardia with hematemesis/melena suggest active blood loss and impaired circulating volume. Immediate escalation, IV access, and preparation for resuscitation take priority over oral laxatives or unassisted ambulation."
    }
   ],
   "correctAnswers": {
    "interpretation": "Upper GI bleeding requiring urgent clinical management",
-   "response": "Assess circulation, establish IV access, and urgently notify the provider"
-  }
+   "response": "Assess circulation, establish IV access, and urgently notify the provider",
+   "reason": "Hypotension and tachycardia with hematemesis/melena suggest active blood loss and impaired circulating volume. Immediate escalation, IV access, and preparation for resuscitation take priority over oral laxatives or unassisted ambulation."
+  },
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The findings support Upper GI bleeding requiring urgent clinical management. The appropriate response is Assess circulation, establish IV access, and urgently notify the provider. Hypotension and tachycardia with hematemesis/melena suggest active blood loss and impaired circulating volume. Immediate escalation, IV access, and preparation for resuscitation take priority over oral laxatives or unassisted ambulation."
  },
  {
   "category": "Adult Health",
@@ -4438,7 +4522,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002015",
   "type": "Highlight",
@@ -4446,29 +4530,34 @@ const items=[
   "highlightSegments": [
    {
     "id": "h1",
-    "text": "Coffee-ground emesis, melena, HR 122/min, BP 88/52 mm Hg, and dizziness."
+    "text": "Coffee-ground emesis"
    },
    {
     "id": "h2",
-    "text": "Assess circulation, establish IV access, and urgently notify the provider"
+    "text": "Melena"
    },
    {
     "id": "h3",
-    "text": "The client requests a preferred television channel."
+    "text": "Heart rate 122/min"
    },
    {
     "id": "h4",
-    "text": "Give an oral laxative"
+    "text": "Blood pressure 88/52 mm Hg"
    },
    {
     "id": "h5",
-    "text": "The client asks when the next meal will arrive."
+    "text": "Dizziness"
    }
   ],
   "correctHighlights": [
    "h1",
-   "h2"
-  ]
+   "h2",
+   "h3",
+   "h4",
+   "h5"
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The priority cues are Coffee-ground emesis, Melena, Heart rate 122/min, Blood pressure 88/52 mm Hg, Dizziness. These findings support the need for follow-up because coffee-ground emesis and melena indicate upper gastrointestinal bleeding. tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock."
  },
  {
   "category": "Adult Health",
@@ -4539,7 +4628,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002017",
   "type": "Extended Drag and Drop",
@@ -4555,7 +4644,9 @@ const items=[
    "Perform focused assessment of airway, breathing, circulation, and relevant cues.",
    "Assess circulation, establish IV access, and urgently notify the provider",
    "Reassess the response and document/escalate changes."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Verify the client and assess the immediate threat first, then initiate the indicated urgent intervention, and reassess/document the response. Assess airway and circulation, urgently notify the clinician, establish/maintain large-bore IV access per protocol, and prepare for prescribed fluid or blood-product resuscitation and diagnostic evaluation."
  },
  {
   "category": "Adult Health",
@@ -4571,7 +4662,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002018",
   "type": "Extended Multiple Response",
@@ -4587,7 +4678,9 @@ const items=[
    "Assess circulation, establish IV access, and urgently notify the provider",
    "Reassess airway, breathing, circulation, and vital signs.",
    "Notify the appropriate clinician when deterioration or emergency cues are present."
-  ]
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "Select actions that address the immediate threat, support safe treatment, and ensure reassessment. Assess airway and circulation, urgently notify the clinician, establish/maintain large-bore IV access per protocol, and prepare for prescribed fluid or blood-product resuscitation and diagnostic evaluation. Continued monitoring is essential because coffee-ground emesis and melena indicate upper gastrointestinal bleeding. tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock."
  },
  {
   "category": "Adult Health",
@@ -4603,7 +4696,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002019",
   "type": "Select N",
@@ -4611,15 +4704,17 @@ const items=[
   "title": "Select the two priority nursing responses for this Upper GI bleeding scenario.",
   "options": [
    "Assess circulation, establish IV access, and urgently notify the provider",
-   "Give an oral laxative",
-   "Assist the client to walk to the bathroom alone",
-   "Tachycardia and hypotension with GI bleeding suggest hemodynamic compromise.",
-   "Reassess airway, breathing, circulation, and vital signs."
+   "Obtain ordered blood work/type and crossmatch, monitor perfusion and urine output, and prepare prescribed fluid or blood-product replacement.",
+   "Delay or withhold the indicated urgent intervention",
+   "Assist the client to walk to the bathroom alone despite hypotension and dizziness.",
+   "Perform an unrelated routine task before reassessing the client."
   ],
   "correctAnswers": [
    "Assess circulation, establish IV access, and urgently notify the provider",
-   "Reassess airway, breathing, circulation, and vital signs."
-  ]
+   "Obtain ordered blood work/type and crossmatch, monitor perfusion and urine output, and prepare prescribed fluid or blood-product replacement."
+  ],
+  "webmasterReviewStatus": "content_revised_pending_personal_review",
+  "rationale": "The two priority responses are Assess circulation, establish IV access, and urgently notify the provider and Obtain ordered blood work/type and crossmatch, monitor perfusion and urine output, and prepare prescribed fluid or blood-product replacement.. Coffee-ground emesis and melena indicate upper gastrointestinal bleeding. Tachycardia, hypotension, and dizziness suggest significant blood loss with hemodynamic compromise and risk of hypovolemic shock. An oral laxative does not treat bleeding and may delay urgent care. Unassisted ambulation increases fall/syncope risk in a client who is hypotensive and dizzy."
  },
  {
   "category": "Adult Health",
