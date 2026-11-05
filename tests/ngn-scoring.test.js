@@ -19,6 +19,12 @@ const bowtie=api.grade({type:'Bowtie',correctAnswers:{bowtie:{condition:'Sepsis'
 assert.equal(bowtie.earned,4,'Bowtie uses zero/one scoring: wrong tokens do not subtract correct target points');
 const rationale=api.grade({type:'Cloze',correctAnswers:{cause:'C',action:'A',monitor:'M'},rationaleGroups:[{fields:['cause','action']},{fields:['monitor']}]},{cloze:{cause:'C',action:'X',monitor:'M'}});
 assert.equal(rationale.earned,1,'rationale scoring awards credit only when paired fields are both correct');
+
+const numericAcceptedRange=api.grade({type:'Numeric Entry',correctValue:75,acceptedRange:[74.9,75.1]},{numericEntry:75});
+assert.equal(numericAcceptedRange.isCorrect,true,'numeric entry accepts the configured inclusive range');
+const nestedBowtie=api.grade({type:'Bowtie',bowtieData:{conditions:['Sepsis'],actions:['Cultures'],monitoring:['MAP']},correctAnswers:{condition:'Sepsis',actions:['Cultures'],monitoring:['MAP']}},{condition:'Sepsis',actions:['Cultures'],monitoring:['MAP']});
+assert.equal(nestedBowtie.isCorrect,true,'bowtie scoring matches the visible condition and response groups');
+
 const total=api.summarize(fixtures.map(f=>({q:f.q,answer:f.a})));
 assert.equal(total.answered,fixtures.length);assert.equal(total.earned,9);assert.equal(total.max,18);
 assert.equal(total.accuracy,38,'item accuracy counts only fully correct items');
