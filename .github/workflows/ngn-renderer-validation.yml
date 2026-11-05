@@ -60,6 +60,8 @@ jobs:
         run: node tests/clinical-schema-adapter.test.js
       - name: Test canonical Question Schema v2 and lossless legacy normalization
         run: node tests/question-schema-v2.test.js
+      - name: Keep question review under webmaster control
+        run: node tests/question-bank-review-policy.test.js
       - name: Enforce complete Question Schema v2 production bank
         run: node scripts/validate-question-schema-v2.js
       - name: Verify shared QuickRN brand system across pages
