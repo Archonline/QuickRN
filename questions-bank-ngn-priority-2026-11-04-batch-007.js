@@ -1,8 +1,59 @@
 (function(root){
 'use strict';
-const bank=Array.isArray(root.questions)?root.questions:(root.questions=[]), seen=new Set(bank.map(q=>String(q&&q.id||'')));
-const counts={numeric:0,matrix:0,caseStudy:0};
-function add(q){if(seen.has(q.id))return;seen.add(q.id);bank.push(q);if(q.type==='Numeric Entry')counts.numeric++;else if(q.type==='Matrix / Grid')counts.matrix++;else counts.caseStudy++;}
+const bank=Array.isArray(root.questions)?root.questions:(root.questions=[]), positions=new Map(bank.map((q,i)=>[String(q&&q.id||''),i]));
+const counts={numeric:0,matrix:0,caseStudy:0},updated={numeric:0,matrix:0,caseStudy:0};
+function enrich(q){
+ const stem=q.title||q.question||q.scenario||q.topic||'';
+ if(q.type==='Numeric Entry'){
+  const answer=Number(q.correctNumericAnswer),unit=q.unit||'units',tol=Number(q.tolerance||0);
+  q.rationale='Calculation rationale: '+stem+' Use the formula stated in the item, substitute the displayed values, preserve the requested unit ('+unit+'), and round to the precision requested. The keyed result is '+answer+' '+unit+(tol?' with an accepted tolerance of ±'+tol+' '+unit:'')+'. Recheck the arithmetic and unit before submitting.';
+  q.optionRationales={'Correct numeric response':'The response matches the keyed calculation: '+answer+' '+unit+'. The formula and units are stated in the item stem.','Response outside the accepted tolerance':'A value outside the accepted tolerance may reflect a unit conversion, arithmetic, or rounding error. Recalculate from the original values and retain the requested unit.'};
+  q.clinicalJudgmentTip='For medication and infusion calculations, convert units before calculating, use dimensional analysis, verify the concentration and prescribed dose, round only at the final step, and independently check high-alert medication calculations.';
+  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
+ }else if(q.type==='Matrix / Grid'){
+  const map=q.correctAnswers?.matrix||q.correctAnswers||{},rows=q.rows||[];
+  q.optionRationales={};
+  rows.forEach(row=>(row.options||[]).forEach(option=>{
+   const key=map[row.id],correct=Array.isArray(key)?key.includes(option):key===option;
+   q.optionRationales[row.id+' — '+option]=correct
+    ?'Correct. This classification matches the clinical cue or response in the row and the documented priority for this case.'
+    :'Not the best classification. Reassess the row’s clinical cue and compare it with the client’s immediate risk; choose the classification that best supports timely, safe care.';
+  }));
+  q.rationale='Review each row independently, then connect the cue, nursing action, and monitoring response. The correct mapping reflects the clinical priority described in the item and avoids delaying assessment or intervention.';
+  q.clinicalJudgmentTip='Use the row text as the evidence. Identify what the cue means, decide whether the response is appropriate or unsafe, and select monitoring that directly evaluates the threatened function or treatment response.';
+  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
+ }else{
+  const topic=q.topic||q.caseStudyContext?.title||'the presenting condition',summary=q.caseStudyContext?.summary||q.scenario||q.patientInfo?.history||'the documented clinical findings',action=q.caseStudyContext?.priorityAction||q.priorityAction||'implement the prescribed condition-specific response',monitor=q.caseStudyContext?.monitoring||'relevant vital signs and clinical response';
+  q.rationale=q.rationale||'The findings in this '+topic+' case are '+summary+'. The priority response is '+action+'. Reassess and monitor '+monitor+' to determine whether the client is improving or deteriorating.';
+  const keyed=[];const flatten=v=>Array.isArray(v)?v.flatMap(flatten):v&&typeof v==='object'?Object.values(v).flatMap(flatten):v==null?[]:[String(v)];
+  if(q.correctAnswers!==undefined)keyed.push(...flatten(q.correctAnswers));if(q.correctAnswer!==undefined)keyed.push(...flatten(q.correctAnswer));if(q.correctHighlights)keyed.push(...flatten(q.correctHighlights));if(q.correctOrder)keyed.push(...flatten(q.correctOrder));
+  const opts=[...(q.options||[]),...(q.availableItems||[]),...(q.highlightSegments||[]).map(x=>x.text),...(q.dropdowns||[]).flatMap(d=>d.options||[])];
+  q.optionRationales=q.optionRationales||{};
+  [...new Set(opts.filter(x=>typeof x==='string'))].forEach(option=>{if(!q.optionRationales[option])q.optionRationales[option]=keyed.includes(option)?'Correct. This response is supported by the case findings and addresses the priority clinical risk.':'Not the best response for this presentation; it does not address the priority cue as directly as the keyed response.';});
+  q.clinicalJudgmentTip=q.clinicalJudgmentTip||'Recognize the acute cue, analyze the change from baseline, prioritize the immediate threat, implement the prescribed condition-specific response, and evaluate the result using '+monitor+'.';
+  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
+ }
+ if(q.caseGroupId||q.caseStudyId){
+  q.caseQuestionNumber=q.caseQuestionNumber||q.sequenceNumber||q.caseStudyContext?.sequence||q.caseStudySequence;
+  q.caseStudySequence=q.caseQuestionNumber;
+  q.clinicalScenario=q.clinicalScenario||q.caseStudyContext?.summary||q.scenario||q.patientInfo?.history||q.title;
+  q.patientProfile=q.patientProfile||q.patientInfo||q.caseStudyContext||{};
+  q.ehr=q.ehr||{tabs:{
+   nursesNotes:q.caseStudy?.nursesNotes||q.caseStudyContext?.nursesNotes||q.scenario||'Review the current clinical presentation.',
+   vitalSigns:q.caseStudy?.vitalSigns||q.caseStudyContext?.vitalSigns||'Obtain and document temperature, heart rate, respiratory rate, blood pressure, and oxygen saturation at the bedside; do not infer unreported values.',
+   labResults:q.caseStudy?.labResults||q.caseStudyContext?.labResults||'Review ordered condition-specific laboratory and diagnostic results.',
+   providerOrders:q.caseStudy?.orders||q.caseStudyContext?.orders||'Implement prescribed orders and clarify incomplete or conflicting instructions.'
+  }};
+ }
+ return q;
+}
+function add(q){
+ enrich(q);
+ const id=String(q.id||'');
+ const kind=q.type==='Numeric Entry'?'numeric':q.type==='Matrix / Grid'?'matrix':'caseStudy';
+ if(positions.has(id)){const i=positions.get(id),old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated[kind]++;}
+ else{bank.push(q);positions.set(id,bank.length-1);counts[kind]++;}
+}
 const numeric=[
 ['IV infusion rate','A client is prescribed V mL over H hours. Calculate mL/hr.',(v)=>v.v/v.h,'mL/hr',0],
 ['Oral medication volume','A dose of D mg is prescribed. The liquid contains C mg per 5 mL. Calculate mL.',v=>v.d*5/v.c,'mL',2],
