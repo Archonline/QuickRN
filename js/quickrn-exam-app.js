@@ -84,15 +84,11 @@ function setEducatorQuestionStatus(qid,status){
  writeJSON(EDUCATOR_REVIEW_KEY,[...reviewed]);writeJSON(EDUCATOR_REVISION_KEY,[...revision]);
  updateEducatorReviewIndicator(id);refreshNeedsReviewOption();return true;
 }
-function updateEducatorReviewIndicator(qid){
- if(!isQuickRNWebmaster())return;
- let badge=document.getElementById('quickrn-educator-review-status');
- if(!badge){badge=document.createElement('span');badge.id='quickrn-educator-review-status';badge.className='ml-2 inline-flex items-center rounded px-2 py-1 text-[10px] font-bold';const host=$('qid-display')?.parentElement;if(host)host.appendChild(badge);}
- if(!badge)return;
- const id=String(qid||''),revision=educatorIds(EDUCATOR_REVISION_KEY),reviewed=educatorIds(EDUCATOR_REVIEW_KEY);
- if(revision.has(id)){badge.textContent='REVISION REQUESTED';badge.className='ml-2 inline-flex items-center rounded bg-amber-100 px-2 py-1 text-[10px] font-bold text-amber-900';}
- else if(reviewed.has(id)){badge.textContent='EDUCATOR REVIEWED';badge.className='ml-2 inline-flex items-center rounded bg-emerald-100 px-2 py-1 text-[10px] font-bold text-emerald-800';}
- else {badge.textContent='';badge.className='hidden';}
+function updateEducatorReviewIndicator(){
+ // Educator review status is retained in the review workflow, but is not displayed
+ // as a banner or text box above the question.
+ const badge=document.getElementById('quickrn-educator-review-status');
+ if(badge)badge.remove();
 }
 window.QuickRNEducatorReview={isWebmaster:isQuickRNWebmaster,markRevisionRequested:function(qid){return setEducatorQuestionStatus(qid,'revision');},getReviewedIds:function(){return [...educatorIds(EDUCATOR_REVIEW_KEY)];},getRevisionRequestedIds:function(){return [...educatorIds(EDUCATOR_REVISION_KEY)];}};
 function currentQuestion(){return session[currentIndex]||null;}
@@ -103,7 +99,25 @@ function canonicalFormatFilter(value){const raw=String(value||'ALL'),key=raw.toL
 function questionFormatKey(q){const detected=String(renderer()?.detect(q)||q?.ngnType||q?.type||'');const raw=[q?.type,q?.format,q?.questionType,q?.itemType,q?.ngnType].filter(Boolean).join(' ').replace(/[_-]/g,' ').toLowerCase();if(/dropdown rationale/.test(raw))return 'Dropdown Rationale';if(/matrix.*multiple|multiple.*matrix/.test(raw))return 'Matrix Multiple';if(/matrix.*single|single.*matrix/.test(raw))return 'Matrix Single';if(/^Matrix/.test(detected)||/matrix|grid/.test(raw)){const rows=Array.isArray(q?.rows)?q.rows:[];return rows.some(row=>Array.isArray(row?.correct)||Array.isArray(row?.correctAnswers))?'Matrix Multiple':'Matrix Single';}if(detected==='Extended Multiple Response'||raw.includes('extended multiple response'))return 'Extended Multiple Response';if(detected==='Multiple Response')return 'Multiple Response';if(detected==='Cloze (Drop-down)'||/dropdown cloze|cloze|drop down/.test(raw))return 'Cloze (Drop-down)';if(detected==='Ordered Response')return 'Extended Drag and Drop';return detected;}
 function formatFilterMatches(q,value){const selected=canonicalFormatFilter(value);return selected==='ALL'||questionFormatKey(q)===selected;}
 function buildFormatFilterOptions(){const select=$('format-filter');if(!select)return;const formats=[['Single Choice','Single Choice'],['Multiple Response','SATA / Multiple Response'],['Select N','Select N'],['Matrix Single','Matrix — Single Response'],['Matrix Multiple','Matrix — Multiple Response'],['Cloze (Drop-down)','Cloze / Drop-down'],['Dropdown Rationale','Dropdown Rationale'],['Bowtie','Bowtie'],['Extended Drag and Drop','Ordered Response / Drag-and-Drop'],['Extended Multiple Response','Extended Multiple Response'],['Highlight','Highlight Text'],['Trend','Trend Interpretation'],['Numeric Entry','Numeric Entry']];const counts=new Map(formats.map(([value])=>[value,0]));for(const q of bank){const key=questionFormatKey(q);if(counts.has(key))counts.set(key,counts.get(key)+1);}select.innerHTML='<option value="ALL">All Question Types ('+bank.length.toLocaleString()+')</option>'+formats.map(([value,label])=>'<option value="'+value+'" '+(counts.get(value)===0?'disabled':'')+'>'+label+' ('+counts.get(value)+')</option>').join('');select.value=canonicalFormatFilter(formatFilter)||'ALL';}
-function filteredPool(){let list=bank.slice();formatFilter=canonicalFormatFilter(formatFilter);if(formatFilter!=='ALL')list=list.filter(q=>formatFilterMatches(q,formatFilter));const params=new URLSearchParams(window.location.search||'');const raw=params.get('q')||'';const terms=raw.split('|').map(x=>x.trim().toLowerCase()).filter(Boolean);if(terms.length){list=list.filter(q=>{const haystack=[q.clientNeeds,q.clientNeed,q.nclexCategory,q.category,q.topic,q.title,q.cleanTitle,q.keyPhrase,q.questionText,q.question,q.prompt,q.stem,q.rationale].flat().filter(Boolean).join(' ').toLowerCase();const domainName=String(window.QuickRNCoach?.classifyClientNeed(q)?.name||'').toLowerCase();return terms.some(term=>haystack.includes(term)||domainName.includes(term));});}const sequencer=window.QuickRNCaseStudySequencer;return sequencer?.expandRelated?sequencer.expandRelated(list,bank):list;}
+function hasClinicalContextForExam(q){
+ if(!q||typeof q!=='object')return false;
+ const hasValue=value=>{
+  if(value==null||value==='')return false;
+  if(Array.isArray(value))return value.some(hasValue);
+  if(typeof value==='object')return Object.values(value).some(hasValue);
+  return String(value).trim()!=='';
+ };
+ // The current production schema uses these three fields. Legacy clinical fields
+ // remain supported while older bank modules are being migrated.
+ const structured=['caseGroupId','patientProfile','tabs','caseStudyContext','patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','clinicalRecord','medicalRecord','patientScenario','clinicalScenario','scenario','stimulus','passage','context','caseStudyText'];
+ if(structured.some(key=>hasValue(q[key])))return true;
+ const split=renderer()?.splitPrompt;
+ if(typeof split==='function'){
+  try{const parts=split(q);if(hasValue(parts?.scenario))return true;}catch(error){console.warn('[QuickRN] Could not inspect clinical scenario for item '+(q.id||'unknown'),error);}
+ }
+ return false;
+}
+function filteredPool(){let list=bank.filter(hasClinicalContextForExam);formatFilter=canonicalFormatFilter(formatFilter);if(formatFilter!=='ALL')list=list.filter(q=>formatFilterMatches(q,formatFilter));const params=new URLSearchParams(window.location.search||'');const raw=params.get('q')||'';const terms=raw.split('|').map(x=>x.trim().toLowerCase()).filter(Boolean);if(terms.length){list=list.filter(q=>{const haystack=[q.clientNeeds,q.clientNeed,q.nclexCategory,q.category,q.topic,q.title,q.cleanTitle,q.keyPhrase,q.questionText,q.question,q.prompt,q.stem,q.rationale].flat().filter(Boolean).join(' ').toLowerCase();const domainName=String(window.QuickRNCoach?.classifyClientNeed(q)?.name||'').toLowerCase();return terms.some(term=>haystack.includes(term)||domainName.includes(term));});}const sequencer=window.QuickRNCaseStudySequencer;return sequencer?.expandRelated?sequencer.expandRelated(list,bank):list;}
 function balancedPick(list,count){const sequencer=window.QuickRNCaseStudySequencer,units=sequencer?.units?sequencer.units(list):list.map((q,index)=>({key:'item:'+index,items:[q]})),caseUnits=shuffle(units.filter(unit=>unit.items.length>1&&unit.items.some(isNGN))),standalone=shuffle(units.filter(unit=>unit.items.length===1&&unit.items.some(isNGN))),traditional=shuffle(units.filter(unit=>!unit.items.some(isNGN)));const caseTarget=count>=85?3:count>=55?2:count>=35?1:0;let picked=[],used=new Set(),caseCount=0;for(const unit of caseUnits){if(caseCount>=caseTarget)break;picked.push(...unit.items);unit.items.forEach(q=>used.add(q.id));caseCount++;}const standaloneTarget=Math.min(standalone.length,Math.ceil(count*.10));let standaloneCount=0;for(const unit of standalone){if(standaloneCount>=standaloneTarget)break;picked.push(...unit.items);unit.items.forEach(q=>used.add(q.id));standaloneCount+=unit.items.length;}for(const unit of traditional){if(picked.length>=count)break;const remaining=unit.items.filter(q=>!used.has(q.id));if(remaining.length){picked.push(...remaining);remaining.forEach(q=>used.add(q.id));}}if(picked.length<count){for(const unit of shuffle(units)){if(picked.length>=count)break;const remaining=unit.items.filter(q=>!used.has(q.id));if(remaining.length){picked.push(...remaining);remaining.forEach(q=>used.add(q.id));}}}return picked;}
 function difficultyValue(q){const v=q.difficulty;if(typeof v==='number'&&Number.isFinite(v))return Math.max(-3,Math.min(3,v));const s=String(v||'').toLowerCase();if(s.includes('easy'))return -1;if(s.includes('hard'))return 1;if(s.includes('very'))return 1.5;return 0;}
 function answeredResponses(){return session.slice(0,currentIndex+1).map(q=>{const a=answers[q.id]||{};if(!a.submitted)return null;const d=renderer().toDraft(q,a.draft),g=renderer().grade(q,d);return {q,earned:g&&typeof g==='object'?Number(g.earned)||0:(g?1:0),max:g&&typeof g==='object'?Number(g.max)||1:1,correct:g&&typeof g==='object'?!!g.isCorrect:!!g};}).filter(Boolean);}
