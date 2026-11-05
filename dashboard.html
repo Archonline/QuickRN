@@ -745,7 +745,16 @@
                 const total = Number(record.totalAnswered ?? record.itemsAnswered ?? record.total ?? record.attempted);
                 return Number.isFinite(correct) && Number.isFinite(total) && total > 0 ? Math.max(0, Math.min(100, correct / total * 100)) : null;
             };
-            const records = history.filter(x => x && x.completed !== false && String(x.completionStatus || '').toLowerCase() !== 'in_progress' && (x.completed === true || String(x.completed).toLowerCase() === 'true' || x.isFinished === true || x.finished === true || ['completed','complete','finished','submitted'].includes(String(x.completionStatus || x.status || '').toLowerCase()) || !!(x.completedAt || x.finishedAt || x.timestamp || x.date)) && Number(x.totalItems || x.totalAnswered || x.total || 0) > 0).map(x => {
+            const isCompletedExamRecord = record => {
+                if (!record || record.completed === false) return false;
+                const completion = String(record.completionStatus || record.status || '').toLowerCase();
+                return record.completed === true
+                    || String(record.completed).toLowerCase() === 'true'
+                    || record.isFinished === true
+                    || record.finished === true
+                    || ['completed', 'complete', 'finished', 'submitted'].includes(completion);
+            };
+            const records = history.filter(x => isCompletedExamRecord(x) && Number(x.totalItems || x.totalAnswered || x.total || 0) > 0).map(x => {
                 const date = new Date(x.completedAt || x.finishedAt || x.timestamp || x.date || x.createdAt || '');
                 const accuracy = accuracyOf(x);
                 const probability = x.passingProbability ?? x.passProbability ?? x.readinessProbability;
