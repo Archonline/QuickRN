@@ -8,7 +8,7 @@ for(const file of ['questions.js','questions-bank-v3-clinical.js','js/shared-exa
 const bank=context.window.questions;
 const api=context.window.QuickRNSharedRenderer;
 assert.ok(Array.isArray(bank)&&api,'bank and shared renderer load');
-const items=bank.filter(q=>String(q.id||'').startsWith('QRV3-'));
+const items=bank.filter(q=>String(q.legacyId||'').startsWith('QRV3-'));
 assert.equal(items.length,13);
 for(const q of items){
  const html=api.renderReact(q,undefined,()=>{},false);

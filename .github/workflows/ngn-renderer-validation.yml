@@ -73,8 +73,10 @@ jobs:
       - name: Validate curated NCLEX and NGN replacement questions
         run: node tests/curated-question-bank.test.js
       - name: Validate clinical v3 bank and all 13 formats across exam modes
+        if: always()
         run: node tests/clinical-v3-bank.test.js
       - name: Render every clinical v3 question through shared renderer
+        if: always()
         run: node tests/clinical-v3-rendering.test.js
       - name: Verify shared exam interface, rationale, branding, and session lengths
         run: node tests/exam-unified-interface-contract.test.js
@@ -83,8 +85,10 @@ jobs:
       - name: Verify dashboard routing and normalized question bank loading
         run: node tests/dashboard-question-routing.test.js
       - name: Test NGN partial-credit scoring
+        if: always()
         run: node tests/ngn-scoring.test.js
       - name: Verify rebuilt NGN exam workspaces
+        if: always()
         run: node tests/ngn-workspace-contract.test.js
       - name: Verify Help Center and release notes
         run: node tests/help-content-contract.test.js

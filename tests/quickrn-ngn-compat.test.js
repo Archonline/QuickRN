@@ -43,7 +43,7 @@ const cloze = {
   ],
 };
 assert.equal(api.detect(cloze), 'Cloze (Drop-down)');
-assert.equal(api.hasAnswer(cloze, { cloze: { drop1: 'Hypocalcemia' } }), false);
+assert.equal(api.hasAnswer(cloze, { cloze: { drop1: 'Hypocalcemia' } }), true,'a partially completed cloze response can be submitted for partial credit');
 assert.equal(api.hasAnswer(cloze, { cloze: { drop1: 'Hypocalcemia', drop2: 'Calcium gluconate' } }), true);
 assert.equal(api.grade(cloze, { cloze: { drop1: 'Hypocalcemia', drop2: 'Calcium gluconate' } }), true);
 
@@ -75,5 +75,14 @@ assert.equal(api.grade(selectN, { choices: ['A', 'C'] }), true);
 const sata = { id: 'SATA', type: 'sata', options: [{ id: 'A', text: 'A', correct: true }, { id: 'B', text: 'B' }, { id: 'C', text: 'C', correct: true }] };
 assert.equal(api.detect(sata), 'Multiple Response');
 assert.equal(api.grade(sata, { choices: ['A', 'C'] }), true);
+
+
+const matrixPartial={id:'MATRIX-PARTIAL',type:'Matrix Multiple',columns:['Priority','Routine'],rows:[{id:'one',text:'Cue one',correct:['Priority']},{id:'two',text:'Cue two',correct:['Routine']}],correctAnswers:{one:['Priority'],two:['Routine']}};
+assert.equal(api.hasAnswer(matrixPartial,{matrix:{one:['Priority']}}),true,'a partially answered matrix can be submitted');
+const bowtiePartial={id:'BOWTIE-PARTIAL',type:'Bowtie',bowtieData:{conditions:['Sepsis'],actions:['Cultures','Antibiotics'],monitoring:['MAP','Lactate']},correctAnswers:{condition:'Sepsis',actions:['Cultures','Antibiotics'],monitoring:['MAP','Lactate']}};
+assert.equal(api.hasAnswer(bowtiePartial,{condition:'Sepsis'}),true,'a partially completed bowtie can be submitted for partial credit');
+const trendFixture={id:'TREND',type:'Trend',trendData:{headers:['Time','BP'],rows:[{Time:'0800',BP:'120/80'},{Time:'1000',BP:'88/54'}]},options:['Escalate','Document'],correctAnswer:'Escalate'};
+assert.equal(api.detect(trendFixture),'Trend','trend format is preserved by compatibility normalization');
+assert.match(api.renderReact(trendFixture,{choice:'Escalate'},()=>{},false),/qr-trend-panel/,'trend observations render in the clinical trend panel');
 
 console.log('PASS: NGN compatibility adapter renders and grades matrix, bow tie, cloze, numeric, highlight, ordered, Select N, and SATA items.');
