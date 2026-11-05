@@ -1,0 +1,26 @@
+name: QuickRN UI layout validation
+on:
+  push:
+    paths:
+      - 'dashboard.html'
+      - 'help.html'
+      - 'css/quickrn-brand-system.css'
+      - 'tests/support-layout-contract.test.js'
+      - '.github/workflows/quickrn-ui-layout-validation.yml'
+  pull_request:
+    paths:
+      - 'dashboard.html'
+      - 'help.html'
+      - 'css/quickrn-brand-system.css'
+      - 'tests/support-layout-contract.test.js'
+      - '.github/workflows/quickrn-ui-layout-validation.yml'
+jobs:
+  layout-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check Feature Hub and support page layout contracts
+        run: node tests/support-layout-contract.test.js
