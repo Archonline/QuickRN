@@ -44,6 +44,33 @@ topics.slice(0,50).forEach((t,ti)=>{
    labResults:{availableInCase:summary.match(/(?:glucose|lactate|ANC|INR|potassium|sodium|creatinine|platelets|hemoglobin|pH|lipase)\s*[^,.;]*/gi)||[],note:'Only values explicitly stated in the case summary are available; obtain other ordered tests as indicated.'},
    providerOrders:{priorityPlan:priorityAction,orderStatus:'Implement prescribed orders and clarify missing or conflicting instructions.'}
   }};
+  const clinicallyPlausible={
+   'An unrelated chronic condition':'A chronic comorbidity that is unchanged from baseline and does not explain the acute presentation.',
+   'Unrelated chronic concern':'A stable chronic comorbidity that does not account for the new abnormal findings.',
+   'An expected normal response':'A finding that may occur during routine recovery but does not explain the current deterioration.',
+   'Expected normal response':'A stable finding that does not account for the acute change.',
+   'Delay care':'Complete a nonurgent assessment task before initiating the condition-specific response.',
+   'Delay reassessment':'Repeat the focused assessment at the next routine observation rather than reassessing the acute change now.',
+   'Delay escalation until the next shift':'Repeat the assessment several hours later before contacting the clinician.',
+   'Delay care until routine rounds':'Defer the indicated response until routine rounds despite the acute finding.',
+   'Ignore the change':'Continue routine care and report the change only if it persists.',
+   'Ignore the new clinical change':'Continue routine care without reassessing the new abnormal finding.',
+   'Document without reassessment':'Document the finding but defer repeat assessment until the next scheduled observation.',
+   'Unrelated routine measurement':'A parameter that is not directly related to the threatened organ function.',
+   'An unrelated routine measure':'A measurement that does not evaluate the immediate clinical risk.',
+   'Meal preference':'A nonurgent comfort need that can be addressed after stabilization.',
+   'Provide unrelated comfort measure':'Address a secondary comfort concern before treating the acute instability.',
+   'The client reports a routine preference unrelated to the current change.':'A chronic or comfort-related finding that is unchanged from baseline.',
+   'A routine administrative task is due later.':'A nonurgent administrative task that can wait until after the immediate clinical risk is addressed.'
+  };
+  const rewriteChoice=v=>typeof v==='string'?(clinicallyPlausible[v]||v):v;
+  if(base.options)base.options=base.options.map(rewriteChoice);
+  if(base.availableItems)base.availableItems=base.availableItems.map(rewriteChoice);
+  if(base.bowtieData){['conditions','actions','monitoring'].forEach(k=>{if(base.bowtieData[k])base.bowtieData[k]=base.bowtieData[k].map(rewriteChoice);});}
+  if(base.rows)base.rows.forEach(r=>{r.text=rewriteChoice(r.text);r.options=(r.options||[]).map(rewriteChoice);});
+  if(base.dropdowns)base.dropdowns.forEach(d=>{d.options=(d.options||[]).map(rewriteChoice);d.correct=rewriteChoice(d.correct);});
+  if(base.highlightSegments)base.highlightSegments.forEach(s=>{s.text=rewriteChoice(s.text);});
+  if(base.trendData?.rows)base.trendData.rows=base.trendData.rows.map(r=>r.map(rewriteChoice));
   const correctFlat=v=>Array.isArray(v)?v.flatMap(correctFlat):v&&typeof v==='object'?Object.values(v).flatMap(correctFlat):v==null?[]:[String(v)];
   let keyed=[];
   if(base.correctAnswers!==undefined)keyed=correctFlat(base.correctAnswers);
