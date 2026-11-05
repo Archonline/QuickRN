@@ -237,10 +237,11 @@ function quickRNAdaptClinicalSchema(input){
  // A scenario embedded in a traditional stem belongs in the left clinical pane,
  // even when a separate patient profile or chart tabs are also supplied.
  if(meaningful(split.scenario)){
-  const existingNotes=plain(existingEhr.nursesNotes);
-  const scenario=plain(split.scenario);
-  const notes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase())?existingEhr.nursesNotes:(existingNotes?String(existingEhr.nursesNotes)+'\n\n'+split.scenario:split.scenario);
-  q.ehr={...existingEhr,nursesNotes:notes};
+  const existingNotes=plain(existingEhr.nursesNotes),scenario=plain(split.scenario);
+  const alreadyInNotes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase());
+  const additionalTabs=Array.isArray(existingEhr.additionalTabs)?existingEhr.additionalTabs.slice():[];
+  if(!alreadyInNotes&&!additionalTabs.some(tab=>Array.isArray(tab)&&String(tab[1]||'').toLowerCase().includes(scenario.toLowerCase())))additionalTabs.unshift(['Clinical scenario',split.scenario]);
+  q.ehr={...existingEhr,...(additionalTabs.length?{additionalTabs}:{} )};
  }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
  return q;
 }
