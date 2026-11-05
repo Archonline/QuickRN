@@ -128,8 +128,9 @@
     q.dropdowns=Object.keys(keys).map(id=>{const correct=keys[id],opts=arr(source[id]);return {id,options:[...new Set([...opts,String(correct),...distractors(correct)])],correct};});
    }
    if(!q.clozeTemplate)q.clozeTemplate=stem;
-   arr(q.dropdowns).forEach(d=>{d.id=first(d.id,'blank_'+(arr(q.dropdowns).indexOf(d)+1));const correct=first(d.correct,keys[d.id]);if(correct!==undefined){d.correct=correct;d.options=[...new Set([...arr(d.options),String(correct)])];}d.options.forEach(add);});
+   arr(q.dropdowns).forEach(d=>{d.id=first(d.id,'blank_'+(arr(q.dropdowns).indexOf(d)+1));const correct=first(d.correct,keys[d.id]);const visible=arr(d.options).filter(x=>String(typeof x==='object'?first(x.text,x.label,x.value,''):x).trim());if(correct!==undefined){d.correct=correct;d.options=[...new Set([...visible.map(x=>typeof x==='object'?first(x.text,x.label,x.value):x),String(correct)])];}else d.options=[...new Set(visible.map(x=>typeof x==='object'?first(x.text,x.label,x.value):x))];d.options.forEach(add);});
    q.correctAnswers=q.correctAnswers||Object.fromEntries(arr(q.dropdowns).filter(d=>d.correct!==undefined).map(d=>[d.id,d.correct]));
+   q.options=Object.fromEntries(arr(q.dropdowns).map(d=>[d.id,d.options]));q.interaction=Object.assign({},obj(q.interaction),{options:q.options,answerKey:q.correctAnswers});
   }
   if(fmt==='Highlight')arr(q.highlightSegments).forEach(s=>{if(arr(q.correctHighlights).includes(s.id))correctSet.add(s.text);});
   if(fmt==='Numeric Entry'){
