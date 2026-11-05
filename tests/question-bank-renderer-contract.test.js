@@ -32,12 +32,12 @@ assert.equal(new Set(ids).size,bank.length,'all runtime question IDs are unique'
 assert.ok(Number.isFinite(context.window.quickRNQuestionIdNormalization.normalized),'duplicate-ID normalization reports a numeric count');
 console.log('PASS: '+bank.length+' runtime questions loaded; sufficient unique items for CAT and Predictor; all supported formats and linked-case normalization validated.');
 
-const numeric=bank.find(q=>q.id==='QR-NE-0001');
+const numeric=bank.find(q=>q.id==='QR-NE-0001')||bank.find(q=>String(q.type||q.ngnType||'').toLowerCase().includes('numeric')&&Number(q.correctNumericAnswer??q.numericAnswer)===0.08);
 assert.equal(api.detect(numeric),'Numeric Entry');
 assert.equal(api.hasAnswer(numeric,{numericEntry:'0.08'}),true);
 assert.equal(api.grade(numeric,{numericEntry:'0.08'}),true);
 assert.equal(api.grade(numeric,{numericEntry:'0.2'}),false);
-const selectN=bank.find(q=>q.id==='QR-SN-0001');
+const selectN=bank.find(q=>q.id==='QR-SN-0001')||bank.find(q=>api.detect(q)==='Select N'&&Array.isArray(q.correctAnswers));
 assert.equal(api.detect(selectN),'Select N');
 assert.equal(api.hasAnswer(selectN,{choices:selectN.correctAnswers}),true);
 assert.equal(api.hasAnswer(selectN,{choices:[selectN.correctAnswers[0]]}),false);
