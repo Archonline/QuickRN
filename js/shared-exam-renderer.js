@@ -209,7 +209,7 @@ function quickRNAdaptClinicalSchema(input){
   const label=tab.label||tab.title||tab.name||tab.tabName||tab.heading||('Clinical information '+(index+1));
   const content=tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??'';
   return [String(label),content];
- }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs):[]);
+ }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
  const tabs=entries.filter(entry=>meaningful(entry[1])).map(([label,value])=>[String(label||'Clinical information'),value]);
  const profile=q.patientProfile;
  if(meaningful(profile)&&!meaningful(q.patientInfo))q.patientInfo=profile;
