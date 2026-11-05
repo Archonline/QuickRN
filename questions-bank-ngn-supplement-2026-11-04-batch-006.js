@@ -75,7 +75,6 @@ topics.slice(0,50).forEach((t,ti)=>{
   base.rationale=topicRationale;
   base.clinicalJudgmentTip='Recognize the acute cue, connect it to '+topicName+', prioritize the immediate threat, implement the prescribed condition-specific action ('+priorityAction+'), and evaluate the response using '+monitoring+'. Do not delay escalation for routine tasks.';
   base.rationales={overall:base.rationale,options:base.optionRationales,clinicalJudgmentTip:base.clinicalJudgmentTip};
-  base.rationale='This original beta draft is designed to assess recognition of acute findings, prompt condition-appropriate escalation, and reassessment. Verify the exact intervention, parameters, and scoring against current evidence and local protocols before release.';
   if(!existing.has(id)){bank.push(base);existing.add(id);added++;}
  });
 });
