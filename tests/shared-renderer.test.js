@@ -148,7 +148,7 @@ assert.match(scenarioVitalsHtml,/Temperature: 38\.6 C/,'explicit temperature in 
 assert.ok(scenarioVitalsHtml.includes('Respiratory Rate: 30 /min'),'explicit respiratory rate is promoted to the EHR');
 assert.ok(scenarioVitalsHtml.includes('Heart Rate: 124 /min'),'explicit heart rate is promoted to the EHR');
 assert.ok(scenarioVitalsHtml.includes('Pulse Rate: 122 /min'),'explicit pulse rate is promoted to the EHR');
-assert.match(scenarioVitalsHtml,/Blood Pressure: 86\\/48 mm Hg/,'explicit blood pressure is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Blood Pressure: 86/48 mm Hg'),'explicit blood pressure is promoted to the EHR');
 assert.ok(scenarioVitalsHtml.includes('Oxygen Saturation: 88 %'),'explicit oxygen saturation is promoted to the EHR');
 
 const scenarioLabs={id:'LABS-FROM-SCENARIO',type:'Single Choice',scenario:'Laboratory results: sodium 128 mEq/L, potassium 6.2 mEq/L, glucose 450 mg/dL, BUN 38 mg/dL, creatinine 2.1 mg/dL, and lactate 3.8 mmol/L.',title:'Which action is the priority?',options:['A','B'],correctAnswer:'A'};
