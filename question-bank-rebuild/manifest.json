@@ -90,7 +90,8 @@
     "2026-11-02: Standardized 1,329 main-branch question records to contiguous QR-000001 through QR-001329 IDs. Original IDs are retained as legacyId and the complete mapping is stored in question-bank-rebuild/id-migration-map.json. Archived batch filenames remain unchanged for traceability; question IDs inside them use the canonical sequence. Historical branches remain unchanged.",
     "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
     "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending.",
-    "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending."
+    "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending.",
+    "2026-11-05: Substantive content remediation applied to 2,399 active NGN/calculation records across expansion batches 004–009 and priority batch 007. Records remain pending clinical review; existing IDs and exam scoring behavior are preserved. See contentRemediation for batch-level scope."
   ],
   "progress": {
     "questionsAuthored": 410,
@@ -186,5 +187,76 @@
         "cat.html"
       ]
     }
-  ]
+  ],
+  "contentRemediation": {
+    "date": "2026-11-05",
+    "branch": "main",
+    "scope": "Active NGN expansion and clinical calculation batches; records remain beta drafts pending user/educator clinical review.",
+    "batches": [
+      {
+        "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+        "records": 499,
+        "work": [
+          "complete structured patient profiles and EHR tabs",
+          "condition-specific simulated vital signs when authored for the case",
+          "clinical option rationales and Clinical Judgment Tips",
+          "replace obvious filler distractors",
+          "complete dropdown rationale key"
+        ]
+      },
+      {
+        "file": "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
+        "records": 500,
+        "work": [
+          "five-step case progression",
+          "structured simulated vital signs and EHR tabs",
+          "format-specific answer rationales",
+          "case-linked Clinical Judgment Tips"
+        ]
+      },
+      {
+        "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
+        "records": 500,
+        "work": [
+          "structured simulated patient records",
+          "option/response-specific rationales",
+          "Clinical Judgment Tips",
+          "case-specific priority explanation"
+        ]
+      },
+      {
+        "file": "questions-bank-ngn-priority-2026-11-04-batch-007.js",
+        "records": 500,
+        "work": [
+          "numeric calculation rationales and calculation safety tips",
+          "matrix row-specific rationales",
+          "case-study rationales and patient-record bridges"
+        ]
+      },
+      {
+        "file": "questions-bank-matrix-grid-2026-11-04-batch-008.js",
+        "records": 200,
+        "work": [
+          "structured EHR exhibits",
+          "row/option-specific rationales",
+          "matrix clinical judgment tips"
+        ]
+      },
+      {
+        "file": "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
+        "records": 200,
+        "work": [
+          "rewrite generic case prompts into five distinct decision tasks",
+          "structured EHR exhibits and simulated vital signs",
+          "case-sequence clinical judgment tips",
+          "single-response and SATA answer mapping"
+        ]
+      }
+    ],
+    "uniqueRecordsRemediated": 2399,
+    "reviewStatus": "pending_nurse_educator_review",
+    "clinicalReviewCompleted": 0,
+    "scoringBehaviorChanged": false,
+    "note": "Transformations update matching active bank records by canonical ID instead of silently skipping them as duplicate additions. Automated structural validation is not clinical approval."
+  }
 }
