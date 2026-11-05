@@ -89,6 +89,7 @@ const leftPaneIndex = splitBowtieHtml.indexOf('class="qr-ehr');
 const rightPaneIndex = splitBowtieHtml.indexOf('class="qr-question-panel');
 assert.ok(leftPaneIndex >= 0 && leftPaneIndex < rightPaneIndex,'QR-003390 clinical scenario renders in the left pane');
 assert.ok(splitBowtieHtml.includes('Clinical scenario'),'scenario is explicitly labeled in the left pane');
+assert.ok(!splitBowtieHtml.includes('No separate patient exhibits were supplied'),'scenario-only record does not show an empty-record placeholder');
 assert.ok(splitBowtieHtml.includes('Complete the bowtie by selecting the priority problem'),'the task remains in the right pane');
 const rightPaneHtml = splitBowtieHtml.slice(rightPaneIndex);
 assert.ok(!rightPaneHtml.includes('A client is experiencing a sickle cell vaso-occlusive crisis'),'scenario is not repeated in the right pane');
