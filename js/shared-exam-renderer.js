@@ -193,22 +193,76 @@ function quickRNToggleDraft(path,value){const a=Array.isArray(quickRNDraft[path]
 function quickRNMoveDraft(from,to){const a=[...(quickRNDraft.order||[])];if(from<0||to<0||from>=a.length||to>=a.length)return;const [v]=a.splice(from,1);a.splice(to,0,v);quickRNDraft={...quickRNDraft,order:a};quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
 function quickRNDragStart(e,i){quickRNDraggedIndex=i;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i));}
 function quickRNDrop(e,i){e.preventDefault();const from=quickRNDraggedIndex!==null?quickRNDraggedIndex:Number(e.dataTransfer.getData('text/plain'));quickRNDraggedIndex=null;quickRNMoveDraft(from,i);}
+function quickRNAdaptClinicalSchema(input){
+ const source=input&&typeof input==='object'?input:{};
+ const q={...source};
+ const plain=value=>quickRNPlainClinicalText(value);
+ const meaningful=value=>{
+  if(value==null||value==='')return false;
+  if(Array.isArray(value))return value.some(meaningful);
+  if(typeof value==='object')return Object.values(value).some(meaningful);
+  return String(value).trim()!=='';
+ };
+ const entries=Array.isArray(q.tabs)?q.tabs.map((tab,index)=>{
+  if(typeof tab==='string')return ['Clinical information '+(index+1),tab];
+  if(!tab||typeof tab!=='object')return ['', ''];
+  const label=tab.label||tab.title||tab.name||tab.tabName||tab.heading||('Clinical information '+(index+1));
+  const content=tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??'';
+  return [String(label),content];
+ }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
+ const hasProfileSummary=meaningful(q.patientProfile)||meaningful(q.patientInfo)||meaningful(q.patientInformation)||meaningful(q.patient_information);
+ const isPatientInfoTab=label=>/^(patient\s*(information|info|profile)|demographics|patient\s*details)$/i.test(String(label||'').trim().replace(/\s+/g,' '));
+ // Patient profile is already rendered once as the patient summary. Suppress
+ // a second tab with the same purpose, while retaining all clinical-data tabs.
+ const tabs=entries.filter(entry=>meaningful(entry[1])&&!(hasProfileSummary&&isPatientInfoTab(entry[0]))).map(([label,value])=>[String(label||'Clinical information'),value]);
+ // Split the original stem before mapping patientProfile into legacy patientInfo;
+ // otherwise demographics can be mistaken for the question's narrative.
+ const split=quickRNSplitPrompt(q);
+ const profile=q.patientProfile;
+ if(meaningful(profile)&&!meaningful(q.patientInfo))q.patientInfo=profile;
+ const context=q.caseStudyContext&&typeof q.caseStudyContext==='object'?q.caseStudyContext:{};
+ if(meaningful(q.caseGroupId))q.caseStudyContext={...context,id:context.id||String(q.caseGroupId),title:context.title||q.caseTitle||'Clinical case'};
+ const existingEhr=q.ehr&&typeof q.ehr==='object'?{...q.ehr}:{};
+ const standardLabels={'nurses notes':'nursesNotes','nurse notes':'nursesNotes','vital signs':'vitalSigns','diagnostic results':'diagnosticResults','lab results':'diagnosticResults','laboratory results':'diagnosticResults','history & physical':'historyPhysical','history and physical':'historyPhysical'};
+ const extraTabs=[];
+ tabs.forEach(([label,value])=>{
+  const key=standardLabels[String(label).toLowerCase().replace(/\s+/g,' ').trim()];
+  if(key){if(!meaningful(existingEhr[key]))existingEhr[key]=value;}
+  else extraTabs.push([label,value]);
+ });
+ if(extraTabs.length)existingEhr.additionalTabs=extraTabs;
+ // A scenario embedded in a traditional stem belongs in the left clinical pane,
+ // even when a separate patient profile or chart tabs are also supplied.
+ if(meaningful(split.scenario)){
+  const existingNotes=plain(existingEhr.nursesNotes);
+  const scenario=plain(split.scenario);
+  const notes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase())?existingEhr.nursesNotes:(existingNotes?String(existingEhr.nursesNotes)+'\n\n'+split.scenario:split.scenario);
+  q.ehr={...existingEhr,nursesNotes:notes};
+ }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
+ return q;
+}
 function quickRNRenderClinicalItem(q,draft,submitted=false){
+ const promptSplit=quickRNSplitPrompt(q);
+ q=quickRNAdaptClinicalSchema(q);
  const f=quickRNDetectItemFormat(q), ehr=q.ehr||{}, patient=q.patientInfo||{};
  const cleanField=v=>{let t=quickRNCleanPrompt(v);for(const prefix of [q.category,q.topic,q.ngnType,q.type]){if(prefix&&t.toLowerCase().startsWith(String(prefix).toLowerCase())){const rest=t.slice(String(prefix).length);if(/^\s*[-:|]\s*/.test(rest))t=rest.replace(/^\s*[-:|]\s*/,'');}}return t;};
- const title=cleanField(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question');
- const rawPrompt=cleanField(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
+ const stripLeadingScenario=value=>{
+  const text=cleanField(value),scenario=quickRNCleanClinicalText(promptSplit.scenario||'',q);
+  if(text&&scenario&&text.toLowerCase().startsWith(scenario.toLowerCase()))return text.slice(scenario.length).replace(/^[\s.!?—–:;-]+/,'').trim();
+  return text;
+ };
+ const title=stripLeadingScenario(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question')||cleanField(promptSplit.question||'Clinical question');
+ const rawPrompt=stripLeadingScenario(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
  const prompt=rawPrompt&&rawPrompt.toLowerCase()!==title.toLowerCase()?rawPrompt:'';
- const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]];
+ const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical],...(Array.isArray(ehr.additionalTabs)?ehr.additionalTabs:[])];
  const caseContext=q.caseStudyContext||{};
  const patientSummary=typeof q.patientInfo==='string'?quickRNPlainClinicalText(q.patientInfo):(quickRNPatientInfoText(patient)||quickRNPlainClinicalText(caseContext.summary||q.caseStudy||q.case_study||''));
- const scenarioText=quickRNPlainClinicalText(quickRNSplitPrompt(q).scenario||'');
- const hasRecord=!!(scenarioText||q.ehr||patientSummary||q.caseStudyContext||q.patientInfo||q.caseStudy||q.case_study);
+ const hasRecord=!!(q.ehr||patientSummary||q.caseStudyContext||q.patientInfo||q.patientProfile||q.caseStudy||q.case_study||q.caseGroupId||tabs.some(t=>quickRNPlainClinicalText(t[1])));
  const patientName=quickRNPlainClinicalText(patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient');
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.code)+'</div>':'');
  const seenRecordSections=new Set(patientSummary?[quickRNPlainClinicalText(patientSummary).toLowerCase()]:[]);const recordSections=tabs.map(t=>[t[0],quickRNPlainClinicalText(t[1])]).filter(t=>{if(!t[1])return false;const key=t[1].toLowerCase();if(seenRecordSections.has(key))return false;seenRecordSections.add(key);return true;}).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+quickRNEscape(t[1])+'</div></section>').join('');
- const scenarioKey=scenarioText.toLowerCase();const scenarioSection=scenarioText&&!seenRecordSections.has(scenarioKey)?'<section class="qr-ehr-section qr-clinical-scenario"><h4>Clinical scenario</h4><div>'+quickRNEscape(scenarioText).replace(/\n/g,'<br>')+'</div></section>':'';const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
- let record=hasRecord?'<aside class="qr-ehr'+(f==='Single Choice'?' qr-single-choice-scenario':'')+'"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+scenarioSection+recordSections+summarySection+(!recordSections&&!summarySection&&!scenarioSection?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Clinical record')+'</h4><div>No separate patient exhibits were supplied for this item.</div></section>':'')+'</div></aside>':'';
+ const scenarioText=quickRNPlainClinicalText(promptSplit.scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
+ let record=hasRecord?'<aside class="qr-ehr'+(f==='Single Choice'?' qr-single-choice-scenario':'')+'"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>Clinical scenario</h4><div>'+quickRNEscape(scenarioText||'')+'</div></section>':'')+'</div></aside>':'';
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'){
    const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'; const selected=multi?(draft.choices||[]):[draft.choice];
