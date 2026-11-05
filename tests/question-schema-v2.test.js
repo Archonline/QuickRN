@@ -10,7 +10,7 @@ assert.equal(legacy.rationales.overall,'Clinical rationale');
 assert.deepEqual(legacy.stimulus.tabs.nursesNotes,['Note']);
 assert.deepEqual(legacy.stimulus.tabs.vitalSigns,{HR:110});
 assert.equal(legacy.options.length,2,'legacy renderer fields must remain intact');
-assert(schema.validate(legacy,0).some(x=>x.code==='V2_MISSING_CLIENT_NEEDS'));
+assert.equal(legacy.metadata.clientNeeds,'Pharmacological and Parenteral Therapies','clear Pharmacology evidence should map to the corresponding NCLEX Client Needs category');
 const complete={id:'QR-T2',metadata:{id:'QR-T2',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Recognize Cues',difficulty:3},interaction:{type:'Single Choice',stem:'Which action?',options:['A','B'],answerKey:'A',scoring:{method:'0/1'}},rationales:{overall:'Why',options:{A:'Correct',B:'Incorrect'},clinicalJudgmentTip:'Prioritize safety.'}};
 schema.normalize(complete);
 assert.equal(schema.validate(complete,1).length,0);
