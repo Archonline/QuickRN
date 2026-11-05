@@ -588,7 +588,7 @@
   };
   const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
   window.quickrnFirebaseSignOut = () => signOut(getAuth(app));
-</script>
+<\/script>
 <script>
   // Clear the app's local sign-in marker and Firebase's persisted session.
   window.handleSignOut = async function () {
@@ -609,7 +609,7 @@
       window.location.assign('index.html');
     }
   };
-</script>
+<\/script>
 
 </body></html>');
             printWindow.document.close();
