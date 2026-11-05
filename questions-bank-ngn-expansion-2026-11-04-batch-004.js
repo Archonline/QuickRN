@@ -22376,7 +22376,7 @@ const distractorFix={
  'An unrelated task':'A routine task that does not address the current clinical threat.'
 };
 function replaceDistractor(v){return typeof v==='string'?(distractorFix[v]||v):v;}
-function keySet(q){const a=q.correctAnswers||{};if(Array.isArray(a))return new Set(a.map(String));if(typeof a==='string')return new Set([a]);if(a&&typeof a==='object')return new Set(Object.values(a).flatMap(v=>Array.isArray(v)?v.map(String):v==null?[]:[String(v)]));if(q.correctAnswer!=null)return new Set([String(q.correctAnswer)]);if(q.correctOrder)return new Set(q.correctOrder.map(String));if(q.correctHighlights)return new Set(q.correctHighlights.map(String));return new Set();}
+function keySet(q){const a=q.correctAnswers||{};const flatten=v=>Array.isArray(v)?v.flatMap(flatten):v&&typeof v==='object'?Object.values(v).flatMap(flatten):v==null?[]:[String(v)];if(Array.isArray(a)||typeof a==='string'||(a&&typeof a==='object'))return new Set(flatten(a));if(q.correctAnswer!=null)return new Set([String(q.correctAnswer)]);if(q.correctOrder)return new Set(q.correctOrder.map(String));if(q.correctHighlights)return new Set(q.correctHighlights.map(String));return new Set();}
 function clinicalReason(q,choice,isCorrect,action,monitor){
  const topic=q.topic||'the presenting condition',history=q.patientInfo?.history||q.ehr?.assessment||'the documented acute findings';
  if(isCorrect)return 'Appropriate for '+topic+' because it directly addresses or monitors the documented risk: '+history+' The nurse should carry it out within the prescribed plan/protocol and reassess the response.';
@@ -22432,7 +22432,7 @@ items.forEach(q=>{
  if(q.options)q.options=fixList(q.options);
  if(q.availableItems)q.availableItems=fixList(q.availableItems);
  if(q.bowtieData){q.bowtieData.conditions=fixList(q.bowtieData.conditions);q.bowtieData.actions=fixList(q.bowtieData.actions);q.bowtieData.monitoring=fixList(q.bowtieData.monitoring);}
- if(q.dropdowns)q.dropdowns.forEach(d=>{d.options=fixList(d.options);if(d.options&&!d.options.includes(d.correct)){const old=d.correct;d.options=d.options.map(x=>x===distractorFix[old]?old:x);}});
+ if(q.dropdowns)q.dropdowns.forEach(d=>{d.options=fixList(d.options);if(d.options&&!d.options.includes(d.correct)){const old=d.correct;d.options=d.options.map(x=>x===distractorFix[old]?old:x);}});if(q.type==='Dropdown Rationale'){const d=q.dropdowns?.find(x=>x.id==='reason');if(d){d.options=['The findings indicate a time-sensitive complication and require the stated response.','The finding is unrelated to the current assessment.','Waiting is preferred whenever a client is unstable.'];d.correct=d.options[0];q.correctAnswers=q.correctAnswers||{};q.correctAnswers.reason=d.correct;}}
  if(q.rows)q.rows.forEach(r=>{r.options=fixList(r.options);});
  if(q.highlightSegments)q.highlightSegments.forEach(s=>{s.text=replaceDistractor(s.text);});
  if(q.trendData?.rows)q.trendData.rows=q.trendData.rows.map(r=>r.map(replaceDistractor));
