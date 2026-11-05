@@ -295,8 +295,15 @@
       "questions.js (empty file; contributes 0 records)",
       "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
     ],
-    "method": "Executed all 15 non-empty question-bank modules in the exact order used by scripts/validate-question-bank.js; counted records appended to root.questions and verified all 3,307 loaded IDs are unique. The NGN batch 004 module contributes 499 records because one colliding ID is deliberately excluded by its loader.",
-    "limitations": "Counts are top-level records, not a measure of clinical quality. The NGN batch 004 remediation branch adds case-specific draft rationales, optionRationales, and Clinical Judgment Tips to its 499 loaded records and corrects all checked answer-key mappings. The remaining-bank audit identifies repetition, boilerplate rationales, generic case-study distractors, and malformed numeric-entry stems documented in docs/question-bank-remediation-2026-11-05.md. Shared renderer/scoring regression fixtures passed for all 3,307 records; compatibility-layer checks passed for 1,199 affected-format records. Browser-level and mode-specific interaction tests remain pending."
+    "method": "Executed all 15 non-empty question-bank modules in the exact order used by scripts/validate-question-bank.js; counted records appended to root.questions and verified all 3,307 loaded IDs are unique. NGN batch 004 contributes 499 records because its loader deliberately excludes one duplicate Alcohol Withdrawal Bowtie item; this is content deduplication, not an ID collision.",
+    "limitations": "Counts are top-level records, not a measure of clinical quality. NGN batch 004 adds case-specific draft rationales, optionRationales, and Clinical Judgment Tips to its 499 loaded records and corrects all checked answer-key mappings. The remaining-bank audit identifies repetition, boilerplate rationales, generic case-study distractors, and malformed numeric-entry stems documented in docs/question-bank-remediation-2026-11-05.md. All-format key-to-option mapping passed across 3,307 records; shared renderer/scoring fixtures passed for all 3,307, with compatibility-layer checks passed for 1,199 affected-format records. Browser-level and mode-specific interaction tests remain pending.",
+    "answerKeyIntegrity": {
+      "status": "passed",
+      "recordsScanned": 3307,
+      "formatsScanned": 13,
+      "keyToOptionMismatches": 0,
+      "note": "Structural mapping only; does not certify clinical correctness."
+    }
   },
   "totalAvailableUniqueRecords": 3307,
   "webmasterReviewWorkflow": {
