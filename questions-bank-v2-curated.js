@@ -71,6 +71,31 @@
  ];
  let nextCanonicalId=4543;
  items.forEach(item=>{const previousId=String(item&&item.id||'');if(previousId==='QR-001291'){item.previousQuestionId=previousId;item.id='QR-004520';}else if(previousId&&!/^QR-\d{6}$/.test(previousId)){item.legacyId=item.legacyId||previousId;item.id='QR-'+String(nextCanonicalId++).padStart(6,'0');}if(item.metadata&&typeof item.metadata==='object')item.metadata.id=item.id;});
+ // Complete the curated case records and option-level teaching while preserving the keyed answers.
+ items.forEach(q=>{
+  const topic=q.topic||q.category||'the clinical condition',stem=q.title||q.question||'',overall=q.rationale||q.explanation||'';
+  const keys=Array.isArray(q.correctAnswers)?q.correctAnswers:q.correctAnswers&&typeof q.correctAnswers==='object'?Object.values(q.correctAnswers).flatMap(v=>Array.isArray(v)?v:[v]):[q.correctAnswer].filter(Boolean);
+  q.optionRationales=q.optionRationales||{};
+  (q.options||[]).forEach(option=>{
+   if(q.optionRationales[option])return;
+   const correct=keys.includes(option);
+   q.optionRationales[option]=correct?'Correct. This response is supported by the case findings and the clinical rationale: '+overall:'This option is not the best response to the question asked. Compare it with the keyed response and the case rationale: '+overall;
+  });
+  q.clinicalJudgmentTip=q.clinicalJudgmentTip||'For '+topic+', recognize the abnormal cues, compare them with baseline, prioritize the immediate threat, implement the indicated nursing response, and evaluate the result using the relevant assessment findings.';
+  q.rationales={overall:q.rationale||overall,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
+  if(q.caseGroupId||q.caseStudyId){
+   const source=q.caseStudy||q.caseStudyContext||{},scenario=source.scenario||source.summary||q.scenario||stem;
+   q.scenario=scenario;q.clinicalScenario=scenario;
+   q.patientProfile=q.patientProfile||{age:(scenario.match(/(\d+[- ]year[- ]old[^,.;]*)/i)||[])[1]||'Age as stated in the case',presentingConcern:scenario,relevantHistory:scenario};
+   const val=(re)=>{const m=scenario.match(re);return m?m[1]:'Not documented in the case; obtain at bedside.';};
+   q.ehr=q.ehr||{tabs:{
+    nursesNotes:[{time:'Case presentation',note:scenario}],
+    vitalSigns:{temperature:val(/temperature\s*([\d.]+\s*°?C)/i),heartRate:val(/heart rate\s*(\d+\s*\/min)/i),respiratoryRate:val(/respiratory rate\s*(\d+\s*\/min)/i),bloodPressure:val(/blood pressure\s*([\d/]+\s*mm Hg)/i),oxygenSaturation:val(/oxygen saturation\s*(\d+%)/i)},
+    labResults:{availableInCase:scenario.match(/(?:lactate|glucose|potassium|sodium|creatinine|hemoglobin|INR|ANC)\s*[:=]?\s*[\d.]+[^,.;]*/gi)||[]},
+    providerOrders:{status:'Implement prescribed sepsis/condition-specific orders and clarify any incomplete instruction.'}
+   }};
+  }
+ });
  const known=new Set(bank.map(q=>q&&q.id).filter(Boolean).map(String));
  let added=0;
  items.forEach(q=>{if(!known.has(q.id)){bank.push(q);known.add(q.id);added++;}});
