@@ -25,6 +25,7 @@ if(fs.existsSync(clinicalV3Bank))vm.runInNewContext(fs.readFileSync(clinicalV3Ba
 const expansionModules=["questions-bank-expansion-2026-11-04.js","questions-bank-expansion-2026-11-04-batch-002.js","questions-bank-expansion-2026-11-04-batch-003.js","questions-bank-ngn-expansion-2026-11-04-batch-004.js","questions-bank-ngn-case-studies-2026-11-04-batch-005.js","questions-bank-ngn-supplement-2026-11-04-batch-006.js","questions-bank-numeric-entry-2026-11-04-batch-007.js","questions-bank-matrix-grid-2026-11-04-batch-008.js","questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js","questions-bank-ngn-priority-2026-11-04-batch-007.js" ];
 for(const relativePath of expansionModules){const modulePath=path.resolve(__dirname,'..',relativePath);if(fs.existsSync(modulePath))vm.runInNewContext(fs.readFileSync(modulePath,'utf8'),context,{timeout:60000,filename:modulePath});}
 bank=context.questions||bank;
+const schema=require('../js/quickrn-question-schema-v2');schema.normalizeBank(bank); // Validate the same normalized records used by the exam modes.
 function format(q){
  const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(s.includes('numeric entry')||s.includes('numeric-entry')||q.numericAnswer!==undefined||q.correctNumericAnswer!==undefined||q.numericRange)return 'Numeric Entry';
@@ -83,7 +84,7 @@ for(let i=0;i<bank.length;i++){
   issue('ANSWER_IDS_NOT_IN_OPTIONS','Multiple-response answer key contains an unknown option');
  }
  if(f==='Matrix Single'||f==='Matrix Multiple'){
-  const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[],answers=q.correctAnswers||{};
+  const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[...new Set(rows.flatMap(row=>row.options||[]))],answers=q.correctAnswers?.matrix||q.correctAnswers||{};
   if(rows.some((row,index)=>{const id=row.id||String(index),key=answers[id];return key===undefined||(Array.isArray(key)?(!key.length||key.some(value=>!columns.includes(value))):!columns.includes(key));})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to valid column(s)');
  }
  if(f==='Cloze (Drop-down)'||f==='Dropdown Rationale'){
@@ -106,7 +107,7 @@ for(let i=0;i<bank.length;i++){
  if(['Single Choice','Trend','Select N'].includes(f)&&(!Array.isArray(q.options)||!q.options.length))issue('MISSING_OPTIONS','Choice item has no options');
  if(f==='Single Choice'&&q.correctAnswer===undefined&&q.correctAnswerText===undefined)issue('MISSING_KEY','Single-choice item has no answer key');
  if(['Multiple Response','Extended Multiple Response'].includes(f)&&(!Array.isArray(q.options)||!q.options.length||!(Array.isArray(q.correctAnswers)||Array.isArray(q.correctAnswer))))issue('INVALID_MULTI_SCHEMA','Expected options and array answer key');
- if((f==='Matrix Single'||f==='Matrix Multiple')&&(!(q.rows||q.matrixData?.rows)?.length||!(q.columns||q.matrixData?.columns)?.length||!q.correctAnswers))issue('INVALID_MATRIX_SCHEMA','Expected rows, columns, correctAnswers');
+ if((f==='Matrix Single'||f==='Matrix Multiple')&&(!(q.rows||q.matrixData?.rows)?.length||!((q.columns||q.matrixData?.columns||[]).length||(q.rows||q.matrixData?.rows||[]).some(row=>(row.options||[]).length))||!q.correctAnswers))issue('INVALID_MATRIX_SCHEMA','Expected rows, columns, correctAnswers');
  if((f==='Cloze (Drop-down)'||f==='Dropdown Rationale')&&!(q.clozeTemplate||q.template||q.questionText||q.question||q.title))issue('MISSING_CLOZE_TEMPLATE','No cloze template or prompt');
  if(f==='Extended Drag and Drop'&&(!(q.availableItems||[]).length||!(q.correctOrder||[]).length))issue('INVALID_DRAG_SCHEMA','Expected availableItems and correctOrder');
  if(f==='Bowtie'&&(!q.bowtieData||!q.correctAnswers))issue('INVALID_BOWTIE_SCHEMA','Expected bowtieData and correctAnswers');
