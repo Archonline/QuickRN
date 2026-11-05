@@ -28,7 +28,7 @@ const html=api.renderReact(q,undefined,()=>{},false);
 assert.ok(html.includes('Clinical Record'),'new schema creates the left clinical record');
 assert.ok(html.includes('Nurses’ Notes'),'nursing notes tab is retained');
 assert.ok(html.includes('Vital Signs'),'vital-signs tab is retained');
-assert.ok(html.includes('Laboratory Results'),'custom clinical tab is retained');
+assert.ok(html.includes('Diagnostic Results'),'laboratory results are mapped to the diagnostic-results section');
 assert.ok(html.includes('Discharge Plan'),'additional tabs are rendered');
 assert.ok(html.includes('Which action should the nurse take first?'),'task remains in the question pane');
 assert.ok(!html.includes('No separate patient exhibits were supplied'),'no empty clinical-record placeholder');
