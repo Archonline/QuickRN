@@ -238,10 +238,10 @@ function quickRNAdaptClinicalSchema(input){
  return q;
 }
 function quickRNRenderClinicalItem(q,draft,submitted=false){
+ const promptSplit=quickRNSplitPrompt(q);
  q=quickRNAdaptClinicalSchema(q);
  const f=quickRNDetectItemFormat(q), ehr=q.ehr||{}, patient=q.patientInfo||{};
  const cleanField=v=>{let t=quickRNCleanPrompt(v);for(const prefix of [q.category,q.topic,q.ngnType,q.type]){if(prefix&&t.toLowerCase().startsWith(String(prefix).toLowerCase())){const rest=t.slice(String(prefix).length);if(/^\s*[-:|]\s*/.test(rest))t=rest.replace(/^\s*[-:|]\s*/,'');}}return t;};
- const promptSplit=quickRNSplitPrompt(q);
  const stripLeadingScenario=value=>{
   const text=cleanField(value),scenario=quickRNCleanClinicalText(promptSplit.scenario||'',q);
   if(text&&scenario&&text.toLowerCase().startsWith(scenario.toLowerCase()))return text.slice(scenario.length).replace(/^[\s.!?—–:;-]+/,'').trim();
