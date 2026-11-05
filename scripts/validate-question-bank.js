@@ -64,7 +64,7 @@ for(let i=0;i<bank.length;i++){
  if(!samples[f])samples[f]=[];if(samples[f].length<5)samples[f].push(q.id||'record-'+(i+1));
  if(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study)caseGroups.add(q.caseGroupId||q.caseTitle||q.caseStudy||q.case_study);
  const issue=(code,message)=>errors.push({index:i,id:q.id||null,format:f,code,message});
- if(!/^QR-\\d{6}$/.test(String(q.id||'')))issue('NON_CANONICAL_ID','Active production question IDs must use QR- followed by six digits');
+ if(!/^QR-\d{6}$/.test(String(q.id||'')))issue('NON_CANONICAL_ID','Active production question IDs must use QR- followed by six digits');
  const stem=String(q.question||q.stem||q.title||'').trim();
  if(/^(?:Traditional NCLEX practice|NGN (?:Matrix \/ Grid|Cloze \(Drop-down\)|Extended Drag and Drop|Bowtie|Extended Multiple Response)|SATA)\s+\d+\s*[—-]/i.test(stem) ||
     /the client is alert and can answer questions|no written action plan is available|relevant medical history and several current assessment findings|reports a new symptom to the bedside nurse|vital signs have changed over the last hour/i.test(stem)){
