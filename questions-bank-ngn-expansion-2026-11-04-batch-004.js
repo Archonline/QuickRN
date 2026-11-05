@@ -1,7 +1,7 @@
 /* QuickRN NGN expansion batch 004 — 499 unique original items across 50 clinical case scenarios.
  * Ten NGN formats per scenario: bowtie, matrix single/multiple, cloze, dropdown rationale,
  * highlight, trend, extended drag-and-drop, extended multiple response, and select-N.
- * Pending qualified nurse-educator review; do not treat as validated clinical guidance.
+ * pending webmaster review; do not treat as validated clinical guidance.
  */
 (function(root){
 'use strict';
@@ -22,7 +22,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001920",
   "type": "Bowtie",
@@ -72,7 +72,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001921",
   "type": "Matrix Single",
@@ -116,7 +116,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001922",
   "type": "Matrix Multiple",
@@ -167,7 +167,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001923",
   "type": "Cloze (Drop-down)",
@@ -222,7 +222,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001924",
   "type": "Dropdown Rationale",
@@ -275,7 +275,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001925",
   "type": "Highlight",
@@ -321,7 +321,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001926",
   "type": "Trend",
@@ -372,7 +372,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001927",
   "type": "Extended Drag and Drop",
@@ -404,7 +404,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001928",
   "type": "Extended Multiple Response",
@@ -436,7 +436,7 @@ const items=[
    "priorityAssessment": "Activate stroke pathway and obtain urgent noncontrast head CT"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-001",
   "id": "QR-001929",
   "type": "Select N",
@@ -468,7 +468,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001930",
   "type": "Bowtie",
@@ -518,7 +518,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001931",
   "type": "Matrix Single",
@@ -562,7 +562,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001932",
   "type": "Matrix Multiple",
@@ -613,7 +613,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001933",
   "type": "Cloze (Drop-down)",
@@ -668,7 +668,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001934",
   "type": "Dropdown Rationale",
@@ -721,7 +721,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001935",
   "type": "Highlight",
@@ -767,7 +767,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001936",
   "type": "Trend",
@@ -818,7 +818,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001937",
   "type": "Extended Drag and Drop",
@@ -850,7 +850,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001938",
   "type": "Extended Multiple Response",
@@ -882,7 +882,7 @@ const items=[
    "priorityAssessment": "Escalate immediately and initiate prescribed sepsis resuscitation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-002",
   "id": "QR-001939",
   "type": "Select N",
@@ -914,7 +914,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001940",
   "type": "Bowtie",
@@ -964,7 +964,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001941",
   "type": "Matrix Single",
@@ -1008,7 +1008,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001942",
   "type": "Matrix Multiple",
@@ -1059,7 +1059,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001943",
   "type": "Cloze (Drop-down)",
@@ -1114,7 +1114,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001944",
   "type": "Dropdown Rationale",
@@ -1167,7 +1167,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001945",
   "type": "Highlight",
@@ -1213,7 +1213,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001946",
   "type": "Trend",
@@ -1264,7 +1264,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001947",
   "type": "Extended Drag and Drop",
@@ -1296,7 +1296,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001948",
   "type": "Extended Multiple Response",
@@ -1328,7 +1328,7 @@ const items=[
    "priorityAssessment": "Begin prescribed isotonic fluid replacement and monitor potassium closely"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-003",
   "id": "QR-001949",
   "type": "Select N",
@@ -1360,7 +1360,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001950",
   "type": "Bowtie",
@@ -1410,7 +1410,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001951",
   "type": "Matrix Single",
@@ -1454,7 +1454,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001952",
   "type": "Matrix Multiple",
@@ -1505,7 +1505,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001953",
   "type": "Cloze (Drop-down)",
@@ -1560,7 +1560,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001954",
   "type": "Dropdown Rationale",
@@ -1613,7 +1613,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001955",
   "type": "Highlight",
@@ -1659,7 +1659,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001956",
   "type": "Trend",
@@ -1710,7 +1710,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001957",
   "type": "Extended Drag and Drop",
@@ -1742,7 +1742,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001958",
   "type": "Extended Multiple Response",
@@ -1774,7 +1774,7 @@ const items=[
    "priorityAssessment": "Position upright, support oxygenation, and activate urgent response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-004",
   "id": "QR-001959",
   "type": "Select N",
@@ -1806,7 +1806,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001960",
   "type": "Bowtie",
@@ -1856,7 +1856,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001961",
   "type": "Matrix Single",
@@ -1900,7 +1900,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001962",
   "type": "Matrix Multiple",
@@ -1951,7 +1951,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001963",
   "type": "Cloze (Drop-down)",
@@ -2006,7 +2006,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001964",
   "type": "Dropdown Rationale",
@@ -2059,7 +2059,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001965",
   "type": "Highlight",
@@ -2105,7 +2105,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001966",
   "type": "Trend",
@@ -2156,7 +2156,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001967",
   "type": "Extended Drag and Drop",
@@ -2188,7 +2188,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001968",
   "type": "Extended Multiple Response",
@@ -2220,7 +2220,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-005",
   "id": "QR-001969",
   "type": "Select N",
@@ -2252,7 +2252,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001970",
   "type": "Bowtie",
@@ -2302,7 +2302,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001971",
   "type": "Matrix Single",
@@ -2346,7 +2346,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001972",
   "type": "Matrix Multiple",
@@ -2397,7 +2397,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001973",
   "type": "Cloze (Drop-down)",
@@ -2452,7 +2452,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001974",
   "type": "Dropdown Rationale",
@@ -2505,7 +2505,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001975",
   "type": "Highlight",
@@ -2551,7 +2551,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001976",
   "type": "Trend",
@@ -2602,7 +2602,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001977",
   "type": "Extended Drag and Drop",
@@ -2634,7 +2634,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001978",
   "type": "Extended Multiple Response",
@@ -2666,7 +2666,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001979",
   "type": "Select N",
@@ -2698,7 +2698,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001980",
   "type": "Bowtie",
@@ -2748,7 +2748,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001981",
   "type": "Matrix Single",
@@ -2792,7 +2792,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001982",
   "type": "Matrix Multiple",
@@ -2843,7 +2843,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001983",
   "type": "Cloze (Drop-down)",
@@ -2898,7 +2898,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001984",
   "type": "Dropdown Rationale",
@@ -2951,7 +2951,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001985",
   "type": "Highlight",
@@ -2997,7 +2997,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001986",
   "type": "Trend",
@@ -3048,7 +3048,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001987",
   "type": "Extended Drag and Drop",
@@ -3080,7 +3080,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001988",
   "type": "Extended Multiple Response",
@@ -3112,7 +3112,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001989",
   "type": "Select N",
@@ -3144,7 +3144,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001990",
   "type": "Bowtie",
@@ -3194,7 +3194,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001991",
   "type": "Matrix Single",
@@ -3238,7 +3238,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001992",
   "type": "Matrix Multiple",
@@ -3289,7 +3289,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001993",
   "type": "Cloze (Drop-down)",
@@ -3344,7 +3344,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001994",
   "type": "Dropdown Rationale",
@@ -3397,7 +3397,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001995",
   "type": "Highlight",
@@ -3443,7 +3443,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001996",
   "type": "Trend",
@@ -3494,7 +3494,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001997",
   "type": "Extended Drag and Drop",
@@ -3526,7 +3526,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001998",
   "type": "Extended Multiple Response",
@@ -3558,7 +3558,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001999",
   "type": "Select N",
@@ -3590,7 +3590,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002000",
   "type": "Bowtie",
@@ -3640,7 +3640,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002001",
   "type": "Matrix Single",
@@ -3684,7 +3684,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002002",
   "type": "Matrix Multiple",
@@ -3735,7 +3735,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002003",
   "type": "Cloze (Drop-down)",
@@ -3790,7 +3790,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002004",
   "type": "Dropdown Rationale",
@@ -3843,7 +3843,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002005",
   "type": "Highlight",
@@ -3889,7 +3889,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002006",
   "type": "Trend",
@@ -3940,7 +3940,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002007",
   "type": "Extended Drag and Drop",
@@ -3972,7 +3972,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002008",
   "type": "Extended Multiple Response",
@@ -4004,7 +4004,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002009",
   "type": "Select N",
@@ -4036,7 +4036,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002010",
   "type": "Bowtie",
@@ -4086,7 +4086,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002011",
   "type": "Matrix Single",
@@ -4130,7 +4130,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002012",
   "type": "Matrix Multiple",
@@ -4181,7 +4181,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002013",
   "type": "Cloze (Drop-down)",
@@ -4236,7 +4236,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002014",
   "type": "Dropdown Rationale",
@@ -4289,7 +4289,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002015",
   "type": "Highlight",
@@ -4335,7 +4335,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002016",
   "type": "Trend",
@@ -4386,7 +4386,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002017",
   "type": "Extended Drag and Drop",
@@ -4418,7 +4418,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002018",
   "type": "Extended Multiple Response",
@@ -4450,7 +4450,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002019",
   "type": "Select N",
@@ -4482,7 +4482,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002020",
   "type": "Bowtie",
@@ -4532,7 +4532,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002021",
   "type": "Matrix Single",
@@ -4576,7 +4576,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002022",
   "type": "Matrix Multiple",
@@ -4627,7 +4627,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002023",
   "type": "Cloze (Drop-down)",
@@ -4682,7 +4682,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002024",
   "type": "Dropdown Rationale",
@@ -4735,7 +4735,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002025",
   "type": "Highlight",
@@ -4781,7 +4781,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002026",
   "type": "Trend",
@@ -4832,7 +4832,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002027",
   "type": "Extended Drag and Drop",
@@ -4864,7 +4864,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002028",
   "type": "Extended Multiple Response",
@@ -4896,7 +4896,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002029",
   "type": "Select N",
@@ -4928,7 +4928,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002030",
   "type": "Bowtie",
@@ -4978,7 +4978,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002031",
   "type": "Matrix Single",
@@ -5022,7 +5022,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002032",
   "type": "Matrix Multiple",
@@ -5073,7 +5073,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002033",
   "type": "Cloze (Drop-down)",
@@ -5128,7 +5128,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002034",
   "type": "Dropdown Rationale",
@@ -5181,7 +5181,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002035",
   "type": "Highlight",
@@ -5227,7 +5227,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002036",
   "type": "Trend",
@@ -5278,7 +5278,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002037",
   "type": "Extended Drag and Drop",
@@ -5310,7 +5310,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002038",
   "type": "Extended Multiple Response",
@@ -5342,7 +5342,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002039",
   "type": "Select N",
@@ -5374,7 +5374,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002040",
   "type": "Bowtie",
@@ -5424,7 +5424,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002041",
   "type": "Matrix Single",
@@ -5468,7 +5468,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002042",
   "type": "Matrix Multiple",
@@ -5519,7 +5519,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002043",
   "type": "Cloze (Drop-down)",
@@ -5574,7 +5574,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002044",
   "type": "Dropdown Rationale",
@@ -5627,7 +5627,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002045",
   "type": "Highlight",
@@ -5673,7 +5673,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002046",
   "type": "Trend",
@@ -5724,7 +5724,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002047",
   "type": "Extended Drag and Drop",
@@ -5756,7 +5756,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002048",
   "type": "Extended Multiple Response",
@@ -5788,7 +5788,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002049",
   "type": "Select N",
@@ -5820,7 +5820,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002050",
   "type": "Bowtie",
@@ -5870,7 +5870,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002051",
   "type": "Matrix Single",
@@ -5914,7 +5914,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002052",
   "type": "Matrix Multiple",
@@ -5965,7 +5965,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002053",
   "type": "Cloze (Drop-down)",
@@ -6020,7 +6020,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002054",
   "type": "Dropdown Rationale",
@@ -6073,7 +6073,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002055",
   "type": "Highlight",
@@ -6119,7 +6119,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002056",
   "type": "Trend",
@@ -6170,7 +6170,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002057",
   "type": "Extended Drag and Drop",
@@ -6202,7 +6202,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002058",
   "type": "Extended Multiple Response",
@@ -6234,7 +6234,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002059",
   "type": "Select N",
@@ -6266,7 +6266,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002060",
   "type": "Bowtie",
@@ -6316,7 +6316,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002061",
   "type": "Matrix Single",
@@ -6360,7 +6360,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002062",
   "type": "Matrix Multiple",
@@ -6411,7 +6411,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002063",
   "type": "Cloze (Drop-down)",
@@ -6466,7 +6466,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002064",
   "type": "Dropdown Rationale",
@@ -6519,7 +6519,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002065",
   "type": "Highlight",
@@ -6565,7 +6565,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002066",
   "type": "Trend",
@@ -6616,7 +6616,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002067",
   "type": "Extended Drag and Drop",
@@ -6648,7 +6648,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002068",
   "type": "Extended Multiple Response",
@@ -6680,7 +6680,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002069",
   "type": "Select N",
@@ -6712,7 +6712,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002070",
   "type": "Bowtie",
@@ -6762,7 +6762,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002071",
   "type": "Matrix Single",
@@ -6806,7 +6806,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002072",
   "type": "Matrix Multiple",
@@ -6857,7 +6857,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002073",
   "type": "Cloze (Drop-down)",
@@ -6912,7 +6912,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002074",
   "type": "Dropdown Rationale",
@@ -6965,7 +6965,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002075",
   "type": "Highlight",
@@ -7011,7 +7011,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002076",
   "type": "Trend",
@@ -7062,7 +7062,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002077",
   "type": "Extended Drag and Drop",
@@ -7094,7 +7094,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002078",
   "type": "Extended Multiple Response",
@@ -7126,7 +7126,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002079",
   "type": "Select N",
@@ -7158,7 +7158,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002080",
   "type": "Bowtie",
@@ -7208,7 +7208,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002081",
   "type": "Matrix Single",
@@ -7252,7 +7252,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002082",
   "type": "Matrix Multiple",
@@ -7303,7 +7303,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002083",
   "type": "Cloze (Drop-down)",
@@ -7358,7 +7358,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002084",
   "type": "Dropdown Rationale",
@@ -7411,7 +7411,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002085",
   "type": "Highlight",
@@ -7457,7 +7457,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002086",
   "type": "Trend",
@@ -7508,7 +7508,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002087",
   "type": "Extended Drag and Drop",
@@ -7540,7 +7540,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002088",
   "type": "Extended Multiple Response",
@@ -7572,7 +7572,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002089",
   "type": "Select N",
@@ -7604,7 +7604,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002090",
   "type": "Bowtie",
@@ -7654,7 +7654,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002091",
   "type": "Matrix Single",
@@ -7698,7 +7698,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002092",
   "type": "Matrix Multiple",
@@ -7749,7 +7749,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002093",
   "type": "Cloze (Drop-down)",
@@ -7804,7 +7804,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002094",
   "type": "Dropdown Rationale",
@@ -7857,7 +7857,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002095",
   "type": "Highlight",
@@ -7903,7 +7903,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002096",
   "type": "Trend",
@@ -7954,7 +7954,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002097",
   "type": "Extended Drag and Drop",
@@ -7986,7 +7986,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002098",
   "type": "Extended Multiple Response",
@@ -8018,7 +8018,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002099",
   "type": "Select N",
@@ -8050,7 +8050,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002100",
   "type": "Bowtie",
@@ -8100,7 +8100,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002101",
   "type": "Matrix Single",
@@ -8144,7 +8144,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002102",
   "type": "Matrix Multiple",
@@ -8195,7 +8195,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002103",
   "type": "Cloze (Drop-down)",
@@ -8250,7 +8250,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002104",
   "type": "Dropdown Rationale",
@@ -8303,7 +8303,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002105",
   "type": "Highlight",
@@ -8349,7 +8349,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002106",
   "type": "Trend",
@@ -8400,7 +8400,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002107",
   "type": "Extended Drag and Drop",
@@ -8432,7 +8432,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002108",
   "type": "Extended Multiple Response",
@@ -8464,7 +8464,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002109",
   "type": "Select N",
@@ -8496,7 +8496,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002110",
   "type": "Bowtie",
@@ -8546,7 +8546,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002111",
   "type": "Matrix Single",
@@ -8590,7 +8590,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002112",
   "type": "Matrix Multiple",
@@ -8641,7 +8641,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002113",
   "type": "Cloze (Drop-down)",
@@ -8696,7 +8696,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002114",
   "type": "Dropdown Rationale",
@@ -8749,7 +8749,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002115",
   "type": "Highlight",
@@ -8795,7 +8795,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002116",
   "type": "Trend",
@@ -8846,7 +8846,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002117",
   "type": "Extended Drag and Drop",
@@ -8878,7 +8878,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002118",
   "type": "Extended Multiple Response",
@@ -8910,7 +8910,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002119",
   "type": "Select N",
@@ -8942,7 +8942,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002120",
   "type": "Bowtie",
@@ -8992,7 +8992,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002121",
   "type": "Matrix Single",
@@ -9036,7 +9036,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002122",
   "type": "Matrix Multiple",
@@ -9087,7 +9087,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002123",
   "type": "Cloze (Drop-down)",
@@ -9142,7 +9142,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002124",
   "type": "Dropdown Rationale",
@@ -9195,7 +9195,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002125",
   "type": "Highlight",
@@ -9241,7 +9241,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002126",
   "type": "Trend",
@@ -9292,7 +9292,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002127",
   "type": "Extended Drag and Drop",
@@ -9324,7 +9324,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002128",
   "type": "Extended Multiple Response",
@@ -9356,7 +9356,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002129",
   "type": "Select N",
@@ -9388,7 +9388,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002130",
   "type": "Bowtie",
@@ -9438,7 +9438,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002131",
   "type": "Matrix Single",
@@ -9482,7 +9482,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002132",
   "type": "Matrix Multiple",
@@ -9533,7 +9533,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002133",
   "type": "Cloze (Drop-down)",
@@ -9588,7 +9588,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002134",
   "type": "Dropdown Rationale",
@@ -9641,7 +9641,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002135",
   "type": "Highlight",
@@ -9687,7 +9687,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002136",
   "type": "Trend",
@@ -9738,7 +9738,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002137",
   "type": "Extended Drag and Drop",
@@ -9770,7 +9770,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002138",
   "type": "Extended Multiple Response",
@@ -9802,7 +9802,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002139",
   "type": "Select N",
@@ -9834,7 +9834,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002140",
   "type": "Bowtie",
@@ -9884,7 +9884,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002141",
   "type": "Matrix Single",
@@ -9928,7 +9928,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002142",
   "type": "Matrix Multiple",
@@ -9979,7 +9979,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002143",
   "type": "Cloze (Drop-down)",
@@ -10034,7 +10034,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002144",
   "type": "Dropdown Rationale",
@@ -10087,7 +10087,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002145",
   "type": "Highlight",
@@ -10133,7 +10133,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002146",
   "type": "Trend",
@@ -10184,7 +10184,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002147",
   "type": "Extended Drag and Drop",
@@ -10216,7 +10216,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002148",
   "type": "Extended Multiple Response",
@@ -10248,7 +10248,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002149",
   "type": "Select N",
@@ -10273,7 +10273,7 @@ const items=[
   "difficulty": "High",
   "patientInfo": "52-year-old adult. Last alcohol intake was 18 hours ago. The client has tremor, diaphoresis, tachycardia, and visual disturbances.",
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002150",
   "type": "Bowtie",
@@ -10324,7 +10324,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002151",
   "type": "Matrix Single",
@@ -10368,7 +10368,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002152",
   "type": "Matrix Multiple",
@@ -10419,7 +10419,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002153",
   "type": "Cloze (Drop-down)",
@@ -10474,7 +10474,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002154",
   "type": "Dropdown Rationale",
@@ -10527,7 +10527,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002155",
   "type": "Highlight",
@@ -10573,7 +10573,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002156",
   "type": "Trend",
@@ -10624,7 +10624,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002157",
   "type": "Extended Drag and Drop",
@@ -10656,7 +10656,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002158",
   "type": "Extended Multiple Response",
@@ -10688,7 +10688,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002159",
   "type": "Select N",
@@ -10720,7 +10720,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002160",
   "type": "Bowtie",
@@ -10770,7 +10770,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002161",
   "type": "Matrix Single",
@@ -10814,7 +10814,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002162",
   "type": "Matrix Multiple",
@@ -10865,7 +10865,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002163",
   "type": "Cloze (Drop-down)",
@@ -10920,7 +10920,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002164",
   "type": "Dropdown Rationale",
@@ -10973,7 +10973,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002165",
   "type": "Highlight",
@@ -11019,7 +11019,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002166",
   "type": "Trend",
@@ -11070,7 +11070,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002167",
   "type": "Extended Drag and Drop",
@@ -11102,7 +11102,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002168",
   "type": "Extended Multiple Response",
@@ -11134,7 +11134,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002169",
   "type": "Select N",
@@ -11166,7 +11166,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002170",
   "type": "Bowtie",
@@ -11216,7 +11216,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002171",
   "type": "Matrix Single",
@@ -11260,7 +11260,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002172",
   "type": "Matrix Multiple",
@@ -11311,7 +11311,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002173",
   "type": "Cloze (Drop-down)",
@@ -11366,7 +11366,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002174",
   "type": "Dropdown Rationale",
@@ -11419,7 +11419,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002175",
   "type": "Highlight",
@@ -11465,7 +11465,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002176",
   "type": "Trend",
@@ -11516,7 +11516,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002177",
   "type": "Extended Drag and Drop",
@@ -11548,7 +11548,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002178",
   "type": "Extended Multiple Response",
@@ -11580,7 +11580,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002179",
   "type": "Select N",
@@ -11612,7 +11612,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002180",
   "type": "Bowtie",
@@ -11662,7 +11662,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002181",
   "type": "Matrix Single",
@@ -11706,7 +11706,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002182",
   "type": "Matrix Multiple",
@@ -11757,7 +11757,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002183",
   "type": "Cloze (Drop-down)",
@@ -11812,7 +11812,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002184",
   "type": "Dropdown Rationale",
@@ -11865,7 +11865,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002185",
   "type": "Highlight",
@@ -11911,7 +11911,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002186",
   "type": "Trend",
@@ -11962,7 +11962,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002187",
   "type": "Extended Drag and Drop",
@@ -11994,7 +11994,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002188",
   "type": "Extended Multiple Response",
@@ -12026,7 +12026,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002189",
   "type": "Select N",
@@ -12058,7 +12058,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002190",
   "type": "Bowtie",
@@ -12108,7 +12108,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002191",
   "type": "Matrix Single",
@@ -12152,7 +12152,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002192",
   "type": "Matrix Multiple",
@@ -12203,7 +12203,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002193",
   "type": "Cloze (Drop-down)",
@@ -12258,7 +12258,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002194",
   "type": "Dropdown Rationale",
@@ -12311,7 +12311,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002195",
   "type": "Highlight",
@@ -12357,7 +12357,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002196",
   "type": "Trend",
@@ -12408,7 +12408,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002197",
   "type": "Extended Drag and Drop",
@@ -12440,7 +12440,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002198",
   "type": "Extended Multiple Response",
@@ -12472,7 +12472,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002199",
   "type": "Select N",
@@ -12504,7 +12504,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002200",
   "type": "Bowtie",
@@ -12554,7 +12554,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002201",
   "type": "Matrix Single",
@@ -12598,7 +12598,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002202",
   "type": "Matrix Multiple",
@@ -12649,7 +12649,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002203",
   "type": "Cloze (Drop-down)",
@@ -12704,7 +12704,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002204",
   "type": "Dropdown Rationale",
@@ -12757,7 +12757,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002205",
   "type": "Highlight",
@@ -12803,7 +12803,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002206",
   "type": "Trend",
@@ -12854,7 +12854,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002207",
   "type": "Extended Drag and Drop",
@@ -12886,7 +12886,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002208",
   "type": "Extended Multiple Response",
@@ -12918,7 +12918,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002209",
   "type": "Select N",
@@ -12950,7 +12950,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002210",
   "type": "Bowtie",
@@ -13000,7 +13000,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002211",
   "type": "Matrix Single",
@@ -13044,7 +13044,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002212",
   "type": "Matrix Multiple",
@@ -13095,7 +13095,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002213",
   "type": "Cloze (Drop-down)",
@@ -13150,7 +13150,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002214",
   "type": "Dropdown Rationale",
@@ -13203,7 +13203,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002215",
   "type": "Highlight",
@@ -13249,7 +13249,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002216",
   "type": "Trend",
@@ -13300,7 +13300,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002217",
   "type": "Extended Drag and Drop",
@@ -13332,7 +13332,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002218",
   "type": "Extended Multiple Response",
@@ -13364,7 +13364,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002219",
   "type": "Select N",
@@ -13396,7 +13396,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002220",
   "type": "Bowtie",
@@ -13446,7 +13446,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002221",
   "type": "Matrix Single",
@@ -13490,7 +13490,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002222",
   "type": "Matrix Multiple",
@@ -13541,7 +13541,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002223",
   "type": "Cloze (Drop-down)",
@@ -13596,7 +13596,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002224",
   "type": "Dropdown Rationale",
@@ -13649,7 +13649,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002225",
   "type": "Highlight",
@@ -13695,7 +13695,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002226",
   "type": "Trend",
@@ -13746,7 +13746,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002227",
   "type": "Extended Drag and Drop",
@@ -13778,7 +13778,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002228",
   "type": "Extended Multiple Response",
@@ -13810,7 +13810,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002229",
   "type": "Select N",
@@ -13842,7 +13842,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002230",
   "type": "Bowtie",
@@ -13892,7 +13892,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002231",
   "type": "Matrix Single",
@@ -13936,7 +13936,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002232",
   "type": "Matrix Multiple",
@@ -13987,7 +13987,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002233",
   "type": "Cloze (Drop-down)",
@@ -14042,7 +14042,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002234",
   "type": "Dropdown Rationale",
@@ -14095,7 +14095,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002235",
   "type": "Highlight",
@@ -14141,7 +14141,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002236",
   "type": "Trend",
@@ -14192,7 +14192,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002237",
   "type": "Extended Drag and Drop",
@@ -14224,7 +14224,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002238",
   "type": "Extended Multiple Response",
@@ -14256,7 +14256,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002239",
   "type": "Select N",
@@ -14288,7 +14288,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002240",
   "type": "Bowtie",
@@ -14338,7 +14338,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002241",
   "type": "Matrix Single",
@@ -14382,7 +14382,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002242",
   "type": "Matrix Multiple",
@@ -14433,7 +14433,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002243",
   "type": "Cloze (Drop-down)",
@@ -14488,7 +14488,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002244",
   "type": "Dropdown Rationale",
@@ -14541,7 +14541,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002245",
   "type": "Highlight",
@@ -14587,7 +14587,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002246",
   "type": "Trend",
@@ -14638,7 +14638,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002247",
   "type": "Extended Drag and Drop",
@@ -14670,7 +14670,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002248",
   "type": "Extended Multiple Response",
@@ -14702,7 +14702,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002249",
   "type": "Select N",
@@ -14734,7 +14734,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002250",
   "type": "Bowtie",
@@ -14784,7 +14784,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002251",
   "type": "Matrix Single",
@@ -14828,7 +14828,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002252",
   "type": "Matrix Multiple",
@@ -14879,7 +14879,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002253",
   "type": "Cloze (Drop-down)",
@@ -14934,7 +14934,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002254",
   "type": "Dropdown Rationale",
@@ -14987,7 +14987,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002255",
   "type": "Highlight",
@@ -15033,7 +15033,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002256",
   "type": "Trend",
@@ -15084,7 +15084,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002257",
   "type": "Extended Drag and Drop",
@@ -15116,7 +15116,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002258",
   "type": "Extended Multiple Response",
@@ -15148,7 +15148,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002259",
   "type": "Select N",
@@ -15180,7 +15180,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002260",
   "type": "Bowtie",
@@ -15230,7 +15230,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002261",
   "type": "Matrix Single",
@@ -15274,7 +15274,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002262",
   "type": "Matrix Multiple",
@@ -15325,7 +15325,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002263",
   "type": "Cloze (Drop-down)",
@@ -15380,7 +15380,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002264",
   "type": "Dropdown Rationale",
@@ -15433,7 +15433,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002265",
   "type": "Highlight",
@@ -15479,7 +15479,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002266",
   "type": "Trend",
@@ -15530,7 +15530,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002267",
   "type": "Extended Drag and Drop",
@@ -15562,7 +15562,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002268",
   "type": "Extended Multiple Response",
@@ -15594,7 +15594,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002269",
   "type": "Select N",
@@ -15626,7 +15626,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002270",
   "type": "Bowtie",
@@ -15676,7 +15676,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002271",
   "type": "Matrix Single",
@@ -15720,7 +15720,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002272",
   "type": "Matrix Multiple",
@@ -15771,7 +15771,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002273",
   "type": "Cloze (Drop-down)",
@@ -15826,7 +15826,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002274",
   "type": "Dropdown Rationale",
@@ -15879,7 +15879,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002275",
   "type": "Highlight",
@@ -15925,7 +15925,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002276",
   "type": "Trend",
@@ -15976,7 +15976,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002277",
   "type": "Extended Drag and Drop",
@@ -16008,7 +16008,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002278",
   "type": "Extended Multiple Response",
@@ -16040,7 +16040,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002279",
   "type": "Select N",
@@ -16072,7 +16072,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002280",
   "type": "Bowtie",
@@ -16122,7 +16122,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002281",
   "type": "Matrix Single",
@@ -16166,7 +16166,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002282",
   "type": "Matrix Multiple",
@@ -16217,7 +16217,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002283",
   "type": "Cloze (Drop-down)",
@@ -16272,7 +16272,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002284",
   "type": "Dropdown Rationale",
@@ -16325,7 +16325,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002285",
   "type": "Highlight",
@@ -16371,7 +16371,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002286",
   "type": "Trend",
@@ -16422,7 +16422,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002287",
   "type": "Extended Drag and Drop",
@@ -16454,7 +16454,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002288",
   "type": "Extended Multiple Response",
@@ -16486,7 +16486,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002289",
   "type": "Select N",
@@ -16518,7 +16518,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002290",
   "type": "Bowtie",
@@ -16568,7 +16568,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002291",
   "type": "Matrix Single",
@@ -16612,7 +16612,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002292",
   "type": "Matrix Multiple",
@@ -16663,7 +16663,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002293",
   "type": "Cloze (Drop-down)",
@@ -16718,7 +16718,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002294",
   "type": "Dropdown Rationale",
@@ -16771,7 +16771,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002295",
   "type": "Highlight",
@@ -16817,7 +16817,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002296",
   "type": "Trend",
@@ -16868,7 +16868,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002297",
   "type": "Extended Drag and Drop",
@@ -16900,7 +16900,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002298",
   "type": "Extended Multiple Response",
@@ -16932,7 +16932,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002299",
   "type": "Select N",
@@ -16964,7 +16964,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002300",
   "type": "Bowtie",
@@ -17014,7 +17014,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002301",
   "type": "Matrix Single",
@@ -17058,7 +17058,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002302",
   "type": "Matrix Multiple",
@@ -17109,7 +17109,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002303",
   "type": "Cloze (Drop-down)",
@@ -17164,7 +17164,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002304",
   "type": "Dropdown Rationale",
@@ -17217,7 +17217,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002305",
   "type": "Highlight",
@@ -17263,7 +17263,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002306",
   "type": "Trend",
@@ -17314,7 +17314,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002307",
   "type": "Extended Drag and Drop",
@@ -17346,7 +17346,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002308",
   "type": "Extended Multiple Response",
@@ -17378,7 +17378,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002309",
   "type": "Select N",
@@ -17410,7 +17410,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002310",
   "type": "Bowtie",
@@ -17460,7 +17460,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002311",
   "type": "Matrix Single",
@@ -17504,7 +17504,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002312",
   "type": "Matrix Multiple",
@@ -17555,7 +17555,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002313",
   "type": "Cloze (Drop-down)",
@@ -17610,7 +17610,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002314",
   "type": "Dropdown Rationale",
@@ -17663,7 +17663,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002315",
   "type": "Highlight",
@@ -17709,7 +17709,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002316",
   "type": "Trend",
@@ -17760,7 +17760,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002317",
   "type": "Extended Drag and Drop",
@@ -17792,7 +17792,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002318",
   "type": "Extended Multiple Response",
@@ -17824,7 +17824,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002319",
   "type": "Select N",
@@ -17856,7 +17856,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002320",
   "type": "Bowtie",
@@ -17906,7 +17906,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002321",
   "type": "Matrix Single",
@@ -17950,7 +17950,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002322",
   "type": "Matrix Multiple",
@@ -18001,7 +18001,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002323",
   "type": "Cloze (Drop-down)",
@@ -18056,7 +18056,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002324",
   "type": "Dropdown Rationale",
@@ -18109,7 +18109,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002325",
   "type": "Highlight",
@@ -18155,7 +18155,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002326",
   "type": "Trend",
@@ -18206,7 +18206,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002327",
   "type": "Extended Drag and Drop",
@@ -18238,7 +18238,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002328",
   "type": "Extended Multiple Response",
@@ -18270,7 +18270,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002329",
   "type": "Select N",
@@ -18302,7 +18302,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002330",
   "type": "Bowtie",
@@ -18352,7 +18352,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002331",
   "type": "Matrix Single",
@@ -18396,7 +18396,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002332",
   "type": "Matrix Multiple",
@@ -18447,7 +18447,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002333",
   "type": "Cloze (Drop-down)",
@@ -18502,7 +18502,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002334",
   "type": "Dropdown Rationale",
@@ -18555,7 +18555,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002335",
   "type": "Highlight",
@@ -18601,7 +18601,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002336",
   "type": "Trend",
@@ -18652,7 +18652,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002337",
   "type": "Extended Drag and Drop",
@@ -18684,7 +18684,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002338",
   "type": "Extended Multiple Response",
@@ -18716,7 +18716,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002339",
   "type": "Select N",
@@ -18748,7 +18748,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002340",
   "type": "Bowtie",
@@ -18798,7 +18798,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002341",
   "type": "Matrix Single",
@@ -18842,7 +18842,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002342",
   "type": "Matrix Multiple",
@@ -18893,7 +18893,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002343",
   "type": "Cloze (Drop-down)",
@@ -18948,7 +18948,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002344",
   "type": "Dropdown Rationale",
@@ -19001,7 +19001,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002345",
   "type": "Highlight",
@@ -19047,7 +19047,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002346",
   "type": "Trend",
@@ -19098,7 +19098,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002347",
   "type": "Extended Drag and Drop",
@@ -19130,7 +19130,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002348",
   "type": "Extended Multiple Response",
@@ -19162,7 +19162,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002349",
   "type": "Select N",
@@ -19194,7 +19194,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002350",
   "type": "Bowtie",
@@ -19244,7 +19244,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002351",
   "type": "Matrix Single",
@@ -19288,7 +19288,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002352",
   "type": "Matrix Multiple",
@@ -19339,7 +19339,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002353",
   "type": "Cloze (Drop-down)",
@@ -19394,7 +19394,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002354",
   "type": "Dropdown Rationale",
@@ -19447,7 +19447,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002355",
   "type": "Highlight",
@@ -19493,7 +19493,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002356",
   "type": "Trend",
@@ -19544,7 +19544,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002357",
   "type": "Extended Drag and Drop",
@@ -19576,7 +19576,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002358",
   "type": "Extended Multiple Response",
@@ -19608,7 +19608,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002359",
   "type": "Select N",
@@ -19640,7 +19640,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002360",
   "type": "Bowtie",
@@ -19690,7 +19690,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002361",
   "type": "Matrix Single",
@@ -19734,7 +19734,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002362",
   "type": "Matrix Multiple",
@@ -19785,7 +19785,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002363",
   "type": "Cloze (Drop-down)",
@@ -19840,7 +19840,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002364",
   "type": "Dropdown Rationale",
@@ -19893,7 +19893,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002365",
   "type": "Highlight",
@@ -19939,7 +19939,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002366",
   "type": "Trend",
@@ -19990,7 +19990,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002367",
   "type": "Extended Drag and Drop",
@@ -20022,7 +20022,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002368",
   "type": "Extended Multiple Response",
@@ -20054,7 +20054,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002369",
   "type": "Select N",
@@ -20086,7 +20086,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002370",
   "type": "Bowtie",
@@ -20136,7 +20136,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002371",
   "type": "Matrix Single",
@@ -20180,7 +20180,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002372",
   "type": "Matrix Multiple",
@@ -20231,7 +20231,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002373",
   "type": "Cloze (Drop-down)",
@@ -20286,7 +20286,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002374",
   "type": "Dropdown Rationale",
@@ -20339,7 +20339,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002375",
   "type": "Highlight",
@@ -20385,7 +20385,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002376",
   "type": "Trend",
@@ -20436,7 +20436,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002377",
   "type": "Extended Drag and Drop",
@@ -20468,7 +20468,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002378",
   "type": "Extended Multiple Response",
@@ -20500,7 +20500,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002379",
   "type": "Select N",
@@ -20532,7 +20532,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002380",
   "type": "Bowtie",
@@ -20582,7 +20582,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002381",
   "type": "Matrix Single",
@@ -20626,7 +20626,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002382",
   "type": "Matrix Multiple",
@@ -20677,7 +20677,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002383",
   "type": "Cloze (Drop-down)",
@@ -20732,7 +20732,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002384",
   "type": "Dropdown Rationale",
@@ -20785,7 +20785,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002385",
   "type": "Highlight",
@@ -20831,7 +20831,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002386",
   "type": "Trend",
@@ -20882,7 +20882,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002387",
   "type": "Extended Drag and Drop",
@@ -20914,7 +20914,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002388",
   "type": "Extended Multiple Response",
@@ -20946,7 +20946,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002389",
   "type": "Select N",
@@ -20978,7 +20978,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002390",
   "type": "Bowtie",
@@ -21028,7 +21028,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002391",
   "type": "Matrix Single",
@@ -21072,7 +21072,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002392",
   "type": "Matrix Multiple",
@@ -21123,7 +21123,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002393",
   "type": "Cloze (Drop-down)",
@@ -21178,7 +21178,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002394",
   "type": "Dropdown Rationale",
@@ -21231,7 +21231,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002395",
   "type": "Highlight",
@@ -21277,7 +21277,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002396",
   "type": "Trend",
@@ -21328,7 +21328,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002397",
   "type": "Extended Drag and Drop",
@@ -21360,7 +21360,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002398",
   "type": "Extended Multiple Response",
@@ -21392,7 +21392,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002399",
   "type": "Select N",
@@ -21424,7 +21424,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002400",
   "type": "Bowtie",
@@ -21474,7 +21474,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002401",
   "type": "Matrix Single",
@@ -21518,7 +21518,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002402",
   "type": "Matrix Multiple",
@@ -21569,7 +21569,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002403",
   "type": "Cloze (Drop-down)",
@@ -21624,7 +21624,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002404",
   "type": "Dropdown Rationale",
@@ -21677,7 +21677,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002405",
   "type": "Highlight",
@@ -21723,7 +21723,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002406",
   "type": "Trend",
@@ -21774,7 +21774,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002407",
   "type": "Extended Drag and Drop",
@@ -21806,7 +21806,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002408",
   "type": "Extended Multiple Response",
@@ -21838,7 +21838,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002409",
   "type": "Select N",
@@ -21870,7 +21870,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002410",
   "type": "Bowtie",
@@ -21920,7 +21920,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002411",
   "type": "Matrix Single",
@@ -21964,7 +21964,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002412",
   "type": "Matrix Multiple",
@@ -22015,7 +22015,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002413",
   "type": "Cloze (Drop-down)",
@@ -22070,7 +22070,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002414",
   "type": "Dropdown Rationale",
@@ -22123,7 +22123,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002415",
   "type": "Highlight",
@@ -22169,7 +22169,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002416",
   "type": "Trend",
@@ -22220,7 +22220,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002417",
   "type": "Extended Drag and Drop",
@@ -22252,7 +22252,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002418",
   "type": "Extended Multiple Response",
@@ -22284,7 +22284,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "pending_webmaster_review",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002419",
   "type": "Select N",
