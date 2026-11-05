@@ -34,7 +34,7 @@ return 'Single Choice';
 }
 const findings=[],counts=Object.fromEntries(formats.map(x=>[x,0])),seen=new Map(),groups=new Map();
 const add=(q,i,severity,code,message)=>findings.push({id:q.id||null,index:i,format:format(q),severity,code,message});
-const txt=v=>typeof v==='string'?v:Array.isArray(v)?v.map(txt).join(' '):v&&typeof v==='object'?Object.values(v).map(txt).join(' '):'';
+const txt=v=>typeof v==='string'?v:Array.isArray(v)?v.map(txt).join(' '):v&&typeof v==='object'?Object.entries(v).map(([k,x])=>k+' '+txt(x)).join(' '):'';
 const html=/(?:<\s*\/?\s*[a-z][^>]*>|&(?:nbsp|lt|gt|amp|quot|#\d+);)/i;
 const weakDistractor=/(?:hair and nail growth|routine meal preference|unrelated routine measurement|delay all reassessment until end of shift|give aspirin before imaging|rapidly lower blood pressure to normal)/i;
 bank.forEach((q,i)=>{
