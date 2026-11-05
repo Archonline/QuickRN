@@ -17,6 +17,16 @@
   if(/which action|what should the nurse do|which intervention should.*implement|take first|administer|perform immediately|how should the nurse respond|what is the nurse's first/.test(s))return 'Take Action';
   if(/most likely (cause|condition|problem|diagnosis)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e|which conclusion|which interpretation|what is the significance/.test(s))return 'Analyze Cues';
   if(/which finding|which cue|which assessment data|which observation|which symptom|which information|what assessment|identify the cues|highlight.*cues/.test(s))return 'Recognize Cues';
+  const fmt=detectFormat(q);
+  if(fmt==='Highlight')return 'Recognize Cues';
+  if(fmt==='Trend')return 'Evaluate Outcomes';
+  if(fmt==='Bowtie'||fmt==='Select N')return 'Generate Solutions';
+  if(fmt==='Matrix Single'||fmt==='Matrix Multiple'||fmt==='Cloze (Drop-down)'||fmt==='Dropdown Rationale')return 'Analyze Cues';
+  if(fmt==='Extended Drag and Drop')return 'Take Action';
+  if(fmt==='Numeric Entry')return /dose|medication|infusion|IV|insulin|heparin/i.test(s)?'Take Action':'Analyze Cues';
+  if(fmt==='Multiple Response')return /intervention|action|plan|teaching|precaution|management|strategy/i.test(s)?'Generate Solutions':'Recognize Cues';
+  if(/priority|first|urgent|immediate|most important/.test(s))return 'Prioritize Hypotheses';
+  if(/statement|teaching|instruction|understanding|indicate|suggest|interpret|meaning/.test(s))return 'Analyze Cues';
   return undefined;
  }
  function inferClientNeed(q){
@@ -27,8 +37,13 @@
   if(/anxiety|depression|grief|coping|therapeutic communication|psychosis|mania|substance use|withdrawal|mental health|behavioral health|crisis intervention/.test(s))return 'Psychosocial Integrity';
   if(/hygiene|bathing|nutrition|feeding|mobility|ambulation|elimination|constipation|comfort|pain management|sleep|pressure injury|skin care|activities of daily living/.test(s))return 'Basic Care and Comfort';
   if(/medication|pharmac|dosage|dose calculation|insulin|heparin|warfarin|anticoag|IV infusion|parenteral|adverse drug|drug toxicity|blood transfusion/.test(s))return 'Pharmacological and Parenteral Therapies';
+  if(/BMI|body mass index|osteoporosis prevention|immuniz|growth|developmental milestone|family planning|screening|preventive/.test(s))return 'Health Promotion and Maintenance';
+  if(/delegat|assign|discharge readiness|care coordination|continuity of care/.test(s))return 'Management of Care';
+  if(/IV flow rate|oral liquid dose|medication calculation|dosage calculation|infusion rate|drug dose/.test(s))return 'Pharmacological and Parenteral Therapies';
+  if(/mean arterial pressure|temperature conversion|weight change|specimen collection|wound drainage|fluid balance|arterial versus venous disease|peripheral arterial disease/.test(s))return 'Reduction of Risk Potential';
   if(/laboratory|diagnostic|postoperative complication|complication|monitoring|risk for|adverse effect|procedure|preoperative|postoperative|electrolyte|test result|assessment finding/.test(s))return 'Reduction of Risk Potential';
-  if(/shock|respiratory failure|cardiac|heart failure|stroke|sepsis|renal failure|kidney injury|diabetic ketoacidosis|DKA|pulmonary|neurologic|endocrine|gastrointestinal|hemorrhage|acute|critical/.test(s))return 'Physiological Adaptation';
+  if(/shock|respiratory failure|cardiac|heart failure|stroke|sepsis|renal failure|kidney injury|diabetic ketoacidosis|DKA|pulmonary|neurologic|endocrine|gastrointestinal|hemorrhage|acute|critical|epiglottitis|croup|febrile seizure|anaphylaxis|meningitis|hypoglycemia|dehydration|hyperkalemia|intracranial pressure|myasthenic crisis|intussusception|rhabdomyolysis|thyroid storm|tension pneumothorax|adrenal crisis|compartment syndrome|sickle cell|pyloric stenosis|tetralogy|atrial fibrillation|COPD/.test(s))return 'Physiological Adaptation';
+  const category=String(q.category||'').toLowerCase();if(/adult health|child health|pediatrics|renal/.test(category))return 'Physiological Adaptation';if(/fundamentals/.test(category))return 'Basic Care and Comfort';
   return undefined;
  }
  function inferDifficulty(q){
