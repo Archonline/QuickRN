@@ -11,6 +11,9 @@ assert.ok(featureStart >= 0 && featureScript > featureStart, 'Feature Hub tab an
 const featureMarkup = dashboard.slice(featureStart, featureScript);
 assert.equal((featureMarkup.match(/<div\b/gi) || []).length, (featureMarkup.match(/<\/div\s*>/gi) || []).length, 'Feature Hub wrapper is closed before page-level scripts');
 assert.match(featureMarkup, /id="whats-new-title"/, "Feature Hub contains the What's New section");
+assert.ok(!featureMarkup.includes('&lt;div') && !featureMarkup.includes('&lt;/div'), 'Feature Hub must not show escaped HTML markup as text');
+assert.ok(!featureMarkup.includes('<script'), 'Feature Hub content must not include script source text');
+assert.ok(featureMarkup.includes('class="hidden w-full min-w-0 max-w-none mx-0 space-y-5"'), 'Feature Hub wrapper must not use conflicting narrow max-width utilities');
 assert.match(featureMarkup, /November 5, 2026/, "What's New date is current");
 for (const phrase of ['NGN question-format rendering', 'Clearer clinical case records', 'Question-bank validation remains in progress']) {
   assert.ok(featureMarkup.includes(phrase), "What's New includes: " + phrase);
