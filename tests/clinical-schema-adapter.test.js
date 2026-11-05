@@ -82,4 +82,21 @@ const matrixLegacy={
 };
 assert.ok(api.validateQuestion(matrixLegacy).valid,'matrix rows with row-level options pass structural validation without a global columns array');
 
+
+const batchContext={window:{questions:[]},console};
+vm.createContext(batchContext);
+vm.runInContext(fs.readFileSync('questions-bank-ngn-expansion-2026-11-04-batch-004.js','utf8'),batchContext,{filename:'batch-004.js'});
+const batch=batchContext.window.questions;
+assert.equal(batch.length,499,'batch 004 retains all 499 question records');
+const repairedTopics=['Acute ischemic stroke','Sepsis with hypotension','Diabetic ketoacidosis','Acute pulmonary edema','Hyperkalemia in kidney injury'];
+const pilot=batch.filter(item=>repairedTopics.includes(item.topic));
+assert.equal(pilot.length,50,'first five clinical case groups contain 50 records');
+assert.equal(pilot.filter(item=>item.rationale).length,45,'45 pilot records have item-specific rationales');
+assert.equal(pilot.filter(item=>item.type==='Trend'&&item.reviewStatus==='hold_for_content_revision').length,5,'five invalid trend records are explicitly held for real longitudinal data');
+assert.ok(pilot.filter(item=>item.type==='Bowtie').every(item=>item.bowtieData.actions.length===4&&item.bowtieData.monitoring.length===4&&item.correctAnswers.actions.length===2&&item.correctAnswers.monitoring.length===2),'Bowtie action and monitoring choices have separate keyed fields');
+assert.ok(pilot.filter(item=>item.type==='Dropdown Rationale').every(item=>item.correctAnswers.reason&&item.dropdowns.find(d=>d.id==='reason').options.every(option=>typeof option==='string')),'dropdown rationale items have a non-null keyed reason');
+assert.ok(pilot.filter(item=>item.type==='Highlight').every(item=>item.correctHighlights.length>0&&item.correctHighlights.every(id=>item.highlightSegments.some(segment=>segment.id===id))),'highlight keys refer to actual clinical cue segments');
+assert.ok(pilot.filter(item=>item.type==='Select N').every(item=>item.correctAnswers.length===2&&item.correctAnswers.every(answer=>item.options.includes(answer))),'Select-N answer keys match the available choices');
+assert.ok(pilot.every(item=>/^QR-\\d{6}$/.test(item.id)),'existing canonical question ID shape is preserved');
+
 console.log('PASS: new clinical schema maps patient profile and tabs, retains additional tabs, and separates scenario from task.');
