@@ -36,6 +36,22 @@ The 150 numeric-entry items are generated from a small set of formula templates 
 
 The case-study and supplement modules use reusable topic templates. Reuse is acceptable for schema scaffolding, but not as a substitute for clinically distinct patient records and item-specific reasoning. Audit for repeated stems, recycled distractors, identical rationales, missing option-level explanations, and case cues that do not support the keyed answer.
 
+
+## Quantified scan — NGN batch 004
+
+A machine-assisted scan of the complete 500-record array in `questions-bank-ngn-expansion-2026-11-04-batch-004.js` found:
+
+| Check | Result |
+|---|---:|
+| Records scanned | 500 |
+| Records missing both `rationale` and `explanation` | 499 |
+| Records missing option-specific rationale fields | 500 |
+| Records containing generic placeholder distractor wording | 100 |
+| Records missing `caseGroupId` | 0 |
+| Records per format | 50 in each of 10 formats |
+
+The scan is a content-quality screen, not a clinical correctness validator. It establishes that this 500-item module cannot be treated as finished clinical content even though its records have IDs and case-group metadata. The first record, QR-001920, also has a bowtie answer-mapping defect documented above.
+
 ## Required remediation sequence
 
 1. Preserve all existing IDs and module boundaries; do not renumber valid records.
