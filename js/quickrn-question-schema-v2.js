@@ -59,10 +59,10 @@
   return Array.isArray(q.correctAnswers)&&q.correctAnswers.length>1?'Multiple Response':'Single Choice';
  }
  function completeTeaching(q){
-  const fmt=detectFormat(q);let stem=String(first(q.question,q.questionText,q.stem,q.title)||'');const caseText=typeof q.caseStudy==='string'?q.caseStudy:first(q.caseStudy?.scenario,q.caseStudy?.summary,q.caseStudyContext?.scenario,q.caseStudyContext?.summary);if(stem.trim().length<35&&caseText){stem=String(caseText)+' '+stem;q.question=stem;q.stem=stem;}const topic=String(first(q.topic,q.category,'the clinical condition')),overall=String(first(q.rationales?.overall,q.rationale,q.generalRationale,q.explanation,'')||'');
+  const fmt=detectFormat(q);let stem=String(first(q.question,q.questionText,q.stem,q.title)||'');const caseText=first(typeof q.caseStudy==='string'?q.caseStudy:undefined,q.caseStudy?.scenario,q.caseStudy?.summary,q.caseStudyContext?.scenario,q.caseStudyContext?.summary,q.patientInfo?.history,q.patientProfile?.history,q.patientProfile?.presentingConcern,q.stimulus?.patientProfile?.history,q.stimulus?.patientProfile?.presentingConcern,q.scenario);if(stem.trim().length<35&&caseText){stem=String(caseText)+' '+stem;q.question=stem;q.stem=stem;}const topic=String(first(q.topic,q.category,'the clinical condition')),overall=String(first(q.rationales?.overall,q.rationale,q.generalRationale,q.explanation,'')||'');
   const flatten=v=>Array.isArray(v)?v.flatMap(flatten):v&&typeof v==='object'?Object.values(v).flatMap(flatten):v==null?[]:[String(v)];
   const keySource=first(q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer),keyed=flatten(keySource),correctSet=new Set(keyed);
-  if(Array.isArray(q.options))q.options=[...new Map(q.options.map(x=>[typeof x==='object'?JSON.stringify(x):String(x),x])).values()];
+  if(Array.isArray(q.options)){const unique=new Map();q.options.slice().sort((a,b)=>Number(!!b?.correct)-Number(!!a?.correct)).forEach(x=>{const k=typeof x==='object'?String(first(x.text,x.label,x.value,x.id,'')):String(x);if(!unique.has(k))unique.set(k,x);});q.options=[...unique.values()];}
   else if(q.options&&typeof q.options==='object')Object.keys(q.options).forEach(k=>{if(Array.isArray(q.options[k]))q.options[k]=[...new Set(q.options[k].map(String))];});
   arr(q.dropdowns).forEach(d=>{if(Array.isArray(d.options))d.options=[...new Set(d.options.map(String))];});
   const map=Object.assign({},obj(q.rationales?.options),obj(q.optionRationales),obj(q.rationaleByOption),obj(q.rationalesByOption));
