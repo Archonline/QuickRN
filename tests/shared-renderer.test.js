@@ -145,11 +145,11 @@ assert.match(htmlClinicalHtml,/A client reports new chest pain/,'clinical narrat
 const scenarioVitals={id:'VITALS-FROM-SCENARIO',type:'Single Choice',scenario:'A client arrives with temperature 38.6 °C, respiratory rate 30/min, heart rate 124/min, pulse rate 122/min, blood pressure 86/48 mm Hg, and oxygen saturation 88%.',title:'Which action is the priority?',options:['A','B'],correctAnswer:'A'};
 const scenarioVitalsHtml=api.renderReact(scenarioVitals,undefined,()=>{},false);
 assert.match(scenarioVitalsHtml,/Temperature: 38\.6 C/,'explicit temperature in the scenario is promoted to the EHR');
-assert.match(scenarioVitalsHtml,/Respiratory Rate: 30 \\/min/,'explicit respiratory rate is promoted to the EHR');
-assert.match(scenarioVitalsHtml,/Heart Rate: 124 \\/min/,'explicit heart rate is promoted to the EHR');
-assert.match(scenarioVitalsHtml,/Pulse Rate: 122 \\/min/,'explicit pulse rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Respiratory Rate: 30 /min'),'explicit respiratory rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Heart Rate: 124 /min'),'explicit heart rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Pulse Rate: 122 /min'),'explicit pulse rate is promoted to the EHR');
 assert.match(scenarioVitalsHtml,/Blood Pressure: 86\\/48 mm Hg/,'explicit blood pressure is promoted to the EHR');
-assert.match(scenarioVitalsHtml,/Oxygen Saturation: 88 %/,'explicit oxygen saturation is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Oxygen Saturation: 88 %'),'explicit oxygen saturation is promoted to the EHR');
 
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
 assert.equal(clean('Veracity: The nurse verifies the client\'s identity.'), 'The nurse verifies the client\'s identity.');
