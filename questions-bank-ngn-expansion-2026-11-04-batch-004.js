@@ -22617,11 +22617,17 @@ const items=[
  }
 ];
 items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
-const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
-if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
 const existing=new Set(bank.map(q=>String(q&&q.id||'')));
+const duplicateIds=[];
 let added=0;
-items.forEach(q=>{if(!existing.has(q.id)){bank.push(q);existing.add(q.id);added++;}});
+items.forEach(q=>{
+ if(!existing.has(q.id)){bank.push(q);existing.add(q.id);added++;}
+ else {
+  const prior=bank.find(item=>String(item&&item.id||'')===String(q.id));
+  if(prior&&JSON.stringify(prior)!==JSON.stringify(q))duplicateIds.push(q.id);
+ }
+});
 root.questions=bank;
 root.quickRNNGNB004Count=added;
+root.quickRNNGNB004DuplicateIds=duplicateIds;
 })(typeof window!=='undefined'?window:globalThis);
