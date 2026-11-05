@@ -70,6 +70,11 @@ jobs:
         continue-on-error: true
         run: node scripts/validate-question-bank.js
 
+      - name: Audit clinical content, distractors, rationales and case records
+        id: content_audit
+        continue-on-error: true
+        run: node scripts/audit-question-quality.js
+
       - name: Audit canonical schema v2
         id: schema_audit
         continue-on-error: true
@@ -85,6 +90,8 @@ jobs:
           path: |
             reports/ngn-bank-validation.json
             reports/ngn-bank-validation.md
+            reports/question-content-quality-audit.json
+            reports/question-content-quality-audit.md
             reports/question-schema-v2-validation.json
             reports/question-schema-v2-validation.md
             reports/question-schema-v2-schema-issue-queue.json
