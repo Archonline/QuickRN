@@ -130,19 +130,33 @@
     "loadedRecords": 3302,
     "uniqueIds": 3302,
     "duplicateIds": 0,
-    "remainingMissingRationales": 454,
+    "remainingMissingRationales": 409,
     "batch004": {
       "sourceRecords": 500,
-      "newRationalesAdded": 45,
+      "caseGroupsRepaired": 10,
+      "newRationalesAdded": 90,
       "preexistingRationalePreserved": 1,
       "trendItemsHeld": 50,
-      "firstFiveCaseGroupsRepaired": true,
+      "remainingNonTrendItemsMissingRationales": 359,
       "canonicalIdQR002150Preserved": true,
-      "duplicateCollisionReport": []
+      "duplicateCollisionReport": [],
+      "repairedTopics": [
+        "Acute ischemic stroke",
+        "Sepsis with hypotension",
+        "Diabetic ketoacidosis",
+        "Acute pulmonary edema",
+        "Hyperkalemia in kidney injury",
+        "Acute coronary syndrome",
+        "COPD exacerbation",
+        "Pulmonary embolism",
+        "Acute pancreatitis",
+        "Upper GI bleeding"
+      ]
     },
     "findings": [
-      "All 50 batch-004 Trend records contain intervention text in the time-series rows rather than serial clinical measurements and are held for content revision.",
-      "The remaining 404 non-Trend records in batch 004 still require item-specific rationales and review.",
+      "All 50 batch-004 Trend records are held because their time-series rows contain intervention statements rather than serial clinical measurements.",
+      "The first 10 case groups received 90 new case-specific rationales and targeted answer-key repairs; one pre-existing detailed QR-002150 rationale was preserved.",
+      "359 remaining non-Trend batch-004 records still require item-specific rationales and review.",
       "No clinical measurements or rationales were fabricated for the held Trend items."
     ]
   }
