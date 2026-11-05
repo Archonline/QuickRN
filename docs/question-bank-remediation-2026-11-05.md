@@ -86,6 +86,31 @@ These are definite authoring defects and must be corrected in the source generat
 
 The automated screen found no missing IDs, titles, topics/categories, or answer-key fields in the loaded records. However, **2,803 records outside batch 004 lack either option-specific rationale data or a Clinical Judgment Tip**. The remaining five records in the older v2 module already contain those fields.
 
+
+## 5. Shared renderer and scoring regression
+
+The rendering audit exposed two additional integration defects outside batch 004:
+
+- **200 Matrix / Grid records** in `questions-bank-matrix-grid-2026-11-04-batch-008.js` store valid row-specific option lists but do not define one global `columns` array. The old shared renderer expected global columns and displayed a missing-data panel. The shared renderer now supports row-specific options and renders matrix-multiple rows as checkboxes.
+- **50 Extended Drag and Drop records** in NGN supplement batch 006 store their draggable choices in `options` rather than `availableItems`. The shared renderer now falls back to `options` / `items` when building the initial order and rendering the item.
+- The NGN compatibility layer now delegates row-specific matrix items to the shared renderer rather than rendering an empty global-column table.
+
+Regression checks performed on the remediation branch:
+
+| Test | Result |
+|---|---:|
+| All question-bank modules loaded in production order | 3,307 records |
+| Unique IDs after loading | 3,307 |
+| Shared-renderer item render + correct-answer scoring fixtures | 3,307 / 3,307 passed |
+| Missing-format panels in the shared-renderer run | 0 |
+| Compatibility-layer render + scoring subset (batch 004, batch 006, matrix-grid batch 008) | 1,199 / 1,199 passed |
+| Missing-format panels in compatibility-layer subset | 0 |
+| Four exam pages with all 15 bank modules and five common engine scripts present | 4 / 4 passed |
+
+A repeatable Node regression script was added at `scripts/validate-exam-bank-rendering.js`.
+
+**Test boundary:** these checks execute the production bank modules, schema normalizer, shared renderer, NGN compatibility layer, and scoring logic with correct-answer fixtures. They verify that items can be rendered and their keyed answers score correctly. They do not simulate actual browser clicks, timer expiry, CAT adaptive question selection, Predictor calculations, saved progress/bookmarks, or persistence. Those mode-specific browser tests remain outstanding.
+
 ## 4. Release and testing status
 
 - Loader-level execution of all 15 modules: **passed** (3,307 unique IDs).
