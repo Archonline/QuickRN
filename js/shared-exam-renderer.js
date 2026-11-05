@@ -171,7 +171,7 @@ function quickRNSplitPrompt(q){
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
- const items=[...(Array.isArray(q.availableItems)?q.availableItems:[])];
+ const items=[...(Array.isArray(q.availableItems)?q.availableItems:(Array.isArray(q.options)?q.options:[]))];
  if(items.length<2||!q.id)return items;
  let seed=0;for(const ch of String(q.id))seed=(seed*31+ch.charCodeAt(0))>>>0;
  for(let i=items.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[items[i],items[j]]=[items[j],items[i]];}
@@ -318,7 +318,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    if(blankIndex===0&&defs.length)rendered=quickRNEscape(template)+'<div class="qr-cloze-fields">'+defs.map((d,i)=>renderBlank(String(d.id??d.key??d.name??i))).join('')+'</div>';
    response='<div class="qr-cloze">'+rendered+'</div>';
  } else if(f==='Extended Drag and Drop'){
-   const items=draft.order||q.availableItems||[]; response=items.length?`<p class="qr-help">Drag items into the correct order. You can also use the arrow buttons.</p><div class="qr-sort-list">${items.map((v,i)=>`<div class="qr-sort-item" draggable="true" ondragstart="quickRNDragStart(event,${i})" ondragover="event.preventDefault()" ondrop="quickRNDrop(event,${i})"><span class="qr-drag-handle" aria-label="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span><b>Step ${i+1}</b><span class="qr-sort-text">${quickRNEscape(v)}</span><span class="qr-sort-actions"><button type="button" onclick="quickRNMoveDraft(${i},${i-1})" ${i===0?'disabled':''} aria-label="Move up">↑</button><button type="button" onclick="quickRNMoveDraft(${i},${i+1})" ${i===items.length-1?'disabled':''} aria-label="Move down">↓</button></span></div>`).join('')}</div>`:`<div class="qr-missing">This drag-and-drop item has no availableItems list.</div>`;
+   const items=draft.order||(Array.isArray(q.availableItems)?q.availableItems:(Array.isArray(q.options)?q.options:[])); response=items.length?`<p class="qr-help">Drag items into the correct order. You can also use the arrow buttons.</p><div class="qr-sort-list">${items.map((v,i)=>`<div class="qr-sort-item" draggable="true" ondragstart="quickRNDragStart(event,${i})" ondragover="event.preventDefault()" ondrop="quickRNDrop(event,${i})"><span class="qr-drag-handle" aria-label="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span><b>Step ${i+1}</b><span class="qr-sort-text">${quickRNEscape(v)}</span><span class="qr-sort-actions"><button type="button" onclick="quickRNMoveDraft(${i},${i-1})" ${i===0?'disabled':''} aria-label="Move up">↑</button><button type="button" onclick="quickRNMoveDraft(${i},${i+1})" ${i===items.length-1?'disabled':''} aria-label="Move down">↓</button></span></div>`).join('')}</div>`:`<div class="qr-missing">This drag-and-drop item has no availableItems list.</div>`;
  } else if(f==='Highlight'){
    const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
    const chosen=Array.isArray(draft.highlights)?draft.highlights:[];
@@ -636,10 +636,10 @@ function quickRNValidateQuestionRecord(input){
   if(!(Array.isArray(data.conditions)&&data.conditions.length)||!(Array.isArray(data.actions)&&data.actions.length)||!(Array.isArray(data.monitoring)&&data.monitoring.length))issues.push('incomplete_bowtie_parameters');
   if(!has(answers.condition)||!Array.isArray(answers.actions)||!Array.isArray(answers.monitoring))issues.push('incomplete_bowtie_answer_key');
  }
- if(format==='Matrix / Grid'&&(!(Array.isArray(q.rows)&&q.rows.length)||!(Array.isArray(q.columns)&&q.columns.length)&&!(Array.isArray(q.matrixData?.columns)&&q.matrixData.columns.length)))issues.push('incomplete_matrix_structure');
+ if(format==='Matrix / Grid'&&(!(Array.isArray(q.rows)&&q.rows.length)||(!(Array.isArray(q.columns)&&q.columns.length)&&!(Array.isArray(q.matrixData?.columns)&&q.matrixData.columns.length)&&!q.rows.every(row=>Array.isArray(row.options)&&row.options.length))))issues.push('incomplete_matrix_structure');
  if(format==='Cloze (Drop-down)'&&!(Array.isArray(q.dropdowns)&&q.dropdowns.length)&&!(q.dropdowns&&typeof q.dropdowns==='object'&&Object.keys(q.dropdowns).length))issues.push('missing_cloze_dropdowns');
  if(format==='Highlight'&&!(Array.isArray(q.highlightSegments)&&q.highlightSegments.length)&&!(Array.isArray(q.segments)&&q.segments.length)&&!has(q.highlightText)&&!has(q.passage))issues.push('missing_highlight_content');
- if(format==='Extended Drag and Drop'&&!(Array.isArray(q.availableItems)&&q.availableItems.length>=2))issues.push('missing_ordered_items');
+ if(format==='Extended Drag and Drop'&&!((Array.isArray(q.availableItems)&&q.availableItems.length>=2)||(Array.isArray(q.options)&&q.options.length>=2)))issues.push('missing_ordered_items');
  return {id:q.id||null,format,issues,valid:issues.length===0};
 }
 function quickRNNormalizeQuestionBank(records){
