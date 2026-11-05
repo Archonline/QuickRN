@@ -752,3 +752,79 @@ body:not([data-exam-mode]) header [class*="ml-auto"] :is(button,a,[role="button"
     flex-basis:64px!important;
   }
 }
+
+
+/* Support page layout lock: one full-height workspace beside the shared sidebar. */
+#app-shell.support-shell{
+  display:flex!important;
+  width:calc(100% - var(--qr-sidebar-width))!important;
+  height:100dvh!important;
+  min-height:0!important;
+  margin-left:var(--qr-sidebar-width)!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+#app-shell.support-shell>.support-workspace{
+  display:flex!important;
+  flex:1 1 0!important;
+  flex-direction:column!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.support-workspace>header{
+  flex:0 0 84px!important;
+  width:100%!important;
+  min-width:0!important;
+  background:#16324f!important;
+  color:#fff!important;
+  border-bottom:1px solid #294b62!important;
+}
+.support-workspace>header :is(h1,h2,h3,p,span,strong,a,i,button){color:#fff!important}
+.support-workspace>header .support-header-title .eyebrow{color:#b9d2df!important}
+.support-workspace>main{
+  display:flex!important;
+  flex:1 1 0!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:2rem!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  box-sizing:border-box!important;
+  overscroll-behavior:contain;
+}
+.support-workspace>main>section{width:100%;min-width:0;flex:0 0 auto}
+.support-workspace .faq-item{width:100%;min-width:0}
+.support-workspace .faq-answer{overflow-wrap:anywhere}
+@media(max-width:767px){
+  #app-shell.support-shell{
+    flex-direction:column!important;
+    width:100%!important;
+    height:100dvh!important;
+    min-height:0!important;
+    margin-left:0!important;
+  }
+  #app-shell.support-shell>#quickrn-unified-sidebar{
+    position:relative!important;
+    inset:auto!important;
+    flex:0 0 auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+  }
+  #app-shell.support-shell>.support-workspace{
+    flex:1 1 0!important;
+    width:100%!important;
+    min-height:0!important;
+  }
+  .support-workspace>header{flex:0 0 72px!important;height:72px!important;min-height:72px!important;padding:0 14px!important}
+  .support-header-title h1{font-size:17px!important}
+  .support-header-icon{width:36px;height:36px}
+  .support-workspace>main{padding:18px 14px 28px!important;gap:1.5rem!important}
+}
