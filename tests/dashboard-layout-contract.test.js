@@ -8,7 +8,7 @@ const examApp = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
 
 // Compile dashboard inline scripts without executing browser-dependent code.
 for (const match of dashboard.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
-  if (/\bsrc\s*=/.test(match[1])) continue;
+  if (/\bsrc\s*=/.test(match[1]) || /\btype\s*=\s*[\"']module[\"']/i.test(match[1])) continue;
   // This inline app script embeds a complete printable HTML document, including a nested script tag.
   // The simple tag matcher below cannot distinguish that string from an actual HTML script element.
   if (match[2].includes('printWindow.document.write(') || match[2].includes('window.onload=function(){window.print()}')) continue;
