@@ -99,8 +99,11 @@
     const correct = ledger.available ? Math.min(answered, ledger.correct) : Math.min(answered, Math.max(0, safeNumber(stats.correctCount)));
     const accuracy = answered ? Math.round(correct / answered * 100) : 0;
     const filtered = history.filter(withinRange);
-    const cat = filtered.filter(x => /cat/.test(x._mode) && !/predictor/.test(x._mode));
-    const predictor = filtered.filter(x => /predictor/.test(x._mode));
+    const allHistory = getCompletedHistory(state);
+    const cat = allHistory.filter(x => /cat/.test(x._mode) && !/predictor/.test(x._mode));
+    const predictor = allHistory.filter(x => /predictor/.test(x._mode));
+    const filteredCat = filtered.filter(x => /cat/.test(x._mode) && !/predictor/.test(x._mode));
+    const filteredPredictor = filtered.filter(x => /predictor/.test(x._mode));
     const pool = Number(root.totalQuestionsInPool);
     const poolText = Number.isFinite(pool) && pool > 0 ? ' / ' + pool : '';
     const solved = $('stat-solved-display');
@@ -110,8 +113,41 @@
     if ($('stat-predictor-count')) $('stat-predictor-count').textContent = predictor.length;
     if ($('analytics-answered')) $('analytics-answered').textContent = answered.toLocaleString();
     if ($('analytics-accuracy')) $('analytics-accuracy').textContent = answered ? accuracy + '%' : '—';
-    if ($('analytics-cat')) $('analytics-cat').textContent = cat.length;
-    if ($('analytics-predictor')) $('analytics-predictor').textContent = predictor.length;
+    if ($('analytics-cat')) $('analytics-cat').textContent = filteredCat.length;
+    if ($('analytics-predictor')) $('analytics-predictor').textContent = filteredPredictor.length;
+  }
+  function renderClientNeeds(state) {
+    const stats = statsOf(state);
+    let categories = Array.isArray(stats.categories) ? stats.categories.filter(Boolean).map(item => ({
+      name: item.name || item.label || 'Client Needs',
+      attempted: Math.max(0, safeNumber(item.solved ?? item.attempted)),
+      correct: Math.max(0, safeNumber(item.correct))
+    })) : [];
+    if (!categories.length && stats.clientNeeds && typeof stats.clientNeeds === 'object') {
+      const domains = root.QuickRNCoach && Array.isArray(root.QuickRNCoach.domains) ? root.QuickRNCoach.domains : [];
+      categories = domains.map(domain => {
+        const item = stats.clientNeeds[domain.id] || {};
+        return { name: domain.name, attempted: Math.max(0, safeNumber(item.attempted)), correct: Math.max(0, safeNumber(item.correct)) };
+      }).filter(item => item.attempted > 0);
+    }
+    const render = host => {
+      if (!host) return;
+      if (!categories.length) {
+        host.innerHTML = '<p class="text-xs text-slate-500">No categorized answers recorded yet. Continue submitting questions to build your Client Needs profile.</p>';
+        return;
+      }
+      host.innerHTML = categories.map(item => {
+        const correct = Math.min(item.attempted, item.correct);
+        const pct = item.attempted ? Math.round(correct / item.attempted * 100) : 0;
+        const weak = item.attempted > 0 && pct < 75;
+        return '<article class="rounded-lg border ' + (weak ? 'border-2 border-red-500 bg-red-50/30' : 'border-slate-200 bg-slate-50') + ' p-3 space-y-1.5">' +
+          '<div class="flex items-center justify-between gap-2"><strong class="text-[11px] text-slate-800">' + escapeHTML(item.name) + '</strong><span class="text-[11px] font-bold ' + (weak ? 'text-red-700' : 'text-slate-700') + '">' + pct + '%</span></div>' +
+          '<div class="h-2 rounded-full bg-slate-200 overflow-hidden"><div class="h-full rounded-full ' + (weak ? 'bg-red-500' : 'bg-emerald-600') + '" style="width:' + pct + '%"></div></div>' +
+          '<p class="text-[10px] text-slate-500">' + correct + ' correct / ' + item.attempted + ' submitted · ' + (weak ? 'Needs review' : 'On track') + '</p></article>';
+      }).join('');
+    };
+    render($('mastery-categories-list'));
+    render($('analytics-detailed-list'));
   }
   function renderHistory(records) {
     const host = $('quickrn-analytics-history');
@@ -157,6 +193,7 @@
   function refresh() {
     const state = readState(), history = getCompletedHistory(state);
     renderStats(state, history);
+    renderClientNeeds(state);
     const filtered = history.filter(withinRange);
     dashboardChart = drawChart('quickrnScoreChart', filtered, 'dashboard');
     detailedChart = drawChart('quickrnAnalyticsChart', filtered, 'analytics');
