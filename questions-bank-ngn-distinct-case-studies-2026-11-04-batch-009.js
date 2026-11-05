@@ -79,4 +79,4 @@ items.forEach(q=>{
  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
  q.difficulty='High';q.reviewStatus='pending_nurse_educator_review';
 });
-let added=0;for(const q of items){if(!seen.has(q.id)){bank.push(q);seen.add(q.id);added++;}}root.questions=bank;root.QuickRNDistinctCaseStudiesBatch009=added;})(typeof window!=='undefined'?window:globalThis);
+let added=0,updated=0;const positions=new Map(bank.map((q,i)=>[String(q&&q.id||''),i]));for(const q of items){if(positions.has(q.id)){const i=positions.get(q.id),old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated++;}else{bank.push(q);positions.set(q.id,bank.length-1);seen.add(q.id);added++;}}root.questions=bank;root.QuickRNDistinctCaseStudiesBatch009=added;root.QuickRNDistinctCaseStudiesBatch009Updated=updated;})(typeof window!=='undefined'?window:globalThis);
