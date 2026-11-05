@@ -18,7 +18,7 @@ for(const page of pages){
  assert.match(html,/flex items-center justify-end gap-4/,page+' right-aligns the Check Answer action');
  assert.ok(html.includes('quickrn-unified-nclex-split-screen'),page+' includes reference split-screen styles');
 }
-for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','quickrn_question_reports','quickrn_used_q_ids','quickrn_student_state'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
+for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','QuickRNReport','quickrn_used_q_ids','quickrn_student_state'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
 assert.ok(!app.includes('Retake same session'),'exam summaries do not expose the removed retake-same-session action');
 const renderer=fs.readFileSync('js/shared-exam-renderer.js','utf8');
 const examHtml=fs.readFileSync('correct_view.html','utf8');
