@@ -106,8 +106,6 @@ jobs:
             reports/ngn-bank-validation.md
             reports/question-content-quality-audit.json
             reports/question-content-quality-audit.md
-            reports/question-content-quality-audit.json
-            reports/question-content-quality-audit.md
             reports/question-schema-v2-validation.json
             reports/question-schema-v2-validation.md
             reports/question-schema-v2-schema-issue-queue.json
@@ -121,8 +119,9 @@ jobs:
             echo
             echo "- Commit: \`${GITHUB_SHA}\`"
             echo "- Branch/event: \`${GITHUB_REF_NAME}\` / \`${GITHUB_EVENT_NAME}\`"
-            echo "- Focused regression tests: \\`${{ steps.regression.outcome }}\\`"
+            echo "- Focused regression tests: ${{ steps.regression.outcome }}"
             echo "- Bank audit exit: \`${{ steps.bank_audit.outcome }}\`"
+            echo "- Content-quality audit exit: ${{ steps.content_audit.outcome }}"
             echo "- Schema audit exit: \`${{ steps.schema_audit.outcome }}\`"
             echo
             echo "Detailed reports are attached as workflow artifacts. Content-quality findings are reported separately from runtime scoring; this workflow does not modify question data or scoring behavior."
