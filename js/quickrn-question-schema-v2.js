@@ -31,9 +31,12 @@
   return Array.isArray(q.correctAnswers)&&q.correctAnswers.length>1?'Multiple Response':'Single Choice';
  }
  function completeTeaching(q){
-  const fmt=detectFormat(q),stem=String(first(q.question,q.questionText,q.stem,q.title)||''),topic=String(first(q.topic,q.category,'the clinical condition')),overall=String(first(q.rationales?.overall,q.rationale,q.generalRationale,q.explanation,'')||'');
+  const fmt=detectFormat(q);let stem=String(first(q.question,q.questionText,q.stem,q.title)||'');const caseText=typeof q.caseStudy==='string'?q.caseStudy:first(q.caseStudy?.scenario,q.caseStudy?.summary,q.caseStudyContext?.scenario,q.caseStudyContext?.summary);if(stem.trim().length<35&&caseText){stem=String(caseText)+' '+stem;q.question=stem;q.stem=stem;}const topic=String(first(q.topic,q.category,'the clinical condition')),overall=String(first(q.rationales?.overall,q.rationale,q.generalRationale,q.explanation,'')||'');
   const flatten=v=>Array.isArray(v)?v.flatMap(flatten):v&&typeof v==='object'?Object.values(v).flatMap(flatten):v==null?[]:[String(v)];
   const keySource=first(q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer),keyed=flatten(keySource),correctSet=new Set(keyed);
+  if(Array.isArray(q.options))q.options=[...new Map(q.options.map(x=>[typeof x==='object'?JSON.stringify(x):String(x),x])).values()];
+  else if(q.options&&typeof q.options==='object')Object.keys(q.options).forEach(k=>{if(Array.isArray(q.options[k]))q.options[k]=[...new Set(q.options[k].map(String))];});
+  arr(q.dropdowns).forEach(d=>{if(Array.isArray(d.options))d.options=[...new Set(d.options.map(String))];});
   const map=Object.assign({},obj(q.rationales?.options),obj(q.optionRationales),obj(q.rationaleByOption),obj(q.rationalesByOption));
   const choices=[],add=v=>{if(typeof v==='string'&&v.trim()&&!choices.includes(v))choices.push(v);};
   if(Array.isArray(q.options))q.options.forEach(v=>add(typeof v==='object'?first(v.text,v.label,v.value,v.id):v));
