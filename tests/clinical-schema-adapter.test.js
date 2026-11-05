@@ -30,6 +30,8 @@ assert.ok(html.includes('Nurses’ Notes'),'nursing notes tab is retained');
 assert.ok(html.includes('Vital Signs'),'vital-signs tab is retained');
 assert.ok(html.includes('Diagnostic Results'),'laboratory results are mapped to the diagnostic-results section');
 assert.ok(html.includes('Discharge Plan'),'additional tabs are rendered');
+assert.ok(!html.includes('Clinical scenario'),'legacy scenario is not exposed as a separate clinical exhibit');
+assert.ok(html.includes('A 68-year-old client arrives with worsening shortness of breath and orthopnea.'),'legacy scenario content is retained in the standardized clinical record');
 assert.ok(html.includes('Which action should the nurse take first?'),'task remains in the question pane');
 assert.ok(!html.includes('No separate patient exhibits were supplied'),'no empty clinical-record placeholder');
 assert.equal((html.match(/J\.D\., 68 years, history of heart failure/g)||[]).length,0,'duplicate patient-information tab content is suppressed when profile is present');
