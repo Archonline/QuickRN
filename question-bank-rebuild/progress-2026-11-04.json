@@ -159,7 +159,50 @@
       "predictor.html",
       "cat.html"
     ],
-    "status": "All question-bank modules are included in the production loader sequence. Browser-level rendering and scoring verification in Self Study, Timed Practice, CAT, and NCLEX Predictor remains pending."
+    "status": "All 15 question-bank modules load in production order. Shared renderer and scoring fixtures passed for all 3,307 loaded records; a compatibility-layer regression subset of 1,199 records passed with zero missing-format panels. All four exam pages statically include the same 15 bank modules and common rendering/scoring scripts. Browser interaction and mode-specific behavior remain pending.",
+    "sharedRendererRegression": {
+      "status": "passed",
+      "recordsTested": 3307,
+      "rendered": 3307,
+      "scoredWithCorrectAnswerFixtures": 3307,
+      "missingFormatPanels": 0,
+      "duplicateIds": 0
+    },
+    "compatibilityRegression": {
+      "status": "passed",
+      "recordsTested": 1199,
+      "renderFailures": 0,
+      "scoringFailures": 0,
+      "missingFormatPanels": 0,
+      "modules": [
+        "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+        "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
+        "questions-bank-matrix-grid-2026-11-04-batch-008.js"
+      ]
+    },
+    "examPageStaticCheck": {
+      "status": "passed",
+      "pages": [
+        "selfstudy.html",
+        "timed.html",
+        "cat.html",
+        "predictor.html"
+      ],
+      "bankModulesRequired": 15,
+      "bankModulesPresentPerPage": 15,
+      "commonScriptsRequired": 5,
+      "commonScriptsPresentPerPage": 5
+    },
+    "browserModeTests": {
+      "status": "pending",
+      "notRun": [
+        "interactive browser rendering",
+        "timer expiry and timed navigation",
+        "CAT adaptive selection and termination",
+        "NCLEX Predictor calculation/report",
+        "saved state, bookmarks, and persistence"
+      ]
+    }
   },
   "totalAssignedIncludingReserved": 3305,
   "bankAudit": {
@@ -253,7 +296,7 @@
       "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
     ],
     "method": "Executed all 15 non-empty question-bank modules in the exact order used by scripts/validate-question-bank.js; counted records appended to root.questions and verified all 3,307 loaded IDs are unique. The NGN batch 004 module contributes 499 records because one colliding ID is deliberately excluded by its loader.",
-    "limitations": "Counts are top-level records, not a measure of clinical quality. The NGN batch 004 remediation branch now adds draft rationale, optionRationales, and Clinical Judgment Tips to its 499 loaded records and corrects 48 repeated Bowtie action-key defects. These generated explanations remain pending webmaster review. Other modules have content repetition and rationale-quality issues documented in docs/question-bank-remediation-2026-11-05.md. Browser-level rendering/scoring in all four exam modes remains pending."
+    "limitations": "Counts are top-level records, not a measure of clinical quality. The NGN batch 004 remediation branch adds case-specific draft rationales, optionRationales, and Clinical Judgment Tips to its 499 loaded records and corrects all checked answer-key mappings. The remaining-bank audit identifies repetition, boilerplate rationales, generic case-study distractors, and malformed numeric-entry stems documented in docs/question-bank-remediation-2026-11-05.md. Shared renderer/scoring regression fixtures passed for all 3,307 records; compatibility-layer checks passed for 1,199 affected-format records. Browser-level and mode-specific interaction tests remain pending."
   },
   "totalAvailableUniqueRecords": 3307,
   "webmasterReviewWorkflow": {
