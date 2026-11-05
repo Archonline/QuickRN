@@ -53,7 +53,7 @@ function canon(src){
 }
 function setCell(id,col,multi){const m={...((quickRNDraft&&quickRNDraft.matrix)||{})};if(multi){const a=Array.isArray(m[id])?[...m[id]]:[];m[id]=a.includes(col)?a.filter(x=>x!==col):[...a,col];}else m[id]=col;root.quickRNSetDraft('matrix',m);}
 root.quickRNCompatSetMatrixCell=setCell;
-function render(q,d,submitted){const x=canon(q);return baseRender(x,d,submitted);}
+function render(q,d,submitted){const x=canon(q);if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'){x.type='Matrix / Grid';x.ngnType='Matrix / Grid';}return baseRender(x,d,submitted);}
 function grade(q,d){const x=canon(q);return root.QuickRNNgnScoring?.grade(x,d)||baseGrade(x,d);}
 function has(q,d){
  const x=canon(q),a=d&&typeof d==='object'?d:{},value=v=>v!==undefined&&v!==null&&String(v).trim()!=='',nonempty=v=>Array.isArray(v)?v.length>0&&v.some(nonempty):v&&typeof v==='object'?Object.values(v).some(nonempty):value(v);
