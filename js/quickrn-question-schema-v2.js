@@ -106,7 +106,7 @@
    const fever=/fever|febrile|sepsis|infection|meningitis|pneumonia|endometritis|temperature\s*3[89]/i.test(s);
    const resp=/dyspnea|respiratory distress|wheez|stridor|hypoxemia|pulmonary|bronchiolitis|COPD|asthma|airway/i.test(s);
    const shock=/hypotension|shock|hemorrhage|anaphylaxis|BP\s*(?:7\d|8\d|9\d)\//i.test(s);
-   const e=obj(q.ehr),tabs=obj(e.tabs),v=obj(tabs.vitalSigns);
+   const e=obj(q.ehr),tabs=obj(e.tabs),v=typeof tabs.vitalSigns==='string'?{note:tabs.vitalSigns}:obj(tabs.vitalSigns);
    tabs.nursesNotes=tabs.nursesNotes||[{time:'Case presentation',note:q.scenario||stem}];
    if(typeof tabs.nursesNotes==='string')tabs.nursesNotes=[{time:'Case presentation',note:tabs.nursesNotes}];
    if(typeof tabs.vitalSigns==='string')tabs.vitalSigns={note:tabs.vitalSigns};
