@@ -22412,12 +22412,14 @@ function clinicalTip(q,action,monitor){
  if(/suicide/i.test(topic))return 'A specific plan, access to lethal means, and current intent indicate imminent risk. Maintain continuous safety observation, do not leave the client alone, remove hazards per protocol, and initiate urgent psychiatric evaluation.';
  return 'Apply the clinical judgment sequence: recognize the abnormal cue, analyze it against the client’s baseline and risk factors, prioritize the threat, implement the indicated condition-specific action, then evaluate the response using the relevant monitored parameters.';
 }
+const groupSequence=new Map();
 items.forEach(q=>{
+ const caseSequence=(groupSequence.get(q.caseGroupId)||0)+1;groupSequence.set(q.caseGroupId,caseSequence);q.caseQuestionNumber=caseSequence;q.caseStudySequence=caseSequence;
  const topic=q.topic||'the presenting condition',action=q.ehr?.priorityAssessment||'escalate the acute change and implement the prescribed condition-specific response',monitor=q.ehr?.monitoring||'vital signs and response to treatment',history=q.patientInfo?.history||q.ehr?.assessment||'the documented presenting findings';
  const vitals=clinicalVitals[topic]||null;
  const profile=typeof q.patientInfo==='object'&&q.patientInfo?q.patientInfo:{age:String(q.patientInfo||'Age not supplied in source record'),history};
  q.patientProfile={age:profile.age||'Not specified',presentingConcern:history,relevantHistory:profile.history||history,sourceStatus:'Simulated educational case; values are for examination practice, not a real patient record.'};
- q.clinicalScenario=topic+': '+history;
+ q.clinicalScenario=topic+': '+history;q.scenario=q.clinicalScenario;q.caseStudyContext={id:q.caseGroupId,title:topic,scenario:q.clinicalScenario,summary:history,sequence:caseSequence};
  q.ehr=Object.assign({},q.ehr||{},{
   tabs:{
    nursesNotes:[{time:'Initial assessment',note:history},{time:'Nursing priority',note:action}],
@@ -22453,6 +22455,7 @@ if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
 const existing=new Map(bank.map((q,i)=>[String(q&&q.id||''),i]));
 let added=0,updated=0;
 items.forEach(q=>{if(existing.has(q.id)){const i=existing.get(q.id),old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated++;}else{bank.push(q);existing.set(q.id,bank.length-1);added++;}});
+const legacyAlcohol=bank.find(q=>String(q&&q.id)==='QR-002150');if(legacyAlcohol){legacyAlcohol.caseQuestionNumber=legacyAlcohol.caseQuestionNumber||1;legacyAlcohol.caseStudySequence=legacyAlcohol.caseQuestionNumber;legacyAlcohol.scenario=legacyAlcohol.scenario||legacyAlcohol.clinicalScenario||legacyAlcohol.patientInfo?.history||String(legacyAlcohol.caseStudy||'Alcohol withdrawal clinical presentation.');legacyAlcohol.clinicalScenario=legacyAlcohol.clinicalScenario||legacyAlcohol.scenario;legacyAlcohol.caseStudyContext=legacyAlcohol.caseStudyContext||{id:legacyAlcohol.caseGroupId,title:legacyAlcohol.topic||'Alcohol withdrawal',scenario:legacyAlcohol.scenario,summary:legacyAlcohol.scenario,sequence:legacyAlcohol.caseQuestionNumber};legacyAlcohol.patientProfile=legacyAlcohol.patientProfile||legacyAlcohol.patientInfo||{presentingConcern:legacyAlcohol.scenario};legacyAlcohol.ehr=legacyAlcohol.ehr||{tabs:{nursesNotes:legacyAlcohol.scenario,vitalSigns:{temperature:'38.0 °C (simulated)',heartRate:'124/min (simulated)',respiratoryRate:'24/min (simulated)',bloodPressure:'168/98 mm Hg (simulated)',oxygenSaturation:'96% (simulated)'},labResults:'Obtain ordered withdrawal-related studies as indicated.',providerOrders:'Follow the prescribed withdrawal protocol.'}};}
 root.questions=bank;
 root.quickRNNGNB004Count=added;root.quickRNNGNB004Updated=updated;
 })(typeof window!=='undefined'?window:globalThis);
