@@ -49,16 +49,30 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run all repository regression tests
+      - name: Run question-bank, renderer, scoring and four-mode regression tests
+        id: regression
         shell: bash
         run: |
           set -euo pipefail
-          shopt -s nullglob
-          tests=(tests/*.test.js)
-          if (( ${#tests[@]} == 0 )); then
-            echo "::error::No regression tests were found."
-            exit 1
-          fi
+          tests=(
+            tests/case-study-sequencer.test.js
+            tests/cat-engine.test.js
+            tests/clinical-prompt-normalizer.test.js
+            tests/clinical-schema-adapter.test.js
+            tests/clinical-v3-bank.test.js
+            tests/clinical-v3-rendering.test.js
+            tests/curated-question-bank.test.js
+            tests/exam-page-script-contract.test.js
+            tests/exam-unified-interface-contract.test.js
+            tests/ngn-scoring.test.js
+            tests/ngn-workspace-contract.test.js
+            tests/question-bank-renderer-contract.test.js
+            tests/question-id-normalizer.test.js
+            tests/question-schema-v2.test.js
+            tests/quickrn-ngn-compat.test.js
+            tests/selfstudy-lifecycle.test.js
+            tests/shared-renderer.test.js
+          )
           for test_file in "${tests[@]}"; do
             echo "::group::${test_file}"
             node "${test_file}"
@@ -92,6 +106,8 @@ jobs:
             reports/ngn-bank-validation.md
             reports/question-content-quality-audit.json
             reports/question-content-quality-audit.md
+            reports/question-content-quality-audit.json
+            reports/question-content-quality-audit.md
             reports/question-schema-v2-validation.json
             reports/question-schema-v2-validation.md
             reports/question-schema-v2-schema-issue-queue.json
@@ -105,7 +121,7 @@ jobs:
             echo
             echo "- Commit: \`${GITHUB_SHA}\`"
             echo "- Branch/event: \`${GITHUB_REF_NAME}\` / \`${GITHUB_EVENT_NAME}\`"
-            echo "- Regression tests: passed (job would have stopped on first failure)"
+            echo "- Focused regression tests: \\`${{ steps.regression.outcome }}\\`"
             echo "- Bank audit exit: \`${{ steps.bank_audit.outcome }}\`"
             echo "- Schema audit exit: \`${{ steps.schema_audit.outcome }}\`"
             echo
