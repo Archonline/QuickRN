@@ -19,6 +19,7 @@ function canon(src){
  else if(/bow ?tie/.test(raw)||q.bowtieConfig||q.bowtieData)f='Bowtie';
  else if(/dropdown rationale|dropdown cloze|cloze|drop down/.test(raw)||q.dropdowns||q.clozeTemplate)f='Cloze (Drop-down)';
  else if(/highlight/.test(raw)||q.tokens||q.highlightText||q.highlightSegments)f='Highlight';
+ else if(/trend/.test(raw)||q.trendData||q.trends||q.trendTable)f='Trend';
  else if(/numeric/.test(raw)||q.correctValue!==undefined||q.acceptedRange)f='Numeric Entry';
  else if(/ordered|drag|reorder/.test(raw)||q.items||q.availableItems||q.correctOrder)f='Extended Drag and Drop';
  else if(/extended multiple response/.test(raw))f='Extended Multiple Response';
@@ -42,7 +43,7 @@ function canon(src){
  }
  if((f==='Multiple Response'||f==='Select N')&&!Array.isArray(q.correctAnswers)){const a=opts.map((o,i)=>({o,i})).filter(x=>x.o&&typeof x.o==='object'&&x.o.correct).map(x=>ov(x.o,x.i));if(a.length)q.correctAnswers=a;}
  if(f==='Select N')q.selectN=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||0);
- if(f==='Bowtie'){const b=q.bowtieConfig||{},old=q.bowtieData||{},c=b.correct||q.correctAnswers||{};q.bowtieData={actions:old.actions||b.actionsPool||[],conditions:old.conditions||b.conditionsPool||[],monitoring:old.monitoring||old.params||b.paramsPool||b.parametersPool||[]};q.correctAnswers={condition:c.condition||'',actions:c.actions||[],monitoring:c.monitoring||c.params||c.parameters||[]};}
+ if(f==='Bowtie'){const b=q.bowtieConfig||{},old=q.bowtieData||{},c=b.correct||q.correctAnswers?.bowtie||q.correctAnswers||{};q.bowtieData={actions:old.actions||b.actionsPool||[],conditions:old.conditions||b.conditionsPool||[],monitoring:old.monitoring||old.params||b.paramsPool||b.parametersPool||[]};q.correctAnswers={condition:c.condition||'',actions:c.actions||[],monitoring:c.monitoring||c.params||c.parameters||[]};}
  if(f==='Cloze (Drop-down)'){if(Array.isArray(q.dropdowns)){const om={},cm={};q.dropdowns.forEach(d=>{om[d.id]=d.options||[];if(d.correct!==undefined)cm[d.id]=d.correct;});q.options=q.options&&!Array.isArray(q.options)?q.options:om;q.correctAnswers=q.correctAnswers||cm;}q.clozeTemplate=s(q.clozeTemplate||q.templateText||q.template||q.questionText||q.question||'').replace(/\[([A-Za-z0-9_-]+)\]/g,'{$1}');}
  if(f==='Highlight'&&Array.isArray(q.tokens)){q.highlightSegments=q.tokens.filter(t=>t.selectable!==false).map(t=>({id:String(q.tokens.indexOf(t)),text:t.text||t.label||''}));q.correctHighlights=q.tokens.map((t,i)=>t.correct?String(i):null).filter(x=>x!==null);}
  if(f==='Matrix Multiple'||f==='Matrix Single'){q.matrixMode=f==='Matrix Multiple'?'multiple':'single';q.rows=q.rows||(q.matrixData&&q.matrixData.rows)||[];q.columns=q.columns||(q.matrixData&&q.matrixData.columns)||[];const c={...(q.correctAnswers||{})};q.rows.forEach((r,i)=>{const id=r.id||String(i);if(c[id]===undefined&&r.correct!==undefined)c[id]=r.correct;if(Array.isArray(r.correct))q.matrixMode='multiple';});q.correctAnswers=c;}
@@ -52,16 +53,7 @@ function canon(src){
 }
 function setCell(id,col,multi){const m={...((quickRNDraft&&quickRNDraft.matrix)||{})};if(multi){const a=Array.isArray(m[id])?[...m[id]]:[];m[id]=a.includes(col)?a.filter(x=>x!==col):[...a,col];}else m[id]=col;root.quickRNSetDraft('matrix',m);}
 root.quickRNCompatSetMatrixCell=setCell;
-function render(q,d,submitted){
- const x=canon(q);
- if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'){
-  const multi=x.matrixMode==='multiple',m=d.matrix||{},cols=x.columns||[],rows=x.rows||[];
-  const h=cols.map(c=>'<th>'+esc(c)+'</th>').join('');
-  const body=rows.map((r,i)=>{const id=r.id||String(i),v=m[id];return '<tr><td>'+esc(r.text||r.label||r)+'</td>'+cols.map(c=>{const on=multi?Array.isArray(v)&&v.includes(c):v===c;return '<td><label class="qr-matrix-cell"><input type="'+(multi?'checkbox':'radio')+'" name="qr-matrix-'+esc(id)+'" '+(on?'checked':'')+' onchange="quickRNCompatSetMatrixCell('+JSON.stringify(id)+','+JSON.stringify(c)+','+multi+')"><span class="sr-only">'+api.cleanPrompt(c)+'</span></label></td>';}).join('')+'</tr>';}).join('');
-  return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+esc(x.title)+'</h2><p>'+esc(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section></div>';
- }
- return baseRender(x,d,submitted);
-}
+function render(q,d,submitted){const x=canon(q);return baseRender(x,d,submitted);}
 function grade(q,d){const x=canon(q);return root.QuickRNNgnScoring?.grade(x,d)||baseGrade(x,d);}
 function has(q,d){
  const x=canon(q),a=d&&typeof d==='object'?d:{},value=v=>v!==undefined&&v!==null&&String(v).trim()!=='',nonempty=v=>Array.isArray(v)?v.length>0&&v.some(nonempty):v&&typeof v==='object'?Object.values(v).some(nonempty):value(v);
@@ -69,13 +61,13 @@ function has(q,d){
  if(f==='Single Choice')return value(a.choice??a.selectedOption??a.answer);
  if(f==='Multiple Response'||f==='Extended Multiple Response')return Array.isArray(a.choices)&&a.choices.length>0;
  if(f==='Select N'){const n=Number(x.selectN||x.nRequired||x.numberToSelect||x.requiredSelections||0);return n>0&&Array.isArray(a.choices)&&a.choices.length===n;}
- if(f==='Matrix Multiple'||f==='Matrix Single'){const rows=x.rows||[];const matrix=a.matrix||a;return rows.length>0&&rows.every((row,i)=>{const id=String(row.id??i);return nonempty(matrix[id]);});}
- if(f==='Cloze (Drop-down)'){const defs=Array.isArray(x.dropdowns)?x.dropdowns:[];const keys=defs.length?defs.map((d,i)=>String(d.id??d.key??d.name??i)):Object.keys(x.correctAnswers||x.options||{});const cloze=a.cloze||a.dropdownChoices||a;return keys.length>0&&keys.every(key=>value(cloze[key]));}
- if(f==='Bowtie')return value(a.condition)&&(a.actions||[]).length===2&&(a.monitoring||a.params||[]).length===2;
+ if(f==='Matrix Multiple'||f==='Matrix Single'){const rows=x.rows||[];const matrix=a.matrix||a;return rows.length>0&&rows.some((row,i)=>{const id=String(row.id??i);return nonempty(matrix[id]);});}
+ if(f==='Cloze (Drop-down)'){const defs=Array.isArray(x.dropdowns)?x.dropdowns:[];const keys=defs.length?defs.map((d,i)=>String(d.id??d.key??d.name??i)):Object.keys(x.correctAnswers||x.options||{});const cloze=a.cloze||a.dropdownChoices||a;return keys.length>0&&keys.some(key=>value(cloze[key]));}
+ if(f==='Bowtie')return value(a.condition)||(Array.isArray(a.actions)&&a.actions.length>0)||(Array.isArray(a.monitoring||a.params)&&(a.monitoring||a.params).length>0);
  if(f==='Numeric Entry')return value(a.numericEntry??a.value??a.numeric)&&Number.isFinite(Number(a.numericEntry??a.value??a.numeric));
  if(f==='Highlight')return nonempty(a.highlights??a.highlighted??a.tokens??a.selected);
  if(f==='Trend')return nonempty(a.choice??a.choices??a.response??a.trend??a);
- if(f==='Extended Drag and Drop'){const expected=x.correctOrder||[];return Array.isArray(a.order)&&expected.length>0&&a.order.length===expected.length;}
+ if(f==='Extended Drag and Drop'){const expected=x.correctOrder||[];return Array.isArray(a.order)&&expected.length>0&&a.order.length>0;}
  return baseHasAnswer(x,a)||nonempty(a);
 }
 api.detect=q=>{const x=canon(q);return x.ngnType;};
