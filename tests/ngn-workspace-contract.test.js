@@ -21,7 +21,7 @@ for(const page of pages){
 for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClientNeedAttempt','getTwoVideos','QuickRNReport','quickrn_used_q_ids','quickrn_student_state'])assert.ok(app.includes(feature),'shared exam app includes '+feature);
 assert.ok(!app.includes('Retake same session'),'exam summaries do not expose the removed retake-same-session action');
 const renderer=fs.readFileSync('js/shared-exam-renderer.js','utf8');
-const examHtml=fs.readFileSync('correct_view.html','utf8');
+const examHtml=fs.readFileSync('selfstudy.html','utf8');
 const examCss=fs.readFileSync('css/quickrn-unified-exam.css','utf8');
 assert.ok(app.includes('question-only-panel'),'no-case items move the question stem into the left pane');
 assert.ok(app.includes("right.insertBefore(prompt,answerWorkspace)"),'question prompt remains above the answer workspace in the right pane');
