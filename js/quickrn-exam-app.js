@@ -47,8 +47,8 @@ function suppressObsoleteBankStatus(){
  const scan=()=>{
   document.querySelectorAll('body *').forEach(el=>{
    if(el.children.length!==0)return;
-   const value=String(el.textContent||'').replace(/\\s+/g,' ').trim();
-   if(!pattern.test(value)||!/expected\\s+[\\d,]+/i.test(value)||!/file loads unconfirmed/i.test(value))return;
+   const value=String(el.textContent||'').replace(/\s+/g,' ').trim();
+   if(!pattern.test(value)||!/expected\s+[\d,]+/i.test(value)||!/file loads unconfirmed/i.test(value))return;
    const wrapper=el.closest('[role="status"],[aria-live="polite"],.toast,.notification,.alert,.bank-load-status')||el;
    if(wrapper&&wrapper!==document.body&&!wrapper.matches('header,main,body'))wrapper.remove();
   });
@@ -329,7 +329,7 @@ function safeClinicalHTML(value){
   if(forbidden.has(child.tagName)){child.remove();return;}
   walk(child);
   if(!allowed.has(child.tagName)){child.replaceWith(...child.childNodes);return;}
-  [...child.attributes].forEach(attr=>{const name=attr.name.toLowerCase();if(!(['colspan','rowspan'].includes(name)&&/^\\d{1,2}$/.test(attr.value)))child.removeAttribute(attr.name);});
+  [...child.attributes].forEach(attr=>{const name=attr.name.toLowerCase();if(!(['colspan','rowspan'].includes(name)&&/^\d{1,2}$/.test(attr.value)))child.removeAttribute(attr.name);});
  });
  walk(template.content);
  return template.innerHTML;
