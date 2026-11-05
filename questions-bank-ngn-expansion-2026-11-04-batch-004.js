@@ -375,7 +375,7 @@ const items=[
   "correctAnswer": "Activate stroke pathway and obtain urgent noncontrast head CT",
   "webmasterReviewStatus": "blocked_invalid_trend_data",
   "contentReviewIssues": [
-   "The current table places nursing interventions in time-series rows instead of showing serial clinical measurements. Do not score or release until authentic, time-stamped observations are supplied."
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
   ]
  },
  {
@@ -849,7 +849,7 @@ const items=[
   "correctAnswer": "Escalate immediately and initiate prescribed sepsis resuscitation",
   "webmasterReviewStatus": "blocked_invalid_trend_data",
   "contentReviewIssues": [
-   "The current table places nursing interventions in time-series rows instead of showing serial clinical measurements. Do not score or release until authentic, time-stamped observations are supplied."
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
   ]
  },
  {
@@ -1323,7 +1323,7 @@ const items=[
   "correctAnswer": "Begin prescribed isotonic fluid replacement and monitor potassium closely",
   "webmasterReviewStatus": "blocked_invalid_trend_data",
   "contentReviewIssues": [
-   "The current table places nursing interventions in time-series rows instead of showing serial clinical measurements. Do not score or release until authentic, time-stamped observations are supplied."
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
   ]
  },
  {
@@ -1797,7 +1797,7 @@ const items=[
   "correctAnswer": "Position upright, support oxygenation, and activate urgent response",
   "webmasterReviewStatus": "blocked_invalid_trend_data",
   "contentReviewIssues": [
-   "The current table places nursing interventions in time-series rows instead of showing serial clinical measurements. Do not score or release until authentic, time-stamped observations are supplied."
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
   ]
  },
  {
@@ -2266,7 +2266,7 @@ const items=[
   "correctAnswer": "Escalate urgently and prepare prescribed membrane-stabilizing and potassium-shifting treatment",
   "webmasterReviewStatus": "blocked_invalid_trend_data",
   "contentReviewIssues": [
-   "The current table places nursing interventions in time-series rows instead of showing serial clinical measurements. Do not score or release until authentic, time-stamped observations are supplied."
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
   ]
  },
  {
@@ -2684,7 +2684,7 @@ const items=[
    "priorityAssessment": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-006",
   "id": "QR-001976",
   "type": "Trend",
@@ -2719,7 +2719,11 @@ const items=[
    "Delay assessment until pain resolves",
    "Time-sensitive evaluation and reperfusion reduce myocardial injury."
   ],
-  "correctAnswer": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response"
+  "correctAnswer": "Activate the acute coronary syndrome pathway and obtain immediate ECG/provider response",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -3130,7 +3134,7 @@ const items=[
    "priorityAssessment": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-007",
   "id": "QR-001986",
   "type": "Trend",
@@ -3165,7 +3169,11 @@ const items=[
    "Encourage sedatives for dyspnea",
    "Treat hypoxemia while monitoring response and ventilation; avoid withholding indicated oxygen."
   ],
-  "correctAnswer": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy"
+  "correctAnswer": "Assess respiratory status and administer prescribed controlled oxygen and bronchodilator therapy",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -3576,7 +3584,7 @@ const items=[
    "priorityAssessment": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-008",
   "id": "QR-001996",
   "type": "Trend",
@@ -3611,7 +3619,11 @@ const items=[
    "Encourage unassisted ambulation",
    "The presentation suggests venous thromboembolism with possible pulmonary embolism."
   ],
-  "correctAnswer": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism"
+  "correctAnswer": "Provide oxygen as indicated and activate urgent evaluation for pulmonary embolism",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -4022,7 +4034,7 @@ const items=[
    "priorityAssessment": "Maintain prescribed IV fluids, analgesia, and close monitoring"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-009",
   "id": "QR-002006",
   "type": "Trend",
@@ -4057,7 +4069,11 @@ const items=[
    "Apply deep abdominal massage",
    "Pancreatitis care includes supportive treatment, hydration, pain control, and monitoring for complications."
   ],
-  "correctAnswer": "Maintain prescribed IV fluids, analgesia, and close monitoring"
+  "correctAnswer": "Maintain prescribed IV fluids, analgesia, and close monitoring",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -4468,7 +4484,7 @@ const items=[
    "priorityAssessment": "Assess circulation, establish IV access, and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-010",
   "id": "QR-002016",
   "type": "Trend",
@@ -4503,7 +4519,11 @@ const items=[
    "Assist the client to walk to the bathroom alone",
    "Tachycardia and hypotension with GI bleeding suggest hemodynamic compromise."
   ],
-  "correctAnswer": "Assess circulation, establish IV access, and urgently notify the provider"
+  "correctAnswer": "Assess circulation, establish IV access, and urgently notify the provider",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -4914,7 +4934,7 @@ const items=[
    "priorityAssessment": "Institute safety measures and administer prescribed lactulose while monitoring response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-011",
   "id": "QR-002026",
   "type": "Trend",
@@ -4949,7 +4969,11 @@ const items=[
    "Give sedatives without assessment",
    "Hepatic encephalopathy requires treatment of precipitating factors and prescribed ammonia-lowering therapy."
   ],
-  "correctAnswer": "Institute safety measures and administer prescribed lactulose while monitoring response"
+  "correctAnswer": "Institute safety measures and administer prescribed lactulose while monitoring response",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -5360,7 +5384,7 @@ const items=[
    "priorityAssessment": "Report oliguria and trend renal function, electrolytes, and fluid balance"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-012",
   "id": "QR-002036",
   "type": "Trend",
@@ -5395,7 +5419,11 @@ const items=[
    "Ignore the trend if blood pressure is normal",
    "Oliguria and rising creatinine indicate worsening renal function requiring assessment and escalation."
   ],
-  "correctAnswer": "Report oliguria and trend renal function, electrolytes, and fluid balance"
+  "correctAnswer": "Report oliguria and trend renal function, electrolytes, and fluid balance",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -5806,7 +5834,7 @@ const items=[
    "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-013",
   "id": "QR-002046",
   "type": "Trend",
@@ -5841,7 +5869,11 @@ const items=[
    "Place the client flat during meals",
    "Coughing and wet voice suggest aspiration risk; oral intake should stop pending evaluation."
   ],
-  "correctAnswer": "Stop oral intake and request formal swallowing assessment"
+  "correctAnswer": "Stop oral intake and request formal swallowing assessment",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -6252,7 +6284,7 @@ const items=[
    "priorityAssessment": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-014",
   "id": "QR-002056",
   "type": "Trend",
@@ -6287,7 +6319,11 @@ const items=[
    "Restart after an antipyretic",
    "A suspected acute transfusion reaction requires stopping the product and following the reaction protocol."
   ],
-  "correctAnswer": "Stop the transfusion and maintain IV access with new tubing and saline per protocol"
+  "correctAnswer": "Stop the transfusion and maintain IV access with new tubing and saline per protocol",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -6698,7 +6734,7 @@ const items=[
    "priorityAssessment": "Notify the provider immediately and initiate febrile-neutropenia protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-015",
   "id": "QR-002066",
   "type": "Trend",
@@ -6733,7 +6769,11 @@ const items=[
    "Wait until morning to repeat temperature",
    "Fever with severe neutropenia is an oncologic emergency."
   ],
-  "correctAnswer": "Notify the provider immediately and initiate febrile-neutropenia protocol"
+  "correctAnswer": "Notify the provider immediately and initiate febrile-neutropenia protocol",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -7144,7 +7184,7 @@ const items=[
    "priorityAssessment": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-016",
   "id": "QR-002076",
   "type": "Trend",
@@ -7179,7 +7219,11 @@ const items=[
    "Leave the system disconnected",
    "A disconnection compromises the closed drainage system; follow emergency policy and reassess."
   ],
-  "correctAnswer": "Re-establish the water seal per facility emergency protocol and assess respiratory status"
+  "correctAnswer": "Re-establish the water seal per facility emergency protocol and assess respiratory status",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -7590,7 +7634,7 @@ const items=[
    "priorityAssessment": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-017",
   "id": "QR-002086",
   "type": "Trend",
@@ -7625,7 +7669,11 @@ const items=[
    "Offer food and fluids",
    "Bradypnea and reduced consciousness indicate potentially life-threatening opioid toxicity."
   ],
-  "correctAnswer": "Support airway and ventilation, summon help, and prepare prescribed naloxone"
+  "correctAnswer": "Support airway and ventilation, summon help, and prepare prescribed naloxone",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -8036,7 +8084,7 @@ const items=[
    "priorityAssessment": "Stop all heparin sources and urgently notify the provider"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-018",
   "id": "QR-002096",
   "type": "Trend",
@@ -8071,7 +8119,11 @@ const items=[
    "Give vitamin K routinely",
    "HIT can cause thrombosis despite thrombocytopenia; all heparin exposure must stop pending evaluation."
   ],
-  "correctAnswer": "Stop all heparin sources and urgently notify the provider"
+  "correctAnswer": "Stop all heparin sources and urgently notify the provider",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -8482,7 +8534,7 @@ const items=[
    "priorityAssessment": "Hold digoxin and notify the provider for evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-019",
   "id": "QR-002106",
   "type": "Trend",
@@ -8517,7 +8569,11 @@ const items=[
    "Encourage extra digoxin to improve rate control",
    "Bradycardia, visual symptoms, and hypokalemia increase concern for digoxin toxicity."
   ],
-  "correctAnswer": "Hold digoxin and notify the provider for evaluation"
+  "correctAnswer": "Hold digoxin and notify the provider for evaluation",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -8928,7 +8984,7 @@ const items=[
    "priorityAssessment": "Hold lithium and obtain urgent prescriber evaluation and serum level"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-020",
   "id": "QR-002116",
   "type": "Trend",
@@ -8963,7 +9019,11 @@ const items=[
    "Encourage strenuous exercise",
    "Neurologic and gastrointestinal changes can signal lithium toxicity."
   ],
-  "correctAnswer": "Hold lithium and obtain urgent prescriber evaluation and serum level"
+  "correctAnswer": "Hold lithium and obtain urgent prescriber evaluation and serum level",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Mental Health",
@@ -9374,7 +9434,7 @@ const items=[
    "priorityAssessment": "Hold serotonergic agents and obtain urgent medical evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-021",
   "id": "QR-002126",
   "type": "Trend",
@@ -9409,7 +9469,11 @@ const items=[
    "Use restraints as the only intervention",
    "Autonomic instability and neuromuscular hyperactivity suggest serotonin toxicity."
   ],
-  "correctAnswer": "Hold serotonergic agents and obtain urgent medical evaluation"
+  "correctAnswer": "Hold serotonergic agents and obtain urgent medical evaluation",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Mental Health",
@@ -9820,7 +9884,7 @@ const items=[
    "priorityAssessment": "Maintain immediate safety observation and initiate emergency psychiatric response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-022",
   "id": "QR-002136",
   "type": "Trend",
@@ -9855,7 +9919,11 @@ const items=[
    "Promise to keep the plan secret",
    "Specific plan, access, and intent indicate acute risk requiring immediate protective action."
   ],
-  "correctAnswer": "Maintain immediate safety observation and initiate emergency psychiatric response"
+  "correctAnswer": "Maintain immediate safety observation and initiate emergency psychiatric response",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Mental Health",
@@ -10266,7 +10334,7 @@ const items=[
    "priorityAssessment": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-023",
   "id": "QR-002146",
   "type": "Trend",
@@ -10301,7 +10369,11 @@ const items=[
    "Challenge grandiose statements in front of peers",
    "A low-stimulation environment, consistent limits, and portable nutrition support safety."
   ],
-  "correctAnswer": "Reduce stimulation, set clear limits, and offer high-calorie finger foods"
+  "correctAnswer": "Reduce stimulation, set clear limits, and offer high-calorie finger foods",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Mental Health",
@@ -10706,7 +10778,7 @@ const items=[
    "priorityAssessment": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-024",
   "id": "QR-002156",
   "type": "Trend",
@@ -10741,7 +10813,11 @@ const items=[
    "Leave the client unmonitored",
    "Withdrawal can progress to seizures and delirium; structured monitoring and prescribed treatment are needed."
   ],
-  "correctAnswer": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol"
+  "correctAnswer": "Initiate withdrawal assessment and administer prescribed benzodiazepine protocol",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Mental Health",
@@ -11152,7 +11228,7 @@ const items=[
    "priorityAssessment": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-025",
   "id": "QR-002166",
   "type": "Trend",
@@ -11187,7 +11263,11 @@ const items=[
    "Delay assessment until the next prenatal visit",
    "Severe-range hypertension with neurologic symptoms requires urgent maternal-fetal management."
   ],
-  "correctAnswer": "Escalate urgently and implement prescribed seizure prophylaxis and BP management"
+  "correctAnswer": "Escalate urgently and implement prescribed seizure prophylaxis and BP management",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -11598,7 +11678,7 @@ const items=[
    "priorityAssessment": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-026",
   "id": "QR-002176",
   "type": "Trend",
@@ -11633,7 +11713,11 @@ const items=[
    "Recheck in four hours",
    "Respiratory depression, absent reflexes, and oliguria suggest magnesium toxicity."
   ],
-  "correctAnswer": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate"
+  "correctAnswer": "Stop infusion, summon help, support breathing, and prepare prescribed calcium gluconate",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -12044,7 +12128,7 @@ const items=[
    "priorityAssessment": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-027",
   "id": "QR-002186",
   "type": "Trend",
@@ -12079,7 +12163,11 @@ const items=[
    "Apply fundal pressure without assessment",
    "Uterine atony is a common cause of postpartum hemorrhage and requires immediate action."
   ],
-  "correctAnswer": "Call for help, massage the fundus, and initiate prescribed hemorrhage response"
+  "correctAnswer": "Call for help, massage the fundus, and initiate prescribed hemorrhage response",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -12490,7 +12578,7 @@ const items=[
    "priorityAssessment": "Avoid vaginal examination and notify obstetric team urgently"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-028",
   "id": "QR-002196",
   "type": "Trend",
@@ -12525,7 +12613,11 @@ const items=[
    "Encourage intercourse to assess bleeding",
    "Placenta previa can hemorrhage with cervical manipulation; avoid vaginal examination."
   ],
-  "correctAnswer": "Avoid vaginal examination and notify obstetric team urgently"
+  "correctAnswer": "Avoid vaginal examination and notify obstetric team urgently",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -12936,7 +13028,7 @@ const items=[
    "priorityAssessment": "Notify provider and administer prescribed antimicrobial therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-029",
   "id": "QR-002206",
   "type": "Trend",
@@ -12971,7 +13063,11 @@ const items=[
    "Delay reporting until discharge",
    "Fever, uterine tenderness, and malodorous lochia suggest postpartum infection."
   ],
-  "correctAnswer": "Notify provider and administer prescribed antimicrobial therapy"
+  "correctAnswer": "Notify provider and administer prescribed antimicrobial therapy",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -13382,7 +13478,7 @@ const items=[
    "priorityAssessment": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-030",
   "id": "QR-002216",
   "type": "Trend",
@@ -13417,7 +13513,11 @@ const items=[
    "Give plain water",
    "Symptomatic neonatal hypoglycemia requires prompt protocol-based treatment and reassessment."
   ],
-  "correctAnswer": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment"
+  "correctAnswer": "Follow neonatal hypoglycemia protocol and promptly provide prescribed feeding or glucose treatment",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Maternal Newborn",
@@ -13828,7 +13928,7 @@ const items=[
    "priorityAssessment": "Keep child calm and prepare controlled airway management; do not inspect throat"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-031",
   "id": "QR-002226",
   "type": "Trend",
@@ -13863,7 +13963,11 @@ const items=[
    "Force the child supine",
    "Suspected epiglottitis can cause sudden airway obstruction; avoid agitation and throat examination."
   ],
-  "correctAnswer": "Keep child calm and prepare controlled airway management; do not inspect throat"
+  "correctAnswer": "Keep child calm and prepare controlled airway management; do not inspect throat",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -14274,7 +14378,7 @@ const items=[
    "priorityAssessment": "Assess airway and breathing and provide prescribed oxygen and supportive care"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-032",
   "id": "QR-002236",
   "type": "Trend",
@@ -14309,7 +14413,11 @@ const items=[
    "Use cough suppressant routinely",
    "Hypoxemia and increased work of breathing require respiratory support and careful hydration."
   ],
-  "correctAnswer": "Assess airway and breathing and provide prescribed oxygen and supportive care"
+  "correctAnswer": "Assess airway and breathing and provide prescribed oxygen and supportive care",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -14720,7 +14828,7 @@ const items=[
    "priorityAssessment": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-033",
   "id": "QR-002246",
   "type": "Trend",
@@ -14755,7 +14863,11 @@ const items=[
    "Restrict fluids",
    "Delayed refill and oliguria indicate volume depletion requiring appropriate rehydration."
   ],
-  "correctAnswer": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity"
+  "correctAnswer": "Assess perfusion and initiate prescribed oral or IV rehydration based on severity",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -15166,7 +15278,7 @@ const items=[
    "priorityAssessment": "Protect from injury, position side-lying, and assess airway after seizure"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-034",
   "id": "QR-002256",
   "type": "Trend",
@@ -15201,7 +15313,11 @@ const items=[
    "Give oral medication during seizure",
    "Seizure first aid prioritizes injury prevention and airway protection; nothing goes in the mouth."
   ],
-  "correctAnswer": "Protect from injury, position side-lying, and assess airway after seizure"
+  "correctAnswer": "Protect from injury, position side-lying, and assess airway after seizure",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -15612,7 +15728,7 @@ const items=[
    "priorityAssessment": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-035",
   "id": "QR-002266",
   "type": "Trend",
@@ -15647,7 +15763,11 @@ const items=[
    "Encourage crying to assess voice",
    "Agitation worsens upper-airway obstruction; calm handling and prescribed treatment are priorities."
   ],
-  "correctAnswer": "Keep child calm and administer prescribed corticosteroid or nebulized therapy"
+  "correctAnswer": "Keep child calm and administer prescribed corticosteroid or nebulized therapy",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -16058,7 +16178,7 @@ const items=[
    "priorityAssessment": "Initiate appropriate isolation and urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-036",
   "id": "QR-002276",
   "type": "Trend",
@@ -16093,7 +16213,11 @@ const items=[
    "Delay precautions until culture confirmation",
    "Suspected bacterial meningitis requires prompt precautions and evaluation."
   ],
-  "correctAnswer": "Initiate appropriate isolation and urgent evaluation"
+  "correctAnswer": "Initiate appropriate isolation and urgent evaluation",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -16504,7 +16628,7 @@ const items=[
    "priorityAssessment": "Provide prescribed analgesia, hydration, and assessment for complications"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-037",
   "id": "QR-002286",
   "type": "Trend",
@@ -16539,7 +16663,11 @@ const items=[
    "Withhold analgesia until imaging",
    "Vaso-occlusive pain requires timely analgesia and supportive care; cold can worsen vasoconstriction."
   ],
-  "correctAnswer": "Provide prescribed analgesia, hydration, and assessment for complications"
+  "correctAnswer": "Provide prescribed analgesia, hydration, and assessment for complications",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Child Health",
@@ -16950,7 +17078,7 @@ const items=[
    "priorityAssessment": "Administer IM epinephrine per emergency protocol and activate response"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-038",
   "id": "QR-002296",
   "type": "Trend",
@@ -16985,7 +17113,11 @@ const items=[
    "Wait for rash to spread",
    "IM epinephrine is first-line treatment for anaphylaxis with airway or circulatory compromise."
   ],
-  "correctAnswer": "Administer IM epinephrine per emergency protocol and activate response"
+  "correctAnswer": "Administer IM epinephrine per emergency protocol and activate response",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -17396,7 +17528,7 @@ const items=[
    "priorityAssessment": "Give prescribed IV dextrose or glucagon per protocol and reassess"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-039",
   "id": "QR-002306",
   "type": "Trend",
@@ -17431,7 +17563,11 @@ const items=[
    "Administer more insulin",
    "An unconscious or unsafe-to-swallow client needs nonoral rapid glucose treatment."
   ],
-  "correctAnswer": "Give prescribed IV dextrose or glucagon per protocol and reassess"
+  "correctAnswer": "Give prescribed IV dextrose or glucagon per protocol and reassess",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -17842,7 +17978,7 @@ const items=[
    "priorityAssessment": "Hold warfarin and urgently report suspected bleeding for reversal plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-040",
   "id": "QR-002316",
   "type": "Trend",
@@ -17877,7 +18013,11 @@ const items=[
    "Recommend aspirin",
    "Melena and elevated INR suggest clinically significant bleeding requiring urgent evaluation."
   ],
-  "correctAnswer": "Hold warfarin and urgently report suspected bleeding for reversal plan"
+  "correctAnswer": "Hold warfarin and urgently report suspected bleeding for reversal plan",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -18288,7 +18428,7 @@ const items=[
    "priorityAssessment": "Clarify timing and coordinate insulin with food availability"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-041",
   "id": "QR-002326",
   "type": "Trend",
@@ -18323,7 +18463,11 @@ const items=[
    "Double the dose",
    "Rapid-acting insulin should be coordinated with food intake to reduce hypoglycemia risk."
   ],
-  "correctAnswer": "Clarify timing and coordinate insulin with food availability"
+  "correctAnswer": "Clarify timing and coordinate insulin with food availability",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -18734,7 +18878,7 @@ const items=[
    "priorityAssessment": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-042",
   "id": "QR-002336",
   "type": "Trend",
@@ -18769,7 +18913,11 @@ const items=[
    "Remove line without order or protocol",
    "Bloodstream infection can occur without visible site inflammation; prompt assessment and protocol are needed."
   ],
-  "correctAnswer": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol"
+  "correctAnswer": "Stop infusion as indicated, assess, notify provider, and follow line infection protocol",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Safety",
@@ -19180,7 +19328,7 @@ const items=[
    "priorityAssessment": "Offload pressure, reposition, and protect skin"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-043",
   "id": "QR-002346",
   "type": "Trend",
@@ -19215,7 +19363,11 @@ const items=[
    "Use a donut ring",
    "Nonblanchable erythema over intact skin is consistent with stage 1 pressure injury; relieve pressure."
   ],
-  "correctAnswer": "Offload pressure, reposition, and protect skin"
+  "correctAnswer": "Offload pressure, reposition, and protect skin",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Fundamentals",
@@ -19626,7 +19778,7 @@ const items=[
    "priorityAssessment": "Stop feeding, assess respiratory status, and follow swallowing plan"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-044",
   "id": "QR-002356",
   "type": "Trend",
@@ -19661,7 +19813,11 @@ const items=[
    "Continue feeding more slowly without reassessment",
    "Cough and wet voice suggest aspiration; stop intake and assess."
   ],
-  "correctAnswer": "Stop feeding, assess respiratory status, and follow swallowing plan"
+  "correctAnswer": "Stop feeding, assess respiratory status, and follow swallowing plan",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Fundamentals",
@@ -20072,7 +20228,7 @@ const items=[
    "priorityAssessment": "Initiate fall precautions and assist with mobility"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-045",
   "id": "QR-002366",
   "type": "Trend",
@@ -20107,7 +20263,11 @@ const items=[
    "Keep call bell out of reach",
    "Sedation increases fall risk; environmental precautions and assisted mobility are appropriate."
   ],
-  "correctAnswer": "Initiate fall precautions and assist with mobility"
+  "correctAnswer": "Initiate fall precautions and assist with mobility",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Fundamentals",
@@ -20518,7 +20678,7 @@ const items=[
    "priorityAssessment": "Hold dose as appropriate and notify prescriber for parameters"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-046",
   "id": "QR-002376",
   "type": "Trend",
@@ -20553,7 +20713,11 @@ const items=[
    "Give a second dose",
    "Hypotension with symptoms warrants reassessment and clarification before medication administration."
   ],
-  "correctAnswer": "Hold dose as appropriate and notify prescriber for parameters"
+  "correctAnswer": "Hold dose as appropriate and notify prescriber for parameters",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Pharmacology",
@@ -20964,7 +21128,7 @@ const items=[
    "priorityAssessment": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-047",
   "id": "QR-002386",
   "type": "Trend",
@@ -20999,7 +21163,11 @@ const items=[
    "Suppress all coughing",
    "Lung expansion and mobility help prevent and treat postoperative atelectasis."
   ],
-  "correctAnswer": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered"
+  "correctAnswer": "Encourage coughing, deep breathing, mobility, and incentive spirometry as ordered",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -21410,7 +21578,7 @@ const items=[
    "priorityAssessment": "Notify orthopedic team immediately and prepare for urgent evaluation"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-048",
   "id": "QR-002396",
   "type": "Trend",
@@ -21445,7 +21613,11 @@ const items=[
    "Apply tight compression wrap",
    "Pain out of proportion and pain with passive stretch are early warning signs of compartment syndrome."
   ],
-  "correctAnswer": "Notify orthopedic team immediately and prepare for urgent evaluation"
+  "correctAnswer": "Notify orthopedic team immediately and prepare for urgent evaluation",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -21856,7 +22028,7 @@ const items=[
    "priorityAssessment": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-049",
   "id": "QR-002406",
   "type": "Trend",
@@ -21891,7 +22063,11 @@ const items=[
    "Place in Trendelenburg",
    "Declining consciousness and pupillary change suggest neurologic deterioration and possible herniation."
   ],
-  "correctAnswer": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention"
+  "correctAnswer": "Escalate immediately, protect airway, and minimize stimuli while preparing urgent intervention",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Adult Health",
@@ -22302,7 +22478,7 @@ const items=[
    "priorityAssessment": "Use contact precautions and soap-and-water hand hygiene"
   },
   "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
+  "reviewStatus": "hold_for_content_revision",
   "caseGroupId": "QR-NGN-CASE-050",
   "id": "QR-002416",
   "type": "Trend",
@@ -22337,7 +22513,11 @@ const items=[
    "Share equipment between clients",
    "C. difficile spores require contact precautions, dedicated equipment, and soap-and-water hand hygiene."
   ],
-  "correctAnswer": "Use contact precautions and soap-and-water hand hygiene"
+  "correctAnswer": "Use contact precautions and soap-and-water hand hygiene",
+  "webmasterReviewStatus": "blocked_invalid_trend_data",
+  "contentReviewIssues": [
+   "The supplied table contains intervention statements rather than serial clinical measurements. Do not score or release until authentic time-stamped assessment data demonstrate a clinically meaningful trend."
+  ]
  },
  {
   "category": "Safety",
