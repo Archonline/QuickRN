@@ -264,7 +264,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const patientName=quickRNPlainClinicalText(patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient');
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.code)+'</div>':'');
  const seenRecordSections=new Set(patientSummary?[quickRNPlainClinicalText(patientSummary).toLowerCase()]:[]);const recordSections=tabs.map(t=>[t[0],quickRNPlainClinicalText(t[1])]).filter(t=>{if(!t[1])return false;const key=t[1].toLowerCase();if(seenRecordSections.has(key))return false;seenRecordSections.add(key);return true;}).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+quickRNEscape(t[1])+'</div></section>').join('');
- const scenarioText=quickRNPlainClinicalText(promptSplit.scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText);const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
+ const scenarioText=quickRNPlainClinicalText(promptSplit.scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText)&&!caseContext.title&&!caseContext.summary;const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
  let record=hasRecord?'<aside class="qr-ehr'+(f==='Single Choice'?' qr-single-choice-scenario':'')+'"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>Clinical scenario</h4><div>'+quickRNEscape(scenarioText||'')+'</div></section>':'')+'</div></aside>':'';
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'){
@@ -367,6 +367,7 @@ function quickRNOpenReport(){if(window.QuickRNQuestionReporting?.open){window.Qu
 /* NGN case-study extensions: Highlight and Trend. Existing formats continue through the base renderer. */
 const quickRNBaseDetect = quickRNDetectItemFormat;
 quickRNDetectItemFormat = function(q) {
+ q=q&&typeof q==='object'?q:{};
  const raw=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
  if(raw.includes('highlight')||q.highlightText||q.highlightSegments||q.correctHighlights)return 'Highlight';
  if(raw.includes('trend')||q.trendData||q.trends||q.trendTable)return 'Trend';
