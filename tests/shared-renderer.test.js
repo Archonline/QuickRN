@@ -96,6 +96,33 @@ assert.ok(!rightPaneHtml.includes('A client is experiencing a sickle cell vaso-o
 assert.equal(api.grade(splitBowtieFixture,{condition:'Vaso-occlusive crisis',actions:['Administer prescribed analgesia','Provide prescribed hydration'],monitoring:['Pain and response to analgesia','Oxygenation and new chest symptoms']}),true,'bowtie scoring remains unchanged');
 const dragFixture = {id:'DND-TEST-1',type:'Drag and Drop',availableItems:['First','Second','Third'],correctOrder:['First','Second','Third']};
 assert.notDeepEqual(api.toDraft(dragFixture,undefined).order,dragFixture.correctOrder,'drag-and-drop does not expose the answer order on first render');
+
+// Production-shaped NGN regression cases: row-specific Matrix options, nested keys,
+// dropdown rationale, numeric accepted ranges, and clinical scenario separation.
+const matrixByRow = {
+ id:'MATRIX-PER-ROW', type:'Matrix Multiple',
+ rows:[
+  {id:'cue',text:'New confusion and hypotension',options:['Priority cue','Routine finding','Not relevant']},
+  {id:'action',text:'Activate rapid response',options:['Appropriate','Inappropriate']}
+ ],
+ correctAnswers:{matrix:{cue:['Priority cue'],action:['Appropriate']}}
+};
+assert.equal(api.detect(matrixByRow),'Matrix / Grid');
+const matrixHtml=api.renderReact(matrixByRow,{matrix:{cue:['Priority cue'],action:['Appropriate']}},()=>{},false);
+assert.match(matrixHtml,/Priority cue/,'matrix renders row-specific response choices');
+assert.match(matrixHtml,/type="checkbox"/,'matrix multiple rows render checkbox choices');
+assert.doesNotMatch(matrixHtml,/Matrix rows or columns are missing/,'matrix rows with local options do not require a global columns array');
+const dropdownRationale={id:'DROPDOWN-RATIONALE',type:'Dropdown Rationale',clozeTemplate:'The finding indicates {{problem}}; the nurse should {{action}}.',dropdowns:[{id:'problem',options:['Sepsis','Expected response'],correct:'Sepsis'},{id:'action',options:['Escalate care','Wait until next shift'],correct:'Escalate care'}],correctAnswers:{problem:'Sepsis',action:'Escalate care'}};
+assert.equal(api.detect(dropdownRationale),'Cloze (Drop-down)');
+assert.match(api.renderReact(dropdownRationale,{cloze:{problem:'Sepsis'}},()=>{},false),/<select/,'dropdown-rationale blanks render as selects');
+const numericRange={id:'NUMERIC-RANGE',type:'Numeric Entry',correctValue:75,acceptedRange:[74.9,75.1],unit:'mL'};
+assert.equal(api.detect(numericRange),'Numeric Entry');
+assert.match(api.renderReact(numericRange,{numericEntry:'75'},()=>{},false),/id="qr-numeric-answer"/,'numeric-entry control is rendered');
+const splitHighlight={id:'HIGHLIGHT-SPLIT',type:'Highlight',scenario:'A client develops sudden confusion and hypotension.',title:'A client develops sudden confusion and hypotension. Highlight the findings that require immediate attention.',highlightSegments:[{id:'s1',text:'Sudden confusion'},{id:'s2',text:'Stable appetite'}],correctHighlights:['s1']};
+const splitHighlightHtml=api.renderReact(splitHighlight,undefined,()=>{},false);
+assert.ok(splitHighlightHtml.indexOf('Clinical Record')<splitHighlightHtml.indexOf('qr-question-panel'),'highlight scenario appears in the clinical record pane');
+assert.ok(!splitHighlightHtml.slice(splitHighlightHtml.indexOf('qr-question-panel')).includes('A client develops sudden confusion and hypotension.'),'highlight scenario is not repeated in the task pane');
+
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
 
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
