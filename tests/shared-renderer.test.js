@@ -151,6 +151,15 @@ assert.ok(scenarioVitalsHtml.includes('Pulse Rate: 122 /min'),'explicit pulse ra
 assert.match(scenarioVitalsHtml,/Blood Pressure: 86\\/48 mm Hg/,'explicit blood pressure is promoted to the EHR');
 assert.ok(scenarioVitalsHtml.includes('Oxygen Saturation: 88 %'),'explicit oxygen saturation is promoted to the EHR');
 
+const scenarioLabs={id:'LABS-FROM-SCENARIO',type:'Single Choice',scenario:'Laboratory results: sodium 128 mEq/L, potassium 6.2 mEq/L, glucose 450 mg/dL, BUN 38 mg/dL, creatinine 2.1 mg/dL, and lactate 3.8 mmol/L.',title:'Which action is the priority?',options:['A','B'],correctAnswer:'A'};
+const scenarioLabsHtml=api.renderReact(scenarioLabs,undefined,()=>{},false);
+assert.match(scenarioLabsHtml,/Diagnostic Results/,'explicit laboratory data is promoted into the EHR');
+assert.ok(scenarioLabsHtml.includes('Sodium: 128 mEq/L'),'sodium value is shown');
+assert.ok(scenarioLabsHtml.includes('Potassium: 6.2 mEq/L'),'potassium value is shown');
+assert.ok(scenarioLabsHtml.includes('Glucose: 450 mg/dL'),'glucose value is shown');
+assert.ok(scenarioLabsHtml.includes('Creatinine: 2.1 mg/dL'),'creatinine value is shown');
+assert.ok(scenarioLabsHtml.includes('Lactate: 3.8 mmol/L'),'lactate value is shown');
+
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
 assert.equal(clean('Veracity: The nurse verifies the client\'s identity.'), 'The nurse verifies the client\'s identity.');
 assert.equal(clean('Mantoux/TB screening: A client returns for the test reading.'), 'A client returns for the test reading.');

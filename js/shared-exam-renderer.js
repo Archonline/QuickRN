@@ -272,6 +272,34 @@ function quickRNAdaptClinicalSchema(input){
  extractVital('bloodPressure',/(?:blood pressure|\bBP)\s*(?:is|:|=)?\s*(\d{2,3}\s*\/\s*\d{2,3})\s*(mm\s*Hg)?/i,'');
  extractVital('oxygenSaturation',/(?:oxygen saturation|\bSpO2|\bO2 sat(?:uration)?)\s*(?:is|:|=)?\s*(\d{1,3})\s*(%)?/i,'');
  extractVital('painScore',/(?:pain score|\bpain)\s*(?:is|:|=)?\s*(\d{1,2})\s*(\/\s*10)?/i,'');
+ const labPatterns={
+  sodium:/(?:sodium|Na\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  potassium:/(?:potassium|K\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  chloride:/(?:chloride|Cl\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  bicarbonate:/(?:bicarbonate|HCO3-?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  glucose:/(?:glucose|blood sugar)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|mmol\/L)?/i,
+  BUN:/(?:BUN|blood urea nitrogen)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|mmol\/L)?/i,
+  creatinine:/(?:creatinine)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|µmol\/L|umol\/L)?/i,
+  WBC:/(?:white blood cell(?: count)?|\bWBC\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(?:×\s*)?(10\^?3\/µL|K\/µL)?/i,
+  hemoglobin:/(?:hemoglobin|\bHgb\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(g\/dL)?/i,
+  hematocrit:/(?:hematocrit|\bHct\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(%)?/i,
+  platelets:/(?:platelets?|platelet count)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(K\/µL|×\s*10\^?3\/µL)?/i,
+  lactate:/(?:lactate|lactic acid)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mmol\/L)?/i,
+  troponin:/(?:troponin(?:\s*[IT])?)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(ng\/L|ng\/mL)?/i,
+  INR:/(?:\bINR\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)/i,
+  pH:/(?:\bpH\b)\s*(?:is|of|:|=)?\s*(\d(?:\.\d+)?)/i,
+  PaO2:/(?:\bPaO2\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mm\s*Hg)?/i,
+  PaCO2:/(?:\bPaCO2\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mm\s*Hg)?/i
+ };
+ const diagnosticSource=firstMeaningful(existingEhr.diagnosticResults,existingEhr.labResults,q.diagnosticResults,q.labResults,q.laboratoryResults);
+ const diagnosticRecord=Object.assign({},diagnosticSource&&typeof diagnosticSource==='object'?diagnosticSource:{});
+ Object.entries(labPatterns).forEach(([label,pattern])=>{
+  if(diagnosticRecord[label]!=null&&diagnosticRecord[label]!=='')return;
+  const match=pattern.exec(vitalNarrative);
+  if(match)diagnosticRecord[label]=match[1]+(match[2]?' '+match[2]:'');
+ });
+ if(diagnosticSource&&typeof diagnosticSource!=='object'&&meaningful(diagnosticSource))existingEhr.diagnosticResults=diagnosticSource;
+ else if(Object.keys(diagnosticRecord).some(key=>meaningful(diagnosticRecord[key])))existingEhr.diagnosticResults=diagnosticRecord;
  const profileSources=[q.patientProfile,q.patientInfo,q.patientInformation,q.patient_information,q.clinicalRecord,q.medicalRecord].filter(value=>value&&typeof value==='object');
  Object.entries(vitalAliases).forEach(([label,aliases])=>{
   if(vitalRecord[label]!=null&&vitalRecord[label]!=='')return;
