@@ -22351,6 +22351,20 @@ const strokeMatrix=items.find(q=>q.id==='QR-001922');if(strokeMatrix)strokeMatri
 const strokeHighlight=items.find(q=>q.id==='QR-001925');if(strokeHighlight)strokeHighlight.correctHighlights=['h1'];
 const strokeTrend=items.find(q=>q.id==='QR-001926');if(strokeTrend)strokeTrend.options=['Activate stroke pathway and obtain urgent noncontrast head CT','Give aspirin before imaging','Rapidly lower blood pressure to normal','Wait until the next routine assessment before escalating'];
 
+if(strokeMatrix){strokeMatrix.columns=['Needs prompt escalation','Requires focused reassessment','Unsafe or delayed response','Routine finding requiring no action'];strokeMatrix.correctAnswers.cue3=['Unsafe or delayed response'];}
+
+
+// Rebuild option-level feedback after all answer-key and placeholder corrections above.
+items.forEach(q=>{
+ const explain=(option,correct)=>{const cue=(q.patientInfo&&q.patientInfo.history)||(q.ehr&&q.ehr.assessment)||'the documented clinical findings';const priority=(q.ehr&&q.ehr.priorityAssessment)||'the priority nursing response';return correct?'Keyed for this item. This response is supported by the '+q.topic+' cues ('+cue+') and addresses the priority response: '+priority+'.':'Not keyed for this item. Compare this option with the '+q.topic+' cues ('+cue+') and the priority response ('+priority+'); it is not the best response for this specific decision.';};
+ const key=(values,option)=>{const arr=Array.isArray(values)?values.flat(Infinity):values&&typeof values==='object'?Object.values(values).flat(Infinity):[values];return arr.some(x=>typeof x==='string'&&x.trim().toLowerCase()===String(option).trim().toLowerCase());};
+ if(q.type==='Bowtie'&&q.bowtieData){q.optionRationales={};['conditions','actions','monitoring'].forEach(group=>{const answerKey=group==='conditions'?q.correctAnswers.condition:q.correctAnswers[group];q.optionRationales[group]=q.bowtieData[group].map(option=>({option,correct:key(answerKey,option),rationale:explain(option,key(answerKey,option))}));});}
+ else if((q.type==='Matrix Single'||q.type==='Matrix Multiple')&&Array.isArray(q.rows)){q.optionRationales=q.rows.map((row,index)=>{const answerKey=q.correctAnswers&&(q.correctAnswers[row.id]!==undefined?q.correctAnswers[row.id]:q.correctAnswers[String(index)]);return {rowId:row.id||String(index),row:row.text,columns:q.columns.map(option=>({option,correct:key(answerKey,option),rationale:explain(option,key(answerKey,option))}))};});}
+ else if(Array.isArray(q.dropdowns)){q.optionRationales=q.dropdowns.map(drop=>({dropdownId:drop.id,options:(drop.options||[]).map(option=>({option,correct:!!drop.correct&&option===drop.correct,rationale:explain(option,!!drop.correct&&option===drop.correct)}))}));}
+ else if(Array.isArray(q.highlightSegments)){const ids=new Set(q.correctHighlights||[]);q.optionRationales=q.highlightSegments.map(seg=>({segmentId:seg.id,option:seg.text,correct:ids.has(seg.id),rationale:explain(seg.text,ids.has(seg.id))}));}
+ else if(Array.isArray(q.options)){const answers=q.correctAnswers!==undefined?q.correctAnswers:q.correctAnswer;q.optionRationales=q.options.map(option=>({option,correct:key(answers,option),rationale:explain(option,key(answers,option))}));}
+ else if(Array.isArray(q.availableItems)){const answers=q.correctOrder||[];q.optionRationales=q.availableItems.map(option=>({option,correct:key(answers,option),rationale:explain(option,key(answers,option))}));}
+});
 items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
 const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
 if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
