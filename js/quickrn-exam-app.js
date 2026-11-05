@@ -322,6 +322,7 @@ function caseTabs(q){
  const tabs=[],seen=new Set();
  const add=(label,content)=>{
   if(content===undefined||content===null)return;
+  if(/^(patient\\s*(information|info|profile|details)|demographics)$/i.test(String(label||'').trim().replace(/\\s+/g,' '))&&(q.patientProfile||q.patientInfo||q.patientInformation||q.patient_information))return;
   const raw=typeof content==='string'?content:asText(content);
   let text=stripClinicalLead(String(raw||''),q);
   if(!text.trim())return;
@@ -340,7 +341,7 @@ function caseTabs(q){
   [['Clinical Scenario',cs.scenario||cs.clinicalScenario||cs.situation],['Case Overview',cs.summary||cs.description||cs.narrative],['Medical History',cs.medicalHistory||cs.history],['Patient Information',cs.patientInformation||cs.patientInfo],['Nurses’ Notes',cs.nursesNotes||cs.notes],['Vital Signs',cs.vitalSigns],['Lab Results',cs.labResults],['Diagnostic Results',cs.diagnosticResults],['Orders',cs.orders||cs.providerOrders],['History & Physical',cs.historyPhysical]].forEach(([label,value])=>add(label,value));
   ['exhibits','records','tabs','clinicalRecords'].forEach(key=>addCollection(cs[key],key));
  }
- const ehr=q.ehr||q.ehrData||q.clinicalRecord||q.clinicalRecords||q.medicalRecord||q.patientRecord||{};
+ const ehr=q.ehr||q.ehrData||q.clinicalRecord||q.clinicalRecords||q.medicalRecord||q.patientRecord||{};addCollection(ehr.additionalTabs,'Clinical information');
  [['Nurses’ Notes',ehr.nursesNotes||ehr.notes||q.nursesNotes],['Vital Signs',ehr.vitalSigns||q.vitalSigns],['Lab Results',ehr.labResults||q.labResults],['Diagnostic Results',ehr.diagnosticResults||q.diagnosticResults],['Orders',ehr.orders||ehr.providerOrders||q.orders||q.providerOrders],['History & Physical',ehr.historyPhysical||q.historyPhysical],['Clinical Assessment',ehr.assessment||q.assessment],['Priority Assessment',ehr.priorityAssessment||q.priorityAssessment],['Medication Record',ehr.medicationRecord||q.medicationRecord],['Intake & Output',ehr.intakeOutput||q.intakeOutput],['Patient Information',ehr.patientInformation||q.patientInfo||q.patientInformation||q.patient_information],['Clinical Scenario',q.scenario||q.clinicalScenario||q.patientScenario||q.situation||q.passage||q.stimulus||q.caseStudyText||q.case_study_text],['Patient History',q.patientHistory||q.medicalHistory],['Physical Assessment',q.physicalAssessment||q.assessmentFindings],['Clinical Data',q.clinicalData||q.chartData||q.emr]].forEach(([label,value])=>add(label,value));
  if(typeof cs==='string')add('Clinical Scenario',cs);
  const patient=q.patientProfile||q.patientInfo||q.patientInformation||q.patient_information;
