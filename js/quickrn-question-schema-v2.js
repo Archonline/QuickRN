@@ -30,6 +30,88 @@
   if(s.includes('single')||s.includes('multiple choice'))return 'Single Choice';
   return Array.isArray(q.correctAnswers)&&q.correctAnswers.length>1?'Multiple Response':'Single Choice';
  }
+ function completeTeaching(q){
+  const fmt=detectFormat(q),stem=String(first(q.question,q.questionText,q.stem,q.title)||''),topic=String(first(q.topic,q.category,'the clinical condition')),overall=String(first(q.rationales?.overall,q.rationale,q.generalRationale,q.explanation,'')||'');
+  const flatten=v=>Array.isArray(v)?v.flatMap(flatten):v&&typeof v==='object'?Object.values(v).flatMap(flatten):v==null?[]:[String(v)];
+  const keySource=first(q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer),keyed=flatten(keySource),correctSet=new Set(keyed);
+  const map=Object.assign({},obj(q.rationales?.options),obj(q.optionRationales),obj(q.rationaleByOption),obj(q.rationalesByOption));
+  const choices=[],add=v=>{if(typeof v==='string'&&v.trim()&&!choices.includes(v))choices.push(v);};
+  if(Array.isArray(q.options))q.options.forEach(v=>add(typeof v==='object'?first(v.text,v.label,v.value,v.id):v));
+  else if(q.options&&typeof q.options==='object')Object.values(q.options).forEach(v=>arr(v).forEach(add));
+  arr(q.availableItems).forEach(add);arr(q.draggableItems).forEach(add);
+  const b=obj(q.bowtieData);['conditions','actions','monitoring'].forEach(k=>arr(b[k]).forEach(add));
+  arr(q.rows).forEach(r=>{add(r.text);arr(r.options).forEach(add);});
+  arr(q.dropdowns).forEach(d=>arr(d.options).forEach(add));
+  arr(q.highlightSegments).forEach(s=>add(s.text));
+  arr(q.trendData?.rows).forEach(r=>arr(r).forEach(add));
+  if(['Cloze (Drop-down)','Dropdown Rationale'].includes(fmt)){
+   const keys=obj(first(q.answerKey,q.correctAnswers,q.correctAnswer)),source=obj(q.options);
+   if(!arr(q.dropdowns).length&&Object.keys(keys).length){
+    const distractors=(correct)=>{
+     const s=String(correct).toLowerCase();
+     if(/hypocalcemia/.test(s))return ['Hyperkalemia','Thyroid storm','Hyponatremia'];
+     if(/parathyroid/.test(s))return ['Vagus nerve','Carotid body','Recurrent laryngeal nerve'];
+     if(/calcium gluconate/.test(s))return ['Levothyroxine','Potassium chloride','Sodium bicarbonate'];
+     if(/isotonic/.test(s))return ['Hypotonic fluid','Dextrose 5% in water as initial resuscitation','Fluid restriction'];
+     if(/potassium/.test(s))return ['Sodium','Calcium','Magnesium'];
+     if(/delay/.test(s))return ['Administer insulin before checking potassium','Increase the insulin infusion','Omit fluid replacement'];
+     if(/consistent/.test(s))return ['Eliminate vitamin K','Double the warfarin dose','Stop all vegetables'];
+     if(/black tarry/.test(s))return ['Pale stools','Clear urine','Clay-colored sputum'];
+     if(/bleeding/.test(s))return ['Thromboembolism','Infection','Hypoglycemia'];
+     if(/ectopic pregnancy/.test(s))return ['Appendicitis','Ovarian cyst','Normal intrauterine pregnancy'];
+     if(/hemorrhagic shock/.test(s))return ['Septic shock','Pulmonary edema','Hypoglycemia'];
+     if(/surgical management/.test(s))return ['Routine outpatient follow-up','Expectant management despite instability','Oral analgesia alone'];
+     if(/hyperosmolar hyperglycemic state/.test(s))return ['Diabetic ketoacidosis','Hypoglycemia','SIADH'];
+     if(/osmolality and electrolytes/.test(s))return ['CBC only','Thyroid tests only','Liver enzymes only'];
+     if(/thyroid storm/.test(s))return ['Myxedema coma','Adrenal crisis','Panic attack'];
+     if(/beta blocker and antithyroid/.test(s))return ['Levothyroxine alone','Potassium replacement alone','Insulin and glucagon'];
+     if(/^npo$/i.test(s))return ['Regular diet','Clear liquids','Thickened liquids before swallow assessment'];
+     if(/last-known-well/.test(s))return ['Hospital arrival time','Time symptoms were discovered','Time of last meal'];
+     if(/noncontrast head ct/.test(s))return ['MRI with contrast first','Chest radiograph','Carotid ultrasound'];
+     if(/apical/.test(s))return ['Radial','Pedal','Carotid'];
+     if(/withhold/.test(s))return ['Administer as scheduled','Double the next dose','Give with food'];
+     if(/prescriber/.test(s))return ['Dietary services','Housekeeping','Client visitor'];
+     return ['An alternative that does not match the documented clinical findings','A less appropriate response for this presentation','An unrelated finding or intervention'];
+    };
+    q.dropdowns=Object.keys(keys).map(id=>{const correct=keys[id],opts=arr(source[id]);return {id,options:[...new Set([...opts,String(correct),...distractors(correct)])],correct};});
+   }
+   if(!q.clozeTemplate)q.clozeTemplate=stem;
+   arr(q.dropdowns).forEach(d=>{d.id=first(d.id,'blank_'+(arr(q.dropdowns).indexOf(d)+1));const correct=first(d.correct,keys[d.id]);if(correct!==undefined){d.correct=correct;d.options=[...new Set([...arr(d.options),String(correct)])];}d.options.forEach(add);});
+   q.correctAnswers=q.correctAnswers||Object.fromEntries(arr(q.dropdowns).filter(d=>d.correct!==undefined).map(d=>[d.id,d.correct]));
+  }
+  if(fmt==='Highlight')arr(q.highlightSegments).forEach(s=>{if(arr(q.correctHighlights).includes(s.id))correctSet.add(s.text);});
+  if(fmt==='Numeric Entry'){
+   const n=q.correctNumericAnswer??q.numericAnswer??q.correctValue??q.correctAnswer,u=q.unit||q.units||'requested units';
+   map['Accepted numeric response']=map['Accepted numeric response']||('The keyed value is '+n+' '+u+'. Use the formula and values in the stem, preserve units, and round only at the final step.');
+   map['Response outside accepted tolerance']=map['Response outside accepted tolerance']||('A value outside the accepted tolerance may reflect a unit conversion, arithmetic, or rounding error. Recalculate using the requested unit.');
+  }
+  choices.forEach(choice=>{if(map[choice])return;map[choice]=correctSet.has(String(choice))?'Correct. This is a keyed response for '+topic+'. The clinical rationale is: '+(overall||stem):'This option is not the best response to the question asked. Compare it with the keyed response ('+keyed.slice(0,4).join('; ')+') and the clinical rationale: '+(overall||stem);});
+  if(fmt==='Matrix Single'||fmt==='Matrix Multiple'){
+   const matrix=obj(q.correctAnswers?.matrix||q.correctAnswers);
+   arr(q.rows).forEach(r=>arr(r.options).forEach(option=>{const k=matrix[r.id],ok=Array.isArray(k)?k.includes(option):k===option;map[r.id+' — '+option]=map[r.id+' — '+option]||(ok?'Correct classification for this row. '+overall:'This classification does not match the clinical meaning of the row. Reassess the cue and compare it with the keyed classification. '+overall);}));
+  }
+  if(fmt==='Highlight')arr(q.highlightSegments).forEach(s=>{const ok=arr(q.correctHighlights).includes(s.id);map[s.id+' — '+s.text]=map[s.id+' — '+s.text]||(ok?'Correct highlight: this cue supports the clinical concern in the stem. '+overall:'This segment is not a priority cue for the task asked. '+overall);});
+  q.optionRationales=map;
+  q.rationale=first(q.rationale,overall||('The keyed response is '+keyed.join('; ')+'. It best addresses the clinical decision in the stem: '+stem));
+  q.clinicalJudgmentTip=first(q.clinicalJudgmentTip,q.cjmmTip,'For '+topic+', identify the cues in the stem, compare them with baseline and risk factors, prioritize the immediate threat, choose the response supported by the clinical rationale, and evaluate the outcome using relevant assessment findings.');
+  q.rationales=Object.assign({},obj(q.rationales),{overall:q.rationales?.overall||q.rationale,options:map,clinicalJudgmentTip:q.rationales?.clinicalJudgmentTip||q.clinicalJudgmentTip});
+  if(q.caseGroupId||q.caseStudyId){
+   const src=first(q.caseStudyContext,q.caseStudy,q.patientInfo,q.clinicalScenario,q.scenario,{});
+   if(!q.patientProfile)q.patientProfile=typeof src==='string'?{presentingConcern:src}:obj(src);
+   if(!q.scenario)q.scenario=first(src?.scenario,src?.summary,typeof src==='string'?src:undefined,q.clinicalScenario,q.patientInfo?.history,stem);
+   q.clinicalScenario=q.clinicalScenario||q.scenario||stem;
+   const e=obj(q.ehr);if(!Object.keys(e).length||!e.tabs){
+    const s=String(q.scenario||stem)+' '+(typeof src==='string'?src:JSON.stringify(src||{}));
+    const match=re=>{const m=s.match(re);return m?m[1]:'Not documented in the source case; obtain at bedside.';};
+    q.ehr={tabs:{
+     nursesNotes:[{time:'Case presentation',note:q.scenario||stem}],
+     vitalSigns:{temperature:match(/temperature\s*([\d.]+\s*°?C)/i),heartRate:match(/heart rate\s*(\d+\s*\/min)/i),respiratoryRate:match(/respiratory rate\s*(\d+\s*\/min)/i),bloodPressure:match(/blood pressure\s*([\d/]+\s*mm Hg)/i),oxygenSaturation:match(/oxygen saturation\s*(\d+%)/i)},
+     labResults:{availableInCase:s.match(/(?:lactate|glucose|potassium|sodium|creatinine|hemoglobin|INR|ANC)\s*[:=]?\s*[\d.]+[^,.;]*/gi)||[],note:'Use only results documented in the case stimulus; obtain additional ordered tests as indicated.'},
+     providerOrders:{orders:src?.orders||src?.priorityAction||'Implement prescribed orders and clarify missing or conflicting instructions.'}
+    }};
+   }
+  }
+ }
  function normalize(q){
   if(!q||typeof q!=='object')return q;
   const oldMeta=obj(q.metadata),oldInteraction=obj(q.interaction),oldStimulus=obj(q.stimulus),oldStimulusText=typeof q.stimulus==='string'?q.stimulus:'',oldRationales=obj(q.rationales);
@@ -86,6 +168,7 @@
   if(q.patientInfo==null&&stimulus.patientProfile!=null)q.patientInfo=stimulus.patientProfile;
   if(q.ehr==null&&Object.keys(canonicalTabs).length)q.ehr={tabs:canonicalTabs};
   if(q.scoringMethod==null&&interaction.scoring?.method!=null)q.scoringMethod=interaction.scoring.method;
+  completeTeaching(q);
   return q;
  }
  function validate(q,index){
@@ -125,6 +208,8 @@
  }
  function normalizeBank(bank){
   const records=arr(bank);records.forEach(normalize);
+  const groups=new Map();records.forEach(q=>{const g=q&&(q.caseGroupId||q.caseStudyId||q.stimulus?.caseGroupId);if(g){if(!groups.has(g))groups.set(g,[]);groups.get(g).push(q);}});
+  groups.forEach(items=>{const used=new Set(items.map(q=>Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence)).filter(n=>Number.isInteger(n)&&n>0));let next=1;items.forEach(q=>{if(!Number.isInteger(Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence))){while(used.has(next))next++;q.caseQuestionNumber=next;q.caseStudySequence=next;used.add(next++);}else{q.caseQuestionNumber=Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence);q.caseStudySequence=q.caseQuestionNumber;}});});
   return {total:records.length,normalized:records.filter(q=>q&&q.schemaVersion===2).length};
  }
  const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate};
