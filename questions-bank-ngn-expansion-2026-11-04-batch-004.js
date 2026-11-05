@@ -22351,6 +22351,15 @@ const strokeMatrix=items.find(q=>q.id==='QR-001922');if(strokeMatrix)strokeMatri
 const strokeHighlight=items.find(q=>q.id==='QR-001925');if(strokeHighlight)strokeHighlight.correctHighlights=['h1'];
 const strokeTrend=items.find(q=>q.id==='QR-001926');if(strokeTrend)strokeTrend.options=['Activate stroke pathway and obtain urgent noncontrast head CT','Give aspirin before imaging','Rapidly lower blood pressure to normal','Wait until the next routine assessment before escalating'];
 
+// Repair the repeated bowtie mapping defect: monitoring parameters must not be keyed as nursing actions.
+items.filter(q=>q.type==='Bowtie'&&q.bowtieData&&Array.isArray(q.correctAnswers&&q.correctAnswers.actions)&&q.correctAnswers.actions.includes('Airway, breathing, circulation, and change in clinical status')).forEach(q=>{
+ const first=q.correctAnswers.actions.find(x=>x!=='Airway, breathing, circulation, and change in clinical status')||q.bowtieData.actions[0];
+ const second='Perform a focused reassessment and promptly escalate any deterioration while the prescribed intervention is initiated.';
+ const distractors=(q.bowtieData.actions||[]).filter(x=>x!==first&&!/indicate|requires|suggest|because|guides|causes|threatens|care includes|can cause|presentation|requires immediate|is a common cause/i.test(x)).filter(x=>x!=='Airway, breathing, circulation, and change in clinical status');
+ q.bowtieData.actions=[first,second,...distractors].slice(0,4);
+ q.correctAnswers.actions=[first,second];
+});
+
 if(strokeMatrix){strokeMatrix.columns=['Needs prompt escalation','Requires focused reassessment','Unsafe or delayed response','Routine finding requiring no action'];strokeMatrix.correctAnswers.cue3=['Unsafe or delayed response'];}
 
 
