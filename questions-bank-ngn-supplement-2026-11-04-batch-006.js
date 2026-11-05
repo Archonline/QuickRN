@@ -1,5 +1,5 @@
 /* QuickRN NGN standalone supplement batch 006: 500 original beta-draft items.
- * 50 clinical topics × 10 NGN formats. Pending qualified nurse-educator review.
+ * 50 clinical topics × 10 NGN formats. pending webmaster review.
  */
 (function(root){
 'use strict';
@@ -12,7 +12,7 @@ topics.slice(0,50).forEach((t,ti)=>{
  const actions=t[2].split(', ').filter(Boolean),monitors=t[3].split(', ').filter(Boolean);
  formats.forEach((fmt,fi)=>{
   const id='QR-'+String(2920+ti*10+fi).padStart(6,'0'),problem=t[0],act=actions[0]||'Escalate the acute change and implement prescribed care',monitor=monitors[0]||'Vital signs and clinical response';
-  const base={id,category:'Clinical Judgment',topic:problem,clientNeed:'Physiological Adaptation',difficulty:'High',type:fmt,ngnType:fmt,title:'A nurse is caring for a client with '+problem+'. '+t[1]+' '+({Bowtie:'Complete the bowtie by selecting the priority problem, two actions, and two parameters to monitor.', 'Matrix Single':'Classify each nursing response.', 'Matrix Multiple':'Select all applicable nursing considerations for each cue.', 'Cloze (Drop-down)':'Complete the clinical judgment statement.', 'Dropdown Rationale':'Select the interpretation, response, and rationale.', Highlight:'Highlight the cues that require priority follow-up.',Trend:'Review the clinical trend and identify the priority response.','Extended Drag and Drop':'Arrange the nursing priorities in the safest sequence.','Extended Multiple Response':'Which nursing responses are appropriate? Select all that apply.','Select N':'Select the two priority nursing responses.'})[fmt],source:'QuickRN original NGN supplement beta draft',reviewStatus:'pending_nurse_educator_review'};
+  const base={id,category:'Clinical Judgment',topic:problem,clientNeed:'Physiological Adaptation',difficulty:'High',type:fmt,ngnType:fmt,title:'A nurse is caring for a client with '+problem+'. '+t[1]+' '+({Bowtie:'Complete the bowtie by selecting the priority problem, two actions, and two parameters to monitor.', 'Matrix Single':'Classify each nursing response.', 'Matrix Multiple':'Select all applicable nursing considerations for each cue.', 'Cloze (Drop-down)':'Complete the clinical judgment statement.', 'Dropdown Rationale':'Select the interpretation, response, and rationale.', Highlight:'Highlight the cues that require priority follow-up.',Trend:'Review the clinical trend and identify the priority response.','Extended Drag and Drop':'Arrange the nursing priorities in the safest sequence.','Extended Multiple Response':'Which nursing responses are appropriate? Select all that apply.','Select N':'Select the two priority nursing responses.'})[fmt],source:'QuickRN original NGN supplement beta draft',reviewStatus:'pending_webmaster_review'};
   if(id==='QR-003390'){
    base.scenario='A client is experiencing a sickle cell vaso-occlusive crisis. The client reports severe pain, with no evidence of acute chest syndrome at the initial assessment.';
    base.title='Complete the bowtie by selecting the priority problem, two actions, and two parameters to monitor.';

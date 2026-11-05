@@ -11,14 +11,14 @@
       "Single Choice": 29,
       "Multiple Response": 1
     },
-    "reviewStatus": "pending_nurse_educator_review"
+    "reviewStatus": "pending_webmaster_review"
   },
   "gaps": [
     "QR-001330–QR-001339 remain reserved in prior draft work; confirm integration and IDs",
     "Batch 004 extends IDs through QR-002419; total newly authored records tracked separately from legacy bank counts.",
     "The four exam pages include the NGN batch 004 script; browser/runtime verification remains pending."
   ],
-  "note": "Repository audit after the priority NGN batch: 3,305 unique top-level records load in Self Study (125 legacy + 3,180 newly authored). The latest 500-record priority batch adds 150 Numeric Entry items, 150 standalone Matrix / Grid items, and 200 NGN case-study items across 40 clinically distinct five-question case groups. Existing 200-item Numeric Entry, 200-item Matrix / Grid, and 200-item case-study batches were preserved and are loaded before the new batch. All new additions remain beta drafts pending nurse-educator review; browser-level rendering/scoring remains pending.",
+  "note": "Repository audit: 3,307 unique top-level records load in the production module sequence (125 legacy + 3,182 newly authored). The 2,000-record target is exceeded. New records are pending webmaster review; no separate educator approval is required. Browser-level rendering/scoring remains pending.",
   "additionalBatches": [
     {
       "file": "questions-bank-expansion-2026-11-04-batch-002.js",
@@ -28,7 +28,7 @@
       "formatCounts": {
         "Single Choice": 50
       },
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-expansion-2026-11-04-batch-003.js",
@@ -38,7 +38,7 @@
       "formatCounts": {
         "Single Choice": 500
       },
-      "reviewStatus": "pending_nurse_educator_review",
+      "reviewStatus": "pending_webmaster_review",
       "note": "500 distinct item IDs generated from 50 core clinical concepts with 10 patient-context variants per concept; further content diversification is still needed."
     },
     {
@@ -58,7 +58,7 @@
         "Extended Multiple Response": 50,
         "Select N": 50
       },
-      "reviewStatus": "pending_nurse_educator_review",
+      "reviewStatus": "pending_webmaster_review",
       "note": "50 clinical case scenarios with 10 NGN item-format presentations per scenario. Formats are represented as individual item records; items within each scenario share the clinical case context."
     },
     {
@@ -75,7 +75,7 @@
       },
       "caseGroups": 100,
       "questionsPerCase": 5,
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
@@ -94,7 +94,7 @@
         "Extended Multiple Response": 50,
         "Select N": 50
       },
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-numeric-entry-2026-11-04-batch-007.js",
@@ -104,7 +104,7 @@
       "formatCounts": {
         "Numeric Entry": 200
       },
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-matrix-grid-2026-11-04-batch-008.js",
@@ -114,7 +114,7 @@
       "formatCounts": {
         "Matrix / Grid": 200
       },
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
@@ -127,7 +127,7 @@
       },
       "caseGroups": 40,
       "questionsPerCase": 5,
-      "reviewStatus": "pending_nurse_educator_review"
+      "reviewStatus": "pending_webmaster_review"
     },
     {
       "file": "questions-bank-ngn-priority-2026-11-04-batch-007.js",
@@ -146,11 +146,11 @@
       "caseStudyRecords": 200,
       "caseGroups": 40,
       "questionsPerCase": 5,
-      "reviewStatus": "pending_nurse_educator_review",
+      "reviewStatus": "pending_webmaster_review",
       "note": "Priority batch: 150 standalone Numeric Entry items, 150 standalone Matrix / Grid items, and 40 distinct NGN case groups × 5 sequential records. Matrix / Grid format count includes 40 additional Matrix / Grid case-study records."
     }
   ],
-  "newlyAuthoredTotal": 3180,
+  "newlyAuthoredTotal": 3182,
   "remainingToTarget": 0,
   "integration": {
     "examPages": [
@@ -159,17 +159,60 @@
       "predictor.html",
       "cat.html"
     ],
-    "status": "The four exam pages load all existing question-bank modules plus the new priority batch after the prior batches; browser/runtime rendering and scoring verification remains pending."
+    "status": "All 15 question-bank modules load in production order. Shared renderer and scoring fixtures passed for all 3,307 loaded records; a compatibility-layer regression subset of 1,199 records passed with zero missing-format panels. All four exam pages statically include the same 15 bank modules and common rendering/scoring scripts. Browser interaction and mode-specific behavior remain pending.",
+    "sharedRendererRegression": {
+      "status": "passed",
+      "recordsTested": 3307,
+      "rendered": 3307,
+      "scoredWithCorrectAnswerFixtures": 3307,
+      "missingFormatPanels": 0,
+      "duplicateIds": 0
+    },
+    "compatibilityRegression": {
+      "status": "passed",
+      "recordsTested": 1199,
+      "renderFailures": 0,
+      "scoringFailures": 0,
+      "missingFormatPanels": 0,
+      "modules": [
+        "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
+        "questions-bank-ngn-supplement-2026-11-04-batch-006.js",
+        "questions-bank-matrix-grid-2026-11-04-batch-008.js"
+      ]
+    },
+    "examPageStaticCheck": {
+      "status": "passed",
+      "pages": [
+        "selfstudy.html",
+        "timed.html",
+        "cat.html",
+        "predictor.html"
+      ],
+      "bankModulesRequired": 15,
+      "bankModulesPresentPerPage": 15,
+      "commonScriptsRequired": 5,
+      "commonScriptsPresentPerPage": 5
+    },
+    "browserModeTests": {
+      "status": "pending",
+      "notRun": [
+        "interactive browser rendering",
+        "timer expiry and timed navigation",
+        "CAT adaptive selection and termination",
+        "NCLEX Predictor calculation/report",
+        "saved state, bookmarks, and persistence"
+      ]
+    }
   },
   "totalAssignedIncludingReserved": 3305,
   "bankAudit": {
-    "branch": "main",
+    "branch": "question-bank-remediation-2026-11-05",
     "auditedFiles": [
+      "js/quickrn-ngn-case-study-addon.js",
       "questions-ngn-supplement.js",
       "questions-bank-v2.js",
       "questions-bank-v2-curated.js",
       "questions-bank-v3-clinical.js",
-      "js/quickrn-ngn-case-study-addon.js",
       "questions-bank-expansion-2026-11-04.js",
       "questions-bank-expansion-2026-11-04-batch-002.js",
       "questions-bank-expansion-2026-11-04-batch-003.js",
@@ -181,12 +224,16 @@
       "questions-bank-ngn-distinct-case-studies-2026-11-04-batch-009.js",
       "questions-bank-ngn-priority-2026-11-04-batch-007.js"
     ],
-    "uniqueTopLevelQuestionRecords": 3305,
+    "uniqueTopLevelQuestionRecords": 3307,
     "duplicateIdsAcrossLoadedFiles": 0,
     "legacyRecordsLoaded": 125,
-    "newlyAuthoredRecordsLoaded": 3180,
+    "newlyAuthoredRecordsLoaded": 3182,
     "remainingTo2000TotalRecords": 0,
     "actualModuleContribution": [
+      {
+        "file": "js/quickrn-ngn-case-study-addon.js",
+        "added": 6
+      },
       {
         "file": "questions-ngn-supplement.js",
         "added": 27
@@ -197,15 +244,11 @@
       },
       {
         "file": "questions-bank-v2-curated.js",
-        "added": 59
+        "added": 60
       },
       {
         "file": "questions-bank-v3-clinical.js",
         "added": 13
-      },
-      {
-        "file": "js/quickrn-ngn-case-study-addon.js",
-        "added": 6
       },
       {
         "file": "questions-bank-expansion-2026-11-04.js",
@@ -217,11 +260,11 @@
       },
       {
         "file": "questions-bank-expansion-2026-11-04-batch-003.js",
-        "added": 498
+        "added": 500
       },
       {
         "file": "questions-bank-ngn-expansion-2026-11-04-batch-004.js",
-        "added": 500
+        "added": 499
       },
       {
         "file": "questions-bank-ngn-case-studies-2026-11-04-batch-005.js",
@@ -252,8 +295,22 @@
       "questions.js (empty file; contributes 0 records)",
       "questions-bank-expansion-2026-11-04-batch-004.js (removed from exam-page includes; overlapping IDs with NGN batch 004)"
     ],
-    "method": "Executed all 15 non-empty bank modules in Self Study script order and counted top-level objects appended to root.questions; verified 3,305 IDs are unique with zero duplicate IDs. The priority batch was assigned IDs QR-004020–QR-004519 to preserve the existing Numeric Entry, Matrix / Grid, and NGN case-study batches.",
-    "limitations": "Counts are top-level question records. The latest priority batch contains 40 distinct clinical case groups with five sequential records each. Structural load, required fields, numeric answer presence, matrix structure, group size, and ID uniqueness passed. All new drafts require qualified nurse-educator validation; browser-level rendering/scoring in all four exam modes remains pending."
+    "method": "Executed all 15 non-empty question-bank modules in the exact order used by scripts/validate-question-bank.js; counted records appended to root.questions and verified all 3,307 loaded IDs are unique. NGN batch 004 contributes 499 records because its loader deliberately excludes one duplicate Alcohol Withdrawal Bowtie item; this is content deduplication, not an ID collision.",
+    "limitations": "Counts are top-level records, not a measure of clinical quality. NGN batch 004 adds case-specific draft rationales, optionRationales, and Clinical Judgment Tips to its 499 loaded records and corrects all checked answer-key mappings. The remaining-bank audit identifies repetition, boilerplate rationales, generic case-study distractors, and malformed numeric-entry stems documented in docs/question-bank-remediation-2026-11-05.md. All-format key-to-option mapping passed across 3,307 records; shared renderer/scoring fixtures passed for all 3,307, with compatibility-layer checks passed for 1,199 affected-format records. Browser-level and mode-specific interaction tests remain pending.",
+    "answerKeyIntegrity": {
+      "status": "passed",
+      "recordsScanned": 3307,
+      "formatsScanned": 13,
+      "keyToOptionMismatches": 0,
+      "note": "Structural mapping only; does not certify clinical correctness."
+    }
   },
-  "totalAvailableUniqueRecords": 3305
+  "totalAvailableUniqueRecords": 3307,
+  "webmasterReviewWorkflow": {
+    "clinicalReviewer": "QuickRN webmaster",
+    "reviewStatus": "pending_webmaster_review",
+    "educatorApprovalRequired": false,
+    "automatedValidationStatus": "tracked_separately",
+    "policy": "The webmaster reviews questions individually and reports corrections. Do not mark items clinically approved or educator reviewed automatically."
+  }
 }

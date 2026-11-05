@@ -55,7 +55,9 @@ root.quickRNCompatSetMatrixCell=setCell;
 function render(q,d,submitted){
  const x=canon(q);
  if(x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'){
-  const multi=x.matrixMode==='multiple',m=d.matrix||{},cols=x.columns||[],rows=x.rows||[];
+  const rows=x.rows||[],cols=x.columns||[];
+  if(!cols.length&&rows.some(row=>Array.isArray(row.options)&&row.options.length))return baseRender(x,d,submitted);
+  const multi=x.matrixMode==='multiple',m=d.matrix||{};
   const h=cols.map(c=>'<th>'+esc(c)+'</th>').join('');
   const body=rows.map((r,i)=>{const id=r.id||String(i),v=m[id];return '<tr><td>'+esc(r.text||r.label||r)+'</td>'+cols.map(c=>{const on=multi?Array.isArray(v)&&v.includes(c):v===c;return '<td><label class="qr-matrix-cell"><input type="'+(multi?'checkbox':'radio')+'" name="qr-matrix-'+esc(id)+'" '+(on?'checked':'')+' onchange="quickRNCompatSetMatrixCell('+JSON.stringify(id)+','+JSON.stringify(c)+','+multi+')"><span class="sr-only">'+api.cleanPrompt(c)+'</span></label></td>';}).join('')+'</tr>';}).join('');
   return '<div class="qr-clinical-layout question-only"><section class="qr-question-panel"><div class="qr-question-head"><h2>'+esc(x.title)+'</h2><p>'+esc(x.instruction)+'</p></div><div class="qr-response-area"><div class="qr-table-wrap"><table class="qr-matrix"><thead><tr><th>Clinical finding / statement</th>'+h+'</tr></thead><tbody>'+body+'</tbody></table></div></div></section></div>';

@@ -1,5 +1,5 @@
 /* QuickRN original NCLEX beta expansion — Batch 002.
- * IDs QR-001370–QR-001419. Original draft items; pending nurse-educator review.
+ * IDs QR-001370–QR-001419. Original draft items; pending webmaster review.
  * Additive loader; de-duplicates by item ID.
  */
 (function(root){
@@ -65,7 +65,7 @@
    const type=types[i%types.length];
    const correct=r[3][r[4]];
    const options=r[3];
-   const item={id:'QR-'+String(1370+i).padStart(6,'0'),type,category:r[0],topic:r[1],title:r[2],options,rationale:r[5],difficulty:(i%3===0?'High':'Moderate'),source:'QuickRN original beta draft',reviewStatus:'pending_nurse_educator_review'};
+   const item={id:'QR-'+String(1370+i).padStart(6,'0'),type,category:r[0],topic:r[1],title:r[2],options,rationale:r[5],difficulty:(i%3===0?'High':'Moderate'),source:'QuickRN original beta draft',reviewStatus:'pending_webmaster_review'};
    if(type==='Multiple Response'){item.options=[correct,options[(r[4]+1)%4],options[(r[4]+2)%4],options[(r[4]+3)%4]];item.correctAnswers=[correct,options[(r[4]+2)%4]];item.title+=' Select all that apply.';item.rationale+=' This item is a beta-format draft; confirm the multi-select key during educator review.';}
    else if(type==='Select N'){item.selectN=2;item.options=[correct,options[(r[4]+1)%4],options[(r[4]+2)%4],options[(r[4]+3)%4]];item.correctAnswers=[correct,options[(r[4]+2)%4]];item.title+=' Select 2 responses.';item.rationale+=' This item is a beta-format draft; confirm the select-N key during educator review.';}
    else item.correctAnswer=correct;
@@ -74,5 +74,5 @@
  const known=new Set(bank.map(q=>q&&q.id));
  for(const item of items)if(!known.has(item.id)){bank.push(item);known.add(item.id);}
  root.questions=bank;
- root.quickRNExpansionBatch20261104B={count:items.length,firstId:'QR-001370',lastId:'QR-001419',reviewStatus:'pending_nurse_educator_review'};
+ root.quickRNExpansionBatch20261104B={count:items.length,firstId:'QR-001370',lastId:'QR-001419',reviewStatus:'pending_webmaster_review'};
 })(typeof window!=='undefined'?window:globalThis);

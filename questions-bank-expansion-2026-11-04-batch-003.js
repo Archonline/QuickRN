@@ -1,6 +1,6 @@
 /* QuickRN original NCLEX beta expansion — Batch 003.
  * 500 item records, QR-001420–QR-001919.
- * Original scenario variants across 50 clinical concepts. All pending nurse-educator review.
+ * Original scenario variants across 50 clinical concepts. All pending webmaster review.
  * Additive loader; IDs are de-duplicated against the shared question bank.
  */
 (function(root){
@@ -95,12 +95,12 @@
      rationale:concept.r,
      difficulty:variant%3===0?'High':'Moderate',
      source:'QuickRN original beta draft',
-     reviewStatus:'pending_nurse_educator_review'
+     reviewStatus:'pending_webmaster_review'
    });
  }
  items.slice(0,2).forEach((item,index)=>{const previousId=item.id;item.legacyId=previousId;item.id='QR-'+String(4521+index).padStart(6,'0');});
  const known=new Set(bank.map(q=>q&&q.id));
  for(const item of items)if(!known.has(item.id)){bank.push(item);known.add(item.id);}
  root.questions=bank;
- root.quickRNExpansionBatch20261104C={count:items.length,idRanges:['QR-001422–QR-001919','QR-004521–QR-004522'],remappedIds:{'QR-001420':'QR-004521','QR-001421':'QR-004522'},reviewStatus:'pending_nurse_educator_review'};
+ root.quickRNExpansionBatch20261104C={count:items.length,idRanges:['QR-001422–QR-001919','QR-004521–QR-004522'],remappedIds:{'QR-001420':'QR-004521','QR-001421':'QR-004522'},reviewStatus:'pending_webmaster_review'};
 })(typeof window!=='undefined'?window:globalThis);
