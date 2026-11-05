@@ -389,7 +389,7 @@ function collectRenderedResponse(q,draft){
     const cells=[...tr.querySelectorAll('td')],inputs=[...tr.querySelectorAll('input')],chosen=inputs.filter(x=>x.checked);
     const name=inputs[0]?.name||'',id=name.startsWith('qr-matrix-')?name.slice(10):String(index);
     if(!chosen.length)return;
-    const values=chosen.map(input=>{const cell=input.closest('td');return headers[cell?.cellIndex??0]||'';}).filter(Boolean);
+    const values=chosen.map(input=>input.closest('label')?.querySelector('.qr-matrix-option-label')?.textContent?.trim()||'').filter(Boolean);
     if(inputs.some(x=>x.type==='checkbox'))matrix[id]=values;else matrix[id]=values[0]||'';
    });
    next.matrix=matrix;
