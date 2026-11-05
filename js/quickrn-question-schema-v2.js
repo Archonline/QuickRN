@@ -153,7 +153,7 @@
    tabs.vitalSigns.provenance='Explicit case values are retained; missing values are simulated educational data and require clinical review.';
    tabs.labResults=tabs.labResults||{availableInCase:s.match(/(?:lactate|glucose|potassium|sodium|creatinine|hemoglobin|INR|ANC)\s*[:=]?\s*[\d.]+[^,.;]*/gi)||[],note:'Use only results documented in the case stimulus; obtain additional ordered tests as indicated.'};
    tabs.providerOrders=tabs.providerOrders||{orders:src?.orders||src?.priorityAction||'Implement prescribed orders and clarify missing or conflicting instructions.'};
-   q.ehr=Object.assign({},e,{tabs});
+   q.ehr=Object.assign({},e,{tabs});q.stimulus=Object.assign({},obj(q.stimulus),{caseGroupId:q.caseGroupId||q.caseStudyId,patientProfile:q.patientProfile,tabs:q.ehr.tabs});
   }
  }
  function normalize(q){
