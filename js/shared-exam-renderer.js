@@ -93,7 +93,7 @@ function quickRNCleanClinicalText(value, metadata){
  }).filter(Boolean).join('\n').trim();
  return text;
 }
-function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(v,metadata);}
+function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(quickRNPlainClinicalText(v),metadata);}
 function quickRNSplitPrompt(q){
  q=q&&typeof q==='object'?q:{};
  const asText=v=>{
@@ -217,7 +217,13 @@ function quickRNAdaptClinicalSchema(input){
  const isPatientInfoTab=label=>/^(patient\s*(information|info|profile)|demographics|patient\s*details)$/i.test(String(label||'').trim().replace(/\s+/g,' '));
  // Patient profile is already rendered once as the patient summary. Suppress
  // a second tab with the same purpose, while retaining all clinical-data tabs.
- const tabs=entries.filter(entry=>meaningful(entry[1])&&!(hasProfileSummary&&isPatientInfoTab(entry[0]))).map(([label,value])=>[String(label||'Clinical information'),value]);
+ const seenTabContent=new Set(),seenTabLabels=new Set();
+ const tabs=entries.filter(entry=>{
+  const label=String(entry[0]||'Clinical information').trim(),value=plain(entry[1]),contentKey=value.toLowerCase().replace(/\\s+/g,' ').trim(),labelKey=label.toLowerCase().replace(/\\s+/g,' ').trim();
+  if(!value||!contentKey|| (hasProfileSummary&&isPatientInfoTab(label)))return false;
+  if(seenTabContent.has(contentKey)||seenTabLabels.has(labelKey))return false;
+  seenTabContent.add(contentKey);seenTabLabels.add(labelKey);return true;
+ }).map(([label,value])=>[String(label||'Clinical information'),value]);
  // Split the original stem before mapping patientProfile into legacy patientInfo;
  // otherwise demographics can be mistaken for the question's narrative.
  const split=quickRNSplitPrompt(q);
@@ -246,6 +252,12 @@ function quickRNAdaptClinicalSchema(input){
   }
  }
  if(Object.keys(existingEhr).length)q.ehr=existingEhr;
+ // Normalize every legacy/modern item at the shared rendering boundary. This is
+ // intentionally non-destructive: source IDs, answer keys, scoring metadata and
+ // interaction format remain untouched; only presentation fields are normalized.
+ ['title','cleanTitle','question','questionText','stem','instruction','cleanInstruction','promptTitle'].forEach(key=>{
+  if(typeof q[key]==='string')q[key]=quickRNCleanPrompt(q[key],q);
+ });
  return q;
 }
 function quickRNRenderClinicalItem(q,draft,submitted=false){
@@ -609,6 +621,35 @@ quickRNAnswerSummary=function(q,d){
  return quickRNSelectNBaseSummary(q,d);
 };
 
+function quickRNValidateQuestionRecord(input){
+ const q=input&&typeof input==='object'?input:{},format=quickRNDetectItemFormat(q),issues=[];
+ const has=(v)=>v!==undefined&&v!==null&&!(typeof v==='string'&&!v.trim());
+ if(!has(q.id))issues.push('missing_id');
+ if(!has(q.title)&&!has(q.question)&&!has(q.questionText)&&!has(q.stem))issues.push('missing_stem');
+ if(['Single Choice','Multiple Response','Extended Multiple Response','Select N','Trend'].includes(format)&&(!Array.isArray(q.options)||q.options.length<2))issues.push('missing_or_insufficient_options');
+ if(['Single Choice','Multiple Response','Extended Multiple Response','Select N','Trend','Matrix / Grid','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Highlight','Numeric Entry','Extended Drag and Drop'].includes(format)&&!has(q.correctAnswers)&&!has(q.correctAnswer)&&!has(q.correctAnswerText)&&!has(q.correctNumericAnswer)&&!has(q.numericAnswer)&&!has(q.correctOrder)&&!has(q.correctHighlights)&&!has(q.correctValue))issues.push('missing_answer_key');
+ if(!has(q.rationale)&&!has(q.rationales)&&!has(q.explanation))issues.push('missing_rationale');
+ const clinical=quickRNSplitPrompt(q).scenario;
+ if((q.caseGroupId||q.caseStudyContext||q.patientProfile||q.patientInfo||q.ehr||q.tabs)&&!clinical&&!q.patientInfo&&!q.patientProfile&&!q.ehr&&!q.tabs)issues.push('incomplete_clinical_context');
+ if(format==='Bowtie'){
+  const data=q.bowtieData||q.bowtie||{},answers=q.correctAnswers||{};
+  if(!(Array.isArray(data.conditions)&&data.conditions.length)||!(Array.isArray(data.actions)&&data.actions.length)||!(Array.isArray(data.monitoring)&&data.monitoring.length))issues.push('incomplete_bowtie_parameters');
+  if(!has(answers.condition)||!Array.isArray(answers.actions)||!Array.isArray(answers.monitoring))issues.push('incomplete_bowtie_answer_key');
+ }
+ if(format==='Matrix / Grid'&&(!(Array.isArray(q.rows)&&q.rows.length)||!(Array.isArray(q.columns)&&q.columns.length)&&!(Array.isArray(q.matrixData?.columns)&&q.matrixData.columns.length)))issues.push('incomplete_matrix_structure');
+ if(format==='Cloze (Drop-down)'&&!(Array.isArray(q.dropdowns)&&q.dropdowns.length)&&!(q.dropdowns&&typeof q.dropdowns==='object'&&Object.keys(q.dropdowns).length))issues.push('missing_cloze_dropdowns');
+ if(format==='Highlight'&&!(Array.isArray(q.highlightSegments)&&q.highlightSegments.length)&&!(Array.isArray(q.segments)&&q.segments.length)&&!has(q.highlightText)&&!has(q.passage))issues.push('missing_highlight_content');
+ if(format==='Extended Drag and Drop'&&!(Array.isArray(q.availableItems)&&q.availableItems.length>=2))issues.push('missing_ordered_items');
+ return {id:q.id||null,format,issues,valid:issues.length===0};
+}
+function quickRNNormalizeQuestionBank(records){
+ return (Array.isArray(records)?records:[]).map(record=>quickRNAdaptClinicalSchema(record));
+}
+function quickRNAuditQuestionBank(records){
+ const seen=new Set(),duplicates=[],items=(Array.isArray(records)?records:[]).map(quickRNValidateQuestionRecord);
+ items.forEach(item=>{if(item.id&&seen.has(String(item.id)))duplicates.push(item.id);else if(item.id)seen.add(String(item.id));});
+ return {total:items.length,uniqueIds:seen.size,duplicateIds:duplicates,invalidCount:items.filter(x=>!x.valid).length,items};
+}
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,
  toDraft:quickRNFromLegacyDraft,
@@ -619,5 +660,9 @@ window.QuickRNSharedRenderer={
  renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft,submitted);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
  hasAnswer:quickRNHasAnswer,
  grade:quickRNGrade,
- answerSummary:quickRNAnswerSummary
+ answerSummary:quickRNAnswerSummary,
+ normalizeQuestion:quickRNAdaptClinicalSchema,
+ normalizeBank:quickRNNormalizeQuestionBank,
+ validateQuestion:quickRNValidateQuestionRecord,
+ auditBank:quickRNAuditQuestionBank
 };
