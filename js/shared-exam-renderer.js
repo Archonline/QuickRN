@@ -263,6 +263,15 @@ function quickRNAdaptClinicalSchema(input){
  };
  const vitalSource=firstMeaningful(existingEhr.vitalSigns,existingEhr.vitals,q.vitalSigns,q.vitals,q.patientProfile?.vitalSigns,q.patientProfile?.vitals,q.patientInfo?.vitalSigns,q.patientInfo?.vitals);
  const vitalRecord=Object.assign({},vitalSource&&typeof vitalSource==='object'?vitalSource:{});
+ const vitalNarrative=[split.scenario,typeof q.patientInfo==='string'?q.patientInfo:'',typeof q.patientProfile==='string'?q.patientProfile:'',q.caseStudyContext?.summary].map(plain).filter(Boolean).join(' ');
+ const extractVital=(label,pattern,unit)=>{if(vitalRecord[label]!=null&&vitalRecord[label]!=='')return;const match=pattern.exec(vitalNarrative);if(match)vitalRecord[label]=match[1]+(match[2]?' '+match[2]:(unit||''));};
+ extractVital('temperature',/(?:temperature|temp|\bT)\s*(?:is|of|:|=)?\s*(\d{2,3}(?:\.\d+)?)\s*°?\s*([CF])?/i,'');
+ extractVital('respiratoryRate',/(?:respiratory rate|\bRR)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|breaths?\/min)?/i,'');
+ extractVital('heartRate',/(?:heart rate|\bHR)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|bpm)?/i,'');
+ extractVital('pulseRate',/(?:pulse rate|\bpulse)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|bpm)?/i,'');
+ extractVital('bloodPressure',/(?:blood pressure|\bBP)\s*(?:is|:|=)?\s*(\d{2,3}\s*\/\s*\d{2,3})\s*(mm\s*Hg)?/i,'');
+ extractVital('oxygenSaturation',/(?:oxygen saturation|\bSpO2|\bO2 sat(?:uration)?)\s*(?:is|:|=)?\s*(\d{1,3})\s*(%)?/i,'');
+ extractVital('painScore',/(?:pain score|\bpain)\s*(?:is|:|=)?\s*(\d{1,2})\s*(\/\s*10)?/i,'');
  const profileSources=[q.patientProfile,q.patientInfo,q.patientInformation,q.patient_information,q.clinicalRecord,q.medicalRecord].filter(value=>value&&typeof value==='object');
  Object.entries(vitalAliases).forEach(([label,aliases])=>{
   if(vitalRecord[label]!=null&&vitalRecord[label]!=='')return;
