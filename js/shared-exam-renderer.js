@@ -93,7 +93,7 @@ function quickRNCleanClinicalText(value, metadata){
  }).filter(Boolean).join('\n').trim();
  return text;
 }
-function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(v,metadata);}
+function quickRNCleanPrompt(v, metadata){return quickRNCleanClinicalText(quickRNPlainClinicalText(v),metadata);}
 function quickRNSplitPrompt(q){
  q=q&&typeof q==='object'?q:{};
  const asText=v=>{
@@ -171,7 +171,7 @@ function quickRNSplitPrompt(q){
 function quickRNOptionText(o){return typeof o==='string'?o:(o?.text||o?.label||o?.value||'');}
 function quickRNOptionValue(o,i){return typeof o==='string'?o:(o?.id||o?.value||o?.text||String.fromCharCode(65+i));}
 function quickRNInitialOrder(q){
- const items=[...(Array.isArray(q.availableItems)?q.availableItems:[])];
+ const items=[...(Array.isArray(q.availableItems)?q.availableItems:(Array.isArray(q.options)?q.options:[]))];
  if(items.length<2||!q.id)return items;
  let seed=0;for(const ch of String(q.id))seed=(seed*31+ch.charCodeAt(0))>>>0;
  for(let i=items.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[items[i],items[j]]=[items[j],items[i]];}
@@ -217,7 +217,13 @@ function quickRNAdaptClinicalSchema(input){
  const isPatientInfoTab=label=>/^(patient\s*(information|info|profile)|demographics|patient\s*details)$/i.test(String(label||'').trim().replace(/\s+/g,' '));
  // Patient profile is already rendered once as the patient summary. Suppress
  // a second tab with the same purpose, while retaining all clinical-data tabs.
- const tabs=entries.filter(entry=>meaningful(entry[1])&&!(hasProfileSummary&&isPatientInfoTab(entry[0]))).map(([label,value])=>[String(label||'Clinical information'),value]);
+ const seenTabContent=new Set(),seenTabLabels=new Set();
+ const tabs=entries.filter(entry=>{
+  const label=String(entry[0]||'Clinical information').trim(),value=plain(entry[1]),contentKey=value.toLowerCase().replace(/\\s+/g,' ').trim(),labelKey=label.toLowerCase().replace(/\\s+/g,' ').trim();
+  if(!value||!contentKey|| (hasProfileSummary&&isPatientInfoTab(label)))return false;
+  if(seenTabContent.has(contentKey)||seenTabLabels.has(labelKey))return false;
+  seenTabContent.add(contentKey);seenTabLabels.add(labelKey);return true;
+ }).map(([label,value])=>[String(label||'Clinical information'),value]);
  // Split the original stem before mapping patientProfile into legacy patientInfo;
  // otherwise demographics can be mistaken for the question's narrative.
  const split=quickRNSplitPrompt(q);
@@ -234,15 +240,24 @@ function quickRNAdaptClinicalSchema(input){
   else extraTabs.push([label,value]);
  });
  if(extraTabs.length)existingEhr.additionalTabs=extraTabs;
- // A scenario embedded in a traditional stem belongs in the left clinical pane,
- // even when a separate patient profile or chart tabs are also supplied.
+ // Legacy scenario prose is migrated into the standardized EHR record.
+ // It is never rendered as a separate "Clinical scenario" exhibit/tab.
  if(meaningful(split.scenario)){
   const existingNotes=plain(existingEhr.nursesNotes),scenario=plain(split.scenario);
   const alreadyInNotes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase());
-  const additionalTabs=Array.isArray(existingEhr.additionalTabs)?existingEhr.additionalTabs.slice():[];
-  if(!alreadyInNotes&&!additionalTabs.some(tab=>Array.isArray(tab)&&String(tab[1]||'').toLowerCase().includes(scenario.toLowerCase())))additionalTabs.unshift(['Clinical scenario',split.scenario]);
-  q.ehr={...existingEhr,...(additionalTabs.length?{additionalTabs}:{} )};
- }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
+  if(!alreadyInNotes){
+   existingEhr.nursesNotes=existingNotes
+    ? split.scenario+'\n\n'+existingEhr.nursesNotes
+    : split.scenario;
+  }
+ }
+ if(Object.keys(existingEhr).length)q.ehr=existingEhr;
+ // Normalize every legacy/modern item at the shared rendering boundary. This is
+ // intentionally non-destructive: source IDs, answer keys, scoring metadata and
+ // interaction format remain untouched; only presentation fields are normalized.
+ ['title','cleanTitle','question','questionText','stem','instruction','cleanInstruction','promptTitle'].forEach(key=>{
+  if(typeof q[key]==='string')q[key]=quickRNCleanPrompt(q[key],q);
+ });
  return q;
 }
 function quickRNRenderClinicalItem(q,draft,submitted=false){
@@ -303,7 +318,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
    if(blankIndex===0&&defs.length)rendered=quickRNEscape(template)+'<div class="qr-cloze-fields">'+defs.map((d,i)=>renderBlank(String(d.id??d.key??d.name??i))).join('')+'</div>';
    response='<div class="qr-cloze">'+rendered+'</div>';
  } else if(f==='Extended Drag and Drop'){
-   const items=draft.order||q.availableItems||[]; response=items.length?`<p class="qr-help">Drag items into the correct order. You can also use the arrow buttons.</p><div class="qr-sort-list">${items.map((v,i)=>`<div class="qr-sort-item" draggable="true" ondragstart="quickRNDragStart(event,${i})" ondragover="event.preventDefault()" ondrop="quickRNDrop(event,${i})"><span class="qr-drag-handle" aria-label="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span><b>Step ${i+1}</b><span class="qr-sort-text">${quickRNEscape(v)}</span><span class="qr-sort-actions"><button type="button" onclick="quickRNMoveDraft(${i},${i-1})" ${i===0?'disabled':''} aria-label="Move up">↑</button><button type="button" onclick="quickRNMoveDraft(${i},${i+1})" ${i===items.length-1?'disabled':''} aria-label="Move down">↓</button></span></div>`).join('')}</div>`:`<div class="qr-missing">This drag-and-drop item has no availableItems list.</div>`;
+   const items=draft.order||(Array.isArray(q.availableItems)?q.availableItems:(Array.isArray(q.options)?q.options:[])); response=items.length?`<p class="qr-help">Drag items into the correct order. You can also use the arrow buttons.</p><div class="qr-sort-list">${items.map((v,i)=>`<div class="qr-sort-item" draggable="true" ondragstart="quickRNDragStart(event,${i})" ondragover="event.preventDefault()" ondrop="quickRNDrop(event,${i})"><span class="qr-drag-handle" aria-label="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span><b>Step ${i+1}</b><span class="qr-sort-text">${quickRNEscape(v)}</span><span class="qr-sort-actions"><button type="button" onclick="quickRNMoveDraft(${i},${i-1})" ${i===0?'disabled':''} aria-label="Move up">↑</button><button type="button" onclick="quickRNMoveDraft(${i},${i+1})" ${i===items.length-1?'disabled':''} aria-label="Move down">↓</button></span></div>`).join('')}</div>`:`<div class="qr-missing">This drag-and-drop item has no availableItems list.</div>`;
  } else if(f==='Highlight'){
    const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
    const chosen=Array.isArray(draft.highlights)?draft.highlights:[];
@@ -606,6 +621,35 @@ quickRNAnswerSummary=function(q,d){
  return quickRNSelectNBaseSummary(q,d);
 };
 
+function quickRNValidateQuestionRecord(input){
+ const q=input&&typeof input==='object'?input:{},format=quickRNDetectItemFormat(q),issues=[];
+ const has=(v)=>v!==undefined&&v!==null&&!(typeof v==='string'&&!v.trim());
+ if(!has(q.id))issues.push('missing_id');
+ if(!has(q.title)&&!has(q.question)&&!has(q.questionText)&&!has(q.stem))issues.push('missing_stem');
+ if(['Single Choice','Multiple Response','Extended Multiple Response','Select N','Trend'].includes(format)&&(!Array.isArray(q.options)||q.options.length<2))issues.push('missing_or_insufficient_options');
+ if(['Single Choice','Multiple Response','Extended Multiple Response','Select N','Trend','Matrix / Grid','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Highlight','Numeric Entry','Extended Drag and Drop'].includes(format)&&!has(q.correctAnswers)&&!has(q.correctAnswer)&&!has(q.correctAnswerText)&&!has(q.correctNumericAnswer)&&!has(q.numericAnswer)&&!has(q.correctOrder)&&!has(q.correctHighlights)&&!has(q.correctValue))issues.push('missing_answer_key');
+ if(!has(q.rationale)&&!has(q.rationales)&&!has(q.explanation))issues.push('missing_rationale');
+ const clinical=quickRNSplitPrompt(q).scenario;
+ if((q.caseGroupId||q.caseStudyContext||q.patientProfile||q.patientInfo||q.ehr||q.tabs)&&!clinical&&!q.patientInfo&&!q.patientProfile&&!q.ehr&&!q.tabs)issues.push('incomplete_clinical_context');
+ if(format==='Bowtie'){
+  const data=q.bowtieData||q.bowtie||{},answers=q.correctAnswers||{};
+  if(!(Array.isArray(data.conditions)&&data.conditions.length)||!(Array.isArray(data.actions)&&data.actions.length)||!(Array.isArray(data.monitoring)&&data.monitoring.length))issues.push('incomplete_bowtie_parameters');
+  if(!has(answers.condition)||!Array.isArray(answers.actions)||!Array.isArray(answers.monitoring))issues.push('incomplete_bowtie_answer_key');
+ }
+ if(format==='Matrix / Grid'&&(!(Array.isArray(q.rows)&&q.rows.length)||(!(Array.isArray(q.columns)&&q.columns.length)&&!(Array.isArray(q.matrixData?.columns)&&q.matrixData.columns.length)&&!q.rows.every(row=>Array.isArray(row.options)&&row.options.length))))issues.push('incomplete_matrix_structure');
+ if(format==='Cloze (Drop-down)'&&!(Array.isArray(q.dropdowns)&&q.dropdowns.length)&&!(q.dropdowns&&typeof q.dropdowns==='object'&&Object.keys(q.dropdowns).length))issues.push('missing_cloze_dropdowns');
+ if(format==='Highlight'&&!(Array.isArray(q.highlightSegments)&&q.highlightSegments.length)&&!(Array.isArray(q.segments)&&q.segments.length)&&!has(q.highlightText)&&!has(q.passage))issues.push('missing_highlight_content');
+ if(format==='Extended Drag and Drop'&&!((Array.isArray(q.availableItems)&&q.availableItems.length>=2)||(Array.isArray(q.options)&&q.options.length>=2)))issues.push('missing_ordered_items');
+ return {id:q.id||null,format,issues,valid:issues.length===0};
+}
+function quickRNNormalizeQuestionBank(records){
+ return (Array.isArray(records)?records:[]).map(record=>quickRNAdaptClinicalSchema(record));
+}
+function quickRNAuditQuestionBank(records){
+ const seen=new Set(),duplicates=[],items=(Array.isArray(records)?records:[]).map(quickRNValidateQuestionRecord);
+ items.forEach(item=>{if(item.id&&seen.has(String(item.id)))duplicates.push(item.id);else if(item.id)seen.add(String(item.id));});
+ return {total:items.length,uniqueIds:seen.size,duplicateIds:duplicates,invalidCount:items.filter(x=>!x.valid).length,items};
+}
 window.QuickRNSharedRenderer={
  detect:quickRNDetectItemFormat,
  toDraft:quickRNFromLegacyDraft,
@@ -616,5 +660,19 @@ window.QuickRNSharedRenderer={
  renderReact:function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);const html=quickRNRenderClinicalItem(q,quickRNDraft,submitted);return submitted?'<div class="qr-submitted">'+html+'</div>':html;},
  hasAnswer:quickRNHasAnswer,
  grade:quickRNGrade,
- answerSummary:quickRNAnswerSummary
+ answerSummary:quickRNAnswerSummary,
+ normalizeQuestion:quickRNAdaptClinicalSchema,
+ normalizeBank:quickRNNormalizeQuestionBank,
+ validateQuestion:quickRNValidateQuestionRecord,
+ auditBank:quickRNAuditQuestionBank
 };
+// All four exam pages load their complete question-bank modules before this
+// shared renderer. Audit the full loaded bank once, then normalize records in
+// place so every exam mode consumes the same presentation schema. No records
+// are deleted and no answer/scoring fields are rewritten.
+if(Array.isArray(window.questions)){
+ window.QuickRNQuestionBankAudit=quickRNAuditQuestionBank(window.questions);
+ for(let i=0;i<window.questions.length;i++){
+  window.questions[i]=quickRNAdaptClinicalSchema(window.questions[i]);
+ }
+}

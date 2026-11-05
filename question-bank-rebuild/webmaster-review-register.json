@@ -1,0 +1,163 @@
+{
+  "title": "QuickRN Webmaster Question Review Register",
+  "created": "2026-11-05",
+  "scope": "All recovered question-specific reviews from prior QuickRN conversations",
+  "policy": {
+    "reviewOwner": "webmaster",
+    "educatorApprovalRequired": false,
+    "automatedValidationIsNotClinicalApproval": true,
+    "preserveCanonicalAndLegacyIds": true,
+    "preserveQuestionFormatAndScoring": true,
+    "neverInventMissingClinicalData": true,
+    "neverSilentlyDropDuplicateRecords": true,
+    "applySharedRendererNormalizationToEveryItem": true
+  },
+  "bankWideImplementation": {
+    "status": "shared-renderer-normalization-and-audit-added",
+    "file": "js/shared-exam-renderer.js",
+    "changes": [
+      "Decode HTML entities and remove markup from learner-facing prompt fields before rendering.",
+      "Normalize legacy clinical scenario text into the standardized clinical record without creating a separate Clinical scenario tab.",
+      "Suppress duplicate patient-information sections and duplicate clinical tab content while retaining distinct EHR sections.",
+      "Expose per-item structural validation and whole-bank duplicate-ID/quality audit APIs.",
+      "Keep original IDs, answer keys, item formats, and scoring metadata unchanged during presentation normalization."
+    ],
+    "validation": "JavaScript syntax checked; automated Node test execution and browser/runtime validation still required."
+  },
+  "reviews": [
+    {
+      "reviewedId": "QR-004211",
+      "canonicalId": null,
+      "finding": "Matrix/grid left pane displayed raw caseGroupId, patientProfile, and tabs metadata; clinical scenario was missing and correct/incorrect row feedback was absent.",
+      "implementation": "Shared renderer now normalizes legacy clinical data and exposes matrix structural checks. Exact source record was not located in the active script set by this pass.",
+      "status": "source_record_resolution_required"
+    },
+    {
+      "reviewedId": "QR-001657",
+      "canonicalId": null,
+      "finding": "Move the pregnant-client scenario to the left clinical pane; remove empty caseGroupId, patientProfile, and tabs metadata from the learner view; preserve question format and scoring.",
+      "implementation": "Shared renderer migrates legacy scenario text into Nurses’ Notes and suppresses raw metadata from learner-facing output.",
+      "status": "global_rendering_rule_applied_source_record_resolution_required"
+    },
+    {
+      "reviewedId": "QR-000420",
+      "canonicalId": "QR-000295",
+      "finding": "Move PPE-removal sequence context/stem to the left pane; retain ordered drag-and-drop response, sequence, and scoring.",
+      "implementation": "Global clinical prompt split/normalization applies at render time; ordered response format and scoring are not rewritten.",
+      "status": "global_rendering_rule_applied_targeted_record_verification_pending"
+    },
+    {
+      "reviewedId": "QR-002150",
+      "canonicalId": "QR-002150",
+      "finding": "Remove duplicate patient information and HTML; provide a detailed alcohol-withdrawal rationale; retain Bowtie choices and partial-credit scoring; correct/incorrect feedback must be visible.",
+      "implementation": "Current batch-004 record contains a Bowtie condition, two keyed actions, two keyed monitoring parameters, and a detailed withdrawal/CIWA-Ar rationale. Shared renderer now strips markup and deduplicates clinical sections. Scoring implementation was not modified.",
+      "status": "content_present_scoring_regression_test_required"
+    },
+    {
+      "reviewedId": "QRV3-0007",
+      "canonicalId": "QR-001313",
+      "finding": "Historical review described missing Bowtie monitoring parameters.",
+      "implementation": "Current mapped record is Dropdown Rationale, not Bowtie, and contains diagnosis/action/reason dropdowns. This is an identifier/format conflict; do not convert it to Bowtie without resolving which source item the review referred to.",
+      "status": "review_identity_conflict"
+    },
+    {
+      "reviewedId": "QRV3-0002",
+      "canonicalId": "QR-001308",
+      "finding": "Patient information was rendered as raw HTML/text and duplicated.",
+      "implementation": "Current mapped record contains patient context and EHR fields; global renderer sanitizes markup and suppresses duplicate clinical sections.",
+      "status": "global_rendering_rule_applied_targeted_record_verification_pending"
+    },
+    {
+      "reviewedId": "HTML-NGN-THY-002",
+      "canonicalId": "QR-000262",
+      "finding": "Thyroid case patient information was HTML-encoded.",
+      "implementation": "Prompt and clinical-field normalization now decodes entities and strips markup before display.",
+      "status": "global_rendering_rule_applied_targeted_record_verification_pending"
+    },
+    {
+      "reviewedId": "QB2R-0018",
+      "canonicalId": "QR-001302",
+      "finding": "No clinical information or case was shown.",
+      "implementation": "Current mapped record includes patient age/history, EHR assessment/priority concern, complete Bowtie condition/action/monitoring options and answer key. Shared renderer normalization applies.",
+      "status": "clinical_context_present_targeted_render_test_required"
+    },
+    {
+      "reviewedId": "QR-SN-0004",
+      "canonicalId": "QR-004594",
+      "finding": "Historical review reported no clinical data and no selectable responses.",
+      "implementation": "Current mapped supplement record contains patient history, vital signs, assessment, priority concern, five options, and two correct selections. Shared renderer validation will flag missing options/keys in future records.",
+      "status": "clinical_context_and_options_present_targeted_render_test_required"
+    },
+    {
+      "reviewedId": "HTML-NGN-HF-001",
+      "canonicalId": "QR-000261",
+      "finding": "Matrix response feedback did not show correct/incorrect results.",
+      "implementation": "Shared renderer contains row-level matrix correctness feedback and the new audit flags incomplete matrix structure. Specific runtime grading remains to be tested.",
+      "status": "matrix_feedback_regression_test_required"
+    },
+    {
+      "reviewedId": "QR-CS-ADULT-001-1",
+      "canonicalId": "QR-004597",
+      "finding": "Clinical information used inconsistent bold and regular font styling.",
+      "implementation": "Clinical record content is normalized to plain text and rendered through consistent shared EHR typography.",
+      "status": "global_presentation_rule_applied_targeted_render_test_required"
+    },
+    {
+      "reviewedId": "QR-CS-ADULT-001-6",
+      "canonicalId": "QR-004602",
+      "finding": "Bowtie monitoring parameters were missing.",
+      "implementation": "New Bowtie structural audit checks for condition, actions, monitoring options, and keyed monitoring answers. Source record must be verified before content changes.",
+      "status": "bowtie_record_verification_required"
+    },
+    {
+      "reviewedId": "ADDED-0025",
+      "canonicalId": "QR-000182",
+      "finding": "No clinical information was supplied.",
+      "implementation": "New bank audit reports clinical-context gaps where structured case metadata exists without usable clinical content. Missing clinical details will not be fabricated.",
+      "status": "clinical_context_review_required"
+    },
+    {
+      "reviewedId": "QB2R-0006",
+      "canonicalId": "QR-001290",
+      "finding": "Question item was unclear.",
+      "implementation": "Current mapped item is a DKA cloze plan with explicit clinical stem, potassium/glucose/ketone data, three dropdowns, keyed answers, and rationale. Keep cloze format; review wording for clarity during webmaster content review.",
+      "status": "content_present_clarity_review_required"
+    }
+  ],
+  "releaseNote": "This register preserves every recovered review and distinguishes global presentation fixes from item-specific content or scoring checks. No question is marked personally reviewed until the webmaster checks its clinical content, answer key, and rationale.",
+  "fullBankAudit": {
+    "date": "2026-11-05",
+    "loadedRecords": 3302,
+    "uniqueIds": 3302,
+    "duplicateIds": 0,
+    "remainingMissingRationales": 409,
+    "batch004": {
+      "sourceRecords": 500,
+      "caseGroupsRepaired": 10,
+      "newRationalesAdded": 90,
+      "preexistingRationalePreserved": 1,
+      "trendItemsHeld": 50,
+      "remainingNonTrendItemsMissingRationales": 359,
+      "canonicalIdQR002150Preserved": true,
+      "duplicateCollisionReport": [],
+      "repairedTopics": [
+        "Acute ischemic stroke",
+        "Sepsis with hypotension",
+        "Diabetic ketoacidosis",
+        "Acute pulmonary edema",
+        "Hyperkalemia in kidney injury",
+        "Acute coronary syndrome",
+        "COPD exacerbation",
+        "Pulmonary embolism",
+        "Acute pancreatitis",
+        "Upper GI bleeding"
+      ]
+    },
+    "findings": [
+      "All 50 batch-004 Trend records are held because their time-series rows contain intervention statements rather than serial clinical measurements.",
+      "The first 10 case groups received 90 new case-specific rationales and targeted answer-key repairs; one pre-existing detailed QR-002150 rationale was preserved.",
+      "359 remaining non-Trend batch-004 records still require item-specific rationales and review.",
+      "No clinical measurements or rationales were fabricated for the held Trend items."
+    ]
+  }
+}

@@ -17,7 +17,7 @@
       "uniqueIds": true,
       "requiredFields": true,
       "formatsCovered": 13,
-      "validationStatus": "structural_pass_clinical_review_pending",
+      "validationStatus": "structural_pass_webmaster_review_pending",
       "file": "question-bank-rebuild/batches/qr-batch-000390-000489.json",
       "commit": "521075e1ea6fd722f748caff980ca465b27f2368"
     },
@@ -74,7 +74,8 @@
     "answerKeyPresent": true,
     "rationalePresent": true,
     "supportedQuestionFormats": 13,
-    "clinicalReviewRequired": true,
+    "webmasterReviewRequired": true,
+    "manualUserReviewRequired": true,
     "integrationAcrossFourExamModesRequired": true
   },
   "notes": [
@@ -86,11 +87,15 @@
     "2026-11-02 renderer remediation: normalized structured patientInfo fields and HTML entities, escaped clinical-record values, and suppressed exact duplicate patient-information sections; added runtime integrity audit to all four exam modes.",
     "Release target reset from 4,500 to 2,000 questions. Existing four batches on main are structurally validated only; clinical review and integration into all four exam modes remain pending.",
     "The 1,000-record batch set previously created on question-bank-4500-rebuild is not promoted to main because it has not passed clinical review and renderer integration.",
-    "A question counts toward the clinically verified release target only after qualified nurse-educator review, answer-key/rationale approval, renderer compatibility checks, and successful integration tests in Self-Study, CAT, Predictor, and Timed modes.",
+    "A question is marked user-reviewed only after the webmaster has personally checked its clinical content, answer key, and rationale. Automated schema validation and four-mode rendering/scoring checks are tracked separately; educator approval is not a release gate.",
     "2026-11-02: Standardized 1,329 main-branch question records to contiguous QR-000001 through QR-001329 IDs. Original IDs are retained as legacyId and the complete mapping is stored in question-bank-rebuild/id-migration-map.json. Archived batch filenames remain unchanged for traceability; question IDs inside them use the canonical sequence. Historical branches remain unchanged.",
     "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
     "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending.",
-    "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending."
+    "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending.",
+    "2026-11-05: Recovered 14 prior webmaster question reviews into question-bank-rebuild/webmaster-review-register.json. Shared renderer now applies HTML/entity cleanup, clinical-context consolidation, duplicate-section suppression, and exposes bank-wide structural/duplicate-ID auditing. This is a presentation/schema remediation, not proof that every question has passed clinical review or four-mode browser testing.",
+    "2026-11-05 full loaded-bank audit: 3,301 records across the 15 question-bank scripts loaded by all four exam pages; 3,301 unique IDs; zero duplicate IDs; 499 records flagged for missing rationales. After validator refinement, legacy ordered-response options and row-level matrix options are recognized. No generic rationales were fabricated.",
+    "2026-11-05 batch-004 remediation: 45 of the first 50 case-group records received item-specific rationales and targeted answer/format repairs. All 50 Trend records are held pending real time-stamped clinical measurements; no trend values were fabricated. The alcohol-withdrawal QR-002150 source record is preserved and no longer removed with splice(). Full active-bank count is now 3,302 unique records with zero duplicate IDs; 454 records still lack a learner rationale (including the 50 held Trend items).",
+    "2026-11-05 continued batch-004 remediation: case groups 6–10 (Acute coronary syndrome, COPD exacerbation, Pulmonary embolism, Acute pancreatitis, Upper GI bleeding) now have 45 additional case-specific rationales and targeted answer-key repairs. Cumulative: 90 new rationales across 10 case groups; 50 Trend records held; one pre-existing detailed QR-002150 rationale preserved. Full loaded bank remains 3,302 unique IDs, zero duplicates, with 409 records missing rationales (359 non-Trend items plus 50 held Trend items)."
   ],
   "progress": {
     "questionsAuthored": 410,
@@ -186,5 +191,82 @@
         "cat.html"
       ]
     }
-  ]
+  ],
+  "webmasterReviewRegister": "question-bank-rebuild/webmaster-review-register.json",
+  "qualityPolicy": {
+    "reviewOwner": "webmaster",
+    "educatorApprovalRequired": false,
+    "preserveExistingQuestionIds": true,
+    "preserveQuestionFormatAndScoring": true,
+    "sanitizeHtmlAndEncodedMarkupAtRenderBoundary": true,
+    "normalizeLegacyClinicalScenarioIntoStandardEhr": true,
+    "suppressDuplicatePatientAndClinicalSections": true,
+    "detectDuplicateQuestionIdsWithoutDroppingRecords": true,
+    "validateAllSupportedQuestionFormats": true,
+    "bowtieRequiresConditionActionsMonitoringAndAnswerKeys": true,
+    "matrixRequiresRowsColumnsAndAnswerMappings": true,
+    "clozeRequiresDropdownsAndAnswerMappings": true,
+    "orderedResponseRequiresAvailableItemsAndCorrectOrder": true,
+    "rationaleRequired": true,
+    "doNotInventClinicalContext": true
+  },
+  "latestImplementation": {
+    "date": "2026-11-05",
+    "branch": "question-bank-schema-unification-2026-11-05",
+    "renderer": "js/shared-exam-renderer.js",
+    "test": "tests/clinical-schema-adapter.test.js",
+    "status": "bank-wide-renderer-normalization-and-structural-audit-added",
+    "completed": [
+      "Learner-facing prompt fields decode HTML entities and strip markup.",
+      "Legacy clinical scenarios are normalized into the standard clinical record rather than exposed as a separate Clinical scenario tab.",
+      "Duplicate patient-information tabs and duplicate clinical tab content are suppressed.",
+      "Shared renderer exposes per-item validation and whole-bank duplicate-ID/quality audit."
+    ],
+    "pending": [
+      "Author substantive rationales for the remaining 359 non-Trend batch-004 records in clinically reviewed batches.",
+      "Replace the 50 held Trend records with source-supported longitudinal observations before release.",
+      "Review remaining Bowtie, Matrix, Cloze, Dropdown Rationale, Highlight, ordered-response, and multiple-response records for answer-key accuracy.",
+      "Execute the Node test suite and browser tests in all four exam modes, including NGN partial-credit scoring.",
+      "Complete the webmaster's personal clinical review; educator approval is not required."
+    ],
+    "auditSnapshot": {
+      "date": "2026-11-05",
+      "scope": "All 15 question-bank scripts loaded by selfstudy.html, timed.html, cat.html, and predictor.html, in script order",
+      "records": 3302,
+      "uniqueIds": 3302,
+      "duplicateIds": 0,
+      "structurallyInvalid": 409,
+      "issueCounts": {
+        "missing_rationale": 409
+      },
+      "batch004": {
+        "sourceRecords": 500,
+        "caseGroupsRepaired": 10,
+        "newCaseSpecificRationales": 90,
+        "existingDetailedRationalesPreserved": 1,
+        "trendRecordsHeld": 50,
+        "remainingMissingRationales": 409,
+        "remainingNonTrendRationales": 359,
+        "canonicalIdQR002150Preserved": true,
+        "duplicateIdsReported": 0,
+        "repairedTopics": [
+          "Acute ischemic stroke",
+          "Sepsis with hypotension",
+          "Diabetic ketoacidosis",
+          "Acute pulmonary edema",
+          "Hyperkalemia in kidney injury",
+          "Acute coronary syndrome",
+          "COPD exacerbation",
+          "Pulmonary embolism",
+          "Acute pancreatitis",
+          "Upper GI bleeding"
+        ]
+      },
+      "notes": [
+        "All 50 Trend-format records in batch 004 are held because their time-series rows contain intervention text rather than serial clinical measurements. No synthetic vital signs or time points were invented.",
+        "The first five case groups received 45 item-specific rationales and repairs to Bowtie keys/options, Matrix Multiple unsafe-action classification, Cloze monitoring choices, Dropdown Rationale reason keys, Highlight cue keys, and Select-N choices.",
+        "The pre-existing QR-002150 alcohol-withdrawal record was restored to the loaded set; source-level deletion was removed and ID collisions are now reported."
+      ]
+    }
+  }
 }
