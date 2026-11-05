@@ -92,7 +92,8 @@
     "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
     "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending.",
     "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending.",
-    "2026-11-05: Recovered 14 prior webmaster question reviews into question-bank-rebuild/webmaster-review-register.json. Shared renderer now applies HTML/entity cleanup, clinical-context consolidation, duplicate-section suppression, and exposes bank-wide structural/duplicate-ID auditing. This is a presentation/schema remediation, not proof that every question has passed clinical review or four-mode browser testing."
+    "2026-11-05: Recovered 14 prior webmaster question reviews into question-bank-rebuild/webmaster-review-register.json. Shared renderer now applies HTML/entity cleanup, clinical-context consolidation, duplicate-section suppression, and exposes bank-wide structural/duplicate-ID auditing. This is a presentation/schema remediation, not proof that every question has passed clinical review or four-mode browser testing.",
+    "2026-11-05 full loaded-bank audit: 3,301 records across the 15 question-bank scripts loaded by all four exam pages; 3,301 unique IDs; zero duplicate IDs; 499 records flagged for missing rationales. After validator refinement, legacy ordered-response options and row-level matrix options are recognized. No generic rationales were fabricated."
   ],
   "progress": {
     "questionsAuthored": 410,
@@ -220,10 +221,27 @@
       "Shared renderer exposes per-item validation and whole-bank duplicate-ID/quality audit."
     ],
     "pending": [
+      "Author and validate substantive clinical rationales for the 499 records currently missing them; do not substitute generic placeholder text.",
       "Execute the Node test suite and browser tests in all four exam modes.",
       "Resolve source identity for historical review IDs that are not present in the active script set.",
       "Verify item-specific Bowtie, matrix, cloze, ordered-response, and partial-credit scoring.",
       "Complete the webmaster's personal clinical review; educator approval is not required."
-    ]
+    ],
+    "auditSnapshot": {
+      "date": "2026-11-05",
+      "scope": "All 15 question-bank scripts loaded by each of selfstudy.html, timed.html, cat.html, and predictor.html, audited in script order",
+      "records": 3301,
+      "uniqueIds": 3301,
+      "duplicateIds": 0,
+      "structurallyInvalid": 499,
+      "issueCounts": {
+        "missing_rationale": 499
+      },
+      "remediation": [
+        "Legacy ordered-response records using options plus correctOrder are now rendered using options when availableItems is absent.",
+        "Matrix records with row-level options are accepted without requiring a redundant global columns array."
+      ],
+      "remainingBlocker": "499 records lack an explicit rationale field. These are not assigned fabricated rationales and must be authored/reviewed before release."
+    }
   }
 }
