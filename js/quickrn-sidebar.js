@@ -38,6 +38,11 @@
   const shell=document.getElementById('app-shell');
   if(shell){const old=shell.querySelector(':scope > aside');if(old)old.replaceWith(aside);else shell.insertBefore(aside,shell.firstChild);shell.classList.add('qr-sidebar-shell');}
   else{const legacy=document.querySelector('body > div > aside');if(legacy)legacy.replaceWith(aside);else document.body.insertBefore(aside,document.body.firstChild);document.body.classList.add('qr-has-sidebar');}
-  applySidebarState(false);
+  // Start with the compact rail. Hover/focus reveals labels without shifting the page.
+  applySidebarState(true);
+  aside.addEventListener('mouseenter',()=>aside.classList.add('qr-sidebar-expanded'));
+  aside.addEventListener('mouseleave',()=>aside.classList.remove('qr-sidebar-expanded'));
+  aside.addEventListener('focusin',()=>aside.classList.add('qr-sidebar-expanded'));
+  aside.addEventListener('focusout',event=>{if(!aside.contains(event.relatedTarget))aside.classList.remove('qr-sidebar-expanded');});
   const requestedTab=String(window.location.hash||'').slice(1);if(path==='dashboard.html'&&['dashboard','learning','features','analytics'].includes(requestedTab))window.switchTab(requestedTab);
 })();
