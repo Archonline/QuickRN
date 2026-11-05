@@ -12,7 +12,7 @@ The 15 non-empty question-bank modules were executed in the same order used by `
 - **3,307** unique IDs; zero duplicate IDs in this execution.
 - 125 legacy records and 3,182 newly authored records.
 - The prior tracker reported 3,305 total / 3,180 new. It was stale by two records: the current source contributes 60 (not 59) from `questions-bank-v2-curated.js` and 500 (not 498) from `questions-bank-expansion-2026-11-04-batch-003.js`.
-- The NGN batch 004 source contains 500 entries, but its loader appends **499** because one colliding ID is deliberately excluded. Therefore, **2,808** records are outside batch 004, rather than the previously reported 2,805. This is a loader-count reconciliation, not an additional content target.
+- The NGN batch 004 source contains 500 entries, but its loader deliberately removes one duplicate Alcohol Withdrawal Bowtie before appending records; the module therefore contributes **499**. This is a content-deduplication filter, not an ID collision. The bank contains other Alcohol Withdrawal items and case-study variants. Therefore, **2,808** records are outside batch 004, rather than the previously reported 2,805. This is a loader-count reconciliation, not an additional content target.
 
 ## 1. NGN batch 004 remediation
 
@@ -110,6 +110,32 @@ Regression checks performed on the remediation branch:
 A repeatable Node regression script was added at `scripts/validate-exam-bank-rendering.js`.
 
 **Test boundary:** these checks execute the production bank modules, schema normalizer, shared renderer, NGN compatibility layer, and scoring logic with correct-answer fixtures. They verify that items can be rendered and their keyed answers score correctly. They do not simulate actual browser clicks, timer expiry, CAT adaptive question selection, Predictor calculations, saved progress/bookmarks, or persistence. Those mode-specific browser tests remain outstanding.
+
+
+### All-format answer-key integrity scan
+
+The normalized 3,307-record bank was checked for key-to-option consistency across all 13 schema formats. The scan verified keyed values against their corresponding option sets, row-specific matrix options, dropdown choices, highlight segment IDs, ordered items, and numeric answer presence.
+
+<badge color="success">0 structural key-to-option mismatches</badge>
+
+| Format | Records |
+|---|---:|
+| Single Choice | 797 |
+| Multiple Response | 196 |
+| Select N | 108 |
+| Matrix Single | 634 |
+| Matrix Multiple | 102 |
+| Cloze (Drop-down) | 244 |
+| Dropdown Rationale | 102 |
+| Bowtie | 245 |
+| Extended Drag and Drop | 102 |
+| Extended Multiple Response | 102 |
+| Highlight | 209 |
+| Trend | 108 |
+| Numeric Entry | 358 |
+| **Total** | **3,307** |
+
+This confirms that answer keys point to available choices or valid numeric fields. It does not establish that every clinical answer is medically correct or that every distractor is well written; those remain part of the webmaster's content review.
 
 ## 4. Release and testing status
 
