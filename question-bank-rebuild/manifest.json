@@ -91,7 +91,8 @@
     "2026-11-02 ID migration: 1,329 question records now use the contiguous canonical QR-000001–QR-001329 sequence. Legacy identifiers are preserved in legacyId and recorded in id-migration-map.json. Archived batch filenames remain historical labels; the range metadata and question IDs inside each archive have been migrated.",
     "2026-11-04: Batch 11 expansion started on main. Ten draft items QR-001330–QR-001339 committed to question-bank-rebuild/batches/qr-batch-001330-001829.json. These ten are not yet counted as structurally validated; clinical review and four-mode integration remain pending.",
     "2026-11-04: Batch 004 added 20 original Single Choice items QR-001920–QR-001939 in questions-bank-expansion-2026-11-04-batch-004.js and loaded the script in Self-Study, CAT, Predictor, and Timed pages. Clinical review and browser/runtime verification remain pending.",
-    "2026-11-05: Substantive content remediation applied to 2,399 active NGN/calculation records across expansion batches 004–009 and priority batch 007. Records remain pending clinical review; existing IDs and exam scoring behavior are preserved. See contentRemediation for batch-level scope."
+    "2026-11-05: Substantive content remediation applied to 2,399 active NGN/calculation records across expansion batches 004–009 and priority batch 007. Records remain pending clinical review; existing IDs and exam scoring behavior are preserved. See contentRemediation for batch-level scope.",
+    "2026-11-05 follow-up: numeric-entry stems, 100-case/500-item NGN batch 005, 500-item priority batch 007, and 60 curated items received additional content remediation. Runtime schema normalization now completes rationales, cloze answer mappings, case EHR tabs, and draft metadata across the 3,972-record active bank. No item has been marked clinically approved."
   ],
   "progress": {
     "questionsAuthored": 410,
@@ -251,12 +252,37 @@
           "case-sequence clinical judgment tips",
           "single-response and SATA answer mapping"
         ]
+      },
+      {
+        "file": "questions-bank-numeric-entry-2026-11-04-batch-007.js",
+        "records": 200,
+        "work": [
+          "restore complete numeric calculation stems in rendered question field",
+          "add calculation-specific rationales and medication-safety tips",
+          "preserve accepted numeric answer and tolerance"
+        ]
+      },
+      {
+        "file": "questions-bank-v2-curated.js",
+        "records": 60,
+        "work": [
+          "complete option-specific rationales",
+          "add Clinical Judgment Tips",
+          "complete structured EHR for linked sepsis case group"
+        ]
       }
     ],
-    "uniqueRecordsRemediated": 2399,
+    "uniqueRecordsRemediated": 2659,
     "reviewStatus": "pending_nurse_educator_review",
     "clinicalReviewCompleted": 0,
     "scoringBehaviorChanged": false,
-    "note": "Transformations update matching active bank records by canonical ID instead of silently skipping them as duplicate additions. Automated structural validation is not clinical approval."
+    "note": "Transformations update matching active bank records by canonical ID instead of silently skipping them as duplicate additions. Automated structural validation is not clinical approval.",
+    "runtimeNormalizedRecords": 3972,
+    "additionalWork": [
+      "Canonical schema adapter now supplies item-anchored option rationales and Clinical Judgment Tips when missing, using the original keyed answer and existing overall rationale.",
+      "Canonical schema adapter constructs cloze dropdowns from existing answerKey data and topic-specific distractors when a source record has only a keyed blank map.",
+      "Draft Client Needs, CJMM stage, and difficulty metadata are inferred from question topic, category, task wording, and format; these classifications remain subject to review.",
+      "Linked cases receive normalized EHR tabs and complete vital-sign fields. Explicit values are retained; missing vital signs are labelled simulated and pending clinical review."
+    ]
   }
 }
