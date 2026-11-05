@@ -30,7 +30,7 @@
   return undefined;
  }
  function inferClientNeed(q){
-  const s=[q.topic,q.subtopic,q.category,q.question,q.title,q.stem,q.caseStudy?.title,q.caseStudy?.scenario].filter(Boolean).join(' ').toLowerCase();
+  const s=[q.topic,q.subtopic,q.category,q.metadata?.category,q.question,q.title,q.stem,q.caseStudy?.title,q.caseStudy?.scenario].filter(Boolean).join(' ').toLowerCase();
   if(/delegat|assign|prioritiz.*multiple clients|informed consent|advance directive|confidentiality|legal|ethical|care coordination|discharge planning|continuity of care/.test(s))return 'Management of Care';
   if(/isolation|infection control|transmission precaution|sterile technique|fall prevention|restraint|safety|suicide|self-harm|abuse|hazard|workplace safety/.test(s))return 'Safety and Infection Control';
   if(/pregnan|prenatal|postpartum|newborn|infant growth|developmental milestone|immuniz|screening|health promotion|wellness|family planning|preventive/.test(s))return 'Health Promotion and Maintenance';
@@ -43,7 +43,7 @@
   if(/mean arterial pressure|temperature conversion|weight change|specimen collection|wound drainage|fluid balance|arterial versus venous disease|peripheral arterial disease/.test(s))return 'Reduction of Risk Potential';
   if(/laboratory|diagnostic|postoperative complication|complication|monitoring|risk for|adverse effect|procedure|preoperative|postoperative|electrolyte|test result|assessment finding/.test(s))return 'Reduction of Risk Potential';
   if(/shock|respiratory failure|cardiac|heart failure|stroke|sepsis|renal failure|kidney injury|diabetic ketoacidosis|DKA|pulmonary|neurologic|endocrine|gastrointestinal|hemorrhage|acute|critical|epiglottitis|croup|febrile seizure|anaphylaxis|meningitis|hypoglycemia|dehydration|hyperkalemia|intracranial pressure|myasthenic crisis|intussusception|rhabdomyolysis|thyroid storm|tension pneumothorax|adrenal crisis|compartment syndrome|sickle cell|pyloric stenosis|tetralogy|atrial fibrillation|COPD/.test(s))return 'Physiological Adaptation';
-  const category=String(q.category||'').toLowerCase();if(/adult health|child health|pediatrics|renal/.test(category))return 'Physiological Adaptation';if(/fundamentals/.test(category))return 'Basic Care and Comfort';
+  const category=String(q.category||q.metadata?.category||'').toLowerCase();if(/adult health|child health|pediatrics|renal/.test(category))return 'Physiological Adaptation';if(/fundamentals/.test(category))return 'Basic Care and Comfort';
   return undefined;
  }
  function inferDifficulty(q){
