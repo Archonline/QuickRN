@@ -55,13 +55,13 @@ items.forEach(q=>{
   labResults:{availableInCase:summary.match(/(?:glucose|lactate|ANC|INR|potassium|sodium|creatinine|platelets|hemoglobin|pH)\s*[^,.;]*/gi)||[],note:'Only values explicitly stated in the case summary are available; obtain other ordered tests rather than assuming results.'},
   providerOrders:{priorityPlan:action,orderStatus:'Implement prescribed orders and clarify any missing or conflicting order.'}
  }};
- let stem='',options=[],correct='';
+ let stem='',options=[],correct='',correctSet=[];
  if(seq===1){
   stem='Which finding is the most important cue for the nurse to recognize first?';
   options=[summary,'A chronic finding that is unchanged from the client’s baseline.','A secondary symptom that requires assessment but does not explain the immediate risk.','A routine measurement within the expected range.'];correct=options[0];
  }else if(seq===2){
   stem='Which nursing action should the nurse take first based on the current findings?';
-  options=[action,'Complete routine documentation and reassess at the next scheduled observation.','Treat a secondary symptom while postponing the condition-specific response.','Wait for the next shift to determine whether the abnormal findings persist.'];correct=options[0];
+  options=[action,'Reassess the client promptly and trend the relevant abnormal findings.','Complete routine documentation and reassess at the next scheduled observation.','Treat a secondary symptom while postponing the condition-specific response.'];correct=options[0];correctSet=[options[0],options[1]];
  }else if(seq===3){
   stem='Which parameter should the nurse prioritize when evaluating the client’s response to the intervention?';
   options=[monitor,'A routine measure that does not reflect the threatened organ function.','The client’s nonurgent comfort preference.','A long-term health-maintenance measure unrelated to the acute change.'];correct=options[0];
@@ -72,10 +72,9 @@ items.forEach(q=>{
   stem='Which finding would best indicate that the client is responding to the priority intervention?';
   options=['The relevant clinical parameters improve: '+monitor+'.','The priority abnormal findings remain unchanged or worsen.','A nonurgent comfort need is met while the acute findings persist.','Routine documentation is completed without repeat assessment.'];correct=options[0];
  }
- q.title=stem;q.question=stem;q.options=options;q.correctAnswer=correct;q.correctAnswers=seq===2?undefined:undefined;
- if(seq===2){q.correctAnswers=undefined;} // preserve single-key behavior for this single-choice item
+ q.title=stem;q.question=stem;q.options=options;q.type=seq===2?'Multiple Response':'Single Choice';q.ngnType=q.type;if(seq===2){q.correctAnswers=correctSet;q.correctAnswer=undefined;}else{q.correctAnswer=correct;q.correctAnswers=undefined;}
  q.rationale=makeCaseRationale(q,correct,true,action,monitor,summary);
- q.optionRationales={};options.forEach(o=>q.optionRationales[o]=makeCaseRationale(q,o,o===correct,action,monitor,summary));
+ q.optionRationales={};options.forEach(o=>q.optionRationales[o]=makeCaseRationale(q,o,seq===2?correctSet.includes(o):o===correct,action,monitor,summary));
  q.clinicalJudgmentTip='Use the case sequence rather than treating each item as isolated: identify the time-sensitive cue, connect it to the likely complication, choose the immediate condition-specific response, monitor '+monitor+', and evaluate whether the trend improves. Do not delay escalation for routine tasks.';
  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
  q.difficulty='High';q.reviewStatus='pending_nurse_educator_review';
