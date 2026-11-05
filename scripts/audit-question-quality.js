@@ -46,7 +46,7 @@ if(!stem||stem.length<35)add(q,i,'error','WEAK_OR_MISSING_STEM','Prompt is missi
 if(/which action is appropriate\?|what should the nurse do\?|review the clinical cues and complete the clinical judgment item/i.test(stem))add(q,i,'warning','GENERIC_TASK_ONLY','Prompt uses a generic task without a specific decision target.');
 const opts=Array.isArray(q.options)?q.options:Array.isArray(q.interaction?.options)?q.interaction.options:[];
 const labels=opts.map(x=>typeof x==='string'?x:String(x?.text||x?.label||x?.value||''));
-if(labels.length&&new Set(labels.map(x=>x.trim().toLowerCase())).size!==labels.length)add(q,i,'error','DUPLICATE_OPTIONS','Choice list contains repeated option text: '+optionText.join(' | '));
+if(labels.length&&new Set(labels.map(x=>x.trim().toLowerCase())).size!==labels.length)add(q,i,'error','DUPLICATE_OPTIONS','Choice list contains repeated option text: '+labels.join(' | '));
 if(labels.some(x=>weakDistractor.test(x)))add(q,i,'error','IMPLAUSIBLE_DISTRACTOR','One or more distractors are obviously unrelated or clinically unsafe as written.');
 const rationale=q.rationales?.options||q.optionRationales||q.rationalesByOption||{};
 if(labels.length&&['Single Choice','Multiple Response','Select N','Extended Multiple Response','Trend'].includes(f)){
