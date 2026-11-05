@@ -68,7 +68,7 @@ for(let i=0;i<bank.length;i++){
  const stem=String(q.question||q.stem||q.title||'').trim();
  if(/^(?:Traditional NCLEX practice|NGN (?:Matrix \/ Grid|Cloze \(Drop-down\)|Extended Drag and Drop|Bowtie|Extended Multiple Response)|SATA)\s+\d+\s*[—-]/i.test(stem) ||
     /the client is alert and can answer questions|no written action plan is available|relevant medical history and several current assessment findings|reports a new symptom to the bedside nurse|vital signs have changed over the last hour/i.test(stem)){
-  qualityWarnings.push({index:i,id:q.id||null,format:f,code:'GENERIC_TEMPLATE_STEM',message:'Stem contains generic/template wording; requires clinical educator review before beta use.'});
+  qualityWarnings.push({index:i,id:q.id||null,format:f,code:'GENERIC_TEMPLATE_STEM',message:'Stem contains generic/template wording; requires the webmaster's manual clinical review before beta use.'});
  }
  const options=Array.isArray(q.options)?q.options:[];
  const optionHas=value=>options.some(option=>(typeof option==='string'&&String(option)===String(value))||[option&&option.id,option&&option.value,option&&option.text,option&&option.label].some(candidate=>candidate!==undefined&&String(candidate)===String(value)));
