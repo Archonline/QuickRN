@@ -124,5 +124,19 @@
       "status": "content_present_clarity_review_required"
     }
   ],
-  "releaseNote": "This register preserves every recovered review and distinguishes global presentation fixes from item-specific content or scoring checks. No question is marked personally reviewed until the webmaster checks its clinical content, answer key, and rationale."
+  "releaseNote": "This register preserves every recovered review and distinguishes global presentation fixes from item-specific content or scoring checks. No question is marked personally reviewed until the webmaster checks its clinical content, answer key, and rationale.",
+  "fullBankAudit": {
+    "date": "2026-11-05",
+    "loadedRecords": 3301,
+    "uniqueIds": 3301,
+    "duplicateIds": 0,
+    "remainingStructuralFindings": {
+      "missing_rationale": 499
+    },
+    "fixesFromAudit": [
+      "Legacy ordered-response questions now fall back to their options array when availableItems is absent.",
+      "Matrix questions with row-specific options no longer fail validation solely because a global columns array is absent."
+    ],
+    "releaseBlocker": "499 questions have no explicit rationale. No placeholder or generic rationale was inserted; these require substantive authoring and webmaster review."
+  }
 }
