@@ -165,11 +165,11 @@
   "bankAudit": {
     "branch": "question-bank-remediation-2026-11-05",
     "auditedFiles": [
+      "js/quickrn-ngn-case-study-addon.js",
       "questions-ngn-supplement.js",
       "questions-bank-v2.js",
       "questions-bank-v2-curated.js",
       "questions-bank-v3-clinical.js",
-      "js/quickrn-ngn-case-study-addon.js",
       "questions-bank-expansion-2026-11-04.js",
       "questions-bank-expansion-2026-11-04-batch-002.js",
       "questions-bank-expansion-2026-11-04-batch-003.js",
@@ -188,23 +188,23 @@
     "remainingTo2000TotalRecords": 0,
     "actualModuleContribution": [
       {
-        "file": "questions-ngn-supplement.js",
+        "file": "js/quickrn-ngn-case-study-addon.js",
         "added": 6
       },
       {
-        "file": "questions-bank-v2.js",
+        "file": "questions-ngn-supplement.js",
         "added": 27
       },
       {
-        "file": "questions-bank-v2-curated.js",
+        "file": "questions-bank-v2.js",
         "added": 20
       },
       {
-        "file": "questions-bank-v3-clinical.js",
+        "file": "questions-bank-v2-curated.js",
         "added": 60
       },
       {
-        "file": "js/quickrn-ngn-case-study-addon.js",
+        "file": "questions-bank-v3-clinical.js",
         "added": 13
       },
       {
