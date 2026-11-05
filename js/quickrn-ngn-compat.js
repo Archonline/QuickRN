@@ -15,12 +15,12 @@ function canon(src){
  let f='Single Choice';
  if(/matrix.*multiple|multiple.*matrix/.test(raw))f='Matrix Multiple';
  else if(/matrix|grid/.test(raw)||(q.rows&&q.columns))f='Matrix Single';
- else if(/select n|select exactly/.test(raw)||q.nRequired||q.selectN||q.numberToSelect)f='Select N';
- else if(/bow ?tie/.test(raw)||q.bowtieConfig||q.bowtieData)f='Bowtie';
- else if(/dropdown rationale|dropdown cloze|cloze|drop down/.test(raw)||q.dropdowns||q.clozeTemplate)f='Cloze (Drop-down)';
- else if(/highlight/.test(raw)||q.tokens||q.highlightText||q.highlightSegments)f='Highlight';
+ else if(/select n|select exactly/.test(raw)||q.nRequired||q.selectN!==undefined||q.numberToSelect!==undefined||q.requiredSelections!==undefined||q.selectCount!==undefined)f='Select N';
+ else if(/bow ?tie/.test(raw)||q.bowtieConfig||q.bowtieData||q.bowtie)f='Bowtie';
+ else if(/dropdown rationale|dropdown cloze|cloze|drop down|dropdown/.test(raw)||q.dropdowns||q.clozeTemplate||q.clozeOptions)f='Cloze (Drop-down)';
+ else if(/highlight/.test(raw)||q.tokens||q.highlightText||q.highlightSegments||q.correctHighlights)f='Highlight';
  else if(/trend/.test(raw)||q.trendData||q.trends||q.trendTable)f='Trend';
- else if(/numeric/.test(raw)||q.correctValue!==undefined||q.acceptedRange)f='Numeric Entry';
+ else if(/numeric|number entry/.test(raw)||q.correctValue!==undefined||q.correctNumericAnswer!==undefined||q.numericAnswer!==undefined||q.numericRange||q.acceptedRange)f='Numeric Entry';
  else if(/ordered|drag|reorder/.test(raw)||q.items||q.availableItems||q.correctOrder)f='Extended Drag and Drop';
  else if(/extended multiple response/.test(raw))f='Extended Multiple Response';
  else if(/sata|select all|multiple response/.test(raw))f='Multiple Response';
@@ -42,7 +42,7 @@ function canon(src){
   if(q.correctAnswer==null&&q.correctAnswerText==null){const x=opts.find(o=>o&&typeof o==='object'&&o.correct);if(x)q.correctAnswer=x.id||x.value||x.text||x.label;}
  }
  if((f==='Multiple Response'||f==='Select N')&&!Array.isArray(q.correctAnswers)){const a=opts.map((o,i)=>({o,i})).filter(x=>x.o&&typeof x.o==='object'&&x.o.correct).map(x=>ov(x.o,x.i));if(a.length)q.correctAnswers=a;}
- if(f==='Select N')q.selectN=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||0);
+ if(f==='Select N')q.selectN=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||q.selectCount||0);
  if(f==='Bowtie'){const b=q.bowtieConfig||{},old=q.bowtieData||{},c=b.correct||q.correctAnswers?.bowtie||q.correctAnswers||{};q.bowtieData={actions:old.actions||b.actionsPool||[],conditions:old.conditions||b.conditionsPool||[],monitoring:old.monitoring||old.params||b.paramsPool||b.parametersPool||[]};q.correctAnswers={condition:c.condition||'',actions:c.actions||[],monitoring:c.monitoring||c.params||c.parameters||[]};}
  if(f==='Cloze (Drop-down)'){if(Array.isArray(q.dropdowns)){const om={},cm={};q.dropdowns.forEach(d=>{om[d.id]=d.options||[];if(d.correct!==undefined)cm[d.id]=d.correct;});q.options=q.options&&!Array.isArray(q.options)?q.options:om;q.correctAnswers=q.correctAnswers||cm;}q.clozeTemplate=s(q.clozeTemplate||q.templateText||q.template||q.questionText||q.question||'').replace(/\[([A-Za-z0-9_-]+)\]/g,'{$1}');}
  if(f==='Highlight'&&Array.isArray(q.tokens)){q.highlightSegments=q.tokens.filter(t=>t.selectable!==false).map(t=>({id:String(q.tokens.indexOf(t)),text:t.text||t.label||''}));q.correctHighlights=q.tokens.map((t,i)=>t.correct?String(i):null).filter(x=>x!==null);}
