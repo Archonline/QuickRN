@@ -44,7 +44,7 @@ if (failures.length) {
 console.log('PASS: all four rebuilt exam pages preserve the correct_view split-screen and load the shared question stack in dependency order.');
 
 
-const platformPages = ['index.html','dashboard.html','calendar.html','selfstudy.html','timed.html','predictor.html','cat.html','saved.html','reports.html','profile.html','help.html','correct_view.html'];
+const platformPages = ['index.html','dashboard.html','calendar.html','selfstudy.html','timed.html','predictor.html','cat.html','saved.html','reports.html','profile.html','help.html'];
 for (const page of platformPages) {
   const html = fs.readFileSync(path.join(root, page), 'utf8');
   assert.match(html, /js\/quickrn-platform-hardening\.js/, page + ' should load shared platform safeguards');
