@@ -230,7 +230,7 @@ function quickRNAdaptClinicalSchema(input){
  if(meaningful(split.scenario)){
   const existingNotes=plain(existingEhr.nursesNotes);
   const scenario=plain(split.scenario);
-  const notes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase())?existingEhr.nursesNotes:(existingNotes?String(existingEhr.nursesNotes)+'\\n\\n'+split.scenario:split.scenario);
+  const notes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase())?existingEhr.nursesNotes:(existingNotes?String(existingEhr.nursesNotes)+'\n\n'+split.scenario:split.scenario);
   q.ehr={...existingEhr,nursesNotes:notes};
  }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
  return q;
