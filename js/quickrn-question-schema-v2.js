@@ -109,7 +109,22 @@
      labResults:{availableInCase:s.match(/(?:lactate|glucose|potassium|sodium|creatinine|hemoglobin|INR|ANC)\s*[:=]?\s*[\d.]+[^,.;]*/gi)||[],note:'Use only results documented in the case stimulus; obtain additional ordered tests as indicated.'},
      providerOrders:{orders:src?.orders||src?.priorityAction||'Implement prescribed orders and clarify missing or conflicting instructions.'}
     }};
-   }
+   
+   const s=String(q.scenario||stem)+' '+(typeof src==='string'?src:JSON.stringify(src||{}));
+   const matchValue=re=>{const m=s.match(re);return m?m[1]:null;};
+   const fever=/fever|febrile|sepsis|infection|meningitis|pneumonia|endometritis|temperature\s*3[89]/i.test(s);
+   const resp=/dyspnea|respiratory distress|wheez|stridor|hypoxemia|pulmonary|bronchiolitis|COPD|asthma|airway/i.test(s);
+   const shock=/hypotension|shock|hemorrhage|anaphylaxis|BP\s*(?:7\d|8\d|9\d)\//i.test(s);
+   const tabs=obj(q.ehr.tabs),v=obj(tabs.vitalSigns);
+   tabs.vitalSigns=Object.assign({},v,{
+    temperature:v.temperature||matchValue(/(?:temperature|temp)\s*[:=]?\s*([\d.]+\s*°?C)/i)||(fever?'38.5 °C (simulated)':'36.8 °C (simulated)'),
+    heartRate:v.heartRate||matchValue(/(?:heart rate|HR)\s*[:=]?\s*(\d+\s*\/min)/i)||(shock?'122/min (simulated)':'92/min (simulated)'),
+    respiratoryRate:v.respiratoryRate||matchValue(/(?:respiratory rate|RR)\s*[:=]?\s*(\d+\s*\/min)/i)||(resp?'28/min (simulated)':'18/min (simulated)'),
+    bloodPressure:v.bloodPressure||matchValue(/(?:blood pressure|BP)\s*[:=]?\s*([\d/]+\s*mm Hg)/i)||(shock?'86/50 mm Hg (simulated)':'122/76 mm Hg (simulated)'),
+    oxygenSaturation:v.oxygenSaturation||matchValue(/(?:oxygen saturation|SpO2)\s*[:=]?\s*(\d+%)/i)||(resp?'89% (simulated)':'97% (simulated)')
+   });
+   tabs.vitalSigns.provenance='Explicit case values are retained; missing values are simulated educational data and require clinical review.';
+   q.ehr=Object.assign({},q.ehr,{tabs});}
   }
  }
  function normalize(q){
