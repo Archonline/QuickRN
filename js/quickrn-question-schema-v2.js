@@ -8,8 +8,36 @@
  const first=(...xs)=>xs.find(v=>v!==undefined&&v!==null&&v!=='');
  const normalizeDifficulty=v=>{if(Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=5)return Number(v);const s=String(v??'').trim().toLowerCase();return ({easy:1,low:1,basic:1,moderate:3,medium:3,intermediate:3,hard:5,high:5,advanced:5,'very hard':5})[s]??v;};
  const normalizeCJMM=v=>{const s=String(v??'').trim().toLowerCase().replace(/[_-]+/g,' ').replace(/\s+/g,' ');const aliases={'recognize cues':'Recognize Cues','recognising cues':'Recognize Cues','recognizing cues':'Recognize Cues','analyze cues':'Analyze Cues','analyse cues':'Analyze Cues','prioritize hypotheses':'Prioritize Hypotheses','prioritise hypotheses':'Prioritize Hypotheses','generate solutions':'Generate Solutions','take action':'Take Action','evaluate outcomes':'Evaluate Outcomes'};return aliases[s]||v;};
- function inferCJMM(q){const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase();if(/evaluate|response to (the )?intervention|indicates? improvement|effective|outcome/.test(s))return 'Evaluate Outcomes';if(/priority (problem|hypothesis)|which client should.*(see|assess|care for) first|which problem is (most )?urgent|prioriti[sz]e/.test(s))return 'Prioritize Hypotheses';
-  if(/which client is most appropriate to assign|which client should be assigned|which assignment is appropriate|what specific instruction should be given|which task should be delegated|which intervention should be planned|which nursing responses? should/.test(s))return 'Generate Solutions';if(/plan of care|which interventions? should.*plan|which outcomes? should.*establish|develop.*plan/.test(s))return 'Generate Solutions';if(/which action|what should the nurse do|which intervention should.*implement|take first|administer/.test(s))return 'Take Action';if(/most likely (cause|condition|problem)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e/.test(s))return 'Analyze Cues';if(/which finding|which cue|which assessment data|which observation|which symptom/.test(s))return 'Recognize Cues';return undefined;}
+ function inferCJMM(q){
+  const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase();
+  if(/evaluate|response to (the )?intervention|indicates? improvement|effective|outcome|after (the )?intervention|trend over time|reassess.*response/.test(s))return 'Evaluate Outcomes';
+  if(/priority (problem|hypothesis)|which client should.*(see|assess|care for) first|which problem is (most )?urgent|prioriti[sz]e|most immediate threat|highest priority concern/.test(s))return 'Prioritize Hypotheses';
+  if(/which client is most appropriate to assign|which client should be assigned|which assignment is appropriate|what specific instruction should be given|which task should be delegated|which intervention should be planned|which nursing responses? should|which interventions? should.*(include|implement|anticipate)|which actions should/.test(s))return 'Generate Solutions';
+  if(/plan of care|which interventions? should.*plan|which outcomes? should.*establish|develop.*plan|teaching plan|discharge plan/.test(s))return 'Generate Solutions';
+  if(/which action|what should the nurse do|which intervention should.*implement|take first|administer|perform immediately|how should the nurse respond|what is the nurse's first/.test(s))return 'Take Action';
+  if(/most likely (cause|condition|problem|diagnosis)|interpret|indicates? (that|the)|what does .* suggest|analy[sz]e|which conclusion|which interpretation|what is the significance/.test(s))return 'Analyze Cues';
+  if(/which finding|which cue|which assessment data|which observation|which symptom|which information|what assessment|identify the cues|highlight.*cues/.test(s))return 'Recognize Cues';
+  return undefined;
+ }
+ function inferClientNeed(q){
+  const s=[q.topic,q.subtopic,q.category,q.question,q.title,q.stem,q.caseStudy?.title,q.caseStudy?.scenario].filter(Boolean).join(' ').toLowerCase();
+  if(/delegat|assign|prioritiz.*multiple clients|informed consent|advance directive|confidentiality|legal|ethical|care coordination|discharge planning|continuity of care/.test(s))return 'Management of Care';
+  if(/isolation|infection control|transmission precaution|sterile technique|fall prevention|restraint|safety|suicide|self-harm|abuse|hazard|workplace safety/.test(s))return 'Safety and Infection Control';
+  if(/pregnan|prenatal|postpartum|newborn|infant growth|developmental milestone|immuniz|screening|health promotion|wellness|family planning|preventive/.test(s))return 'Health Promotion and Maintenance';
+  if(/anxiety|depression|grief|coping|therapeutic communication|psychosis|mania|substance use|withdrawal|mental health|behavioral health|crisis intervention/.test(s))return 'Psychosocial Integrity';
+  if(/hygiene|bathing|nutrition|feeding|mobility|ambulation|elimination|constipation|comfort|pain management|sleep|pressure injury|skin care|activities of daily living/.test(s))return 'Basic Care and Comfort';
+  if(/medication|pharmac|dosage|dose calculation|insulin|heparin|warfarin|anticoag|IV infusion|parenteral|adverse drug|drug toxicity|blood transfusion/.test(s))return 'Pharmacological and Parenteral Therapies';
+  if(/laboratory|diagnostic|postoperative complication|complication|monitoring|risk for|adverse effect|procedure|preoperative|postoperative|electrolyte|test result|assessment finding/.test(s))return 'Reduction of Risk Potential';
+  if(/shock|respiratory failure|cardiac|heart failure|stroke|sepsis|renal failure|kidney injury|diabetic ketoacidosis|DKA|pulmonary|neurologic|endocrine|gastrointestinal|hemorrhage|acute|critical/.test(s))return 'Physiological Adaptation';
+  return undefined;
+ }
+ function inferDifficulty(q){
+  const s=String(first(q.question,q.questionText,q.stem,q.title,q.instruction)||'').toLowerCase(),fmt=detectFormat(q);
+  if(q.caseGroupId||q.caseStudyId||['Bowtie','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Trend','Extended Drag and Drop','Extended Multiple Response','Select N','Highlight'].includes(fmt))return 4;
+  if(/priority|first|most urgent|immediate|unstable|interpret|analy[sz]e|multiple cues|select all|which action|clinical judgment/.test(s))return 4;
+  if(fmt==='Numeric Entry'||/calculate|dosage|infusion rate/.test(s))return 3;
+  return 3;
+ }
  function canonicalClientNeed(q){const allowed=['Management of Care','Safety and Infection Control','Health Promotion and Maintenance','Psychosocial Integrity','Basic Care and Comfort','Pharmacological and Parenteral Therapies','Reduction of Risk Potential','Physiological Adaptation'];const candidate=first(q.clientNeeds,q.clientNeed,q.client_needs,q.nclexClientNeed,q.nclexClientNeeds,q.clientNeedCategory,q.category);return allowed.includes(candidate)?candidate:undefined;}
  function inferScoring(type){return ['Multiple Response','Select N','Matrix Single','Matrix Multiple','Bowtie','Highlight','Cloze (Drop-down)','Dropdown Rationale','Extended Drag and Drop','Extended Multiple Response','Trend'].includes(type)?'plus_minus':'0/1';}
  const obj=v=>v&&typeof v==='object'&&!Array.isArray(v)?v:{};
@@ -134,9 +162,9 @@
   const metadata=Object.assign({},oldMeta,{
    id:first(oldMeta.id,q.id),
    category:first(oldMeta.category,q.category,q.subject),
-   clientNeeds:first(oldMeta.clientNeeds,q.clientNeeds,q.clientNeed,q.client_needs,q.nclexClientNeed,q.nclexClientNeeds,q.clientNeedCategory,canonicalClientNeed(q)),
+   clientNeeds:first(oldMeta.clientNeeds,q.clientNeeds,q.clientNeed,q.client_needs,q.nclexClientNeed,q.nclexClientNeeds,q.clientNeedCategory,canonicalClientNeed(q),inferClientNeed(q)),
    cjmmStep:normalizeCJMM(first(oldMeta.cjmmStep,q.cjmmStep,q.clinicalJudgmentStep,q.cjmm_stage,inferCJMM(q))),
-   difficulty:normalizeDifficulty(first(oldMeta.difficulty,q.difficulty,q.difficultyLevel,q.level)),
+   difficulty:normalizeDifficulty(first(oldMeta.difficulty,q.difficulty,q.difficultyLevel,q.level,inferDifficulty(q))),
    difficultyLabel:first(oldMeta.difficultyLabel,q.difficulty,q.difficultyLevel,q.level)
   });
   const tabs=obj(first(oldStimulus.tabs,q.ehr?.tabs,q.clinicalRecord?.tabs,q.medicalRecord?.tabs));
