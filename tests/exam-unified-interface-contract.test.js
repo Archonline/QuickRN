@@ -74,7 +74,7 @@ assert.doesNotMatch(calendar, /id="test-countdown-section"/, 'Calendar does not 
 assert.match(calendar, /grid\.addEventListener\('click'[\s\S]*?event-form-panel'\)\.classList\.remove\('hidden'\)/, 'Selecting a date opens the prefilled personal activity form');
 assert.match(brand, /#answer-workspace \.qr-feedback-correct\{color:#15803d/);
 assert.match(brand, /#answer-workspace \.qr-feedback-incorrect\{color:#b91c1c/);
-assert.match(read('css/quickrn-unified-exam.css'), /qr-clinical-scenario-text[^}]*font-size:19px/);
-assert.match(read('css/quickrn-unified-exam.css'), /#rationale-section:not\(\.hidden\)\{display:block/);
+assert.match(app, /quickrn-clinical-scenario-style[\s\S]*?qr-clinical-scenario-text\{font-size:18px/);
+assert.match(app, /\$\('rationale-section'\)\.style\.display='none'/);
 assert.match(read('dashboard.html'), /record\.accuracyPercent \?\? record\.itemAccuracyPercent/);
 console.log('Unified exam interface contract tests passed.');
