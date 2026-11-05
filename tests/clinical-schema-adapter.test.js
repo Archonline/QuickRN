@@ -62,4 +62,24 @@ assert.equal(audit.uniqueIds,1,'bank audit detects duplicate question IDs');
 assert.deepEqual(Array.from(audit.duplicateIds),['QR-SCHEMA-TEST-HTML'],'duplicate IDs are reported without silently deleting records');
 assert.ok(api.validateQuestion(legacyHtml).valid,'complete NGN records pass structural quality validation');
 
+
+const orderedLegacy={
+ id:'QR-SCHEMA-TEST-ORDER',type:'Extended Drag and Drop',
+ title:'Place the PPE removal steps in the correct sequence.',
+ options:['Remove gloves','Remove gown','Perform hand hygiene'],
+ correctOrder:['Remove gloves','Remove gown','Perform hand hygiene'],
+ rationale:'Remove contaminated PPE carefully and perform hand hygiene at the appropriate points.'
+};
+const orderedHtml=api.renderReact(orderedLegacy,undefined,()=>{},false);
+assert.ok(orderedHtml.includes('Remove gloves'),'legacy ordered-response options are used when availableItems is absent');
+assert.ok(api.validateQuestion(orderedLegacy).valid,'ordered response with legacy options passes structural validation');
+const matrixLegacy={
+ id:'QR-SCHEMA-TEST-MATRIX',type:'Matrix Multiple',
+ title:'Classify each clinical cue.',
+ rows:[{id:'cue1',text:'New confusion',options:['Expected','Requires follow-up']},{id:'cue2',text:'Stable vital signs',options:['Expected','Requires follow-up']}],
+ correctAnswers:{cue1:['Requires follow-up'],cue2:['Expected']},
+ rationale:'New confusion requires prompt assessment; stable vital signs are reassuring in this context.'
+};
+assert.ok(api.validateQuestion(matrixLegacy).valid,'matrix rows with row-level options pass structural validation without a global columns array');
+
 console.log('PASS: new clinical schema maps patient profile and tabs, retains additional tabs, and separates scenario from task.');
