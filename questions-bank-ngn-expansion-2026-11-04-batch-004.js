@@ -22303,6 +22303,54 @@ const items=[
   ]
  }
 ];
+
+function qrKeyed(values,key){return (Array.isArray(values)?values.flat(Infinity):values&&typeof values==='object'?Object.values(values).flat(Infinity):[values]).some(x=>typeof x==='string'&&x.trim().toLowerCase()===(typeof key==='string'?key.trim().toLowerCase():''));}
+function qrExplain(q,option,correct){
+ const cue=(q.patientInfo&&q.patientInfo.history)||(q.ehr&&q.ehr.assessment)||'the documented clinical findings';
+ const priority=(q.ehr&&q.ehr.priorityAssessment)||'the priority nursing response';
+ return correct
+ ? 'Keyed for this item. In the context of '+q.topic+', this choice is supported by the case cues ('+cue+') and is consistent with the stated priority response: '+priority+'. Reassess the client and follow applicable orders and emergency protocols.'
+ : 'Not keyed as the best response for this item. Compare this choice with the case cues ('+cue+') and the stated priority response ('+priority+'). It does not take precedence over the keyed response in this scenario; verify whether it is unsupported, unsafe, or lower priority before selecting it.';
+}
+items.forEach(q=>{
+ q.reviewStatus='pending_webmaster_review';
+ q.validationStatus='automated_validation_pending';
+ q.rationaleStatus='draft_for_webmaster_review';
+ const cue=(q.patientInfo&&q.patientInfo.history)||(q.ehr&&q.ehr.assessment)||'the clinical findings in the case';
+ const priority=(q.ehr&&q.ehr.priorityAssessment)||'the priority nursing response';
+ q.rationale='Clinical reasoning for '+q.topic+': The case presents '+cue+'. The priority response is '+priority+'. Use the time-sensitive findings to identify the immediate risk, select the action that addresses that risk, and reassess the client response. Confirm this explanation during webmaster review.';
+ q.clinicalJudgmentTip='Recognize the significant cues in '+q.topic+'; connect '+cue+' to the immediate risk; prioritize '+priority+'; then evaluate the client response and escalate unexpected changes.';
+ q.optionRationales={};
+ if(q.type==='Bowtie'&&q.bowtieData){
+  ['conditions','actions','monitoring'].forEach(group=>{const keys=q.correctAnswers&&q.correctAnswers[group];q.optionRationales[group]=q.bowtieData[group].map(option=>({option,correct:qrKeyed(keys,option),rationale:qrExplain(q,option,qrKeyed(keys,option))}));});
+ }else if((q.type==='Matrix Single'||q.type==='Matrix Multiple')&&Array.isArray(q.rows)){
+  q.optionRationales=q.rows.map((row,index)=>{const key=q.correctAnswers&&(q.correctAnswers[row.id]!==undefined?q.correctAnswers[row.id]:q.correctAnswers[String(index)]);return {rowId:row.id||String(index),row:row.text,columns:q.columns.map(column=>({option:column,correct:qrKeyed(key,column),rationale:qrExplain(q,column,qrKeyed(key,column))}))};});
+ }else if(Array.isArray(q.dropdowns)){
+  q.optionRationales=q.dropdowns.map(drop=>({dropdownId:drop.id,options:(drop.options||[]).map(option=>({option,correct:!!drop.correct&&option===drop.correct,rationale:qrExplain(q,option,!!drop.correct&&option===drop.correct)}))}));
+ }else if(Array.isArray(q.highlightSegments)){
+  const ids=new Set(q.correctHighlights||[]);q.optionRationales=q.highlightSegments.map(seg=>({segmentId:seg.id,option:seg.text,correct:ids.has(seg.id),rationale:qrExplain(q,seg.text,ids.has(seg.id))}));
+ }else if(Array.isArray(q.options)){
+  const keys=q.correctAnswers!==undefined?q.correctAnswers:q.correctAnswer;q.optionRationales=q.options.map(option=>({option,correct:qrKeyed(keys,option),rationale:qrExplain(q,option,qrKeyed(keys,option))}));
+ }else if(Array.isArray(q.availableItems)){
+  const keys=q.correctOrder||[];q.optionRationales=q.availableItems.map(option=>({option,correct:qrKeyed(keys,option),rationale:qrExplain(q,option,qrKeyed(keys,option))}));
+ }
+ if(q.type==='Dropdown Rationale'&&Array.isArray(q.dropdowns)){
+  const reason=q.dropdowns.find(x=>x.id==='reason');
+  if(reason&&Array.isArray(reason.options)){
+   const explanation='The priority response addresses the time-sensitive risk identified in the client assessment.';
+   reason.options=reason.options.map(x=>x===null?explanation:x);if(!reason.options.includes(explanation))reason.options.push(explanation);
+   reason.correct=explanation;q.correctAnswers=q.correctAnswers||{};q.correctAnswers.reason=explanation;
+  }
+ }
+ const clean=v=>{if(typeof v!=='string')return v;if(/unrelated chronic condition/i.test(v))return 'A stable chronic finding that does not explain the acute presentation';if(/unrelated routine measurement/i.test(v))return 'A routine measurement that does not change the immediate nursing priority';if(/delay all reassessment until end of shift/i.test(v))return 'Defer reassessment until the next scheduled routine observation';if(/expected finding without complication/i.test(v))return 'A finding not supported by the current assessment cues';if(/routine finding requiring no action/i.test(v))return 'A finding requiring focused reassessment rather than routine observation alone';return v;};
+ const walk=v=>{if(Array.isArray(v)){v.forEach((x,i)=>v[i]=walk(x));return v;}if(v&&typeof v==='object'){Object.keys(v).forEach(k=>v[k]=walk(v[k]));return v;}return clean(v);};walk(q);
+});
+const strokeBowtie=items.find(q=>q.id==='QR-001920');
+if(strokeBowtie){const action='Maintain airway, complete a focused neurologic assessment, and document the last-known-well time.';strokeBowtie.bowtieData.actions=[strokeBowtie.bowtieData.actions[0],action,'Give aspirin before imaging','Rapidly lower blood pressure to normal'];strokeBowtie.correctAnswers.actions=[strokeBowtie.bowtieData.actions[0],action];strokeBowtie.correctAnswers.monitoring=['Airway, breathing, circulation, and change in clinical status','Response to treatment and relevant vital signs'];}
+const strokeMatrix=items.find(q=>q.id==='QR-001922');if(strokeMatrix)strokeMatrix.correctAnswers.cue3=['Requires focused reassessment','Unsafe or delayed response'];
+const strokeHighlight=items.find(q=>q.id==='QR-001925');if(strokeHighlight)strokeHighlight.correctHighlights=['h1'];
+const strokeTrend=items.find(q=>q.id==='QR-001926');if(strokeTrend)strokeTrend.options=['Activate stroke pathway and obtain urgent noncontrast head CT','Give aspirin before imaging','Rapidly lower blood pressure to normal','Wait until the next routine assessment before escalating'];
+
 items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
 const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
 if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
