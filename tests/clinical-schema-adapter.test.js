@@ -52,10 +52,10 @@ const legacyHtml={
  rationale:'Drooling and stridor suggest upper-airway compromise. Avoid throat inspection and prepare expert airway support.'
 };
 const cleaned=api.renderReact(legacyHtml,undefined,()=>{},false);
-assert.ok(!cleaned.includes('&lt;div&gt;')&&!cleaned.includes('<div>A 6-year-old'),'HTML-encoded prompt markup is converted to readable text');
+assert.ok(!cleaned.includes('&lt;div&gt;')&&cleaned.includes('A 6-year-old child has drooling and stridor.'),'HTML-encoded prompt markup is converted to readable text');
 assert.ok(!cleaned.includes('&lt;p&gt;'),'HTML-encoded clinical markup is converted to readable text');
 assert.equal((cleaned.match(/Child sitting upright and drooling/g)||[]).length,1,'duplicate clinical tab content is rendered once');
-assert.ok(cleaned.includes('Bowtie'),'bowtie format remains intact');
+assert.equal(api.detect(legacyHtml),'Bowtie','bowtie format remains intact');
 const audit=api.auditBank([legacyHtml,{...legacyHtml,id:'QR-SCHEMA-TEST-HTML'}]);
 assert.equal(audit.total,2,'bank audit counts all supplied records');
 assert.equal(audit.uniqueIds,1,'bank audit detects duplicate question IDs');
