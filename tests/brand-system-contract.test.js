@@ -15,7 +15,7 @@ for (const token of ['--qr-brand-navy', '--qr-brand-teal', '--qr-brand-plum', '-
 const sidebarScript = path.join(root, 'js', 'quickrn-sidebar.js');
 assertFile(sidebarScript);
 const sidebarJs = fs.readFileSync(sidebarScript, 'utf8');
-for (const token of ['qr-sidebar-group', 'aria-current', 'qr-sidebar-shell', 'Learning Center', 'Feedback Inbox']) {
+for (const token of ['qr-sidebar-group', 'aria-current', 'qr-sidebar-shell', 'Learning Center', 'Saved Questions', 'Calendar']) {
   if (!sidebarJs.includes(token)) throw new Error('Missing unified sidebar feature: ' + token);
 }
 for (const page of pages) {
