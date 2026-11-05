@@ -210,7 +210,11 @@ function quickRNAdaptClinicalSchema(input){
   const content=tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??'';
   return [String(label),content];
  }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
- const tabs=entries.filter(entry=>meaningful(entry[1])).map(([label,value])=>[String(label||'Clinical information'),value]);
+ const hasProfileSummary=meaningful(q.patientProfile)||meaningful(q.patientInfo)||meaningful(q.patientInformation)||meaningful(q.patient_information);
+ const isPatientInfoTab=label=>/^(patient\\s*(information|info|profile)|demographics|patient\\s*details)$/i.test(String(label||'').trim().replace(/\\s+/g,' '));
+ // Patient profile is already rendered once as the patient summary. Suppress
+ // a second tab with the same purpose, while retaining all clinical-data tabs.
+ const tabs=entries.filter(entry=>meaningful(entry[1])&&!(hasProfileSummary&&isPatientInfoTab(entry[0]))).map(([label,value])=>[String(label||'Clinical information'),value]);
  // Split the original stem before mapping patientProfile into legacy patientInfo;
  // otherwise demographics can be mistaken for the question's narrative.
  const split=quickRNSplitPrompt(q);
