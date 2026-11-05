@@ -28,7 +28,7 @@ assert.ok(app.includes("content.innerHTML=scenario?"),'separate clinical scenari
 assert.ok(!app.includes('No additional clinical exhibits are attached'),'no-case items do not fabricate a Clinical Record');
 assert.ok(!renderer.includes('Report this item')&&!renderer.includes('qr-report-row'),'standalone report item action is removed from the renderer');
 assert.ok(pages.some(page=>{const html=fs.readFileSync(page,'utf8');return html.includes('id="feedback-category"')&&html.includes('id="feedback-details"');}),'a current exam page provides the shared feedback modal with report categories and free-text details');
-assert.ok(app.includes("feedback-category")&&app.includes("snapshot:q?"),"feedback saves the selected issue category with question context");
+assert.ok(app.includes("feedback-category")&&app.includes("const question={id:q?.id")&&app.includes("QuickRNReport.openIssue"),"feedback reports retain the selected category and question context");
 assert.match(examHtml,/flex items-center justify-end gap-4/,'Check Answer action is aligned to the right');
 assert.ok(examHtml.includes('quickrn-unified-nclex-split-screen'),'current exam page retains the shared NCLEX split-screen layout');
 
