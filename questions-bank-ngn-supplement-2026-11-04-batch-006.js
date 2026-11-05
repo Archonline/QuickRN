@@ -24,6 +24,57 @@ topics.slice(0,50).forEach((t,ti)=>{
   else if(fmt==='Trend'){base.trendData={columns:['Assessment point','Finding','Significance'],rows:[['Earlier','Baseline status documented.','Establishes comparison.'],['Current',t[1],'Requires focused reassessment.'],['Next','Reassess after intervention.','Evaluate response and deterioration.']]};base.options=[act,'Delay escalation until the next shift','Ignore the change'];base.correctAnswer=act;}
   else if(fmt==='Extended Drag and Drop'){base.options=[act,'Reassess response to intervention','Document findings and communicate handoff'];base.correctOrder=[act,'Reassess response to intervention','Document findings and communicate handoff'];}
   else {base.selectN=fmt==='Select N'?2:undefined;base.options=[act,actions[1]||'Implement prescribed condition-specific therapy','Reassess and trend '+monitor,'Delay care until routine rounds','Ignore the new clinical change'];base.correctAnswers=[act,actions[1]||'Implement prescribed condition-specific therapy'];}
+  // Item-level clinical context and teaching remediation for this topic/format instance.
+  const summary=t[1],topicName=t[0],priorityAction=act,monitoring=monitor;
+  const acute=/hypotension|shock|hemorrhage|anaphylaxis|sepsis|crisis|respiratory depression|hypoxemia|airway|stridor|seizure/i.test(summary);
+  const fever=/fever|febrile|infection|meningitis|pneumonia|endometritis/i.test(topicName+' '+summary);
+  const respiratory=/respiratory|dyspnea|wheez|stridor|bronchiolitis|COPD|asthma|pulmonary|airway|aspiration|chest/i.test(topicName+' '+summary);
+  const patientVitals={
+   temperature:fever?'38.5 °C':'36.8 °C',
+   heartRate:acute?'118/min':'88/min',
+   respiratoryRate:respiratory?'28/min':'18/min',
+   bloodPressure:/hypotension|shock|hemorrhage|anaphylaxis|adrenal crisis/i.test(topicName+' '+summary)?'86/50 mm Hg':'122/76 mm Hg',
+   oxygenSaturation:respiratory?'89%':'97% on room air'
+  };
+  base.patientProfile={presentingConcern:summary,relevantHistory:summary,sourceStatus:'Simulated educational case; values are for examination practice, not a real patient record.'};
+  base.clinicalScenario=topicName+': '+summary;
+  base.ehr={tabs:{
+   nursesNotes:[{time:'Initial assessment',note:summary},{time:'Priority nursing plan',note:priorityAction}],
+   vitalSigns:patientVitals,
+   labResults:{availableInCase:summary.match(/(?:glucose|lactate|ANC|INR|potassium|sodium|creatinine|platelets|hemoglobin|pH|lipase)\s*[^,.;]*/gi)||[],note:'Only values explicitly stated in the case summary are available; obtain other ordered tests as indicated.'},
+   providerOrders:{priorityPlan:priorityAction,orderStatus:'Implement prescribed orders and clarify missing or conflicting instructions.'}
+  }};
+  const correctFlat=v=>Array.isArray(v)?v.flatMap(correctFlat):v&&typeof v==='object'?Object.values(v).flatMap(correctFlat):v==null?[]:[String(v)];
+  let keyed=[];
+  if(base.correctAnswers!==undefined)keyed=correctFlat(base.correctAnswers);
+  else if(base.correctHighlights)keyed=correctFlat(base.correctHighlights);
+  else if(base.correctOrder)keyed=correctFlat(base.correctOrder);
+  else if(base.correctAnswer!==undefined)keyed=correctFlat(base.correctAnswer);
+  if(fmt==='Dropdown Rationale'){
+   const d=base.dropdowns?.find(x=>x.id==='reason');
+   if(d){d.options=['The combination of findings indicates a time-sensitive complication and requires the priority response.','The finding is unrelated to the client’s current presentation.','The client can safely wait for routine reassessment.'];d.correct=d.options[0];base.correctAnswers.reason=d.correct;keyed=correctFlat(base.correctAnswers);}
+  }
+  const visible=[];
+  const collect=v=>{if(typeof v==='string'&&v.trim()&&!visible.includes(v))visible.push(v);};
+  (base.options||[]).forEach(collect);(base.availableItems||[]).forEach(collect);
+  (base.bowtieData?.conditions||[]).forEach(collect);(base.bowtieData?.actions||[]).forEach(collect);(base.bowtieData?.monitoring||[]).forEach(collect);
+  (base.rows||[]).forEach(r=>{collect(r.text);(r.options||[]).forEach(collect);});
+  (base.dropdowns||[]).forEach(d=>{(d.options||[]).forEach(collect);collect(d.correct);});
+  (base.highlightSegments||[]).forEach(x=>collect(x.text));
+  (base.trendData?.rows||[]).forEach(r=>r.forEach(collect));
+  const topicRationale='The client’s findings are consistent with '+topicName+': '+summary+' The priority nursing response is '+priorityAction+'. Evaluate the response by monitoring '+monitoring+'.';
+  base.optionRationales={};
+  visible.forEach(choice=>{
+   const right=keyed.includes(String(choice));
+   base.optionRationales[choice]=right
+    ? 'Correct. This choice addresses the documented risk in '+topicName+' and is consistent with the priority plan. Continue to monitor '+monitoring+'.'
+    : (/delay|wait|routine rounds|ignore|unrelated/i.test(choice)
+      ? 'Not appropriate. The client has an acute finding that requires timely assessment and action; delaying care does not address '+summary+'.'
+      : 'Not the best choice for this presentation. It does not address the priority problem as directly as '+priorityAction+'. Reassess the client and monitor '+monitoring+'.');
+  });
+  base.rationale=topicRationale;
+  base.clinicalJudgmentTip='Recognize the acute cue, connect it to '+topicName+', prioritize the immediate threat, implement the prescribed condition-specific action ('+priorityAction+'), and evaluate the response using '+monitoring+'. Do not delay escalation for routine tasks.';
+  base.rationales={overall:base.rationale,options:base.optionRationales,clinicalJudgmentTip:base.clinicalJudgmentTip};
   base.rationale='This original beta draft is designed to assess recognition of acute findings, prompt condition-appropriate escalation, and reassessment. Verify the exact intervention, parameters, and scoring against current evidence and local protocols before release.';
   if(!existing.has(id)){bank.push(base);existing.add(id);added++;}
  });
