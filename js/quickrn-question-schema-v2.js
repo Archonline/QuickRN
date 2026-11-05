@@ -91,6 +91,7 @@
    arr(q.rows).forEach(r=>arr(r.options).forEach(option=>{const k=matrix[r.id],ok=Array.isArray(k)?k.includes(option):k===option;map[r.id+' — '+option]=map[r.id+' — '+option]||(ok?'Correct classification for this row. '+overall:'This classification does not match the clinical meaning of the row. Reassess the cue and compare it with the keyed classification. '+overall);}));
   }
   if(fmt==='Highlight')arr(q.highlightSegments).forEach(s=>{const ok=arr(q.correctHighlights).includes(s.id);map[s.id+' — '+s.text]=map[s.id+' — '+s.text]||(ok?'Correct highlight: this cue supports the clinical concern in the stem. '+overall:'This segment is not a priority cue for the task asked. '+overall);});
+  if(!Object.keys(map).length){map['Keyed response']=overall||('The keyed response is '+keyed.join('; ')+'. It addresses the clinical decision in the stem: '+stem);map['Alternative response']=('This alternative is less appropriate than the keyed response for the clinical decision in the stem: '+stem);}
   q.optionRationales=map;
   q.rationale=first(q.rationale,overall||('The keyed response is '+keyed.join('; ')+'. It best addresses the clinical decision in the stem: '+stem));
   q.clinicalJudgmentTip=first(q.clinicalJudgmentTip,q.cjmmTip,'For '+topic+', identify the cues in the stem, compare them with baseline and risk factors, prioritize the immediate threat, choose the response supported by the clinical rationale, and evaluate the outcome using relevant assessment findings.');
@@ -107,6 +108,10 @@
    const shock=/hypotension|shock|hemorrhage|anaphylaxis|BP\s*(?:7\d|8\d|9\d)\//i.test(s);
    const e=obj(q.ehr),tabs=obj(e.tabs),v=obj(tabs.vitalSigns);
    tabs.nursesNotes=tabs.nursesNotes||[{time:'Case presentation',note:q.scenario||stem}];
+   if(typeof tabs.nursesNotes==='string')tabs.nursesNotes=[{time:'Case presentation',note:tabs.nursesNotes}];
+   if(typeof tabs.vitalSigns==='string')tabs.vitalSigns={note:tabs.vitalSigns};
+   if(typeof tabs.labResults==='string')tabs.labResults={note:tabs.labResults};
+   if(typeof tabs.providerOrders==='string')tabs.providerOrders={orders:tabs.providerOrders};
    tabs.vitalSigns=Object.assign({},v,{
     temperature:v.temperature||matchValue(/(?:temperature|temp)\s*[:=]?\s*([\d.]+\s*°?C)/i)||(fever?'38.5 °C (simulated)':'36.8 °C (simulated)'),
     heartRate:v.heartRate||matchValue(/(?:heart rate|HR)\s*[:=]?\s*(\d+\s*\/min)/i)||(shock?'122/min (simulated)':'92/min (simulated)'),
