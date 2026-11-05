@@ -176,9 +176,11 @@
     root.addEventListener('pageshow', refresh);
     root.document.addEventListener('visibilitychange', () => { if (!root.document.hidden) refresh(); });
     root.setInterval(() => { if (!root.document.hidden) refresh(); }, 15000);
-    refresh();
+    setRange(activeRange);
   }
   root.QuickRNDashboardAnalytics = Object.freeze({ refresh, setRange, getCompletedHistory });
+  // The legacy inline initializer calls this hook on DOMContentLoaded; route it through the single chart owner.
+  root.initQuickRNScoreChart = refresh;
   if (root.document.readyState === 'loading') root.document.addEventListener('DOMContentLoaded', init, { once:true });
   else init();
 })(window);
