@@ -733,3 +733,22 @@ body:not([data-exam-mode]) header [class*="ml-auto"] :is(button,a,[role="button"
 /* Single-choice item alignment: add breathing room beneath the clinical scenario
    so its visual baseline aligns with the question/task panel. */
 .qr-ehr.qr-single-choice-scenario{margin-bottom:24px!important;padding-bottom:8px!important;}
+
+
+/* Recovery: align support-page chrome with the 64px dashboard logo cell. */
+.support-workspace>header{
+  height:64px!important;
+  min-height:64px!important;
+  max-height:64px!important;
+  flex:0 0 64px!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
+}
+@media(max-width:767px){
+  .support-workspace>header{
+    height:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+    flex-basis:64px!important;
+  }
+}
