@@ -22303,6 +22303,150 @@ const items=[
   ]
  }
 ];
+
+// Clinical-content remediation: preserve IDs and answer keys while supplying a complete,
+// explicitly simulated patient record, case-specific rationales, and clinically credible distractors.
+const clinicalVitals={
+ 'Acute ischemic stroke':{temperature:'36.8 °C',heartRate:'92/min',respiratoryRate:'18/min',bloodPressure:'178/96 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Sepsis with hypotension':{temperature:'39.1 °C',heartRate:'126/min',respiratoryRate:'28/min',bloodPressure:'82/46 mm Hg',oxygenSaturation:'93% on room air'},
+ 'Diabetic ketoacidosis':{temperature:'37.2 °C',heartRate:'122/min',respiratoryRate:'30/min, deep',bloodPressure:'96/58 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Acute pulmonary edema':{temperature:'36.9 °C',heartRate:'118/min',respiratoryRate:'32/min',bloodPressure:'186/104 mm Hg',oxygenSaturation:'84% on room air'},
+ 'Hyperkalemia in kidney injury':{temperature:'36.7 °C',heartRate:'58/min, monitor for dysrhythmia',respiratoryRate:'20/min',bloodPressure:'104/62 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Acute coronary syndrome':{temperature:'36.8 °C',heartRate:'108/min',respiratoryRate:'22/min',bloodPressure:'154/92 mm Hg',oxygenSaturation:'94% on room air'},
+ 'COPD exacerbation':{temperature:'37.8 °C',heartRate:'112/min',respiratoryRate:'28/min',bloodPressure:'146/84 mm Hg',oxygenSaturation:'86% on room air'},
+ 'Pulmonary embolism':{temperature:'37.1 °C',heartRate:'124/min',respiratoryRate:'30/min',bloodPressure:'102/64 mm Hg',oxygenSaturation:'88% on room air'},
+ 'Acute pancreatitis':{temperature:'37.6 °C',heartRate:'112/min',respiratoryRate:'22/min',bloodPressure:'104/66 mm Hg',oxygenSaturation:'95% on room air'},
+ 'Upper GI bleeding':{temperature:'36.5 °C',heartRate:'122/min',respiratoryRate:'24/min',bloodPressure:'88/52 mm Hg',oxygenSaturation:'94% on room air'},
+ 'Cirrhosis with encephalopathy':{temperature:'37.0 °C',heartRate:'96/min',respiratoryRate:'18/min',bloodPressure:'108/68 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Acute kidney injury':{temperature:'36.8 °C',heartRate:'98/min',respiratoryRate:'20/min',bloodPressure:'112/70 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Stroke dysphagia':{temperature:'36.8 °C',heartRate:'88/min',respiratoryRate:'18/min',bloodPressure:'148/82 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Blood transfusion reaction':{temperature:'38.6 °C',heartRate:'118/min',respiratoryRate:'26/min',bloodPressure:'88/54 mm Hg',oxygenSaturation:'91% on room air'},
+ 'Neutropenic fever':{temperature:'38.5 °C',heartRate:'112/min',respiratoryRate:'22/min',bloodPressure:'104/62 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Chest tube disconnection':{temperature:'36.9 °C',heartRate:'116/min',respiratoryRate:'30/min',bloodPressure:'128/78 mm Hg',oxygenSaturation:'89% on room air'},
+ 'Opioid respiratory depression':{temperature:'36.4 °C',heartRate:'58/min',respiratoryRate:'7/min',bloodPressure:'94/58 mm Hg',oxygenSaturation:'86%'},
+ 'Heparin-induced thrombocytopenia':{temperature:'36.8 °C',heartRate:'102/min',respiratoryRate:'20/min',bloodPressure:'126/76 mm Hg',oxygenSaturation:'95% on room air'},
+ 'Digoxin toxicity':{temperature:'36.7 °C',heartRate:'48/min',respiratoryRate:'18/min',bloodPressure:'98/60 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Lithium toxicity':{temperature:'37.0 °C',heartRate:'104/min',respiratoryRate:'20/min',bloodPressure:'108/70 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Serotonin syndrome':{temperature:'39.0 °C',heartRate:'132/min',respiratoryRate:'26/min',bloodPressure:'162/94 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Suicide risk':{temperature:'36.8 °C',heartRate:'88/min',respiratoryRate:'16/min',bloodPressure:'122/76 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Acute mania':{temperature:'36.9 °C',heartRate:'108/min',respiratoryRate:'20/min',bloodPressure:'138/84 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Alcohol withdrawal':{temperature:'38.0 °C',heartRate:'124/min',respiratoryRate:'24/min',bloodPressure:'168/98 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Preeclampsia with severe features':{temperature:'37.0 °C',heartRate:'104/min',respiratoryRate:'20/min',bloodPressure:'168/112 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Magnesium sulfate toxicity':{temperature:'36.6 °C',heartRate:'54/min',respiratoryRate:'9/min',bloodPressure:'94/56 mm Hg',oxygenSaturation:'91% on room air'},
+ 'Postpartum hemorrhage':{temperature:'36.5 °C',heartRate:'128/min',respiratoryRate:'26/min',bloodPressure:'86/50 mm Hg',oxygenSaturation:'94% on room air'},
+ 'Placenta previa':{temperature:'36.8 °C',heartRate:'108/min',respiratoryRate:'20/min',bloodPressure:'108/68 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Postpartum endometritis':{temperature:'39.0 °C',heartRate:'116/min',respiratoryRate:'22/min',bloodPressure:'104/66 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Newborn hypoglycemia':{temperature:'36.2 °C',heartRate:'156/min',respiratoryRate:'52/min',bloodPressure:'Not routinely obtained unless clinically indicated',oxygenSaturation:'96%'},
+ 'Pediatric epiglottitis':{temperature:'39.2 °C',heartRate:'148/min',respiratoryRate:'34/min',bloodPressure:'Not obtained while airway is unstable',oxygenSaturation:'91%'},
+ 'Bronchiolitis':{temperature:'38.0 °C',heartRate:'168/min',respiratoryRate:'64/min',bloodPressure:'86/48 mm Hg',oxygenSaturation:'88%'},
+ 'Pediatric dehydration':{temperature:'37.4 °C',heartRate:'148/min',respiratoryRate:'30/min',bloodPressure:'82/48 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Febrile seizure':{temperature:'39.4 °C',heartRate:'142/min',respiratoryRate:'28/min',bloodPressure:'92/56 mm Hg',oxygenSaturation:'95% after seizure stops'},
+ 'Croup':{temperature:'38.1 °C',heartRate:'132/min',respiratoryRate:'30/min',bloodPressure:'Not routinely obtained if it increases distress',oxygenSaturation:'94% on room air'},
+ 'Meningitis':{temperature:'39.1 °C',heartRate:'122/min',respiratoryRate:'26/min',bloodPressure:'104/64 mm Hg',oxygenSaturation:'96% on room air'},
+ 'Sickle cell pain crisis':{temperature:'37.0 °C',heartRate:'108/min',respiratoryRate:'22/min',bloodPressure:'112/68 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Anaphylaxis':{temperature:'36.7 °C',heartRate:'138/min',respiratoryRate:'32/min',bloodPressure:'78/42 mm Hg',oxygenSaturation:'88% on room air'},
+ 'Severe hypoglycemia':{temperature:'36.5 °C',heartRate:'112/min',respiratoryRate:'20/min',bloodPressure:'104/66 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Warfarin bleeding':{temperature:'36.6 °C',heartRate:'118/min',respiratoryRate:'22/min',bloodPressure:'94/58 mm Hg',oxygenSaturation:'95% on room air'},
+ 'Insulin administration':{temperature:'36.8 °C',heartRate:'82/min',respiratoryRate:'16/min',bloodPressure:'122/74 mm Hg',oxygenSaturation:'98% on room air'},
+ 'Central line infection':{temperature:'38.8 °C',heartRate:'116/min',respiratoryRate:'24/min',bloodPressure:'98/60 mm Hg',oxygenSaturation:'95% on room air'},
+ 'Pressure injury':{temperature:'36.8 °C',heartRate:'84/min',respiratoryRate:'18/min',bloodPressure:'132/78 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Aspiration risk':{temperature:'37.0 °C',heartRate:'96/min',respiratoryRate:'22/min',bloodPressure:'128/76 mm Hg',oxygenSaturation:'93% during meal'},
+ 'Fall after sedation':{temperature:'36.7 °C',heartRate:'88/min',respiratoryRate:'12/min',bloodPressure:'106/64 mm Hg',oxygenSaturation:'94%'},
+ 'Blood pressure medication':{temperature:'36.8 °C',heartRate:'96/min',respiratoryRate:'18/min',bloodPressure:'86/50 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Postoperative atelectasis':{temperature:'37.8 °C',heartRate:'102/min',respiratoryRate:'22/min',bloodPressure:'128/76 mm Hg',oxygenSaturation:'92% on room air'},
+ 'Compartment syndrome':{temperature:'36.8 °C',heartRate:'112/min',respiratoryRate:'20/min',bloodPressure:'136/82 mm Hg',oxygenSaturation:'97% on room air'},
+ 'Increased intracranial pressure':{temperature:'37.0 °C',heartRate:'52/min',respiratoryRate:'irregular, 10/min',bloodPressure:'186/62 mm Hg',oxygenSaturation:'92%'}
+};
+const distractorFix={
+ 'Unrelated chronic condition':'A chronic comorbidity that does not explain the acute change in neurologic or physiologic status.',
+ 'Expected finding without complication':'A stable finding that does not account for the new abnormal assessment cues.',
+ 'Expected recovery finding':'A finding consistent with baseline recovery but not with the current abnormal assessment.',
+ 'Unrelated routine measurement':'A routine measurement that does not evaluate the immediate clinical threat.',
+ 'Routine meal preference only':'A nonurgent comfort need that can be addressed after the acute clinical risk.',
+ 'Hair and nail growth':'A long-term wellness measure that does not evaluate the current deterioration.',
+ 'Give aspirin before imaging':'Administer an antiplatelet before intracranial hemorrhage has been excluded.',
+ 'Rapidly lower blood pressure to normal':'Lower the blood pressure rapidly without confirming the condition-specific treatment target or eligibility.',
+ 'Delay all reassessment until end of shift':'Defer reassessment until the next scheduled shift despite an acute change.',
+ 'Use alcohol gel as sole hand hygiene':'Rely on alcohol hand rub alone despite suspected spore-forming infection.',
+ 'Share equipment between clients':'Use shared equipment without dedicated precautions and appropriate disinfection.',
+ 'Delay until routine rounds':'Defer the response until routine rounds despite time-sensitive findings.',
+ 'Ignore the change':'Continue routine care without reassessing the new abnormal findings.',
+ 'An unrelated chronic condition':'A chronic comorbidity that does not explain the acute change.',
+ 'A routine preference':'A nonurgent comfort preference unrelated to the immediate clinical decision.',
+ 'An unrelated task':'A routine task that does not address the current clinical threat.'
+};
+function replaceDistractor(v){return typeof v==='string'?(distractorFix[v]||v):v;}
+function keySet(q){const a=q.correctAnswers||{};if(Array.isArray(a))return new Set(a.map(String));if(typeof a==='string')return new Set([a]);if(a&&typeof a==='object')return new Set(Object.values(a).flatMap(v=>Array.isArray(v)?v.map(String):v==null?[]:[String(v)]));if(q.correctAnswer!=null)return new Set([String(q.correctAnswer)]);if(q.correctOrder)return new Set(q.correctOrder.map(String));if(q.correctHighlights)return new Set(q.correctHighlights.map(String));return new Set();}
+function clinicalReason(q,choice,isCorrect,action,monitor){
+ const topic=q.topic||'the presenting condition',history=q.patientInfo?.history||q.ehr?.assessment||'the documented acute findings';
+ if(isCorrect)return 'Appropriate for '+topic+' because it directly addresses or monitors the documented risk: '+history+' The nurse should carry it out within the prescribed plan/protocol and reassess the response.';
+ if(/aspirin|antiplatelet/i.test(choice)&&/stroke/i.test(topic))return 'Not the first action because the client needs urgent brain imaging to distinguish ischemic from hemorrhagic stroke before antiplatelet therapy is considered.';
+ if(/rapidly lower blood pressure/i.test(choice)&&/stroke/i.test(topic))return 'Unsafe because blood pressure targets depend on stroke type and reperfusion eligibility; rapid unprescribed reduction can compromise cerebral perfusion.';
+ if(/alcohol hand rub|share equipment/i.test(choice)&&/C\\. difficile/i.test(topic))return 'Inappropriate because C. difficile spores require contact precautions, dedicated equipment, and soap-and-water hand hygiene.';
+ if(/delay|ignore|routine rounds|next shift/i.test(choice))return 'Inappropriate because the documented acute findings are time-sensitive; delaying focused reassessment or escalation risks deterioration.';
+ return 'Not the best response for '+topic+' in this presentation. It does not address the highest-priority cue ('+history+') as directly as the keyed response ('+action+'), and may delay the indicated assessment, intervention, or monitoring ('+monitor+').';
+}
+function visibleChoices(q){
+ const out=[];
+ const add=v=>{if(typeof v==='string'&&v.trim()&&!out.includes(v))out.push(v);};
+ (q.options||[]).forEach(add);(q.availableItems||[]).forEach(add);
+ (q.bowtieData?.conditions||[]).forEach(add);(q.bowtieData?.actions||[]).forEach(add);(q.bowtieData?.monitoring||[]).forEach(add);
+ (q.rows||[]).forEach(r=>{add(r.text);(r.options||[]).forEach(add);});
+ (q.dropdowns||[]).forEach(d=>{(d.options||[]).forEach(add);add(d.correct);});
+ (q.highlightSegments||[]).forEach(s=>add(s.text));
+ (q.trendData?.rows||[]).forEach(r=>r.forEach(add));
+ return out;
+}
+function clinicalTip(q,action,monitor){
+ const topic=q.topic||'this condition';
+ if(/stroke/i.test(topic))return 'Use last-known-well time, focused neurologic findings, glucose, and urgent noncontrast imaging to guide the stroke pathway. Do not give antiplatelet therapy before hemorrhage is excluded; follow the treatment-specific blood-pressure target.';
+ if(/sepsis/i.test(topic)||/neutropenic fever|central line infection/i.test(topic))return 'Recognize infection with organ dysfunction or high-risk immunosuppression early. Escalate, obtain ordered cultures when this will not delay time-critical antimicrobials, support perfusion, and trend MAP, lactate, urine output, and mental status.';
+ if(/diabetic ketoacidosis/i.test(topic))return 'In DKA, begin prescribed isotonic fluid replacement and assess potassium before insulin. Follow the protocol for insulin initiation and monitor glucose, potassium, anion gap, and fluid status.';
+ if(/hyperkalemia|kidney injury/i.test(topic))return 'Treat ECG changes and severe hyperkalemia as time-sensitive. Escalate, anticipate prescribed cardiac membrane stabilization and potassium-shifting/removal therapy, and reassess ECG and potassium.';
+ if(/pulmonary edema|heart failure/i.test(topic))return 'Prioritize oxygenation and work of breathing, position to reduce respiratory distress, and implement prescribed therapy. Reassess lung sounds, oxygen saturation, hemodynamics, and urine output.';
+ if(/pulmonary embolism/i.test(topic))return 'Sudden dyspnea, pleuritic pain, tachycardia, and hypoxemia after surgery require urgent escalation. Support oxygenation and monitor hemodynamics while preparing for diagnostic and prescribed treatment.';
+ if(/coronary|chest pain/i.test(topic))return 'Treat new ischemic symptoms as time-sensitive: obtain/interpret ECG promptly, activate the appropriate pathway, and monitor rhythm, pain, hemodynamics, and ordered biomarkers.';
+ if(/hemorrhage|bleeding/i.test(topic))return 'Assess circulation and quantify ongoing blood loss. Escalate early, establish/maintain access, trend vital signs and hemoglobin, and implement prescribed resuscitation or reversal therapy.';
+ if(/respiratory|bronchiolitis|croup|epiglottitis|aspiration|atelectasis|chest tube/i.test(topic))return 'Prioritize airway patency, work of breathing, oxygenation, and signs of fatigue. Avoid interventions that increase distress; reassess promptly after each intervention.';
+ if(/preeclampsia|magnesium|postpartum|placenta/i.test(topic))return 'Maternal deterioration requires prompt obstetric escalation. Monitor maternal hemodynamics, neurologic symptoms, uterine tone/bleeding or magnesium toxicity cues, and fetal status as applicable.';
+ if(/suicide/i.test(topic))return 'A specific plan, access to lethal means, and current intent indicate imminent risk. Maintain continuous safety observation, do not leave the client alone, remove hazards per protocol, and initiate urgent psychiatric evaluation.';
+ return 'Apply the clinical judgment sequence: recognize the abnormal cue, analyze it against the client’s baseline and risk factors, prioritize the threat, implement the indicated condition-specific action, then evaluate the response using the relevant monitored parameters.';
+}
+items.forEach(q=>{
+ const topic=q.topic||'the presenting condition',action=q.ehr?.priorityAssessment||'escalate the acute change and implement the prescribed condition-specific response',monitor=q.ehr?.monitoring||'vital signs and response to treatment',history=q.patientInfo?.history||q.ehr?.assessment||'the documented presenting findings';
+ const vitals=clinicalVitals[topic]||null;
+ const profile=typeof q.patientInfo==='object'&&q.patientInfo?q.patientInfo:{age:String(q.patientInfo||'Age not supplied in source record'),history};
+ q.patientProfile={age:profile.age||'Not specified',presentingConcern:history,relevantHistory:profile.history||history,sourceStatus:'Simulated educational case; values are for examination practice, not a real patient record.'};
+ q.clinicalScenario=topic+': '+history;
+ q.ehr=Object.assign({},q.ehr||{},{
+  tabs:{
+   nursesNotes:[{time:'Initial assessment',note:history},{time:'Nursing priority',note:action}],
+   vitalSigns:vitals||{status:'Complete vital-sign values are not present in the source case. Obtain and document temperature, heart rate, respiratory rate, blood pressure, and oxygen saturation before clinical decisions.'},
+   labResults:q.ehr?.labResults||{status:'Only values explicitly included in the case history are available; obtain condition-specific ordered tests and do not infer unreported results.'},
+   providerOrders:q.ehr?.providerOrders||{status:'Implement only the orders described in the case and current institutional protocol; clarify any missing or conflicting order.'}
+  }
+ });
+ if(vitals)q.ehr.vitalSigns=vitals;
+ q.patientInfo=profile;
+ const fixList=a=>Array.isArray(a)?a.map(replaceDistractor):a;
+ if(q.options)q.options=fixList(q.options);
+ if(q.availableItems)q.availableItems=fixList(q.availableItems);
+ if(q.bowtieData){q.bowtieData.conditions=fixList(q.bowtieData.conditions);q.bowtieData.actions=fixList(q.bowtieData.actions);q.bowtieData.monitoring=fixList(q.bowtieData.monitoring);}
+ if(q.dropdowns)q.dropdowns.forEach(d=>{d.options=fixList(d.options);if(d.options&&!d.options.includes(d.correct)){const old=d.correct;d.options=d.options.map(x=>x===distractorFix[old]?old:x);}});
+ if(q.rows)q.rows.forEach(r=>{r.options=fixList(r.options);});
+ if(q.highlightSegments)q.highlightSegments.forEach(s=>{s.text=replaceDistractor(s.text);});
+ if(q.trendData?.rows)q.trendData.rows=q.trendData.rows.map(r=>r.map(replaceDistractor));
+ // Ensure the key continues to point to the visible choice after wording corrections.
+ const all=visibleChoices(q);
+ const originalKeys=keySet(q);
+ q.optionRationales={};
+ all.forEach(choice=>{const isCorrect=originalKeys.has(String(choice));q.optionRationales[choice]=clinicalReason(q,choice,isCorrect,action,monitor);});
+ const keyed=[...originalKeys];
+ q.rationale='The presentation is most consistent with '+topic+'. The priority is '+action+'. The findings that drive this decision are: '+history+'. The nurse should monitor '+monitor+' and compare the response with the initial assessment. The safest response addresses the immediate threat without delaying time-sensitive care or initiating an intervention before required assessment.';
+ q.clinicalJudgmentTip=clinicalTip(q,action,monitor);
+ q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
+ q.reviewStatus='pending_nurse_educator_review';
+});
 items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
 const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
 if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
