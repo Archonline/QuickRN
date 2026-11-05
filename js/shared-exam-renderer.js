@@ -211,11 +211,13 @@ function quickRNAdaptClinicalSchema(input){
   return [String(label),content];
  }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
  const tabs=entries.filter(entry=>meaningful(entry[1])).map(([label,value])=>[String(label||'Clinical information'),value]);
+ // Split the original stem before mapping patientProfile into legacy patientInfo;
+ // otherwise demographics can be mistaken for the question's narrative.
+ const split=quickRNSplitPrompt(q);
  const profile=q.patientProfile;
  if(meaningful(profile)&&!meaningful(q.patientInfo))q.patientInfo=profile;
  const context=q.caseStudyContext&&typeof q.caseStudyContext==='object'?q.caseStudyContext:{};
  if(meaningful(q.caseGroupId))q.caseStudyContext={...context,id:context.id||String(q.caseGroupId),title:context.title||q.caseTitle||'Clinical case'};
- const split=quickRNSplitPrompt(q);
  const existingEhr=q.ehr&&typeof q.ehr==='object'?{...q.ehr}:{};
  const standardLabels={'nurses notes':'nursesNotes','nurse notes':'nursesNotes','vital signs':'vitalSigns','diagnostic results':'diagnosticResults','lab results':'diagnosticResults','laboratory results':'diagnosticResults','history & physical':'historyPhysical','history and physical':'historyPhysical'};
  const extraTabs=[];
