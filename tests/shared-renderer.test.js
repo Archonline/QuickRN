@@ -83,6 +83,16 @@ const caseFixture = {id:'CASE-TEST-1',type:'single_choice',ngnType:'case_study',
 const caseHtml = api.renderReact(caseFixture,undefined,()=>{},false);
 assert.ok(caseHtml.includes('Case overview'),'case-study patient information is rendered');
 assert.ok(caseHtml.includes('Item 2 of 5'),'case-study progress is rendered');
+const splitBowtieFixture = {id:'QR-003390',type:'Bowtie',scenario:'A client is experiencing a sickle cell vaso-occlusive crisis. The client reports severe pain, with no evidence of acute chest syndrome at the initial assessment.',title:'Complete the bowtie by selecting the priority problem, two actions, and two parameters to monitor.',bowtieData:{conditions:['Vaso-occlusive crisis'],actions:['Administer prescribed analgesia','Provide prescribed hydration'],monitoring:['Pain and response to analgesia','Oxygenation and new chest symptoms']},correctAnswers:{condition:'Vaso-occlusive crisis',actions:['Administer prescribed analgesia','Provide prescribed hydration'],monitoring:['Pain and response to analgesia','Oxygenation and new chest symptoms']}};
+const splitBowtieHtml = api.renderReact(splitBowtieFixture,undefined,()=>{},false);
+const leftPaneIndex = splitBowtieHtml.indexOf('class="qr-ehr');
+const rightPaneIndex = splitBowtieHtml.indexOf('class="qr-question-panel');
+assert.ok(leftPaneIndex >= 0 && leftPaneIndex < rightPaneIndex,'QR-003390 clinical scenario renders in the left pane');
+assert.ok(splitBowtieHtml.includes('Clinical scenario'),'scenario is explicitly labeled in the left pane');
+assert.ok(splitBowtieHtml.includes('Complete the bowtie by selecting the priority problem'),'the task remains in the right pane');
+const rightPaneHtml = splitBowtieHtml.slice(rightPaneIndex);
+assert.ok(!rightPaneHtml.includes('A client is experiencing a sickle cell vaso-occlusive crisis'),'scenario is not repeated in the right pane');
+assert.equal(api.grade(splitBowtieFixture,{condition:'Vaso-occlusive crisis',actions:['Administer prescribed analgesia','Provide prescribed hydration'],monitoring:['Pain and response to analgesia','Oxygenation and new chest symptoms']}),true,'bowtie scoring remains unchanged');
 const dragFixture = {id:'DND-TEST-1',type:'Drag and Drop',availableItems:['First','Second','Third'],correctOrder:['First','Second','Third']};
 assert.notDeepEqual(api.toDraft(dragFixture,undefined).order,dragFixture.correctOrder,'drag-and-drop does not expose the answer order on first render');
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
