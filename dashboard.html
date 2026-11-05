@@ -186,7 +186,7 @@
                         <button type="button" onclick="openFinishedTestsModal()" class="text-left bg-white border border-slate-200 rounded-lg px-3 py-2.5 hover:border-brand-300 transition">
                             <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">Questions answered</span>
                             <span id="stat-solved-display" class="block text-xl font-extrabold text-slate-900 mt-0.5">0 <span id="stat-pool-total" class="text-xs font-medium text-slate-400">/ 0</span></span>
-                            <span class="text-[10px] text-slate-400">Release target: 2,000 clinically reviewed questions</span>
+                            <span class="text-[10px] text-slate-400">Submitted answers across your practice sessions</span>
                         </button>
                         <div class="bg-white border border-slate-200 rounded-lg px-3 py-2.5">
                             <span class="text-[10px] uppercase tracking-wide text-slate-500 font-bold">Overall accuracy</span>
@@ -839,7 +839,7 @@
             };
             const pageTitle = document.getElementById('page-title');
             if (pageTitle) pageTitle.textContent = titles[tabId] || 'Dashboard';
-            if (tabId === 'dashboard') requestAnimationFrame(refreshDashboardChart);
+            if (tabId === 'dashboard' || tabId === 'analytics') requestAnimationFrame(refreshDashboardChart);
         }
 
         
