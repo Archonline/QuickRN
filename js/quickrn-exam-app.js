@@ -107,10 +107,19 @@ function hasClinicalContextForExam(q){
   if(typeof value==='object')return Object.values(value).some(hasValue);
   return String(value).trim()!=='';
  };
- // The current production schema uses these three fields. Legacy clinical fields
- // remain supported while older bank modules are being migrated.
- const structured=['caseGroupId','patientProfile','tabs','caseStudyContext','patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','clinicalRecord','medicalRecord','patientScenario','clinicalScenario','scenario','stimulus','passage','context','caseStudyText'];
- if(structured.some(key=>hasValue(q[key])))return true;
+ const hasTabDetails=value=>{
+  const details=tab=>{
+   if(typeof tab==='string')return hasValue(tab);
+   if(!tab||typeof tab!=='object')return false;
+   return ['content','value','text','body','details','data','description'].some(key=>hasValue(tab[key]));
+  };
+  return Array.isArray(value)?value.some(details):(value&&typeof value==='object'?Object.values(value).some(details):false);
+ };
+ // A caseGroupId is only a grouping key; it is not clinical content by itself.
+ const structured=['patientProfile','patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','clinicalRecord','medicalRecord','patientScenario','clinicalScenario','scenario','stimulus','passage','context','caseStudyText'];
+ if(structured.some(key=>hasValue(q[key]))||hasTabDetails(q.tabs))return true;
+ const context=q.caseStudyContext;
+ if(context&&['summary','description','narrative','scenario','patientInformation','clinicalScenario'].some(key=>hasValue(context[key])))return true;
  const split=renderer()?.splitPrompt;
  if(typeof split==='function'){
   try{const parts=split(q);if(hasValue(parts?.scenario))return true;}catch(error){console.warn('[QuickRN] Could not inspect clinical scenario for item '+(q.id||'unknown'),error);}
