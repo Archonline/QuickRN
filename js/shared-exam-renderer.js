@@ -193,7 +193,56 @@ function quickRNToggleDraft(path,value){const a=Array.isArray(quickRNDraft[path]
 function quickRNMoveDraft(from,to){const a=[...(quickRNDraft.order||[])];if(from<0||to<0||from>=a.length||to>=a.length)return;const [v]=a.splice(from,1);a.splice(to,0,v);quickRNDraft={...quickRNDraft,order:a};quickRNCommitDraft();if(typeof window.quickRNRenderAgain==='function')window.quickRNRenderAgain();}
 function quickRNDragStart(e,i){quickRNDraggedIndex=i;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(i));}
 function quickRNDrop(e,i){e.preventDefault();const from=quickRNDraggedIndex!==null?quickRNDraggedIndex:Number(e.dataTransfer.getData('text/plain'));quickRNDraggedIndex=null;quickRNMoveDraft(from,i);}
+function quickRNAdaptClinicalSchema(input){
+ const source=input&&typeof input==='object'?input:{};
+ const q={...source};
+ const plain=value=>quickRNPlainClinicalText(value);
+ const meaningful=value=>{
+  if(value==null||value==='')return false;
+  if(Array.isArray(value))return value.some(meaningful);
+  if(typeof value==='object')return Object.values(value).some(meaningful);
+  return String(value).trim()!=='';
+ };
+ const entries=Array.isArray(q.tabs)?q.tabs.map((tab,index)=>{
+  if(typeof tab==='string')return ['Clinical information '+(index+1),tab];
+  if(!tab||typeof tab!=='object')return ['', ''];
+  const label=tab.label||tab.title||tab.name||tab.tabName||tab.heading||('Clinical information '+(index+1));
+  const content=tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??'';
+  return [String(label),content];
+ }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
+ const hasProfileSummary=meaningful(q.patientProfile)||meaningful(q.patientInfo)||meaningful(q.patientInformation)||meaningful(q.patient_information);
+ const isPatientInfoTab=label=>/^(patient\s*(information|info|profile)|demographics|patient\s*details)$/i.test(String(label||'').trim().replace(/\s+/g,' '));
+ // Patient profile is already rendered once as the patient summary. Suppress
+ // a second tab with the same purpose, while retaining all clinical-data tabs.
+ const tabs=entries.filter(entry=>meaningful(entry[1])&&!(hasProfileSummary&&isPatientInfoTab(entry[0]))).map(([label,value])=>[String(label||'Clinical information'),value]);
+ // Split the original stem before mapping patientProfile into legacy patientInfo;
+ // otherwise demographics can be mistaken for the question's narrative.
+ const split=quickRNSplitPrompt(q);
+ const profile=q.patientProfile;
+ if(meaningful(profile)&&!meaningful(q.patientInfo))q.patientInfo=profile;
+ const context=q.caseStudyContext&&typeof q.caseStudyContext==='object'?q.caseStudyContext:{};
+ if(meaningful(q.caseGroupId))q.caseStudyContext={...context,id:context.id||String(q.caseGroupId),title:context.title||q.caseTitle||'Clinical case'};
+ const existingEhr=q.ehr&&typeof q.ehr==='object'?{...q.ehr}:{};
+ const standardLabels={'nurses notes':'nursesNotes','nurse notes':'nursesNotes','vital signs':'vitalSigns','diagnostic results':'diagnosticResults','lab results':'diagnosticResults','laboratory results':'diagnosticResults','history & physical':'historyPhysical','history and physical':'historyPhysical'};
+ const extraTabs=[];
+ tabs.forEach(([label,value])=>{
+  const key=standardLabels[String(label).toLowerCase().replace(/\s+/g,' ').trim()];
+  if(key){if(!meaningful(existingEhr[key]))existingEhr[key]=value;}
+  else extraTabs.push([label,value]);
+ });
+ if(extraTabs.length)existingEhr.additionalTabs=extraTabs;
+ // A scenario embedded in a traditional stem belongs in the left clinical pane,
+ // even when a separate patient profile or chart tabs are also supplied.
+ if(meaningful(split.scenario)){
+  const existingNotes=plain(existingEhr.nursesNotes);
+  const scenario=plain(split.scenario);
+  const notes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase())?existingEhr.nursesNotes:(existingNotes?String(existingEhr.nursesNotes)+'\n\n'+split.scenario:split.scenario);
+  q.ehr={...existingEhr,nursesNotes:notes};
+ }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
+ return q;
+}
 function quickRNRenderClinicalItem(q,draft,submitted=false){
+ q=quickRNAdaptClinicalSchema(q);
  const f=quickRNDetectItemFormat(q), ehr=q.ehr||{}, patient=q.patientInfo||{};
  const cleanField=v=>{let t=quickRNCleanPrompt(v);for(const prefix of [q.category,q.topic,q.ngnType,q.type]){if(prefix&&t.toLowerCase().startsWith(String(prefix).toLowerCase())){const rest=t.slice(String(prefix).length);if(/^\s*[-:|]\s*/.test(rest))t=rest.replace(/^\s*[-:|]\s*/,'');}}return t;};
  const title=cleanField(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question');
