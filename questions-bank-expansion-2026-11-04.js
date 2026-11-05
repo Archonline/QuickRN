@@ -1,5 +1,5 @@
 /* QuickRN original NCLEX beta expansion. QR-001340–QR-001369.
- * All items are drafts pending qualified nurse-educator review.
+ * All items are drafts pending webmaster review.
  * Additive loader shared by all four exam modes.
  */
 (function(root){
@@ -39,6 +39,6 @@ const items=[
 {id:'QR-001369',type:'Multiple Response',ngnType:'Multiple Response',category:'Pharmacological and Parenteral Therapies',topic:'Hypoglycemia recognition',title:'A client receiving insulin becomes diaphoretic and confused. Which findings support hypoglycemia? Select all that apply.',options:['Tremor','Capillary glucose 52 mg/dL','Cool clammy skin','Polyuria over several weeks','Sudden difficulty concentrating'],correctAnswers:['Tremor','Capillary glucose 52 mg/dL','Cool clammy skin','Sudden difficulty concentrating'],rationale:'Adrenergic symptoms include tremor and diaphoresis; neuroglycopenia can cause confusion and impaired concentration. A glucose of 52 mg/dL confirms hypoglycemia.',difficulty:'Moderate'}
 ];
 const known=new Set(bank.map(q=>q&&q.id).filter(Boolean).map(String));
-let added=0;items.forEach(q=>{q.source='QuickRN original beta draft';q.reviewStatus='pending_nurse_educator_review';if(!known.has(q.id)){bank.push(q);known.add(q.id);added++;}});
-root.quickRNExpansionBatch20261104={authored:items.length,added,firstId:'QR-001340',lastId:'QR-001369',reviewStatus:'pending_nurse_educator_review'};
+let added=0;items.forEach(q=>{q.source='QuickRN original beta draft';q.reviewStatus='pending_webmaster_review';if(!known.has(q.id)){bank.push(q);known.add(q.id);added++;}});
+root.quickRNExpansionBatch20261104={authored:items.length,added,firstId:'QR-001340',lastId:'QR-001369',reviewStatus:'pending_webmaster_review'};
 })(typeof window!=='undefined'?window:globalThis);
