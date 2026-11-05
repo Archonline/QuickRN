@@ -29,6 +29,8 @@
   if(/which intervention|what response|which instruction|which teaching|which medication|which treatment|what should the nurse advise|what should the nurse tell|which action should.*take|what action should/.test(s))return 'Take Action';
   if(/which assessment finding|which finding is most consistent|which statement.*(understand|indicate|require)|what does .* indicate|which condition|which complication|what is the significance|most likely/.test(s))return 'Analyze Cues';
   if(/which client|which assignment|which task.*delegate/.test(s))return 'Generate Solutions';
+  if(fmt==='Extended Multiple Response')return /finding|cue|assessment|symptom|recognize/.test(s)?'Recognize Cues':/interpret|indicate|suggest|meaning/.test(s)?'Analyze Cues':'Generate Solutions';
+  if(fmt==='Single Choice')return /action|intervention|response|instruction|advise|tell|administer|precaution|teach/.test(s)?'Take Action':'Analyze Cues';
   return undefined;
  }
  function inferClientNeed(q){
