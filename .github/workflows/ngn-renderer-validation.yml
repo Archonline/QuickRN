@@ -83,8 +83,10 @@ jobs:
       - name: Verify dashboard routing and normalized question bank loading
         run: node tests/dashboard-question-routing.test.js
       - name: Test NGN partial-credit scoring
+        if: always()
         run: node tests/ngn-scoring.test.js
       - name: Verify rebuilt NGN exam workspaces
+        if: always()
         run: node tests/ngn-workspace-contract.test.js
       - name: Verify Help Center and release notes
         run: node tests/help-content-contract.test.js
