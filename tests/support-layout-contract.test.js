@@ -10,7 +10,7 @@ const featureScript = dashboard.indexOf('<script>\n        // Use the same loade
 assert.ok(featureStart >= 0 && featureScript > featureStart, 'Feature Hub tab and following page script exist');
 const featureMarkup = dashboard.slice(featureStart, featureScript);
 assert.equal((featureMarkup.match(/<div\b/gi) || []).length, (featureMarkup.match(/<\/div\s*>/gi) || []).length, 'Feature Hub wrapper is closed before page-level scripts');
-assert.match(featureMarkup, /id="whats-new-title"/, 'Feature Hub contains the What's New section');
+assert.match(featureMarkup, /id="whats-new-title"/, "Feature Hub contains the What's New section");
 assert.match(featureMarkup, /November 5, 2026/, 'What's New date is current');
 for (const phrase of ['NGN question-format rendering', 'Clearer clinical case records', 'Question-bank validation remains in progress']) {
   assert.ok(featureMarkup.includes(phrase), 'What's New includes: ' + phrase);
