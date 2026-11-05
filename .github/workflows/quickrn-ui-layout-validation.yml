@@ -6,6 +6,7 @@ on:
       - 'help.html'
       - 'css/quickrn-brand-system.css'
       - 'tests/support-layout-contract.test.js'
+      - 'tests/dashboard-layout-contract.test.js'
       - '.github/workflows/quickrn-ui-layout-validation.yml'
   pull_request:
     paths:
@@ -24,3 +25,5 @@ jobs:
           node-version: 20
       - name: Check Feature Hub and support page layout contracts
         run: node tests/support-layout-contract.test.js
+      - name: Check dashboard layout and inline scripts
+        run: node tests/dashboard-layout-contract.test.js
