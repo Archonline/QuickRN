@@ -45,3 +45,7 @@ for (const page of ['selfstudy.html', 'timed.html', 'cat.html', 'predictor.html'
 }
 
 console.log('PASS: Feature Hub, compact sidebar, full-width support, and exam-header contracts');
+
+
+// The expanded-state rule must outrank the compact !important width lock.
+assert.match(brandCss, /body\\.qr-main-sidebar-collapsed:not\\(\\[data-exam-mode\\]\\) #app-shell>aside#quickrn-unified-sidebar\\.qr-sidebar\\.qr-sidebar-expanded\\{[\\s\\S]*?width:256px!important[\\s\\S]*?overflow-y:auto!important/, 'Expanded sidebar must override the compact width lock and restore scrollable contents');
