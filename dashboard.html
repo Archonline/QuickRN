@@ -330,48 +330,53 @@
                 </div>
 
                 <!-- FEATURE HUB TAB -->
-                <div id="tab-content-features" class="hidden space-y-4">
+                <div id="tab-content-features" class="hidden w-full max-w-6xl mx-auto space-y-5">
                     <div class="flex flex-col gap-1 border-b border-slate-200 pb-3">
                         <h2 class="text-xl font-extrabold tracking-tight text-slate-900">QuickRN Feature Hub</h2>
                         <p class="text-sm text-slate-500">Explore study tools, clinical review resources, and NCLEX practice features.</p>
                     </div>
 
                     <!-- CURRENT RELEASE NOTES -->
-                    <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="whats-new-title">
+                    <section class="qr-release-notes rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="whats-new-title">
                         <div class="flex flex-col gap-3 border-b border-slate-100 pb-4 sm:flex-row sm:items-center sm:justify-between">
                             <div class="flex items-center gap-3">
-                                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700"><i class="fa-solid fa-sparkles"></i></div>
-                                <div><h3 id="whats-new-title" class="font-bold text-slate-900 text-base">What's New</h3><p class="text-xs text-slate-500">QuickRN product updates · November 4, 2026</p></div>
+                                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700"><i class="fa-solid fa-sparkles" aria-hidden="true"></i></div>
+                                <div><h3 id="whats-new-title" class="font-bold text-slate-900 text-base">What's New</h3><p class="text-xs text-slate-500">QuickRN product updates · November 5, 2026</p></div>
                             </div>
-                            <span class="inline-flex w-fit items-center rounded-full bg-teal-50 px-3 py-1 text-[11px] font-bold text-teal-800">Latest updates</span>
+                            <span class="inline-flex w-fit items-center rounded-full bg-teal-50 px-3 py-1 text-[11px] font-bold text-teal-800">November release update</span>
                         </div>
-                        <div class="grid gap-3 pt-4 sm:grid-cols-2">
-                            <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4 sm:col-span-2">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-book-medical text-teal-700"></i> Expanded Learning Library</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">Learning resources are being organized around the four major NCLEX Client Needs categories and their eight subcategories, alongside body systems and clinical specialties. Topic pages bring together lessons, video resources, study notes, and focused review.</p>
+                        <div class="qr-release-grid grid gap-3 pt-4 sm:grid-cols-2">
+                            <article class="rounded-xl border border-teal-200 bg-teal-50/40 p-4">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-table-cells-large text-teal-700" aria-hidden="true"></i> NGN question-format rendering</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">The shared question renderer has been strengthened for Matrix Single and Multiple, Bow-Tie, Cloze and Dropdown Rationale, Highlight, Trend, Numeric Entry, Select N, SATA, and ordered-response items. Regression checks now cover all 13 supported NCLEX question formats.</p>
                             </article>
                             <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-circle-play text-red-600"></i> Learning videos and study resources</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">The Learning Center includes topic-based video discovery, embedded playback where available, and a report option for unavailable videos. Students can keep study notes alongside their learning.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-file-medical text-indigo-600" aria-hidden="true"></i> Clearer clinical case records</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Patient profiles, EHR tabs, clinical findings, and case context are organized in the clinical-record pane, separate from the question prompt. Duplicate patient-information content is suppressed where the same details are already shown.</p>
                             </article>
                             <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-list-check text-indigo-600"></i> NCLEX question-bank expansion</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">The question bank is being expanded toward the 2,000-item release target in structured batches. CAT, Predictor, timed practice, and Self Study use the shared question-bank pipeline; question counts reflect items actually loaded by the application.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-list-check text-blue-600" aria-hidden="true"></i> Improved NGN response handling</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Matrix, cloze, and bow-tie responses support submission of partially completed answers for the configured scoring workflow. Numeric-entry and highlight answer handling also have additional regression coverage.</p>
                             </article>
                             <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-laptop-medical text-teal-700"></i> Exam experience improvements</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">Exam pages share a consistent clinical case workspace, clearer question-type rendering, answer feedback, and rationales. CAT and Predictor entry flows have been refined to avoid blank question screens when a session starts.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-laptop-medical text-teal-700" aria-hidden="true"></i> Consistent exam workspaces</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Self Study, Timed Practice, CAT, and NCLEX Predictor continue to use the shared question-rendering pipeline, with exam-workspace regression checks covering the four modes.</p>
                             </article>
                             <article class="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-chart-line text-teal-700"></i> Dashboard and progress tracking</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">The dashboard brings together answered-question totals, CAT and Predictor history, performance trends, and Client Needs priorities to help learners identify what to review next.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-book-medical text-emerald-700" aria-hidden="true"></i> Learning library and study tools</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">The Learning Center brings together NCLEX Client Needs categories, body systems, clinical specialties, topic-based video resources, and browser-saved study notes. Use these resources to guide focused review.</p>
+                            </article>
+                            <article class="rounded-xl border border-amber-200 bg-amber-50/50 p-4">
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-clipboard-check text-amber-700" aria-hidden="true"></i> Question-bank validation remains in progress</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">Question content, answer keys, clinical rationales, and metadata continue to be checked. The displayed question total should reflect records actually loaded by the application; it is not a statement that every item has been clinically verified.</p>
                             </article>
                             <article class="rounded-xl border border-slate-200 bg-slate-50 p-4 sm:col-span-2">
-                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-circle-info text-slate-600"></i> Development status</div>
-                                <p class="mt-2 text-xs leading-6 text-slate-600">QuickRN remains an evolving NCLEX preparation platform. Question-bank content and clinical rationales require ongoing review; practice readiness estimates are educational indicators and are not official NCLEX results. Some browser-local study records may not sync between devices, so retain backups before clearing browser data.</p>
+                                <div class="flex items-center gap-2 text-sm font-bold text-slate-900"><i class="fa-solid fa-circle-info text-slate-600" aria-hidden="true"></i> Beta and educational-use notice</div>
+                                <p class="mt-2 text-xs leading-6 text-slate-600">QuickRN is an independent NCLEX preparation project. Practice scores and readiness estimates are educational indicators, not official NCLEX results or guarantees. Features and question content remain under active testing; report suspected errors and verify clinical information with current authoritative references.</p>
                             </article>
                         </div>
                     </section>
+                </div>
 
         <script>
         // Use the same loaded, de-duplicated bank as the exam pages for dashboard totals.
