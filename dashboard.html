@@ -208,6 +208,12 @@
                         <section class="xl:col-span-3 bg-white rounded-xl border border-slate-200 p-3 lg:p-4 space-y-2">
                             <div class="flex flex-wrap items-start justify-between gap-2">
                                 <div><h2 class="text-sm font-bold text-slate-900">Performance trend</h2><p class="text-[11px] text-slate-500">Your actual saved exam results over time</p></div>
+                                <div class="flex flex-wrap gap-1" role="group" aria-label="Performance graph date range">
+                                    <button type="button" data-quickrn-range="7" class="quickrn-range-btn rounded-md border border-slate-200 px-2 py-1 text-[9px] font-semibold text-slate-600">7D</button>
+                                    <button type="button" data-quickrn-range="30" class="quickrn-range-btn rounded-md border border-slate-200 px-2 py-1 text-[9px] font-semibold text-slate-600">30D</button>
+                                    <button type="button" data-quickrn-range="90" class="quickrn-range-btn rounded-md border border-slate-200 px-2 py-1 text-[9px] font-semibold text-slate-600">90D</button>
+                                    <button type="button" data-quickrn-range="all" class="quickrn-range-btn rounded-md border border-slate-200 px-2 py-1 text-[9px] font-semibold text-slate-600" aria-pressed="true">All</button>
+                                </div>
                                 <div class="flex flex-wrap items-center gap-3 text-[10px] text-slate-500">
                                     <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-600"></span> Accuracy</span>
                                     <span class="inline-flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Passing estimate</span>
@@ -233,6 +239,36 @@
                         </section>
                     </div>
 
+                </div>
+
+                <!-- DETAILED ANALYTICS TAB -->
+                <div id="tab-content-analytics" class="hidden space-y-3">
+                    <section class="rounded-xl border border-slate-200 bg-white p-4 space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div><h2 class="text-base font-bold text-slate-900">Study analytics</h2><p class="text-xs text-slate-500">Calculated from saved submitted answers and completed exam history on this device.</p></div>
+                            <div class="flex flex-wrap gap-1" role="group" aria-label="Analytics date range">
+                                <button type="button" data-quickrn-range="7" class="quickrn-range-btn rounded-lg border border-slate-200 px-3 py-1.5 text-[10px] font-semibold text-slate-600">7 Days</button>
+                                <button type="button" data-quickrn-range="30" class="quickrn-range-btn rounded-lg border border-slate-200 px-3 py-1.5 text-[10px] font-semibold text-slate-600">30 Days</button>
+                                <button type="button" data-quickrn-range="90" class="quickrn-range-btn rounded-lg border border-slate-200 px-3 py-1.5 text-[10px] font-semibold text-slate-600">90 Days</button>
+                                <button type="button" data-quickrn-range="all" class="quickrn-range-btn rounded-lg border border-slate-200 px-3 py-1.5 text-[10px] font-semibold text-slate-600" aria-pressed="true">All Time</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 xl:grid-cols-4 gap-2">
+                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><span class="text-[10px] uppercase font-bold text-slate-500">Submitted answers</span><strong id="analytics-answered" class="block text-xl text-slate-900">0</strong></div>
+                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><span class="text-[10px] uppercase font-bold text-slate-500">Accuracy</span><strong id="analytics-accuracy" class="block text-xl text-slate-900">—</strong></div>
+                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><span class="text-[10px] uppercase font-bold text-slate-500">Completed CAT</span><strong id="analytics-cat" class="block text-xl text-slate-900">0</strong></div>
+                            <div class="rounded-lg bg-slate-50 border border-slate-200 p-3"><span class="text-[10px] uppercase font-bold text-slate-500">Completed Predictor</span><strong id="analytics-predictor" class="block text-xl text-slate-900">0</strong></div>
+                        </div>
+                    </section>
+                    <section class="rounded-xl border border-slate-200 bg-white p-4 space-y-2">
+                        <div><h3 class="text-sm font-bold text-slate-900">Performance over time</h3><p class="text-[11px] text-slate-500">Completed exam accuracy and saved adaptive passing estimates.</p></div>
+                        <div class="h-64 w-full"><canvas id="quickrnAnalyticsChart" role="img" aria-label="Detailed graph of completed exam accuracy and passing estimate"></canvas></div>
+                        <p id="quickrn-analytics-note" class="text-[10px] text-slate-500" aria-live="polite"></p>
+                    </section>
+                    <section class="rounded-xl border border-slate-200 bg-white p-4 space-y-2">
+                        <h3 class="text-sm font-bold text-slate-900">Completed exam history</h3>
+                        <div id="quickrn-analytics-history" class="space-y-2"><p class="text-xs text-slate-500">No completed exams recorded yet.</p></div>
+                    </section>
                 </div>
 
                 <!-- LEARNING CENTER TAB -->
@@ -1024,6 +1060,8 @@
             }, 3500);
         }
     </script>
+
+    <script src="js/quickrn-dashboard-analytics.js"></script>
 
     <!-- FINISHED TESTS MODAL -->
     <div id="finished-tests-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
