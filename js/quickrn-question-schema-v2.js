@@ -44,11 +44,22 @@
   const tabs=obj(first(oldStimulus.tabs,q.ehr?.tabs,q.clinicalRecord?.tabs,q.medicalRecord?.tabs));
   const canonicalTabs=Object.assign({},tabs);
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
-  const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
-   caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
-   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
-   tabs:canonicalTabs
-  });
+  const hasClinicalValue=value=>{
+   if(value==null||value==='')return false;
+   if(Array.isArray(value))return value.some(hasClinicalValue);
+   if(typeof value==='object')return Object.values(value).some(hasClinicalValue);
+   return String(value).trim()!=='';
+  };
+  const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{});
+  const caseGroupId=first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id);
+  const patientProfile=first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext,q.clinicalRecord,q.ehr);
+  Object.keys(stimulus).forEach(key=>{if(['caseGroupId','patientProfile','tabs'].includes(key))delete stimulus[key];});
+  if(hasClinicalValue(caseGroupId))stimulus.caseGroupId=String(caseGroupId).trim();
+  if(hasClinicalValue(patientProfile))stimulus.patientProfile=patientProfile;
+  Object.keys(canonicalTabs).forEach(key=>{if(!hasClinicalValue(canonicalTabs[key]))delete canonicalTabs[key];});
+  if(Object.keys(canonicalTabs).length)stimulus.tabs=canonicalTabs;
+  else delete stimulus.tabs;
+  if(!hasClinicalValue(stimulus.legacyText))delete stimulus.legacyText;
   const interaction=Object.assign({},oldInteraction,{
    type:first(oldInteraction.type,detectFormat(q)),
    stem:first(oldInteraction.stem,q.stem,q.question,q.questionText,q.title,q.cleanTitle),

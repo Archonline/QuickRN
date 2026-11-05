@@ -124,6 +124,23 @@ assert.ok(splitHighlightHtml.indexOf('Clinical Record')<splitHighlightHtml.index
 assert.ok(!splitHighlightHtml.slice(splitHighlightHtml.indexOf('qr-question-panel')).includes('A client develops sudden confusion and hypotension.'),'highlight scenario is not repeated in the task pane');
 
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
+const blankClinicalFields={id:'EMPTY-RECORD',type:'Single Choice',title:'Which action?',options:['A','B'],correctAnswer:'A',caseGroupId:'',patientProfile:{},tabs:{},ehr:{},caseStudyContext:{}};
+const blankClinicalHtml=api.renderReact(blankClinicalFields,undefined,()=>{},false);
+assert.doesNotMatch(blankClinicalHtml,/class="qr-ehr"/,'empty caseGroupId, patientProfile, tabs, ehr, and case context never render an empty clinical-record pane');
+assert.doesNotMatch(blankClinicalHtml,/caseGroupId|patientProfile|Clinical scenario|Clinical Record/,'empty schema metadata and scenario placeholders are never printed');
+const objectVitals={id:'VITALS-OBJECT',type:'Single Choice',title:'Which action should the nurse take?',scenario:'A client is admitted with acute respiratory distress.',patientInfo:{age:'68 years',temperature:'38.6 °C',respiratoryRate:'30/min',heartRate:'124/min',pulseRate:'124/min',bloodPressure:'86/48 mm Hg',oxygenSaturation:'88% on room air'},options:['A','B'],correctAnswer:'A'};
+const objectVitalsHtml=api.renderReact(objectVitals,undefined,()=>{},false);
+assert.match(objectVitalsHtml,/Vital Signs/,'patient profile vital-sign fields are promoted into the EHR Vital Signs tab');
+assert.match(objectVitalsHtml,/Temperature: 38\.6 °C/,'temperature is visible in EHR');
+assert.match(objectVitalsHtml,/Respiratory Rate: 30\/min/,'respiratory rate is visible in EHR');
+assert.match(objectVitalsHtml,/Heart Rate: 124\/min/,'heart rate is visible in EHR');
+assert.match(objectVitalsHtml,/Pulse Rate: 124\/min/,'pulse rate is visible in EHR');
+assert.match(objectVitalsHtml,/Blood Pressure: 86\/48 mm Hg/,'blood pressure is visible in EHR');
+assert.match(objectVitalsHtml,/Oxygen Saturation: 88% on room air/,'oxygen saturation is visible in EHR');
+const htmlClinical={id:'HTML-CLEAN',type:'Single Choice',title:'Which action?',scenario:'<p>CLINICAL SCENARIO</p><p>A client reports new chest pain.</p>',options:['A','B'],correctAnswer:'A'};
+const htmlClinicalHtml=api.renderReact(htmlClinical,undefined,()=>{},false);
+assert.doesNotMatch(htmlClinicalHtml,/CLINICAL SCENARIO|<p>|<\/p>/,'legacy HTML tags and scenario headings are removed from clinical text');
+assert.match(htmlClinicalHtml,/A client reports new chest pain/,'clinical narrative remains readable after HTML cleanup');
 
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
 assert.equal(clean('Veracity: The nurse verifies the client\'s identity.'), 'The nurse verifies the client\'s identity.');
