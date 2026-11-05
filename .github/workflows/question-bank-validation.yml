@@ -74,11 +74,19 @@ jobs:
             tests/selfstudy-lifecycle.test.js
             tests/shared-renderer.test.js
           )
+          failures=0
           for test_file in "${tests[@]}"; do
             echo "::group::${test_file}"
-            node "${test_file}"
+            if node "${test_file}"; then
+              echo "PASS: ${test_file}"
+            else
+              echo "FAIL: ${test_file}"
+              failures=$((failures + 1))
+            fi
             echo "::endgroup::"
           done
+          echo "Failed test files: ${failures}"
+          if (( failures > 0 )); then exit 1; fi
 
       - name: Audit loaded question bank and format mappings
         id: bank_audit
