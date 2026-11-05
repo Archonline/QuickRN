@@ -85,7 +85,7 @@ for(let i=0;i<bank.length;i++){
  }
  if(f==='Matrix Single'||f==='Matrix Multiple'){
   const rows=q.rows||q.matrixData?.rows||[],columns=q.columns||q.matrixData?.columns||[...new Set(rows.flatMap(row=>row.options||[]))],answers=q.correctAnswers?.matrix||q.correctAnswers||{};
-  if(rows.some((row,index)=>{const id=row.id||String(index),key=answers[id];return key===undefined||(Array.isArray(key)?(!key.length||key.some(value=>!columns.includes(value))):!columns.includes(key));})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to valid column(s)');
+  if(rows.some((row,index)=>{const id=row.id||String(index),key=answers[id];return key===undefined||(Array.isArray(key)?key.some(value=>!columns.includes(value)):!columns.includes(key));})||Object.keys(answers).length!==rows.length)issue('MATRIX_KEY_MISMATCH','Matrix answer keys must map every row to valid column(s)');
  }
  if(f==='Cloze (Drop-down)'||f==='Dropdown Rationale'){
   const answers=q.correctAnswers||{},choices=q.options||((Array.isArray(q.dropdowns)?Object.fromEntries(q.dropdowns.map(d=>[d.id,d.options||[]])):q.dropdowns)||{});
