@@ -21,6 +21,7 @@ jobs:
           node --check js/quickrn-question-metrics.js
           node --check tests/cat-engine.test.js
           node --check js/shared-exam-renderer.js
+          node --check tests/clinical-schema-adapter.test.js
           node --check js/quickrn-exam-app.js
           node --check js/quickrn-ngn-compat.js
           node --check tests/quickrn-ngn-compat.test.js
@@ -55,6 +56,8 @@ jobs:
           node --check tests/dashboard-question-routing.test.js
           node --check scripts/validate-question-bank.js
           node --check tests/curated-question-bank.test.js
+      - name: Render new clinical schema and keep scenario in left pane
+        run: node tests/clinical-schema-adapter.test.js
       - name: Test canonical Question Schema v2 and lossless legacy normalization
         run: node tests/question-schema-v2.test.js
       - name: Enforce complete Question Schema v2 production bank
