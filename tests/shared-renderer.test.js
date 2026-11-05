@@ -88,7 +88,7 @@ const splitBowtieHtml = api.renderReact(splitBowtieFixture,undefined,()=>{},fals
 const leftPaneIndex = splitBowtieHtml.indexOf('class="qr-ehr');
 const rightPaneIndex = splitBowtieHtml.indexOf('class="qr-question-panel');
 assert.ok(leftPaneIndex >= 0 && leftPaneIndex < rightPaneIndex,'QR-003390 clinical scenario renders in the left pane');
-assert.ok(splitBowtieHtml.includes('Clinical scenario'),'scenario is explicitly labeled in the left pane');
+assert.ok(splitBowtieHtml.includes('Presenting Information'),'clinical narrative is presented in the left pane without the legacy scenario heading');
 assert.ok(!splitBowtieHtml.includes('No separate patient exhibits were supplied'),'scenario-only record does not show an empty-record placeholder');
 assert.ok(splitBowtieHtml.includes('Complete the bowtie by selecting the priority problem'),'the task remains in the right pane');
 const rightPaneHtml = splitBowtieHtml.slice(rightPaneIndex);
@@ -124,6 +124,41 @@ assert.ok(splitHighlightHtml.indexOf('Clinical Record')<splitHighlightHtml.index
 assert.ok(!splitHighlightHtml.slice(splitHighlightHtml.indexOf('qr-question-panel')).includes('A client develops sudden confusion and hypotension.'),'highlight scenario is not repeated in the task pane');
 
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
+const blankClinicalFields={id:'EMPTY-RECORD',type:'Single Choice',title:'Which action?',options:['A','B'],correctAnswer:'A',caseGroupId:'',patientProfile:{},tabs:{},ehr:{},caseStudyContext:{}};
+const blankClinicalHtml=api.renderReact(blankClinicalFields,undefined,()=>{},false);
+assert.doesNotMatch(blankClinicalHtml,/class="qr-ehr"/,'empty caseGroupId, patientProfile, tabs, ehr, and case context never render an empty clinical-record pane');
+assert.doesNotMatch(blankClinicalHtml,/caseGroupId|patientProfile|Clinical scenario|Clinical Record/,'empty schema metadata and scenario placeholders are never printed');
+const objectVitals={id:'VITALS-OBJECT',type:'Single Choice',title:'Which action should the nurse take?',scenario:'A client is admitted with acute respiratory distress.',patientInfo:{age:'68 years',temperature:'38.6 °C',respiratoryRate:'30/min',heartRate:'124/min',pulseRate:'124/min',bloodPressure:'86/48 mm Hg',oxygenSaturation:'88% on room air'},options:['A','B'],correctAnswer:'A'};
+const objectVitalsHtml=api.renderReact(objectVitals,undefined,()=>{},false);
+assert.match(objectVitalsHtml,/Vital Signs/,'patient profile vital-sign fields are promoted into the EHR Vital Signs tab');
+assert.match(objectVitalsHtml,/Temperature: 38\.6 °C/,'temperature is visible in EHR');
+assert.match(objectVitalsHtml,/Respiratory Rate: 30\/min/,'respiratory rate is visible in EHR');
+assert.match(objectVitalsHtml,/Heart Rate: 124\/min/,'heart rate is visible in EHR');
+assert.match(objectVitalsHtml,/Pulse Rate: 124\/min/,'pulse rate is visible in EHR');
+assert.match(objectVitalsHtml,/Blood Pressure: 86\/48 mm Hg/,'blood pressure is visible in EHR');
+assert.match(objectVitalsHtml,/Oxygen Saturation: 88% on room air/,'oxygen saturation is visible in EHR');
+const htmlClinical={id:'HTML-CLEAN',type:'Single Choice',title:'Which action?',scenario:'<p>CLINICAL SCENARIO</p><p>A client reports new chest pain.</p>',options:['A','B'],correctAnswer:'A'};
+const htmlClinicalHtml=api.renderReact(htmlClinical,undefined,()=>{},false);
+assert.doesNotMatch(htmlClinicalHtml,/CLINICAL SCENARIO|<p>|<\/p>/,'legacy HTML tags and scenario headings are removed from clinical text');
+assert.match(htmlClinicalHtml,/A client reports new chest pain/,'clinical narrative remains readable after HTML cleanup');
+
+const scenarioVitals={id:'VITALS-FROM-SCENARIO',type:'Single Choice',scenario:'A client arrives with temperature 38.6 °C, respiratory rate 30/min, heart rate 124/min, pulse rate 122/min, blood pressure 86/48 mm Hg, and oxygen saturation 88%.',title:'Which action is the priority?',options:['A','B'],correctAnswer:'A'};
+const scenarioVitalsHtml=api.renderReact(scenarioVitals,undefined,()=>{},false);
+assert.match(scenarioVitalsHtml,/Temperature: 38\.6 C/,'explicit temperature in the scenario is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Respiratory Rate: 30 /min'),'explicit respiratory rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Heart Rate: 124 /min'),'explicit heart rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Pulse Rate: 122 /min'),'explicit pulse rate is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Blood Pressure: 86/48 mm Hg'),'explicit blood pressure is promoted to the EHR');
+assert.ok(scenarioVitalsHtml.includes('Oxygen Saturation: 88 %'),'explicit oxygen saturation is promoted to the EHR');
+
+const scenarioLabs={id:'LABS-FROM-SCENARIO',type:'Single Choice',scenario:'Laboratory results: sodium 128 mEq/L, potassium 6.2 mEq/L, glucose 450 mg/dL, BUN 38 mg/dL, creatinine 2.1 mg/dL, and lactate 3.8 mmol/L.',title:'Which action is the priority?',options:['A','B'],correctAnswer:'A'};
+const scenarioLabsHtml=api.renderReact(scenarioLabs,undefined,()=>{},false);
+assert.match(scenarioLabsHtml,/Diagnostic Results/,'explicit laboratory data is promoted into the EHR');
+assert.ok(scenarioLabsHtml.includes('Sodium: 128 mEq/L'),'sodium value is shown');
+assert.ok(scenarioLabsHtml.includes('Potassium: 6.2 mEq/L'),'potassium value is shown');
+assert.ok(scenarioLabsHtml.includes('Glucose: 450 mg/dL'),'glucose value is shown');
+assert.ok(scenarioLabsHtml.includes('Creatinine: 2.1 mg/dL'),'creatinine value is shown');
+assert.ok(scenarioLabsHtml.includes('Lactate: 3.8 mmol/L'),'lactate value is shown');
 
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
 assert.equal(clean('Veracity: The nurse verifies the client\'s identity.'), 'The nurse verifies the client\'s identity.');

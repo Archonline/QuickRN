@@ -32,16 +32,30 @@ function quickRNDecodeClinicalEntities(value){
  return text;
 }
 function quickRNPlainClinicalText(value){
+ if(value==null)return '';
+ if(Array.isArray(value))return value.map(quickRNPlainClinicalText).filter(Boolean).join('; ');
+ if(typeof value==='object'){
+  return Object.entries(value).map(([key,item])=>{
+   const content=quickRNPlainClinicalText(item);
+   if(!content)return '';
+   const label=String(key).replace(/([A-Z])/g,' $1').replace(/[_-]+/g,' ').replace(/^./,c=>c.toUpperCase());
+   return label+': '+content;
+  }).filter(Boolean).join('\n');
+ }
  let text=quickRNDecodeClinicalEntities(value).replace(/\r/g,'');
  if(/<\/?[a-z][^>]*>/i.test(text))text=text.replace(/<\/?[a-z][^>]*>/gi,' ');
- return text.replace(/\s+/g,' ').trim();
+ text=text.replace(/^\s*CLINICAL\s+SCENARIO\s*[:—–-]?\s*/i,'');
+ text=text.replace(/^\s*(?:caseGroupId|patientProfile|tabs)\s*:\s*(?=\n|$)/gim,'');
+ return text.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim();
 }
 function quickRNPatientInfoText(patient){
  if(patient==null)return '';
  if(typeof patient!=='object'||Array.isArray(patient))return quickRNPlainClinicalText(patient);
  const labels={name:'Name',patientName:'Name',age:'Age',sex:'Sex',gender:'Gender',weight:'Weight',height:'Height',history:'History',medicalHistory:'Medical history',allergies:'Allergies',code:'Patient ID',summary:'Summary',description:'Description',notes:'Notes'};
  const preferred=['age','sex','gender','weight','height','history','medicalHistory','allergies','code','summary','description','notes'];
- const keys=[...preferred.filter(k=>patient[k]!=null&&patient[k]!==''),...Object.keys(patient).filter(k=>!preferred.includes(k)&&!['name','patientName'].includes(k)&&patient[k]!=null&&patient[k]!=='')];
+ const vitalKeys=new Set(['vitals','vitalSigns','temperature','temp','t','respiratoryRate','respRate','rr','heartRate','hr','pulseRate','pulse','bloodPressure','bp','oxygenSaturation','spo2','oxygenSat','painScore','pain','painRating','capillaryRefill','capRefill'].map(k=>k.toLowerCase()));
+ const isVitalKey=k=>vitalKeys.has(String(k).toLowerCase());
+ const keys=[...preferred.filter(k=>patient[k]!=null&&patient[k]!==''&&!isVitalKey(k)),...Object.keys(patient).filter(k=>!preferred.includes(k)&&!['name','patientName'].includes(k)&&!isVitalKey(k)&&patient[k]!=null&&patient[k]!=='')];
  const seen=new Set(),lines=[];
  keys.forEach(key=>{
   const value=quickRNPlainClinicalText(patient[key]);if(!value)return;
@@ -104,7 +118,8 @@ function quickRNSplitPrompt(q){
   return '';
  };
  const explicitFields=[
-  q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+  q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,
+  typeof q.stimulus==='string'?q.stimulus:(q.stimulus&&typeof q.stimulus==='object'?q.stimulus.legacyText:''),
   q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
   q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
   q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
@@ -206,13 +221,14 @@ function quickRNAdaptClinicalSchema(input){
   if(typeof value==='object')return Object.values(value).some(meaningful);
   return String(value).trim()!=='';
  };
- const entries=Array.isArray(q.tabs)?q.tabs.map((tab,index)=>{
+ const rawClinicalTabs=q.tabs??q.ehr?.tabs??q.stimulus?.tabs??q.clinicalRecord?.tabs??q.medicalRecord?.tabs;
+ const entries=Array.isArray(rawClinicalTabs)?rawClinicalTabs.map((tab,index)=>{
   if(typeof tab==='string')return ['Clinical information '+(index+1),tab];
   if(!tab||typeof tab!=='object')return ['', ''];
   const label=tab.label||tab.title||tab.name||tab.tabName||tab.heading||('Clinical information '+(index+1));
   const content=tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??'';
   return [String(label),content];
- }):(q.tabs&&typeof q.tabs==='object'?Object.entries(q.tabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??''):tab]):[]);
+ }):(rawClinicalTabs&&typeof rawClinicalTabs==='object'?Object.entries(rawClinicalTabs).map(([label,tab])=>[label,tab&&typeof tab==='object'?(tab.content??tab.value??tab.text??tab.body??tab.details??tab.data??tab):tab]):[]);
  const hasProfileSummary=meaningful(q.patientProfile)||meaningful(q.patientInfo)||meaningful(q.patientInformation)||meaningful(q.patient_information);
  const isPatientInfoTab=label=>/^(patient\s*(information|info|profile)|demographics|patient\s*details)$/i.test(String(label||'').trim().replace(/\s+/g,' '));
  // Patient profile is already rendered once as the patient summary. Suppress
@@ -226,7 +242,7 @@ function quickRNAdaptClinicalSchema(input){
  const context=q.caseStudyContext&&typeof q.caseStudyContext==='object'?q.caseStudyContext:{};
  if(meaningful(q.caseGroupId))q.caseStudyContext={...context,id:context.id||String(q.caseGroupId),title:context.title||q.caseTitle||'Clinical case'};
  const existingEhr=q.ehr&&typeof q.ehr==='object'?{...q.ehr}:{};
- const standardLabels={'nurses notes':'nursesNotes','nurse notes':'nursesNotes','vital signs':'vitalSigns','diagnostic results':'diagnosticResults','lab results':'diagnosticResults','laboratory results':'diagnosticResults','history & physical':'historyPhysical','history and physical':'historyPhysical'};
+ const standardLabels={'nurses notes':'nursesNotes','nurse notes':'nursesNotes','vital signs':'vitalSigns','diagnostic results':'diagnosticResults','lab results':'diagnosticResults','laboratory results':'diagnosticResults','history & physical':'historyPhysical','history and physical':'historyPhysical','provider orders':'providerOrders','medications':'medications','allergies':'allergies','intake & output':'intakeOutput','intake and output':'intakeOutput','assessment findings':'assessmentFindings'};
  const extraTabs=[];
  tabs.forEach(([label,value])=>{
   const key=standardLabels[String(label).toLowerCase().replace(/\s+/g,' ').trim()];
@@ -234,13 +250,84 @@ function quickRNAdaptClinicalSchema(input){
   else extraTabs.push([label,value]);
  });
  if(extraTabs.length)existingEhr.additionalTabs=extraTabs;
+ const firstMeaningful=(...values)=>values.find(value=>value!=null&&value!==''&&(typeof value!=='object'||Object.values(value).some(meaningful)));
+ const vitalAliases={
+  temperature:['temperature','temp','T'],
+  respiratoryRate:['respiratoryRate','respRate','RR'],
+  heartRate:['heartRate','HR'],
+  pulseRate:['pulseRate','pulse'],
+  bloodPressure:['bloodPressure','BP'],
+  oxygenSaturation:['oxygenSaturation','SpO2','spo2','O2 saturation','oxygenSat'],
+  painScore:['painScore','pain','painRating'],
+  capillaryRefill:['capillaryRefill','capRefill']
+ };
+ const vitalSource=firstMeaningful(existingEhr.vitalSigns,existingEhr.vitals,q.vitalSigns,q.vitals,q.patientProfile?.vitalSigns,q.patientProfile?.vitals,q.patientInfo?.vitalSigns,q.patientInfo?.vitals);
+ const vitalRecord=Object.assign({},vitalSource&&typeof vitalSource==='object'?vitalSource:{});
+ const vitalNarrative=[split.scenario,typeof q.patientInfo==='string'?q.patientInfo:'',typeof q.patientProfile==='string'?q.patientProfile:'',q.caseStudyContext?.summary].map(plain).filter(Boolean).join(' ');
+ const extractVital=(label,pattern,unit)=>{if(vitalRecord[label]!=null&&vitalRecord[label]!=='')return;const match=pattern.exec(vitalNarrative);if(match)vitalRecord[label]=match[1]+(match[2]?' '+match[2]:(unit||''));};
+ extractVital('temperature',/(?:temperature|temp|\bT)\s*(?:is|of|:|=)?\s*(\d{2,3}(?:\.\d+)?)\s*°?\s*([CF])?/i,'');
+ extractVital('respiratoryRate',/(?:respiratory rate|\bRR)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|breaths?\/min)?/i,'');
+ extractVital('heartRate',/(?:heart rate|\bHR)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|bpm)?/i,'');
+ extractVital('pulseRate',/(?:pulse rate|\bpulse)\s*(?:is|:|=)?\s*(\d{1,3})\s*(\/min|bpm)?/i,'');
+ extractVital('bloodPressure',/(?:blood pressure|\bBP)\s*(?:is|:|=)?\s*(\d{2,3}\s*\/\s*\d{2,3})\s*(mm\s*Hg)?/i,'');
+ extractVital('oxygenSaturation',/(?:oxygen saturation|\bSpO2|\bO2 sat(?:uration)?)\s*(?:is|:|=)?\s*(\d{1,3})\s*(%)?/i,'');
+ extractVital('painScore',/(?:pain score|\bpain)\s*(?:is|:|=)?\s*(\d{1,2})\s*(\/\s*10)?/i,'');
+ const labPatterns={
+  sodium:/(?:sodium|Na\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  potassium:/(?:potassium|K\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  chloride:/(?:chloride|Cl\+?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  bicarbonate:/(?:bicarbonate|HCO3-?)(?![A-Za-z])\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mEq\/L|mmol\/L)?/i,
+  glucose:/(?:glucose|blood sugar)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|mmol\/L)?/i,
+  BUN:/(?:BUN|blood urea nitrogen)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|mmol\/L)?/i,
+  creatinine:/(?:creatinine)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mg\/dL|µmol\/L|umol\/L)?/i,
+  WBC:/(?:white blood cell(?: count)?|\bWBC\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(?:×\s*)?(10\^?3\/µL|K\/µL)?/i,
+  hemoglobin:/(?:hemoglobin|\bHgb\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(g\/dL)?/i,
+  hematocrit:/(?:hematocrit|\bHct\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(%)?/i,
+  platelets:/(?:platelets?|platelet count)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(K\/µL|×\s*10\^?3\/µL)?/i,
+  lactate:/(?:lactate|lactic acid)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mmol\/L)?/i,
+  troponin:/(?:troponin(?:\s*[IT])?)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(ng\/L|ng\/mL)?/i,
+  INR:/(?:\bINR\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)/i,
+  pH:/(?:\bpH\b)\s*(?:is|of|:|=)?\s*(\d(?:\.\d+)?)/i,
+  PaO2:/(?:\bPaO2\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mm\s*Hg)?/i,
+  PaCO2:/(?:\bPaCO2\b)\s*(?:is|of|:|=)?\s*(-?\d+(?:\.\d+)?)\s*(mm\s*Hg)?/i
+ };
+ const diagnosticSource=firstMeaningful(existingEhr.diagnosticResults,existingEhr.labResults,q.diagnosticResults,q.labResults,q.laboratoryResults);
+ const diagnosticRecord=Object.assign({},diagnosticSource&&typeof diagnosticSource==='object'?diagnosticSource:{});
+ Object.entries(labPatterns).forEach(([label,pattern])=>{
+  if(diagnosticRecord[label]!=null&&diagnosticRecord[label]!=='')return;
+  const match=pattern.exec(vitalNarrative);
+  if(match)diagnosticRecord[label]=match[1]+(match[2]?' '+match[2]:'');
+ });
+ if(diagnosticSource&&typeof diagnosticSource!=='object'&&meaningful(diagnosticSource))existingEhr.diagnosticResults=diagnosticSource;
+ else if(Object.keys(diagnosticRecord).some(key=>meaningful(diagnosticRecord[key])))existingEhr.diagnosticResults=diagnosticRecord;
+ const profileSources=[q.patientProfile,q.patientInfo,q.patientInformation,q.patient_information,q.clinicalRecord,q.medicalRecord].filter(value=>value&&typeof value==='object');
+ Object.entries(vitalAliases).forEach(([label,aliases])=>{
+  if(vitalRecord[label]!=null&&vitalRecord[label]!=='')return;
+  for(const source of profileSources){
+   const key=aliases.find(alias=>source[alias]!=null&&source[alias]!=='');
+   if(key){vitalRecord[label]=source[key];break;}
+  }
+ });
+ if(vitalSource&&typeof vitalSource!=='object'&&meaningful(vitalSource))existingEhr.vitalSigns=vitalSource;
+ else if(Object.keys(vitalRecord).some(key=>meaningful(vitalRecord[key])))existingEhr.vitalSigns=vitalRecord;
+ const promoted={
+  nursesNotes:firstMeaningful(existingEhr.nursesNotes,q.nursesNotes,q.nurseNotes,q.clinicalRecord?.nursesNotes),
+  diagnosticResults:firstMeaningful(existingEhr.diagnosticResults,existingEhr.labResults,q.diagnosticResults,q.labResults,q.laboratoryResults),
+  historyPhysical:firstMeaningful(existingEhr.historyPhysical,q.historyPhysical,q.physicalAssessment,q.medicalHistory,q.patientHistory),
+  providerOrders:firstMeaningful(existingEhr.providerOrders,q.providerOrders,q.orders),
+  medications:firstMeaningful(existingEhr.medications,q.medications,q.medicationRecord),
+  allergies:firstMeaningful(existingEhr.allergies,q.allergies),
+  intakeOutput:firstMeaningful(existingEhr.intakeOutput,q.intakeOutput,q.intakeAndOutput),
+  assessmentFindings:firstMeaningful(existingEhr.assessmentFindings,q.assessmentFindings,q.clinicalFindings,q.assessment)
+ };
+ Object.entries(promoted).forEach(([key,value])=>{if(!meaningful(existingEhr[key])&&meaningful(value))existingEhr[key]=value;});
  // A scenario embedded in a traditional stem belongs in the left clinical pane,
  // even when a separate patient profile or chart tabs are also supplied.
  if(meaningful(split.scenario)){
   const existingNotes=plain(existingEhr.nursesNotes),scenario=plain(split.scenario);
   const alreadyInNotes=existingNotes&&existingNotes.toLowerCase().includes(scenario.toLowerCase());
   const additionalTabs=Array.isArray(existingEhr.additionalTabs)?existingEhr.additionalTabs.slice():[];
-  if(!alreadyInNotes&&!additionalTabs.some(tab=>Array.isArray(tab)&&String(tab[1]||'').toLowerCase().includes(scenario.toLowerCase())))additionalTabs.unshift(['Clinical scenario',split.scenario]);
+  if(!alreadyInNotes&&!additionalTabs.some(tab=>Array.isArray(tab)&&String(tab[1]||'').toLowerCase().includes(scenario.toLowerCase())))additionalTabs.unshift(['Presenting Information',split.scenario]);
   q.ehr={...existingEhr,...(additionalTabs.length?{additionalTabs}:{} )};
  }else if(Object.keys(existingEhr).length)q.ehr=existingEhr;
  return q;
@@ -258,15 +345,30 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const title=stripLeadingScenario(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question')||cleanField(promptSplit.question||'Clinical question');
  const rawPrompt=stripLeadingScenario(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
  const prompt=rawPrompt&&rawPrompt.toLowerCase()!==title.toLowerCase()?rawPrompt:'';
- const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical],...(Array.isArray(ehr.additionalTabs)?ehr.additionalTabs:[])];
+ const tabs=[
+  ['Nurses’ Notes',ehr.nursesNotes],
+  ['Vital Signs',ehr.vitalSigns],
+  ['Diagnostic Results',ehr.diagnosticResults],
+  ['History & Physical',ehr.historyPhysical],
+  ['Provider Orders',ehr.providerOrders],
+  ['Medications',ehr.medications],
+  ['Allergies',ehr.allergies],
+  ['Intake & Output',ehr.intakeOutput],
+  ['Assessment Findings',ehr.assessmentFindings],
+  ...(Array.isArray(ehr.additionalTabs)?ehr.additionalTabs:[])
+ ].filter(tab=>quickRNPlainClinicalText(tab[1]));
  const caseContext=q.caseStudyContext||{};
  const patientSummary=typeof q.patientInfo==='string'?quickRNPlainClinicalText(q.patientInfo):(quickRNPatientInfoText(patient)||quickRNPlainClinicalText(caseContext.summary||q.caseStudy||q.case_study||''));
- const hasRecord=!!(q.ehr||patientSummary||q.caseStudyContext||q.patientInfo||q.patientProfile||q.caseStudy||q.case_study||q.caseGroupId||tabs.some(t=>quickRNPlainClinicalText(t[1])));
+ const scenarioText=quickRNPlainClinicalText(promptSplit.scenario||'');
+ const hasRecord=!!(patientSummary||scenarioText||tabs.some(t=>quickRNPlainClinicalText(t[1])));
  const patientName=quickRNPlainClinicalText(patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient');
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.code)+'</div>':'');
  const seenRecordSections=new Set(patientSummary?[quickRNPlainClinicalText(patientSummary).toLowerCase()]:[]);const recordSections=tabs.map(t=>[t[0],quickRNPlainClinicalText(t[1])]).filter(t=>{if(!t[1])return false;const key=t[1].toLowerCase();if(seenRecordSections.has(key))return false;seenRecordSections.add(key);return true;}).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+quickRNEscape(t[1])+'</div></section>').join('');
- const scenarioText=quickRNPlainClinicalText(promptSplit.scenario||'');const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText)&&!caseContext.title&&!caseContext.summary;const summarySection=patientSummary&&!duplicateSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(patientSummary).replace(/\n/g,'<br>')+'</div></section>':'';
- let record=hasRecord?'<aside class="qr-ehr'+(f==='Single Choice'?' qr-single-choice-scenario':'')+'"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+(!recordSections&&!summarySection?'<section class="qr-ehr-section"><h4>Clinical scenario</h4><div>'+quickRNEscape(scenarioText||'')+'</div></section>':'')+'</div></aside>':'';
+ const normalizeClinical=v=>quickRNPlainClinicalText(v).toLowerCase();
+ const duplicateSummary=patientSummary&&scenarioText&&normalizeClinical(patientSummary)===normalizeClinical(scenarioText)&&!caseContext.title&&!caseContext.summary;
+ const visibleSummary=patientSummary&&!duplicateSummary?patientSummary:(!recordSections?scenarioText:'');
+ const summarySection=visibleSummary?'<section class="qr-ehr-section"><h4>'+(caseContext.title?'Case overview':'Patient information')+'</h4><div>'+quickRNEscape(visibleSummary).replace(/\n/g,'<br>')+'</div></section>':'';
+ let record=hasRecord?'<aside class="qr-ehr'+(f==='Single Choice'?' qr-single-choice-scenario':'')+'"><div class="qr-ehr-head"><strong><i class="fa-solid fa-hospital-user"></i> Clinical Record</strong><span>'+quickRNEscape(patientName)+'</span></div>'+caseMeta+'<div class="qr-ehr-body">'+recordSections+summarySection+'</div></aside>':'';
  let response='';
  if(f==='Single Choice'||f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'){
    const opts=Array.isArray(q.options)?q.options:[]; const multi=f==='Multiple Response'||f==='Extended Multiple Response'||f==='Select N'; const selected=multi?(draft.choices||[]):[draft.choice];
