@@ -3,6 +3,7 @@
 // Read-only content-quality audit. Never normalizes IDs, edits records, or changes scoring.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.resolve(__dirname,'..'),context={console,window:{}};
+const schema=require('../js/quickrn-question-schema-v2');
 function load(p){const f=path.join(root,p);if(fs.existsSync(f))vm.runInNewContext(fs.readFileSync(f,'utf8'),context,{timeout:120000,filename:f});}
 load('questions.js');context.questions=context.questions||context.window.questions||[];context.window=context;context.globalThis=context;
 [
@@ -14,6 +15,7 @@ load('questions.js');context.questions=context.questions||context.window.questio
 'questions-bank-ngn-priority-2026-11-04-batch-007.js'
 ].forEach(load);
 const bank=Array.isArray(context.questions)?context.questions:[];
+schema.normalizeBank(bank); // Audit the same lossless runtime-normalized content consumed by the exam modes.
 const formats=['Single Choice','Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend','Numeric Entry'];
 function format(q){
 const s=[q.ngnType,q.type,q.format,q.questionType,q.itemType].filter(Boolean).join(' ').replace(/_/g,' ').toLowerCase();
