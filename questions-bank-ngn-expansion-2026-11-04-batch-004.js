@@ -22414,12 +22414,12 @@ function clinicalTip(q,action,monitor){
 }
 const groupSequence=new Map();
 items.forEach(q=>{
- const caseSequence=(groupSequence.get(q.caseGroupId)||0)+1;groupSequence.set(q.caseGroupId,caseSequence);q.caseQuestionNumber=caseSequence;q.caseStudySequence=caseSequence;
+ const caseSequence=(groupSequence.get(q.caseGroupId)||0)+1;groupSequence.set(q.caseGroupId,caseSequence);const sequenceValue=q.caseGroupId==='QR-NGN-CASE-024'?caseSequence+1:caseSequence;q.caseQuestionNumber=sequenceValue;q.caseStudySequence=sequenceValue;
  const topic=q.topic||'the presenting condition',action=q.ehr?.priorityAssessment||'escalate the acute change and implement the prescribed condition-specific response',monitor=q.ehr?.monitoring||'vital signs and response to treatment',history=q.patientInfo?.history||q.ehr?.assessment||'the documented presenting findings';
  const vitals=clinicalVitals[topic]||null;
  const profile=typeof q.patientInfo==='object'&&q.patientInfo?q.patientInfo:{age:String(q.patientInfo||'Age not supplied in source record'),history};
  q.patientProfile={age:profile.age||'Not specified',presentingConcern:history,relevantHistory:profile.history||history,sourceStatus:'Simulated educational case; values are for examination practice, not a real patient record.'};
- q.clinicalScenario=topic+': '+history;q.scenario=q.clinicalScenario;q.caseStudyContext={id:q.caseGroupId,title:topic,scenario:q.clinicalScenario,summary:history,sequence:caseSequence};
+ q.clinicalScenario=topic+': '+history;q.scenario=q.clinicalScenario;q.caseStudyContext={id:q.caseGroupId,title:topic,scenario:q.clinicalScenario,summary:history,sequence:sequenceValue};
  q.ehr=Object.assign({},q.ehr||{},{
   tabs:{
    nursesNotes:[{time:'Initial assessment',note:history},{time:'Nursing priority',note:action}],
