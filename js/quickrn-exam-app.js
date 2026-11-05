@@ -42,6 +42,23 @@ function bankAssetReport(){
  const missing=modules.filter(x=>x.status==='missing'),failed=modules.filter(x=>x.status==='failed'),unconfirmed=modules.filter(x=>x.status==='unconfirmed');
  return {expectedCount:Number(manifest.expectedUniqueProductionRecords)||null,expectedModules:modules.length,modules,missing,failed,unconfirmed};
 }
+function suppressObsoleteBankStatus(){
+ const pattern=/unique questions loaded/i;
+ const scan=()=>{
+  document.querySelectorAll('body *').forEach(el=>{
+   if(el.children.length!==0)return;
+   const value=String(el.textContent||'').replace(/\s+/g,' ').trim();
+   if(!pattern.test(value)||!/expected\s+[\d,]+/i.test(value)||!/file loads unconfirmed/i.test(value))return;
+   const wrapper=el.closest('[role="status"],[aria-live="polite"],.toast,.notification,.alert,.bank-load-status')||el;
+   if(wrapper&&wrapper!==document.body&&!wrapper.matches('header,main,body'))wrapper.remove();
+  });
+ };
+ scan();
+ if(!document.body||document.body.dataset.quickrnBankStatusGuard==='1')return;
+ document.body.dataset.quickrnBankStatusGuard='1';
+ const observer=new MutationObserver(scan);
+ observer.observe(document.body,{childList:true,subtree:true,characterData:true});
+}
 function renderBankStatus(uniqueCount,sourceCount,skipped,duplicates){
  const report=bankAssetReport(),expected=report.expectedCount,exact=expected===null||expected===uniqueCount;
  const allAssetsOk=!report.missing.length&&!report.failed.length&&!report.unconfirmed.length;
@@ -312,7 +329,7 @@ function safeClinicalHTML(value){
   if(forbidden.has(child.tagName)){child.remove();return;}
   walk(child);
   if(!allowed.has(child.tagName)){child.replaceWith(...child.childNodes);return;}
-  [...child.attributes].forEach(attr=>{const name=attr.name.toLowerCase();if(!(['colspan','rowspan'].includes(name)&&/^\\d{1,2}$/.test(attr.value)))child.removeAttribute(attr.name);});
+  [...child.attributes].forEach(attr=>{const name=attr.name.toLowerCase();if(!(['colspan','rowspan'].includes(name)&&/^\d{1,2}$/.test(attr.value)))child.removeAttribute(attr.name);});
  });
  walk(template.content);
  return template.innerHTML;
@@ -510,7 +527,7 @@ function installKeyboardShortcuts(){
  });
 }
 
-function init(){const summary=$('summary-screen');if(summary&&!summary.dataset.dismissGuard){summary.dataset.dismissGuard='1';summary.addEventListener('click',event=>{if(event.target===summary){event.preventDefault();event.stopPropagation();}});summary.addEventListener('keydown',event=>{if(event.key==='Escape'&&!summary.classList.contains('hidden')){event.preventDefault();event.stopPropagation();}});}installKeyboardShortcuts();document.title='QuickRN | '+titles[mode];$('mode-label').textContent=titles[mode];if($('mode-subtitle'))$('mode-subtitle').textContent=descriptions[mode];if(!$('format-filter')){const fs=document.createElement('select');fs.id='format-filter';fs.onchange=()=>switchFormatFilter(fs.value);fs.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';($('setup-modal')||document.body).appendChild(fs);}setupOptions();if(!isNCLEXExamMode())$('setup-modal').classList.remove('hidden');else $('setup-modal')?.classList.add('hidden');if($('session-info-pill'))$('session-info-pill').textContent='Preparing question bank…';loadBankProgressively();}
+function init(){const summary=$('summary-screen');if(summary&&!summary.dataset.dismissGuard){summary.dataset.dismissGuard='1';summary.addEventListener('click',event=>{if(event.target===summary){event.preventDefault();event.stopPropagation();}});summary.addEventListener('keydown',event=>{if(event.key==='Escape'&&!summary.classList.contains('hidden')){event.preventDefault();event.stopPropagation();}});}installKeyboardShortcuts();document.title='QuickRN | '+titles[mode];$('mode-label').textContent=titles[mode];if($('mode-subtitle'))$('mode-subtitle').textContent=descriptions[mode];if(!$('format-filter')){const fs=document.createElement('select');fs.id='format-filter';fs.onchange=()=>switchFormatFilter(fs.value);fs.className='w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800';($('setup-modal')||document.body).appendChild(fs);}setupOptions();if(!isNCLEXExamMode())$('setup-modal').classList.remove('hidden');else $('setup-modal')?.classList.add('hidden');suppressObsoleteBankStatus();loadBankProgressively();}
 window.startExamSession=startExamSession;window.saveStudyConfidence=saveStudyConfidence;window.startMissedReview=startMissedReview;window.switchFormatFilter=switchFormatFilter;window.navigateQuestion=navigateQuestion;window.submitAnswer=submitAnswer;window.confirmEndTest=confirmEndTest;window.toggleMarkQuestion=toggleMarkQuestion;window.toggleCalculator=toggleCalculator;window.calcInput=calcInput;window.calcEquals=calcEquals;window.toggleNotesModal=toggleNotesModal;window.saveNotes=saveNotes;window.toggleFeedbackModal=toggleFeedbackModal;window.submitFeedback=submitFeedback;window.switchCaseTab=switchCaseTab;window.returnToDashboard=returnToDashboard;window.openBookmarksModal=openBookmarksModal;window.closeBookmarksModal=closeBookmarksModal;window.goToBookmarkedQuestion=goToBookmarkedQuestion;window.toggleSummaryBookmark=toggleSummaryBookmark;
 window.quickRNRenderAgain=function(){if(started&&!finished)renderAnswerArea(currentQuestion());};window.closeRationale=closeRationale;
 document.addEventListener('DOMContentLoaded',init);

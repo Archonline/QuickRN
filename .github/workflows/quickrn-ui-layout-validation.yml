@@ -3,6 +3,13 @@ on:
   push:
     paths:
       - 'dashboard.html'
+      - 'profile.html'
+      - 'selfstudy.html'
+      - 'timed.html'
+      - 'cat.html'
+      - 'predictor.html'
+      - 'js/quickrn-sidebar.js'
+      - 'js/quickrn-exam-app.js'
       - 'help.html'
       - 'css/quickrn-brand-system.css'
       - 'tests/support-layout-contract.test.js'

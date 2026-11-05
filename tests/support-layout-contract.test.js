@@ -23,4 +23,20 @@ assert.doesNotMatch(help, /class="support-header-link"/, 'Help header has no ext
 assert.match(help, /prefilled GitHub issue/, 'Question-report instructions match the current reporting flow');
 assert.match(brandCss, /Support page layout lock/, 'Dedicated support layout overrides are present');
 assert.match(brandCss, /#app-shell\.support-shell\{\s*flex-direction:column!important/s, 'Mobile support layout stacks sidebar and workspace');
-console.log('PASS: Feature Hub structure, release notes, and Help/Disclaimer layout contracts');
+
+const profile = fs.readFileSync('profile.html', 'utf8');
+const sidebar = fs.readFileSync('js/quickrn-sidebar.js', 'utf8');
+const examApp = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
+assert.match(sidebar, /applySidebarState\(true\)/, 'Shared sidebar starts in compact mode');
+assert.match(sidebar, /qr-sidebar-expanded/, 'Sidebar labels are revealed on hover and keyboard focus');
+assert.match(brandCss, /#app-shell\.support-shell\.qr-sidebar-shell\{[\s\S]*?width:100vw!important[\s\S]*?padding-left:56px!important/, 'Support workspace uses one full-width content column beside the compact rail');
+assert.match(brandCss, /#tab-content-features\{width:100%!important;max-width:none!important/, 'Feature Hub is not constrained to a narrow centered pane');
+assert.match(profile, /<main class="flex-grow/, 'Profile retains a single full-width main content region');
+assert.match(examApp, /suppressObsoleteBankStatus/, 'Exam app removes the obsolete question-bank status notice');
+for (const page of ['selfstudy.html', 'timed.html', 'cat.html', 'predictor.html']) {
+  const html = fs.readFileSync(page, 'utf8');
+  assert.doesNotMatch(html, /\\n\s*<script src="questions\.js">/, page + ' has no literal escaped newline before question-bank scripts');
+  assert.doesNotMatch(html, /3,972 unique questions loaded|expected 3,969|file loads unconfirmed/i, page + ' has no hard-coded obsolete bank status');
+}
+
+console.log('PASS: Feature Hub, compact sidebar, full-width support, and exam-header contracts');
