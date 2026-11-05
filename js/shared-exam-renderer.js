@@ -386,7 +386,7 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
  const f=quickRNDetectItemFormat(q);
  if(f==='Multiple Response')return quickRNBaseRender({...q,ngnType:'Extended Multiple Response'},draft,submitted);if(f!=='Highlight'&&f!=='Trend')return quickRNBaseRender(q,draft,submitted);
  q=quickRNAdaptClinicalSchema(q); const esc=quickRNEscape, patient=q.patientInfo||{}, ehr=q.ehr||{};
- const promptSplit=quickRNSplitPrompt(q),scenarioText=quickRNCleanClinicalText(promptSplit.scenario||'',q); let cleanTitle=quickRNCleanPrompt(q.cleanTitle||q.title||q.promptTitle||(f==='Highlight'?'Highlight the findings':'')||q.questionText||q.question||'Clinical question'); if(scenarioText&&cleanTitle.toLowerCase().startsWith(scenarioText.toLowerCase()))cleanTitle=cleanTitle.slice(scenarioText.length).replace(/^[\\s.!?—–:;-]+/,'').trim();
+ const promptSplit=quickRNSplitPrompt(q),scenarioText=quickRNCleanClinicalText(promptSplit.scenario||'',q); let cleanTitle=quickRNCleanPrompt(q.cleanTitle||q.title||q.promptTitle||(f==='Highlight'?'Highlight the findings':'')||q.questionText||q.question||'Clinical question'); if(scenarioText&&cleanTitle.toLowerCase().startsWith(scenarioText.toLowerCase()))cleanTitle=cleanTitle.slice(scenarioText.length).replace(/^[\s.!?—–:;-]+/,'').trim();
  const cleanPrompt=quickRNCleanPrompt(q.cleanInstruction||q.instruction||'');
  const title=esc(cleanTitle), prompt=esc(cleanPrompt.toLowerCase()===cleanTitle.toLowerCase()?'':cleanPrompt);
  const record=(q.ehr||q.patientInfo||q.caseStudy||q.case_study)?'<aside class="qr-ehr"><div class="qr-ehr-head"><strong>Clinical Record</strong><span>'+esc(patient.name||patient.patientName||'Patient')+'</span></div><div class="qr-ehr-body">'+[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]].filter(x=>x[1]).map(x=>'<section class="qr-ehr-section"><h4>'+esc(x[0])+'</h4><div>'+esc(quickRNPlainClinicalText(x[1]))+'</div></section>').join('')+(q.caseStudy||q.case_study?'<section class="qr-ehr-section"><h4>Case information</h4><div>'+esc(q.caseStudy||q.case_study)+'</div></section>':'')+'</div></aside>':'';
@@ -396,7 +396,7 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
    const source=q.highlightText||q.passage||q.caseStudyText||q.textToHighlight||q.questionText||q.question||'';
    const fallbackText=String(source||'').trim();
    let prefix='';
-   let fallbackParts=fallbackText.includes(';')?fallbackText.split(/;\\s*/).map(text=>text.trim()).filter(Boolean):(fallbackText.match(/[^.!?]+[.!?]?/g)||[]).map(text=>text.trim()).filter(Boolean);
+   let fallbackParts=fallbackText.includes(';')?fallbackText.split(/;\s*/).map(text=>text.trim()).filter(Boolean):(fallbackText.match(/[^.!?]+[.!?]?/g)||[]).map(text=>text.trim()).filter(Boolean);
    // In inline highlight items, keep the instruction in the stem and make only the clinical findings selectable.
    if(!(Array.isArray(raw)&&raw.length)&&fallbackParts.length){
      const first=fallbackParts[0],colon=first.lastIndexOf(':');
