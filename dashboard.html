@@ -570,48 +570,26 @@
         function printWeakAreaFlashcards() {
             if (!quickRNFlashcards.length) generateWeakAreaFlashcards();
             if (!quickRNFlashcards.length) return;
-            const escape = value => String(value).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
             const printWindow = window.open('', '_blank', 'width=900,height=700');
             if (!printWindow) { showToast('Allow pop-ups to print your flashcards.', 'error'); return; }
-            printWindow.document.write('<!doctype html><html><head><title>QuickRN Weak-Area Flashcards</title><style>body{font-family:Arial,sans-serif;margin:24px;color:#172033}h1{font-size:20px}p{font-size:11px;color:#64748b}.deck{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid #94a3b8;border-radius:8px;padding:14px;min-height:125px;break-inside:avoid}.label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#64748b}.front{font-weight:700;font-size:13px;margin:12px 0}.back{font-size:11px;line-height:1.5;border-top:1px dashed #cbd5e1;padding-top:9px}@media print{body{margin:12mm}.card{break-inside:avoid}}</style></head><body><h1>QuickRN · Personalized Weak-Area Flashcards</h1><p>Generated from your saved Client Needs performance and available study notes. Review both sides and verify clinical details against current course materials.</p><div class="deck">' + quickRNFlashcards.map((card,index)=>'<article class="card"><div class="label">Card '+(index+1)+' · '+escape(card.source)+'</div><div class="front">'+escape(card.front)+'</div><div class="back">'+escape(card.back)+'</div></article>').join('') + '</div><script>window.onload=function(){window.print()}<\/script>
-<script type="module">
-  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  const firebaseConfig = {
-    apiKey: "AIzaSyAP4zFj2e_M4h70eLZ0340SNKD6VgLDvsw",
-    authDomain: "quickrnapp.firebaseapp.com",
-    projectId: "quickrnapp",
-    storageBucket: "quickrnapp.firebasestorage.app",
-    messagingSenderId: "222653066147",
-    appId: "1:222653066147:web:e82e89710bd4c4b6eb4816",
-    measurementId: "G-9ZMV285XC0"
-  };
-  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  window.quickrnFirebaseSignOut = () => signOut(getAuth(app));
-<\/script>
-<script>
-  // Clear the app's local sign-in marker and Firebase's persisted session.
-  window.handleSignOut = async function () {
-    try {
-      if (typeof window.quickrnFirebaseSignOut === 'function') {
-        await window.quickrnFirebaseSignOut();
-      }
-    } catch (error) {
-      console.warn('Firebase sign-out did not complete:', error);
-    } finally {
-      try {
-        localStorage.setItem('quickrn_signed_out', 'true');
-        localStorage.removeItem('quickrn_user_email');
-        localStorage.removeItem('quickrn_auth_provider');
-      } catch (error) {
-        console.warn('Could not clear the local QuickRN sign-in state:', error);
-      }
-      window.location.assign('index.html');
-    }
-  };
-<\/script>
-
-</body></html>');
+            const cardsHtml = quickRNFlashcards.map((card,index) =>
+                '<article class="card"><div class="label">Card ' + (index+1) + ' · ' + escape(card.source) + '</div><div class="front">' + escape(card.front) + '</div><div class="back">' + escape(card.back) + '</div></article>'
+            ).join('');
+            const printDocument = `<!doctype html><html><head><title>QuickRN Weak-Area Flashcards</title><style>
+                body{font-family:Arial,sans-serif;margin:24px;color:#172033}
+                h1{font-size:20px}p{font-size:11px;color:#64748b}
+                .deck{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+                .card{border:1px solid #94a3b8;border-radius:8px;padding:14px;min-height:125px;break-inside:avoid}
+                .label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#64748b}
+                .front{font-weight:700;font-size:13px;margin:12px 0}
+                .back{font-size:11px;line-height:1.5;border-top:1px dashed #cbd5e1;padding-top:9px}
+                @media print{body{margin:12mm}.card{break-inside:avoid}}
+            </style></head><body><h1>QuickRN · Personalized Weak-Area Flashcards</h1>
+            <p>Generated from your saved Client Needs performance and available study notes. Review both sides and verify clinical details against current course materials.</p>
+            <div class="deck">${cardsHtml}</div><script>window.onload=function(){window.print()}<\/script></body></html>`;
+            printWindow.document.open();
+            printWindow.document.write(printDocument);
             printWindow.document.close();
         }
 
@@ -1116,6 +1094,39 @@
         </div>
     </div>
 
+        <script type="module">
+            import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+            import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+            const firebaseConfig = {
+                apiKey: "AIzaSyAP4zFj2e_M4h70eLZ0340SNKD6VgLDvsw",
+                authDomain: "quickrnapp.firebaseapp.com",
+                projectId: "quickrnapp",
+                storageBucket: "quickrnapp.firebasestorage.app",
+                messagingSenderId: "222653066147",
+                appId: "1:222653066147:web:e82e89710bd4c4b6eb4816",
+                measurementId: "G-9ZMV285XC0"
+            };
+            const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+            window.quickrnFirebaseSignOut = () => signOut(getAuth(app));
+        </script>
+        <script>
+            window.handleSignOut = async function () {
+                try {
+                    if (typeof window.quickrnFirebaseSignOut === 'function') await window.quickrnFirebaseSignOut();
+                } catch (error) {
+                    console.warn('Firebase sign-out did not complete:', error);
+                } finally {
+                    try {
+                        localStorage.setItem('quickrn_signed_out', 'true');
+                        localStorage.removeItem('quickrn_user_email');
+                        localStorage.removeItem('quickrn_auth_provider');
+                    } catch (error) {
+                        console.warn('Could not clear the local QuickRN sign-in state:', error);
+                    }
+                    window.location.assign('index.html');
+                }
+            };
+        </script>
         <script src="js/quickrn-sidebar.js"></script>
 <script src="js/quickrn-platform-hardening.js"></script>
 </body>
