@@ -666,3 +666,13 @@ window.QuickRNSharedRenderer={
  validateQuestion:quickRNValidateQuestionRecord,
  auditBank:quickRNAuditQuestionBank
 };
+// All four exam pages load their complete question-bank modules before this
+// shared renderer. Audit the full loaded bank once, then normalize records in
+// place so every exam mode consumes the same presentation schema. No records
+// are deleted and no answer/scoring fields are rewritten.
+if(Array.isArray(window.questions)){
+ window.QuickRNQuestionBankAudit=quickRNAuditQuestionBank(window.questions);
+ for(let i=0;i<window.questions.length;i++){
+  window.questions[i]=quickRNAdaptClinicalSchema(window.questions[i]);
+ }
+}
