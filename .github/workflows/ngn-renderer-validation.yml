@@ -123,5 +123,4 @@ jobs:
           path: |
             reports/ngn-bank-validation.*
             reports/question-schema-v2-validation.*
-            reports/question-schema-v2-educator-review-queue.json
           if-no-files-found: warn
