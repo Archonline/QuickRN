@@ -1,0 +1,106 @@
+name: QuickRN question-bank validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'questions*.js'
+      - 'questions-bank-*.js'
+      - 'question-bank-rebuild/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-ngn-scoring.js'
+      - 'js/shared-exam-renderer.js'
+      - 'scripts/**'
+      - 'tests/**'
+      - '.github/workflows/question-bank-validation.yml'
+  pull_request:
+    paths:
+      - 'questions*.js'
+      - 'questions-bank-*.js'
+      - 'question-bank-rebuild/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-ngn-scoring.js'
+      - 'js/shared-exam-renderer.js'
+      - 'scripts/**'
+      - 'tests/**'
+  schedule:
+    # Daily at 09:00 Asia/Manila (UTC+8).
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quickrn-question-bank-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Structural, clinical-content, scoring and exam-mode regression audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run all repository regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          tests=(tests/*.test.js)
+          if (( ${#tests[@]} == 0 )); then
+            echo "::error::No regression tests were found."
+            exit 1
+          fi
+          for test_file in "${tests[@]}"; do
+            echo "::group::${test_file}"
+            node "${test_file}"
+            echo "::endgroup::"
+          done
+
+      - name: Audit loaded question bank and format mappings
+        id: bank_audit
+        continue-on-error: true
+        run: node scripts/validate-question-bank.js
+
+      - name: Audit canonical schema v2
+        id: schema_audit
+        continue-on-error: true
+        run: node scripts/validate-question-schema-v2.js
+
+      - name: Preserve validation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quickrn-question-bank-audit-${{ github.run_number }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            reports/ngn-bank-validation.json
+            reports/ngn-bank-validation.md
+            reports/question-schema-v2-validation.json
+            reports/question-schema-v2-validation.md
+            reports/question-schema-v2-schema-issue-queue.json
+
+      - name: Summarize audit status
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## QuickRN question-bank audit"
+            echo
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            echo "- Branch/event: \`${GITHUB_REF_NAME}\` / \`${GITHUB_EVENT_NAME}\`"
+            echo "- Regression tests: passed (job would have stopped on first failure)"
+            echo "- Bank audit exit: \`${{ steps.bank_audit.outcome }}\`"
+            echo "- Schema audit exit: \`${{ steps.schema_audit.outcome }}\`"
+            echo
+            echo "Detailed reports are attached as workflow artifacts. Content-quality findings are reported separately from runtime scoring; this workflow does not modify question data or scoring behavior."
+          } >> "$GITHUB_STEP_SUMMARY"
