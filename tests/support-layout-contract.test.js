@@ -35,7 +35,7 @@ assert.match(profile, /<main class="flex-grow/, 'Profile retains a single full-w
 assert.match(examApp, /suppressObsoleteBankStatus/, 'Exam app removes the obsolete question-bank status notice');
 for (const page of ['selfstudy.html', 'timed.html', 'cat.html', 'predictor.html']) {
   const html = fs.readFileSync(page, 'utf8');
-  assert.doesNotMatch(html, /\\\\n\s*<script src="questions\.js">/, page + ' has no literal escaped newline before question-bank scripts');
+  assert.doesNotMatch(html, /\\n\s*<script src="questions\.js">/, page + ' has no literal escaped newline before question-bank scripts');
   assert.doesNotMatch(html, /3,972 unique questions loaded|expected 3,969|file loads unconfirmed/i, page + ' has no hard-coded obsolete bank status');
 }
 
