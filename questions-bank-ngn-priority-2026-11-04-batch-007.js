@@ -165,7 +165,19 @@ const batch009Aliases={
  'Transfusion reaction':'Transfusion reaction',
  'Neutropenic fever':'Neutropenic fever',
  'Adrenal crisis':'Adrenal crisis',
- 'Neonatal hypoglycemia':'Neonatal hypoglycemia'
+ 'Neonatal hypoglycemia':'Neonatal hypoglycemia',
+ 'Acute coronary syndrome':'Acute myocardial infarction',
+ 'Hypoglycemia':'Severe hypoglycemia',
+ 'Anaphylaxis':'Anaphylaxis',
+ 'Postoperative hemorrhage':'Postoperative hemorrhage',
+ 'Airway obstruction':'Acute upper-airway obstruction',
+ 'Status epilepticus':'Status epilepticus',
+ 'Raised intracranial pressure':'Raised intracranial pressure',
+ 'Pediatric dehydration':'Pediatric dehydration',
+ 'Suicide risk':'Imminent suicide risk',
+ 'Alcohol withdrawal':'Severe alcohol withdrawal',
+ 'Lithium toxicity':'Lithium toxicity',
+ 'Serotonin syndrome':'Serotonin syndrome'
 };
 const detailedCaseByTitle=new Map(cases.map(record=>[record[0],record]));
 const enrichedGroups=new Set();
