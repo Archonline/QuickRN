@@ -201,34 +201,37 @@ bank.forEach(item=>{
  const sequence=Number(item.caseStudyContext.sequence||item.caseQuestionNumber||0);
  const distractors=alternatives[item.topic]||['A different acute condition','A stable chronic condition','An expected finding unrelated to the current presentation'];
  const optionReason=(option,reason)=>[option,reason];
+ const sequence=Number(item.caseStudyContext.sequence||item.caseQuestionNumber||0);
+ const distractors=alternatives[item.topic]||['A different acute condition','A stable chronic condition','An expected finding unrelated to the current presentation'];
+ const optionReason=(option,reason)=>[option,reason];
  if(sequence===1){
-  const opts=[scenario,vitalSigns,labResults,'Age and history without a new change'];
-  item.title='Which finding in the current presentation requires the most immediate nursing attention?';
+  const opts=[scenario,vitalSigns,labResults,'Age and background history without a new change'];
+  item.title='Which statement best identifies the acute presenting change documented in the Nurses’ Notes?';
   item.options=opts;item.correctAnswer=scenario;
-  item.rationale='The acute symptom change in the scenario is the immediate cue. The nurse should integrate it with the vital signs and laboratory results rather than treating age or background history as the priority.';
-  item.optionRationales=Object.fromEntries([optionReason(scenario,'Correct. This describes the acute change prompting urgent assessment and intervention.'),optionReason(vitalSigns,'Important objective data that support the assessment; interpret these findings together with the acute symptom change.'),optionReason(labResults,'Relevant diagnostic evidence, but it does not replace immediate assessment of the acute presentation.'),optionReason('Age and history without a new change','Background information informs risk but does not take priority over an acute change.')]);
+  item.rationale='The acute symptom change is the presenting cue. The nurse should interpret it alongside the vital signs and laboratory results rather than treating age or background history as the immediate problem.';
+  item.optionRationales=Object.fromEntries([optionReason(scenario,'Correct. This is the acute change documented in the presenting assessment.'),optionReason(vitalSigns,'Relevant objective findings that help establish severity, but this option is the vital-sign exhibit rather than the presenting change.'),optionReason(labResults,'Relevant diagnostic evidence, but this option is the laboratory exhibit rather than the presenting change.'),optionReason(opts[3],'Age and background history inform risk but do not identify the acute change.')]);
   item.clinicalJudgmentStep='Recognize Cues';
  }else if(sequence===2){
-  const opts=[firstAction,secondAction,'Defer escalation until the next routine round','Wait for every pending result before addressing the acute change'];
-  item.title='Which nursing actions are indicated for this client? Select all that apply.';
-  item.options=opts;item.correctAnswers=[firstAction,secondAction];
-  item.rationale='The first action addresses the immediate threat; the second implements the next indicated intervention. Escalation and time-sensitive care should not be delayed for routine rounds or pending results when instability is present.';
-  item.optionRationales=Object.fromEntries([optionReason(firstAction,'Correct. This is the immediate priority response for the documented clinical problem.'),optionReason(secondAction,'Correct. This is the complementary intervention specified for the current presentation.'),optionReason(opts[2],'Incorrect. Acute deterioration requires prompt action, not deferral to routine rounds.'),optionReason(opts[3],'Incorrect. Do not delay indicated stabilization or escalation while waiting for results that are not prerequisites.')]);
-  item.clinicalJudgmentStep='Take Action';
- }else if(sequence===3){
-  const opts=[primaryMonitor,secondaryMonitor,vitalSigns,labResults];
-  item.title='Which parameter should the nurse prioritize when evaluating the immediate response to treatment?';
-  item.options=opts;item.correctAnswer=primaryMonitor;
-  item.rationale='The primary monitoring parameter is the most direct measure of the immediate clinical response. The secondary parameter, vital signs, and laboratory data remain important for ongoing reassessment.';
-  item.optionRationales=Object.fromEntries([optionReason(primaryMonitor,'Correct. This is the most direct immediate response measure for this clinical problem.'),optionReason(secondaryMonitor,'Important for continued surveillance, but secondary to the immediate response measure.'),optionReason(vitalSigns,'Continue trending vital signs; this broad set is not the most specific response measure.'),optionReason(labResults,'Laboratory trends may confirm response over time but are not the most direct immediate bedside measure.')]);
-  item.clinicalJudgmentStep='Evaluate Outcomes';
- }else if(sequence===4){
-  const opts=[diagnosis,...distractors];
-  item.title='Which clinical interpretation is most consistent with the complete patient record?';
-  item.options=opts;item.correctAnswer=diagnosis;
-  item.rationale='The documented symptom pattern, vital signs, and diagnostic findings support the keyed clinical interpretation. The alternatives do not account for the full pattern of findings.';
-  item.optionRationales=Object.fromEntries(opts.map((option,index)=>optionReason(option,index===0?'Correct. This interpretation best accounts for the combined assessment and diagnostic findings.':'Incorrect. This alternative does not explain the complete pattern documented in this record.')));
+  const opts=[scenario,vitalSigns,labResults,'Age and background history without a new change'];
+  item.title='Which findings support the priority clinical concern? Select all that apply.';
+  item.options=opts;item.correctAnswers=[scenario,vitalSigns,labResults];
+  item.rationale='The presenting symptoms, abnormal vital signs, and diagnostic findings must be considered together. Age and background history alone do not establish the acute clinical concern.';
+  item.optionRationales=Object.fromEntries([optionReason(scenario,'Correct. The presenting symptoms establish the acute clinical change.'),optionReason(vitalSigns,'Correct. These objective measurements help determine the severity and urgency of the presentation.'),optionReason(labResults,'Correct. The diagnostic findings support the clinical interpretation and guide treatment.'),optionReason(opts[3],'Incorrect. Background information is relevant context but is not an acute cue by itself.')]);
   item.clinicalJudgmentStep='Analyze Cues';
+ }else if(sequence===3){
+  const opts=[diagnosis,...distractors];
+  item.title='Which clinical problem should the nurse prioritize based on the complete record?';
+  item.options=opts;item.correctAnswer=diagnosis;
+  item.rationale='The documented symptoms, vital signs, and diagnostic findings support the keyed priority hypothesis. The alternatives do not account for the complete pattern of findings.';
+  item.optionRationales=Object.fromEntries(opts.map((option,index)=>optionReason(option,index===0?'Correct. This priority hypothesis best explains the combined assessment and diagnostic findings.':'Incorrect. This alternative does not account for the full pattern documented in this record.')));
+  item.clinicalJudgmentStep='Prioritize Hypotheses';
+ }else if(sequence===4){
+  const opts=[firstAction,secondAction,'Defer escalation until the next routine round','Wait for every pending result before addressing the acute change'];
+  item.title='Which action should the nurse take first?';
+  item.options=opts;item.correctAnswer=firstAction;
+  item.rationale='The first action addresses the immediate threat in the current presentation. The second action is also indicated but follows the initial priority response; escalation should not be delayed for routine rounds or nonessential pending results.';
+  item.optionRationales=Object.fromEntries([optionReason(firstAction,'Correct. This is the immediate priority response for the documented clinical problem.'),optionReason(secondAction,'Important and indicated, but it follows the initial priority action.'),optionReason(opts[2],'Incorrect. Acute deterioration requires prompt action rather than deferral to routine rounds.'),optionReason(opts[3],'Incorrect. Do not delay indicated stabilization or escalation while waiting for results that are not prerequisites.')]);
+  item.clinicalJudgmentStep='Take Action';
  }else if(sequence===5){
   const improved='Improvement in '+primaryMonitor+', with '+secondaryMonitor+' trending toward the expected target';
   const opts=[improved,'Worsening '+primaryMonitor+' despite intervention','New deterioration in '+secondaryMonitor,'No reassessment after the intervention'];
