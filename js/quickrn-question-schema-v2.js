@@ -30,6 +30,50 @@
   if(s.includes('single')||s.includes('multiple choice'))return 'Single Choice';
   return Array.isArray(q.correctAnswers)&&q.correctAnswers.length>1?'Multiple Response':'Single Choice';
  }
+ function optionLabel(option){return typeof option==='string'||typeof option==='number'?String(option):String(first(option?.text,option?.label,option?.value,option?.id)||'');}
+ function draftOptionRationales(q){
+  if(q.optionRationales&&Object.keys(obj(q.optionRationales)).length)return null;
+  const format=detectFormat(q),entries=[],rationale=String(first(q.rationale,q.generalRationale,q.explanation)||'').trim(),topic=String(first(q.topic,q.category,q.subject)||'this clinical situation');
+  if(!rationale)return null;
+  const add=(group,choices,correctValues)=>{
+   const correct=Array.isArray(correctValues)?correctValues:[correctValues];
+   (choices||[]).forEach(choice=>{
+    const label=optionLabel(choice);if(!label)return;
+    const isCorrect=correct.some(value=>String(value)===label);
+    const key=group?group+' :: '+label:label;
+    const correctText=correct.map(optionLabel).filter(Boolean).join(', ');
+    entries.push([key,isCorrect?'Correct. '+rationale:'Not the best response for '+topic+'. '+label+' does not address the priority concern as directly as '+(correctText||'the keyed response')+'. '+rationale]);
+   });
+  };
+  if(format==='Bowtie'){
+   const key=obj(q.correctAnswers||q.bowtieData?.correct||{});
+   const data=q.bowtieData||{};
+   add('condition',data.conditions,key.condition);
+   add('action',data.actions,key.actions);
+   add('monitor',data.monitoring,key.monitoring||key.parameters);
+  }else if(format==='Matrix Single'||format==='Matrix Multiple'){
+   const key=obj(q.correctAnswers?.matrix||q.correctAnswers||{});
+   (q.rows||q.matrixData?.rows||[]).forEach((row,index)=>add('row '+String(row.id??index),row.options||q.columns||[],key[row.id??String(index)]??row.correct));
+  }else if(format==='Cloze (Drop-down)'||format==='Dropdown Rationale'){
+   const key=obj(q.correctAnswers?.cloze||q.correctAnswers||q.clozeAnswers||{});
+   (q.dropdowns||[]).forEach(dropdown=>add('dropdown '+dropdown.id,dropdown.options,key[dropdown.id]??dropdown.correct));
+  }else if(format==='Highlight'){
+   add('highlight',(q.highlightSegments||[]).map(segment=>segment.id),q.correctHighlights||q.correctAnswers?.highlights||[]);
+  }else if(format==='Extended Drag and Drop'){
+   add('sequence',q.availableItems||q.items||q.options||[],q.correctOrder||q.correctAnswers?.order||[]);
+  }else if(format==='Trend'){
+   add('response',q.options||[],q.correctAnswer??q.correctAnswers?.choice??q.correctAnswers);
+  }else if(format!=='Numeric Entry'&&Array.isArray(q.options)){
+   add('response',q.options,q.correctAnswers??q.correctAnswer);
+  }
+  return entries.length?Object.fromEntries(entries):null;
+ }
+ function draftClinicalJudgmentTip(q){
+  const topic=String(first(q.topic,q.category,q.subject)||'the client’s clinical presentation');
+  const rationale=String(first(q.rationale,q.generalRationale,q.explanation)||'').trim();
+  if(!rationale)return null;
+  return 'Clinical Judgment Tip: For '+topic+', connect the assessment cues to the priority risk, select the safest evidence-based response, and reassess the expected outcome. '+rationale;
+ }
  function normalize(q){
   if(!q||typeof q!=='object')return q;
   const oldMeta=obj(q.metadata),oldInteraction=obj(q.interaction),oldStimulus=obj(q.stimulus),oldStimulusText=typeof q.stimulus==='string'?q.stimulus:'',oldRationales=obj(q.rationales);
@@ -86,6 +130,10 @@
   if(q.patientInfo==null&&stimulus.patientProfile!=null)q.patientInfo=stimulus.patientProfile;
   if(q.ehr==null&&Object.keys(canonicalTabs).length){const tabText=value=>Array.isArray(value)?value.map(item=>typeof item==='string'?item:JSON.stringify(item)).join('\n'):value;q.ehr={nursesNotes:tabText(canonicalTabs.nursesNotes),vitalSigns:tabText(canonicalTabs.vitalSigns),diagnosticResults:tabText(canonicalTabs.labResults),historyPhysical:tabText(canonicalTabs.history),orders:tabText(canonicalTabs.providerOrders)};}
   if(q.scoringMethod==null&&interaction.scoring?.method!=null)q.scoringMethod=interaction.scoring.method;
+  let generatedReviewDraft=false;
+  if(!q.optionRationales){const drafted=draftOptionRationales(q);if(drafted){q.optionRationales=drafted;rationales.options=drafted;generatedReviewDraft=true;}}
+  if(!q.clinicalJudgmentTip){const tip=draftClinicalJudgmentTip(q);if(tip){q.clinicalJudgmentTip=tip;rationales.clinicalJudgmentTip=tip;generatedReviewDraft=true;}}
+  if(generatedReviewDraft)q.rationaleStatus='draft_for_webmaster_review';
   return q;
  }
  function validate(q,index){
