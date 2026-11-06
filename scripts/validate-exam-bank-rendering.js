@@ -87,6 +87,12 @@ const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Ad
 schema.normalize(metadataOnly);
 const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
 if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
+const batch007MatrixRecords=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=4170&&n<=4319;});
+const batch007MatrixTopics=new Set(batch007MatrixRecords.map(q=>q.topic)).size;
+const batch007MatrixMissingFeedback=batch007MatrixRecords.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
+if(batch007MatrixRecords.length!==15)failures.push({issue:'batch-007 repeated matrix copies were not removed',count:batch007MatrixRecords.length,expected:15});
+if(batch007MatrixTopics!==15)failures.push({issue:'batch-007 retained matrix items are not unique by topic',unique:batch007MatrixTopics,expected:15});
+if(batch007MatrixMissingFeedback)failures.push({issue:'batch-007 matrix items missing row-specific feedback',count:batch007MatrixMissingFeedback});
 const batch008Records=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=3620&&n<=3819;});
 const batch008UniqueCases=new Set(batch008Records.map(q=>String(q.topic)+'::'+String(q.scenario))).size;
 const batch008MissingFeedback=batch008Records.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
@@ -150,6 +156,9 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ batch007MatrixRecords:batch007MatrixRecords.length,
+ batch007MatrixTopics,
+ batch007MatrixMissingFeedback,
  batch008Records:batch008Records.length,
  batch008UniqueCases,
  batch008MissingFeedback,
