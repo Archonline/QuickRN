@@ -36,7 +36,8 @@
   const format=detectFormat(q),entries=[],rationale=String(first(q.rationale,q.generalRationale,q.explanation)||'').trim(),topic=String(first(q.topic,q.category,q.subject)||'this clinical situation');
   if(!rationale)return null;
   const add=(group,choices,correctValues)=>{
-   const correct=Array.isArray(correctValues)?correctValues:[correctValues];
+   const correct=Array.isArray(correctValues)?correctValues:(correctValues===undefined||correctValues===null||correctValues===''?[]:[correctValues]);
+   if(!correct.length)return;
    (choices||[]).forEach(choice=>{
     const label=optionLabel(choice);if(!label)return;
     const isCorrect=correct.some(value=>String(value)===label);
