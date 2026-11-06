@@ -164,10 +164,10 @@ bank.forEach(item=>{
  const [caseTitle,scenario,age,vitalSigns,labResults,diagnosis,firstAction,secondAction,primaryMonitor,secondaryMonitor]=record;
  const id=String(item.caseGroupId);
  item.scenario=scenario;
- item.patientInfo={age,history:scenario};
- item.caseStudyContext=Object.assign({},item.caseStudyContext||{},{id,title:caseTitle,summary:scenario,scenario,medicalHistory:age,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction,priorityAction:firstAction,secondaryAction:secondAction,monitoring:primaryMonitor+'; '+secondaryMonitor});
+ item.patientInfo={age,summary:caseTitle};
+ item.caseStudyContext=Object.assign({},item.caseStudyContext||{},{id,title:caseTitle,summary:scenario,scenario,medicalHistory:undefined,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction,priorityAction:firstAction,secondaryAction:secondAction,monitoring:primaryMonitor+'; '+secondaryMonitor});
  item.caseStudy={id,summary:scenario,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction};
- item.ehr={nursesNotes:scenario,vitalSigns,diagnosticResults:labResults,historyPhysical:age,orders:firstAction+'. '+secondAction};
+ item.ehr={nursesNotes:scenario,vitalSigns,diagnosticResults:labResults,orders:firstAction+'. '+secondAction};
  const alternatives={
   'Stroke':['Transient ischemic attack without persistent deficit','Hypoglycemia causing focal neurologic symptoms','Focal seizure with postictal weakness'],
   'Sepsis':['Hypovolemic shock from fluid loss','Cardiogenic shock from acute pump failure','Localized infection without systemic compromise'],
