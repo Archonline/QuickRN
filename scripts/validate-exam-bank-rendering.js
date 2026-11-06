@@ -93,6 +93,7 @@ for(const q of bank){
  if(q&&q.id){if(ids.has(String(q.id)))failures.push({id:q.id,issue:'duplicate ID'});ids.add(String(q.id));}
  const format=renderer.detect(q);
  formats[format]=(formats[format]||0)+1;
+ if(format==='Numeric Entry'&&/(?:\\d+-100|°\\d|\\d+°)/.test(String(q.title||q.question||'')))failures.push({id:q.id,format,issue:'numeric stem contains a corrupted unit or temperature token'});
  try{
   const html=renderer.renderReact(q,{},()=>{},false);
   if(typeof html!=='string'||html.length<50)failures.push({id:q.id,format,issue:'empty render'});
