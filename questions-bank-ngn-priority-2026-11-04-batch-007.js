@@ -123,5 +123,53 @@ for(let i=0;i<40;i++){
  ];
  qs.forEach(add);
 }
+// Enrich matching batch-009 placeholder groups with the detailed, independently authored clinical records above.
+const batch009Aliases={
+ 'Stroke':'Acute ischemic stroke',
+ 'Sepsis':'Septic shock from urinary source',
+ 'Heart failure':'Acute heart failure',
+ 'COPD exacerbation':'COPD hypercapnia',
+ 'DKA':'Diabetic ketoacidosis',
+ 'Hyperkalemia':'Hyperkalemia',
+ 'Acute kidney injury':'Acute kidney injury',
+ 'GI hemorrhage':'Upper GI hemorrhage',
+ 'Pulmonary embolism':'Pulmonary embolism',
+ 'Asthma':'Severe asthma',
+ 'C. difficile':'C. difficile infection',
+ 'Pancreatitis':'Acute pancreatitis',
+ 'Bowel obstruction':'Bowel obstruction',
+ 'Opioid toxicity':'Opioid respiratory depression',
+ 'Meningitis':'Meningococcal sepsis',
+ 'Spinal injury':'Acute spinal cord injury',
+ 'Inhalation injury':'Burn inhalation injury',
+ 'Compartment syndrome':'Compartment syndrome',
+ 'DVT':'Deep vein thrombosis',
+ 'Postpartum hemorrhage':'Postpartum hemorrhage',
+ 'Severe preeclampsia':'Severe preeclampsia',
+ 'Ectopic rupture':'Ruptured ectopic pregnancy',
+ 'Newborn distress':'Newborn respiratory distress',
+ 'Croup':'Croup with stridor',
+ 'Transfusion reaction':'Transfusion reaction',
+ 'Neutropenic fever':'Neutropenic fever',
+ 'Adrenal crisis':'Adrenal crisis',
+ 'Neonatal hypoglycemia':'Neonatal hypoglycemia'
+};
+const detailedCaseByTitle=new Map(cases.map(record=>[record[0],record]));
+const enrichedGroups=new Set();
+bank.forEach(item=>{
+ if(!item||!String(item.caseGroupId||'').startsWith('QR-CASE-NEW-'))return;
+ const detailedTitle=batch009Aliases[item.topic];
+ const record=detailedCaseByTitle.get(detailedTitle);
+ if(!record)return;
+ const [caseTitle,scenario,age,vitalSigns,labResults,diagnosis,firstAction,secondAction,primaryMonitor,secondaryMonitor]=record;
+ const id=String(item.caseGroupId);
+ item.scenario=scenario;
+ item.patientInfo={age,history:scenario};
+ item.caseStudyContext=Object.assign({},item.caseStudyContext||{},{id,title:caseTitle,summary:scenario,scenario,medicalHistory:age,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction,priorityAction:firstAction,secondaryAction:secondAction,monitoring:primaryMonitor+'; '+secondaryMonitor});
+ item.caseStudy={id,summary:scenario,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction};
+ item.ehr={nursesNotes:scenario,vitalSigns,diagnosticResults:labResults,historyPhysical:age,orders:firstAction+'. '+secondAction};
+ enrichedGroups.add(id);
+});
+root.quickRNBatch009EhrEnrichedGroups=enrichedGroups.size;
 root.questions=bank;root.quickRNPriorityBatch007Counts=counts;
 })(typeof window!=='undefined'?window:globalThis);
