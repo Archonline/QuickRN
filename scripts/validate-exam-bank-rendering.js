@@ -87,6 +87,12 @@ const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Ad
 schema.normalize(metadataOnly);
 const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
 if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
+const batch007NumericRecords=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=4020&&n<=4169;});
+const batch007NumericMissingFeedback=batch007NumericRecords.filter(q=>!q.rationale||!q.clinicalJudgmentTip).length;
+const batch007NumericUniqueRationales=new Set(batch007NumericRecords.map(q=>q.rationale)).size;
+if(batch007NumericRecords.length!==150)failures.push({issue:'batch-007 numeric record count mismatch',count:batch007NumericRecords.length,expected:150});
+if(batch007NumericMissingFeedback)failures.push({issue:'batch-007 numeric items missing calculation rationale or safety tip',count:batch007NumericMissingFeedback});
+if(batch007NumericUniqueRationales<140)failures.push({issue:'batch-007 numeric rationales remain overly repetitive',uniqueRationales:batch007NumericUniqueRationales,expectedAtLeast:140});
 const batch007MatrixRecords=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=4170&&n<=4319;});
 const batch007MatrixTopics=new Set(batch007MatrixRecords.map(q=>q.topic)).size;
 const batch007MatrixMissingFeedback=batch007MatrixRecords.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
@@ -162,6 +168,9 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ batch007NumericRecords:batch007NumericRecords.length,
+ batch007NumericMissingFeedback,
+ batch007NumericUniqueRationales,
  batch007MatrixRecords:batch007MatrixRecords.length,
  batch007MatrixTopics,
  batch007MatrixMissingFeedback,
