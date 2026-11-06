@@ -87,6 +87,12 @@ const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Ad
 schema.normalize(metadataOnly);
 const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
 if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
+const batch007CaseRecords=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=4320&&n<=4519;});
+const batch007CaseGroups=new Set(batch007CaseRecords.map(q=>q.caseGroupId)).size;
+const batch007CaseMissingFeedback=batch007CaseRecords.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip||!q.ehr?.vitalSigns||!q.ehr?.diagnosticResults||!q.ehr?.orders).length;
+if(batch007CaseRecords.length!==200)failures.push({issue:'batch-007 case-study record count mismatch',count:batch007CaseRecords.length,expected:200});
+if(batch007CaseGroups!==40)failures.push({issue:'batch-007 case-study grouping mismatch',groups:batch007CaseGroups,expected:40});
+if(batch007CaseMissingFeedback)failures.push({issue:'batch-007 case-study records missing EHR or feedback fields',count:batch007CaseMissingFeedback});
 const batch007NumericRecords=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=4020&&n<=4169;});
 const batch007NumericMissingFeedback=batch007NumericRecords.filter(q=>!q.rationale||!q.clinicalJudgmentTip).length;
 const batch007NumericUniqueRationales=new Set(batch007NumericRecords.map(q=>q.rationale)).size;
@@ -168,6 +174,9 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ batch007CaseRecords:batch007CaseRecords.length,
+ batch007CaseGroups,
+ batch007CaseMissingFeedback,
  batch007NumericRecords:batch007NumericRecords.length,
  batch007NumericMissingFeedback,
  batch007NumericUniqueRationales,
