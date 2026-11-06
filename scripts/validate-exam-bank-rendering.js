@@ -143,6 +143,8 @@ if(batch009KeyMismatches)failures.push({issue:'batch-009 answer keys do not matc
 const feedbackEligible=bank.filter(q=>q&&q.rationale&&renderer.detect(q)!=='Numeric Entry'&&(Array.isArray(q.options)||Array.isArray(q.rows)||Array.isArray(q.dropdowns)||q.bowtieData||q.highlightSegments));
 const globalMissingOptionFeedback=feedbackEligible.filter(q=>!q.optionRationales||!Object.keys(q.optionRationales).length).length;
 const globalMissingClinicalTips=bank.filter(q=>q&&q.rationale&&!q.clinicalJudgmentTip).length;
+if(globalMissingOptionFeedback)failures.push({issue:'whole-bank items with rationale and keyed response still lack option-specific feedback',count:globalMissingOptionFeedback});
+if(globalMissingClinicalTips)failures.push({issue:'whole-bank items with rationale still lack a Clinical Judgment Tip',count:globalMissingClinicalTips});
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
