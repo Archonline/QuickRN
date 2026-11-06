@@ -92,7 +92,9 @@
      title,
      options:shuffled,
      correctAnswer:concept.a,
-     rationale:concept.r,
+     rationale:concept.t+': '+concept.r,
+     optionRationales:Object.fromEntries(shuffled.map(option=>[option,option===concept.a?'Correct. '+concept.r:'Not the best choice. '+option+' does not address '+concept.t+' as directly as the keyed response. '+concept.r])),
+     clinicalJudgmentTip:'For '+concept.t+', identify the priority cue, select the intervention that directly addresses the risk, and reassess the client response.',
      difficulty:variant%3===0?'High':'Moderate',
      source:'QuickRN original beta draft',
      reviewStatus:'pending_webmaster_review'
