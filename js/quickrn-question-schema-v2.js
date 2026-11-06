@@ -84,7 +84,7 @@
   if(q.optionRationales==null&&rationales.options!=null)q.optionRationales=rationales.options;
   if(q.clinicalJudgmentTip==null&&rationales.clinicalJudgmentTip!=null)q.clinicalJudgmentTip=rationales.clinicalJudgmentTip;
   if(q.patientInfo==null&&stimulus.patientProfile!=null)q.patientInfo=stimulus.patientProfile;
-  if(q.ehr==null&&Object.keys(canonicalTabs).length)q.ehr={tabs:canonicalTabs};
+  if(q.ehr==null&&Object.keys(canonicalTabs).length)q.ehr={nursesNotes:canonicalTabs.nursesNotes,vitalSigns:canonicalTabs.vitalSigns,diagnosticResults:canonicalTabs.labResults,historyPhysical:canonicalTabs.history,orders:canonicalTabs.providerOrders};
   if(q.scoringMethod==null&&interaction.scoring?.method!=null)q.scoringMethod=interaction.scoring.method;
   return q;
  }
