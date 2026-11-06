@@ -95,10 +95,14 @@ jobs:
       - name: Verify Help Center and release notes
         run: node tests/help-content-contract.test.js
       - name: Verify calendar test-date and shortcut features
+        if: always()
         run: node tests/calendar-feature-contract.test.js
       - name: Verify question reporting and data backup
+        if: always()
         run: node tests/reporting-backup-contract.test.js
-          node tests/feedback-inbox.test.js
+      - name: Verify feedback inbox
+        if: always()
+        run: node tests/feedback-inbox.test.js
       - name: Test CAT adaptive decision engine
         if: always()
         run: node tests/cat-engine.test.js
