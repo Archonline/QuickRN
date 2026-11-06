@@ -241,6 +241,7 @@ bank.forEach(item=>{
   item.optionRationales=Object.fromEntries(opts.map((option,index)=>optionReason(option,index===0?'Correct. Both the primary response measure and the secondary trend move in the expected direction.':'Incorrect. This does not demonstrate improvement and requires further assessment or escalation.')));
   item.clinicalJudgmentStep='Evaluate Outcomes';
  }
+ item.clinicalJudgmentTip=sequence===1?'Separate the acute change from background history, then compare it with the objective exhibits.':sequence===2?'Cluster symptoms, vital signs, and diagnostic results before selecting the priority hypothesis.':sequence===3?'Prioritize the condition that best explains the complete cue pattern and its immediate risks.':sequence===4?'Address the immediate threat first; then carry out the next indicated intervention without delaying escalation.':'Evaluate the primary response measure and the secondary trend after the intervention.';
  item.difficulty='High';
  item.reviewStatus='pending_webmaster_review';
  enrichedGroups.add(id);
