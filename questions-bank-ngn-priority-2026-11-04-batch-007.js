@@ -142,7 +142,34 @@ for(let i=0;i<40;i++){
  Object.assign({},sh,{id:'QR-'+String(id+3).padStart(6,'0'),caseQuestionNumber:4,clinicalJudgmentStep:'Generate solutions',type:'Matrix Single',ngnType:'Matrix Single',title:'Classify each proposed nursing response for '+c[0]+'.',columns:['Appropriate priority response','Requires clarification','Unsafe or delays care'],rows:[{id:'r1',text:actions[0]},{id:'r2',text:actions[1]},{id:'r3',text:'Ignore the acute change until routine rounds'}],correctAnswers:{r1:'Appropriate priority response',r2:'Appropriate priority response',r3:'Unsafe or delays care'},rationale:'Prompt escalation and condition-specific interventions are appropriate; delaying care for acute deterioration is unsafe.'}),
  Object.assign({},sh,{id:'QR-'+String(id+4).padStart(6,'0'),caseQuestionNumber:5,clinicalJudgmentStep:'Evaluate outcomes',type:'Bowtie',ngnType:'Bowtie',title:'Complete the bowtie for '+c[0]+'. Select the priority condition, two actions, and two parameters to monitor.',bowtieData:{conditions:[c[5],'An unrelated chronic condition','An expected normal response'],actions:[actions[0],actions[1],'Delay care until next shift'],monitoring:[monitor[0],monitor[1],'An unrelated routine measure'],correct:{condition:c[5],actions,parameters:monitor}},correctAnswers:{condition:c[5],actions,monitoring:monitor},rationale:'The bowtie connects the priority clinical problem with immediate nursing actions and measurable indicators of response.'})
  ];
- qs.forEach(add);
+ qs.forEach(q=>{
+  q.rationale=c[0]+': '+c[1]+' Priority diagnosis: '+c[5]+'. Immediate response: '+c[6]+'. Additional indicated action: '+c[7]+'. Reassess '+c[8]+' and '+c[9]+' after intervention.';
+  const rationaleEntries=[];
+  const addOptionRationales=(group,choices,correctValues)=>{
+   const correct=Array.isArray(correctValues)?correctValues:[correctValues];
+   (choices||[]).forEach(choice=>{
+    const value=typeof choice==='string'?choice:(choice?.id||choice?.value||choice?.text||choice?.label||'');
+    if(!value)return;
+    const isCorrect=correct.some(answer=>String(answer)===String(value));
+    rationaleEntries.push([group+' :: '+value,isCorrect?'Correct. This choice is consistent with the priority care for '+c[0]+': '+c[6]+'.':'Not the best choice. The priority response is '+c[6]+'; this alternative does not address the immediate clinical risk as directly.']);
+   });
+  };
+  if(q.bowtieData){
+   addOptionRationales('condition',q.bowtieData.conditions,q.correctAnswers.condition);
+   addOptionRationales('action',q.bowtieData.actions,q.correctAnswers.actions);
+   addOptionRationales('monitor',q.bowtieData.monitoring,q.correctAnswers.monitoring);
+  }else if(Array.isArray(q.rows)){
+   q.rows.forEach(row=>addOptionRationales('row '+row.id,row.options||q.columns,q.correctAnswers[row.id]));
+  }else if(Array.isArray(q.dropdowns)){
+   q.dropdowns.forEach(dropdown=>addOptionRationales('dropdown '+dropdown.id,dropdown.options,dropdown.correct));
+  }else if(Array.isArray(q.options)){
+   addOptionRationales('response',q.options,q.correctAnswers||q.correctAnswer);
+  }
+  q.optionRationales=Object.fromEntries(rationaleEntries);
+  q.clinicalJudgmentTip=q.clinicalJudgmentStep==='Recognize cues'?'Separate acute changes from baseline and identify the cue that signals immediate risk.':q.clinicalJudgmentStep==='Analyze cues'?'Cluster the symptom pattern, vital signs, and diagnostic results before choosing a hypothesis.':q.clinicalJudgmentStep==='Prioritize hypotheses'?'Select the clinical problem that best explains the complete pattern and poses the greatest immediate threat.':q.clinicalJudgmentStep==='Generate solutions'?'Choose actions that address the priority problem and are appropriate to the client’s current stability.':'Trend the primary and secondary monitoring measures after intervention to evaluate response.';
+  q.reviewStatus='pending_webmaster_review';
+  add(q);
+ });
 }
 // Enrich matching batch-009 placeholder groups with the detailed, independently authored clinical records above.
 const batch009Aliases={
