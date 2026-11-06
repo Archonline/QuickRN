@@ -32,8 +32,8 @@ const sidebar = fs.readFileSync('js/quickrn-sidebar.js', 'utf8');
 const examApp = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
 assert.match(sidebar, /applySidebarState\(true\)/, 'Shared sidebar starts in compact mode');
 assert.match(sidebar, /qr-sidebar-expanded/, 'Sidebar labels are revealed on hover and keyboard focus');
-assert.match(brandCss, /body\\.qr-main-sidebar-collapsed #app-shell>aside#quickrn-unified-sidebar\\.qr-sidebar\\.qr-sidebar-expanded\\{[\\s\\S]*?width:256px!important[\\s\\S]*?min-width:256px!important/, 'Expanded hover rail must override the compact width lock despite selector specificity');
-assert.match(brandCss, /fixed shared sidebar overlays the workspace at its expanded width/, 'Expanded sidebar overlays without changing the 56px workspace gutter');
+assert.match(brandCss, /body\.qr-main-sidebar-collapsed #app-shell>aside#quickrn-unified-sidebar\.qr-sidebar\.qr-sidebar-expanded\{[\s\S]*?width:256px!important;[\s\S]*?min-width:256px!important;/, 'Expanded hover rail must override the compact width lock despite selector specificity');
+assert.match(brandCss, /fixed sidebar overlays the workspace at its expanded width/, 'Expanded sidebar overlays without changing the compact workspace gutter');
 assert.match(brandCss, /#app-shell\.support-shell\.qr-sidebar-shell\{[\s\S]*?width:100vw!important[\s\S]*?padding-left:56px!important/, 'Support workspace uses one full-width content column beside the compact rail');
 assert.match(brandCss, /#tab-content-features\{width:100%!important;max-width:none!important/, 'Feature Hub is not constrained to a narrow centered pane');
 assert.match(profile, /<main class="flex-grow/, 'Profile retains a single full-width main content region');
@@ -48,4 +48,4 @@ console.log('PASS: Feature Hub, compact sidebar, full-width support, and exam-he
 
 
 // The expanded-state rule must outrank the compact !important width lock.
-assert.match(brandCss, /body\\.qr-main-sidebar-collapsed:not\\(\\[data-exam-mode\\]\\) #app-shell>aside#quickrn-unified-sidebar\\.qr-sidebar\\.qr-sidebar-expanded\\{[\\s\\S]*?width:256px!important[\\s\\S]*?overflow-y:auto!important/, 'Expanded sidebar must override the compact width lock and restore scrollable contents');
+assert.match(brandCss, /body\.qr-main-sidebar-collapsed #app-shell>aside#quickrn-unified-sidebar\.qr-sidebar\.qr-sidebar-expanded\{[\s\S]*?width:256px!important;[\s\S]*?overflow-y:auto!important;/, 'Expanded sidebar must override the compact width lock and restore scrollable contents');
