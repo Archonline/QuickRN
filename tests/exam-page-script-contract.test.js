@@ -4,6 +4,11 @@ const root = process.cwd();
 const fs = require('fs');
 const pages = ['selfstudy.html', 'timed.html', 'predictor.html', 'cat.html'];
 const failures = [];
+const examAppSource = fs.readFileSync('js/quickrn-exam-app.js', 'utf8');
+for (const [value, label] of [['40','40 questions'],['60','60 questions'],['85','85 questions — NCLEX-length'],['150','150 questions — full-length']]) {
+  if (!examAppSource.includes("['" + value + "','" + label + "']")) failures.push('Timed Practice: missing ' + label + ' session option');
+}
+if (!examAppSource.includes("timerSeconds=mode==='selfstudy'?0:mode==='timed'?session.length*72:5*60*60")) failures.push('Timed Practice: question-count-based timer allocation changed unexpectedly');
 for (const page of pages) {
   const html = fs.readFileSync(page, 'utf8');
   const tags = [...html.matchAll(/<script\b[^>]*>/gi)].map(match => match[0]);
