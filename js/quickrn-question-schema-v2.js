@@ -40,7 +40,8 @@
    if(!correct.length)return;
    (choices||[]).forEach(choice=>{
     const label=optionLabel(choice);if(!label)return;
-    const isCorrect=correct.some(value=>String(value)===label);
+    const candidates=[label,choice?.id,choice?.value,choice?.text,choice?.label].filter(value=>value!==undefined&&value!==null).map(String);
+    const isCorrect=correct.some(value=>candidates.includes(String(value)));
     const key=group?group+' :: '+label:label;
     const correctText=correct.map(optionLabel).filter(Boolean).join(', ');
     entries.push([key,isCorrect?'Correct. '+rationale:'Not the best response for '+topic+'. '+label+' does not address the priority concern as directly as '+(correctText||'the keyed response')+'. '+rationale]);
