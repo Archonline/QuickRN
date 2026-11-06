@@ -33,6 +33,8 @@ assert.match(app, /score\.wrong/);
 assert.match(app, /recordMetric\(q,r\);\$\('submit-btn'\)/);
 assert.match(app, /if\(!record\.submitted\)\{submitAnswer\(\);return;\}/);
 assert.match(app, /elapsedSeconds\/60/);
+assert.match(app, /timerHost\)timerHost\.classList\.toggle\('hidden',mode==='selfstudy'\)/, 'Self-Study hides the timer in its workspace');
+assert.match(app, /if\(mode==='selfstudy'\)\{if\(\$\('timer-display'\)\?\.parentElement\)\$\('timer-display'\)\.parentElement\.classList\.add\('hidden'\);return;\}/, 'Self-Study does not show a timer display');
 assert.match(app, /v\.correct/);
 assert.match(app, /v\.attempted/);
 assert.match(app, /formatHtml\+judgmentHtml\+difficultyHtml\+domainHtml/);
