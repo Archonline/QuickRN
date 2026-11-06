@@ -160,14 +160,19 @@ for(const q of bank){
   else scored++;
  }catch(error){failures.push({id:q.id,format,issue:'scoring exception: '+error.message});}
 }
-const requiredScripts=[...bankModules,'js/shared-exam-renderer.js','js/quickrn-ngn-compat.js','js/quickrn-ngn-scoring.js','js/quickrn-question-schema-v2.js','js/quickrn-question-bank-normalizer.js','js/quickrn-question-id-normalizer.js','js/quickrn-exam-app.js'];
+const requiredScripts=[...bankModules,'js/quickrn-question-schema-v2.js','js/quickrn-question-bank-normalizer.js','js/quickrn-question-id-normalizer.js','js/shared-exam-renderer.js','js/quickrn-ngn-compat.js','js/quickrn-ngn-scoring.js','js/quickrn-exam-app.js'];
 const modePages=['selfstudy.html','timed.html','cat.html','predictor.html'];
+const scriptOrders=[];
 const modeChecks=modePages.map(page=>{
  const html=fs.readFileSync(path.resolve(root,page),'utf8');
- const missing=requiredScripts.filter(script=>!html.includes(script));
+ const order=[...html.matchAll(/<script[^>]+src=[\"']([^\"']+)[\"']/g)].map(match=>match[1]).filter(script=>requiredScripts.includes(script));
+ scriptOrders.push(order);
+ const missing=requiredScripts.filter(script=>!order.includes(script));
  if(missing.length)failures.push({page,issue:'missing shared exam scripts',missing});
- return {page,loadedScripts:requiredScripts.length-missing.length,requiredScripts:requiredScripts.length,missing};
+ if(order.length!==requiredScripts.length)failures.push({page,issue:'unexpected duplicate or missing exam script tags',loaded:order.length,expected:requiredScripts.length});
+ return {page,loadedScripts:order.length,requiredScripts:requiredScripts.length,missing};
 });
+if(scriptOrders.some(order=>JSON.stringify(order)!==JSON.stringify(scriptOrders[0])))failures.push({issue:'exam script loading order differs between modes'});
 const result={
  totalRecords:bank.length,
  uniqueIds:ids.size,
