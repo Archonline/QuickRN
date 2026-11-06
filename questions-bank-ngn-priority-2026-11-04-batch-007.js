@@ -168,6 +168,78 @@ bank.forEach(item=>{
  item.caseStudyContext=Object.assign({},item.caseStudyContext||{},{id,title:caseTitle,summary:scenario,scenario,medicalHistory:age,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction,priorityAction:firstAction,secondaryAction:secondAction,monitoring:primaryMonitor+'; '+secondaryMonitor});
  item.caseStudy={id,summary:scenario,nursesNotes:scenario,vitalSigns,labResults,orders:firstAction+'. '+secondAction};
  item.ehr={nursesNotes:scenario,vitalSigns,diagnosticResults:labResults,historyPhysical:age,orders:firstAction+'. '+secondAction};
+ const alternatives={
+  'Stroke':['Transient ischemic attack without persistent deficit','Hypoglycemia causing focal neurologic symptoms','Focal seizure with postictal weakness'],
+  'Sepsis':['Hypovolemic shock from fluid loss','Cardiogenic shock from acute pump failure','Localized infection without systemic compromise'],
+  'Heart failure':['Community-acquired pneumonia','Acute pulmonary embolism','COPD exacerbation without fluid overload'],
+  'COPD exacerbation':['Acute asthma exacerbation','Community-acquired pneumonia','Pulmonary embolism'],
+  'DKA':['Hyperosmolar hyperglycemic state','Starvation ketosis','Lactic acidosis without ketonemia'],
+  'Hyperkalemia':['Severe hypokalemia','Symptomatic hypocalcemia','Digoxin toxicity'],
+  'Acute kidney injury':['Stable chronic kidney disease','Acute urinary retention without renal injury','Nephrotic syndrome'],
+  'GI hemorrhage':['Lower gastrointestinal bleeding','Acute pancreatitis','Mechanical bowel obstruction'],
+  'Pulmonary embolism':['Community-acquired pneumonia','Acute myocardial infarction','Spontaneous pneumothorax'],
+  'Asthma':['COPD exacerbation','Community-acquired pneumonia','Anaphylaxis'],
+  'C. difficile':['Viral gastroenteritis','Inflammatory bowel disease flare','Medication-related diarrhea without infection'],
+  'Pancreatitis':['Acute cholecystitis','Peptic ulcer disease','Mechanical bowel obstruction'],
+  'Bowel obstruction':['Postoperative ileus','Acute gastroenteritis','Acute pancreatitis'],
+  'Opioid toxicity':['Acute ischemic stroke','Severe hypoglycemia','Postictal state after seizure'],
+  'Meningitis':['Viral encephalitis','Migraine with aura','Subarachnoid hemorrhage'],
+  'Spinal injury':['Acute ischemic stroke','Peripheral nerve injury','Spinal epidural abscess'],
+  'Inhalation injury':['Severe asthma exacerbation','Anaphylaxis','Acute pulmonary embolism'],
+  'Compartment syndrome':['Deep vein thrombosis','Cellulitis','Expected pain after uncomplicated fracture'],
+  'DVT':['Cellulitis','Peripheral arterial disease','Acute compartment syndrome'],
+  'Postpartum hemorrhage':['Retained placental tissue without active hemorrhage','Uterine inversion','Genital tract laceration'],
+  'Severe preeclampsia':['Gestational hypertension without severe features','Eclampsia','HELLP syndrome'],
+  'Ectopic rupture':['Threatened miscarriage','Ruptured ovarian cyst','Acute appendicitis'],
+  'Newborn distress':['Transient tachypnea of the newborn','Neonatal respiratory distress syndrome','Critical congenital heart disease'],
+  'Croup':['Epiglottitis','Foreign-body aspiration','Bronchiolitis'],
+  'Transfusion reaction':['Febrile nonhemolytic transfusion reaction','Mild allergic transfusion reaction','Transfusion-associated circulatory overload'],
+  'Neutropenic fever':['Uncomplicated viral upper respiratory infection','Localized skin infection without systemic signs','Tumor-related fever'],
+  'Adrenal crisis':['Hypovolemic shock from gastrointestinal losses','Diabetic ketoacidosis','Syndrome of inappropriate antidiuretic hormone'],
+  'Neonatal hypoglycemia':['Neonatal sepsis','Hypothermia without hypoglycemia','Neonatal abstinence syndrome']
+ };
+ const sequence=Number(item.caseStudyContext.sequence||item.caseQuestionNumber||0);
+ const distractors=alternatives[item.topic]||['A different acute condition','A stable chronic condition','An expected finding unrelated to the current presentation'];
+ const optionReason=(option,reason)=>[option,reason];
+ if(sequence===1){
+  const opts=[scenario,vitalSigns,labResults,'Age and history without a new change'];
+  item.title='Which finding in the current presentation requires the most immediate nursing attention?';
+  item.options=opts;item.correctAnswer=scenario;
+  item.rationale='The acute symptom change in the scenario is the immediate cue. The nurse should integrate it with the vital signs and laboratory results rather than treating age or background history as the priority.';
+  item.optionRationales=Object.fromEntries([optionReason(scenario,'Correct. This describes the acute change prompting urgent assessment and intervention.'),optionReason(vitalSigns,'Important objective data that support the assessment; interpret these findings together with the acute symptom change.'),optionReason(labResults,'Relevant diagnostic evidence, but it does not replace immediate assessment of the acute presentation.'),optionReason('Age and history without a new change','Background information informs risk but does not take priority over an acute change.')]);
+  item.clinicalJudgmentStep='Recognize Cues';
+ }else if(sequence===2){
+  const opts=[firstAction,secondAction,'Defer escalation until the next routine round','Wait for every pending result before addressing the acute change'];
+  item.title='Which nursing actions are indicated for this client? Select all that apply.';
+  item.options=opts;item.correctAnswers=[firstAction,secondAction];
+  item.rationale='The first action addresses the immediate threat; the second implements the next indicated intervention. Escalation and time-sensitive care should not be delayed for routine rounds or pending results when instability is present.';
+  item.optionRationales=Object.fromEntries([optionReason(firstAction,'Correct. This is the immediate priority response for the documented clinical problem.'),optionReason(secondAction,'Correct. This is the complementary intervention specified for the current presentation.'),optionReason(opts[2],'Incorrect. Acute deterioration requires prompt action, not deferral to routine rounds.'),optionReason(opts[3],'Incorrect. Do not delay indicated stabilization or escalation while waiting for results that are not prerequisites.')]);
+  item.clinicalJudgmentStep='Take Action';
+ }else if(sequence===3){
+  const opts=[primaryMonitor,secondaryMonitor,vitalSigns,labResults];
+  item.title='Which parameter should the nurse prioritize when evaluating the immediate response to treatment?';
+  item.options=opts;item.correctAnswer=primaryMonitor;
+  item.rationale='The primary monitoring parameter is the most direct measure of the immediate clinical response. The secondary parameter, vital signs, and laboratory data remain important for ongoing reassessment.';
+  item.optionRationales=Object.fromEntries([optionReason(primaryMonitor,'Correct. This is the most direct immediate response measure for this clinical problem.'),optionReason(secondaryMonitor,'Important for continued surveillance, but secondary to the immediate response measure.'),optionReason(vitalSigns,'Continue trending vital signs; this broad set is not the most specific response measure.'),optionReason(labResults,'Laboratory trends may confirm response over time but are not the most direct immediate bedside measure.')]);
+  item.clinicalJudgmentStep='Evaluate Outcomes';
+ }else if(sequence===4){
+  const opts=[diagnosis,...distractors];
+  item.title='Which clinical interpretation is most consistent with the complete patient record?';
+  item.options=opts;item.correctAnswer=diagnosis;
+  item.rationale='The documented symptom pattern, vital signs, and diagnostic findings support the keyed clinical interpretation. The alternatives do not account for the full pattern of findings.';
+  item.optionRationales=Object.fromEntries(opts.map((option,index)=>optionReason(option,index===0?'Correct. This interpretation best accounts for the combined assessment and diagnostic findings.':'Incorrect. This alternative does not explain the complete pattern documented in this record.')));
+  item.clinicalJudgmentStep='Analyze Cues';
+ }else if(sequence===5){
+  const improved='Improvement in '+primaryMonitor+', with '+secondaryMonitor+' trending toward the expected target';
+  const opts=[improved,'Worsening '+primaryMonitor+' despite intervention','New deterioration in '+secondaryMonitor,'No reassessment after the intervention'];
+  item.title='Which finding would best demonstrate that the prescribed interventions are effective?';
+  item.options=opts;item.correctAnswer=improved;
+  item.rationale='An improving primary response measure together with a favorable secondary trend supports treatment effectiveness. Worsening findings or failure to reassess indicate that the response has not been established.';
+  item.optionRationales=Object.fromEntries(opts.map((option,index)=>optionReason(option,index===0?'Correct. Both the primary response measure and the secondary trend move in the expected direction.':'Incorrect. This does not demonstrate improvement and requires further assessment or escalation.')));
+  item.clinicalJudgmentStep='Evaluate Outcomes';
+ }
+ item.difficulty='High';
+ item.reviewStatus='pending_webmaster_review';
  enrichedGroups.add(id);
 });
 root.quickRNBatch009EhrEnrichedGroups=enrichedGroups.size;
