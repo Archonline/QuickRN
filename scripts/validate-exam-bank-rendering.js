@@ -140,6 +140,9 @@ if(batch009WithEhr<40)failures.push({issue:'batch-009 detailed EHR enrichment in
 if(batch009RemediatedItems<200)failures.push({issue:'batch-009 clinical question remediation incomplete',items:batch009RemediatedItems,expectedAtLeast:200});
 if(batch009MissingClinicalData)failures.push({issue:'batch-009 items missing clinical exhibits, options, or rationales',count:batch009MissingClinicalData});
 if(batch009KeyMismatches)failures.push({issue:'batch-009 answer keys do not match options',count:batch009KeyMismatches});
+const feedbackEligible=bank.filter(q=>q&&q.rationale&&renderer.detect(q)!=='Numeric Entry'&&(Array.isArray(q.options)||Array.isArray(q.rows)||Array.isArray(q.dropdowns)||q.bowtieData||q.highlightSegments));
+const globalMissingOptionFeedback=feedbackEligible.filter(q=>!q.optionRationales||!Object.keys(q.optionRationales).length).length;
+const globalMissingClinicalTips=bank.filter(q=>q&&q.rationale&&!q.clinicalJudgmentTip).length;
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
@@ -179,6 +182,9 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ feedbackEligible:feedbackEligible.length,
+ globalMissingOptionFeedback,
+ globalMissingClinicalTips,
  batch007CaseRecords:batch007CaseRecords.length,
  batch007CaseGroups,
  batch007CaseMissingFeedback,
