@@ -103,19 +103,25 @@ function quickRNSplitPrompt(q){
   if(typeof v==='object')return quickRNPatientInfoText(v);
   return '';
  };
- const explicitFields=[
-  q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
-  q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
-  q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
-  q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
-  typeof q.caseStudy==='string'?q.caseStudy:'',
-  q.caseStudy?.scenario,q.caseStudy?.clinicalScenario,q.caseStudy?.summary,q.caseStudy?.description,
-  q.caseStudy?.narrative,q.caseStudy?.history,q.caseStudy?.patientInformation,
-  typeof q.case_study==='string'?q.case_study:'',
-  q.case_study?.scenario,q.case_study?.summary,q.case_study?.description,q.case_study?.narrative,
-  q.ehr?.summary,q.ehr?.narrative,q.ehr?.patientInformation,q.medicalRecord?.summary,
-  q.patientRecord?.summary,q.chart?.summary
- ];
+ const primaryScenarioFields=[q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage];
+ const hasDedicatedScenario=primaryScenarioFields.some(value=>asText(value).trim());
+ const explicitFields=hasDedicatedScenario
+  ? [...primaryScenarioFields,q.caseStudyContext?.scenario,q.caseStudyContext?.narrative,
+     typeof q.caseStudy==='string'?q.caseStudy:'',q.caseStudy?.scenario,q.caseStudy?.narrative,
+     typeof q.case_study==='string'?q.case_study:'',q.case_study?.scenario,q.case_study?.narrative]
+  : [
+     q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+     q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
+     q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
+     q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
+     typeof q.caseStudy==='string'?q.caseStudy:'',
+     q.caseStudy?.scenario,q.caseStudy?.clinicalScenario,q.caseStudy?.summary,q.caseStudy?.description,
+     q.caseStudy?.narrative,q.caseStudy?.history,q.caseStudy?.patientInformation,
+     typeof q.case_study==='string'?q.case_study:'',
+     q.case_study?.scenario,q.case_study?.summary,q.case_study?.description,q.case_study?.narrative,
+     q.ehr?.summary,q.ehr?.narrative,q.ehr?.patientInformation,q.medicalRecord?.summary,
+     q.patientRecord?.summary,q.chart?.summary
+  ];
  const explicit=explicitFields.map(asText).map(v=>quickRNCleanClinicalText(v,q)).filter(Boolean);
  const scenarioParts=Array.from(new Set(explicit.map(v=>v.trim()).filter(Boolean)));
  let scenario=scenarioParts.join('\n\n');

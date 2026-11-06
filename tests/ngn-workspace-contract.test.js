@@ -22,6 +22,10 @@ for(const feature of ['renderReact','QuickRNNgnScoring','QuickRNCAT','recordClie
 assert.ok(!app.includes('Retake same session'),'exam summaries do not expose the removed retake-same-session action');
 const renderer=fs.readFileSync('js/shared-exam-renderer.js','utf8');
 const examHtml=fs.readFileSync('selfstudy.html','utf8');
+assert.ok(app.includes("ehrTabs=ehr.tabs"),'shared exam app reads canonical EHR tab data');
+assert.ok(app.includes('function formatVitalSigns'),'vital signs render as labeled measurements');
+assert.ok(app.includes("right.style.overflowY='auto'")&&app.includes("right.style.minHeight='0'"),'answer pane remains vertically scrollable');
+assert.ok(app.includes("rationale.style.position='static'")&&app.includes("rationaleCard.style.position='static'"),'rationale stays in normal flow below the response options');
 assert.ok(app.includes('question-only-panel'),'no-case items move the question stem into the left pane');
 assert.ok(app.includes("right.insertBefore(prompt,answerWorkspace)"),'question prompt remains above the answer workspace in the right pane');
 assert.ok(app.includes("content.innerHTML=scenario?"),'separate clinical scenario content is rendered in the left pane');

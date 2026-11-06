@@ -5361,54 +5361,76 @@ const items=[
   ]
  },
  {
-  "category": "Adult Health",
-  "topic": "Stroke dysphagia",
-  "clientNeed": "Safety and Infection Control",
-  "difficulty": "High",
-  "patientInfo": {
-   "age": "81-year-old adult",
-   "history": "Coughing and wet voice occur during a bedside water swallow after stroke."
-  },
-  "ehr": {
-   "assessment": "Coughing and wet voice occur during a bedside water swallow after stroke.",
-   "priorityAssessment": "Stop oral intake and request formal swallowing assessment"
-  },
-  "source": "QuickRN original NGN beta draft",
-  "reviewStatus": "pending_nurse_educator_review",
-  "caseGroupId": "QR-NGN-CASE-013",
-  "id": "QR-002040",
-  "type": "Bowtie",
-  "title": "A nurse is caring for a 81-year-old adult with stroke dysphagia. Coughing and wet voice occur during a bedside water swallow after stroke. Complete the bowtie by identifying the likely clinical problem, selecting two appropriate nursing actions, and choosing two parameters to monitor.",
-  "bowtieData": {
-   "conditions": [
-    "Stroke dysphagia requiring urgent clinical management",
-    "Expected finding without complication",
-    "Unrelated chronic condition"
-   ],
-   "actions": [
-    "Stop oral intake and request formal swallowing assessment",
-    "Offer thin liquids through a straw",
-    "Place the client flat during meals",
-    "Coughing and wet voice suggest aspiration risk; oral intake should stop pending evaluation."
-   ],
-   "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs",
-    "Unrelated routine measurement",
-    "Delay all reassessment until end of shift"
-   ]
-  },
-  "correctAnswers": {
-   "condition": "Stroke dysphagia requiring urgent clinical management",
-   "actions": [
-    "Stop oral intake and request formal swallowing assessment",
-    "Airway, breathing, circulation, and change in clinical status"
-   ],
-   "monitoring": [
-    "Airway, breathing, circulation, and change in clinical status",
-    "Response to treatment and relevant vital signs"
-   ]
-  }
+   "category": "Adult Health",
+   "topic": "Stroke dysphagia",
+   "clientNeed": "Safety and Infection Control",
+   "difficulty": "High",
+   "patientInfo": {
+     "age": "81-year-old adult",
+     "history": "Recent ischemic stroke."
+   },
+   "ehr": {
+     "assessment": "Coughing during the water-swallow screen and a wet-sounding voice after the swallow are concerning for oropharyngeal dysphagia and possible aspiration. Stop the screen; do not administer further oral trials until the client has been evaluated.",
+     "priorityAssessment": "Protect the airway: maintain NPO status and obtain a formal swallowing evaluation before resuming food, fluids, or oral medications.",
+     "tabs": {
+       "nursesNotes": "The bedside swallow screen was stopped after the first cough. No further oral trials were administered. Oral intake remains on hold pending swallowing clearance.",
+       "vitalSigns": {
+         "temperature": "36.8 °C",
+         "heartRate": "82 beats/min",
+         "pulseRate": "82 beats/min",
+         "respiratoryRate": "18 breaths/min",
+         "bloodPressure": "146/82 mm Hg",
+         "oxygenSaturation": "97% on room air",
+         "sourceNote": "Simulated baseline values for this educational case. A normal oxygen saturation does not rule out aspiration."
+       },
+       "labResults": "No laboratory results are supplied for this bedside swallowing assessment.",
+       "providerOrders": "No separate provider orders are included in this record."
+     }
+   },
+   "source": "QuickRN original NGN beta draft",
+   "reviewStatus": "pending_nurse_educator_review",
+   "caseGroupId": "QR-NGN-CASE-013",
+   "id": "QR-002040",
+   "type": "Bowtie",
+   "title": "Complete the bowtie by identifying the likely clinical problem, selecting two appropriate nursing actions, and choosing two parameters to monitor.",
+   "bowtieData": {
+     "conditions": [
+       "Stroke dysphagia requiring urgent clinical management",
+       "Expected finding without complication",
+       "Unrelated chronic condition"
+     ],
+     "actions": [
+       "Stop oral intake and request formal swallowing assessment",
+       "Offer thin liquids through a straw",
+       "Place the client flat during meals",
+       "Coughing and wet voice suggest aspiration risk; oral intake should stop pending evaluation."
+     ],
+     "monitoring": [
+       "Airway, breathing, circulation, and change in clinical status",
+       "Response to treatment and relevant vital signs",
+       "Unrelated routine measurement",
+       "Delay all reassessment until end of shift"
+     ]
+   },
+   "correctAnswers": {
+     "condition": "Stroke dysphagia requiring urgent clinical management",
+     "actions": [
+       "Stop oral intake and request formal swallowing assessment",
+       "Airway, breathing, circulation, and change in clinical status"
+     ],
+     "monitoring": [
+       "Airway, breathing, circulation, and change in clinical status",
+       "Response to treatment and relevant vital signs"
+     ]
+   },
+   "caseTitle": "Post-stroke swallowing assessment",
+   "scenario": "A nurse is caring for an 81-year-old adult with dysphagia following a stroke. During a bedside water-swallow screen, the client coughs and develops a wet-sounding voice.",
+   "clinicalScenario": "A nurse is caring for an 81-year-old adult with dysphagia following a stroke. During a bedside water-swallow screen, the client coughs and develops a wet-sounding voice.",
+   "caseStudyContext": {
+     "title": "Post-stroke swallowing assessment",
+     "summary": "The client is in the post-stroke recovery period. Swallowing safety has not been established. Oral intake is on hold pending a formal swallowing evaluation.",
+     "scenario": "A nurse is caring for an 81-year-old adult with dysphagia following a stroke. During a bedside water-swallow screen, the client coughs and develops a wet-sounding voice."
+   }
  },
  {
   "category": "Adult Health",

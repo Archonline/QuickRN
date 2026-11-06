@@ -94,6 +94,19 @@ assert.ok(splitBowtieHtml.includes('Complete the bowtie by selecting the priorit
 const rightPaneHtml = splitBowtieHtml.slice(rightPaneIndex);
 assert.ok(!rightPaneHtml.includes('A client is experiencing a sickle cell vaso-occlusive crisis'),'scenario is not repeated in the right pane');
 assert.equal(api.grade(splitBowtieFixture,{condition:'Vaso-occlusive crisis',actions:['Administer prescribed analgesia','Provide prescribed hydration'],monitoring:['Pain and response to analgesia','Oxygenation and new chest symptoms']}),true,'bowtie scoring remains unchanged');
+const distinctScenario = "A nurse is caring for an 81-year-old adult with dysphagia following a stroke. During a bedside water-swallow screen, the client coughs and develops a wet-sounding voice.";
+const distinctTask = "Complete the bowtie by identifying the likely clinical problem, selecting two appropriate nursing actions, and choosing two parameters to monitor.";
+const separatedCase = {
+ id:'QR-002040', type:'Bowtie', scenario:distinctScenario, clinicalScenario:distinctScenario,
+ title:distinctTask, patientInfo:{age:'81-year-old adult',history:'Recent ischemic stroke.'},
+ caseStudyContext:{title:'Post-stroke swallowing assessment',summary:'Swallowing safety has not been established; oral intake remains on hold pending formal evaluation.',scenario:distinctScenario},
+ bowtieData:{conditions:['Stroke dysphagia'],actions:['Stop oral intake','Offer thin liquids'],monitoring:['Airway status','Oxygen saturation']},
+ correctAnswers:{condition:'Stroke dysphagia',actions:['Stop oral intake','Offer thin liquids'],monitoring:['Airway status','Oxygen saturation']}
+};
+const separatedParts=api.splitPrompt(separatedCase);
+assert.equal(separatedParts.scenario,distinctScenario,'dedicated clinical scenario remains separate from profile and case overview');
+assert.equal(separatedParts.question,distinctTask,'bowtie task does not repeat the clinical scenario');
+assert.ok(!separatedParts.scenario.includes('Recent ischemic stroke'),'patient profile is not appended to the scenario');
 const dragFixture = {id:'DND-TEST-1',type:'Drag and Drop',availableItems:['First','Second','Third'],correctOrder:['First','Second','Third']};
 assert.notDeepEqual(api.toDraft(dragFixture,undefined).order,dragFixture.correctOrder,'drag-and-drop does not expose the answer order on first render');
 
