@@ -81,6 +81,7 @@ schema.normalize(caseFixture);
 if(!caseFixture.ehr||!caseFixture.ehr.nursesNotes||!caseFixture.ehr.vitalSigns||!caseFixture.ehr.diagnosticResults||!caseFixture.ehr.orders)failures.push({id:caseFixture.id,issue:'caseStudyContext EHR fields did not bridge to renderer fields'});
 const caseHtml=renderer.renderReact(caseFixture,{},()=>{},false);
 if(/No separate patient exhibits were supplied/.test(caseHtml))failures.push({id:caseFixture.id,issue:'populated case study rendered an empty-exhibits placeholder'});
+if(!/Lab Results/.test(caseHtml)||!/Orders/.test(caseHtml))failures.push({id:caseFixture.id,issue:'laboratory results or provider orders are not displayed as EHR sections'});
 if(/Clinical scenario/.test(caseHtml)&&/68-year-old adult admitted with pneumonia/.test(caseHtml))failures.push({id:caseFixture.id,issue:'duplicate case summary rendered as a clinical-scenario panel'});
 const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Adult Health',clientNeed:'Physiological Adaptation',difficulty:'Moderate',title:'Which response is appropriate?',options:['A','B'],correctAnswer:'A',caseGroupId:'QR-TEST-METADATA-ONLY',caseStudyContext:{id:'QR-TEST-METADATA-ONLY',stepIndex:1,stepCount:1}};
 schema.normalize(metadataOnly);
