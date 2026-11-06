@@ -43,7 +43,7 @@
   });
   const tabs=obj(first(oldStimulus.tabs,q.ehr?.tabs,q.clinicalRecord?.tabs,q.medicalRecord?.tabs));
   const canonicalTabs=Object.assign({},tabs);
-  [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical,q.caseStudyContext?.medicalHistory,q.caseStudyContext?.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes,q.caseStudyContext?.nursesNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals,q.caseStudyContext?.vitalSigns)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults,q.caseStudyContext?.labResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders,q.caseStudyContext?.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
+  [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical,q.caseStudyContext?.medicalHistory,q.caseStudyContext?.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes,q.caseStudyContext?.nursesNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals,q.caseStudyContext?.vitalSigns)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults,q.caseStudyContext?.labResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders,q.caseStudyContext?.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=(typeof value==='string'||typeof value==='number')?[String(value)]:value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
    caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
    patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy?.patientInfo,q.caseStudy?.patientProfile,q.caseStudyContext?.patientInfo,q.caseStudyContext?.patientProfile,q.caseStudyContext?.summary?{summary:q.caseStudyContext.summary,medicalHistory:q.caseStudyContext.medicalHistory}:undefined,q.clinicalRecord?.patientInfo,q.medicalRecord?.patientInfo),
@@ -84,7 +84,7 @@
   if(q.optionRationales==null&&rationales.options!=null)q.optionRationales=rationales.options;
   if(q.clinicalJudgmentTip==null&&rationales.clinicalJudgmentTip!=null)q.clinicalJudgmentTip=rationales.clinicalJudgmentTip;
   if(q.patientInfo==null&&stimulus.patientProfile!=null)q.patientInfo=stimulus.patientProfile;
-  if(q.ehr==null&&Object.keys(canonicalTabs).length)q.ehr={nursesNotes:canonicalTabs.nursesNotes,vitalSigns:canonicalTabs.vitalSigns,diagnosticResults:canonicalTabs.labResults,historyPhysical:canonicalTabs.history,orders:canonicalTabs.providerOrders};
+  if(q.ehr==null&&Object.keys(canonicalTabs).length){const tabText=value=>Array.isArray(value)?value.map(item=>typeof item==='string'?item:JSON.stringify(item)).join('\n'):value;q.ehr={nursesNotes:tabText(canonicalTabs.nursesNotes),vitalSigns:tabText(canonicalTabs.vitalSigns),diagnosticResults:tabText(canonicalTabs.labResults),historyPhysical:tabText(canonicalTabs.history),orders:tabText(canonicalTabs.providerOrders)};}
   if(q.scoringMethod==null&&interaction.scoring?.method!=null)q.scoringMethod=interaction.scoring.method;
   return q;
  }
