@@ -1,5 +1,5 @@
 /* QuickRN production question bank — COUNT OF RECORDS.
- * TOTAL: 3,992 UNIQUE PRODUCTION QUESTIONS across the complete set of bank modules
+ * TOTAL: 3,972 UNIQUE PRODUCTION QUESTIONS across the complete set of bank modules
  * loaded by Self Study, Timed Practice, CAT, and NCLEX Predictor.
  *
  * THIS FILE (questions.js): 665 base records:
@@ -68,11 +68,11 @@
  // loaded by Self-Study, Timed Practice, CAT, and Predictor. Keep this inventory
  // explicit so the base-file count is never mistaken for the complete bank count.
  root.QuickRNQuestionBankManifest={
-  auditDate:'2026-11-05',
+  auditDate:'2026-11-06',
   branch:'main',
-  expectedUniqueProductionRecords:3969,
+  expectedUniqueProductionRecords:3972,
   baseRecords:665,
-  additionalUniqueRecords:3304,
+  additionalUniqueRecords:3307,
   duplicateIdsAcrossLoadedFiles:0,
   clinicalReviewStatus:'pending_nurse_educator_review',
   integrationStatus:'loaded_by_all_four_exam_modes; browser_runtime_validation_pending',
