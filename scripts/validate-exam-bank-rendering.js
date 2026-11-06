@@ -89,7 +89,9 @@ if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metad
 const batch009Groups=new Map();
 bank.filter(q=>String(q&&q.caseGroupId||'').startsWith('QR-CASE-NEW-')).forEach(q=>{const id=String(q.caseGroupId);if(!batch009Groups.has(id))batch009Groups.set(id,[]);batch009Groups.get(id).push(q);});
 const batch009WithEhr=[...batch009Groups.values()].filter(group=>group.some(q=>q.ehr?.vitalSigns&&q.ehr?.diagnosticResults)).length;
+const batch009RemediatedItems=[...batch009Groups.values()].flat().filter(q=>q.optionRationales&&q.clinicalJudgmentTip).length;
 if(batch009WithEhr<28)failures.push({issue:'batch-009 detailed EHR enrichment incomplete',groupsWithEhr:batch009WithEhr,expectedAtLeast:28});
+if(batch009RemediatedItems<140)failures.push({issue:'batch-009 clinical question remediation incomplete',items:batch009RemediatedItems,expectedAtLeast:140});
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
@@ -126,6 +128,7 @@ const result={
  missingFormatPanels:missingPanels.length,
  batch009Groups:batch009Groups.size,
  batch009GroupsWithEhr:batch009WithEhr,
+ batch009RemediatedItems,
  formatCounts:formats,
  examPages:modeChecks,
  failures:failures.length,
