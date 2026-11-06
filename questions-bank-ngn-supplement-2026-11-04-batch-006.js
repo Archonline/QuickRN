@@ -24,7 +24,32 @@ topics.slice(0,50).forEach((t,ti)=>{
   else if(fmt==='Trend'){base.trendData={columns:['Assessment point','Finding','Significance'],rows:[['Earlier','Baseline status documented.','Establishes comparison.'],['Current',t[1],'Requires focused reassessment.'],['Next','Reassess after intervention.','Evaluate response and deterioration.']]};base.options=[act,'Delay escalation until the next shift','Ignore the change'];base.correctAnswer=act;}
   else if(fmt==='Extended Drag and Drop'){base.options=[act,'Reassess response to intervention','Document findings and communicate handoff'];base.correctOrder=[act,'Reassess response to intervention','Document findings and communicate handoff'];}
   else {base.selectN=fmt==='Select N'?2:undefined;base.options=[act,actions[1]||'Implement prescribed condition-specific therapy','Reassess and trend '+monitor,'Delay care until routine rounds','Ignore the new clinical change'];base.correctAnswers=[act,actions[1]||'Implement prescribed condition-specific therapy'];}
-  base.rationale='This original beta draft is designed to assess recognition of acute findings, prompt condition-appropriate escalation, and reassessment. Verify the exact intervention, parameters, and scoring against current evidence and local protocols before release.';
+  base.rationale=problem+': '+t[1]+' Priority nursing response: '+t[2]+' Reassess '+t[3]+' after intervention and escalate any deterioration.';
+  const rationaleEntries=[];
+  const addOptionRationales=(group,choices,correctValues)=>{
+   const correct=Array.isArray(correctValues)?correctValues:[correctValues];
+   (choices||[]).forEach(choice=>{
+    const value=typeof choice==='string'?choice:(choice?.id||choice?.value||choice?.text||choice?.label||'');
+    if(!value)return;
+    const isCorrect=correct.some(answer=>String(answer)===String(value));
+    rationaleEntries.push([group+' :: '+value,isCorrect?'Correct. This response is consistent with the priority care for '+problem+': '+act+'.':'Not the best choice. The documented priority is '+act+'; this alternative does not address the immediate risk as directly.']);
+   });
+  };
+  if(base.bowtieData){
+   addOptionRationales('condition',base.bowtieData.conditions,base.correctAnswers.condition);
+   addOptionRationales('action',base.bowtieData.actions,base.correctAnswers.actions);
+   addOptionRationales('monitor',base.bowtieData.monitoring,base.correctAnswers.monitoring);
+  }else if(Array.isArray(base.rows)){
+   base.rows.forEach(row=>addOptionRationales('row '+row.id,row.options||base.columns,base.correctAnswers[row.id]));
+  }else if(Array.isArray(base.dropdowns)){
+   base.dropdowns.forEach(dropdown=>addOptionRationales('dropdown '+dropdown.id,dropdown.options,dropdown.correct));
+  }else if(Array.isArray(base.highlightSegments)){
+   addOptionRationales('highlight',base.highlightSegments.map(segment=>segment.id),base.correctHighlights);
+  }else if(Array.isArray(base.options)){
+   addOptionRationales('response',base.options,base.correctOrder||base.correctAnswers||base.correctAnswer);
+  }
+  base.optionRationales=Object.fromEntries(rationaleEntries);
+  base.clinicalJudgmentTip='For '+problem+', connect the cue pattern ('+t[1]+') to the immediate response ('+act+'), then trend '+monitor+' to determine whether the client is improving.';
   if(!existing.has(id)){bank.push(base);existing.add(id);added++;}
  });
 });
