@@ -75,6 +75,17 @@ function answerDraft(q){
 }
 const failures=[];
 const missingPanels=[];
+const schema=context.QuickRNQuestionSchemaV2;
+const caseFixture={id:'QR-TEST-CASE-EHR',type:'Single Choice',ngnType:'Single Choice',category:'Adult Health',topic:'Sepsis',clientNeed:'Physiological Adaptation',difficulty:'High',title:'Which finding requires immediate follow-up?',scenario:'A 68-year-old client is admitted with pneumonia and develops impaired perfusion.',options:['Hypotension','Chronic hypertension','Remote smoking history','Stable appetite'],correctAnswer:'Hypotension',caseGroupId:'QR-TEST-CASE-EHR',caseStudyContext:{id:'QR-TEST-CASE-EHR',summary:'68-year-old adult admitted with pneumonia.',medicalHistory:'Type 2 diabetes mellitus.',nursesNotes:'New confusion and urine output 15 mL in the last hour.',vitalSigns:'T 39.1 °C; HR 128/min; RR 30/min; BP 82/46 mm Hg; SpO2 89%.',labResults:'Lactate 4.2 mmol/L; creatinine 1.8 mg/dL.',orders:'Obtain cultures and initiate prescribed sepsis treatment.'}};
+schema.normalize(caseFixture);
+if(!caseFixture.ehr||!caseFixture.ehr.nursesNotes||!caseFixture.ehr.vitalSigns||!caseFixture.ehr.diagnosticResults||!caseFixture.ehr.orders)failures.push({id:caseFixture.id,issue:'caseStudyContext EHR fields did not bridge to renderer fields'});
+const caseHtml=renderer.renderReact(caseFixture,{},()=>{},false);
+if(/No separate patient exhibits were supplied/.test(caseHtml))failures.push({id:caseFixture.id,issue:'populated case study rendered an empty-exhibits placeholder'});
+if(/Clinical scenario/.test(caseHtml)&&/68-year-old adult admitted with pneumonia/.test(caseHtml))failures.push({id:caseFixture.id,issue:'duplicate case summary rendered as a clinical-scenario panel'});
+const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Adult Health',clientNeed:'Physiological Adaptation',difficulty:'Moderate',title:'Which response is appropriate?',options:['A','B'],correctAnswer:'A',caseGroupId:'QR-TEST-METADATA-ONLY',caseStudyContext:{id:'QR-TEST-METADATA-ONLY',stepIndex:1,stepCount:1}};
+schema.normalize(metadataOnly);
+const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
+if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
