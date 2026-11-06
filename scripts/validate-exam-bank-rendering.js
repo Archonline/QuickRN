@@ -93,6 +93,12 @@ const batch007MatrixMissingFeedback=batch007MatrixRecords.filter(q=>!q.rationale
 if(batch007MatrixRecords.length!==15)failures.push({issue:'batch-007 repeated matrix copies were not removed',count:batch007MatrixRecords.length,expected:15});
 if(batch007MatrixTopics!==15)failures.push({issue:'batch-007 retained matrix items are not unique by topic',unique:batch007MatrixTopics,expected:15});
 if(batch007MatrixMissingFeedback)failures.push({issue:'batch-007 matrix items missing row-specific feedback',count:batch007MatrixMissingFeedback});
+const batch003Records=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return (n>=1422&&n<=1919)||n===4521||n===4522;});
+const batch003MissingFeedback=batch003Records.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
+const batch003UniqueRationales=new Set(batch003Records.map(q=>q.rationale)).size;
+if(batch003Records.length!==500)failures.push({issue:'batch-003 record count mismatch',count:batch003Records.length,expected:500});
+if(batch003MissingFeedback)failures.push({issue:'batch-003 missing option-specific rationales or clinical judgment tips',count:batch003MissingFeedback});
+if(batch003UniqueRationales<40)failures.push({issue:'batch-003 rationales remain overly repetitive',uniqueRationales:batch003UniqueRationales,expectedAtLeast:40});
 const batch008Records=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=3620&&n<=3819;});
 const batch008UniqueCases=new Set(batch008Records.map(q=>String(q.topic)+'::'+String(q.scenario))).size;
 const batch008MissingFeedback=batch008Records.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
@@ -159,6 +165,9 @@ const result={
  batch007MatrixRecords:batch007MatrixRecords.length,
  batch007MatrixTopics,
  batch007MatrixMissingFeedback,
+ batch003Records:batch003Records.length,
+ batch003MissingFeedback,
+ batch003UniqueRationales,
  batch008Records:batch008Records.length,
  batch008UniqueCases,
  batch008MissingFeedback,
