@@ -90,9 +90,14 @@ if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metad
 const batch009Groups=new Map();
 bank.filter(q=>String(q&&q.caseGroupId||'').startsWith('QR-CASE-NEW-')).forEach(q=>{const id=String(q.caseGroupId);if(!batch009Groups.has(id))batch009Groups.set(id,[]);batch009Groups.get(id).push(q);});
 const batch009WithEhr=[...batch009Groups.values()].filter(group=>group.some(q=>q.ehr?.vitalSigns&&q.ehr?.diagnosticResults)).length;
-const batch009RemediatedItems=[...batch009Groups.values()].flat().filter(q=>q.optionRationales&&q.clinicalJudgmentTip).length;
+const batch009Records=[...batch009Groups.values()].flat();
+const batch009RemediatedItems=batch009Records.filter(q=>q.optionRationales&&q.clinicalJudgmentTip).length;
+const batch009MissingClinicalData=batch009Records.filter(q=>!q.ehr?.vitalSigns||!q.ehr?.diagnosticResults||!q.ehr?.orders||!Array.isArray(q.options)||!q.options.length||!q.rationale).length;
+const batch009KeyMismatches=batch009Records.filter(q=>q.type==='Multiple Response'?!Array.isArray(q.correctAnswers)||q.correctAnswers.some(answer=>!q.options.includes(answer)):!q.options.includes(q.correctAnswer)).length;
 if(batch009WithEhr<40)failures.push({issue:'batch-009 detailed EHR enrichment incomplete',groupsWithEhr:batch009WithEhr,expectedAtLeast:40});
 if(batch009RemediatedItems<200)failures.push({issue:'batch-009 clinical question remediation incomplete',items:batch009RemediatedItems,expectedAtLeast:200});
+if(batch009MissingClinicalData)failures.push({issue:'batch-009 items missing clinical exhibits, options, or rationales',count:batch009MissingClinicalData});
+if(batch009KeyMismatches)failures.push({issue:'batch-009 answer keys do not match options',count:batch009KeyMismatches});
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
@@ -130,6 +135,8 @@ const result={
  batch009Groups:batch009Groups.size,
  batch009GroupsWithEhr:batch009WithEhr,
  batch009RemediatedItems,
+ batch009MissingClinicalData,
+ batch009KeyMismatches,
  formatCounts:formats,
  examPages:modeChecks,
  failures:failures.length,
