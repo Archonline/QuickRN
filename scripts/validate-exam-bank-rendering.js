@@ -86,6 +86,10 @@ const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Ad
 schema.normalize(metadataOnly);
 const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
 if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
+const batch009Groups=new Map();
+bank.filter(q=>String(q&&q.caseGroupId||'').startsWith('QR-CASE-NEW-')).forEach(q=>{const id=String(q.caseGroupId);if(!batch009Groups.has(id))batch009Groups.set(id,[]);batch009Groups.get(id).push(q);});
+const batch009WithEhr=[...batch009Groups.values()].filter(group=>group.some(q=>q.ehr?.vitalSigns&&q.ehr?.diagnosticResults)).length;
+if(batch009WithEhr<28)failures.push({issue:'batch-009 detailed EHR enrichment incomplete',groupsWithEhr:batch009WithEhr,expectedAtLeast:28});
 const formats={};
 const ids=new Set();
 let rendered=0,scored=0;
@@ -120,6 +124,8 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ batch009Groups:batch009Groups.size,
+ batch009GroupsWithEhr:batch009WithEhr,
  formatCounts:formats,
  examPages:modeChecks,
  failures:failures.length,
