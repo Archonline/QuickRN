@@ -22436,7 +22436,7 @@ function clinicalTip(q,action,monitor){
 }
 const groupSequence=new Map();
 items.forEach(q=>{
- const caseSequence=(groupSequence.get(q.caseGroupId)||0)+1;groupSequence.set(q.caseGroupId,caseSequence);const sequenceValue=q.caseGroupId==='QR-NGN-CASE-024'?caseSequence+1:caseSequence;q.caseQuestionNumber=sequenceValue;q.caseStudySequence=sequenceValue;
+ const caseSequence=(groupSequence.get(q.caseGroupId)||0)+1;groupSequence.set(q.caseGroupId,caseSequence);const sequenceValue=caseSequence;q.caseQuestionNumber=sequenceValue;q.caseStudySequence=sequenceValue;
  const topic=q.topic||'the presenting condition',action=q.ehr?.priorityAssessment||'escalate the acute change and implement the prescribed condition-specific response',monitor=q.ehr?.monitoring||'vital signs and response to treatment',history=q.patientInfo?.history||q.ehr?.assessment||'the documented presenting findings';
  const vitals=clinicalVitals[topic]||null;
  const profile=typeof q.patientInfo==='object'&&q.patientInfo?q.patientInfo:{age:String(q.patientInfo||'Age not supplied in source record'),history};
