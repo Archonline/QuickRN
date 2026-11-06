@@ -87,6 +87,12 @@ const metadataOnly={id:'QR-TEST-METADATA-ONLY',type:'Single Choice',category:'Ad
 schema.normalize(metadataOnly);
 const metadataHtml=renderer.renderReact(metadataOnly,{},()=>{},false);
 if(/No separate patient exhibits were supplied|<aside class="qr-ehr"/.test(metadataHtml))failures.push({id:metadataOnly.id,issue:'metadata-only case displayed an empty clinical-record panel'});
+const batch006Records=bank.filter(q=>{const n=Number(String(q&&q.id||'').replace(/^QR-/,''));return n>=2920&&n<=3419;});
+const batch006MissingFeedback=batch006Records.filter(q=>!q.rationale||!q.optionRationales||!Object.keys(q.optionRationales).length||!q.clinicalJudgmentTip).length;
+const batch006UniqueRationales=new Set(batch006Records.map(q=>q.rationale)).size;
+if(batch006Records.length!==500)failures.push({issue:'batch-006 record count mismatch',count:batch006Records.length,expected:500});
+if(batch006MissingFeedback)failures.push({issue:'batch-006 missing rationale, option feedback, or clinical judgment tip',count:batch006MissingFeedback});
+if(batch006UniqueRationales<40)failures.push({issue:'batch-006 rationales remain overly repetitive',uniqueRationales:batch006UniqueRationales,expectedAtLeast:40});
 const batch009Groups=new Map();
 bank.filter(q=>String(q&&q.caseGroupId||'').startsWith('QR-CASE-NEW-')).forEach(q=>{const id=String(q.caseGroupId);if(!batch009Groups.has(id))batch009Groups.set(id,[]);batch009Groups.get(id).push(q);});
 const batch009WithEhr=[...batch009Groups.values()].filter(group=>group.some(q=>q.ehr?.vitalSigns&&q.ehr?.diagnosticResults)).length;
@@ -132,6 +138,9 @@ const result={
  rendered,
  scored,
  missingFormatPanels:missingPanels.length,
+ batch006Records:batch006Records.length,
+ batch006MissingFeedback,
+ batch006UniqueRationales,
  batch009Groups:batch009Groups.size,
  batch009GroupsWithEhr:batch009WithEhr,
  batch009RemediatedItems,
