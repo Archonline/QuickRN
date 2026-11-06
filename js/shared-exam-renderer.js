@@ -233,7 +233,7 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const title=cleanField(q.cleanTitle||q.title||q.promptTitle||q.questionText||q.question||'Clinical question');
  const rawPrompt=cleanField(q.cleanInstruction||q.instruction||((q.title||q.promptTitle)&&q.questionText&&q.title!==q.questionText?q.questionText:''));
  const prompt=rawPrompt&&rawPrompt.toLowerCase()!==title.toLowerCase()?rawPrompt:'';
- const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical]];
+ const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Lab Results',ehr.diagnosticResults||ehr.labResults],['Orders',ehr.orders||ehr.providerOrders],['History & Physical',ehr.historyPhysical]];
  const caseContext=q.caseStudyContext||{};
  const patientSummary=typeof q.patientInfo==='string'?quickRNPlainClinicalText(q.patientInfo):(quickRNPatientInfoText(patient)||quickRNPlainClinicalText(caseContext.summary||q.caseStudy||q.case_study||''));
  const scenarioText=quickRNPlainClinicalText(quickRNSplitPrompt(q).scenario||'');
