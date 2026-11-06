@@ -21,8 +21,8 @@ if (!dashboard.includes('id="whats-new-title"')) failures.push('Dashboard: conci
 for (const stale of ['v5.7 —', 'v5.6 —', 'v5.5 —', 'Legacy External Search Shortcut', 'Persistent Session Login']) {
   if (dashboard.includes(stale)) failures.push('Dashboard: stale changelog entry remains: ' + stale);
 }
-if (!dashboard.includes('rule-based Clinical Study Coach')) failures.push('Dashboard: coach limitation disclosure missing from release notes');
-if (!dashboard.includes('browser-local')) failures.push('Dashboard: local storage limitation missing from release notes');
+if (!help.toLowerCase().includes('rule-based guidance')) failures.push('Help Center: current rule-based Clinical Study Coach limitation is not disclosed');
+if (!help.toLowerCase().includes('browser storage')) failures.push('Help Center: browser-local data limitation is not disclosed');
 if (failures.length) {
   console.error('Help and release-notes contract failed:\\n- ' + failures.join('\\n- '));
   process.exit(1);
@@ -30,5 +30,6 @@ if (failures.length) {
 console.log('Help Center, disclaimer, navigation, and concise release notes contract passed.');
 
 const dashboardReleaseNotes = fs.readFileSync('dashboard.html', 'utf8');
-assert.ok(dashboardReleaseNotes.includes('View all 50 documented improvements'), 'Full improvement register is not available in What’s New');
-assert.ok(dashboardReleaseNotes.includes('Additional exam workflow improvements'), 'Additional exam workflow improvements are missing from What’s New');
+assert.ok(dashboardReleaseNotes.includes('NGN question-format rendering'), 'Current NGN format update is missing from What’s New');
+assert.ok(dashboardReleaseNotes.includes('Consistent exam workspaces'), 'Four-mode exam workspace update is missing from What’s New');
+assert.ok(dashboardReleaseNotes.includes('Question-bank validation remains in progress'), 'Question-bank beta validation disclosure is missing from What’s New');
