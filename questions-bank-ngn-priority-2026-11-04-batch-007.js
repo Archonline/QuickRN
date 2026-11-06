@@ -61,10 +61,18 @@ const grids=[
 ['Burn complications',['Hoarseness and soot after enclosed fire','Circumferential chest burn','Increasing pain and tense limb','Low urine output after major burn'],['Inhalation injury','Restricted chest expansion','Compartment syndrome','Inadequate resuscitation'],['Inhalation injury','Restricted chest expansion','Compartment syndrome','Inadequate resuscitation']],
 ['Psychiatric safety',['Current suicide plan and access to means','Command hallucinations to harm another','Anxiety without safety threat','Intoxicated and unable to maintain safety'],['Immediate suicide precautions','Immediate safety escalation','Therapeutic support','Protect from injury'],['Immediate suicide precautions','Immediate safety escalation','Therapeutic support','Protect from injury']]
 ];
-for(let i=0;i<150;i++){
- const g=grids[i%grids.length],variant=Math.floor(i/grids.length),rows=g[1].map((x,j)=>({id:'r'+(j+1),text:x+(variant?' — presentation '+(variant+1):'')}));
+for(let i=0;i<grids.length;i++){
+ const g=grids[i],rows=g[1].map((x,j)=>({id:'r'+(j+1),text:x}));
  const correct={};rows.forEach((r,j)=>correct[r.id]=g[3][j]);
- add({id:'QR-'+String(4170+i).padStart(6,'0'),type:'Matrix / Grid',ngnType:'Matrix / Grid',category:'Clinical Judgment',topic:g[0],clientNeed:'Safety and Infection Control',difficulty:'Moderate',title:'For each clinical finding, select the best matching classification.',rows,columns:g[2],correctAnswers:correct,source:'QuickRN original beta draft',reviewStatus:'pending_webmaster_review',rationale:'Classify each row independently using the clinical cues and current nursing priorities. Follow current facility protocols.'});
+ const optionRationales={};
+ rows.forEach((row,j)=>{
+  row.options=g[2];
+  g[2].forEach(option=>{
+   const isCorrect=option===correct[row.id];
+   optionRationales[row.id+' :: '+option]=isCorrect?'Correct. '+row.text+' is appropriately classified as '+option+' in the '+g[0]+' context.':'Not the best classification. '+row.text+' is more accurately classified as '+correct[row.id]+' for this clinical context.';
+  });
+ });
+ add({id:'QR-'+String(4170+i).padStart(6,'0'),type:'Matrix / Grid',ngnType:'Matrix / Grid',category:'Clinical Judgment',topic:g[0],clientNeed:'Safety and Infection Control',difficulty:'High',title:'For each finding in '+g[0]+', select the most appropriate clinical interpretation.',rows,columns:g[2],correctAnswers:correct,optionRationales,clinicalJudgmentTip:'Classify each row independently, then connect the finding to the relevant nursing priority and the safest response.',source:'QuickRN original beta draft',reviewStatus:'pending_webmaster_review',rationale:'In '+g[0]+', the findings map to distinct clinical interpretations. Use the specific cue in each row rather than applying one classification to the entire case.'});
 }
 const cases=[
 ['Septic shock from urinary source','A 69-year-old with dysuria is now confused and weak. BP 82/48, HR 128, RR 28, T 38.8°C; lactate 4.1 and urine output 10 mL/hr.','69-year-old adult','BP 82/48; HR 128; RR 28; T 38.8°C','Lactate 4.1; creatinine 2.0; WBC 18,000','Septic shock with impaired perfusion','Activate sepsis response and obtain ordered cultures promptly','Administer prescribed fluids and antimicrobials','Blood pressure and perfusion','Urine output, lactate, and mental status'],
