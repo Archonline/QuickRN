@@ -68,6 +68,7 @@ jobs:
             tests/ngn-scoring.test.js
             tests/ngn-workspace-contract.test.js
             tests/question-bank-renderer-contract.test.js
+            tests/question-bank-quality-gate.test.js
             tests/question-id-normalizer.test.js
             tests/question-schema-v2.test.js
             tests/quickrn-ngn-compat.test.js
