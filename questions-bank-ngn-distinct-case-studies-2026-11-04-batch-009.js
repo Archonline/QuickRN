@@ -77,6 +77,6 @@ items.forEach(q=>{
  q.optionRationales={};options.forEach(o=>q.optionRationales[o]=makeCaseRationale(q,o,seq===2?correctSet.includes(o):o===correct,action,monitor,summary));
  q.clinicalJudgmentTip='Use the case sequence rather than treating each item as isolated: identify the time-sensitive cue, connect it to the likely complication, choose the immediate condition-specific response, monitor '+monitor+', and evaluate whether the trend improves. Do not delay escalation for routine tasks.';
  q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
- q.difficulty='High';q.reviewStatus='pending_nurse_educator_review';
+ q.difficulty='High';q.reviewStatus='quarantined_content_quality';q.qualityFlags=['placeholder_distractors','five_item_case_structure','incomplete_clinical_judgment_sequence'];
 });
 let added=0,updated=0;const positions=new Map(bank.map((q,i)=>[String(q&&q.id||''),i]));for(const q of items){if(positions.has(q.id)){const i=positions.get(q.id),old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated++;}else{bank.push(q);positions.set(q.id,bank.length-1);seen.add(q.id);added++;}}root.questions=bank;root.QuickRNDistinctCaseStudiesBatch009=added;root.QuickRNDistinctCaseStudiesBatch009Updated=updated;})(typeof window!=='undefined'?window:globalThis);
