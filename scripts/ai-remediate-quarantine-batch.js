@@ -228,7 +228,7 @@ async function main() {
     '',
     '| Question ID | Source file | Findings |',
     '|---|---|---|',
-    ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.issues.replace(/[|\\n]/g, ' ').slice(0, 300) + ' |')
+    ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.issues.replace(/[|\r\n]/g, ' ').slice(0, 300) + ' |')
   ].join('\n') + '\n';
   fs.writeFileSync(path.join(outDir, 'run-' + date + '.md'), report);
   if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report);
