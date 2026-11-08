@@ -22474,6 +22474,7 @@ items.forEach(q=>{
 items.forEach(q=>{const match=/^QR-(\d{6})$/.exec(String(q.id||''));const n=match?Number(match[1]):0;if(n>=1920&&n<=1939){q.legacyId=q.id;q.id='QR-'+String(4523+n-1920).padStart(6,'0');}});
 const duplicateAlcoholWithdrawal=items.findIndex(q=>q.id==='QR-002150');
 if(duplicateAlcoholWithdrawal>=0)items.splice(duplicateAlcoholWithdrawal,1);
+items.forEach(q=>{q.reviewStatus='quarantined_content_quality';q.qualityFlags=[...new Set([...(Array.isArray(q.qualityFlags)?q.qualityFlags:[]),'unsafe_or_implausible_distractors','incomplete_answer_key_mappings','case_sequence_not_validated','pending_nurse_educator_review'])];});
 const existing=new Map(bank.map((q,i)=>[String(q&&q.id||''),i]));
 let added=0,updated=0;
 items.forEach(q=>{if(existing.has(q.id)){const i=existing.get(q.id),old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated++;}else{bank.push(q);existing.set(q.id,bank.length-1);added++;}});
