@@ -27,6 +27,7 @@ function matrixVital(topic,scenario){
  const hr=(scenario.match(/HR\s*(\d+\/min)/i)||[])[1],bp=(scenario.match(/BP\s*([\d/]+\s*mm Hg)/i)||[])[1],rr=(scenario.match(/RR\s*(\d+\/min)/i)||[])[1],spo=(scenario.match(/SpO2\s*(\d+%)/i)||[])[1];
  return ['Obtain on initial assessment',hr||'Obtain on initial assessment',rr||'Obtain on initial assessment',bp||'Obtain on initial assessment',spo||'Obtain on initial assessment'];
 }
+items.forEach(q=>{q.reviewStatus='quarantined_content_quality';q.qualityFlags=[...(q.qualityFlags||[]),'synthetic_ehr_vital_signs','templated_matrix_rows','generic_option_rationales','pending_nurse_educator_review'];});
 items.forEach(q=>{
  const topic=q.topic||'Clinical condition',scenario=q.scenario||q.title||'',rows=q.rows||[],mapping=q.correctAnswers?.matrix||q.correctAnswers||{};
  const action=rows.find(r=>r.id==='action')?.text||'Implement the condition-specific prescribed response';
