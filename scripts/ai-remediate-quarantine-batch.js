@@ -169,9 +169,24 @@ async function reviseQuestion(original) {
   return merged;
 }
 async function main() {
-  if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY is required; no changes made');
   const { bank, ownerById } = loadEffectiveBank();
   const candidates = bank.filter(q => isCandidate(q) && REMEDIABLE.has(ownerById.get(String(q.id))));
+  if (process.argv.includes('--dry-run')) {
+    const counts = {};
+    for (const q of candidates) {
+      const source = ownerById.get(String(q.id));
+      counts[source] = (counts[source] || 0) + 1;
+    }
+    console.log(JSON.stringify({
+      effectiveRuntimeRecords: bank.length,
+      eligibleUnrevisedRecords: candidates.length,
+      batchLimit: LIMIT,
+      eligibleBySource: counts,
+      nextBatch: candidates.slice(0, LIMIT).map(q => ({ id: q.id, source: ownerById.get(String(q.id)) }))
+    }, null, 2));
+    return;
+  }
+  if (!process.env.OPENAI_API_KEY) throw new Error('OPENAI_API_KEY is required; no changes made');
   const batch = candidates.slice(0, LIMIT);
   if (!batch.length) {
     console.log('No eligible, unrevised quarantined items found in the effective runtime bank for batches 004–009.');
