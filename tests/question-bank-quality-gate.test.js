@@ -24,8 +24,19 @@ const batch005Context={console,window:{questions:[]}};
 vm.runInNewContext(fs.readFileSync('questions-bank-ngn-case-studies-2026-11-04-batch-005.js','utf8'),batch005Context,{timeout:60000});
 const batch005=batch005Context.window.questions;
 assert.equal(batch005.length,500,'batch 005 retains all 500 source records');
-assert.ok(batch005.every(q=>q.reviewStatus==='quarantined_content_quality'),'five-item batch 005 records are excluded pending six-step reconstruction');
-assert.ok(batch005.every(q=>q.qualityFlags?.includes('five_item_case_structure')&&q.qualityFlags?.includes('synthetic_exhibit_values')),'batch 005 carries explicit structural and synthetic-exhibit quality flags');
+const remediatedBatch005Ids=new Set([
+ 'QR-002420','QR-002421','QR-002422','QR-002423','QR-002424',
+ 'QR-002430','QR-002431','QR-002432','QR-002433','QR-002434',
+ 'QR-002440','QR-002441','QR-002442','QR-002443','QR-002444'
+]);
+const remediatedBatch005=batch005.filter(q=>remediatedBatch005Ids.has(q.id));
+const unremediatedBatch005=batch005.filter(q=>!remediatedBatch005Ids.has(q.id));
+assert.equal(remediatedBatch005.length,15,'three complete five-item cases are substantively remediated');
+assert.ok(remediatedBatch005.every(q=>q.reviewStatus==='pending_webmaster_review'&&q.remediationStatus==='manual_revised_pending_webmaster_review'),'remediated items no longer require nurse-educator approval and remain under webmaster review');
+assert.ok(remediatedBatch005.every(q=>q.patientProfile&&q.ehr?.tabs?.vitalSigns&&q.ehr?.tabs?.nursesNotes&&q.ehr?.tabs?.labResults),'remediated cases provide structured patient and EHR exhibits');
+assert.ok(remediatedBatch005.every(q=>q.rationale&&q.optionRationales&&Object.keys(q.optionRationales).length>=4),'remediated items provide overall and response-specific rationales');
+assert.ok(unremediatedBatch005.every(q=>q.reviewStatus==='quarantined_content_quality'),'unremediated batch 005 items remain excluded from student pools');
+assert.ok(unremediatedBatch005.every(q=>q.qualityFlags?.includes('five_item_case_structure')&&q.qualityFlags?.includes('synthetic_exhibit_values')),'unremediated batch 005 records retain explicit structural and synthetic-exhibit flags');
 assert.equal(new Set(batch005.map(q=>q.id)).size,500,'batch 005 IDs remain unique');
 
 const batch006Context={console,window:{questions:[]}};
