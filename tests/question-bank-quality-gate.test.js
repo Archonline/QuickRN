@@ -28,6 +28,14 @@ assert.ok(batch006.every(q=>q.reviewStatus==='quarantined_content_quality'),'tem
 assert.ok(batch006.every(q=>q.qualityFlags?.includes('templated_topic_format_matrix')&&q.qualityFlags?.includes('synthetic_vital_signs')),'batch 006 carries explicit template and synthetic-exhibit quality flags');
 assert.equal(new Set(batch006.map(q=>q.id)).size,500,'batch 006 IDs remain unique');
 
+const batch004Context={console,window:{questions:[]}};
+vm.runInNewContext(fs.readFileSync('questions-bank-ngn-expansion-2026-11-04-batch-004.js','utf8'),batch004Context,{timeout:60000});
+const batch004=batch004Context.window.questions;
+assert.equal(batch004.length,500,'batch 004 retains all 500 source records');
+assert.ok(batch004.every(q=>q.reviewStatus==='quarantined_content_quality'),'batch 004 records with unsafe distractors and incomplete mappings are excluded pending reconstruction');
+assert.ok(batch004.every(q=>q.qualityFlags?.includes('unsafe_or_implausible_distractors')&&q.qualityFlags?.includes('incomplete_answer_key_mappings')),'batch 004 retains explicit distractor and answer-key quality flags');
+assert.equal(new Set(batch004.map(q=>q.id)).size,500,'batch 004 IDs remain unique');
+
 const app=fs.readFileSync('js/quickrn-exam-app.js','utf8');
 assert.match(app,/function filteredPool\(\)\{let list=bank\.filter\(q=>q\?\.reviewStatus!=='quarantined_content_quality'&&hasClinicalContextForExam\(q\)\)/,
   'student exam pools exclude quarantined records');
