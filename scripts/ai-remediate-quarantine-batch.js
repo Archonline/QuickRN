@@ -144,14 +144,28 @@ function auditQuestion(q) {
   }
   const rationale = String(q.rationale || q.explanation || q.feedback || '').trim();
   if (!rationale) add('missing_rationale', 'No item-specific rationale field was found.');
+  const contentForTemplateCheck = [stem, q.scenario, q.patientProfile, q.patientInfo, q.clinicalRecord, rationale, ...normalizedOptions].filter(Boolean).join(' ').toLowerCase();
+  const templatePatterns = [
+    /the acute cue described in the clinical record/,
+    /a stable chronic finding/,
+    /a routine preference/,
+    /an unrelated task/,
+    /initiate the indicated urgent response/,
+    /reassess and trend the abnormal findings/,
+    /delay until routine rounds/,
+    /ignore the change/
+  ];
+  if (templatePatterns.some(pattern => pattern.test(contentForTemplateCheck))) {
+    add('template_or_generic_content', 'Contains a known generic/template phrase; substantive item rewrite is still required.');
+  }
   for (const key of ['caseGroupId','caseStudyId','patientProfile','tabs']) {
     if (typeof q[key] === 'string' && !q[key].trim()) {
       delete q[key];
       add('empty_metadata_removed', 'Removed empty-string metadata field: ' + key + '.');
     }
   }
-  if (/case|matrix|bow.?tie|trend|cloze/.test(format)) {
-    const hasClinicalRecord = Boolean(q.patientProfile || q.patientInfo || q.tabs || q.ehr || q.clinicalRecord || q.caseStudyContext);
+  if (/case|matrix|bow.?tie|trend|cloze/.test(format) || q.caseStudyContext || q.caseGroupId || q.caseStudyId) {
+    const hasClinicalRecord = Boolean(q.patientProfile || q.patientInfo || q.tabs || q.ehr || q.clinicalRecord || q.exhibits || q.clinicalExhibits);
     if (!hasClinicalRecord) add('missing_case_exhibits', 'Case/NGN-style item has no recognized patient record or exhibit field.');
   }
   const flags = new Set(Array.isArray(q.qualityFlags) ? q.qualityFlags : []);
