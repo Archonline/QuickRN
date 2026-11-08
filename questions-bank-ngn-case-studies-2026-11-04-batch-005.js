@@ -1,5 +1,6 @@
-/* QuickRN NGN case-study batch 005: 100 original case groups × 5 sequential items = 500 records.
- * Original beta drafts; all require qualified nurse-educator review before clinical release.
+/* QuickRN NGN case-study batch 005: 100 original case groups × 5 linked items = 500 records.
+ * Quarantined from student pools: the cases omit the Take Action step and contain synthetic exhibits/template teaching.
+ * Preserve for webmaster remediation; all content still requires qualified nurse-educator review before clinical release.
  */
 (function(root){
 'use strict';
