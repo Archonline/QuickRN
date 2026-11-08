@@ -169,7 +169,7 @@ async function main() {
     '| Question ID | Source file | Status | Note |',
     '|---|---|---|---|',
     ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.status + ' | ' + String(r.note).replace(/[|\n]/g, ' ').slice(0, 300) + ' |')
-  ].join('\\n') + '\\n';
+  ].join('\n') + '\n';
   fs.writeFileSync(path.join(outDir, 'run-' + date + '.md'), report);
   console.log(report);
 }
