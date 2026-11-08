@@ -36,6 +36,23 @@ assert.ok(batch004.every(q=>q.reviewStatus==='quarantined_content_quality'),'bat
 assert.ok(batch004.every(q=>q.qualityFlags?.includes('unsafe_or_implausible_distractors')&&q.qualityFlags?.includes('incomplete_answer_key_mappings')),'batch 004 retains explicit distractor and answer-key quality flags');
 assert.equal(new Set(batch004.map(q=>q.id)).size,499,'batch 004 IDs remain unique');
 
+
+const batch007Context={console,window:{questions:[]}};
+vm.runInNewContext(fs.readFileSync('questions-bank-numeric-entry-2026-11-04-batch-007.js','utf8'),batch007Context,{timeout:60000});
+const batch007=batch007Context.window.questions;
+assert.equal(batch007.length,200,'batch 007 retains all 200 numeric-entry source records');
+assert.ok(batch007.every(q=>q.reviewStatus==='quarantined_content_quality'),'templated numeric-entry records are excluded pending item-level clinical review');
+assert.ok(batch007.every(q=>q.qualityFlags?.includes('templated_numeric_calculations')&&q.qualityFlags?.includes('generic_calculation_rationales')),'batch 007 retains explicit calculation and rationale quality flags');
+assert.equal(new Set(batch007.map(q=>q.id)).size,200,'batch 007 IDs remain unique');
+
+const batch008Context={console,window:{questions:[]}};
+vm.runInNewContext(fs.readFileSync('questions-bank-matrix-grid-2026-11-04-batch-008.js','utf8'),batch008Context,{timeout:60000});
+const batch008=batch008Context.window.questions;
+assert.equal(batch008.length,200,'batch 008 retains all 200 matrix-grid source records');
+assert.ok(batch008.every(q=>q.reviewStatus==='quarantined_content_quality'),'matrix-grid records with synthetic EHR values are excluded pending reconstruction');
+assert.ok(batch008.every(q=>q.qualityFlags?.includes('synthetic_ehr_vital_signs')&&q.qualityFlags?.includes('templated_matrix_rows')),'batch 008 retains explicit synthetic-EHR and template quality flags');
+assert.equal(new Set(batch008.map(q=>q.id)).size,200,'batch 008 IDs remain unique');
+
 const app=fs.readFileSync('js/quickrn-exam-app.js','utf8');
 assert.match(app,/function filteredPool\(\)\{let list=bank\.filter\(q=>q\?\.reviewStatus!=='quarantined_content_quality'&&hasClinicalContextForExam\(q\)\)/,
   'student exam pools exclude quarantined records');
