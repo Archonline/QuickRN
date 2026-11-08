@@ -199,3 +199,45 @@ for(const spec of specs){
 }
 root.questions=bank;
 })(typeof window!=='undefined'?window:globalThis);
+
+
+/* Canonical CJMM labels and item-level response rationales for remediated batch 005 cases. */
+(function(root){
+'use strict';
+const bank=Array.isArray(root.questions)?root.questions:[];
+const ids=['QR-002420','QR-002421','QR-002422','QR-002423','QR-002424','QR-002430','QR-002431','QR-002432','QR-002433','QR-002434','QR-002440','QR-002441','QR-002442','QR-002443','QR-002444'];
+for(const id of ids){
+ const q=bank.find(x=>String(x&&x.id||'')===id);if(!q)throw new Error('Remediated item missing: '+id);
+ if(q.caseQuestionNumber===5)q.clinicalJudgmentStep='Take Action';
+ const map={};
+ if(q.type==='Matrix Single'||q.type==='Matrix Multiple'){
+  const keys=q.correctAnswers||{};
+  for(const row of q.rows||[]){
+   const answer=keys[row.id];
+   for(const choice of row.options||[]){
+    const correct=Array.isArray(answer)?answer.includes(choice):answer===choice;
+    map[row.id+' — '+choice]=correct
+      ? 'Correct. This classification matches the case evidence and the priority nursing response for '+q.topic+'.'
+      : 'Not the best classification. Compare this response with the client’s current findings and the safety requirements in the case record.';
+   }
+  }
+ }else if(q.type==='Cloze (Drop-down)'){
+  const keys=q.correctAnswers||{};
+  for(const dropdown of q.dropdowns||[]){
+   for(const choice of dropdown.options||[]){
+    map[dropdown.id+' — '+choice]=String(keys[dropdown.id])===String(choice)
+      ? 'Correct. This selection is supported by the documented findings and the priority plan.'
+      : 'This choice does not fit the documented findings or would delay or compromise the priority response.';
+   }
+  }
+ }else if(q.type==='Bowtie'){
+  const b=q.bowtieData||{},correct=b.correct||{};
+  for(const choice of b.conditions||[])map['condition — '+choice]=choice===correct.condition?'Correct. This is the condition best supported by the case findings.':'This condition does not best explain the acute findings in the case.';
+  for(const choice of b.actions||[])map['action — '+choice]=(correct.actions||[]).includes(choice)?'Correct. This action addresses the immediate risk and is appropriate within the prescribed plan.':'This action is unsafe, delays care, or does not address the immediate clinical risk.';
+  for(const choice of b.monitoring||[])map['monitoring — '+choice]=(correct.parameters||[]).includes(choice)?'Correct. This parameter evaluates the threatened physiologic function or response to treatment.':'This parameter does not adequately evaluate the immediate risk or treatment response.';
+ }
+ if(Object.keys(map).length)q.optionRationales=map;
+ q.rationales={overall:q.rationale,options:q.optionRationales||{},clinicalJudgmentTip:'Use the linked case evidence to recognize the acute change, prioritize the immediate threat, implement the prescribed response, and evaluate the client’s response using relevant clinical trends.'};
+}
+root.questions=bank;
+})(typeof window!=='undefined'?window:globalThis);
