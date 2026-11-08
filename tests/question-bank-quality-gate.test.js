@@ -12,6 +12,14 @@ assert.ok(bank.every(q=>q.reviewStatus==='quarantined_content_quality'),'every p
 assert.ok(bank.every(q=>Array.isArray(q.qualityFlags)&&q.qualityFlags.includes('placeholder_distractors')),'quarantine records retain explicit quality flags');
 assert.equal(new Set(bank.map(q=>q.id)).size,200,'quarantined records retain unique IDs');
 
+const remediatedStroke=bank.filter(q=>q.caseGroupId==='QR-CASE-NEW-001').sort((a,b)=>a.caseQuestionNumber-b.caseQuestionNumber);
+assert.equal(remediatedStroke.length,5,'the first quarantined case retains five linked records');
+assert.ok(remediatedStroke.every(q=>q.reviewStatus==='quarantined_content_quality'),'substantively revised records remain excluded pending educator review');
+assert.ok(remediatedStroke.every(q=>q.patientProfile&&q.ehr?.vitalSigns&&q.ehr?.labResults),'the revised stroke case supplies structured patient and EHR exhibits');
+assert.ok(remediatedStroke.every(q=>q.optionRationales&&Object.keys(q.optionRationales).length>=4),'the revised stroke items provide option-specific rationales');
+assert.ok(remediatedStroke.every(q=>!q.options?.some(o=>/acute cue described|stable chronic finding|routine preference|unrelated task/i.test(o))),'the first stroke case no longer uses generic placeholder choices');
+
+
 const batch005Context={console,window:{questions:[]}};
 vm.runInNewContext(fs.readFileSync('questions-bank-ngn-case-studies-2026-11-04-batch-005.js','utf8'),batch005Context,{timeout:60000});
 const batch005=batch005Context.window.questions;
