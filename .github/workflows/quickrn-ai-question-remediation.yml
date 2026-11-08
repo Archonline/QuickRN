@@ -26,21 +26,26 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Stop safely when the AI key is not configured
+      - name: Check whether the AI key is configured
+        id: keycheck
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           if [ -z "$OPENAI_API_KEY" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
             echo "::warning::OPENAI_API_KEY repository secret is missing. No question content was changed."
-            exit 0
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
           fi
       - name: Remediate up to 25 quarantined items
+        if: steps.keycheck.outputs.configured == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.QUICKRN_REMEDIATION_MODEL }}
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: node scripts/ai-remediate-quarantine-batch.js
       - name: Commit verified quarantined revisions
+        if: steps.keycheck.outputs.configured == 'true'
         run: |
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit."
