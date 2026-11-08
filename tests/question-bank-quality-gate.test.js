@@ -27,11 +27,12 @@ assert.equal(batch005.length,500,'batch 005 retains all 500 source records');
 const remediatedBatch005Ids=new Set([
  'QR-002420','QR-002421','QR-002422','QR-002423','QR-002424',
  'QR-002430','QR-002431','QR-002432','QR-002433','QR-002434',
- 'QR-002440','QR-002441','QR-002442','QR-002443','QR-002444'
+ 'QR-002440','QR-002441','QR-002442','QR-002443','QR-002444',
+ 'QR-002445','QR-002446','QR-002447','QR-002448','QR-002449'
 ]);
 const remediatedBatch005=batch005.filter(q=>remediatedBatch005Ids.has(q.id));
 const unremediatedBatch005=batch005.filter(q=>!remediatedBatch005Ids.has(q.id));
-assert.equal(remediatedBatch005.length,15,'three complete five-item cases are substantively remediated');
+assert.equal(remediatedBatch005.length,20,'four complete five-item cases are substantively remediated');
 assert.ok(remediatedBatch005.every(q=>q.reviewStatus==='pending_webmaster_review'&&q.remediationStatus==='manual_revised_pending_webmaster_review'),'remediated items no longer require nurse-educator approval and remain under webmaster review');
 assert.ok(remediatedBatch005.every(q=>q.patientProfile&&q.ehr?.tabs?.vitalSigns&&q.ehr?.tabs?.nursesNotes&&q.ehr?.tabs?.labResults),'remediated cases provide structured patient and EHR exhibits');
 assert.ok(remediatedBatch005.every(q=>q.rationale&&q.optionRationales&&Object.keys(q.optionRationales).length>=4),'remediated items provide overall and response-specific rationales');
