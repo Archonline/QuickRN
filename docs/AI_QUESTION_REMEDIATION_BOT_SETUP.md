@@ -1,28 +1,33 @@
-# QuickRN AI question-remediation bot
+# QuickRN free question-bank integrity bot
 
-The scheduled workflow is `.github/workflows/quickrn-ai-question-remediation.yml`. It runs every 15 minutes, can be started manually from GitHub Actions, and runs immediately when its workflow or worker implementation changes on `main`.
+The workflow is `.github/workflows/quickrn-ai-question-remediation.yml`. It runs every 15 minutes, can be started manually, and runs immediately when its workflow or worker implementation changes on `main`.
 
-## One-time repository setup
+## No API key or paid AI service required
 
-1. Open **Archonline/QuickRN → Settings → Secrets and variables → Actions**.
-2. Add the repository secret `OPENAI_API_KEY` with an API key authorized for the OpenAI Responses API.
-3. Optional: add repository variable `QUICKRN_REMEDIATION_MODEL` with a model name enabled for the API account. If omitted, the worker uses `gpt-6`.
-4. Confirm GitHub Actions are enabled and the workflow has permission to write repository contents.
+- No `OPENAI_API_KEY`, model API, or external inference endpoint is used.
+- No API secret or paid model subscription is required.
+- The worker runs deterministic Node.js checks on GitHub Actions and applies only safe metadata cleanup.
+- GitHub Actions usage may still be subject to GitHub plan limits. Standard runners are free for public repositories; private repositories use the plan's included minutes. See [GitHub Actions billing](https://docs.github.com/en/actions/concepts/billing-and-usage).
 
-Never put the API key in source files, workflow YAML, issues, or commits.
+## What the offline bot does
 
-## Coverage and behavior
+- Audits up to 25 eligible questions per run from the effective runtime bank, including batches 004–009.
+- Checks for missing stems, missing options, duplicate option text, missing answer keys, likely answer-format mismatches, missing rationales, and missing case/EHR exhibits.
+- Removes only known empty-string metadata fields (`caseGroupId`, `caseStudyId`, `patientProfile`, and `tabs`) where the field is literally an empty string.
+- Records findings in each question's `ruleAudit` field and preserves the original question content and answer key.
+- Marks the webmaster as review owner; there is no nurse-educator approval gate.
+- Writes persistent source-level overrides so a generated batch cannot silently overwrite audit metadata.
+- Produces a dated report in `reports/ai-remediation/` and the GitHub Actions job summary.
+- Commits audit metadata, safe fixes, and reports to `main`. Bot commits do not match the workflow's push trigger paths and cannot create an immediate self-trigger loop.
 
-- Each run attempts up to 25 eligible questions from the effective runtime question bank.
-- The worker loads the same base and supplemental modules as the production validator, then tracks which source module owns each active question.
-- Supported remediation batches are 004, 005, 006, 007, 008, and 009. This includes the generator-driven case-study and NGN supplement batches 005 and 006.
-- For generated modules and modules with post-generation overrides, revised records are written as persistent source-level overrides at the end of the owning module. This prevents the original generator from overwriting a revision on the next load.
-- Question IDs and linked case data are preserved. Format changes are accepted only when needed to correct an internally inconsistent answer structure.
-- Every substantive revision is labeled `pending_webmaster_review`; the webmaster is the review owner. There is no nurse-educator approval gate.
-- Items that lack enough clinical context are held with a `remediationNote` for webmaster source/context review rather than being filled with invented clinical facts.
-- Each run writes a dated report under `reports/ai-remediation/` and publishes the report in the GitHub Actions run summary.
-- The worker commits question-source updates and reports to `main`. Bot commits do not match the workflow's push trigger paths, so they do not cause an immediate self-triggering loop.
+## Important clinical limitation
+
+This is an offline integrity and triage bot, **not an AI clinical author**. It does not rewrite stems, invent patient findings, choose clinical answers, or certify NCLEX quality. A structural check cannot establish that a nursing intervention, rationale, dosage, or clinical priority is correct. Those findings remain for the webmaster's post-deployment review.
+
+## Optional future local-model enhancement
+
+For actual language-model rewriting without API charges, run Ollama or another open model on hardware you control and connect a self-hosted GitHub Actions runner to that machine. That is not enabled by this workflow: a normal GitHub-hosted runner cannot call a model running only on your personal computer. Ollama runs models locally; see [Ollama](https://github.com/ollama/ollama) and [GitHub self-hosted runners](https://docs.github.com/en/actions/reference/runners/self-hosted-runners).
 
 ## Monitoring
 
-Open **Actions → QuickRN AI question remediation** to inspect scheduled runs, logs, and summaries. Each successful run reports attempted items, revised items, items held for webmaster review, and failures. Review the resulting source changes and run reports in the repository before making release decisions.
+Open **Actions → QuickRN free question-bank integrity bot** to inspect scheduled runs, logs, and summaries. Each run reports the number of audited items, structural findings, and safe metadata cleanup operations.
