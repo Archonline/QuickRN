@@ -35,7 +35,7 @@ function extractItems(source, file) {
     }
     if (ch === '"' || ch === "'" || ch === '`') { quote = ch; continue; }
     if (ch === '/' && source[i + 1] === '/') {
-      const nl = source.indexOf('\\n', i); i = nl < 0 ? source.length : nl; continue;
+      const nl = source.indexOf('\n', i); i = nl < 0 ? source.length : nl; continue;
     }
     if (ch === '/' && source[i + 1] === '*') {
       const close = source.indexOf('*/', i + 2); if (close < 0) throw new Error(file + ': unterminated comment'); i = close + 1; continue;
@@ -148,7 +148,7 @@ async function main() {
     if (!batch.some(x => x.entry === entry)) continue;
     const nextArray = JSON.stringify(entry.items);
     const nextSource = entry.source.slice(0, entry.start) + nextArray + entry.source.slice(entry.end);
-    if (nextSource !== entry.source) fs.writeFileSync(entry.full, nextSource + (entry.source.endsWith('\\n') ? '' : '\\n'));
+    if (nextSource !== entry.source) fs.writeFileSync(entry.full, nextSource + (entry.source.endsWith('\n') ? '' : '\n'));
   }
   const date = new Date().toISOString().replace(/[:.]/g, '-');
   const outDir = path.join(ROOT, 'reports', 'ai-remediation');
@@ -168,7 +168,7 @@ async function main() {
     '',
     '| Question ID | Source file | Status | Note |',
     '|---|---|---|---|',
-    ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.status + ' | ' + String(r.note).replace(/[|\\n]/g, ' ').slice(0, 300) + ' |')
+    ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.status + ' | ' + String(r.note).replace(/[|\n]/g, ' ').slice(0, 300) + ' |')
   ].join('\\n') + '\\n';
   fs.writeFileSync(path.join(outDir, 'run-' + date + '.md'), report);
   console.log(report);
