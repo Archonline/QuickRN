@@ -1,0 +1,53 @@
+name: QuickRN AI question remediation
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: quickrn-ai-question-remediation
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Stop safely when the AI key is not configured
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::warning::OPENAI_API_KEY repository secret is missing. No question content was changed."
+            exit 0
+          fi
+      - name: Remediate up to 25 quarantined items
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.QUICKRN_REMEDIATION_MODEL }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: node scripts/ai-remediate-quarantine-batch.js
+      - name: Commit verified quarantined revisions
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git config user.name "quickrn-remediation-bot"
+          git config user.email "quickrn-remediation-bot@users.noreply.github.com"
+          git add questions-bank-*.js reports/ai-remediation/
+          git commit -m "AI remediation: review-ready question batch"
+          git push origin HEAD:main
