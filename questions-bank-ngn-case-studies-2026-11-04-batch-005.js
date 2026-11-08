@@ -307,3 +307,13 @@ for(const id of ['QR-002445','QR-002446','QR-002447','QR-002448','QR-002449']){
 }
 root.questions=bank;
 })(typeof window!=='undefined'?window:globalThis);
+
+
+/* Canonical CJMM enum correction for the fourth remediated case. */
+(function(root){
+ const bank=Array.isArray(root.questions)?root.questions:[];
+ const q=bank.find(x=>String(x&&x.id||'')==='QR-002449');
+ if(!q)throw new Error('QR-002449 missing');
+ q.clinicalJudgmentStep='Evaluate Outcomes';
+ q.caseStudyContext=Object.assign({},q.caseStudyContext,{sequence:5,totalItems:5});
+})(typeof window!=='undefined'?window:globalThis);
