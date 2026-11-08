@@ -4,6 +4,13 @@ on:
   schedule:
     - cron: "*/15 * * * *"
   workflow_dispatch:
+  # A workflow/worker update starts an immediate validation run. Bot commits to
+  # question-bank files do not match these paths, so this cannot self-trigger.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/quickrn-ai-question-remediation.yml"
+      - "scripts/ai-remediate-quarantine-batch.js"
 
 concurrency:
   group: quickrn-ai-question-remediation
@@ -37,14 +44,14 @@ jobs:
           else
             echo "configured=true" >> "$GITHUB_OUTPUT"
           fi
-      - name: Remediate up to 25 quarantined items
+      - name: Remediate up to 25 effective quarantined items
         if: steps.keycheck.outputs.configured == 'true'
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.QUICKRN_REMEDIATION_MODEL }}
           GITHUB_RUN_ID: ${{ github.run_id }}
         run: node scripts/ai-remediate-quarantine-batch.js
-      - name: Commit verified quarantined revisions
+      - name: Commit remediation updates
         if: steps.keycheck.outputs.configured == 'true'
         run: |
           if [ -z "$(git status --porcelain)" ]; then
@@ -53,6 +60,6 @@ jobs:
           fi
           git config user.name "quickrn-remediation-bot"
           git config user.email "quickrn-remediation-bot@users.noreply.github.com"
-          git add questions-bank-*.js reports/ai-remediation/
-          git commit -m "AI remediation: review-ready question batch"
+          git add questions.js questions-bank-*.js reports/ai-remediation/
+          git commit -m "AI remediation: webmaster review batch"
           git push origin HEAD:main
