@@ -192,6 +192,11 @@ async function main() {
         note: revised.remediationNote || 'AI revision saved for webmaster review after deployment.' });
       console.log('Processed ' + revised.id + ' from ' + file + ' -> ' + revised.remediationStatus);
     } catch (error) {
+      // A rejected credential is a run-level configuration failure, not 25 item failures.
+      // Abort immediately so the workflow cannot waste API calls or report a false success.
+      if (/OpenAI API (401|403)/.test(String(error.message))) {
+        throw new Error('OpenAI authentication failed. Replace the repository secret OPENAI_API_KEY with a valid API key; no question content was changed. Original response: ' + error.message);
+      }
       reportRows.push({ id: original.id, source: file, status: 'failed_no_change', note: String(error) });
       console.error('Failed ' + original.id + ': ' + error.message);
     }
