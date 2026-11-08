@@ -171,6 +171,7 @@ async function main() {
     ...reportRows.map(r => '| ' + r.id + ' | ' + r.source + ' | ' + r.status + ' | ' + String(r.note).replace(/[|\n]/g, ' ').slice(0, 300) + ' |')
   ].join('\n') + '\n';
   fs.writeFileSync(path.join(outDir, 'run-' + date + '.md'), report);
+  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, report);
   console.log(report);
 }
 main().catch(error => { console.error(error.stack || error); process.exit(1); });
