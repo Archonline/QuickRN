@@ -52,7 +52,7 @@ function extractItems(source, file) {
 }
 
 function isAlreadyRemediated(q) {
-  return q && q.remediationStatus === 'ai_revised_pending_educator_review';
+  return q && typeof q.remediationStatus === 'string' && q.remediationStatus.startsWith('ai_revised_');
 }
 function isCandidate(q) {
   if (!q || !q.id || isAlreadyRemediated(q)) return false;
