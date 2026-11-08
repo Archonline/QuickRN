@@ -1,0 +1,107 @@
+name: QuickRN NGN remediation bot
+
+on:
+  schedule:
+    # Every 15 minutes; GitHub Actions schedules use UTC.
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quickrn-ngn-remediation-bot
+  cancel-in-progress: true
+
+jobs:
+  inspect-and-verify:
+    name: Inspect all question items and run remediation gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run question-bank quality quarantine regression
+        run: node tests/question-bank-quality-gate.test.js
+
+      - name: Run question-bank, renderer, scoring and four-mode regression tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          tests=(
+            tests/case-study-sequencer.test.js
+            tests/cat-engine.test.js
+            tests/clinical-prompt-normalizer.test.js
+            tests/clinical-schema-adapter.test.js
+            tests/clinical-v3-bank.test.js
+            tests/clinical-v3-rendering.test.js
+            tests/curated-question-bank.test.js
+            tests/exam-page-script-contract.test.js
+            tests/exam-unified-interface-contract.test.js
+            tests/ngn-scoring.test.js
+            tests/ngn-workspace-contract.test.js
+            tests/question-bank-renderer-contract.test.js
+            tests/question-id-normalizer.test.js
+            tests/question-schema-v2.test.js
+            tests/quickrn-ngn-compat.test.js
+            tests/selfstudy-lifecycle.test.js
+            tests/shared-renderer.test.js
+          )
+          for test_file in "${tests[@]}"; do
+            echo "::group::${test_file}"
+            node "${test_file}"
+            echo "::endgroup::"
+          done
+
+      - name: Audit all loaded question items and NGN structures
+        id: content_audit
+        run: node scripts/audit-question-quality.js
+
+      - name: Validate bank integration and format mappings
+        id: bank_validation
+        run: node scripts/validate-question-bank.js
+
+      - name: Validate canonical question schema
+        id: schema_validation
+        run: node scripts/validate-question-schema-v2.js
+
+      - name: Upload complete audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quickrn-ngn-remediation-audit-${{ github.run_number }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            reports/question-content-quality-audit.json
+            reports/question-content-quality-audit.md
+            reports/ngn-bank-validation.json
+            reports/ngn-bank-validation.md
+            reports/question-schema-v2-validation.json
+            reports/question-schema-v2-validation.md
+            reports/question-schema-v2-schema-issue-queue.json
+
+      - name: Report scope and completion state
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## QuickRN NGN remediation bot"
+            echo
+            echo "- Checked ref: `main`"
+            echo "- Schedule: every 15 minutes"
+            echo "- Scope: all question-bank modules loaded by the quality audit, including all 13 formats, case groups, answer mappings, rationales and clinical exhibits"
+            echo "- Content audit: ${{ steps.content_audit.outcome }}"
+            echo "- Bank validation: ${{ steps.bank_validation.outcome }}"
+            echo "- Schema validation: ${{ steps.schema_validation.outcome }}"
+            echo
+            echo "The bot applies deterministic quality gates and preserves questionable content for webmaster/nurse-educator review. It does not invent patient data, rewrite clinical answer keys, or mark clinical content approved. Review the attached findings and remediate them before student release."
+          } >> "$GITHUB_STEP_SUMMARY"
