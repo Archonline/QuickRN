@@ -43,11 +43,14 @@ function serialize(value) {
   try { return JSON.stringify(value); } catch { return ''; }
 }
 function isAlreadyRemediated(q) {
-  return q && typeof q.remediationStatus === 'string' && q.remediationStatus.startsWith('ai_revised_');
+  return q && typeof q.remediationStatus === 'string' &&
+    (q.remediationStatus.startsWith('ai_revised_') || q.remediationStatus.startsWith('manual_revised_'));
 }
 function isCandidate(q) {
   if (!q || !q.id || isAlreadyRemediated(q)) return false;
   const flags = Array.isArray(q.qualityFlags) ? q.qualityFlags : [];
+  // Preserve earlier manually rewritten items; a lone legacy educator flag is not a remediation defect.
+  if (flags.length === 1 && flags[0] === 'pending_nurse_educator_review') return false;
   return q.reviewStatus === 'quarantined_content_quality' ||
     flags.some(f => /placeholder|template|synthetic|incomplete|weak|generic|unsafe|malformed|missing|duplicate|clinical_judgment|case_sequence|numeric_calculations|answer_key/i.test(String(f)));
 }
