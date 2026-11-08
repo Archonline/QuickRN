@@ -13,6 +13,8 @@ The workflow is `.github/workflows/quickrn-ai-question-remediation.yml`. It runs
 
 - Audits up to 25 eligible questions per run from the effective runtime bank, including batches 004–009.
 - Checks for missing stems, missing options, duplicate option text, missing answer keys, likely answer-format mismatches, missing rationales, and missing case/EHR exhibits.
+- Recognizes QuickRN's `title` field as a question stem and flags known generic/template phrases in stems, scenarios, options, and rationales.
+- Does not count a case summary alone (`caseStudyContext`) as a complete clinical exhibit; linked case items must include a patient record, EHR tabs, or clinical exhibits to pass that structural check.
 - Removes only known empty-string metadata fields (`caseGroupId`, `caseStudyId`, `patientProfile`, and `tabs`) where the field is literally an empty string.
 - Records findings in each question's `ruleAudit` field and preserves the original question content and answer key.
 - Marks the webmaster as review owner; there is no nurse-educator approval gate.
