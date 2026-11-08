@@ -125,8 +125,8 @@ function writeOverrides(file, revisedRecords) {
 function auditQuestion(q) {
   const issues = [];
   const add = (code, detail) => issues.push({ code, detail });
-  const stem = String(q.question || q.stem || q.prompt || '').trim();
-  if (!stem) add('missing_stem', 'No non-empty question stem was found.');
+  const stem = String(q.question || q.questionText || q.question_text || q.stem || q.prompt || q.title || '').trim();
+  if (!stem) add('missing_stem', 'No non-empty question/title stem was found.');
   const options = Array.isArray(q.options) ? q.options : (Array.isArray(q.choices) ? q.choices : []);
   const format = String(q.ngnType || q.type || '').toLowerCase();
   const multi = /multiple|select all|matrix|bow.?tie|ordered|highlight|cloze|drop.?down/.test(format);
