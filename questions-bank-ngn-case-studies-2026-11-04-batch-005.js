@@ -90,7 +90,7 @@ topics.slice(0,50).forEach((t,ti)=>{
       q.rationales={overall:q.rationale,options:q.optionRationales,clinicalJudgmentTip:q.clinicalJudgmentTip};
       q.reviewStatus='pending_nurse_educator_review';
     });
-    items.forEach(q=>{const i=bank.findIndex(x=>String(x&&x.id||'')===q.id);if(i>=0){const old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId});updated++;}else{bank.push(q);existing.add(q.id);added++;}});
+    items.forEach(q=>{q.reviewStatus='quarantined_content_quality';q.qualityFlags=[...new Set([...(Array.isArray(q.qualityFlags)?q.qualityFlags:[]),'five_item_case_structure','synthetic_exhibit_values','template_rationale_requires_item_level_review'])];const i=bank.findIndex(x=>String(x&&x.id||'')===q.id);if(i>=0){const old=bank[i];bank[i]=Object.assign({},old,q,{id:q.id,legacyId:old.legacyId||q.legacyId,reviewStatus:'quarantined_content_quality',qualityFlags:q.qualityFlags});updated++;}else{bank.push(q);existing.add(q.id);added++;}});
   }
 });
 root.questions=bank;root.quickRNCaseStudyBatch005Count=added;root.quickRNCaseStudyBatch005Updated=updated;
