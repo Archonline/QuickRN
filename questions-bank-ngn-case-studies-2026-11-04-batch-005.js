@@ -273,3 +273,37 @@ for(const spec of specs){
 }
 root.questions=bank;
 })(typeof window!=='undefined'?window:globalThis);
+
+
+/* Ensure every newly remediated NSTEMI item has option-level teaching for its response controls. */
+(function(root){
+'use strict';
+const bank=Array.isArray(root.questions)?root.questions:[];
+for(const id of ['QR-002445','QR-002446','QR-002447','QR-002448','QR-002449']){
+ const q=bank.find(x=>String(x&&x.id||'')===id);if(!q)throw new Error('NSTEMI item missing: '+id);
+ const map=Object.assign({},q.optionRationales||{});
+ if(q.type==='Cloze (Drop-down)'){
+  const keys=q.correctAnswers||{};
+  for(const d of q.dropdowns||[])for(const choice of d.options||[]){
+   map[d.id+' — '+choice]=String(keys[d.id])===String(choice)
+    ?'Correct. This selection is supported by the documented symptoms, ECG, and laboratory findings.'
+    :'This choice does not fit the acute ischemic presentation or would delay the urgent cardiac response.';
+  }
+ }
+ if(q.type==='Bowtie'){
+  const b=q.bowtieData||{},correct=b.correct||{};
+  for(const choice of b.conditions||[])map['condition — '+choice]=choice===correct.condition
+   ?'Correct. This condition best accounts for the atypical ischemic symptoms, new ST depression, and elevated troponin.'
+   :'This choice does not adequately explain the acute symptoms and objective ischemic findings.';
+  for(const choice of b.actions||[])map['action — '+choice]=(correct.actions||[]).includes(choice)
+   ?'Correct. This action reduces immediate risk and supports timely ACS evaluation and treatment.'
+   :'This action is unsafe or delays time-sensitive assessment and treatment.';
+  for(const choice of b.monitoring||[])map['monitoring — '+choice]=(correct.parameters||[]).includes(choice)
+   ?'Correct. This parameter helps detect evolving ischemia, dysrhythmia, or response to treatment.'
+   :'This parameter does not adequately evaluate the immediate cardiac threat or treatment response.';
+ }
+ q.optionRationales=map;
+ q.rationales={overall:q.rationale,options:map,clinicalJudgmentTip:'Atypical symptoms can represent myocardial ischemia. Do not dismiss new dyspnea, nausea, fatigue, ischemic ECG changes, or elevated troponin because severe chest pain is absent. Escalate promptly and evaluate serial trends.'};
+}
+root.questions=bank;
+})(typeof window!=='undefined'?window:globalThis);
