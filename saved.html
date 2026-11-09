@@ -22,9 +22,29 @@
     <script src="questions.js"></script>
     <style>body { font-family: 'Inter', sans-serif; }</style>
     <link rel="stylesheet" href="css/quickrn-brand-system.css">
+
+    <style id="quickrn-saved-sidebar-layout-fix">
+      #app-shell.saved-shell{display:flex!important;width:100%!important;min-height:100dvh!important;height:100dvh!important;overflow:hidden!important;box-sizing:border-box!important}
+      #app-shell.saved-shell>.min-w-0.flex-1{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;min-width:0!important;min-height:0!important;overflow:hidden!important}
+      #app-shell.saved-shell>aside#quickrn-unified-sidebar{flex:0 0 256px}
+      #app-shell.saved-shell>.min-w-0.flex-1>header{flex:0 0 64px!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+      #app-shell.saved-shell>.min-w-0.flex-1>main{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;width:100%!important;max-width:none!important;box-sizing:border-box!important}
+      @media(min-width:768px){
+        body.qr-main-sidebar-collapsed #app-shell.saved-shell{width:calc(100% - 56px)!important;margin-left:56px!important}
+        body.qr-main-sidebar-collapsed #app-shell.saved-shell>aside#quickrn-unified-sidebar{position:fixed!important;left:0!important;top:0!important;bottom:0!important;z-index:1000!important;flex:0 0 56px!important;width:56px!important;min-width:56px!important;max-width:56px!important}
+        body.qr-main-sidebar-collapsed #app-shell.saved-shell>aside#quickrn-unified-sidebar.qr-sidebar-expanded{width:256px!important;min-width:256px!important;max-width:256px!important;flex-basis:256px!important}
+      }
+      @media(max-width:767px){
+        #app-shell.saved-shell{display:flex!important;flex-direction:column!important;width:100%!important;height:auto!important;min-height:100dvh!important;overflow:visible!important}
+        #app-shell.saved-shell>aside#quickrn-unified-sidebar{position:relative!important;inset:auto!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important}
+        #app-shell.saved-shell>.min-w-0.flex-1{width:100%!important;min-height:0!important;overflow:visible!important}
+        #app-shell.saved-shell>.min-w-0.flex-1>main{overflow:visible!important}
+      }
+    </style>
+
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
-    <div class="min-h-screen flex">
+    <div id="app-shell" class="saved-shell qr-sidebar-shell">
         <aside class="hidden md:flex w-64 shrink-0 flex-col bg-white border-r border-slate-200">
             <a href="dashboard.html" class="p-6 border-b border-slate-100 flex items-center gap-3">
                 <span class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center shadow"><i class="fa-solid fa-bolt-lightning"></i></span>
