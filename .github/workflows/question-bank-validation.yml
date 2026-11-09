@@ -29,7 +29,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: quickrn-question-bank-validation-${{ github.ref }}
@@ -43,6 +43,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Build the single consolidated question-bank file
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          node scripts/build-consolidated-question-bank.js
+          if ! git diff --quiet -- question-bank.js; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add question-bank.js
+            git commit -m "Build consolidated QuickRN question bank"
+            git push
+          fi
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
