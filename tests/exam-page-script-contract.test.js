@@ -14,8 +14,7 @@ for (const page of pages) {
   const tags = [...html.matchAll(/<script\b[^>]*>/gi)].map(match => match[0]);
   const indexOf = (src) => tags.findIndex(tag => tag.includes(src));
   const dependencies = [
-    ['questions.js', 'src="questions.js"'],
-    ['NGN supplement', 'src="questions-ngn-supplement.js"'],
+    ['consolidated question bank', 'src="question-bank.js"'],
     ['case-study normalizer', 'src="js/quickrn-question-bank-normalizer.js"'],
     ['question ID normalizer', 'src="js/quickrn-question-id-normalizer.js"'],
     ['question metrics', 'src="js/quickrn-question-metrics.js"'],
