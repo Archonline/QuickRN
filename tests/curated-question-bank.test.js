@@ -5,7 +5,7 @@ const context={console,window:{}};
 for(const file of ['questions-bank-v2.js','questions-bank-v2-curated.js','js/quickrn-ngn-scoring.js']){
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{filename:file,timeout:30000});
 }
-for(const page of ['selfstudy.html','cat.html','predictor.html','timed.html']){const html=fs.readFileSync(page,'utf8');assert.ok(html.includes('src=\"questions-bank-v2-curated.js\"'),page+' loads the curated bank');assert.ok(html.indexOf('src=\"questions-ngn-supplement.js\"')<html.indexOf('src=\"questions-bank-v2-curated.js\"'),page+' loads curated items after the supplemental bank');}
+for(const page of ['selfstudy.html','cat.html','predictor.html','timed.html']){const html=fs.readFileSync(page,'utf8');assert.ok(html.includes('src=\"question-bank.js\"'),page+' loads the consolidated bank');}
 const bank=context.window.questions;
 assert.ok(Array.isArray(bank));
 const curated=bank.filter(q=>String(q.legacyId||q.id||'').startsWith('QB2R-')||q.caseGroupId==='QB2R-CS-001');
