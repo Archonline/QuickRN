@@ -4,8 +4,7 @@ const pages=['selfstudy.html','timed.html','predictor.html','cat.html'];
 const app=fs.readFileSync('js/quickrn-exam-app.js','utf8');
 for(const page of pages){
  const html=fs.readFileSync(page,'utf8');
- assert.match(html,/src=["']questions\.js["']/i,page+' loads production question bank');
- assert.match(html,/src=["']questions-ngn-supplement\.js["']/i,page+' loads supplemental NGN items');
+ assert.match(html,/src=["']question-bank\.js["']/i,page+' loads the consolidated production and supplemental bank');
  assert.match(html,/src=["']js\/quickrn-question-bank-normalizer\.js["']/i,page+' normalizes case-study context');
  assert.match(html,/src=["']js\/quickrn-question-id-normalizer\.js["']/i,page+' normalizes question IDs');
  assert.match(html,/src=["']js\/shared-exam-renderer\.js["']/i,page+' loads shared renderer');
