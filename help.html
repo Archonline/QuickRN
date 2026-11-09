@@ -26,6 +26,63 @@
     a:focus-visible,summary:focus-visible{outline:3px solid #60a5fa;outline-offset:3px}
   </style>
     <link rel="stylesheet" href="css/quickrn-brand-system.css">
+    <style id="quickrn-help-header-width-fix">
+      /* Keep the support workspace exactly inside the area beside the fixed 56px rail. */
+      #app-shell.support-shell,
+      #app-shell.support-shell.qr-sidebar-shell{
+        display:flex!important;
+        position:relative!important;
+        width:calc(100% - 56px)!important;
+        max-width:calc(100% - 56px)!important;
+        height:100dvh!important;
+        min-height:100dvh!important;
+        margin:0 0 0 56px!important;
+        padding:0!important;
+        box-sizing:border-box!important;
+        overflow:hidden!important;
+      }
+      #app-shell.support-shell>.support-workspace,
+      #app-shell.support-shell.qr-sidebar-shell>.support-workspace{
+        display:flex!important;
+        flex:1 1 0!important;
+        width:100%!important;
+        min-width:0!important;
+        max-width:none!important;
+        margin:0!important;
+        padding:0!important;
+        box-sizing:border-box!important;
+      }
+      #app-shell.support-shell>.support-workspace>header,
+      #app-shell.support-shell.qr-sidebar-shell>.support-workspace>header{
+        display:flex!important;
+        flex:0 0 84px!important;
+        width:100%!important;
+        min-width:0!important;
+        max-width:none!important;
+        align-self:stretch!important;
+        box-sizing:border-box!important;
+        overflow:hidden!important;
+      }
+      #app-shell.support-shell>.support-workspace>main,
+      #app-shell.support-shell.qr-sidebar-shell>.support-workspace>main{
+        flex:1 1 auto!important;
+        width:100%!important;
+        min-width:0!important;
+        max-width:none!important;
+        box-sizing:border-box!important;
+      }
+      @media(max-width:767px){
+        #app-shell.support-shell,
+        #app-shell.support-shell.qr-sidebar-shell{
+          width:100%!important;max-width:100%!important;margin:0!important;
+          height:auto!important;min-height:100dvh!important;overflow:visible!important;
+        }
+        #app-shell.support-shell>.support-workspace>header,
+        #app-shell.support-shell.qr-sidebar-shell>.support-workspace>header{
+          flex-basis:72px!important;width:100%!important;max-width:none!important;
+        }
+      }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
