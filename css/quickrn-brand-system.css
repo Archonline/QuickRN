@@ -533,16 +533,16 @@ body header>div:first-child{
   #app-shell.support-shell.qr-sidebar-shell{width:100%;margin-left:0}
 }
 
-/* Calendar uses the shared fixed sidebar and 84px page header geometry. */
+/* Calendar uses the shared fixed sidebar and 64px page header geometry. */
 #app-shell.calendar-shell{display:flex;width:100%;height:100vh;min-height:100vh;overflow:hidden}
 #app-shell.calendar-shell.qr-sidebar-shell{width:calc(100% - var(--qr-sidebar-width));margin-left:var(--qr-sidebar-width)}
 .calendar-workspace{display:flex;flex:1 1 auto;flex-direction:column;min-width:0;min-height:0;overflow:hidden}
 .calendar-main{min-height:0;overflow-y:auto}
-.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;max-height:84px!important;flex:0 0 84px!important;padding-top:0!important;padding-bottom:0!important;background:#16324f!important;color:#fff!important;border-bottom:1px solid #294b62!important}
+.calendar-workspace>header.calendar-header{height:64px!important;min-height:64px!important;max-height:64px!important;flex:0 0 64px!important;padding-top:0!important;padding-bottom:0!important;background:#16324f!important;color:#fff!important;border-bottom:1px solid #294b62!important}
 .calendar-workspace>header.calendar-header :is(h1,h2,h3,p,span,strong,a,i,button){color:#fff!important}
 .calendar-workspace>header.calendar-header a{border-color:rgba(255,255,255,.25)}
 .calendar-workspace>header.calendar-header a:hover{background:rgba(255,255,255,.1)}
-@media(max-width:767px){#app-shell.calendar-shell.qr-sidebar-shell{width:100%;margin-left:0}.calendar-workspace>header.calendar-header{height:84px!important;min-height:84px!important;flex-basis:84px!important}}
+@media(max-width:767px){#app-shell.calendar-shell.qr-sidebar-shell{width:100%;margin-left:0}.calendar-workspace>header.calendar-header{height:64px!important;min-height:64px!important;flex-basis:64px!important}}
 
 /* Open-licensed study references shown on every Learning Library topic sheet. */
 .open-oer-panel{grid-column:1/-1;margin-top:2px;padding:14px;border:1px solid #cbdedc;border-radius:12px;background:#f4f8f7}
