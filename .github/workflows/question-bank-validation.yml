@@ -61,6 +61,17 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Syntax-check and load the consolidated question bank
+        run: |
+          node --check question-bank.js
+          node - <<'NODE'
+          require('./question-bank.js');
+          const bank = globalThis.questions;
+          if (!Array.isArray(bank) || bank.length < 2000) throw new Error('Consolidated bank did not expose at least 2,000 records');
+          const ids = bank.map(q => String(q && q.id || '')).filter(Boolean);
+          console.log('Consolidated bank loaded:', bank.length, 'records;', ids.length, 'records with IDs.');
+          NODE
+
       - name: Run question-bank, renderer, scoring and four-mode regression tests
         id: regression
         continue-on-error: true
