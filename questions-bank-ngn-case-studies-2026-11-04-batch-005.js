@@ -404,3 +404,108 @@ for(const spec of specs){
 }
 root.questions=bank;
 })(typeof window!=='undefined'?window:globalThis);
+
+
+/* QuickRN manual remediation: batch 005 COPD exacerbation case 005-009. */
+(function(root){
+'use strict';
+const bank=Array.isArray(root.questions)?root.questions:(root.questions=[]);
+const ids=['QR-002460','QR-002461','QR-002462','QR-002463','QR-002464'];
+const scenario='A 66-year-old adult with severe COPD (FEV1 38% predicted), a 45-pack-year smoking history, and home oxygen at 2 L/min while sleeping presents with 2 days of worsening dyspnea, increased sputum volume, and green sputum. The client is using accessory muscles, speaks in short phrases, and has diffuse expiratory wheezing with reduced air movement. The client is alert but anxious and denies chest pain.';
+const shared={
+ caseGroupId:'QR-CASE-005-COPD-01',caseStudyId:'QR-CASE-005-COPD-01',caseStudyTitle:'Acute COPD exacerbation with hypoxemia and risk of hypercapnic respiratory failure',
+ caseStudyContext:{title:'Acute COPD exacerbation with hypoxemia and risk of hypercapnic respiratory failure',summary:scenario,totalItems:5},
+ patientInfo:{age:66,history:'Severe COPD (FEV1 38% predicted), 45-pack-year smoking history, prescribed home oxygen at 2 L/min while sleeping; no documented baseline arterial blood gas in the current record.',presentingConcern:'Two days of worsening dyspnea, increased sputum volume, and purulent sputum.'},
+ patientProfile:{age:66,presentingConcern:'Acute worsening dyspnea with increased volume and purulence of sputum.',relevantHistory:'Severe COPD, FEV1 38% predicted; home oxygen 2 L/min while sleeping; former/current smoking history as documented.',sourceStatus:'Simulated educational case; values are illustrative and require reference verification before clinical release.'},
+ clinicalScenario:scenario,
+ ehr:{tabs:{
+ nursesNotes:[
+ {time:'08:10',note:'Client reports worsening shortness of breath for 2 days with increased amount of green sputum. Normally uses oxygen at 2 L/min while sleeping. Now pauses after several words to breathe.'},
+ {time:'08:15',note:'Accessory muscle use and prolonged expiration observed. Diffuse expiratory wheezing and reduced bilateral air movement. Client is alert, anxious, and follows commands.'},
+ {time:'08:20',note:'Positioned upright. Respiratory status and oxygen delivery reassessed; clinician notified of acute change. Continuous pulse oximetry initiated.'}
+ ],
+ vitalSigns:{temperature:'37.8 °C',heartRate:'116/min',respiratoryRate:'30/min',bloodPressure:'146/84 mm Hg',oxygenSaturation:'86% on room air; 90% on controlled oxygen at 1 L/min by nasal cannula',pain:'0/10',provenance:'Simulated educational values for examination practice; not a real patient record.'},
+ labResults:{arterialBloodGas:{pH:'7.30',PaCO2:'58 mm Hg',PaO2:'60 mm Hg',HCO3:'28 mEq/L',sampling:'Room air before controlled oxygen was started'},completeBloodCount:{WBC:'13,200/mm3',hemoglobin:'14.1 g/dL'},basicMetabolicPanel:{potassium:'4.2 mEq/L',sodium:'137 mEq/L',creatinine:'0.9 mg/dL'},sputum:'Increased volume and green appearance reported; culture not yet resulted',provenance:'Simulated educational results; interpret in the context of the clinical presentation.'},
+ diagnostics:{chestRadiograph:'Hyperinflation; no focal lobar consolidation or pneumothorax reported.',ecg:'Sinus tachycardia at approximately 115/min; no acute ischemic changes reported.'},
+ providerOrders:{status:'Illustrative orders for the case; follow local protocol and authorized prescriptions.',oxygen:'Titrate controlled supplemental oxygen to a target SpO2 of 88%–92%; reassess saturation, work of breathing, and mental status.',medications:'Administer prescribed short-acting inhaled bronchodilator therapy and systemic corticosteroid; antimicrobial therapy if prescribed after clinical assessment.',monitoring:'Continuous pulse oximetry; repeat arterial blood gas after initial treatment or sooner for deterioration; reassess respiratory effort and mental status.',escalation:'Urgent clinician/rapid-response evaluation for worsening fatigue, reduced air movement, altered mental status, rising PaCO2, worsening acidosis, or inability to maintain target oxygenation.'}
+ }},
+ reviewStatus:'pending_webmaster_review',remediationStatus:'manual_revised_pending_webmaster_review',
+ qualityFlags:[],clinicalReviewRequired:true
+};
+const specs=[
+{id:ids[0],type:'Multiple Response',ngnType:'Multiple Response',caseQuestionNumber:1,clinicalJudgmentStep:'Recognize cues',title:'Which findings indicate that this client is experiencing a clinically significant COPD exacerbation and may be developing ventilatory failure? Select all that apply.',options:['Increasing dyspnea with accessory muscle use and speech limited to short phrases','Arterial pH 7.30 with PaCO2 58 mm Hg','Oxygen saturation of 86% on room air','Increased sputum volume with new green discoloration','Respiratory rate 30/min with reduced air movement','Hemoglobin 14.1 g/dL','Blood pressure 146/84 mm Hg'],correctAnswers:['Increasing dyspnea with accessory muscle use and speech limited to short phrases','Arterial pH 7.30 with PaCO2 58 mm Hg','Oxygen saturation of 86% on room air','Increased sputum volume with new green discoloration','Respiratory rate 30/min with reduced air movement'],rationale:'The increased work of breathing, hypoxemia, acute sputum change, and reduced air movement indicate an acute exacerbation. Respiratory acidosis with elevated PaCO2 raises concern for acute-on-chronic ventilatory failure and requires urgent reassessment and escalation. A normal hemoglobin and elevated-but-not-shock-range blood pressure do not explain the respiratory deterioration.',optionRationales:{
+'Increasing dyspnea with accessory muscle use and speech limited to short phrases':'Correct. These are signs of increased work of breathing and significant respiratory distress.',
+'Arterial pH 7.30 with PaCO2 58 mm Hg':'Correct. Acidemia with hypercapnia indicates impaired alveolar ventilation; compare with baseline if available and escalate promptly.',
+'Oxygen saturation of 86% on room air':'Correct. This is below the usual individualized target for a client with COPD and requires controlled oxygen and reassessment.',
+'Increased sputum volume with new green discoloration':'Correct. A change in sputum volume and purulence supports an acute exacerbation and possible infectious trigger; it does not alone establish a specific organism.',
+'Respiratory rate 30/min with reduced air movement':'Correct. Tachypnea and reduced air movement may indicate severe obstruction and risk of fatigue.',
+'Hemoglobin 14.1 g/dL':'Incorrect. This value does not indicate anemia or explain the acute respiratory findings.',
+'Blood pressure 146/84 mm Hg':'Incorrect. This reading is not the principal indicator of respiratory failure in this case.'}},
+{id:ids[1],type:'Highlight',ngnType:'Highlight',caseQuestionNumber:2,clinicalJudgmentStep:'Analyze cues',title:'Highlight the assessment and diagnostic findings that indicate impaired ventilation or worsening respiratory distress.',highlightSegments:[
+{id:'h1',text:'The client uses accessory muscles and can speak only in short phrases.'},
+{id:'h2',text:'Arterial blood gas shows pH 7.30 and PaCO2 58 mm Hg.'},
+{id:'h3',text:'Oxygen saturation was 86% on room air.'},
+{id:'h4',text:'There is reduced air movement with diffuse expiratory wheezing.'},
+{id:'h5',text:'Hemoglobin is 14.1 g/dL.'},
+{id:'h6',text:'Blood pressure is 146/84 mm Hg.'},
+{id:'h7',text:'The client reports increased sputum volume and green sputum.'}],
+correctHighlights:['h1','h2','h3','h4','h7'],
+rationale:'Increased work of breathing, hypercapnic respiratory acidosis, hypoxemia, reduced air movement, and acute sputum change support a significant COPD exacerbation. Hemoglobin and blood pressure are useful contextual data but do not indicate the immediate ventilatory problem.',
+optionRationales:{
+h1:'Correct. Accessory muscle use and limited speech indicate increased respiratory effort.',
+h2:'Correct. The low pH and elevated PaCO2 indicate respiratory acidosis with impaired ventilation.',
+h3:'Correct. The room-air saturation is below the prescribed target range and requires controlled oxygen support.',
+h4:'Correct. Reduced air movement can signal severe airflow obstruction; a quieter chest in a tiring client can be especially concerning.',
+h5:'Not a cue of impaired ventilation; this hemoglobin does not indicate anemia.',
+h6:'This pressure does not establish the cause or severity of the respiratory impairment.',
+h7:'Correct. Increased sputum volume and purulence are acute changes associated with COPD exacerbation.'}},
+{id:ids[2],type:'Cloze (Drop-down)',ngnType:'Cloze (Drop-down)',caseQuestionNumber:3,clinicalJudgmentStep:'Prioritize hypotheses',title:'Complete the priority clinical judgment statement.',clozeTemplate:'The priority problem is {{problem}}. The nurse should {{action}} and target an oxygen saturation of {{target}} while monitoring for {{risk}}.',dropdowns:[
+{id:'problem',options:['Acute COPD exacerbation with hypoxemia and hypercapnic respiratory acidosis','Stable chronic COPD without acute deterioration','Isolated anxiety without respiratory impairment'],correct:'Acute COPD exacerbation with hypoxemia and hypercapnic respiratory acidosis'},
+{id:'action',options:['Escalate promptly, assess ventilation and mental status, and administer prescribed bronchodilator therapy','Withhold all oxygen because the client has COPD','Administer a sedative to reduce respiratory rate before reassessment'],correct:'Escalate promptly, assess ventilation and mental status, and administer prescribed bronchodilator therapy'},
+{id:'target',options:['88%–92%, individualized to the prescribed target','100% for every client regardless of clinical context','Below 85% to avoid any possibility of carbon dioxide retention'],correct:'88%–92%, individualized to the prescribed target'},
+{id:'risk',options:['Worsening hypercapnia, respiratory muscle fatigue, and ventilatory failure','Hypertension as the only expected complication','Fluid overload as the only immediate threat'],correct:'Worsening hypercapnia, respiratory muscle fatigue, and ventilatory failure'}],
+correctAnswers:{problem:'Acute COPD exacerbation with hypoxemia and hypercapnic respiratory acidosis',action:'Escalate promptly, assess ventilation and mental status, and administer prescribed bronchodilator therapy',target:'88%–92%, individualized to the prescribed target',risk:'Worsening hypercapnia, respiratory muscle fatigue, and ventilatory failure'},
+rationale:'The client has hypoxemia, increased work of breathing, and hypercapnic respiratory acidosis. Escalate, treat the exacerbation with prescribed therapy, and use controlled oxygen titrated to the individualized target rather than withholding oxygen or pursuing indiscriminate normalization. Monitor closely for fatigue and worsening ventilation.'},
+{id:ids[3],type:'Matrix Single',ngnType:'Matrix Single',caseQuestionNumber:4,clinicalJudgmentStep:'Generate solutions',title:'Classify each nursing response for this client with an acute COPD exacerbation.',columns:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response'],rows:[
+{id:'m1',text:'Position the client upright, remain with the client, and promptly escalate the increased work of breathing and abnormal blood gas.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']},
+{id:'m2',text:'Titrate controlled oxygen to the prescribed target of 88%–92% and reassess saturation, work of breathing, and mental status.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']},
+{id:'m3',text:'Administer prescribed short-acting inhaled bronchodilator therapy and reassess air movement and respiratory effort.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']},
+{id:'m4',text:'Withhold oxygen despite persistent hypoxemia because supplemental oxygen is contraindicated in all clients with COPD.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']},
+{id:'m5',text:'Prepare for repeat blood gas assessment and possible noninvasive ventilatory support after urgent clinician evaluation if acidosis or distress persists.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']},
+{id:'m6',text:'Administer an opioid or sedative to suppress the respiratory rate without an order or airway/ventilation assessment.',options:['Appropriate immediate response','Requires an order or individualized assessment','Unsafe response']}],
+correctAnswers:{m1:'Appropriate immediate response',m2:'Appropriate immediate response',m3:'Appropriate immediate response',m4:'Unsafe response',m5:'Requires an order or individualized assessment',m6:'Unsafe response'},
+rationale:'Immediate positioning, escalation, controlled oxygen, prescribed bronchodilator therapy, and reassessment are appropriate. Repeat blood gas testing and ventilatory support require clinician evaluation and an authorized plan. Withholding oxygen during hypoxemia or giving respiratory-depressant medication without assessment and authorization is unsafe.',
+optionRationales:{
+'m1 — Appropriate immediate response':'Correct. Positioning, presence, and urgent escalation address respiratory distress and the abnormal gas result.',
+'m2 — Appropriate immediate response':'Correct. Controlled oxygen is titrated to the individualized prescribed target with close reassessment.',
+'m3 — Appropriate immediate response':'Correct. Prescribed short-acting bronchodilator therapy treats airflow obstruction; response must be reassessed.',
+'m4 — Unsafe response':'Correct. COPD is not a reason to leave hypoxemia untreated; provide controlled oxygen to the ordered target.',
+'m5 — Requires an order or individualized assessment':'Correct. Persistent acidosis or distress may warrant repeat gas assessment and noninvasive ventilation, determined by the clinician and patient suitability.',
+'m6 — Unsafe response':'Correct. Sedatives and opioids can worsen ventilatory impairment and must not be given casually to suppress tachypnea.'}},
+{id:ids[4],type:'Bowtie',ngnType:'Bowtie',caseQuestionNumber:5,clinicalJudgmentStep:'Evaluate outcomes',title:'Complete the bowtie for the client with worsening dyspnea, hypoxemia, and hypercapnic respiratory acidosis.',bowtieData:{
+conditions:['Acute COPD exacerbation with impaired ventilation and hypoxemia','Stable chronic COPD without acute change','Isolated anxiety without physiologic respiratory impairment'],
+actions:['Escalate urgently, position upright, and assess respiratory effort, air movement, and mental status','Administer prescribed short-acting bronchodilator and titrate controlled oxygen to the prescribed 88%–92% target','Withhold oxygen and delay escalation until the next routine assessment','Give an unprescribed sedative to reduce respiratory rate'],
+monitoring:['Oxygen saturation, work of breathing, air movement, and mental status','Repeat blood gas/PaCO2 and pH as ordered to evaluate ventilation and response','Appetite and sleep pattern alone','Blood pressure alone'],
+correct:{condition:'Acute COPD exacerbation with impaired ventilation and hypoxemia',actions:['Escalate urgently, position upright, and assess respiratory effort, air movement, and mental status','Administer prescribed short-acting bronchodilator and titrate controlled oxygen to the prescribed 88%–92% target'],parameters:['Oxygen saturation, work of breathing, air movement, and mental status','Repeat blood gas/PaCO2 and pH as ordered to evaluate ventilation and response']}},
+correctAnswers:{condition:'Acute COPD exacerbation with impaired ventilation and hypoxemia',actions:['Escalate urgently, position upright, and assess respiratory effort, air movement, and mental status','Administer prescribed short-acting bronchodilator and titrate controlled oxygen to the prescribed 88%–92% target'],monitoring:['Oxygen saturation, work of breathing, air movement, and mental status','Repeat blood gas/PaCO2 and pH as ordered to evaluate ventilation and response']},
+rationale:'The presentation indicates acute airflow obstruction with hypoxemia and hypercapnic respiratory acidosis. Escalate and implement prescribed bronchodilator and controlled-oxygen therapy. Evaluate oxygenation, ventilation, work of breathing, and mental status; persistent or worsening acidosis and fatigue require urgent reassessment for ventilatory support.'}
+];
+for(const spec of specs){
+ const q=bank.find(x=>String(x&&x.id||'')===spec.id);
+ if(!q)throw new Error('Expected source item missing: '+spec.id);
+ Object.assign(q,shared,spec,{caseStudySequence:spec.caseQuestionNumber,caseStudyContext:{title:shared.caseStudyTitle,summary:scenario,sequence:spec.caseQuestionNumber,totalItems:5}});
+ if(spec.type==='Cloze (Drop-down)'){
+  q.optionRationales={};
+  for(const d of spec.dropdowns)for(const choice of d.options)q.optionRationales[d.id+' — '+choice]=choice===d.correct?'Correct. This choice addresses the immediate ventilation or oxygenation risk and is supported by the clinical record.':'This choice is unsafe or does not address the acute respiratory deterioration.';
+ }
+ if(spec.type==='Bowtie'){
+  const b=spec.bowtieData,c=b.correct,map={};
+  for(const choice of b.conditions)map['condition — '+choice]=choice===c.condition?'Correct. This diagnosis explains the acute airflow obstruction, hypoxemia, and hypercapnic acidosis.':'This does not account for the acute respiratory findings.';
+  for(const choice of b.actions)map['action — '+choice]=c.actions.includes(choice)?'Correct. This action provides timely escalation, assessment, controlled oxygen, or prescribed treatment.':'This action is unsafe or delays treatment of respiratory deterioration.';
+  for(const choice of b.monitoring)map['monitoring — '+choice]=c.parameters.includes(choice)?'Correct. This parameter evaluates oxygenation, ventilation, fatigue, or response to treatment.':'This does not adequately monitor the immediate respiratory threat.';
+  q.optionRationales=map;
+ }
+ q.rationales={overall:q.rationale,options:q.optionRationales||{},clinicalJudgmentTip:'In COPD exacerbation, treat hypoxemia with controlled oxygen to the prescribed individualized target, treat airflow obstruction, and assess ventilation and fatigue. Rising PaCO2, acidosis, altered mental status, or exhaustion requires urgent escalation.'};
+}
+root.questions=bank;
+})(typeof window!=='undefined'?window:globalThis);
