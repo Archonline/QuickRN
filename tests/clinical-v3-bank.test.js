@@ -43,7 +43,6 @@ assert.ok(trend.trendData.rows.length>=3&&trend.options.includes(trend.correctAn
 assert.equal(byId('QRV3-0013').correctNumericAnswer,450);
 for(const page of ['selfstudy.html','timed.html','predictor.html','cat.html']){
  const html=fs.readFileSync(page,'utf8');
- assert.ok(html.includes('src="questions-bank-v3-clinical.js"'),page+' loads the clinical v3 bank');
- assert.ok(html.indexOf('src="questions-bank-v2-curated.js"')<html.indexOf('src="questions-bank-v3-clinical.js"'),page+' loads v3 after existing bank extensions');
+ assert.ok(html.includes('src="question-bank.js"'),page+' loads the consolidated bank containing clinical v3 items');
 }
 console.log('PASS: 13 scenario-based clinical items; all 13 formats, answer structures, rationales, and four exam-mode integrations verified.');
