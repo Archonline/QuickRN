@@ -30,6 +30,6 @@ if (failures.length) {
 console.log('Help Center, disclaimer, navigation, and concise release notes contract passed.');
 
 const dashboardReleaseNotes = fs.readFileSync('dashboard.html', 'utf8');
-assert.ok(dashboardReleaseNotes.includes('NGN question-format rendering'), 'Current NGN format update is missing from What’s New');
+assert.ok(dashboardReleaseNotes.includes('NCLEX and NGN question formats'), 'Current NGN format update is missing from What’s New');
 assert.ok(dashboardReleaseNotes.includes('NCLEX and NGN question formats'), 'Four-mode exam workspace update is missing from What’s New');
 assert.ok(dashboardReleaseNotes.includes('Question-bank remediation'), 'Question-bank beta validation disclosure is missing from What’s New');
