@@ -63,8 +63,12 @@
   const fmt=String(candidate.ngnType||candidate.type||candidate.format||candidate.questionType||'');
   if(formatOf(original).toLowerCase()!==fmt.toLowerCase()&&!fmt.toLowerCase().includes(formatOf(original).toLowerCase())&&!formatOf(original).toLowerCase().includes(fmt.toLowerCase()))issues.push('question format changed');
   if(!plain(candidate.rationale||candidate.explanation))issues.push('rationale missing');
+  const options=candidate.options||candidate.choices||candidate.answers;
+  const answer=candidate.correctAnswer??candidate.answer??candidate.correct??candidate.answerKey??candidate.correctAnswers;
+  if(!options||((Array.isArray(options)&&options.length<2)||(typeof options==='object'&&!Array.isArray(options)&&!Object.keys(options).length)))issues.push('answer options missing');
+  if(answer===undefined||answer===null||answer===''||(Array.isArray(answer)&&!answer.length)||(typeof answer==='object'&&!Array.isArray(answer)&&!Object.keys(answer).length))issues.push('answer key missing');
   const schema=root.QuickRNQuestionSchemaV2;
-  if(schema&&typeof schema.validate==='function'){
+  if(candidate.metadata&&candidate.interaction&&schema&&typeof schema.validate==='function'){
    try{const errors=schema.validate(candidate,0);if(Array.isArray(errors)&&errors.length)issues.push('schema: '+errors.slice(0,4).map(x=>x.code||x.message||String(x)).join(', '));}catch(e){issues.push('schema validation failed');}
   }
   return issues;
