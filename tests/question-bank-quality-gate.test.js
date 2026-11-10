@@ -98,9 +98,10 @@ const remediatedBatch005Ids=new Set([
  'QR-002528',
  'QR-002529'
 ]);
+for(let n=2530;n<=2629;n++)remediatedBatch005Ids.add('QR-'+String(n).padStart(6,'0'));
 const remediatedBatch005=batch005.filter(q=>remediatedBatch005Ids.has(q.id));
 const unremediatedBatch005=batch005.filter(q=>!remediatedBatch005Ids.has(q.id));
-assert.equal(remediatedBatch005.length,100,'twenty complete five-item cases are substantively remediated');
+assert.equal(remediatedBatch005.length,200,'forty complete five-item cases are substantively remediated');
 assert.ok(remediatedBatch005.every(q=>q.reviewStatus==='pending_webmaster_review'&&q.remediationStatus==='manual_revised_pending_webmaster_review'),'remediated items no longer require nurse-educator approval and remain under webmaster review');
 assert.ok(remediatedBatch005.every(q=>q.patientProfile&&q.ehr?.tabs?.vitalSigns&&q.ehr?.tabs?.nursesNotes&&q.ehr?.tabs?.labResults),'remediated cases provide structured patient and EHR exhibits');
 assert.ok(remediatedBatch005.every(q=>q.rationale&&q.optionRationales&&Object.keys(q.optionRationales).length>=4),'remediated items provide overall and response-specific rationales');
@@ -153,4 +154,4 @@ assert.doesNotMatch(base,/The word 'first' signals the need to address the most 
 assert.match(base,/The 3,972 figure is the de-duplicated production-bank total/,
   'base-bank count documentation is internally consistent');
 
-console.log('PASS: 200 low-quality NGN records are quarantined from student pools, preserved for webmaster remediation, and repeated base-bank rationale boilerplate is removed.');
+console.log('PASS: batch 005 retains 500 unique records; 200 remediated records remain in webmaster review and all other records remain quarantined.');
