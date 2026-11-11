@@ -52,3 +52,27 @@ The validator checks pending files against the existing schema-v2 validator, req
 **Important limitations:** this is a repository-based workflow, not a secure in-app approval system. A browser-only JavaScript app cannot securely protect approval actions or private answer keys. Do not add candidate files to script tags, import them into exam pages, or expose them through a student-facing candidate index. GitHub review/merge permissions are the approval control for this interim workflow. Never put AI-provider keys or student-identifiable data in candidate files.
 
 The active root `question-bank.js` and its runtime contract were not changed by this setup. Confirm the live bank source and record shape before any automated publishing step is added.
+
+## Draft a question with AI and import it
+
+1. Use [GENERATION-PROMPT.md](GENERATION-PROMPT.md) with an AI model to draft one original question as JSON. Supply the topic, client-needs category, CJMM stage, difficulty, exact format string, and a unique `QR-######` ID.
+2. Save the model's JSON response to a local file, for example `draft-question.json`.
+3. From the repository root, run:
+
+```bash
+node scripts/import-question-candidate.js draft-question.json
+```
+
+Optionally identify the source:
+
+```bash
+node scripts/import-question-candidate.js draft-question.json --submitted-by educator-draft
+```
+
+The importer parses JSON as data (it does not execute model-produced code), normalizes and validates it with the existing schema-v2 module, checks the pending queue for duplicate IDs, and writes a JavaScript module to `question-candidates/pending/qr-######.js`. It refuses candidates that fail structural validation. Then run:
+
+```bash
+node scripts/validate-question-candidates.js
+```
+
+This is a safe AI-assisted **draft intake** workflow, not an automated model integration: it does not call an AI API, run continuously in the background, or publish questions. AI provider integration requires a server-side runtime and secret management; do not put API keys in browser JavaScript or commit them to this repository.
