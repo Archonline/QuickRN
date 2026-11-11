@@ -175,6 +175,7 @@
     "cjmmStep": "Generate Solutions",
     "difficulty": 3,
     "type": "Select N",
+    "selectN": 2,
     "question": "An older adult is newly admitted after a fall at home. The client reports dizziness when standing and takes a sedating medication at bedtime. Which TWO nursing actions best support an individualized fall-prevention plan?",
     "options": [
       "Assess mobility and orthostatic symptoms before ambulation.",
@@ -544,7 +545,8 @@
     "cjmmStep": "Take Action",
     "difficulty": 3,
     "type": "Cloze (Drop-down)",
-    "question": "Complete the nursing response. A client with a suspected infection develops hypotension and tachycardia. The nurse should {{priority}} and {{nextStep}}.",
+    "question": "Complete the clinical statement by selecting one response for each blank.",
+    "instruction": "Complete the clinical statement by selecting one response for each blank.",
     "options": [],
     "correctAnswer": {
       "priority": "immediately alert the responsible clinician",
@@ -581,7 +583,7 @@
     },
     "interaction": {
       "type": "Cloze (Drop-down)",
-      "stem": "Complete the nursing response. A client with a suspected infection develops hypotension and tachycardia. The nurse should {{priority}} and {{nextStep}}.",
+      "stem": "Complete the clinical statement by selecting one response for each blank.",
       "options": {
         "priority": [
           "immediately alert the responsible clinician",
@@ -2458,6 +2460,7 @@
     "cjmmStep": "Take Action",
     "difficulty": 4,
     "type": "Select N",
+    "selectN": 2,
     "question": "A client with diabetes is alert, can swallow safely, and has a capillary blood glucose of 58 mg/dL (3.2 mmol/L). Which TWO actions should the nurse take initially?",
     "options": [
       "Give 15 g of fast-acting glucose or carbohydrate.",
@@ -2750,7 +2753,8 @@
     "cjmmStep": "Analyze Cues",
     "difficulty": 4,
     "type": "Cloze (Drop-down)",
-    "question": "A client with diabetes is awake, follows commands, and has a blood glucose of 64 mg/dL. Complete the statement: The nurse should first {{action}} because {{reason}}.",
+    "question": "Complete the clinical statement by selecting one response for each blank.",
+    "instruction": "Complete the clinical statement by selecting one response for each blank.",
     "correctAnswer": {
       "action": "give 15 g of fast-acting glucose",
       "reason": "the client is alert and can safely swallow"
@@ -2776,7 +2780,7 @@
     },
     "interaction": {
       "type": "Cloze (Drop-down)",
-      "stem": "A client with diabetes is awake, follows commands, and has a blood glucose of 64 mg/dL. Complete the statement: The nurse should first {{action}} because {{reason}}.",
+      "stem": "Complete the clinical statement by selecting one response for each blank.",
       "answerKey": {
         "action": "give 15 g of fast-acting glucose",
         "reason": "the client is alert and can safely swallow"
@@ -2791,7 +2795,7 @@
       "options": {},
       "clinicalJudgmentTip": "Match the route of hypoglycemia treatment to the client's level of consciousness and ability to swallow."
     },
-    "clozeTemplate": "The nurse should first {{action}} because {{reason}}.",
+    "clozeTemplate": "A client with diabetes is awake, follows commands, and has a blood glucose of 64 mg/dL. The nurse should first {{action}} because {{reason}}.",
     "dropdowns": [
       {
         "id": "action",
