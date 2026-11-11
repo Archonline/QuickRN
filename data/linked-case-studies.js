@@ -179,7 +179,7 @@
    const id='QR-'+String(nextId++).padStart(6,'0'),step=index+1;
    const answer=spec.answer;
    const stageNotes=spec.notes||c.stages[index].notes,stageVitals=spec.vitals||c.stages[index].vitals,stageLabs=spec.labs||c.stages[index].labs;
-   const clinicalTabs={'Nurses’ Notes':stageNotes,'Vital Signs':stageVitals,'Diagnostic Results':stageLabs,'History & Physical':c.history,'Provider Orders':c.orders};
+   const clinicalTabs={'Nurses Notes':stageNotes,'Vital Signs':stageVitals,'Diagnostic Results':stageLabs,'History & Physical':c.history,'Provider Orders':c.orders};
    const q={
     id,schemaVersion:2,caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),caseQuestionNumber:step,caseStudySequence:step,caseTitle:c.title,
     caseStudyContext:{id:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),title:c.title,summary:c.patient.summary,stepIndex:step,stepCount:6},
