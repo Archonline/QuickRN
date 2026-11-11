@@ -171,10 +171,20 @@
    patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext?.patientProfile,q.clinicalRecord),
    tabs:canonicalTabs
   });
+  const format=detectFormat(q);
+  const presentation=Object.assign({},obj(oldInteraction.presentation),obj(q.presentation),{
+   matrixSingle:Object.assign({leftPaneField:'matrixLeftPane',taskField:'matrixTask',truncateLeftPane:true},obj(q.presentation?.matrixSingle)),
+   extendedDragAndDrop:Object.assign({showSequenceFeedback:true,correctColor:'green',incorrectColor:'red'},obj(q.presentation?.extendedDragAndDrop)),
+   highlight:Object.assign({layout:'paragraph',highlightColor:'yellow',leftPaneField:'nursingNotes'},obj(q.presentation?.highlight)),
+   trend:Object.assign({mode:'sequential',stageField:'trendData.stages',requireStageResponse:true},obj(q.presentation?.trend)),
+   bowtie:Object.assign({followUpField:'bowtieData.followUpQuestions',followUpInteraction:'drag-and-drop'},obj(q.presentation?.bowtie)),
+   cloze:Object.assign({deduplicateStem:true,templateField:'clozeTemplate'},obj(q.presentation?.cloze))
+  });
   const interaction=Object.assign({},oldInteraction,{
    type:first(oldInteraction.type,detectFormat(q)),
    stem:first(oldInteraction.stem,q.stem,q.question,q.questionText,q.title,q.cleanTitle),
    options:first(oldInteraction.options,q.options),
+   presentation,
    answerKey:first(oldInteraction.answerKey,q.answerKey,q.correctAnswers,q.correctAnswer,q.correctAnswerText,q.correctHighlights,q.correctOrder,q.correctNumericAnswer,q.numericAnswer),
    scoring:Object.assign({},obj(oldInteraction.scoring),{
     method:first(oldInteraction.scoring?.method,q.scoring?.method,q.scoringMethod,q.scoreMethod,q.scoringRule,inferScoring(detectFormat(q)))
@@ -186,7 +196,7 @@
    clinicalJudgmentTip:first(oldRationales.clinicalJudgmentTip,q.clinicalJudgmentTip,q.cjmmTip)
   });
   // Preserve every source field. Canonical blocks are additive; unknown legacy data is never discarded.
-  q.schemaVersion=2;q.metadata=metadata;q.stimulus=stimulus;q.interaction=interaction;q.rationales=rationales;
+  q.schemaVersion=2;q.metadata=metadata;q.stimulus=stimulus;q.interaction=interaction;q.presentation=presentation;q.rationales=rationales;
   // Bridge canonical v2 fields to the legacy renderer contract without deleting source fields.
   if(q.id==null&&metadata.id!=null)q.id=metadata.id;
   if(q.category==null&&metadata.category!=null)q.category=metadata.category;
