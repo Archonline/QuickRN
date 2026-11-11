@@ -1,99 +1,61 @@
-# QuickRN AI question-generation prompt
+# QuickRN source-grounded question batch generator
 
-Use this prompt with an approved AI model to draft one original QuickRN question. The model response is **untrusted candidate content**, not an approved exam item.
+Generate original QuickRN NCLEX-style practice questions from public clinical evidence. This workflow does not require educator approval before import; it uses automated structural, provenance, duplication, rendering, and scoring checks. Automated checks do **not** certify clinical accuracy.
 
-## Prompt
+## Inputs
+- Topics / learning objectives: {{TOPICS}}
+- Target count: {{COUNT}}
+- NCLEX-RN Client Needs distribution: {{CLIENT_NEEDS_DISTRIBUTION}}
+- CJMM stages: {{CJMM_STAGES}}
+- Difficulty range (1–5): {{DIFFICULTY_RANGE}}
+- Exact QuickRN format distribution: {{FORMAT_DISTRIBUTION}}
+- IDs: {{QUESTION_IDS}}
+- Learner context: entry-level RN, unless otherwise specified
 
-You are drafting an original nursing education practice item for QuickRN. Generate exactly ONE question in the requested QuickRN format.
+## Evidence-first research rules
+1. Research each clinical concept using at least two independent, current, authoritative public sources when available. Prefer official guidelines and government health agencies: NCSBN/NCLEX test plan for exam blueprint and item-writing conventions; CDC for infection prevention and public health; NIH/NLM/MedlinePlus for disease and medication background; AHRQ for patient safety; FDA for medication/device safety; WHO and relevant professional societies for current clinical guidance.
+2. Use sources to establish clinical facts, safety thresholds, nursing actions, and rationale. Record exact source title, publisher, URL, publication/update date when visible, and access date.
+3. Do not copy, lightly paraphrase, or adapt question stems, options, rationales, or case narratives from commercial question banks, NCLEX prep sites, textbooks, copyrighted sample questions, or live exam content. Do not scrape question banks. Do not disguise copied questions by changing names, ages, numbers, or wording.
+4. Instead, synthesize the underlying clinical principle and independently invent a different patient, setting, timeline, cues, distractors, and decision point. Write from the clinical facts, not from an existing question.
+5. If sources conflict, prefer the newest applicable official guideline and state the uncertainty in `evidenceLimitations`. Never invent citations or pretend a source supports a claim it does not.
+6. Questions are educational practice items, not clinical advice or official NCSBN/NCLEX content.
 
-Inputs supplied by the educator:
-- Topic / learning gap: `{{TOPIC}}`
-- NCLEX Client Needs category: `{{CLIENT_NEEDS}}`
-- CJMM stage: `{{CJMM_STAGE}}`
-- Difficulty (1–5): `{{DIFFICULTY}}`
-- Required format (exact schema-v2 string): `{{FORMAT}}`
-- Learner level / context: `{{LEARNER_CONTEXT}}`
+## Output
+Return only valid JSON: `{"questions":[...]}`. Generate exactly ONE original question. Each item must:
+- Use a unique supplied `QR-######` ID in `id` and `metadata.id`.
+- Use exactly one of these 13 QuickRN schema-v2 formats: Single Choice, Multiple Response, Select N, Matrix Single, Matrix Multiple, Cloze (Drop-down), Dropdown Rationale, Bowtie, Extended Drag and Drop, Extended Multiple Response, Highlight, Trend, Numeric Entry.
+- Include a complete, independently written scenario/stem, keyed answer, overall rationale, answer-specific rationales, clinical judgment tip, topic, category, Client Needs, CJMM stage, difficulty, sourceReferences (at least two where reasonably available), and evidenceLimitations (empty array when none).
+- Include format-specific interaction data, options, exhibits, tables, answer spaces, and scoring fields required by QuickRN. The response must genuinely use the requested format, not disguise single-choice as NGN.
+- Keep all numbers, units, reference ranges, medication doses, contraindications, and nursing scope statements traceable to the cited sources or standard arithmetic. Include calculations and rounding rules.
+- Make distractors plausible but clearly less safe/less appropriate under the stated facts. Avoid trick wording, hidden assumptions, ambiguous multiple keys, and unsupported absolutes.
+- Ensure each keyed response is actually supported by the cited evidence. Rationales must explain why the correct response is best and why each distractor is less appropriate.
+- Use the QuickRN schema-v2 object shape below; add all format-specific properties required by the schema.
 
-Requirements:
-1. Return only one valid JSON object. Do not wrap it in Markdown fences and do not include commentary.
-2. Return the question object itself, not a `review` wrapper. It will be imported into a separate pending-review JavaScript file.
-3. Use the exact requested format string. The 13 QuickRN schema-v2 values are:
-   - `Single Choice`
-   - `Multiple Response`
-   - `Select N`
-   - `Matrix Single`
-   - `Matrix Multiple`
-   - `Cloze (Drop-down)`
-   - `Dropdown Rationale`
-   - `Bowtie`
-   - `Extended Drag and Drop`
-   - `Extended Multiple Response`
-   - `Highlight`
-   - `Trend`
-   - `Numeric Entry`
-4. Create an original, realistic, self-contained clinical scenario. Do not reproduce, paraphrase, or claim access to protected/live NCLEX questions or commercial test-bank content.
-5. Prioritize patient safety, current evidence, appropriate nursing scope, and unambiguous wording. Do not make assumptions that are not stated in the scenario.
-6. Include a defensible answer key, a complete overall rationale, and a specific rationale for every response option, row, action, highlight, or keyed response that applies to the selected format.
-7. Include one concise Clinical Judgment Tip and an evidence/reference list. Use authoritative, verifiable references (e.g. current government guidance, professional standards, or peer-reviewed sources). Never invent a title, URL, author, guideline, or publication date. If a source cannot be verified, omit it and explicitly flag the evidence gap in a field named `educatorFlags`.
-8. For medication calculations, show the calculation, units, rounding rule, and safe-dose assumptions. Do not invent a facility-specific policy.
-9. For a matrix, bow-tie, cloze, highlight, trend, numeric-entry, or drag-and-drop item, include the actual format-specific data needed to render it; do not replace the requested interaction with ordinary multiple choice.
-10. Do not include real patient information, identifiers, or student data.
-11. Do not generate a linked six-question NGN case unless explicitly asked. Case sets require a separate educator review of the entire linked set.
-12. Set a unique question ID supplied by the caller in both `id` and `metadata.id`. If no ID is supplied, use `QR-000001` as a temporary placeholder and do not claim uniqueness.
-13. Set `metadata.cjmmStep` to one of: `Recognize Cues`, `Analyze Cues`, `Prioritize Hypotheses`, `Generate Solutions`, `Take Action`, `Evaluate Outcomes`.
-14. Set `metadata.difficulty` to an integer from 1 to 5. Set `interaction.scoring.method` to one of `plus_minus`, `0/1`, or `rationale`.
-
-Return this schema shape, adding format-specific fields as needed:
-
+```json
 {
-  "id": "QR-000001",
-  "schemaVersion": 2,
-  "category": "Clinical category",
-  "topic": "Specific topic",
-  "clientNeeds": "NCLEX Client Needs category",
-  "cjmmStep": "Analyze Cues",
-  "difficulty": 3,
-  "type": "{{FORMAT}}",
-  "question": "Complete question stem / instruction",
-  "options": [],
-  "correctAnswer": "Format-appropriate answer key",
-  "rationale": "Overall clinical rationale",
-  "optionRationales": {
-    "response identifier or label": "Why this response is correct or incorrect"
-  },
-  "clinicalJudgmentTip": "Short actionable tip",
-  "sourceReferences": [
-    {
-      "title": "Verifiable source title",
-      "url": "https://...",
-      "accessedAt": "YYYY-MM-DD"
-    }
+  "id":"QR-000001",
+  "schemaVersion":2,
+  "category":"Adult Health",
+  "topic":"Specific clinical concept",
+  "clientNeeds":"Physiological Adaptation",
+  "cjmmStep":"Analyze Cues",
+  "difficulty":3,
+  "type":"Single Choice",
+  "question":"Original scenario and task...",
+  "options":["A","B","C","D"],
+  "correctAnswer":"A",
+  "rationale":"Evidence-grounded explanation...",
+  "optionRationales":{"A":"...","B":"...","C":"...","D":"..."},
+  "clinicalJudgmentTip":"...",
+  "sourceReferences":[
+    {"title":"Exact source title","publisher":"Publisher","url":"https://...","publishedAt":"YYYY-MM-DD or unknown","accessedAt":"YYYY-MM-DD"}
   ],
-  "metadata": {
-    "id": "QR-000001",
-    "category": "Clinical category",
-    "clientNeeds": "NCLEX Client Needs category",
-    "cjmmStep": "Analyze Cues",
-    "difficulty": 3
-  },
-  "interaction": {
-    "type": "{{FORMAT}}",
-    "stem": "Complete question stem / instruction",
-    "options": [],
-    "answerKey": "Format-appropriate answer key",
-    "scoring": {
-      "method": "0/1"
-    }
-  },
-  "stimulus": {},
-  "rationales": {
-    "overall": "Overall clinical rationale",
-    "options": {
-      "response identifier or label": "Why this response is correct or incorrect"
-    },
-    "clinicalJudgmentTip": "Short actionable tip"
-  },
-  "educatorFlags": []
+  "evidenceLimitations":[],
+  "metadata":{"id":"QR-000001","category":"Adult Health","clientNeeds":"Physiological Adaptation","cjmmStep":"Analyze Cues","difficulty":3},
+  "interaction":{"type":"Single Choice","stem":"...","options":["A","B","C","D"],"answerKey":"A","scoring":{"method":"0/1"}},
+  "stimulus":{},
+  "rationales":{"overall":"...","options":{"A":"...","B":"...","C":"...","D":"..."},"clinicalJudgmentTip":"..."}
 }
+```
 
-For all array/map-based answers, use stable response IDs where possible and ensure the answer key refers exactly to those IDs. The schema validator checks structure only; it does not verify clinical truth, source accuracy, or item fairness. Every candidate requires nurse-educator review before publication.
+Never return a claim that the item is educator-approved or clinically certified. Output data only.
