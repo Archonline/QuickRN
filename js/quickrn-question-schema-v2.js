@@ -168,7 +168,7 @@
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
    caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
-   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext?.patientProfile,q.clinicalRecord),
+   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext?.patientProfile,q.caseStudyContext?.summary?{summary:q.caseStudyContext.summary}:undefined,q.clinicalRecord),
    tabs:canonicalTabs
   });
   const format=detectFormat(q);
@@ -257,15 +257,18 @@
   }
   if(it.type==='Trend'){
    const stages=q.trendData?.stages;
-   if(!Array.isArray(stages)||stages.length<3)issue('V2_TREND_REQUIRES_STAGES','Trend requires at least three chronological patient time points.');
-   else stages.forEach((stage,i)=>{
-    const options=Array.isArray(stage.options)?stage.options:(Array.isArray(stage.distractors)?stage.distractors:[]);
-    if(options.length<4)issue('V2_TREND_OPTIONS_TOO_FEW','Trend time point '+(i+1)+' requires at least four clinically plausible response options.');
-    if(!stage.time&&!stage.timestamp&&!stage.interval)issue('V2_TREND_TIME_MISSING','Each trend time point requires a time or interval label.');
-    if(!stage.situation&&!stage.clinicalSituation&&!stage.patientStatus&&!stage.update)issue('V2_TREND_FINDINGS_MISSING','Each trend time point requires a visible clinical situation in complete text, not only a data table.');
-    if(!stage.question)issue('V2_TREND_TASK_MISSING','Each trend time point requires a stage-specific clinical judgment question.');
-    if(stage.correctAnswer===undefined&&stage.answerKey===undefined)issue('V2_TREND_ANSWER_MISSING','Each trend time point requires its own answer key.');
-   });
+   if(!Array.isArray(stages))issue('V2_TREND_REQUIRES_STAGES','Trend requires at least three chronological patient time points.');
+   else{
+    if(stages.length<3)issue('V2_TREND_REQUIRES_STAGES','Trend requires at least three chronological patient time points.');
+    stages.forEach((stage,i)=>{
+     const options=Array.isArray(stage.options)?stage.options:(Array.isArray(stage.distractors)?stage.distractors:[]);
+     if(options.length<4)issue('V2_TREND_OPTIONS_TOO_FEW','Trend time point '+(i+1)+' requires at least four clinically plausible response options.');
+     if(!stage.time&&!stage.timestamp&&!stage.interval)issue('V2_TREND_TIME_MISSING','Each trend time point requires a time or interval label.');
+     if(!stage.situation&&!stage.clinicalSituation&&!stage.patientStatus&&!stage.update)issue('V2_TREND_FINDINGS_MISSING','Each trend time point requires a visible clinical situation in complete text, not only a data table.');
+     if(!stage.question)issue('V2_TREND_TASK_MISSING','Each trend time point requires a stage-specific clinical judgment question.');
+     if(stage.correctAnswer===undefined&&stage.answerKey===undefined)issue('V2_TREND_ANSWER_MISSING','Each trend time point requires its own answer key.');
+    });
+   }
   }
   if(it.type==='Select N'){
    if(!Array.isArray(opts)||opts.length<4)issue('V2_SELECT_N_OPTIONS_TOO_FEW','Select N requires at least four visible response options.');
@@ -287,13 +290,32 @@
   }
   return issues;
  }
+ function validateGroups(bank){
+  const groups=new Map(),issues=[];
+  arr(bank).forEach((q,index)=>{
+   const group=first(q?.caseGroupId,q?.caseStudyId,q?.stimulus?.caseGroupId);
+   if(!group)return;
+   if(!groups.has(String(group)))groups.set(String(group),[]);
+   groups.get(String(group)).push({q,index});
+  });
+  groups.forEach((items,groupId)=>{
+   const add=(code,message)=>issues.push({code,message,groupId,indices:items.map(x=>x.index)});
+   if(items.length!==6)add('V2_CASE_GROUP_LENGTH','Linked case '+groupId+' must contain exactly six questions; found '+items.length+'.');
+   const steps=items.map(x=>Number(first(x.q.caseQuestionNumber,x.q.caseQuestionIndex,x.q.questionSequence,x.q.sequenceNumber,x.q.caseStudySequence,x.q.caseStudyContext?.stepIndex)));
+   if(steps.some(n=>!Number.isInteger(n)||n<1)||new Set(steps).size!==items.length||steps.slice().sort((a,b)=>a-b).some((n,i)=>n!==i+1)){
+    add('V2_CASE_GROUP_SEQUENCE','Linked case '+groupId+' must have one unique, contiguous sequence numbered 1 through 6.');
+   }
+   if(items.some(x=>String(first(x.q.caseGroupId,x.q.caseStudyId,x.q.stimulus?.caseGroupId))!==groupId))add('V2_CASE_GROUP_ID_MISMATCH','Every linked question must use the same case group ID.');
+  });
+  return issues;
+ }
  function normalizeBank(bank){
   const records=arr(bank);records.forEach(normalize);
   const groups=new Map();records.forEach(q=>{const g=q&&(q.caseGroupId||q.caseStudyId||q.stimulus?.caseGroupId);if(g){if(!groups.has(g))groups.set(g,[]);groups.get(g).push(q);}});
   groups.forEach(items=>{const used=new Set(items.map(q=>Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence)).filter(n=>Number.isInteger(n)&&n>0));let next=1;items.forEach(q=>{if(!Number.isInteger(Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence))){while(used.has(next))next++;q.caseQuestionNumber=next;q.caseStudySequence=next;used.add(next++);}else{q.caseQuestionNumber=Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence);q.caseStudySequence=q.caseQuestionNumber;}});});
   return {total:records.length,normalized:records.filter(q=>q&&q.schemaVersion===2).length};
  }
- const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate};
+ const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate,validateGroups};
  root.QuickRNQuestionSchemaV2=api;
  const initialBank=Array.isArray(root.questions)?root.questions:(Array.isArray(root.embeddedQuestionsData)?root.embeddedQuestionsData:null);
  if(initialBank)normalizeBank(initialBank);

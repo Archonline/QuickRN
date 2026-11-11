@@ -26,4 +26,11 @@ assert.deepEqual(exhausted,[],'an exhausted pool never falls back to previously 
 const remaining=sequencer.pick(bank,20,new Set(['A1','A2','A3']),()=>0);
 assert.ok(remaining.length>0,'unseen independent questions and cases remain selectable');
 assert.ok(remaining.every(q=>!['A1','A2','A3'].includes(q.id)),'previously seen case questions never reappear');
+const sixStep=[6,2,5,1,4,3].map(step=>({id:'S'+step,caseGroupId:'six-step',caseQuestionNumber:step}));
+const sixOrdered=sequencer.randomizeAll([{id:'standalone'},...sixStep],()=>0);
+assert.equal(sixOrdered.filter(q=>q.caseGroupId==='six-step').map(q=>q.caseQuestionNumber).join(','),'1,2,3,4,5,6','six-question cases always render in explicit sequence order');
+const sixPicked=sequencer.pick([{id:'standalone'},...sixStep],1,new Set(),()=>0);
+const sixSelected=sixPicked.filter(q=>q.caseGroupId==='six-step');
+assert.ok(sixSelected.length===0||sixSelected.length===6,'a six-question case is selected as one indivisible unit');
+assert.equal(sixSelected.map(q=>q.caseQuestionNumber).join(','),'1,2,3,4,5,6','a selected six-question case remains in sequence');
 console.log('PASS: case studies remain complete and Self-Study never repeats exhausted questions.');

@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 const schema=require('../js/quickrn-question-schema-v2.js');
 const common=(id,type,answerKey,extra={})=>({
  metadata:{id:'QR-'+String(id).padStart(6,'0'),category:'Adult Health',clientNeeds:'Physiological Adaptation',cjmmStep:'Analyze Cues',difficulty:3},
- interaction:{stem:'A nurse reviews a client assessment and determines the safest evidence-based nursing response. Which response is supported by the clinical findings?',type,options:type==='Trend'?['Stable','Worsening']:['Assess the client','Document the finding','Notify the provider'],answerKey,scoring:{method:['Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend'].includes(type)?'plus_minus':'0/1'}},
+ interaction:{stem:'A nurse reviews a client assessment and determines the safest evidence-based nursing response. Which response is supported by the clinical findings?',type,options:type==='Trend'?['Stable','Worsening','Escalate care','Reassess']:['Assess the client','Document the finding','Notify the provider','Reassess the client'],answerKey,scoring:{method:['Multiple Response','Select N','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Bowtie','Extended Drag and Drop','Extended Multiple Response','Highlight','Trend'].includes(type)?'plus_minus':'0/1'}},
  rationales:{overall:'The response is based on the client assessment and prioritizes safe nursing care.',options:{'Assess the client':'Assessment supports a safe clinical decision.','Document the finding':'Documentation does not replace needed assessment or intervention.','Notify the provider':'Escalation is appropriate when indicated by the assessment.'},clinicalJudgmentTip:'Reassess the client and connect each action to the available clinical cues.'},
  ...extra
 });
@@ -19,7 +19,7 @@ const fixtures=[
  common(9,'Extended Drag and Drop',['Assess','Intervene','Reassess'],{availableItems:['Assess','Intervene','Reassess'],correctOrder:['Assess','Intervene','Reassess']}),
  common(10,'Extended Multiple Response',['Assess the client','Notify the provider']),
  common(11,'Highlight',['s1'],{highlightSegments:[{id:'s1',text:'The client has a new concerning finding.'}],correctHighlights:['s1']}),
- common(12,'Trend',['Worsening'],{trendData:{rows:[['Time','Finding'],['0800','Stable'],['1000','Worsening']]}}),
+ common(12,'Trend','Worsening',{trendData:{stages:[{time:'0800',situation:'The client is stable at the initial assessment.',question:'Which interpretation is appropriate?',options:['Stable','Worsening','Escalate care','Reassess'],correctAnswer:'Stable'},{time:'1000',situation:'The client develops new confusion and hypotension.',question:'What does this change indicate?',options:['Stable','Worsening','Escalate care','Reassess'],correctAnswer:'Worsening'},{time:'1200',situation:'The client remains hypotensive despite initial measures.',question:'What is the priority response?',options:['Stable','Worsening','Escalate care','Reassess'],correctAnswer:'Escalate care'}]}}),
  common(13,'Numeric Entry',42,{numericAnswer:42})
 ];
 assert.equal(schema.FORMATS.length,13);

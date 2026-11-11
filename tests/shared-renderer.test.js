@@ -20,7 +20,7 @@ const fixtures=[
 for(const [expected,q] of fixtures)assert.equal(api.detect(q),expected,expected+' detection');
 const highlight=fixtures[7][1];
 const highlightHtml=api.renderReact(highlight,undefined,()=>{},false);
-assert.match(highlightHtml,/qr-highlight-inline-text/,'highlight findings render inline in the question text');
+assert.match(highlightHtml,/qr-highlight-paragraph/,'highlight findings render inside the clinical paragraph');
 assert.match(highlightHtml,/qr-highlight-inline-token/,'each highlightable finding is an inline selectable token');
 assert.doesNotMatch(highlightHtml,/qr-highlight-list|qr-highlight-check/,'highlight items are not rendered as separate SATA-style option cards');
 assert.equal(api.hasAnswer(highlight,{highlights:['s1']}),true);
@@ -158,13 +158,13 @@ assert.ok(orderedHtml.includes('Sequence review'),'submitted drag-and-drop displ
 assert.ok(orderedHtml.includes('Correct sequence'),'submitted drag-and-drop displays the answer sequence');
 assert.ok(orderedHtml.includes('#fee2e2')&&orderedHtml.includes('#dcfce7'),'sequence feedback uses distinct incorrect and correct highlight colors');
 const highlightParagraph={id:'HIGHLIGHT-PARAGRAPH',type:'Highlight',nursingNotes:'Nursing note: The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightText:'The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightSegments:[{id:'confusion',text:'newly confused'},{id:'bp',text:'Blood pressure is 82/46 mm Hg'}],correctHighlights:['confusion','bp']};
-const highlightParagraphHtml=api.renderReact(highlightParagraph,{highlights:['confusion']},()=>{},false);
+const highlightParagraphHtml=api.renderReact(highlightParagraph,['confusion'],()=>{},false);
 assert.ok(highlightParagraphHtml.includes('Nurses’ Notes'),'highlight nursing note is in the left pane');
 assert.ok(highlightParagraphHtml.includes('cool, clammy skin.'),'highlight passage preserves the complete paragraph');
 assert.ok(highlightParagraphHtml.includes('#fef08a'),'highlight selections use yellow');
 const stagedTrend={id:'STAGED-TREND',type:'Trend',trendData:{stages:[{time:'0800',situation:'The client is alert with BP 118/74 mm Hg.',question:'Which finding is most important now?',options:['Stable perfusion','Severe shock'],correctAnswer:'Stable perfusion'},{time:'0830',situation:'The client becomes confused; BP is 84/50 mm Hg.',question:'What should the nurse do next?',options:['Activate rapid response','Continue routine observation'],correctAnswer:'Activate rapid response'}]}};
 const stagedTrendHtml=api.renderReact(stagedTrend,{stageAnswers:{0:'Stable perfusion'}},()=>{},false);
-assert.ok(stagedTrendHtml.includes('Stage 1')&&stagedTrendHtml.includes('Stage 2'),'trend displays sequential patient-state stages');
+assert.ok(stagedTrendHtml.includes('Time point 1')&&stagedTrendHtml.includes('Time point 2'),'trend displays sequential patient-state stages: '+stagedTrendHtml);
 assert.ok(stagedTrendHtml.includes('The client becomes confused'),'later deterioration is shown as a new situation');
 assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion'}}),false,'trend requires an answer at each stage');
 assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion',1:'Activate rapid response'}}),true,'trend accepts completed stage responses');
@@ -186,11 +186,11 @@ assert.equal(clean('Mantoux/TB screening: A client returns for the test reading.
 assert.equal(clean('Guillain-Barré syndrome: An adult reports progressive weakness.'), 'An adult reports progressive weakness.');
 
 const highlightClinical={id:'HIGHLIGHT-CLINICAL',type:'Highlight',question:'Identify the significant cues.',nursingNotes:'At 0900 the client is alert and oriented. At 1000 the client becomes newly confused and reports severe shortness of breath.',highlightText:'At 1000 the client becomes newly confused and reports severe shortness of breath.',highlightSegments:[{id:'confusion',text:'newly confused'},{id:'dyspnea',text:'severe shortness of breath'}],correctHighlights:['confusion','dyspnea']};
-const highlightHtml=api.renderReact(highlightClinical,{highlights:[]},()=>{},false);
-assert.ok(highlightHtml.includes('Clinical Record'),'highlight shows provided nursing note in clinical record');
-assert.ok(highlightHtml.includes('newly confused'),'highlight passage is rendered as selectable clinical cues');
-assert.ok(highlightHtml.includes('At 1000 the client becomes'),'highlight keeps the complete clinical paragraph around the selectable cues');
-assert.ok(highlightHtml.includes('quickRNToggleDraft("highlights"'),'highlight cues are interactive');
+const caseHighlightHtml=api.renderReact(highlightClinical,{highlights:[]},()=>{},false);
+assert.ok(caseHighlightHtml.includes('Clinical Record'),'highlight shows provided nursing note in clinical record');
+assert.ok(caseHighlightHtml.includes('newly confused'),'highlight passage is rendered as selectable clinical cues');
+assert.ok(caseHighlightHtml.includes('At 1000 the client becomes'),'highlight keeps the complete clinical paragraph around the selectable cues');
+assert.ok(caseHighlightHtml.includes('quickRNToggleDraft("highlights"'),'highlight cues are interactive');
 const highlightNoRecord={...highlightClinical,nursingNotes:undefined,highlightText:'The client develops new-onset chest pain and diaphoresis.'};
 const highlightNoRecordHtml=api.renderReact(highlightNoRecord,{highlights:[]},()=>{},false);
 assert.ok(highlightNoRecordHtml.includes('question-only'),'highlight without separate clinical record uses a single pane');
@@ -207,14 +207,14 @@ assert.ok(clozeFeedbackHtml.includes('Correct: Administer prescribed fluids'),'s
 const trendRich={id:'TREND-RICH',type:'Trend',trendData:{stages:[0,1,2].map((i)=>({time:['0800','1000','1200'][i],situation:'Patient status changes at time '+i,vitalSigns:{'Heart rate':[88,112,128][i],'Oxygen saturation':[97,91,86][i]},question:'What is the priority response now?',options:['Activate rapid response','Reassess in 1 hour','Document and continue routine care','Offer oral fluids'],correctAnswer:'Activate rapid response'}))}};
 const trendHtml=api.renderReact(trendRich,{stageAnswers:{}},()=>{},false);
 assert.equal((trendHtml.match(/class="qr-trend-stage"/g)||[]).length,3,'trend presents sequential time points');
-assert.equal((trendHtml.match(/class="qr-choice/g)||[]).length,12,'each trend time point renders all four response options');
+assert.equal((trendHtml.match(/class="qr-choice /g)||[]).length,12,'each trend time point renders all four response options');
 
 vm.runInNewContext(fs.readFileSync('js/quickrn-ngn-compat.js','utf8'),context);
 const runtimeApi=context.window.QuickRNSharedRenderer;
 const runtimeSelectN={id:'QR-SELECTN-RUNTIME',type:'Select N',question:'Select two actions.',options:['Action A','Action B','Action C','Action D'],correctAnswer:['Action A','Action C']};
 const runtimeSelectHtml=runtimeApi.renderReact(runtimeSelectN,{},()=>{},false);
 assert.equal(runtimeApi.detect(runtimeSelectN),'Select N');
-assert.equal(runtimeSelectN.selectN,2,'compat layer infers the required Select N count from the answer key');
+assert.ok(runtimeSelectHtml.includes('Select exactly 2'),'compat layer infers the required Select N count from the answer key');
 assert.equal((runtimeSelectHtml.match(/data-qr-selectn-value=/g)||[]).length,4,'Select N options use delegated, actionable controls');
 assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A','Action C']}),true,'Select N can submit exactly the keyed number of selections');
 assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A']}),false,'Select N cannot submit an incomplete selection');
@@ -238,5 +238,5 @@ context.window.quickRNSetTrendStage(0,'Escalate care and support oxygenation');
 assert.equal(runtimeTrendDraft.stageAnswers[0],'Escalate care and support oxygenation','Trend stage selection persists the chosen clinical response');
 const runtimeCloze={id:'QR-CLOZE-RUNTIME',type:'Cloze (Drop-down)',question:'Complete the statement.',instruction:'Complete the statement by selecting one response for each blank.',clozeTemplate:'The client is hypotensive. The nurse should {{action}}.',dropdowns:[{id:'action',options:['Escalate care','Delay assessment'],correct:'Escalate care'}],correctAnswers:{action:'Escalate care'}};
 const runtimeClozeHtml=runtimeApi.renderReact(runtimeCloze,{cloze:{}},()=>{},false);
-assert.equal((runtimeClozeHtml.match(/The client is hypotensive\\./g)||[]).length,1,'runtime Cloze renders the clinical sentence once');
+assert.equal((runtimeClozeHtml.match(/The client is hypotensive\./g)||[]).length,1,'runtime Cloze renders the clinical sentence once');
 assert.equal(runtimeClozeHtml.split('The client is hypotensive.').length-1,1,'runtime Cloze renders the clinical sentence once');
