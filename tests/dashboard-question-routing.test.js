@@ -5,7 +5,7 @@ const pages=['selfstudy.html','timed.html','predictor.html','cat.html'];
 const failures=[];
 for(const page of pages){
  const html=fs.readFileSync(page,'utf8');
- const tags=[...html.matchAll(/<script\\b[^>]*>/gi)].map(m=>m[0]);
+ const tags=[...html.matchAll(/<script\b[^>]*>/gi)].map(m=>m[0]);
  const at=src=>tags.findIndex(tag=>tag.includes(src));
  const deps=[
   ['Question Schema v2','src="js/quickrn-question-schema-v2.js"'],
@@ -27,5 +27,5 @@ for(const page of pages){
 const dashboard=fs.readFileSync('dashboard.html','utf8');
 for(const page of pages)assert.ok(dashboard.includes('href="'+page+'"')||dashboard.includes("'"+page+"'"),'dashboard routes to '+page);
 for(const legacy of ['selfstudy-ngn.html','timed-ngn.html','predictor-ngn.html','cat-ngn.html'])if(dashboard.includes(legacy))failures.push('dashboard still references legacy route '+legacy);
-if(failures.length){console.error('Dashboard/exam-bank contract failed:\\n- '+failures.join('\\n- '));process.exit(1);}
+if(failures.length){console.error('Dashboard/exam-bank contract failed:\n- '+failures.join('\n- '));process.exit(1);}
 console.log('PASS: dashboard routes to all four exam pages; schema, canonical bank, fail-closed validator, normalizers, renderer, and exam app load in dependency order.');
