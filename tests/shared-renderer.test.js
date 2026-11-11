@@ -214,7 +214,7 @@ const runtimeApi=context.window.QuickRNSharedRenderer;
 const runtimeSelectN={id:'QR-SELECTN-RUNTIME',type:'Select N',question:'Select two actions.',options:['Action A','Action B','Action C','Action D'],correctAnswer:['Action A','Action C']};
 const runtimeSelectHtml=runtimeApi.renderReact(runtimeSelectN,{},()=>{},false);
 assert.equal(runtimeApi.detect(runtimeSelectN),'Select N');
-assert.equal(runtimeSelectN.selectN,2,'compat layer infers the required Select N count from the answer key');
+assert.ok(runtimeSelectHtml.includes('Select exactly 2'),'compat layer infers the required Select N count from the answer key');
 assert.equal((runtimeSelectHtml.match(/data-qr-selectn-value=/g)||[]).length,4,'Select N options use delegated, actionable controls');
 assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A','Action C']}),true,'Select N can submit exactly the keyed number of selections');
 assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A']}),false,'Select N cannot submit an incomplete selection');
