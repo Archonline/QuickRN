@@ -110,7 +110,7 @@ function quickRNSplitPrompt(q){
      typeof q.caseStudy==='string'?q.caseStudy:'',q.caseStudy?.scenario,q.caseStudy?.narrative,
      typeof q.case_study==='string'?q.case_study:'',q.case_study?.scenario,q.case_study?.narrative]
   : [
-     q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+     q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,
      q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
      q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
      q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
