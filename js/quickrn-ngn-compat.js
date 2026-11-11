@@ -98,7 +98,7 @@ api.grade=grade;api.hasAnswer=has;
 root.quickRNGrade=grade;root.quickRNHasAnswer=has;root.quickRNDetectItemFormat=api.detect;root.quickRNAnswerSummary=api.answerSummary;
 root.quickRNNormalizeDraft=(q,value)=>baseToDraft(canon(q),value);
 function compatToDraft(q,value){const x=canon(q);if(x.ngnType==='Select N')return {choices:Array.isArray(value)?value:(Array.isArray(value?.choices)?value.choices:[])};return baseToDraft(x,value);}
-function compatFromDraft(q,draft){const x=canon(q);if(x.ngnType==='Select N')return Array.isArray(draft?.choices)?draft.choices:[];return baseFromDraft(x,draft);}
+function compatFromDraft(q,draft){const x=canon(q);if(x.ngnType==='Select N')return {choices:Array.isArray(draft?.choices)?draft.choices:[]};return baseFromDraft(x,draft);}
 api.toDraft=compatToDraft;api.fromDraft=compatFromDraft;
 root.quickRNFromLegacyDraft=compatToDraft;
 root.quickRNToLegacyDraft=compatFromDraft;
