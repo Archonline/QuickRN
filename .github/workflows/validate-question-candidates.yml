@@ -9,6 +9,7 @@ on:
       - 'js/quickrn-bank-startup-validator.js'
       - 'data/question-bank.js'
       - 'scripts/test-question-bank-startup.js'
+      - 'scripts/test-question-format-fixtures.js'
       - '.github/workflows/validate-question-candidates.yml'
   push:
     branches:
@@ -46,8 +47,11 @@ jobs:
           node --check js/quickrn-bank-startup-validator.js
           node --check data/question-bank.js
           node --check scripts/test-question-bank-startup.js
+          node --check scripts/test-question-format-fixtures.js
       - name: Test fail-closed bank startup
         run: node scripts/test-question-bank-startup.js
+      - name: Validate all 13 question-format fixtures
+        run: node scripts/test-question-format-fixtures.js
       - name: Validate pending candidates
         run: node scripts/validate-question-candidates.js
       - name: Preflight approved candidates
