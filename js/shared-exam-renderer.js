@@ -630,6 +630,7 @@ window.QuickRNSharedRenderer={
 /* Rebuilt NGN presentation contracts: shared by Self-Study, Timed, Predictor and CAT. */
 const quickRNContractBaseRender=quickRNRenderClinicalItem;
 function quickRNContractText(v){return quickRNPlainClinicalText(v==null?'':v);}
+function quickRNContractTruncate(v,max=180){const text=quickRNContractText(v);const sentences=text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[text];let out='';for(const sentence of sentences){const next=(out+' '+sentence.trim()).trim();if(next.length>max)break;out=next;}if(!out)out=text.slice(0,max);return out.length<text.length?out.replace(/[\s,;:]+$/,'')+'…':out;}
 function quickRNContractEsc(v){return quickRNEscape(v==null?'':v);}
 function quickRNContractRecord(q,notes){
  const safe=quickRNContractText(notes);
@@ -654,7 +655,7 @@ function quickRNContractToggleFollowUp(index,item){
 function quickRNContractRender(q,draft,submitted=false){
  const f=quickRNDetectItemFormat(q);
  if(f==='Matrix / Grid' && /matrix single/i.test(String(q.type||q.ngnType||q.format||''))){
-  const left=quickRNContractText(q.matrixLeftPane||q.leftPaneText||q.clinicalFinding||q.situation||q.scenario||q.nursingNotes||q.ehr?.nursesNotes);
+  const left=quickRNContractTruncate(q.matrixLeftPane||q.leftPaneText||q.clinicalFinding||q.situation||q.scenario||q.nursingNotes||q.ehr?.nursesNotes);
   const task=quickRNContractText(q.matrixTask||q.task||q.instruction||q.matrixInstruction||q.question);
   const transformed={...q,question:task||q.question,stem:task||q.stem,title:task||q.title,ehr:{...(q.ehr||{}),nursesNotes:left||q.ehr?.nursesNotes}};
   return quickRNContractBaseRender(transformed,draft,submitted);
@@ -699,7 +700,7 @@ function quickRNContractRender(q,draft,submitted=false){
  }
  if(f==='Bowtie' && Array.isArray(q.bowtieData?.followUpQuestions)&&q.bowtieData.followUpQuestions.length){
   let html=quickRNContractBaseRender(q,draft,submitted);
-  const follow=q.bowtieData.followUpQuestions.map((item,i)=>{const options=item.items||item.availableItems||item.options||[],placed=(draft.followUps||{})[i]||options,correct=item.correctOrder||[],rows=placed.map((v,j)=>{const ok=String(v)===String(correct[j]);return '<div class="qr-sort-item" style="'+(submitted?'background:'+(ok?'#dcfce7':'#fee2e2')+';border-color:'+(ok?'#16a34a':'#dc2626'):'')+'"><span class="qr-sort-text">'+quickRNContractEsc(v)+'</span><span class="qr-sort-actions"><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j-1)+','+i+')">↑</button><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j+1)+','+i+')">↓</button></span></div>';}).join('');return '<section class="qr-bowtie-followup"><h3>'+quickRNContractEsc(item.question||('Follow-up '+(i+1)))+'</h3><p>Arrange the nursing actions in the correct sequence.</p><div class="qr-sort-list">'+rows+'</div>'+(submitted?'<p><strong>Correct sequence:</strong> '+correct.map(quickRNContractEsc).join(' → ')+'</p>':'')+'</section>';}).join('');
+  const follow=q.bowtieData.followUpQuestions.map((item,i)=>{const options=item.items||item.availableItems||item.options||[],placed=(draft.followUps||{})[i]||options,correct=item.correctOrder||[],rows=placed.map((v,j)=>{const ok=String(v)===String(correct[j]);return '<div class="qr-sort-item" draggable="true" ondragstart="quickRNContractMoveFollowUp('+j+','+j+','+i+')" style="'+(submitted?'background:'+(ok?'#dcfce7':'#fee2e2')+';border-color:'+(ok?'#16a34a':'#dc2626'):'')+'"><span class="qr-sort-text">'+quickRNContractEsc(v)+'</span><span class="qr-sort-actions"><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j-1)+','+i+')">↑</button><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j+1)+','+i+')">↓</button></span></div>';}).join('');return '<section class="qr-bowtie-followup"><h3>'+quickRNContractEsc(item.question||('Follow-up '+(i+1)))+'</h3><p>Arrange the nursing actions in the correct sequence.</p><div class="qr-sort-list">'+rows+'</div>'+(submitted?'<p><strong>Correct sequence:</strong> '+correct.map(quickRNContractEsc).join(' → ')+'</p>':'')+'</section>';}).join('');
   return html.replace('</div></section></div>',follow+'</div></section></div>');
  }
  if(f==='Cloze (Drop-down)'){
