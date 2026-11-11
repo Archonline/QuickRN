@@ -32,7 +32,7 @@ These are schema requirements, not optional styling suggestions. Preserve a clea
 - **Bowtie:** the initial condition/actions/monitoring fields remain required. Optional `bowtieData.followUpQuestions` may add one or more ordered-response follow-ups, each with `question`, `availableItems`, and `correctOrder`.
 - **Cloze (Drop-down) / Dropdown Rationale:** store the complete sentence with blank tokens only in `clozeTemplate`; store the learner task separately in `instruction`. Do not repeat the full cloze sentence as a second question heading. Give each dropdown a stable `id`, plausible `options`, and keyed `correct` value.
 
-The schema's `presentation` defaults describe these rendering contracts. Use the exact data fields above so the shared renderer can place, display, capture, and grade each interaction consistently in Self-Study, Timed Practice, Predictor, and CAT.
+The schema's `presentation` defaults describe these rendering contracts and are enforced by the shared-renderer regression suite. Use the exact data fields above so the shared renderer can place, display, capture, and grade each interaction consistently in Self-Study, Timed Practice, Predictor, and CAT.
 
 ## Output
 Return only valid JSON: `{"questions":[...]}`. Generate exactly the requested count. Each item must:
