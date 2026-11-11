@@ -21,7 +21,9 @@ for(const [index,q] of bank.entries()){
  formats.add(q.interaction?.type);
  assert.ok(Array.isArray(q.sourceReferences)&&q.sourceReferences.length,'source references for '+id);
  assert.ok(q.sourceReferences.every(r=>/^https:\/\//.test(r.url||'')),'HTTPS source references for '+id);
- const rendered=context.quickRNRenderClinicalItem(q,undefined);\n assert.ok(typeof rendered==='string' && rendered.includes('qr-question-panel'),'renderer output for '+id);\n const issues=schema.validate(q,index);
+ const rendered=context.quickRNRenderClinicalItem(q,undefined);
+ assert.ok(typeof rendered==='string' && rendered.includes('qr-question-panel'),'renderer output for '+id);
+ const issues=schema.validate(q,index);
  assert.equal(issues.length,0,'schema validation for '+id+': '+issues.map(x=>x.code+': '+x.message).join('; '));
 }
 assert.equal(formats.size,13,'seed batch should cover all 13 QuickRN formats');
