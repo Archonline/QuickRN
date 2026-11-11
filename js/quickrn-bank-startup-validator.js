@@ -24,6 +24,7 @@
    ids.add(id);
    schema.validate(item,index).forEach(issue=>add(issue.code,issue.message,id));
   });
+  if(typeof schema.validateGroups==='function')schema.validateGroups(bank).forEach(issue=>add(issue.code,issue.message,issue.groupId));
  }
  report.status=report.errors.length?'blocked':'passed';
  root.QuickRNBankStartupValidation=report;
