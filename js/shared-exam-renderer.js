@@ -796,7 +796,7 @@ if(window.QuickRNSharedRenderer){window.QuickRNSharedRenderer.renderReact=functi
 const quickRNFullPassagePreviousRender=quickRNRenderClinicalItem;
 quickRNRenderClinicalItem=function(q,d,submitted=false){
  if(quickRNDetectItemFormat(q)!=='Highlight')return quickRNFullPassagePreviousRender(q,d,submitted);
- const a=quickRNAdaptClinicalSchema(q),ehr=a.ehr||{},notes=quickRNContractText(q.nursingNotes??q.nursesNotes??q.nurseNotes??q.clinicalRecord?.nursesNotes??ehr.nursesNotes??ehr.tabs?.nursesNotes??q.leftPane?.nursesNotes??q.clinicalScenario??q.scenario??q.caseStudyContext?.scenario??q.caseStudyContext?.summary??'');
+ const a=quickRNAdaptClinicalSchema(q),ehr=a.ehr||{},notes=quickRNContractText(q.nursingNotes??q.nursesNotes??q.nurseNotes??q.clinicalRecord?.nursesNotes??ehr.nursesNotes??ehr.tabs?.nursesNotes??q.leftPane?.nursesNotes??q.clinicalScenario??q.scenario??q.stimulus?.tabs?.nursesNotes??q.stimulus?.scenario??q.stimulus?.clinicalScenario??q.caseStudyContext?.scenario??q.caseStudyContext?.summary??q.patientProfile?.presentingConcern??q.patientInfo?.history??'');
  const raw=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
  const source=quickRNContractText(q.highlightText??q.passage??q.highlightPassage??q.paragraph??q.situation??q.stimulus?.highlightText??q.stimulus?.scenario??q.stimulus?.clinicalScenario??(raw.length?raw.map(x=>quickRNContractText(x.text??x.label??x)).join(' '):null)??notes);
  const cues=raw.length?raw.map((x,i)=>({id:String(x.id??i),text:quickRNContractText(x.text??x.label??x.value??x),start:x.start??x.startIndex,end:x.end??x.endIndex})).filter(x=>x.text):(source.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[source]).map((x,i)=>({id:String(i),text:x.trim()})).filter(x=>x.text);
