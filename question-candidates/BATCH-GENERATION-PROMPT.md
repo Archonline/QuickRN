@@ -20,6 +20,20 @@ Generate original QuickRN NCLEX-style practice questions from public clinical ev
 5. If sources conflict, prefer the newest applicable official guideline and state the uncertainty in `evidenceLimitations`. Never invent citations or pretend a source supports a claim it does not.
 6. Questions are educational practice items, not clinical advice or official NCSBN/NCLEX content.
 
+
+## NGN presentation contracts (required for all new items)
+
+These are schema requirements, not optional styling suggestions. Preserve a clear distinction between left-pane clinical evidence and the right-pane task.
+
+- **Matrix Single:** provide `matrixLeftPane` as a concise clinical finding/context (normally one or two sentences, no more than about 180 characters) and `matrixTask` as the explicit task. Keep row labels concise. Do not put the full long case narrative in every matrix row.
+- **Extended Drag and Drop:** provide `availableItems` in a deliberately non-keyed initial order and `correctOrder` as the authoritative sequence. Feedback must identify each item in a correct or incorrect position and show the full correct sequence after submission.
+- **Highlight:** provide one complete readable paragraph in `highlightText` (or `nursingNotes`) and `highlightSegments` for cue phrases. Each segment should include a stable `id`, exact `text`, and preferably character `start`/`end` offsets into the paragraph. Use `correctHighlights` for the keyed cue IDs. Put the nursing note in the left pane; do not convert the paragraph into separate SATA options.
+- **Trend:** use `trendData.stages` for a sequential clinical trajectory. Each stage must contain `time` (or stage label), `situation`/patient status, a distinct `question`, `options`, and `correctAnswer`/ `answerKey`. Show a plausible initial state followed by improvement, deterioration, or a response to intervention. Each stage must require a response; later stages must reflect the preceding trajectory without inventing unsupported values.
+- **Bowtie:** the initial condition/actions/monitoring fields remain required. Optional `bowtieData.followUpQuestions` may add one or more ordered-response follow-ups, each with `question`, `availableItems`, and `correctOrder`.
+- **Cloze (Drop-down) / Dropdown Rationale:** store the complete sentence with blank tokens only in `clozeTemplate`; store the learner task separately in `instruction`. Do not repeat the full cloze sentence as a second question heading. Give each dropdown a stable `id`, plausible `options`, and keyed `correct` value.
+
+The schema's `presentation` defaults describe these rendering contracts. Use the exact data fields above so the shared renderer can place, display, capture, and grade each interaction consistently in Self-Study, Timed Practice, Predictor, and CAT.
+
 ## Output
 Return only valid JSON: `{"questions":[...]}`. Generate exactly the requested count. Each item must:
 - Use a unique supplied `QR-######` ID in `id` and `metadata.id`.
