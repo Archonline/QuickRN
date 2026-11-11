@@ -145,7 +145,7 @@ assert.ok(splitHighlightHtml.indexOf('Clinical Record')<splitHighlightHtml.index
 assert.ok(!splitHighlightHtml.slice(splitHighlightHtml.indexOf('qr-question-panel')).includes('A client develops sudden confusion and hypotension.'),'highlight scenario is not repeated in the task pane');
 
 
-// Rebuilt NGN presentation contracts: matrix split, ordered feedback, paragraph highlight,
+// Rebuilt NGN presentation contracts (regression coverage): matrix split, ordered feedback, paragraph highlight,
 // sequential trend stages, bowtie follow-up ordering, and cloze stem de-duplication.
 const matrixSingle={id:'MATRIX-SINGLE-PRESENTATION',type:'Matrix Single',matrixLeftPane:'A 74-year-old client arrives with shortness of breath. Oxygen saturation is 86% on room air. The client is using accessory muscles. Additional history is available in the chart.',matrixTask:'For each finding, select the most appropriate interpretation.',rows:[{id:'oxygen',text:'Oxygen saturation 86%',options:['Expected','Urgent'] }],correctAnswers:{oxygen:'Urgent'}};
 const matrixSingleHtml=api.renderReact(matrixSingle,undefined,()=>{},false);
