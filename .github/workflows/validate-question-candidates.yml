@@ -19,6 +19,8 @@ on:
       - 'question-candidates/**'
       - 'scripts/**'
       - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-bank-startup-validator.js'
+      - 'data/question-bank.js'
 
 permissions:
   contents: read
