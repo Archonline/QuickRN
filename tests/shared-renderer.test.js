@@ -186,11 +186,11 @@ assert.equal(clean('Mantoux/TB screening: A client returns for the test reading.
 assert.equal(clean('Guillain-Barré syndrome: An adult reports progressive weakness.'), 'An adult reports progressive weakness.');
 
 const highlightClinical={id:'HIGHLIGHT-CLINICAL',type:'Highlight',question:'Identify the significant cues.',nursingNotes:'At 0900 the client is alert and oriented. At 1000 the client becomes newly confused and reports severe shortness of breath.',highlightText:'At 1000 the client becomes newly confused and reports severe shortness of breath.',highlightSegments:[{id:'confusion',text:'newly confused'},{id:'dyspnea',text:'severe shortness of breath'}],correctHighlights:['confusion','dyspnea']};
-const highlightHtml=api.renderReact(highlightClinical,{highlights:[]},()=>{},false);
-assert.ok(highlightHtml.includes('Clinical Record'),'highlight shows provided nursing note in clinical record');
-assert.ok(highlightHtml.includes('newly confused'),'highlight passage is rendered as selectable clinical cues');
-assert.ok(highlightHtml.includes('At 1000 the client becomes'),'highlight keeps the complete clinical paragraph around the selectable cues');
-assert.ok(highlightHtml.includes('quickRNToggleDraft("highlights"'),'highlight cues are interactive');
+const caseHighlightHtml=api.renderReact(highlightClinical,{highlights:[]},()=>{},false);
+assert.ok(caseHighlightHtml.includes('Clinical Record'),'highlight shows provided nursing note in clinical record');
+assert.ok(caseHighlightHtml.includes('newly confused'),'highlight passage is rendered as selectable clinical cues');
+assert.ok(caseHighlightHtml.includes('At 1000 the client becomes'),'highlight keeps the complete clinical paragraph around the selectable cues');
+assert.ok(caseHighlightHtml.includes('quickRNToggleDraft("highlights"'),'highlight cues are interactive');
 const highlightNoRecord={...highlightClinical,nursingNotes:undefined,highlightText:'The client develops new-onset chest pain and diaphoresis.'};
 const highlightNoRecordHtml=api.renderReact(highlightNoRecord,{highlights:[]},()=>{},false);
 assert.ok(highlightNoRecordHtml.includes('question-only'),'highlight without separate clinical record uses a single pane');
