@@ -21,6 +21,19 @@ QuickRN implements practice versions of the three NCSBN scoring approaches:
 
 The scoring method is surfaced in submitted-answer feedback. Item-level keys and rationales still depend on the quality and completeness of the question-bank metadata.
 
+
+## Source-grounded question generation
+
+QuickRN now supports direct batch publishing of original AI-generated practice questions into the canonical `data/question-bank.js` file. The primary path does not require educator approval; it does require unique IDs, schema-v2 validation, HTTPS source references, answer rationales, and the repository's rendering/scoring checks.
+
+```bash
+node scripts/publish-question-batch.js generated-batch.json
+```
+
+Use `question-candidates/BATCH-GENERATION-PROMPT.md` to create source-grounded batches. Prefer NCSBN for the exam blueprint, CDC for public-health and infection-control guidance, NIH/NLM/MedlinePlus for reviewed health topics, AHRQ for patient safety, and FDA for medication safety. Use sources for clinical facts, then write entirely original scenarios and questions; do not lightly paraphrase commercial question-bank items or secure NCLEX content.
+
+Automated validation does not certify clinical accuracy or prove that a cited source supports every claim. Retain citations on every item and treat the bank as AI-generated educational practice content. The publisher does not connect an AI provider; generate a JSON batch with an AI tool and run the local command. See [the source-grounded pipeline guide](docs/source-grounded-question-pipeline.md).
+
 ## CAT practice disclaimer
 
 The CAT mode uses an instructional ability-estimation model, difficulty matching, an 85-item minimum checkpoint, a 150-item maximum, and a five-hour time limit. It is a simulator, not the NCSBN/Pearson VUE operational CAT algorithm. It does not model the 15 unscored pretest items, secure calibrated item pool, or proprietary operational decision algorithm. Any readiness or passing-likelihood value is an educational estimate and must not be represented as an official NCLEX result.
