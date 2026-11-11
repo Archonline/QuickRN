@@ -189,8 +189,8 @@
     evidenceLimitations:['Original educational practice scenario. Verify treatment decisions against current institutional protocols and patient-specific orders.'],
     patientProfile:c.patient,patientInfo:c.patient,
     history:c.history,nursingNotes:stageNotes,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders,tabs:clinicalTabs,
-    ehr:{historyPhysical:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders,tabs:{history:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders}},
-    stimulus:{caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),patientProfile:c.patient,tabs:{history:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,labResults:stageLabs,providerOrders:c.orders}},
+    ehr:{historyPhysical:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders,tabs:{history:[c.history],nursesNotes:[stageNotes],vitalSigns:[stageVitals],diagnosticResults:[stageLabs],providerOrders:[c.orders]}},
+    stimulus:{caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),patientProfile:c.patient,tabs:{history:[c.history],nursesNotes:[stageNotes],vitalSigns:[stageVitals],labResults:[stageLabs],providerOrders:[c.orders]}},
     rationales:{overall:spec.rationale,options:spec.why,clinicalJudgmentTip:spec.tip},
     optionRationales:spec.why
    };
