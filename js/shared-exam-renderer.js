@@ -630,7 +630,7 @@ window.QuickRNSharedRenderer={
 /* Rebuilt NGN presentation contracts: shared by Self-Study, Timed, Predictor and CAT. */
 const quickRNContractBaseRender=quickRNRenderClinicalItem;
 function quickRNContractText(v){return quickRNPlainClinicalText(v==null?'':v);}
-function quickRNContractTruncate(v,max=180){const text=quickRNContractText(v);const sentences=text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[text];let out='';for(const sentence of sentences){const next=(out+' '+sentence.trim()).trim();if(next.length>max)break;out=next;}if(!out)out=text.slice(0,max);return out.length<text.length?out.replace(/[\s,;:]+$/,'')+'…':out;}
+function quickRNContractTruncate(v,max=140){const text=quickRNContractText(v);const sentences=text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[text];let out='';for(const sentence of sentences){const next=(out+' '+sentence.trim()).trim();if(next.length>max)break;out=next;}if(!out)out=text.slice(0,max);return out.length<text.length?out.replace(/[\s,;:]+$/,'')+'…':out;}
 function quickRNContractEsc(v){return quickRNEscape(v==null?'':v);}
 function quickRNContractRecord(q,notes){
  const safe=quickRNContractText(notes);
