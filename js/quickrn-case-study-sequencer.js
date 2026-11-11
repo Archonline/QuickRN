@@ -3,7 +3,7 @@
  'use strict';
  const keyOf=q=>String(q&&(q.caseGroupId||q.caseId||q.caseStudyId||q.caseStudyGroupId||q.clinicalCaseId||q.patientCaseId||q.caseStudyContext?.id||q.caseStudyContext?.caseId||q.caseStudyContext?.caseGroupId||q.caseStudy?.caseGroupId||q.caseStudy?.groupId||q.caseStudy?.id||q.case_study?.caseGroupId||q.case_study?.groupId||q.case_study?.id||q.clinicalCase?.id||q.clinicalCase?.caseId)||'').trim();
  const sequenceOf=q=>{
-  const values=[q?.caseQuestionNumber,q?.caseQuestionIndex,q?.questionSequence,q?.sequenceNumber,q?.stepNumber,q?.questionNumber,q?.questionIndex,q?.caseStudyContext?.stepIndex];
+  const values=[q?.caseQuestionNumber,q?.caseStudySequence,q?.caseQuestionIndex,q?.questionSequence,q?.sequenceNumber,q?.stepNumber,q?.questionNumber,q?.questionIndex,q?.caseStudyContext?.stepIndex];
   for(const value of values){const n=Number(value);if(value!==undefined&&value!==null&&value!==''&&Number.isFinite(n))return n;}
   return null;
  };
