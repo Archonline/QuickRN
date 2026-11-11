@@ -48,3 +48,10 @@ assert.equal(presentationDefaults.interaction.presentation.trend.mode,'sequentia
 assert.equal(presentationDefaults.presentation.extendedDragAndDrop.showSequenceFeedback,true,'ordered items default to sequence feedback');
 assert.equal(presentationDefaults.presentation.cloze.deduplicateStem,true,'Cloze schema enables repeated-stem prevention');
 console.log('Question Schema v2 adapter tests passed.');
+
+const trendTooShort={metadata:{id:'QR-TREND-BAD',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Evaluate Outcomes',difficulty:3},interaction:{type:'Trend',stem:'Review the patient trend.',options:['A','B','C','D'],answerKey:'A',scoring:{method:'0/1'}},trendData:{stages:[{time:'0800',situation:'Initial findings',question:'What next?',options:['A','B'],correctAnswer:'A'}]},stimulus:{tabs:{nursesNotes:'Patient assessed.'}},rationales:{overall:'Clinical explanation',options:{A:'Rationale A'},clinicalJudgmentTip:'Review the trend.'}};
+const trendIssues=schema.validate(trendTooShort,9).map(x=>x.code);
+assert.ok(trendIssues.includes('V2_TREND_REQUIRES_STAGES'),'trend requires at least three time points');
+assert.ok(trendIssues.includes('V2_TREND_OPTIONS_TOO_FEW'),'trend requires at least four options at every time point');
+const highlightMissing={metadata:{id:'QR-HIGHLIGHT-BAD',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Recognize Cues',difficulty:2},interaction:{type:'Highlight',stem:'Highlight the cues.',answerKey:['cue1'],scoring:{method:'0/1'}},stimulus:{tabs:{}},rationales:{overall:'Clinical explanation',options:{cue1:'Rationale'},clinicalJudgmentTip:'Look for deterioration.'}};
+assert.ok(schema.validate(highlightMissing,10).some(x=>x.code==='V2_HIGHLIGHT_PASSAGE_MISSING'),'highlight requires a clinical passage or selectable clinical text');

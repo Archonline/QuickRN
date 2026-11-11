@@ -1224,31 +1224,11 @@
       "clinicalJudgmentTip": "Prioritize the current cues, compare them with baseline, and reassess the client's response after intervention."
     },
     "trendData": {
-      "headers": [
-        "Time",
-        "Temperature",
-        "Heart rate",
-        "Blood pressure"
-      ],
-      "rows": [
-        [
-          "0800",
-          "38.0°C",
-          "104/min",
-          "108/68 mm Hg"
-        ],
-        [
-          "1000",
-          "38.7°C",
-          "118/min",
-          "96/58 mm Hg"
-        ],
-        [
-          "1200",
-          "39.1°C",
-          "132/min",
-          "84/48 mm Hg"
-        ]
+      "title": "Serial vital-sign changes during treatment for infection",
+      "stages": [
+        {"time":"0800 — Initial assessment","situation":"The client has a temperature of 38.0°C, heart rate 104/min, and blood pressure 108/68 mm Hg.","vitalSigns":{"Temperature":"38.0°C","Heart rate":"104/min","Blood pressure":"108/68 mm Hg"},"question":"Which interpretation and nursing response are most appropriate at this time?","options":["The client is stable; continue focused assessment and trend vital signs.","The client is in irreversible shock and resuscitation is futile.","The client is ready for discharge.","The findings confirm treatment success; stop monitoring."],"correctAnswer":"The client is stable; continue focused assessment and trend vital signs."},
+        {"time":"1000 — Worsening findings","situation":"The temperature rises to 38.7°C, heart rate to 118/min, and blood pressure falls to 96/58 mm Hg.","vitalSigns":{"Temperature":"38.7°C","Heart rate":"118/min","Blood pressure":"96/58 mm Hg"},"question":"What should the nurse do in response to this change?","options":["Document the findings as expected and wait until the next routine round.","Promptly notify the provider or activate the facility escalation pathway and reassess perfusion.","Encourage ambulation to lower the heart rate.","Discontinue prescribed treatment because the fever is increasing."],"correctAnswer":"Promptly notify the provider or activate the facility escalation pathway and reassess perfusion."},
+        {"time":"1200 — Further deterioration","situation":"The temperature is 39.1°C, heart rate 132/min, and blood pressure 84/48 mm Hg.","vitalSigns":{"Temperature":"39.1°C","Heart rate":"132/min","Blood pressure":"84/48 mm Hg"},"question":"Which action is the priority now?","options":["Activate the rapid response or emergency escalation pathway and support immediate evaluation.","Recheck the vital signs in 4 hours.","Prepare the client for discharge.","Offer oral fluids and defer notification until the next shift."],"correctAnswer":"Activate the rapid response or emergency escalation pathway and support immediate evaluation."}
       ]
     }
   },
@@ -3260,13 +3240,17 @@
     "question": "A client with diabetes is alert and receives 15 g of oral glucose for hypoglycemia. Review the glucose trend and identify the interpretation that best guides the next action.",
     "options": [
       "Hypoglycemia has resolved and no further assessment is needed.",
-      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment."
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.",
+      "Wait 60 minutes before checking the glucose again."
     ],
     "correctAnswer": "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
     "rationale": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
     "optionRationales": {
       "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
-      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
+      "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
     },
     "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation.",
     "sourceReferences": [
@@ -3302,28 +3286,54 @@
       "overall": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
       "options": {
         "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
-        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
+      "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
       },
       "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation."
     },
     "trendData": {
-      "columns": [
-        "Time",
-        "Capillary blood glucose"
-      ],
-      "rows": [
-        [
-          "0715",
-          "58 mg/dL"
-        ],
-        [
-          "0730",
-          "82 mg/dL after 15 g glucose"
-        ],
-        [
-          "0745",
-          "65 mg/dL"
-        ]
+      "title": "Serial capillary blood glucose after treatment",
+      "stages": [
+        {
+          "time": "0715 — Initial assessment",
+          "situation": "The client is alert, reports shakiness and diaphoresis, and has a capillary blood glucose of 58 mg/dL.",
+          "vitalSigns": {"Capillary blood glucose": "58 mg/dL", "Neurologic status": "Alert and able to swallow"},
+          "question": "Which action should the nurse take first?",
+          "options": [
+            "Give 15 g of fast-acting oral carbohydrate and recheck glucose in 15 minutes.",
+            "Administer the scheduled insulin dose immediately.",
+            "Withhold all carbohydrate and recheck in 60 minutes.",
+            "Give a high-fat snack and reassess at the end of the shift."
+          ],
+          "correctAnswer": "Give 15 g of fast-acting oral carbohydrate and recheck glucose in 15 minutes."
+        },
+        {
+          "time": "0730 — First reassessment",
+          "situation": "Fifteen minutes after oral glucose, the client feels less shaky and the capillary blood glucose is 82 mg/dL.",
+          "vitalSigns": {"Capillary blood glucose": "82 mg/dL", "Symptoms": "Improving"},
+          "question": "How should the nurse interpret this response and proceed?",
+          "options": [
+            "The initial treatment has improved the glucose; continue monitoring and provide a snack or meal when appropriate.",
+            "Hypoglycemia is worsening; administer another full dose of oral glucose without reassessment.",
+            "The client is now hyperglycemic and requires an immediate correction dose of insulin.",
+            "No further glucose checks are needed for the remainder of the shift."
+          ],
+          "correctAnswer": "The initial treatment has improved the glucose; continue monitoring and provide a snack or meal when appropriate."
+        },
+        {
+          "time": "0745 — Recurrent low glucose",
+          "situation": "At the next 15-minute check, the glucose has fallen again to 65 mg/dL. The client is still alert and able to swallow.",
+          "vitalSigns": {"Capillary blood glucose": "65 mg/dL", "Symptoms": "Recurrent shakiness"},
+          "question": "Which action is the priority now?",
+          "options": [
+            "Document the earlier improvement and stop glucose monitoring.",
+            "Repeat 15 g of fast-acting oral carbohydrate and recheck the glucose in 15 minutes.",
+            "Administer the scheduled insulin dose to stabilize the glucose.",
+            "Delay treatment and repeat the glucose measurement in 1 hour."
+          ],
+          "correctAnswer": "Repeat 15 g of fast-acting oral carbohydrate and recheck the glucose in 15 minutes."
+        }
       ]
     }
   },

@@ -249,6 +249,25 @@
   if(it.type==='Extended Drag and Drop'&&!(Array.isArray(q.correctOrder)&&q.correctOrder.length))issue('V2_INVALID_ORDER_KEY','Ordered response requires a complete correct sequence.');
   if(['Cloze (Drop-down)','Dropdown Rationale'].includes(it.type)&&!(q.dropdowns||q.clozeTemplate||q.options&&typeof q.options==='object'))issue('V2_INVALID_CLOZE_DATA','Cloze items require dropdown choices and a template.');
   if(['Bowtie','Matrix Single','Matrix Multiple','Cloze (Drop-down)','Dropdown Rationale','Highlight','Numeric Entry','Extended Drag and Drop'].includes(it.type)&&(!q.stimulus||!Object.keys(q.stimulus).length)&&!q.bowtieData&&!q.matrixData&&!q.highlightSegments&&!q.trendData&&!q.dropdowns&&!q.clozeTemplate&&!q.availableItems&&!q.numericRange)issue('V2_MISSING_FORMAT_DATA','This NGN format requires its format-specific clinical or interaction data.');
+  if(it.type==='Highlight'){
+   const passage=[q.highlightText,q.passage,q.highlightPassage,q.paragraph,q.situation,q.scenario,q.clinicalScenario,q.nursingNotes,q.nursesNotes,q.stimulus?.scenario,q.stimulus?.tabs?.nursesNotes].some(v=>typeof v==='string'&&v.trim().length>40);
+   const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
+   if(!passage&&!segments.some(x=>String(x?.text??x?.label??'').trim().length>8))issue('V2_HIGHLIGHT_PASSAGE_MISSING','Highlight requires a readable clinical paragraph or selectable clinical text segments.');
+   if(!Array.isArray(q.correctHighlights)&&!Array.isArray(key)&&!Array.isArray(key?.highlights))issue('V2_INVALID_HIGHLIGHT_KEY','Highlight requires keyed cue IDs or exact cue text.');
+  }
+  if(it.type==='Trend'){
+   const stages=q.trendData?.stages;
+   if(!Array.isArray(stages)||stages.length<3)issue('V2_TREND_REQUIRES_STAGES','Trend requires at least three chronological patient time points.');
+   else stages.forEach((stage,i)=>{
+    const options=Array.isArray(stage.options)?stage.options:(Array.isArray(stage.distractors)?stage.distractors:[]);
+    if(options.length<4)issue('V2_TREND_OPTIONS_TOO_FEW','Trend time point '+(i+1)+' requires at least four clinically plausible response options.');
+    if(!stage.time&&!stage.timestamp&&!stage.interval)issue('V2_TREND_TIME_MISSING','Each trend time point requires a time or interval label.');
+    if(!stage.situation&&!stage.patientStatus&&!stage.update&&!stage.vitalSigns&&!stage.vitals&&!stage.observations&&!stage.data)issue('V2_TREND_FINDINGS_MISSING','Each trend time point requires updated patient findings.');
+    if(!stage.question)issue('V2_TREND_TASK_MISSING','Each trend time point requires a stage-specific clinical judgment question.');
+    if(stage.correctAnswer===undefined&&stage.answerKey===undefined)issue('V2_TREND_ANSWER_MISSING','Each trend time point requires its own answer key.');
+   });
+  }
+  if(it.type==='Select N'&&(!Array.isArray(opts)||opts.length<4))issue('V2_SELECT_N_OPTIONS_TOO_FEW','Select N requires at least four visible response options.');
   if(q.caseGroupId||q.stimulus?.caseGroupId){
    const tabs=obj(q.stimulus?.tabs);
    Object.entries(tabs).forEach(([name,value])=>{if(value!=null&&!Array.isArray(value)&&typeof value!=='object')issue('V2_INVALID_EHR_TAB','EHR tab '+name+' must be an array or key-value object.');});
