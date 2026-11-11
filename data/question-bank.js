@@ -2070,6 +2070,10 @@
         "The infant has a mildly reduced appetite but is alert and producing wet diapers.": "An alert infant who continues to produce wet diapers has fewer signs of significant dehydration."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
+    },
+    "caseStudyContext": {
+      "summary": "A 7-month-old infant has had frequent watery stools for 24 hours. The parent is monitoring oral intake, wet diapers, activity, and signs of dehydration at home.",
+      "scenario": "The parent calls the pediatric clinic to describe the infant's symptoms and asks which change requires the most urgent evaluation."
     }
   },
   {
@@ -2298,6 +2302,10 @@
         "Wait for a high fever before contacting a clinician.": "A high fever is not required for dehydration to become serious; reduced urination and altered alertness are important warning signs."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
+    },
+    "caseStudyContext": {
+      "summary": "A parent is caring for a young child at home after an episode of vomiting and diarrhea. The nurse is reinforcing oral rehydration, intake monitoring, and warning signs that require medical evaluation.",
+      "scenario": "The parent asks which instruction is most important when monitoring the child for worsening dehydration."
     }
   },
   {
