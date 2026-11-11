@@ -10,21 +10,21 @@ for(const file of ['js/quickrn-question-schema-v2.js','data/question-bank.js','j
 const bank=context.window.QuickRNQuestionBank?.items;
 const schema=context.window.QuickRNQuestionSchemaV2;
 assert.ok(Array.isArray(bank),'canonical bank must load as an array');
-assert.equal(bank.length,13,'seed bank should contain 13 items');
-assert.equal(context.window.quickRNBankReady,true,'startup validator should allow the seeded bank');
+assert.ok(bank.length>=13,'bank must retain at least one item for each of the 13 QuickRN formats');
+assert.equal(context.window.quickRNBankReady,true,'startup validator should allow the canonical bank');
 const ids=new Set();
 const formats=new Set();
 for(const [index,q] of bank.entries()){
  const id=String(q.metadata?.id||q.id||'');
- assert.match(id,/^QR-\d{6}$/,'canonical ID for item '+(index+1));
+ assert.match(id,/^QR-\\d{6}$/,'canonical ID for item '+(index+1));
  assert.ok(!ids.has(id),'duplicate ID '+id);ids.add(id);
  formats.add(q.interaction?.type);
  assert.ok(Array.isArray(q.sourceReferences)&&q.sourceReferences.length,'source references for '+id);
- assert.ok(q.sourceReferences.every(r=>/^https:\/\//.test(r.url||'')),'HTTPS source references for '+id);
+ assert.ok(q.sourceReferences.every(r=>typeof r.title==='string'&&r.title.trim()&&/^https:\\/\\//.test(r.url||'')),'titled HTTPS source references for '+id);
  const rendered=context.quickRNRenderClinicalItem(q,{});
  assert.ok(typeof rendered==='string' && rendered.includes('qr-question-panel'),'renderer output for '+id);
  const issues=schema.validate(q,index);
  assert.equal(issues.length,0,'schema validation for '+id+': '+issues.map(x=>x.code+': '+x.message).join('; '));
 }
-assert.equal(formats.size,13,'seed batch should cover all 13 QuickRN formats');
-console.log('PASS: '+bank.length+' active items; all 13 formats represented; IDs, source references, and schema validation passed.');
+assert.equal(formats.size,13,'active bank must cover all 13 QuickRN formats');
+console.log('PASS: '+bank.length+' active items; all 13 formats represented; IDs, source references, schema validation, and renderer output passed.');
