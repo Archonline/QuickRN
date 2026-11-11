@@ -1,32 +1,61 @@
-# QuickRN batch AI question-generation prompt
+# QuickRN source-grounded question batch generator
 
-Use this with an AI model when an educator wants to prepare a batch for the local importer. The output is untrusted draft content; it is not approved for student use.
+Generate original QuickRN NCLEX-style practice questions from public clinical evidence. This workflow does not require educator approval before import; it uses automated structural, provenance, duplication, rendering, and scoring checks. Automated checks do **not** certify clinical accuracy.
 
-## Prompt
+## Inputs
+- Topics / learning objectives: {{TOPICS}}
+- Target count: {{COUNT}}
+- NCLEX-RN Client Needs distribution: {{CLIENT_NEEDS_DISTRIBUTION}}
+- CJMM stages: {{CJMM_STAGES}}
+- Difficulty range (1–5): {{DIFFICULTY_RANGE}}
+- Exact QuickRN format distribution: {{FORMAT_DISTRIBUTION}}
+- IDs: {{QUESTION_IDS}}
+- Learner context: entry-level RN, unless otherwise specified
 
-You are drafting original nursing education practice questions for QuickRN. Generate exactly `{{COUNT}}` independent questions and return one JSON object with a top-level `questions` array.
+## Evidence-first research rules
+1. Research each clinical concept using at least two independent, current, authoritative public sources when available. Prefer official guidelines and government health agencies: NCSBN/NCLEX test plan for exam blueprint and item-writing conventions; CDC for infection prevention and public health; NIH/NLM/MedlinePlus for disease and medication background; AHRQ for patient safety; FDA for medication/device safety; WHO and relevant professional societies for current clinical guidance.
+2. Use sources to establish clinical facts, safety thresholds, nursing actions, and rationale. Record exact source title, publisher, URL, publication/update date when visible, and access date.
+3. Do not copy, lightly paraphrase, or adapt question stems, options, rationales, or case narratives from commercial question banks, NCLEX prep sites, textbooks, copyrighted sample questions, or live exam content. Do not scrape question banks. Do not disguise copied questions by changing names, ages, numbers, or wording.
+4. Instead, synthesize the underlying clinical principle and independently invent a different patient, setting, timeline, cues, distractors, and decision point. Write from the clinical facts, not from an existing question.
+5. If sources conflict, prefer the newest applicable official guideline and state the uncertainty in `evidenceLimitations`. Never invent citations or pretend a source supports a claim it does not.
+6. Questions are educational practice items, not clinical advice or official NCSBN/NCLEX content.
 
-Educator inputs:
-- Learning objectives / topics: `{{TOPICS}}`
-- NCLEX Client Needs categories: `{{CLIENT_NEEDS}}`
-- CJMM stages: `{{CJMM_STAGES}}`
-- Difficulty range (1–5): `{{DIFFICULTY_RANGE}}`
-- Required format distribution: `{{FORMAT_DISTRIBUTION}}`
-- Learner level / clinical context: `{{LEARNER_CONTEXT}}`
-- Unique IDs, one per item: `{{QUESTION_IDS}}`
+## Output
+Return only valid JSON: `{"questions":[...]}`. Generate exactly the requested count. Each item must:
+- Use a unique supplied `QR-######` ID in `id` and `metadata.id`.
+- Use exactly one of these 13 QuickRN schema-v2 formats: Single Choice, Multiple Response, Select N, Matrix Single, Matrix Multiple, Cloze (Drop-down), Dropdown Rationale, Bowtie, Extended Drag and Drop, Extended Multiple Response, Highlight, Trend, Numeric Entry.
+- Include a complete, independently written scenario/stem, keyed answer, overall rationale, answer-specific rationales, clinical judgment tip, topic, category, Client Needs, CJMM stage, difficulty, sourceReferences (at least two where reasonably available), and evidenceLimitations (empty array when none).
+- Include format-specific interaction data, options, exhibits, tables, answer spaces, and scoring fields required by QuickRN. The response must genuinely use the requested format, not disguise single-choice as NGN.
+- Keep all numbers, units, reference ranges, medication doses, contraindications, and nursing scope statements traceable to the cited sources or standard arithmetic. Include calculations and rounding rules.
+- Make distractors plausible but clearly less safe/less appropriate under the stated facts. Avoid trick wording, hidden assumptions, ambiguous multiple keys, and unsupported absolutes.
+- Ensure each keyed response is actually supported by the cited evidence. Rationales must explain why the correct response is best and why each distractor is less appropriate.
+- Use the QuickRN schema-v2 object shape below; add all format-specific properties required by the schema.
 
-Requirements:
-1. Return only valid JSON. No Markdown fences, prose, or comments. Shape: `{"questions":[{...},{...}]}`.
-2. Return question objects only, without a `review` wrapper. Each item will be imported as a separate pending JavaScript module.
-3. Use only these exact QuickRN schema-v2 format strings: `Single Choice`, `Multiple Response`, `Select N`, `Matrix Single`, `Matrix Multiple`, `Cloze (Drop-down)`, `Dropdown Rationale`, `Bowtie`, `Extended Drag and Drop`, `Extended Multiple Response`, `Highlight`, `Trend`, `Numeric Entry`.
-4. Follow the requested format distribution exactly. Do not replace an interaction-specific item with ordinary multiple choice.
-5. Create original, realistic, self-contained scenarios. Never reproduce, paraphrase, or claim access to protected/live NCLEX questions or commercial test-bank content.
-6. Use the supplied unique ID in both `id` and `metadata.id`. Do not reuse IDs within the batch.
-7. Include a defensible answer key, overall rationale, option/row/action-specific rationales where applicable, a concise clinical judgment tip, and verifiable evidence references. Never invent sources. If evidence cannot be verified, state the gap in `educatorFlags`.
-8. Prioritize patient safety, current evidence, nursing scope, and unambiguous wording. For medication calculations, show the calculation, units, rounding rule, and stated safe-dose assumptions.
-9. Include all format-specific stimulus and interaction data required by the QuickRN schema. Keep stable response IDs and ensure answer keys refer to those IDs.
-10. Set `metadata.cjmmStep` to one of `Recognize Cues`, `Analyze Cues`, `Prioritize Hypotheses`, `Generate Solutions`, `Take Action`, or `Evaluate Outcomes`. Set `metadata.difficulty` to an integer from 1 to 5. Use a supported scoring method: `plus_minus`, `0/1`, or `rationale`.
-11. Do not include real patient information, identifiers, or student data.
-12. Do not generate a linked six-question NGN case unless explicitly requested. A case set requires educator review as a complete linked unit.
+```json
+{
+  "id":"QR-000001",
+  "schemaVersion":2,
+  "category":"Adult Health",
+  "topic":"Specific clinical concept",
+  "clientNeeds":"Physiological Adaptation",
+  "cjmmStep":"Analyze Cues",
+  "difficulty":3,
+  "type":"Single Choice",
+  "question":"Original scenario and task...",
+  "options":["A","B","C","D"],
+  "correctAnswer":"A",
+  "rationale":"Evidence-grounded explanation...",
+  "optionRationales":{"A":"...","B":"...","C":"...","D":"..."},
+  "clinicalJudgmentTip":"...",
+  "sourceReferences":[
+    {"title":"Exact source title","publisher":"Publisher","url":"https://...","publishedAt":"YYYY-MM-DD or unknown","accessedAt":"YYYY-MM-DD"}
+  ],
+  "evidenceLimitations":[],
+  "metadata":{"id":"QR-000001","category":"Adult Health","clientNeeds":"Physiological Adaptation","cjmmStep":"Analyze Cues","difficulty":3},
+  "interaction":{"type":"Single Choice","stem":"...","options":["A","B","C","D"],"answerKey":"A","scoring":{"method":"0/1"}},
+  "stimulus":{},
+  "rationales":{"overall":"...","options":{"A":"...","B":"...","C":"...","D":"..."},"clinicalJudgmentTip":"..."}
+}
+```
 
-Use the same schema shape as the single-question prompt in `GENERATION-PROMPT.md`, adding any format-specific fields. The batch importer validates structure and duplicate IDs, not clinical correctness, source accuracy, fairness, or safety. Every item remains in `pending_review` until a nurse educator/admin approves it.
+Never return a claim that the item is educator-approved or clinically certified. Output data only.
