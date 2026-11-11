@@ -110,7 +110,7 @@ function quickRNSplitPrompt(q){
      typeof q.caseStudy==='string'?q.caseStudy:'',q.caseStudy?.scenario,q.caseStudy?.narrative,
      typeof q.case_study==='string'?q.case_study:'',q.case_study?.scenario,q.case_study?.narrative]
   : [
-     q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,q.stimulus,
+     q.scenario,q.clinicalScenario,q.patientScenario,q.situation,q.passage,q.context,
      q.patientInfo,q.patientInformation,q.patient_information,q.patientHistory,q.medicalHistory,
      q.caseStudyText,q.case_study_text,q.clinicalRecord,q.clinicalNarrative,q.clinicalCues,
      q.caseStudyContext?.summary,q.caseStudyContext?.narrative,q.caseStudyContext?.description,
@@ -267,7 +267,8 @@ function quickRNRenderClinicalItem(q,draft,submitted=false){
  const tabs=[['Nurses’ Notes',ehr.nursesNotes],['Vital Signs',ehr.vitalSigns],['Diagnostic Results',ehr.diagnosticResults],['History & Physical',ehr.historyPhysical],...(Array.isArray(ehr.additionalTabs)?ehr.additionalTabs:[])];
  const caseContext=q.caseStudyContext||{};
  const patientSummary=typeof q.patientInfo==='string'?quickRNPlainClinicalText(q.patientInfo):(quickRNPatientInfoText(patient)||quickRNPlainClinicalText(caseContext.summary||q.caseStudy||q.case_study||''));
- const hasRecord=!!(q.ehr||patientSummary||q.caseStudyContext||q.patientInfo||q.patientProfile||q.caseStudy||q.case_study||q.caseGroupId||tabs.some(t=>quickRNPlainClinicalText(t[1])));
+ const hasClinicalValue=value=>{if(value==null||value==='')return false;if(Array.isArray(value))return value.some(hasClinicalValue);if(typeof value==='object')return Object.values(value).some(hasClinicalValue);return String(value).trim()!=='';};
+ const hasRecord=!!(patientSummary||hasClinicalValue(q.ehr)||hasClinicalValue(q.patientInfo)||hasClinicalValue(q.patientProfile)||hasClinicalValue(q.caseStudy)||hasClinicalValue(q.case_study)||tabs.some(t=>hasClinicalValue(t[1])&&quickRNPlainClinicalText(t[1])));
  const patientName=quickRNPlainClinicalText(patient.name||patient.patientName||caseContext.title||q.caseTitle||'Patient');
  const caseMeta=caseContext.stepIndex?'<div class="qr-patient-meta">Case study · Item '+quickRNEscape(caseContext.stepIndex)+' of '+quickRNEscape(caseContext.stepCount||caseContext.stepIndex)+'</div>':(patient.code?'<div class="qr-patient-meta">'+quickRNEscape(patient.code)+'</div>':'');
  const seenRecordSections=new Set(patientSummary?[quickRNPlainClinicalText(patientSummary).toLowerCase()]:[]);const recordSections=tabs.map(t=>[t[0],quickRNPlainClinicalText(t[1])]).filter(t=>{if(!t[1])return false;const key=t[1].toLowerCase();if(seenRecordSections.has(key))return false;seenRecordSections.add(key);return true;}).map(t=>'<section class="qr-ehr-section"><h4>'+t[0]+'</h4><div>'+quickRNEscape(t[1])+'</div></section>').join('');
