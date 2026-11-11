@@ -144,6 +144,40 @@ const splitHighlightHtml=api.renderReact(splitHighlight,undefined,()=>{},false);
 assert.ok(splitHighlightHtml.indexOf('Clinical Record')<splitHighlightHtml.indexOf('qr-question-panel'),'highlight scenario appears in the clinical record pane');
 assert.ok(!splitHighlightHtml.slice(splitHighlightHtml.indexOf('qr-question-panel')).includes('A client develops sudden confusion and hypotension.'),'highlight scenario is not repeated in the task pane');
 
+
+// Rebuilt NGN presentation contracts: matrix split, ordered feedback, paragraph highlight,
+// sequential trend stages, bowtie follow-up ordering, and cloze stem de-duplication.
+const matrixSingle={id:'MATRIX-SINGLE-PRESENTATION',type:'Matrix Single',matrixLeftPane:'A 74-year-old client arrives with shortness of breath. Oxygen saturation is 86% on room air. The client is using accessory muscles. Additional history is available in the chart.',matrixTask:'For each finding, select the most appropriate interpretation.',rows:[{id:'oxygen',text:'Oxygen saturation 86%',options:['Expected','Urgent'] }],correctAnswers:{oxygen:'Urgent'}};
+const matrixSingleHtml=api.renderReact(matrixSingle,undefined,()=>{},false);
+assert.ok(matrixSingleHtml.includes('Oxygen saturation is 86%'),'Matrix Single places concise clinical finding in the left pane');
+assert.ok(matrixSingleHtml.includes('For each finding, select the most appropriate interpretation.'),'Matrix Single task appears in the right pane');
+assert.ok(!matrixSingleHtml.includes('Additional history is available in the chart.'),'Matrix Single left pane truncates excess scenario sentences');
+const ordered={id:'ORDER-FEEDBACK',type:'Extended Drag and Drop',availableItems:['Assess airway','Apply oxygen','Reassess saturation'],correctOrder:['Assess airway','Apply oxygen','Reassess saturation']};
+const orderedHtml=api.renderReact(ordered,{order:['Apply oxygen','Assess airway','Reassess saturation']},()=>{},true);
+assert.ok(orderedHtml.includes('Sequence review'),'submitted drag-and-drop displays sequence feedback');
+assert.ok(orderedHtml.includes('Correct sequence'),'submitted drag-and-drop displays the answer sequence');
+assert.ok(orderedHtml.includes('#fee2e2')&&orderedHtml.includes('#dcfce7'),'sequence feedback uses distinct incorrect and correct highlight colors');
+const highlightParagraph={id:'HIGHLIGHT-PARAGRAPH',type:'Highlight',nursingNotes:'Nursing note: The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightText:'The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightSegments:[{id:'confusion',text:'newly confused'},{id:'bp',text:'Blood pressure is 82/46 mm Hg'}],correctHighlights:['confusion','bp']};
+const highlightParagraphHtml=api.renderReact(highlightParagraph,{highlights:['confusion']},()=>{},false);
+assert.ok(highlightParagraphHtml.includes('Nurses’ Notes'),'highlight nursing note is in the left pane');
+assert.ok(highlightParagraphHtml.includes('cool, clammy skin.'),'highlight passage preserves the complete paragraph');
+assert.ok(highlightParagraphHtml.includes('#fef08a'),'highlight selections use yellow');
+const stagedTrend={id:'STAGED-TREND',type:'Trend',trendData:{stages:[{time:'0800',situation:'The client is alert with BP 118/74 mm Hg.',question:'Which finding is most important now?',options:['Stable perfusion','Severe shock'],correctAnswer:'Stable perfusion'},{time:'0830',situation:'The client becomes confused; BP is 84/50 mm Hg.',question:'What should the nurse do next?',options:['Activate rapid response','Continue routine observation'],correctAnswer:'Activate rapid response'}]}};
+const stagedTrendHtml=api.renderReact(stagedTrend,{stageAnswers:{0:'Stable perfusion'}},()=>{},false);
+assert.ok(stagedTrendHtml.includes('Stage 1')&&stagedTrendHtml.includes('Stage 2'),'trend displays sequential patient-state stages');
+assert.ok(stagedTrendHtml.includes('The client becomes confused'),'later deterioration is shown as a new situation');
+assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion'}}),false,'trend requires an answer at each stage');
+assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion',1:'Activate rapid response'}}),true,'trend accepts completed stage responses');
+assert.equal(api.grade(stagedTrend,{stageAnswers:{0:'Stable perfusion',1:'Activate rapid response'}}),true,'trend grades the complete sequence of clinical decisions');
+const bowtieFollow={id:'BOWTIE-FOLLOWUP',type:'Bowtie',bowtieData:{conditions:['Sepsis'],actions:['Obtain cultures','Start prescribed antibiotics'],monitoring:['Blood pressure'],followUpQuestions:[{question:'After recognizing sepsis, arrange the nursing actions in order.',availableItems:['Obtain cultures','Administer prescribed antibiotics','Reassess response'],correctOrder:['Obtain cultures','Administer prescribed antibiotics','Reassess response']}]},correctAnswers:{condition:'Sepsis',actions:['Obtain cultures','Start prescribed antibiotics'],monitoring:['Blood pressure']}};
+const bowtieFollowHtml=api.renderReact(bowtieFollow,{condition:'Sepsis',actions:['Obtain cultures','Start prescribed antibiotics'],monitoring:['Blood pressure'],followUps:{0:['Administer prescribed antibiotics','Obtain cultures','Reassess response']}},()=>{},false);
+assert.ok(bowtieFollowHtml.includes('Follow-up 1')||bowtieFollowHtml.includes('After recognizing sepsis'),'bowtie supports a follow-up ordered-response task');
+assert.ok(bowtieFollowHtml.includes('draggable="true"'),'bowtie follow-up supports drag-and-drop ordering');
+const clozeDuplicate={id:'CLOZE-DEDUP',type:'Cloze (Drop-down)',question:'The client has dehydration. Complete the sentence.',clozeTemplate:'The client has dehydration. The priority intervention is {{action}}.',instruction:'Complete the sentence.',dropdowns:[{id:'action',options:['Administer prescribed fluids','Restrict all fluids'],correct:'Administer prescribed fluids'}],correctAnswers:{action:'Administer prescribed fluids'}};
+const clozeDuplicateHtml=api.renderReact(clozeDuplicate,undefined,()=>{},false);
+assert.ok(clozeDuplicateHtml.includes('Complete the sentence.'),'cloze task is retained in the right pane');
+assert.equal((clozeDuplicateHtml.match(/The client has dehydration\./g)||[]).length,1,'cloze stem does not repeat the same question text above the blank sentence');
+
 console.log('PASS: format render/detection, case-study panels, full-width items, drag-order protection, and draft adapters.');
 
 const clean = context.window.QuickRNSharedRenderer.cleanClinicalText;
