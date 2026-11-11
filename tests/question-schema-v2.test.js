@@ -51,8 +51,8 @@ const validSixGroup=Array.from({length:6},(_,i)=>({id:'QR-CS-VALID-'+(i+1),caseG
 assert.equal(schema.validateGroups(validSixGroup).length,0,'a complete six-question case group passes');
 const shortCase=validSixGroup.slice(0,5);
 assert.ok(schema.validateGroups(shortCase).some(x=>x.code==='V2_CASE_GROUP_LENGTH'),'a case with fewer than six questions is rejected');
-const unorderedCase=validSixGroup.map((q,i)=>({...q,caseQuestionNumber:i===5?5:i+1}));unorderedCase[4].caseQuestionNumber=6;
-assert.ok(schema.validateGroups(unorderedCase).some(x=>x.code==='V2_CASE_GROUP_SEQUENCE'),'duplicate or missing sequence numbers are rejected');
+const duplicateCase=validSixGroup.map((q,i)=>({...q,caseQuestionNumber:i===5?5:i+1}));
+assert.ok(schema.validateGroups(duplicateCase).some(x=>x.code==='V2_CASE_GROUP_SEQUENCE'),'duplicate or missing sequence numbers are rejected');
 console.log('Question Schema v2 adapter tests passed.');
 
 const trendTooShort={metadata:{id:'QR-TREND-BAD',category:'Adult Health',clientNeeds:'Physiological Integrity',cjmmStep:'Evaluate Outcomes',difficulty:3},interaction:{type:'Trend',stem:'Review the patient trend.',options:['A','B','C','D'],answerKey:'A',scoring:{method:'0/1'}},trendData:{stages:[{time:'0800',situation:'Initial findings',question:'What next?',options:['A','B'],correctAnswer:'A'}]},stimulus:{tabs:{nursesNotes:'Patient assessed.'}},rationales:{overall:'Clinical explanation',options:{A:'Rationale A'},clinicalJudgmentTip:'Review the trend.'}};
