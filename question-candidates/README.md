@@ -61,6 +61,20 @@ node scripts/import-question-batch.js ai-question-batch.json --submitted-by educ
 
 The batch importer checks the entire batch against schema-v2 and checks IDs against existing pending candidates before writing any files. If any item fails, it writes none. Candidate modules in the pending folder are inspected as data-only JSON modules; the importer does not execute them. A successful batch creates one `.js` file per candidate, all with `pending_review` status. It does not call an AI service or modify the active bank.
 
+## Record an educator review decision
+
+After an authorized educator/admin has reviewed a candidate, record the decision locally:
+
+```bash
+node scripts/review-question-candidate.js QR-123456 approve --reviewer "Educator name or staff ID" --note "Clinical rationale and references verified"
+```
+
+Use `reject` instead of `approve` to reject it. Both decisions require a reviewer label and a non-empty note. The script moves the candidate from `pending/` to `approved/` or `rejected/`, updates its review metadata, and appends a JSONL audit entry to `review-audit.jsonl`. Approval also re-runs schema-v2 validation. Rejected candidates are never eligible for publication.
+
+**Security boundary:** this local script records a supplied reviewer identity; it does not authenticate that person or enforce administrator roles. For actual approval authority, restrict write/merge access to the candidate branch and require an authorized nurse educator/admin's GitHub pull-request approval under repository branch protection. The PR review and commit history are the access-controlled audit evidence.
+
+Approval only creates an approved archive. It does not update `question-bank.js`. Publishing remains a separate, deliberate maintainer action after checking the active bank's real data contract and running renderer/scoring tests.
+
 ## Approval and publishing procedure
 
 1. Keep the candidate in `pending/` while it is reviewed.
