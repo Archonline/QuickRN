@@ -19,20 +19,22 @@ Generate original NCLEX-RN practice-question candidates from aggregate learning-
 
 The 13 entries below are QuickRN authoring templates, not a claim that NCSBN publishes a fixed list of exactly 13 mutually exclusive item types. Use the current 2026 NCLEX-RN Test Plan (effective April 1, 2026–March 31, 2029) and current NCLEX Candidate Tutorial as the authority. NCSBN identifies five clinical-judgment item types: extended multiple response, extended drag-and-drop, cloze (drop-down), enhanced hot spot (highlighting), and matrix/grid. Stand-alone items, case studies, and multimedia exhibits are also used. Do not market this catalogue as an official NCSBN list.
 
-QuickRN authoring templates:
-1. Single-best-answer multiple choice
-2. Multiple response / SATA
-3. Extended multiple response
-4. Ordered response
-5. Extended drag-and-drop
-6. Numeric entry / dosage calculation
-7. Cloze / drop-down
-8. Drop-down table
-9. Matrix / grid (single response per row)
-10. Matrix / grid (multiple response per row)
-11. Enhanced hot spot / highlighting
-12. Bow-tie
-13. Trend item
+QuickRN's existing schema-v2 implementation defines these 13 canonical formats (use the exact strings in `js/quickrn-question-schema-v2.js`):
+1. `Single Choice` — single-best-answer multiple choice
+2. `Multiple Response` — select-all-that-apply
+3. `Select N` — select an exact number of responses
+4. `Matrix Single` — one response per row
+5. `Matrix Multiple` — multiple responses per row
+6. `Cloze (Drop-down)` — completion item with drop-down choices
+7. `Dropdown Rationale` — drop-down response/rationale item
+8. `Bowtie` — condition, actions, and monitoring parameters
+9. `Extended Drag and Drop` — ordered/sequence response
+10. `Extended Multiple Response` — extended multi-select response
+11. `Highlight` — highlight relevant text/clinical cues
+12. `Trend` — interpret changing clinical data over time
+13. `Numeric Entry` — numeric response, including dosage calculations
+
+These are QuickRN schema/renderer formats, not a claim that NCSBN publishes a fixed list of exactly 13 mutually exclusive formats. The current exam toolbar exposes 11 filter groupings; schema-v2 and the shared renderer recognize all 13 canonical values. Verify each item's rendering and scoring before enabling it in any exam mode. Do not silently degrade an unsupported format into multiple choice.
 
 Linked six-item NGN case studies are a case-set structure, not a fourteenth mutually exclusive response format. Multimedia exhibits (EHR notes, vitals, labs, medication records, charts, tables, and images) are stimulus components that may accompany supported item formats. Map each template to the existing renderer's canonical type before generation is enabled. If a format is not implemented by the renderer, mark it unsupported; never silently degrade it into a multiple-choice item.
 
