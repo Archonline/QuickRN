@@ -21,6 +21,19 @@ QuickRN implements practice versions of the three NCSBN scoring approaches:
 
 The scoring method is surfaced in submitted-answer feedback. Item-level keys and rationales still depend on the quality and completeness of the question-bank metadata.
 
+
+## Source-grounded question generation
+
+QuickRN now supports direct batch publishing of original AI-generated practice questions into the canonical `data/question-bank.js` file. The primary path does not require educator approval; it does require unique IDs, schema-v2 validation, HTTPS source references, answer rationales, and the repository's rendering/scoring checks.
+
+```bash
+node scripts/publish-question-batch.js generated-batch.json
+```
+
+Use `question-candidates/BATCH-GENERATION-PROMPT.md` to create source-grounded batches. Prefer NCSBN for the exam blueprint, CDC for public-health and infection-control guidance, NIH/NLM/MedlinePlus for reviewed health topics, AHRQ for patient safety, and FDA for medication safety. Use sources for clinical facts, then write entirely original scenarios and questions; do not lightly paraphrase commercial question-bank items or secure NCLEX content.
+
+Automated validation does not certify clinical accuracy or prove that a cited source supports every claim. Retain citations on every item and treat the bank as AI-generated educational practice content. The publisher does not connect an AI provider; generate a JSON batch with an AI tool and run the local command. See [the source-grounded pipeline guide](docs/source-grounded-question-pipeline.md).
+
 ## CAT practice disclaimer
 
 The CAT mode uses an instructional ability-estimation model, difficulty matching, an 85-item minimum checkpoint, a 150-item maximum, and a five-hour time limit. It is a simulator, not the NCSBN/Pearson VUE operational CAT algorithm. It does not model the 15 unscored pretest items, secure calibrated item pool, or proprietary operational decision algorithm. Any readiness or passing-likelihood value is an educational estimate and must not be represented as an official NCLEX result.
@@ -102,3 +115,18 @@ All four exam modes load `js/quickrn-question-schema-v2.js` after the question s
 - Rationales: overall explanation, option/response-specific explanations, and a Clinical Judgment Tip.
 
 Run `node tests/question-schema-v2.test.js` for adapter contract tests and `node scripts/validate-question-schema-v2.js` for the strict full-bank migration audit. The strict validator writes `reports/question-schema-v2-validation.md` and `.json` and fails on missing required metadata, scoring, answer keys, structured case stimuli, or rationale content. Legacy data is preserved rather than assigned fabricated CJMM stages, difficulty, scoring, or clinical explanations. A failed strict audit means the bank is not yet Schema-v2 production-ready; complete the reported educator-authored gaps before release. Schema validation and educator review are separate gates: the validator writes `question-schema-v2-schema-issue-queue.json` and `question-schema-v2-educator-review-queue.json` independently. Missing educator status is reported as `not_started`; explicit review states such as `pending`, `in_review`, `changes_requested`, and `approved` remain distinct. Only `approved` records with reviewer identity and review timestamp count as educator-approved. Passing schema validation never implies educator approval.
+
+## AI-generated question review (file-based interim workflow)
+
+QuickRN keeps generated question candidates outside the active student question bank until a nurse educator/admin reviews and approves them. Candidate JavaScript files belong under `question-candidates/pending/`; they are not loaded by exam pages. See [the candidate workflow](question-candidates/README.md) and run `node scripts/validate-question-candidates.js` to check structural/schema requirements before review.
+
+This interim workflow uses repository review/merge permissions for approval. It does not provide secure in-app approvals or automatic AI generation, and it never publishes a candidate automatically. The existing schema-v2 catalogue defines 13 canonical formats in `js/quickrn-question-schema-v2.js`.
+
+
+## Question-bank rebuild (draft)
+
+The active question bank is being rebuilt as a single canonical file at `data/question-bank.js`. Legacy runtime banks and hard-coded sample-bank add-ons are removed on the rebuild branch. The new registry intentionally starts empty; candidates must not be inserted directly into it.
+
+The schema-v2 validator runs before exam delivery. If the schema is missing or any active item fails validation, the exam app blocks question delivery. See [the rebuild architecture](docs/question-bank-rebuild-architecture.md) for the release gates and 13 supported QuickRN formats.
+
+**Important:** this is a draft rebuild. Until clinically reviewed items are re-authored and approved, the exam modes will report that no questions are available. No production deployment or merge has occurred.

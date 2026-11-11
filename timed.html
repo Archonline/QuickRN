@@ -109,7 +109,7 @@
             <!-- Filter Dropdown for Formats -->
             <div class="relative">
                 <select id="format-filter" onchange="switchFormatFilter(this.value)" class="bg-cyan-800/50 text-white text-xs rounded border border-cyan-300/40 px-2 py-1 focus:outline-none focus:ring-1 focus:ring-white cursor-pointer">
-                    <option value="ALL">All Question Types (11)</option>
+                    <option value="ALL">All Question Types (13)</option>
                     <option value="single">1. Single Choice</option>
                     <option value="sata">2. Select All That Apply (SATA)</option>
                     <option value="select_n">3. Select N</option>
@@ -120,7 +120,9 @@
                     <option value="matrix_multiple">8. Matrix Multiple</option>
                     <option value="matrix_single">9. Matrix Single</option>
                     <option value="numeric">10. Numeric Entry</option>
-                    <option value="ordered">11. Ordered Response</option>
+                    <option value="ordered">11. Ordered Response / Drag-and-Drop</option>
+                    <option value="extended_multiple_response">12. Extended Multiple Response</option>
+                    <option value="trend">13. Trend Interpretation</option>
                 </select>
             </div>
 
@@ -358,9 +360,9 @@
  w.addEventListener('error',record,true);
 })(window);
 </script>
-    <script src="js/quickrn-ngn-case-study-addon.js"></script>
     <script src="js/quickrn-question-schema-v2.js"></script>
-    <script src="question-bank.js" onerror="console.error('question-bank.js could not be loaded.')"></script>
+    <script src="data/question-bank.js" onerror="console.error('Canonical question bank could not be loaded.')"></script>
+    <script src="js/quickrn-bank-startup-validator.js"></script>
     <script src="js/quickrn-question-bank-normalizer.js"></script>
     <script src="js/quickrn-case-study-sequencer.js"></script>
     <script src="js/quickrn-question-id-normalizer.js"></script>

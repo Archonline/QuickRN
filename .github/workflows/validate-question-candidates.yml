@@ -1,0 +1,66 @@
+name: Validate question candidates
+
+on:
+  pull_request:
+    paths:
+      - 'question-candidates/**'
+      - 'scripts/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-bank-startup-validator.js'
+      - 'data/question-bank.js'
+      - 'scripts/test-question-bank-startup.js'
+      - 'scripts/test-question-format-fixtures.js'
+      - '.github/workflows/validate-question-candidates.yml'
+  push:
+    branches:
+      - main
+      - 'feature/ai-question-bank-review'
+      - 'rebuild/validated-question-bank'
+    paths:
+      - 'question-candidates/**'
+      - 'scripts/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-bank-startup-validator.js'
+      - 'data/question-bank.js'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-candidates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check script syntax
+        run: |
+          node --check scripts/import-question-candidate.js
+          node --check scripts/import-question-batch.js
+          node --check scripts/review-question-candidate.js
+          node --check scripts/validate-question-candidates.js
+          node --check scripts/preflight-approved-questions.js
+          node --check js/quickrn-question-schema-v2.js
+          node --check js/quickrn-bank-startup-validator.js
+          node --check data/question-bank.js
+          node --check scripts/test-question-bank-startup.js
+          node --check scripts/test-question-format-fixtures.js
+          node --check scripts/publish-question-batch.js
+          node --check scripts/test-active-question-bank.js
+      - name: Test fail-closed bank startup
+        run: node scripts/test-question-bank-startup.js
+      - name: Validate active 13-format question bank
+        run: node scripts/test-active-question-bank.js
+      - name: Validate all 13 question-format fixtures
+        run: node scripts/test-question-format-fixtures.js
+      - name: Render and grade all supported question formats
+        run: node tests/shared-renderer.test.js
+      - name: Validate NGN partial-credit scoring
+        run: node tests/ngn-scoring.test.js
+      - name: Validate pending candidates
+        run: node scripts/validate-question-candidates.js
+      - name: Preflight approved candidates
+        run: node scripts/preflight-approved-questions.js
