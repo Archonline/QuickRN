@@ -149,34 +149,8 @@
   q.rationale=first(q.rationale,overall||('The keyed response is '+keyed.join('; ')+'. It best addresses the clinical decision in the stem: '+stem));
   q.clinicalJudgmentTip=first(q.clinicalJudgmentTip,q.cjmmTip,'For '+topic+', identify the cues in the stem, compare them with baseline and risk factors, prioritize the immediate threat, choose the response supported by the clinical rationale, and evaluate the outcome using relevant assessment findings.');
   q.rationales=Object.assign({},obj(q.rationales),{overall:q.rationales?.overall||q.rationale,options:map,clinicalJudgmentTip:q.rationales?.clinicalJudgmentTip||q.clinicalJudgmentTip});
-  if(q.caseGroupId||q.caseStudyId){
-   const src=first(q.caseStudyContext,q.caseStudy,q.patientInfo,q.clinicalScenario,q.scenario,{});
-   if(!q.patientProfile)q.patientProfile=typeof src==='string'?{presentingConcern:src}:obj(src);
-   if(!q.scenario)q.scenario=first(src?.scenario,src?.summary,typeof src==='string'?src:undefined,q.clinicalScenario,q.patientInfo?.history,stem);
-   q.clinicalScenario=q.clinicalScenario||q.scenario||stem;
-   const s=String(q.scenario||stem)+' '+(typeof src==='string'?src:JSON.stringify(src||{}));
-   const matchValue=re=>{const m=s.match(re);return m?m[1]:null;};
-   const fever=/fever|febrile|sepsis|infection|meningitis|pneumonia|endometritis|temperature\s*3[89]/i.test(s);
-   const resp=/dyspnea|respiratory distress|wheez|stridor|hypoxemia|pulmonary|bronchiolitis|COPD|asthma|airway/i.test(s);
-   const shock=/hypotension|shock|hemorrhage|anaphylaxis|BP\s*(?:7\d|8\d|9\d)\//i.test(s);
-   const e=obj(q.ehr),tabs=obj(e.tabs),v=typeof tabs.vitalSigns==='string'?{note:tabs.vitalSigns}:obj(tabs.vitalSigns);
-   tabs.nursesNotes=tabs.nursesNotes||[{time:'Case presentation',note:q.scenario||stem}];
-   if(typeof tabs.nursesNotes==='string')tabs.nursesNotes=[{time:'Case presentation',note:tabs.nursesNotes}];
-   if(typeof tabs.vitalSigns==='string')tabs.vitalSigns={note:tabs.vitalSigns};
-   if(typeof tabs.labResults==='string')tabs.labResults={note:tabs.labResults};
-   if(typeof tabs.providerOrders==='string')tabs.providerOrders={orders:tabs.providerOrders};
-   tabs.vitalSigns=Object.assign({},v,{
-    temperature:v.temperature||matchValue(/(?:temperature|temp)\s*[:=]?\s*([\d.]+\s*°?C)/i)||(fever?'38.5 °C (simulated)':'36.8 °C (simulated)'),
-    heartRate:v.heartRate||matchValue(/(?:heart rate|HR)\s*[:=]?\s*(\d+\s*\/min)/i)||(shock?'122/min (simulated)':'92/min (simulated)'),
-    respiratoryRate:v.respiratoryRate||matchValue(/(?:respiratory rate|RR)\s*[:=]?\s*(\d+\s*\/min)/i)||(resp?'28/min (simulated)':'18/min (simulated)'),
-    bloodPressure:v.bloodPressure||matchValue(/(?:blood pressure|BP)\s*[:=]?\s*([\d/]+\s*mm Hg)/i)||(shock?'86/50 mm Hg (simulated)':'122/76 mm Hg (simulated)'),
-    oxygenSaturation:v.oxygenSaturation||matchValue(/(?:oxygen saturation|SpO2)\s*[:=]?\s*(\d+%)/i)||(resp?'89% (simulated)':'97% (simulated)')
-   });
-   tabs.vitalSigns.provenance='Explicit case values are retained; missing values are simulated educational data and require clinical review.';
-   tabs.labResults=tabs.labResults||{availableInCase:s.match(/(?:lactate|glucose|potassium|sodium|creatinine|hemoglobin|INR|ANC)\s*[:=]?\s*[\d.]+[^,.;]*/gi)||[],note:'Use only results documented in the case stimulus; obtain additional ordered tests as indicated.'};
-   tabs.providerOrders=tabs.providerOrders||{orders:src?.orders||src?.priorityAction||'Implement prescribed orders and clarify missing or conflicting instructions.'};
-   q.ehr=Object.assign({},e,{tabs});q.stimulus=Object.assign({},obj(q.stimulus),{caseGroupId:q.caseGroupId||q.caseStudyId,patientProfile:q.patientProfile,tabs:q.ehr.tabs});
-  }
+  // Do not fabricate patient profiles, EHR tabs, or simulated vital signs from a case ID alone.
+
  }
  function normalize(q){
   if(!q||typeof q!=='object')return q;
@@ -194,7 +168,7 @@
   [['history',first(tabs.history,q.history,q.patientHistory,q.medicalHistory,q.historyPhysical)],['nursesNotes',first(tabs.nursesNotes,tabs.nurses_notes,q.nursesNotes,q.nurseNotes)],['vitalSigns',first(tabs.vitalSigns,tabs.vital_signs,q.vitalSigns,q.vitals)],['labResults',first(tabs.labResults,tabs.lab_results,q.labResults,q.diagnosticResults)],['providerOrders',first(tabs.providerOrders,tabs.provider_orders,q.providerOrders,q.orders)]].forEach(([name,value])=>{if(value!==undefined)canonicalTabs[name]=value;});
   const stimulus=Object.assign({},oldStimulus,oldStimulusText?{legacyText:oldStimulusText}:{},{
    caseGroupId:first(oldStimulus.caseGroupId,q.caseGroupId,q.caseStudyId,q.caseStudyContext?.id),
-   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext,q.clinicalRecord,q.clinicalScenario,q.scenario,q.ehr),
+   patientProfile:first(oldStimulus.patientProfile,q.patientProfile,q.patientInfo,q.patientInformation,q.caseStudy,q.caseStudyContext?.patientProfile,q.clinicalRecord),
    tabs:canonicalTabs
   });
   const interaction=Object.assign({},oldInteraction,{
