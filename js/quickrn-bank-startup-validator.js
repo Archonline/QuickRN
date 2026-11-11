@@ -8,6 +8,7 @@
  if(!Array.isArray(bank))add('BANK_NOT_ARRAY','Canonical question bank did not load as an array.');
  if(!schema||typeof schema.validate!=='function'||typeof schema.normalizeBank!=='function')add('SCHEMA_NOT_READY','Question schema v2 must load before the bank validator.');
  if(Array.isArray(bank)&&schema&&typeof schema.validate==='function'){
+  schema.normalizeBank(bank);
   const ids=new Set();
   bank.forEach((item,index)=>{
    const id=String(item?.metadata?.id||item?.id||'').trim();
