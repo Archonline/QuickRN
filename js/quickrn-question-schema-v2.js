@@ -267,7 +267,19 @@
     if(stage.correctAnswer===undefined&&stage.answerKey===undefined)issue('V2_TREND_ANSWER_MISSING','Each trend time point requires its own answer key.');
    });
   }
-  if(it.type==='Select N'&&(!Array.isArray(opts)||opts.length<4))issue('V2_SELECT_N_OPTIONS_TOO_FEW','Select N requires at least four visible response options.');
+  if(it.type==='Select N'){
+   if(!Array.isArray(opts)||opts.length<4)issue('V2_SELECT_N_OPTIONS_TOO_FEW','Select N requires at least four visible response options.');
+   const keyed=Array.isArray(it.answerKey)?it.answerKey:(Array.isArray(q.correctAnswers)?q.correctAnswers:(Array.isArray(q.correctAnswer)?q.correctAnswer:[]));
+   const requested=Number(q.selectN??q.numberToSelect??q.requiredSelections??q.selectCount??keyed.length);
+   if(!Number.isInteger(requested)||requested<1||keyed.length!==requested)issue('V2_SELECT_N_COUNT_MISMATCH','Select N must declare the exact number of responses required and provide that many keyed correct answers.');
+  }
+  if(it.type==='Cloze (Drop-down)'){
+   const template=String(q.clozeTemplate??q.template??'').trim(),stem=String(it.stem??q.question??q.questionText??'').trim();
+   if(!template||!/\{\{?[^{}]+\}?\}|\[\[?[^\]]+\]?\]|_{2,}/.test(template))issue('V2_CLOZE_TEMPLATE_MISSING','Cloze requires one sentence or paragraph containing explicit blanks.');
+   const task=String(q.instruction??q.cleanInstruction??'').trim();
+   if(stem&&template&&stem.toLowerCase()===template.toLowerCase())issue('V2_CLOZE_DUPLICATE_STEM','Do not render the same sentence as both the question stem and cloze template; use a short instruction plus one blank-filled sentence.');
+   if(!Array.isArray(q.dropdowns)||!q.dropdowns.length)issue('V2_CLOZE_DROPDOWNS_MISSING','Every cloze blank must have its own keyed dropdown definition.');
+  }
   if(q.caseGroupId||q.stimulus?.caseGroupId){
    const tabs=obj(q.stimulus?.tabs);
    Object.entries(tabs).forEach(([name,value])=>{if(value!=null&&!Array.isArray(value)&&typeof value!=='object')issue('V2_INVALID_EHR_TAB','EHR tab '+name+' must be an array or key-value object.');});
