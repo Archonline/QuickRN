@@ -719,6 +719,19 @@ quickRNGrade=function(q,d){
  }
  return quickRNContractGrade(q,d);
 };
+const quickRNContractFromLegacy=quickRNFromLegacyDraft;
+quickRNFromLegacyDraft=function(q,value){
+ const format=quickRNDetectItemFormat(q);
+ if(format==='Trend'&&Array.isArray(q.trendData?.stages))return value&&typeof value==='object'?JSON.parse(JSON.stringify(value)):{stageAnswers:{}};
+ if(format==='Bowtie'&&Array.isArray(q.bowtieData?.followUpQuestions))return value&&typeof value==='object'?JSON.parse(JSON.stringify(value)):{condition:'',actions:[],monitoring:[],followUps:{}};
+ return quickRNContractFromLegacy(q,value);
+};
+const quickRNContractToLegacy=quickRNToLegacyDraft;
+quickRNToLegacyDraft=function(q,d){
+ const format=quickRNDetectItemFormat(q);
+ if((format==='Trend'&&Array.isArray(q.trendData?.stages))||(format==='Bowtie'&&Array.isArray(q.bowtieData?.followUpQuestions)))return JSON.parse(JSON.stringify(d||{}));
+ return quickRNContractToLegacy(q,d);
+};
 quickRNRenderClinicalItem=quickRNContractRender;
 window.quickRNContractMoveFollowUp=quickRNContractMoveFollowUp;
 window.quickRNSetTrendStage=quickRNSetTrendStage;
