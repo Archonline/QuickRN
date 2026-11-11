@@ -178,6 +178,8 @@
   c.items.forEach((spec,index)=>{
    const id='QR-'+String(nextId++).padStart(6,'0'),step=index+1;
    const answer=spec.answer;
+   const stageNotes=spec.notes||c.stages[index].notes,stageVitals=spec.vitals||c.stages[index].vitals,stageLabs=spec.labs||c.stages[index].labs;
+   const clinicalTabs={'Nurses’ Notes':stageNotes,'Vital Signs':stageVitals,'Diagnostic Results':stageLabs,'History & Physical':c.history,'Provider Orders':c.orders};
    const q={
     id,schemaVersion:2,caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),caseQuestionNumber:step,caseStudySequence:step,caseTitle:c.title,
     caseStudyContext:{id:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),title:c.title,summary:c.patient.summary,stepIndex:step,stepCount:6},
@@ -186,20 +188,20 @@
     rationale:spec.rationale,clinicalJudgmentTip:spec.tip,sourceReferences:sources[c.key],
     evidenceLimitations:['Original educational practice scenario. Verify treatment decisions against current institutional protocols and patient-specific orders.'],
     patientProfile:c.patient,patientInfo:c.patient,
-    history:c.history,nursingNotes:spec.notes||c.stages[index].notes,nursesNotes:spec.notes||c.stages[index].notes,
-    vitalSigns:spec.vitals||c.stages[index].vitals,diagnosticResults:spec.labs||c.stages[index].labs,providerOrders:c.orders,
-    ehr:{tabs:{history:c.history,nursesNotes:spec.notes||c.stages[index].notes,vitalSigns:spec.vitals||c.stages[index].vitals,diagnosticResults:spec.labs||c.stages[index].labs,providerOrders:c.orders}},
-    stimulus:{caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),patientProfile:c.patient,tabs:{history:c.history,nursesNotes:spec.notes||c.stages[index].notes,vitalSigns:spec.vitals||c.stages[index].vitals,labResults:spec.labs||c.stages[index].labs,providerOrders:c.orders}},
+    history:c.history,nursingNotes:stageNotes,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders,tabs:clinicalTabs,
+    ehr:{historyPhysical:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders,tabs:{history:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,diagnosticResults:stageLabs,providerOrders:c.orders}},
+    stimulus:{caseGroupId:'QR-CS-'+String(cases.indexOf(c)+1).padStart(3,'0'),patientProfile:c.patient,tabs:{history:c.history,nursesNotes:stageNotes,vitalSigns:stageVitals,labResults:stageLabs,providerOrders:c.orders}},
     rationales:{overall:spec.rationale,options:spec.why,clinicalJudgmentTip:spec.tip},
     optionRationales:spec.why
    };
    if(spec.data)Object.assign(q,spec.data);
+   if(spec.type==='Trend'){q.options=spec.data.trendData.stages[0].options.slice();q.correctAnswer=spec.data.trendData.stages[0].correctAnswer;}
    if(spec.type==='Highlight')q.correctHighlights=answer;
    if(spec.type==='Extended Drag and Drop')q.correctOrder=answer;
    if(spec.type==='Numeric Entry'){q.numericAnswer=answer;q.correctNumericAnswer=answer;q.unit=spec.data?.unit||'units';}
    if(spec.type==='Select N'){q.selectN=spec.selectN;q.numberToSelect=spec.selectN;}
    if(spec.type==='Cloze (Drop-down)'||spec.type==='Dropdown Rationale'){q.options=Object.fromEntries((q.dropdowns||[]).map(d=>[d.id,d.options]));}
-   q.interaction={type:spec.type,stem:spec.prompt,options:q.options,answerKey:answer,scoring:{method:spec.type==='Single Choice'?'0/1':'plus_minus'}};
+   q.interaction={type:spec.type,stem:spec.prompt,options:q.options,answerKey:q.correctAnswer,scoring:{method:spec.type==='Single Choice'?'0/1':'plus_minus'}};
    built.push(q);
   });
  });
