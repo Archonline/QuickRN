@@ -3260,7 +3260,9 @@
     "question": "A client with diabetes is alert and receives 15 g of oral glucose for hypoglycemia. Review the glucose trend and identify the interpretation that best guides the next action.",
     "options": [
       "Hypoglycemia has resolved and no further assessment is needed.",
-      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment."
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.",
+      "Wait 60 minutes before checking the glucose again."
     ],
     "correctAnswer": "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
     "rationale": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
@@ -3307,23 +3309,47 @@
       "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation."
     },
     "trendData": {
-      "columns": [
-        "Time",
-        "Capillary blood glucose"
-      ],
-      "rows": [
-        [
-          "0715",
-          "58 mg/dL"
-        ],
-        [
-          "0730",
-          "82 mg/dL after 15 g glucose"
-        ],
-        [
-          "0745",
-          "65 mg/dL"
-        ]
+      "title": "Serial capillary blood glucose after treatment",
+      "stages": [
+        {
+          "time": "0715 — Initial assessment",
+          "situation": "The client is alert, reports shakiness and diaphoresis, and has a capillary blood glucose of 58 mg/dL.",
+          "vitalSigns": {"Capillary blood glucose": "58 mg/dL", "Neurologic status": "Alert and able to swallow"},
+          "question": "Which action should the nurse take first?",
+          "options": [
+            "Give 15 g of fast-acting oral carbohydrate and recheck glucose in 15 minutes.",
+            "Administer the scheduled insulin dose immediately.",
+            "Withhold all carbohydrate and recheck in 60 minutes.",
+            "Give a high-fat snack and reassess at the end of the shift."
+          ],
+          "correctAnswer": "Give 15 g of fast-acting oral carbohydrate and recheck glucose in 15 minutes."
+        },
+        {
+          "time": "0730 — First reassessment",
+          "situation": "Fifteen minutes after oral glucose, the client feels less shaky and the capillary blood glucose is 82 mg/dL.",
+          "vitalSigns": {"Capillary blood glucose": "82 mg/dL", "Symptoms": "Improving"},
+          "question": "How should the nurse interpret this response and proceed?",
+          "options": [
+            "The initial treatment has improved the glucose; continue monitoring and provide a snack or meal when appropriate.",
+            "Hypoglycemia is worsening; administer another full dose of oral glucose without reassessment.",
+            "The client is now hyperglycemic and requires an immediate correction dose of insulin.",
+            "No further glucose checks are needed for the remainder of the shift."
+          ],
+          "correctAnswer": "The initial treatment has improved the glucose; continue monitoring and provide a snack or meal when appropriate."
+        },
+        {
+          "time": "0745 — Recurrent low glucose",
+          "situation": "At the next 15-minute check, the glucose has fallen again to 65 mg/dL. The client is still alert and able to swallow.",
+          "vitalSigns": {"Capillary blood glucose": "65 mg/dL", "Symptoms": "Recurrent shakiness"},
+          "question": "Which action is the priority now?",
+          "options": [
+            "Document the earlier improvement and stop glucose monitoring.",
+            "Repeat 15 g of fast-acting oral carbohydrate and recheck the glucose in 15 minutes.",
+            "Administer the scheduled insulin dose to stabilize the glucose.",
+            "Delay treatment and repeat the glucose measurement in 1 hour."
+          ],
+          "correctAnswer": "Repeat 15 g of fast-acting oral carbohydrate and recheck the glucose in 15 minutes."
+        }
       ]
     }
   },
