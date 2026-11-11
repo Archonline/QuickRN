@@ -76,7 +76,7 @@ function refreshQuestionBankCapacity(){
   status.className='mt-2 rounded-lg border px-3 py-2 text-xs '+(requirement&&eligible<requirement?'border-amber-200 bg-amber-50 text-amber-900':'border-emerald-200 bg-emerald-50 text-emerald-800');
  }
  if(!select||!(mode==='selfstudy'||mode==='timed'))return;
- const values=mode==='selfstudy'?[15,30,eligible]:[10,20,30,eligible];
+ const values=mode==='selfstudy'?[15,30]:[10,20,30,eligible];
  const unique=[...new Set(values.filter(n=>Number.isInteger(n)&&n>0&&n<=eligible))];
  const options=unique.map(n=>[String(n),n===eligible?'All '+eligible+' available':n+' questions']);
  if(mode==='selfstudy')options.push(['all','All '+eligible+' available']);
