@@ -47,7 +47,7 @@ if (!question || typeof question !== 'object' || Array.isArray(question)) {
 }
 
 const id = String(question.metadata?.id || question.id || '').trim();
-if (!/^QR-\\d{6}$/.test(id)) fail('Question must have a unique ID in the form QR-000000.');
+if (!/^QR-\d{6}$/.test(id)) fail('Question must have a unique ID in the form QR-000000.');
 
 const filename = id.toLowerCase() + '.js';
 fs.mkdirSync(pendingDir, { recursive: true });
@@ -88,8 +88,8 @@ const candidate = {
 };
 
 // Serialize only JSON data into a JS module. Never interpolate executable input.
-const moduleSource = "'use strict';\\n\\nmodule.exports = " +
-  JSON.stringify(candidate, null, 2) + ';\\n';
+const moduleSource = "'use strict';\n\nmodule.exports = " +
+  JSON.stringify(candidate, null, 2) + ';\n';
 fs.writeFileSync(destination, moduleSource, { flag: 'wx' });
 
 console.log('Imported candidate: ' + path.relative(root, destination));
