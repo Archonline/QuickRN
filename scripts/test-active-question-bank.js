@@ -20,7 +20,7 @@ for(const [index,q] of bank.entries()){
  assert.ok(!ids.has(id),'duplicate ID '+id);ids.add(id);
  formats.add(q.interaction?.type);
  assert.ok(Array.isArray(q.sourceReferences)&&q.sourceReferences.length,'source references for '+id);
- assert.ok(q.sourceReferences.every(r=>typeof r.title==='string'&&r.title.trim()&&/^https:\\/\\//.test(r.url||'')),'titled HTTPS source references for '+id);
+ assert.ok(q.sourceReferences.every(r=>typeof r.title==='string'&&r.title.trim()&&String(r.url||'').startsWith('https://')),'titled HTTPS source references for '+id);
  const rendered=context.quickRNRenderClinicalItem(q,{});
  assert.ok(typeof rendered==='string' && rendered.includes('qr-question-panel'),'renderer output for '+id);
  const issues=schema.validate(q,index);
