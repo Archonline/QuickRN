@@ -41,6 +41,10 @@ node scripts/validate-question-candidates.js
 
 The validator checks pending files against the existing schema-v2 validator, required review status, canonical IDs, and duplicate IDs. It does **not** establish clinical correctness; an educator must verify the keyed answer, rationale, calculations, references, scope of practice, and patient-safety implications.
 
+## Generate a batch with an AI model
+
+Use [BATCH-GENERATION-PROMPT.md](BATCH-GENERATION-PROMPT.md) to request a JSON batch with a `questions` array, unique IDs, and an explicit format distribution. The prompt guides the model; it does not connect an AI provider to QuickRN or approve any item.
+
 ## Import a batch of AI drafts
 
 Save the model response as JSON containing either a top-level array of question objects or `{ "questions": [...] }`. Each item uses the same question schema and unique `QR-######` ID as a single import. Run:
