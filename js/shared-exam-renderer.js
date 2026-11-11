@@ -674,7 +674,7 @@ function quickRNContractRender(q,draft,submitted=false){
   return html.replace('</div></section></div>',feedback+'</div></section></div>');
  }
  if(f==='Highlight'){
-  const notes=q.nursingNotes||q.ehr?.nursesNotes||q.ehr?.tabs?.nursesNotes||q.leftPane?.nursesNotes;
+  const notes=q.nursingNotes||q.ehr?.nursesNotes||q.ehr?.tabs?.nursesNotes||q.leftPane?.nursesNotes||q.scenario||q.clinicalScenario;
   const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
   const source=quickRNContractText(q.highlightText||q.passage||q.situation||q.scenario||q.questionText||q.question||'');
   const cues=segments.length?segments.map((x,i)=>({id:String(x.id??i),text:quickRNContractText(x.text??x.label??x)})):(source?[{id:'paragraph',text:source}]:[]);
