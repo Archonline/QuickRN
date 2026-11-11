@@ -175,6 +175,7 @@
     "cjmmStep": "Generate Solutions",
     "difficulty": 3,
     "type": "Select N",
+    "selectN": 2,
     "question": "An older adult is newly admitted after a fall at home. The client reports dizziness when standing and takes a sedating medication at bedtime. Which TWO nursing actions best support an individualized fall-prevention plan?",
     "options": [
       "Assess mobility and orthostatic symptoms before ambulation.",
@@ -2459,6 +2460,7 @@
     "cjmmStep": "Take Action",
     "difficulty": 4,
     "type": "Select N",
+    "selectN": 2,
     "question": "A client with diabetes is alert, can swallow safely, and has a capillary blood glucose of 58 mg/dL (3.2 mmol/L). Which TWO actions should the nurse take initially?",
     "options": [
       "Give 15 g of fast-acting glucose or carbohydrate.",
