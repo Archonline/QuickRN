@@ -207,7 +207,7 @@ assert.ok(clozeFeedbackHtml.includes('Correct: Administer prescribed fluids'),'s
 const trendRich={id:'TREND-RICH',type:'Trend',trendData:{stages:[0,1,2].map((i)=>({time:['0800','1000','1200'][i],situation:'Patient status changes at time '+i,vitalSigns:{'Heart rate':[88,112,128][i],'Oxygen saturation':[97,91,86][i]},question:'What is the priority response now?',options:['Activate rapid response','Reassess in 1 hour','Document and continue routine care','Offer oral fluids'],correctAnswer:'Activate rapid response'}))}};
 const trendHtml=api.renderReact(trendRich,{stageAnswers:{}},()=>{},false);
 assert.equal((trendHtml.match(/class="qr-trend-stage"/g)||[]).length,3,'trend presents sequential time points');
-assert.equal((trendHtml.match(/class="qr-choice/g)||[]).length,12,'each trend time point renders all four response options');
+assert.equal((trendHtml.match(/class="qr-choice /g)||[]).length,12,'each trend time point renders all four response options');
 
 vm.runInNewContext(fs.readFileSync('js/quickrn-ngn-compat.js','utf8'),context);
 const runtimeApi=context.window.QuickRNSharedRenderer;
