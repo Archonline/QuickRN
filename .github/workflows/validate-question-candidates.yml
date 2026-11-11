@@ -48,6 +48,7 @@ jobs:
           node --check data/question-bank.js
           node --check scripts/test-question-bank-startup.js
           node --check scripts/test-question-format-fixtures.js
+          node --check scripts/publish-question-batch.js
       - name: Test fail-closed bank startup
         run: node scripts/test-question-bank-startup.js
       - name: Validate all 13 question-format fixtures
