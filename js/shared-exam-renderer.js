@@ -643,6 +643,9 @@ function quickRNContractReplaceResponse(html,content){
  if(start<0||end<start)return html;
  return html.slice(0,start)+'<div class="qr-response-area">'+content+html.slice(end);
 }
+let quickRNContractDraggedFollowUp=null;
+function quickRNContractStartFollowUp(event,from,index){quickRNContractDraggedFollowUp={from,index};if(event?.dataTransfer){event.dataTransfer.effectAllowed='move';event.dataTransfer.setData('text/plain',String(from));}}
+function quickRNContractDropFollowUp(event,to,index){if(event?.preventDefault)event.preventDefault();if(quickRNContractDraggedFollowUp&&quickRNContractDraggedFollowUp.index===index)quickRNContractMoveFollowUp(quickRNContractDraggedFollowUp.from,to,index);quickRNContractDraggedFollowUp=null;}
 function quickRNContractMoveFollowUp(from,to,index){
  const q=window.quickRNCurrentQuestion||{},draft=quickRNDraft||{},sets={...(draft.followUps||{})},arr=Array.isArray(sets[index])?[...sets[index]]:[];
  if(from<0||to<0||from>=arr.length||to>=arr.length)return;
@@ -700,7 +703,7 @@ function quickRNContractRender(q,draft,submitted=false){
  }
  if(f==='Bowtie' && Array.isArray(q.bowtieData?.followUpQuestions)&&q.bowtieData.followUpQuestions.length){
   let html=quickRNContractBaseRender(q,draft,submitted);
-  const follow=q.bowtieData.followUpQuestions.map((item,i)=>{const options=item.items||item.availableItems||item.options||[],placed=(draft.followUps||{})[i]||options,correct=item.correctOrder||[],rows=placed.map((v,j)=>{const ok=String(v)===String(correct[j]);return '<div class="qr-sort-item" draggable="true" ondragstart="quickRNContractMoveFollowUp('+j+','+j+','+i+')" style="'+(submitted?'background:'+(ok?'#dcfce7':'#fee2e2')+';border-color:'+(ok?'#16a34a':'#dc2626'):'')+'"><span class="qr-sort-text">'+quickRNContractEsc(v)+'</span><span class="qr-sort-actions"><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j-1)+','+i+')">↑</button><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j+1)+','+i+')">↓</button></span></div>';}).join('');return '<section class="qr-bowtie-followup"><h3>'+quickRNContractEsc(item.question||('Follow-up '+(i+1)))+'</h3><p>Arrange the nursing actions in the correct sequence.</p><div class="qr-sort-list">'+rows+'</div>'+(submitted?'<p><strong>Correct sequence:</strong> '+correct.map(quickRNContractEsc).join(' → ')+'</p>':'')+'</section>';}).join('');
+  const follow=q.bowtieData.followUpQuestions.map((item,i)=>{const options=item.items||item.availableItems||item.options||[],placed=(draft.followUps||{})[i]||options,correct=item.correctOrder||[],rows=placed.map((v,j)=>{const ok=String(v)===String(correct[j]);return '<div class="qr-sort-item" draggable="true" ondragstart="quickRNContractStartFollowUp(event,'+j+','+i+')" ondragover="event.preventDefault()" ondrop="quickRNContractDropFollowUp(event,'+j+','+i+')" style="'+(submitted?'background:'+(ok?'#dcfce7':'#fee2e2')+';border-color:'+(ok?'#16a34a':'#dc2626'):'')+'"><span class="qr-sort-text">'+quickRNContractEsc(v)+'</span><span class="qr-sort-actions"><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j-1)+','+i+')">↑</button><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j+1)+','+i+')">↓</button></span></div>';}).join('');return '<section class="qr-bowtie-followup"><h3>'+quickRNContractEsc(item.question||('Follow-up '+(i+1)))+'</h3><p>Arrange the nursing actions in the correct sequence.</p><div class="qr-sort-list">'+rows+'</div>'+(submitted?'<p><strong>Correct sequence:</strong> '+correct.map(quickRNContractEsc).join(' → ')+'</p>':'')+'</section>';}).join('');
   return html.replace('</div></section></div>',follow+'</div></section></div>');
  }
  if(f==='Cloze (Drop-down)'){
@@ -743,5 +746,7 @@ quickRNToLegacyDraft=function(q,d){
 };
 quickRNRenderClinicalItem=quickRNContractRender;
 window.quickRNContractMoveFollowUp=quickRNContractMoveFollowUp;
+window.quickRNContractStartFollowUp=quickRNContractStartFollowUp;
+window.quickRNContractDropFollowUp=quickRNContractDropFollowUp;
 window.quickRNSetTrendStage=quickRNSetTrendStage;
 if(window.QuickRNSharedRenderer){window.QuickRNSharedRenderer.renderReact=function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);return submitted?'<div class="qr-submitted">'+quickRNRenderClinicalItem(q,quickRNDraft,submitted)+'</div>':quickRNRenderClinicalItem(q,quickRNDraft,submitted);};window.QuickRNSharedRenderer.hasAnswer=quickRNHasAnswer;window.QuickRNSharedRenderer.grade=quickRNGrade;}
