@@ -12,6 +12,14 @@ QuickRN is a browser-based NCLEX-RN practice and NGN learning simulator. It incl
 - Dashboard accuracy history plots fully-correct item accuracy; it does not relabel partial-credit scores as item accuracy.
 - Lab results show source-provided ranges where available. Typical adult ranges are added only for recognized common tests and units; pediatric, pregnancy, age-specific, and local laboratory ranges must be verified. Unknown ranges are flagged instead of fabricated.
 
+## Linked NGN case studies
+
+The active bank includes 10 original, six-question linked clinical case studies (60 items). Each group uses a shared case ID, a question sequence from 1 through 6, a consistent patient profile, and stage-specific clinical-record updates. The six questions follow the Clinical Judgment Measurement Model sequence: Recognize Cues, Analyze Cues, Prioritize Hypotheses, Generate Solutions, Take Action, and Evaluate Outcomes.
+
+Linked questions are treated as one indivisible selection unit. Self-Study, Timed Practice, Predictor, and CAT may randomize or select whole case groups, but never shuffle questions within a group. When a case is encountered, its questions are delivered in order 1 → 6. Filtering by an individual case question expands back to the complete group. The startup validator blocks any linked group that does not contain exactly six questions with a unique, contiguous sequence.
+
+The 10 cases cover sepsis, diabetic ketoacidosis, acute ischemic stroke, acute coronary syndrome, postpartum hemorrhage, preeclampsia with severe features, severe asthma, acute kidney injury with hyperkalemia, opioid-induced respiratory depression, and acute decompensated heart failure. Each item includes source references, an answer key, rationales, and a clinical judgment tip. These are original educational practice scenarios; automated checks do not constitute clinical certification or substitute for qualified clinical review.
+
 ## NGN scoring methods
 
 QuickRN implements practice versions of the three NCSBN scoring approaches:
