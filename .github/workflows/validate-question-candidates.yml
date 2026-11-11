@@ -35,6 +35,9 @@ jobs:
           node --check scripts/import-question-batch.js
           node --check scripts/review-question-candidate.js
           node --check scripts/validate-question-candidates.js
+          node --check scripts/preflight-approved-questions.js
           node --check js/quickrn-question-schema-v2.js
       - name: Validate pending candidates
         run: node scripts/validate-question-candidates.js
+      - name: Preflight approved candidates
+        run: node scripts/preflight-approved-questions.js
