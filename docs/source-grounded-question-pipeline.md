@@ -34,6 +34,22 @@ Useful starting points:
 
 Do not copy or lightly paraphrase questions, rationales, answer options, or case narratives from commercial question banks, prep websites, copyrighted textbooks, or live NCLEX materials. Changing names, ages, numbers, or a few words does not make a copied item original. Use sources for clinical facts only, then independently create a new assessment scenario and decision task.
 
+
+## NGN presentation data contracts
+
+New schema-v2 items should use the following format-specific fields so the shared renderer behaves consistently in all exam modes:
+
+| Format | Required presentation fields |
+|---|---|
+| Matrix Single | `matrixLeftPane` (concise clinical finding/context) and `matrixTask` (right-pane task) |
+| Extended Drag and Drop | `availableItems` (initial order) and `correctOrder` (keyed sequence) |
+| Highlight | `highlightText` (complete paragraph), `highlightSegments` (stable cue IDs, exact text, optional offsets), `correctHighlights`, and `nursingNotes` for the left pane |
+| Trend | `trendData.stages[]`, each with stage/time, situation, question, options, and correct answer |
+| Bowtie | `bowtieData.followUpQuestions[]` with a follow-up question, `availableItems`, and `correctOrder` |
+| Cloze / Dropdown Rationale | `clozeTemplate` with blanks, separate `instruction`, and stable dropdown IDs/options/keys |
+
+Schema v2 supplies presentation defaults under `presentation`. The two question-generation prompts contain the detailed authoring rules and examples. Trend stages must represent a coherent, evidence-supported progression; do not invent serial vital signs or lab values merely to create movement.
+
 ## Automated checks and limitations
 
 The publisher verifies schema structure, ID uniqueness, source-reference presence, HTTPS URLs, and minimum rationale metadata. CI additionally exercises rendering, answer capture, grading, and NGN scoring.
