@@ -247,7 +247,9 @@
         "Use the same fall interventions for every client regardless of risk.": "Fall prevention should be individualized to each client's risk factors."
       },
       "clinicalJudgmentTip": "Prioritize the current cues, compare them with baseline, and reassess the client's response after intervention."
-    }
+    },
+    "selectN": 2,
+    "numberToSelect": 2
   },
   {
     "id": "QR-100004",
