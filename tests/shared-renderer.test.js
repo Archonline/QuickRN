@@ -11,7 +11,11 @@ const fixtures=[
  ['Bowtie',{type:'Bowtie',bowtieData:{actions:['A','B'],conditions:['C'],monitoring:['M','N']},correctAnswers:{condition:'C',actions:['A','B'],monitoring:['M','N']}}],
  ['Extended Multiple Response',{type:'Extended Multiple Response',options:['A','B'],correctAnswers:['A']}],
  ['Highlight',{type:'Highlight',highlightSegments:[{id:'s1',text:'New confusion.'},{id:'s2',text:'Stable appetite.'}],correctHighlights:['s1']}],
- ['Trend',{type:'Trend',trendData:{headers:['Time','BP'],rows:[{Time:'0800',BP:'120/80'},{Time:'1000',BP:'88/54'}]},options:['Notify provider','Document only'],correctAnswer:'Notify provider'}]
+ ['Trend',{type:'Trend',trendData:{headers:['Time','BP'],rows:[{Time:'0800',BP:'120/80'},{Time:'1000',BP:'88/54'}]},options:['Notify provider','Document only'],correctAnswer:'Notify provider'}],
+ ['Select N',{type:'Select N',options:['A','B','C'],correctAnswers:['A','B'],selectN:2}],
+ ['Matrix Multiple',{type:'Matrix Multiple',rows:[{id:'r1',text:'Select all applicable findings',options:['A','B','C']}],columns:['A','B','C'],correctAnswers:{r1:['A','B']}}],
+ ['Dropdown Rationale',{type:'Dropdown Rationale',clozeTemplate:'The rationale is {reason}.',options:{reason:['A','B']},correctAnswers:{reason:'A'}}],
+ ['Numeric Entry',{type:'Numeric Entry',numericAnswer:42,unit:'mg'}]
 ];
 for(const [expected,q] of fixtures)assert.equal(api.detect(q),expected,expected+' detection');
 const highlight=fixtures[7][1];
@@ -43,7 +47,11 @@ const answerDrafts=[
  {condition:'C',actions:['A','B'],monitoring:['M','N']},
  {choices:['A']},
  {highlights:['s1']},
- {choice:'Notify provider'}
+ {choice:'Notify provider'},
+ {choices:['A','B']},
+ {matrix:{r1:['A','B']}},
+ {cloze:{reason:'A'}},
+ {numericEntry:42}
 ];
 for(let i=0;i<fixtures.length;i++){
  const [format,q]=fixtures[i],draft=answerDrafts[i];
