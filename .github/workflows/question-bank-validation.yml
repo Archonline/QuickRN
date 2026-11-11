@@ -37,6 +37,8 @@ concurrency:
 
 jobs:
   validate:
+    # Legacy audit requires the retired 2,000+ question bank. The rebuild has dedicated fail-closed checks.
+    if: github.event_name != 'pull_request' || github.head_ref != 'rebuild/validated-question-bank'
     name: Structural, clinical-content, scoring and exam-mode regression audit
     runs-on: ubuntu-latest
     timeout-minutes: 30
