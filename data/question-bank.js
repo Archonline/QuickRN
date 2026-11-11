@@ -1331,10 +1331,10 @@
     "correctAnswer": "Seek immediate medical evaluation now.",
     "rationale": "CDC identifies persistent severe headache and vision changes as urgent maternal warning signs; postpartum preeclampsia can occur after delivery.",
     "optionRationales": {
-      "Seek immediate medical evaluation now.": "Correct. CDC identifies persistent severe headache and vision changes as urgent maternal warning signs; postpartum preeclampsia can occur after delivery.",
-      "Schedule a routine visit next week.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Rest in a dark room and call only if symptoms last 24 hours.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Stop drinking fluids until the headache resolves.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Seek immediate medical evaluation now.": "Correct. Persistent severe headache with blurred vision can signal postpartum preeclampsia and needs immediate evaluation.",
+      "Schedule a routine visit next week.": "A routine visit could delay assessment of a potentially serious postpartum complication.",
+      "Rest in a dark room and call only if symptoms last 24 hours.": "Waiting 24 hours is unsafe because the combination is already an urgent warning sign.",
+      "Stop drinking fluids until the headache resolves.": "Fluid restriction does not assess or treat the possible hypertensive complication."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1380,10 +1380,10 @@
     "rationales": {
       "overall": "CDC identifies persistent severe headache and vision changes as urgent maternal warning signs; postpartum preeclampsia can occur after delivery.",
       "options": {
-        "Seek immediate medical evaluation now.": "Correct. CDC identifies persistent severe headache and vision changes as urgent maternal warning signs; postpartum preeclampsia can occur after delivery.",
-        "Schedule a routine visit next week.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Rest in a dark room and call only if symptoms last 24 hours.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Stop drinking fluids until the headache resolves.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Seek immediate medical evaluation now.": "Correct. Persistent severe headache with blurred vision can signal postpartum preeclampsia and needs immediate evaluation.",
+        "Schedule a routine visit next week.": "A routine visit could delay assessment of a potentially serious postpartum complication.",
+        "Rest in a dark room and call only if symptoms last 24 hours.": "Waiting 24 hours is unsafe because the combination is already an urgent warning sign.",
+        "Stop drinking fluids until the headache resolves.": "Fluid restriction does not assess or treat the possible hypertensive complication."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1407,10 +1407,10 @@
     "correctAnswer": "Arrange immediate emergency evaluation.",
     "rationale": "Bleeding at this volume meets the ACOG-described threshold for urgent evaluation; postpartum hemorrhage may occur after discharge.",
     "optionRationales": {
-      "Arrange immediate emergency evaluation.": "Correct. Bleeding at this volume meets the ACOG-described threshold for urgent evaluation; postpartum hemorrhage may occur after discharge.",
-      "Reassure the client that lochia is expected for several weeks.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Recommend waiting until the 6-week postpartum visit.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Advise the client to increase oral fluids and recheck tomorrow.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Arrange immediate emergency evaluation.": "Correct. Bleeding at this rate exceeds the urgent threshold described by ACOG and requires immediate evaluation.",
+      "Reassure the client that lochia is expected for several weeks.": "This amount of bleeding is not routine lochia and should not be normalized.",
+      "Recommend waiting until the 6-week postpartum visit.": "A six-week visit is far too late for potentially ongoing hemorrhage.",
+      "Advise the client to increase oral fluids and recheck tomorrow.": "Oral fluids do not address the cause or urgency of heavy postpartum bleeding."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1456,10 +1456,10 @@
     "rationales": {
       "overall": "Bleeding at this volume meets the ACOG-described threshold for urgent evaluation; postpartum hemorrhage may occur after discharge.",
       "options": {
-        "Arrange immediate emergency evaluation.": "Correct. Bleeding at this volume meets the ACOG-described threshold for urgent evaluation; postpartum hemorrhage may occur after discharge.",
-        "Reassure the client that lochia is expected for several weeks.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Recommend waiting until the 6-week postpartum visit.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Advise the client to increase oral fluids and recheck tomorrow.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Arrange immediate emergency evaluation.": "Correct. Bleeding at this rate exceeds the urgent threshold described by ACOG and requires immediate evaluation.",
+        "Reassure the client that lochia is expected for several weeks.": "This amount of bleeding is not routine lochia and should not be normalized.",
+        "Recommend waiting until the 6-week postpartum visit.": "A six-week visit is far too late for potentially ongoing hemorrhage.",
+        "Advise the client to increase oral fluids and recheck tomorrow.": "Oral fluids do not address the cause or urgency of heavy postpartum bleeding."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1483,10 +1483,10 @@
     "correctAnswer": "Postpartum preeclampsia",
     "rationale": "These symptoms are among warning signs associated with preeclampsia and require prompt evaluation, including after delivery.",
     "optionRationales": {
-      "Postpartum preeclampsia": "Correct. These symptoms are among warning signs associated with preeclampsia and require prompt evaluation, including after delivery.",
-      "Expected uterine involution": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Uncomplicated breast engorgement": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Normal postpartum diuresis": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Postpartum preeclampsia": "Correct. Postpartum preeclampsia can arise after discharge; upper abdominal pain, facial swelling, and dyspnea are concerning warning signs.",
+      "Expected uterine involution": "Uterine involution does not explain this combination of systemic warning signs.",
+      "Uncomplicated breast engorgement": "Breast engorgement does not explain upper abdominal pain and shortness of breath.",
+      "Normal postpartum diuresis": "Postpartum diuresis does not account for this cluster of possible preeclampsia symptoms."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1532,10 +1532,10 @@
     "rationales": {
       "overall": "These symptoms are among warning signs associated with preeclampsia and require prompt evaluation, including after delivery.",
       "options": {
-        "Postpartum preeclampsia": "Correct. These symptoms are among warning signs associated with preeclampsia and require prompt evaluation, including after delivery.",
-        "Expected uterine involution": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Uncomplicated breast engorgement": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Normal postpartum diuresis": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Postpartum preeclampsia": "Correct. Postpartum preeclampsia can arise after discharge; upper abdominal pain, facial swelling, and dyspnea are concerning warning signs.",
+        "Expected uterine involution": "Uterine involution does not explain this combination of systemic warning signs.",
+        "Uncomplicated breast engorgement": "Breast engorgement does not explain upper abdominal pain and shortness of breath.",
+        "Normal postpartum diuresis": "Postpartum diuresis does not account for this cluster of possible preeclampsia symptoms."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1559,10 +1559,10 @@
     "correctAnswer": "Call emergency services immediately.",
     "rationale": "ACOG lists chest pain and difficulty breathing among symptoms requiring emergency help after childbirth.",
     "optionRationales": {
-      "Call emergency services immediately.": "Correct. ACOG lists chest pain and difficulty breathing among symptoms requiring emergency help after childbirth.",
-      "Lie flat and wait 30 minutes.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Arrange a routine clinic appointment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Take an over-the-counter antacid and call back.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Call emergency services immediately.": "Correct. Chest pain and difficulty breathing after childbirth warrant emergency help rather than outpatient monitoring.",
+      "Lie flat and wait 30 minutes.": "Waiting risks delaying evaluation of a potentially life-threatening condition.",
+      "Arrange a routine clinic appointment.": "A routine appointment is not appropriate for acute chest pain and dyspnea.",
+      "Take an over-the-counter antacid and call back.": "An antacid trial could delay emergency assessment and does not address the warning signs."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1608,10 +1608,10 @@
     "rationales": {
       "overall": "ACOG lists chest pain and difficulty breathing among symptoms requiring emergency help after childbirth.",
       "options": {
-        "Call emergency services immediately.": "Correct. ACOG lists chest pain and difficulty breathing among symptoms requiring emergency help after childbirth.",
-        "Lie flat and wait 30 minutes.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Arrange a routine clinic appointment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Take an over-the-counter antacid and call back.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Call emergency services immediately.": "Correct. Chest pain and difficulty breathing after childbirth warrant emergency help rather than outpatient monitoring.",
+        "Lie flat and wait 30 minutes.": "Waiting risks delaying evaluation of a potentially life-threatening condition.",
+        "Arrange a routine clinic appointment.": "A routine appointment is not appropriate for acute chest pain and dyspnea.",
+        "Take an over-the-counter antacid and call back.": "An antacid trial could delay emergency assessment and does not address the warning signs."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1635,10 +1635,10 @@
     "correctAnswer": "Contact the obstetric clinician promptly for assessment.",
     "rationale": "Fever and worsening pain can indicate postpartum infection; timely clinical assessment is appropriate rather than reassurance or delay.",
     "optionRationales": {
-      "Contact the obstetric clinician promptly for assessment.": "Correct. Fever and worsening pain can indicate postpartum infection; timely clinical assessment is appropriate rather than reassurance or delay.",
-      "Explain that fever and increasing pain are expected during uterine involution.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Recommend delaying contact unless symptoms continue for a week.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Advise stopping all prescribed medications.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Contact the obstetric clinician promptly for assessment.": "Correct. Fever above 100.4°F and worsening pain after delivery warrant prompt contact and clinical assessment for possible infection.",
+      "Explain that fever and increasing pain are expected during uterine involution.": "Fever with worsening pain should not be assumed to be normal involution.",
+      "Recommend delaying contact unless symptoms continue for a week.": "Waiting a week could delay treatment of a postpartum infection.",
+      "Advise stopping all prescribed medications.": "Stopping prescribed medicines without clinician direction is not an appropriate response."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1684,10 +1684,10 @@
     "rationales": {
       "overall": "Fever and worsening pain can indicate postpartum infection; timely clinical assessment is appropriate rather than reassurance or delay.",
       "options": {
-        "Contact the obstetric clinician promptly for assessment.": "Correct. Fever and worsening pain can indicate postpartum infection; timely clinical assessment is appropriate rather than reassurance or delay.",
-        "Explain that fever and increasing pain are expected during uterine involution.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Recommend delaying contact unless symptoms continue for a week.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Advise stopping all prescribed medications.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Contact the obstetric clinician promptly for assessment.": "Correct. Fever above 100.4°F and worsening pain after delivery warrant prompt contact and clinical assessment for possible infection.",
+        "Explain that fever and increasing pain are expected during uterine involution.": "Fever with worsening pain should not be assumed to be normal involution.",
+        "Recommend delaying contact unless symptoms continue for a week.": "Waiting a week could delay treatment of a postpartum infection.",
+        "Advise stopping all prescribed medications.": "Stopping prescribed medicines without clinician direction is not an appropriate response."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1711,10 +1711,10 @@
     "correctAnswer": "Arrange immediate emergency mental-health and safety assessment; do not leave the client unsupported.",
     "rationale": "ACOG identifies thoughts of harming oneself or the baby as an emergency warning sign requiring immediate help.",
     "optionRationales": {
-      "Arrange immediate emergency mental-health and safety assessment; do not leave the client unsupported.": "Correct. ACOG identifies thoughts of harming oneself or the baby as an emergency warning sign requiring immediate help.",
-      "Tell the client these thoughts are common and end the call.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Schedule a routine screening at the next visit.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Recommend sleeping more and reassessing in several days.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Arrange immediate emergency mental-health and safety assessment; do not leave the client unsupported.": "Correct. Thoughts of harming self or the baby require immediate safety and emergency mental-health assessment.",
+      "Tell the client these thoughts are common and end the call.": "Normalizing the disclosure and ending the call leaves an urgent safety risk unaddressed.",
+      "Schedule a routine screening at the next visit.": "Routine screening is insufficient when the client reports a possible imminent safety concern.",
+      "Recommend sleeping more and reassessing in several days.": "Sleep advice and delayed reassessment do not establish immediate safety."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1760,10 +1760,10 @@
     "rationales": {
       "overall": "ACOG identifies thoughts of harming oneself or the baby as an emergency warning sign requiring immediate help.",
       "options": {
-        "Arrange immediate emergency mental-health and safety assessment; do not leave the client unsupported.": "Correct. ACOG identifies thoughts of harming oneself or the baby as an emergency warning sign requiring immediate help.",
-        "Tell the client these thoughts are common and end the call.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Schedule a routine screening at the next visit.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Recommend sleeping more and reassessing in several days.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Arrange immediate emergency mental-health and safety assessment; do not leave the client unsupported.": "Correct. Thoughts of harming self or the baby require immediate safety and emergency mental-health assessment.",
+        "Tell the client these thoughts are common and end the call.": "Normalizing the disclosure and ending the call leaves an urgent safety risk unaddressed.",
+        "Schedule a routine screening at the next visit.": "Routine screening is insufficient when the client reports a possible imminent safety concern.",
+        "Recommend sleeping more and reassessing in several days.": "Sleep advice and delayed reassessment do not establish immediate safety."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1787,10 +1787,10 @@
     "correctAnswer": "The infant may be dehydrated and needs prompt clinical assessment.",
     "rationale": "Dry mouth, absent tears, and reduced wet diapers are recognized signs of dehydration in infants and young children.",
     "optionRationales": {
-      "The infant may be dehydrated and needs prompt clinical assessment.": "Correct. Dry mouth, absent tears, and reduced wet diapers are recognized signs of dehydration in infants and young children.",
-      "These are expected findings during teething.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "The infant is adequately hydrated because there is no fever.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "The parent should withhold all fluids until diarrhea stops.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "The infant may be dehydrated and needs prompt clinical assessment.": "Correct. These findings are recognized signs of dehydration in infants and require prompt assessment.",
+      "These are expected findings during teething.": "Teething does not explain the combination of dry mouth, absent tears, and reduced urine output.",
+      "The infant is adequately hydrated because there is no fever.": "Absence of fever does not rule out dehydration.",
+      "The parent should withhold all fluids until diarrhea stops.": "Withholding fluids can worsen fluid deficit; the infant needs assessment and an appropriate hydration plan."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1836,10 +1836,10 @@
     "rationales": {
       "overall": "Dry mouth, absent tears, and reduced wet diapers are recognized signs of dehydration in infants and young children.",
       "options": {
-        "The infant may be dehydrated and needs prompt clinical assessment.": "Correct. Dry mouth, absent tears, and reduced wet diapers are recognized signs of dehydration in infants and young children.",
-        "These are expected findings during teething.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "The infant is adequately hydrated because there is no fever.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "The parent should withhold all fluids until diarrhea stops.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "The infant may be dehydrated and needs prompt clinical assessment.": "Correct. These findings are recognized signs of dehydration in infants and require prompt assessment.",
+        "These are expected findings during teething.": "Teething does not explain the combination of dry mouth, absent tears, and reduced urine output.",
+        "The infant is adequately hydrated because there is no fever.": "Absence of fever does not rule out dehydration.",
+        "The parent should withhold all fluids until diarrhea stops.": "Withholding fluids can worsen fluid deficit; the infant needs assessment and an appropriate hydration plan."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1863,10 +1863,10 @@
     "correctAnswer": "Urgent emergency assessment for possible severe dehydration or shock.",
     "rationale": "Altered alertness and rapid heartbeat are danger signs associated with severe dehydration and possible shock.",
     "optionRationales": {
-      "Urgent emergency assessment for possible severe dehydration or shock.": "Correct. Altered alertness and rapid heartbeat are danger signs associated with severe dehydration and possible shock.",
-      "Offer a large meal before reassessing.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Wait until the child produces urine.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Recommend sports drinks at home without assessment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Urgent emergency assessment for possible severe dehydration or shock.": "Correct. Difficult arousal and tachycardia are danger signs that may indicate severe dehydration or shock.",
+      "Offer a large meal before reassessing.": "A meal does not address possible circulatory compromise and may not be tolerated.",
+      "Wait until the child produces urine.": "Waiting for urine output delays assessment of a child with altered alertness.",
+      "Recommend sports drinks at home without assessment.": "Sports drinks are not a substitute for urgent evaluation of possible shock."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1912,10 +1912,10 @@
     "rationales": {
       "overall": "Altered alertness and rapid heartbeat are danger signs associated with severe dehydration and possible shock.",
       "options": {
-        "Urgent emergency assessment for possible severe dehydration or shock.": "Correct. Altered alertness and rapid heartbeat are danger signs associated with severe dehydration and possible shock.",
-        "Offer a large meal before reassessing.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Wait until the child produces urine.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Recommend sports drinks at home without assessment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Urgent emergency assessment for possible severe dehydration or shock.": "Correct. Difficult arousal and tachycardia are danger signs that may indicate severe dehydration or shock.",
+        "Offer a large meal before reassessing.": "A meal does not address possible circulatory compromise and may not be tolerated.",
+        "Wait until the child produces urine.": "Waiting for urine output delays assessment of a child with altered alertness.",
+        "Recommend sports drinks at home without assessment.": "Sports drinks are not a substitute for urgent evaluation of possible shock."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -1939,10 +1939,10 @@
     "correctAnswer": "Increasing urine output and improved alertness.",
     "rationale": "Urine output and mental status are useful clinical indicators to reassess; worsening alertness or reduced urination is concerning.",
     "optionRationales": {
-      "Increasing urine output and improved alertness.": "Correct. Urine output and mental status are useful clinical indicators to reassess; worsening alertness or reduced urination is concerning.",
-      "Increasing lethargy and fewer wet diapers.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "New inability to tolerate any oral fluids.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Progressively faster heart rate.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Increasing urine output and improved alertness.": "Correct. Improving alertness and urine output support recovery and should be interpreted with the full reassessment.",
+      "Increasing lethargy and fewer wet diapers.": "Lethargy and fewer wet diapers suggest worsening, not improving, hydration.",
+      "New inability to tolerate any oral fluids.": "Inability to tolerate fluids may indicate failure of the current oral approach and needs reassessment.",
+      "Progressively faster heart rate.": "A faster heart rate may signal ongoing fluid deficit or deterioration."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -1988,10 +1988,10 @@
     "rationales": {
       "overall": "Urine output and mental status are useful clinical indicators to reassess; worsening alertness or reduced urination is concerning.",
       "options": {
-        "Increasing urine output and improved alertness.": "Correct. Urine output and mental status are useful clinical indicators to reassess; worsening alertness or reduced urination is concerning.",
-        "Increasing lethargy and fewer wet diapers.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "New inability to tolerate any oral fluids.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Progressively faster heart rate.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Increasing urine output and improved alertness.": "Correct. Improving alertness and urine output support recovery and should be interpreted with the full reassessment.",
+        "Increasing lethargy and fewer wet diapers.": "Lethargy and fewer wet diapers suggest worsening, not improving, hydration.",
+        "New inability to tolerate any oral fluids.": "Inability to tolerate fluids may indicate failure of the current oral approach and needs reassessment.",
+        "Progressively faster heart rate.": "A faster heart rate may signal ongoing fluid deficit or deterioration."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -2015,10 +2015,10 @@
     "correctAnswer": "The infant is unusually sleepy and has had no wet diaper for several hours.",
     "rationale": "Unusual drowsiness and markedly reduced urine output are warning signs of dehydration in young children.",
     "optionRationales": {
-      "The infant is unusually sleepy and has had no wet diaper for several hours.": "Correct. Unusual drowsiness and markedly reduced urine output are warning signs of dehydration in young children.",
-      "The infant wants to be held more often.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "The infant has one loose stool after feeding.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "The infant has a mildly reduced appetite but is alert and producing wet diapers.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "The infant is unusually sleepy and has had no wet diaper for several hours.": "Correct. Unusual sleepiness and prolonged absence of wet diapers are concerning signs in an infant.",
+      "The infant wants to be held more often.": "Wanting to be held more often is nonspecific and less concerning than reduced urine and alertness.",
+      "The infant has one loose stool after feeding.": "A single loose stool is not by itself the strongest danger sign in this set.",
+      "The infant has a mildly reduced appetite but is alert and producing wet diapers.": "An alert infant who continues to produce wet diapers has fewer signs of significant dehydration."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -2064,10 +2064,10 @@
     "rationales": {
       "overall": "Unusual drowsiness and markedly reduced urine output are warning signs of dehydration in young children.",
       "options": {
-        "The infant is unusually sleepy and has had no wet diaper for several hours.": "Correct. Unusual drowsiness and markedly reduced urine output are warning signs of dehydration in young children.",
-        "The infant wants to be held more often.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "The infant has one loose stool after feeding.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "The infant has a mildly reduced appetite but is alert and producing wet diapers.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "The infant is unusually sleepy and has had no wet diaper for several hours.": "Correct. Unusual sleepiness and prolonged absence of wet diapers are concerning signs in an infant.",
+        "The infant wants to be held more often.": "Wanting to be held more often is nonspecific and less concerning than reduced urine and alertness.",
+        "The infant has one loose stool after feeding.": "A single loose stool is not by itself the strongest danger sign in this set.",
+        "The infant has a mildly reduced appetite but is alert and producing wet diapers.": "An alert infant who continues to produce wet diapers has fewer signs of significant dehydration."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -2091,10 +2091,10 @@
     "correctAnswer": "Use an age-appropriate oral rehydration solution and reassess tolerance and hydration.",
     "rationale": "Oral rehydration solution is an established option for children who can drink; fluid tolerance and hydration status should be reassessed.",
     "optionRationales": {
-      "Use an age-appropriate oral rehydration solution and reassess tolerance and hydration.": "Correct. Oral rehydration solution is an established option for children who can drink; fluid tolerance and hydration status should be reassessed.",
-      "Replace all losses with undiluted fruit juice.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Withhold fluids for 6 hours to rest the bowel.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Give an adult sports supplement instead of an oral rehydration solution.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Use an age-appropriate oral rehydration solution and reassess tolerance and hydration.": "Correct. An age-appropriate oral rehydration solution is appropriate for a child who is alert and able to drink; monitor response.",
+      "Replace all losses with undiluted fruit juice.": "Undiluted fruit juice is not a preferred replacement solution and may worsen diarrhea.",
+      "Withhold fluids for 6 hours to rest the bowel.": "Withholding fluids increases the risk of worsening dehydration.",
+      "Give an adult sports supplement instead of an oral rehydration solution.": "Adult sports supplements are not a suitable substitute for an age-appropriate oral rehydration solution."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -2140,10 +2140,10 @@
     "rationales": {
       "overall": "Oral rehydration solution is an established option for children who can drink; fluid tolerance and hydration status should be reassessed.",
       "options": {
-        "Use an age-appropriate oral rehydration solution and reassess tolerance and hydration.": "Correct. Oral rehydration solution is an established option for children who can drink; fluid tolerance and hydration status should be reassessed.",
-        "Replace all losses with undiluted fruit juice.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Withhold fluids for 6 hours to rest the bowel.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Give an adult sports supplement instead of an oral rehydration solution.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Use an age-appropriate oral rehydration solution and reassess tolerance and hydration.": "Correct. An age-appropriate oral rehydration solution is appropriate for a child who is alert and able to drink; monitor response.",
+        "Replace all losses with undiluted fruit juice.": "Undiluted fruit juice is not a preferred replacement solution and may worsen diarrhea.",
+        "Withhold fluids for 6 hours to rest the bowel.": "Withholding fluids increases the risk of worsening dehydration.",
+        "Give an adult sports supplement instead of an oral rehydration solution.": "Adult sports supplements are not a suitable substitute for an age-appropriate oral rehydration solution."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -2167,10 +2167,10 @@
     "correctAnswer": "Stop treating this as routine mild dehydration and escalate immediately for urgent assessment.",
     "rationale": "Worsening alertness and signs of poor perfusion may indicate deterioration and require urgent reassessment.",
     "optionRationales": {
-      "Stop treating this as routine mild dehydration and escalate immediately for urgent assessment.": "Correct. Worsening alertness and signs of poor perfusion may indicate deterioration and require urgent reassessment.",
-      "Continue the same plan without reassessment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Document the findings and wait for the next scheduled round.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Encourage the child to walk to improve circulation.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Stop treating this as routine mild dehydration and escalate immediately for urgent assessment.": "Correct. New lethargy and cool extremities suggest deterioration and require immediate escalation and reassessment.",
+      "Continue the same plan without reassessment.": "Continuing without reassessment ignores new signs of possible poor perfusion.",
+      "Document the findings and wait for the next scheduled round.": "Waiting for a scheduled round delays care despite a significant clinical change.",
+      "Encourage the child to walk to improve circulation.": "Walking is unsafe for a lethargic child and does not treat possible circulatory compromise."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -2216,10 +2216,10 @@
     "rationales": {
       "overall": "Worsening alertness and signs of poor perfusion may indicate deterioration and require urgent reassessment.",
       "options": {
-        "Stop treating this as routine mild dehydration and escalate immediately for urgent assessment.": "Correct. Worsening alertness and signs of poor perfusion may indicate deterioration and require urgent reassessment.",
-        "Continue the same plan without reassessment.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Document the findings and wait for the next scheduled round.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Encourage the child to walk to improve circulation.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Stop treating this as routine mild dehydration and escalate immediately for urgent assessment.": "Correct. New lethargy and cool extremities suggest deterioration and require immediate escalation and reassessment.",
+        "Continue the same plan without reassessment.": "Continuing without reassessment ignores new signs of possible poor perfusion.",
+        "Document the findings and wait for the next scheduled round.": "Waiting for a scheduled round delays care despite a significant clinical change.",
+        "Encourage the child to walk to improve circulation.": "Walking is unsafe for a lethargic child and does not treat possible circulatory compromise."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
@@ -2243,10 +2243,10 @@
     "correctAnswer": "Track fluid intake and urine output, and seek care for reduced urination, unusual sleepiness, or inability to keep fluids down.",
     "rationale": "Monitoring intake, urine output, alertness, and ability to drink helps identify worsening dehydration early.",
     "optionRationales": {
-      "Track fluid intake and urine output, and seek care for reduced urination, unusual sleepiness, or inability to keep fluids down.": "Correct. Monitoring intake, urine output, alertness, and ability to drink helps identify worsening dehydration early.",
-      "Use urine color alone to decide whether the child needs care.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Avoid offering fluids until the child asks for them.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-      "Wait for a high fever before contacting a clinician.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+      "Track fluid intake and urine output, and seek care for reduced urination, unusual sleepiness, or inability to keep fluids down.": "Correct. Tracking intake, urine output, alertness, and ability to drink helps identify worsening dehydration and when to seek care.",
+      "Use urine color alone to decide whether the child needs care.": "Urine color alone is insufficient to assess hydration or recognize all danger signs.",
+      "Avoid offering fluids until the child asks for them.": "A child with vomiting or diarrhea may need offered fluids before requesting them; follow the clinician's oral rehydration plan.",
+      "Wait for a high fever before contacting a clinician.": "A high fever is not required for dehydration to become serious; reduced urination and altered alertness are important warning signs."
     },
     "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment.",
     "sourceReferences": [
@@ -2292,10 +2292,10 @@
     "rationales": {
       "overall": "Monitoring intake, urine output, alertness, and ability to drink helps identify worsening dehydration early.",
       "options": {
-        "Track fluid intake and urine output, and seek care for reduced urination, unusual sleepiness, or inability to keep fluids down.": "Correct. Monitoring intake, urine output, alertness, and ability to drink helps identify worsening dehydration early.",
-        "Use urine color alone to decide whether the child needs care.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Avoid offering fluids until the child asks for them.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response.",
-        "Wait for a high fever before contacting a clinician.": "This response does not address the urgent clinical cue as safely or promptly as the keyed response."
+        "Track fluid intake and urine output, and seek care for reduced urination, unusual sleepiness, or inability to keep fluids down.": "Correct. Tracking intake, urine output, alertness, and ability to drink helps identify worsening dehydration and when to seek care.",
+        "Use urine color alone to decide whether the child needs care.": "Urine color alone is insufficient to assess hydration or recognize all danger signs.",
+        "Avoid offering fluids until the child asks for them.": "A child with vomiting or diarrhea may need offered fluids before requesting them; follow the clinician's oral rehydration plan.",
+        "Wait for a high fever before contacting a clinician.": "A high fever is not required for dehydration to become serious; reduced urination and altered alertness are important warning signs."
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
