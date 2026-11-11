@@ -33,6 +33,7 @@ jobs:
         run: |
           node --check scripts/import-question-candidate.js
           node --check scripts/import-question-batch.js
+          node --check scripts/review-question-candidate.js
           node --check scripts/validate-question-candidates.js
           node --check js/quickrn-question-schema-v2.js
       - name: Validate pending candidates
