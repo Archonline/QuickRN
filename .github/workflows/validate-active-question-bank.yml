@@ -1,0 +1,39 @@
+name: Validate Active QuickRN Question Bank
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-bank-startup-validator.js'
+      - 'js/quickrn-case-study-sequencer.js'
+      - 'js/quickrn-exam-app.js'
+      - 'scripts/test-active-question-bank.js'
+      - 'tests/**'
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'js/quickrn-question-schema-v2.js'
+      - 'js/quickrn-bank-startup-validator.js'
+      - 'js/quickrn-case-study-sequencer.js'
+      - 'js/quickrn-exam-app.js'
+      - 'scripts/test-active-question-bank.js'
+      - 'tests/**'
+
+jobs:
+  active-bank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate active question bank and renderer contract
+        run: node scripts/test-active-question-bank.js
+      - name: Test schema adapter
+        run: node tests/question-schema-v2.test.js
+      - name: Test linked case sequencing
+        run: node tests/case-study-sequencer.test.js
+      - name: Test shared renderer
+        run: node tests/shared-renderer.test.js
