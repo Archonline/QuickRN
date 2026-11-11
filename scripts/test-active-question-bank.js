@@ -13,7 +13,7 @@ assert.ok(Array.isArray(bank),'canonical bank must load as an array');
 assert.ok(bank.length>=101,'bank must retain the original items and add 60 linked case-study questions');
 assert.equal(context.window.QuickRNLinkedCaseStudies?.groups,10,'ten linked case-study groups must load');
 assert.equal(context.window.QuickRNLinkedCaseStudies?.items,60,'sixty linked case-study items must load');
-assert.equal(context.window.quickRNBankReady,true,'startup validator should allow the canonical bank');
+assert.equal(context.window.quickRNBankReady,true,'startup validator should allow the canonical bank: '+JSON.stringify(context.window.QuickRNBankStartupValidation?.errors||[]));
 const ids=new Set();
 const formats=new Set();
 for(const [index,q] of bank.entries()){
