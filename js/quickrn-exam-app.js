@@ -484,7 +484,7 @@ function canSubmitResponse(q,draft,legacyDraft){
  if(format.includes('cloze')||format.includes('drop-down')||format.includes('dropdown'))return !!api?.hasAnswer(q,d)||!!api?.hasAnswer(q,raw);
  if(format.includes('bowtie'))return !!api?.hasAnswer(q,d)||!!api?.hasAnswer(q,raw);
  if(format==='single choice')return filled(d.choice)||filled(d.selectedOption)||filled(d.selected)||filled(raw.choice)||filled(raw.selectedOption)||filled(typeof legacyDraft==='string'?legacyDraft:'')||!!api?.hasAnswer(q,d);
- if(format==='select n')return Array.isArray(d.choices)&&d.choices.length>0||Array.isArray(raw.choices)&&raw.choices.length>0;
+ if(format==='select n'){const key=q.correctAnswers??q.correctAnswer??q.interaction?.answerKey,n=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||q.selectCount||(Array.isArray(key)?key.length:0));return n>0&&((Array.isArray(d.choices)&&d.choices.length===n)||(Array.isArray(raw.choices)&&raw.choices.length===n));}
  return !!(api?.hasAnswer(q,d)||api?.hasAnswer(q,raw)||filled(d)||filled(raw));
 }
 function submitAnswer(){
