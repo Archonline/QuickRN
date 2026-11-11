@@ -16,7 +16,7 @@ const ids=new Set();
 const formats=new Set();
 for(const [index,q] of bank.entries()){
  const id=String(q.metadata?.id||q.id||'');
- assert.match(id,/^QR-\\d{6}$/,'canonical ID for item '+(index+1));
+ assert.match(id,/^QR-\d{6}$/,'canonical ID for item '+(index+1));
  assert.ok(!ids.has(id),'duplicate ID '+id);ids.add(id);
  formats.add(q.interaction?.type);
  assert.ok(Array.isArray(q.sourceReferences)&&q.sourceReferences.length,'source references for '+id);
