@@ -1,3 +1,5 @@
-# Pending question candidates
+# Optional manual-review queue
 
-Place one candidate per `.js` file here. These files are not included in any student-facing HTML page. Run `node scripts/validate-question-candidates.js` before requesting educator review.
+This folder is retained for optional manual review and audit workflows. It is not part of the primary publishing path and is not loaded by student exam pages.
+
+For direct source-grounded batch publishing, see `../BATCH-GENERATION-PROMPT.md` and `../../docs/source-grounded-question-pipeline.md`.
