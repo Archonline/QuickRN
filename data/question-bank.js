@@ -2301,7 +2301,7 @@
     }
   },
   {
-    "id": "QR-000027",
+    "id": "QR-100027",
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Acute ischemic stroke: immediate nursing priorities",
@@ -2347,7 +2347,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000027",
+      "id": "QR-100027",
       "category": "Adult Health",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Take Action",
@@ -2380,7 +2380,7 @@
     }
   },
   {
-    "id": "QR-000028",
+    "id": "QR-100028",
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Sepsis recognition and escalation",
@@ -2422,7 +2422,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000028",
+      "id": "QR-100028",
       "category": "Adult Health",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Recognize Cues",
@@ -2462,7 +2462,7 @@
     }
   },
   {
-    "id": "QR-000029",
+    "id": "QR-100029",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Treatment of conscious adult hypoglycemia",
@@ -2501,7 +2501,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000029",
+      "id": "QR-100029",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Take Action",
@@ -2542,7 +2542,7 @@
     "requiredSelections": 2
   },
   {
-    "id": "QR-000030",
+    "id": "QR-100030",
     "schemaVersion": 2,
     "category": "Maternal-Newborn",
     "topic": "Postpartum assessment: warning signs",
@@ -2575,7 +2575,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000030",
+      "id": "QR-100030",
       "category": "Maternal-Newborn",
       "clientNeeds": "Health Promotion and Maintenance",
       "cjmmStep": "Analyze Cues",
@@ -2636,7 +2636,7 @@
     }
   },
   {
-    "id": "QR-000031",
+    "id": "QR-100031",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Insulin safety during diabetic ketoacidosis",
@@ -2671,7 +2671,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000031",
+      "id": "QR-100031",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Analyze Cues",
@@ -2754,7 +2754,7 @@
     }
   },
   {
-    "id": "QR-000032",
+    "id": "QR-100032",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Hypoglycemia treatment rationale",
@@ -2780,7 +2780,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000032",
+      "id": "QR-100032",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Analyze Cues",
@@ -2830,7 +2830,7 @@
     }
   },
   {
-    "id": "QR-000033",
+    "id": "QR-100033",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Digoxin adverse effects and toxicity cues",
@@ -2856,7 +2856,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000033",
+      "id": "QR-100033",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Analyze Cues",
@@ -2906,7 +2906,7 @@
     }
   },
   {
-    "id": "QR-000034",
+    "id": "QR-100034",
     "schemaVersion": 2,
     "category": "Maternal-Newborn",
     "topic": "Postpartum hemorrhage: uterine atony",
@@ -2945,7 +2945,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000034",
+      "id": "QR-100034",
       "category": "Maternal-Newborn",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Generate Solutions",
@@ -3005,7 +3005,7 @@
     }
   },
   {
-    "id": "QR-000035",
+    "id": "QR-100035",
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Acute stroke response sequence",
@@ -3045,7 +3045,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000035",
+      "id": "QR-100035",
       "category": "Adult Health",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Take Action",
@@ -3084,7 +3084,7 @@
     ]
   },
   {
-    "id": "QR-000036",
+    "id": "QR-100036",
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "DKA clinical recognition",
@@ -3124,7 +3124,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000036",
+      "id": "QR-100036",
       "category": "Adult Health",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Recognize Cues",
@@ -3163,7 +3163,7 @@
     }
   },
   {
-    "id": "QR-000037",
+    "id": "QR-100037",
     "schemaVersion": 2,
     "category": "Maternal-Newborn",
     "topic": "Postpartum preeclampsia warning signs",
@@ -3191,7 +3191,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000037",
+      "id": "QR-100037",
       "category": "Maternal-Newborn",
       "clientNeeds": "Health Promotion and Maintenance",
       "cjmmStep": "Recognize Cues",
@@ -3241,7 +3241,7 @@
     ]
   },
   {
-    "id": "QR-000038",
+    "id": "QR-100038",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Recurrent hypoglycemia trend evaluation",
@@ -3271,7 +3271,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000038",
+      "id": "QR-100038",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Evaluate Outcomes",
@@ -3320,7 +3320,7 @@
     }
   },
   {
-    "id": "QR-000039",
+    "id": "QR-100039",
     "schemaVersion": 2,
     "category": "Pharmacology",
     "topic": "Oral medication dose calculation",
@@ -3346,7 +3346,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000039",
+      "id": "QR-100039",
       "category": "Pharmacology",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Take Action",
@@ -3379,7 +3379,7 @@
     }
   },
   {
-    "id": "QR-000040",
+    "id": "QR-100040",
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Acute stroke dysphagia safety",
@@ -3419,7 +3419,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000040",
+      "id": "QR-100040",
       "category": "Adult Health",
       "clientNeeds": "Safety and Infection Control",
       "cjmmStep": "Take Action",
@@ -3452,7 +3452,7 @@
     }
   },
   {
-    "id": "QR-000041",
+    "id": "QR-100041",
     "schemaVersion": 2,
     "category": "Fundamentals",
     "topic": "Standard precautions during routine care",
@@ -3493,7 +3493,7 @@
     ],
     "evidenceLimitations": [],
     "metadata": {
-      "id": "QR-000041",
+      "id": "QR-100041",
       "category": "Fundamentals",
       "clientNeeds": "Safety and Infection Control",
       "cjmmStep": "Generate Solutions",
