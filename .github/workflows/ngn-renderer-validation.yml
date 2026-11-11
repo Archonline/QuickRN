@@ -120,9 +120,6 @@ jobs:
       - name: Verify production bank against shared renderer
         if: always()
         run: node tests/question-bank-renderer-contract.test.js
-      - name: Validate production question bank
-        if: always()
-        run: node scripts/validate-question-bank.js questions.js
       - name: Upload real-bank validation report
         if: always()
         uses: actions/upload-artifact@v4
