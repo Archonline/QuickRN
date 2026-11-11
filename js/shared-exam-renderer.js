@@ -421,7 +421,7 @@ quickRNRenderClinicalItem = function(q,draft,submitted=false) {
      const on=(draft.highlights||[]).includes(seg.id)||(draft.highlights||[]).includes(seg.text);
      const correct=correctSet.some(x=>String(x)===String(seg.id)||String(x)===String(seg.text));
      const feedback=submitted?(correct?'background:#dcfce7;color:#166534;border-bottom:2px solid #16a34a;':(on?'background:#fee2e2;color:#991b1b;border-bottom:2px solid #dc2626;':'')):'';
-     const style='display:inline;padding:2px 3px;margin:0 1px;border:0;border-bottom:2px dotted #64748b;border-radius:3px;background:'+(on?'#dbeafe':'transparent')+';color:inherit;font:inherit;line-height:inherit;cursor:'+(submitted?'default':'pointer')+';'+feedback;
+     const style='display:inline;padding:2px 3px;margin:0 1px;border:0;border-bottom:2px dotted #64748b;border-radius:3px;background:'+(on?'#fef08a':'transparent')+';color:inherit;font:inherit;line-height:inherit;cursor:'+(submitted?'default':'pointer')+';'+feedback;
      const separator=i<segments.length-1?'; ':'';
      return "<button type='button' class='qr-highlight-inline-token "+(on?'is-selected':'')+"' style='"+style+"' aria-pressed='"+on+"' "+(submitted?'disabled':'')+" onclick='quickRNToggleDraft(\"highlights\","+JSON.stringify(seg.id)+")'>"+esc(seg.text)+"</button>"+separator;
    }).join('');
