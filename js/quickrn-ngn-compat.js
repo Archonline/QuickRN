@@ -103,6 +103,11 @@ api.answerSummary=(q,d)=>{const x=canon(q);return x.ngnType==='Matrix Multiple'|
 root.quickRNAnswerSummary=api.answerSummary;
 api.renderReact=function(q,legacy,onUpdate,submitted,responseOnly){const x=canon(q);root.quickRNCurrentQuestion=x;quickRNCurrentItemId=x.id||null;const d=baseToDraft(x,legacy);quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(baseFromDraft(x,next));};let html=submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);if(responseOnly){const start=html.indexOf('<div class="qr-response-area">'),end=html.indexOf('<div class="qr-report-row">',start);if(start>=0&&end>start)return html.slice(start,end);}return html;};
 root.quickRNRenderClinicalItem=function(q,d,submitted){const item=canon(q);root.quickRNCurrentQuestion=item;quickRNCurrentItemId=item.id||null;quickRNDraft=d||{};return render(item,quickRNDraft,!!submitted);};
+root.quickRNSelectNAnswer=function(value){
+ const q=root.quickRNCurrentQuestion||{},limit=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||q.selectCount||(Array.isArray(q.correctAnswers)?q.correctAnswers.length:Array.isArray(q.correctAnswer)?q.correctAnswer.length:0)),selected=Array.isArray(quickRNDraft?.choices)?[...quickRNDraft.choices]:[],at=selected.findIndex(v=>String(v)===String(value));
+ if(at>=0)selected.splice(at,1);else{if(limit>0&&selected.length>=limit)return;selected.push(value);}
+ quickRNDraft={...(quickRNDraft||{}),choices:selected};quickRNCommitDraft();if(typeof root.quickRNRenderAgain==='function')root.quickRNRenderAgain();
+};
 
 const style=document.createElement('style');style.id='quickrn-unified-ngn-layout';
 style.textContent=[
