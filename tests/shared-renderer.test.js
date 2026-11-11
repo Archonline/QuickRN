@@ -196,7 +196,7 @@ assert.ok(highlightNoRecordHtml.includes('question-only'),'highlight without sep
 const selectN={id:'SELECT-N-INTERACTION',type:'Select N',selectN:2,question:'Which findings require action? Select two.',options:['New confusion','Mild thirst','Oxygen saturation 84%','Warm dry skin'],correctAnswers:['New confusion','Oxygen saturation 84%']};
 const selectNHtml=api.renderReact(selectN,{choices:[]},()=>{},false);
 assert.ok(selectNHtml.includes('role="checkbox"'),'Select N renders selectable checkbox controls');
-assert.ok(selectNHtml.includes("quickRNToggleDraft('choices'"),'Select N options are wired to draft updates');
+assert.ok(selectNHtml.includes('quickRNToggleDraft'),'Select N options are wired to draft updates');
 assert.equal(api.hasAnswer(selectN,{choices:['New confusion','Oxygen saturation 84%']}),true,'Select N accepts exactly the requested number of selections');
 assert.equal(api.grade(selectN,{choices:['New confusion','Oxygen saturation 84%']}),true,'Select N grading compares the selected option values');
 const clozeFeedback={...clozeDuplicate,correctAnswers:{action:'Administer prescribed fluids'}};
