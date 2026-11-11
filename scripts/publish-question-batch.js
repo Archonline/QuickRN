@@ -37,7 +37,7 @@ questions.forEach((raw, index) => {
  const label = 'Item ' + (index + 1);
  if (!q || typeof q !== 'object' || Array.isArray(q)) { errors.push(label + ': expected an object'); return; }
  const id = String(q.metadata?.id || q.id || '').trim();
- if (!/^QR-\\d{6}$/.test(id)) { errors.push(label + ': ID must match QR-######'); return; }
+ if (!/^QR-\d{6}$/.test(id)) { errors.push(label + ': ID must match QR-######'); return; }
  if (ids.has(id)) { errors.push(label + ': duplicate ID ' + id); return; }
  if (!Array.isArray(q.sourceReferences) || q.sourceReferences.length < 1) errors.push(label + ': at least one sourceReferences entry is required');
  else q.sourceReferences.forEach((ref, ri) => {
