@@ -13,8 +13,8 @@ const fixtures=[
  ['Highlight',{type:'Highlight',highlightSegments:[{id:'s1',text:'New confusion.'},{id:'s2',text:'Stable appetite.'}],correctHighlights:['s1']}],
  ['Trend',{type:'Trend',trendData:{headers:['Time','BP'],rows:[{Time:'0800',BP:'120/80'},{Time:'1000',BP:'88/54'}]},options:['Notify provider','Document only'],correctAnswer:'Notify provider'}],
  ['Select N',{type:'Select N',options:['A','B','C'],correctAnswers:['A','B'],selectN:2}],
- ['Matrix Multiple',{type:'Matrix Multiple',rows:[{id:'r1',text:'Select all applicable findings',options:['A','B','C']}],columns:['A','B','C'],correctAnswers:{r1:['A','B']}}],
- ['Dropdown Rationale',{type:'Dropdown Rationale',clozeTemplate:'The rationale is {reason}.',options:{reason:['A','B']},correctAnswers:{reason:'A'}}],
+ ['Matrix / Grid',{type:'Matrix Multiple',rows:[{id:'r1',text:'Select all applicable findings',options:['A','B','C']}],columns:['A','B','C'],correctAnswers:{r1:['A','B']}}],
+ ['Cloze (Drop-down)',{type:'Dropdown Rationale',clozeTemplate:'The rationale is {reason}.',options:{reason:['A','B']},correctAnswers:{reason:'A'}}],
  ['Numeric Entry',{type:'Numeric Entry',numericAnswer:42,unit:'mg'}]
 ];
 for(const [expected,q] of fixtures)assert.equal(api.detect(q),expected,expected+' detection');
