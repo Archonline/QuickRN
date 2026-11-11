@@ -108,3 +108,12 @@ Run `node tests/question-schema-v2.test.js` for adapter contract tests and `node
 QuickRN keeps generated question candidates outside the active student question bank until a nurse educator/admin reviews and approves them. Candidate JavaScript files belong under `question-candidates/pending/`; they are not loaded by exam pages. See [the candidate workflow](question-candidates/README.md) and run `node scripts/validate-question-candidates.js` to check structural/schema requirements before review.
 
 This interim workflow uses repository review/merge permissions for approval. It does not provide secure in-app approvals or automatic AI generation, and it never publishes a candidate automatically. The existing schema-v2 catalogue defines 13 canonical formats in `js/quickrn-question-schema-v2.js`.
+
+
+## Question-bank rebuild (draft)
+
+The active question bank is being rebuilt as a single canonical file at `data/question-bank.js`. Legacy runtime banks and hard-coded sample-bank add-ons are removed on the rebuild branch. The new registry intentionally starts empty; candidates must not be inserted directly into it.
+
+The schema-v2 validator runs before exam delivery. If the schema is missing or any active item fails validation, the exam app blocks question delivery. See [the rebuild architecture](docs/question-bank-rebuild-architecture.md) for the release gates and 13 supported QuickRN formats.
+
+**Important:** this is a draft rebuild. Until clinically reviewed items are re-authored and approved, the exam modes will report that no questions are available. No production deployment or merge has occurred.
