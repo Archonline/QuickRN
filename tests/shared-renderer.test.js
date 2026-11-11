@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
-const context={window:{},console};vm.runInNewContext(fs.readFileSync('js/shared-exam-renderer.js','utf8'),context);
+const context={window:{},console,document:{createElement(){return {id:'',textContent:''};},head:{appendChild(){}}}};vm.runInNewContext(fs.readFileSync('js/shared-exam-renderer.js','utf8'),context);
 const api=context.window.QuickRNSharedRenderer;
 const fixtures=[
  ['Single Choice',{type:'Single Best Answer',options:['A','B'],correctAnswer:'A'}],
@@ -208,3 +208,23 @@ const trendRich={id:'TREND-RICH',type:'Trend',trendData:{stages:[0,1,2].map((i)=
 const trendHtml=api.renderReact(trendRich,{stageAnswers:{}},()=>{},false);
 assert.equal((trendHtml.match(/class="qr-trend-stage"/g)||[]).length,3,'trend presents sequential time points');
 assert.equal((trendHtml.match(/class="qr-choice/g)||[]).length,12,'each trend time point renders all four response options');
+
+vm.runInNewContext(fs.readFileSync('js/quickrn-ngn-compat.js','utf8'),context);
+const runtimeApi=context.window.QuickRNSharedRenderer;
+const runtimeSelectN={id:'QR-SELECTN-RUNTIME',type:'Select N',question:'Select two actions.',options:['Action A','Action B','Action C','Action D'],correctAnswer:['Action A','Action C']};
+const runtimeSelectHtml=runtimeApi.renderReact(runtimeSelectN,{},()=>{},false);
+assert.equal(runtimeApi.detect(runtimeSelectN),'Select N');
+assert.equal(runtimeSelectN.selectN,2,'compat layer infers the required Select N count from the answer key');
+assert.equal((runtimeSelectHtml.match(/data-qr-selectn-value=/g)||[]).length,4,'Select N options use delegated, actionable controls');
+assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A','Action C']}),true,'Select N can submit exactly the keyed number of selections');
+assert.equal(runtimeApi.hasAnswer(runtimeSelectN,{choices:['Action A']}),false,'Select N cannot submit an incomplete selection');
+const runtimeTrend={id:'QR-TREND-RUNTIME',type:'Trend',topic:'Deteriorating respiratory status',trendData:{title:'Serial respiratory assessment',stages:[0,1,2].map(i=>({time:['0800','1000','1200'][i],situation:['The client is alert with oxygen saturation 96% on room air.','The client becomes restless; oxygen saturation falls to 90% and respiratory rate rises.','The client is confused with oxygen saturation 84% despite supplemental oxygen.'][i],vitalSigns:{'SpO2':['96%','90%','84%'][i],'Respiratory rate':[18,26,34][i]},question:'Which nursing response is the priority at this time?',options:['Escalate care and support oxygenation','Wait for the next routine round','Document and reassess in 4 hours','Encourage unassisted ambulation'],correctAnswer:'Escalate care and support oxygenation'}))}};
+const runtimeTrendHtml=runtimeApi.renderReact(runtimeTrend,{stageAnswers:{}},()=>{},false);
+assert.equal((runtimeTrendHtml.match(/class="qr-trend-stage"/g)||[]).length,3,'compat runtime renders every chronological Trend stage');
+assert.equal((runtimeTrendHtml.match(/data-qr-trend-stage=/g)||[]).length,12,'each Trend stage has four delegated answer controls');
+assert.ok(runtimeTrendHtml.includes('Clinical situation')&&runtimeTrendHtml.includes('client becomes restless'),'Trend explicitly displays evolving clinical situations');
+assert.equal(runtimeApi.hasAnswer(runtimeTrend,{stageAnswers:{0:'A',1:'A',2:'A'}}),true,'Trend requires a response at every stage');
+const runtimeCloze={id:'QR-CLOZE-RUNTIME',type:'Cloze (Drop-down)',question:'Complete the statement.',instruction:'Complete the statement by selecting one response for each blank.',clozeTemplate:'The client is hypotensive. The nurse should {{action}}.',dropdowns:[{id:'action',options:['Escalate care','Delay assessment'],correct:'Escalate care'}],correctAnswers:{action:'Escalate care'}};
+const runtimeClozeHtml=runtimeApi.renderReact(runtimeCloze,{cloze:{}},()=>{},false);
+assert.equal((runtimeClozeHtml.match(/The client is hypotensive\\./g)||[]).length,1,'runtime Cloze renders the clinical sentence once');
+assert.equal((runtimeClozeHtml.match(/data-cloze-key=/g)||[]).length,1,'runtime Cloze exposes one keyed dropdown per blank');
