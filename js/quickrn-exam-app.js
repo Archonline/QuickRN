@@ -33,7 +33,7 @@ function splitTopicHeading(value, metadata){
 }
 function stripClinicalLead(value, metadata){return stripQuestionLead(value,metadata);}
 function clean(value, metadata){return stripQuestionLead(String(value||''),metadata);}
-function rawBank(){if(Array.isArray(window.questions))return window.questions;if(Array.isArray(window.embeddedQuestionsData))return window.embeddedQuestionsData;if(Array.isArray(window.externalQuestions))return window.externalQuestions;return [];}
+function rawBank(){if(window.quickRNBankReady!==true)return [];if(Array.isArray(window.questions))return window.questions;if(Array.isArray(window.embeddedQuestionsData))return window.embeddedQuestionsData;if(Array.isArray(window.externalQuestions))return window.externalQuestions;return [];}
 function bankAssetReport(){
  const manifest=window.QuickRNQuestionBankManifest||{},fallback=['question-bank.js'],expected=Array.isArray(manifest.sourceModules)&&manifest.sourceModules.length?manifest.sourceModules:fallback;
  const scriptEls=[...document.querySelectorAll('script[src]')],audit=window.QuickRNBankLoadAudit?.assets||{};
