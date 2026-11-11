@@ -676,7 +676,7 @@ function quickRNContractRender(q,draft,submitted=false){
  if(f==='Highlight'){
   const notes=q.nursingNotes||q.ehr?.nursesNotes||q.ehr?.tabs?.nursesNotes||q.leftPane?.nursesNotes||q.scenario||q.clinicalScenario;
   const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
-  const source=quickRNContractText(q.highlightText||q.passage||q.situation||q.scenario||q.questionText||q.question||'');
+  const source=quickRNContractText(q.highlightText||q.passage||q.situation||q.scenario||q.clinicalScenario||q.questionText||q.question||'');
   const cues=segments.length?segments.map((x,i)=>({id:String(x.id??i),text:quickRNContractText(x.text??x.label??x)})):(source?[{id:'paragraph',text:source}]:[]);
   const selected=Array.isArray(draft.highlights)?draft.highlights:[];
   const correctRaw=q.correctHighlights||q.correctAnswers?.highlights||q.correctAnswers?.correctHighlights||[];
