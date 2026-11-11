@@ -41,6 +41,22 @@ node scripts/validate-question-candidates.js
 
 The validator checks pending files against the existing schema-v2 validator, required review status, canonical IDs, and duplicate IDs. It does **not** establish clinical correctness; an educator must verify the keyed answer, rationale, calculations, references, scope of practice, and patient-safety implications.
 
+## Import a batch of AI drafts
+
+Save the model response as JSON containing either a top-level array of question objects or `{ "questions": [...] }`. Each item uses the same question schema and unique `QR-######` ID as a single import. Run:
+
+```bash
+node scripts/import-question-batch.js ai-question-batch.json
+```
+
+Optionally identify the submitter:
+
+```bash
+node scripts/import-question-batch.js ai-question-batch.json --submitted-by educator-draft
+```
+
+The batch importer checks the entire batch against schema-v2 and checks IDs against existing pending candidates before writing any files. If any item fails, it writes none. Candidate modules in the pending folder are inspected as data-only JSON modules; the importer does not execute them. A successful batch creates one `.js` file per candidate, all with `pending_review` status. It does not call an AI service or modify the active bank.
+
 ## Approval and publishing procedure
 
 1. Keep the candidate in `pending/` while it is reviewed.
@@ -62,6 +78,8 @@ The active root `question-bank.js` and its runtime contract were not changed by 
 ```bash
 node scripts/import-question-candidate.js draft-question.json
 ```
+
+For a batch, use `scripts/import-question-batch.js` as documented above.
 
 Optionally identify the source:
 
