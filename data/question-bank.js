@@ -3248,7 +3248,9 @@
     "rationale": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
     "optionRationales": {
       "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
-      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
+      "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
     },
     "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation.",
     "sourceReferences": [
@@ -3284,7 +3286,9 @@
       "overall": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
       "options": {
         "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
-        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
+      "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
       },
       "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation."
     },
