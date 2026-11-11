@@ -164,7 +164,7 @@ assert.ok(highlightParagraphHtml.includes('cool, clammy skin.'),'highlight passa
 assert.ok(highlightParagraphHtml.includes('#fef08a'),'highlight selections use yellow');
 const stagedTrend={id:'STAGED-TREND',type:'Trend',trendData:{stages:[{time:'0800',situation:'The client is alert with BP 118/74 mm Hg.',question:'Which finding is most important now?',options:['Stable perfusion','Severe shock'],correctAnswer:'Stable perfusion'},{time:'0830',situation:'The client becomes confused; BP is 84/50 mm Hg.',question:'What should the nurse do next?',options:['Activate rapid response','Continue routine observation'],correctAnswer:'Activate rapid response'}]}};
 const stagedTrendHtml=api.renderReact(stagedTrend,{stageAnswers:{0:'Stable perfusion'}},()=>{},false);
-assert.ok(stagedTrendHtml.includes('Stage 1')&&stagedTrendHtml.includes('Stage 2'),'trend displays sequential patient-state stages: '+stagedTrendHtml);
+assert.ok(stagedTrendHtml.includes('Time point 1')&&stagedTrendHtml.includes('Time point 2'),'trend displays sequential patient-state stages: '+stagedTrendHtml);
 assert.ok(stagedTrendHtml.includes('The client becomes confused'),'later deterioration is shown as a new situation');
 assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion'}}),false,'trend requires an answer at each stage');
 assert.equal(api.hasAnswer(stagedTrend,{stageAnswers:{0:'Stable perfusion',1:'Activate rapid response'}}),true,'trend accepts completed stage responses');
