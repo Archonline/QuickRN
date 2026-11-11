@@ -62,8 +62,28 @@ function suppressObsoleteBankStatus(){
 function renderBankStatus(uniqueCount,sourceCount,skipped,duplicates){
  const report=bankAssetReport(),expected=report.expectedCount,exact=expected===null||expected===uniqueCount;
  const allAssetsOk=!report.missing.length&&!report.failed.length&&!report.unconfirmed.length;
- // Keep diagnostics available to developers without inserting a status badge or toast into the exam header.
  window.quickRNQuestionBankDiagnostics={...report,uniqueLoaded:uniqueCount,rawRecords:sourceCount,invalidSkipped:skipped,duplicateIdsSkipped:duplicates,manifestCountMatches:exact,allModuleLoadsConfirmed:allAssetsOk};
+}
+function refreshQuestionBankCapacity(){
+ const eligible=bank.filter(q=>q?.reviewStatus!=='quarantined_content_quality'&&hasClinicalContextForExam(q)).length;
+ const total=bank.length,select=$('session-count');
+ const status=$('question-bank-capacity');
+ if(status){
+  const requirement=mode==='predictor'?150:mode==='cat'?85:0;
+  status.textContent=requirement&&eligible<requirement
+   ?eligible+' eligible questions loaded. '+titles[mode]+' requires '+requirement+' unique questions; '+(requirement-eligible)+' more are needed.'
+   :eligible+' eligible questions loaded across '+new Set(bank.map(questionFormatKey)).size+' question formats.';
+  status.className='mt-2 rounded-lg border px-3 py-2 text-xs '+(requirement&&eligible<requirement?'border-amber-200 bg-amber-50 text-amber-900':'border-emerald-200 bg-emerald-50 text-emerald-800');
+ }
+ if(!select||!(mode==='selfstudy'||mode==='timed'))return;
+ const values=mode==='selfstudy'?[15,30]:[10,20,30,eligible];
+ const unique=[...new Set(values.filter(n=>Number.isInteger(n)&&n>0&&n<=eligible))];
+ const options=unique.map(n=>[String(n),n===eligible?'All '+eligible+' available':n+' questions']);
+ if(mode==='selfstudy')options.push(['all','All '+eligible+' available']);
+ const previous=select.value;
+ select.innerHTML=options.map(([value,label])=>'<option value="'+value+'">'+label+'</option>').join('');
+ if(options.some(([value])=>value===previous))select.value=previous;
+ else select.value=String(Math.min(mode==='selfstudy'?15:20,eligible));
 }
 function normalizeQuestion(q,index){const item=Object.assign({},q||{});item.id=String(item.id||item.questionId||('QR-'+(index+1)));item.ngnType=renderer()?.detect(item)||item.ngnType||item.type||'Single Choice';const stripMeta=v=>clean(String(v||''),item);const titleSource=item.questionOnly||item.actualQuestion||item.question||item.stem||item.cleanTitle||item.title||item.promptTitle||item.questionText||('NCLEX Item '+(index+1));item.cleanTitle=stripMeta(titleSource);const promptParts=[...new Set([item.questionText,item.question,item.instruction,item.prompt].filter(v=>v!==undefined&&v!==null&&String(v).trim()).map(stripMeta).filter(v=>v&&v.toLowerCase()!==item.cleanTitle.toLowerCase()))];item.cleanInstruction=stripMeta(item.cleanInstruction||promptParts.join(' '));item.keyPhrase=item.keyPhrase||item.topic||item.category||'Clinical Nursing';if(typeof item.difficulty!=='number'){const rawDifficulty=String(item.difficulty??'').toLowerCase();const numericDifficulty=Number(rawDifficulty);item.difficulty=Number.isFinite(numericDifficulty)?numericDifficulty:(rawDifficulty.includes('easy')?-1:rawDifficulty.includes('hard')?1:0);}return item;}
 function showBankLoadError(message){const host=$('case-study-content');if(host)host.innerHTML='<div role="alert" class="m-4 rounded-xl border border-rose-200 bg-rose-50 p-5 text-sm text-rose-900"><strong>QuickRN could not prepare the question bank.</strong><p class="mt-2">'+escapeHTML(message||'The question data is unavailable or could not be processed.')+'</p><p class="mt-2 text-xs">Check the question-bank asset and reload this exam. Your saved progress is preserved.</p><button type="button" class="mt-3 rounded-lg bg-slate-900 px-4 py-2 text-xs font-bold text-white" onclick="location.reload()">Retry loading exam</button></div>';const pill=$('session-info-pill');if(pill)pill.textContent='Question bank unavailable';}
@@ -84,7 +104,7 @@ function loadBankProgressively(){
   }catch(error){skipped++;console.warn('QuickRN skipped question '+cursor,error);}}
   if(cursor<source.length){window.setTimeout(processChunk,0);return;}
   if(!bank.length){if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];}renderBankStatus(0,source.length,skipped,duplicates);showBankLoadError('All '+source.length+' source records failed validation.');return;}
-  buildFormatFilterOptions();refreshNeedsReviewOption();renderBankStatus(bank.length,source.length,skipped,duplicates);
+  buildFormatFilterOptions();refreshNeedsReviewOption();renderBankStatus(bank.length,source.length,skipped,duplicates);refreshQuestionBankCapacity();
   if(button){button.disabled=false;button.textContent=mode==='selfstudy'?'Start Studying':'Start '+titles[mode];button.classList.remove('opacity-60','cursor-wait');}
   if(isNCLEXExamMode())startExamSession();
  }catch(error){console.error('QuickRN bank preparation failed',error);renderBankStatus(bank.length,source.length,skipped,duplicates);showBankLoadError('The question bank stopped while processing record '+cursor+'. '+(error?.message||''));if(button){button.disabled=false;button.textContent='Retry loading questions';}}};
@@ -163,7 +183,7 @@ function hasClinicalContextForExam(q){
   return Array.isArray(value)?value.some(details):(value&&typeof value==='object'?Object.values(value).some(details):false);
  };
  // A caseGroupId is only a grouping key; it is not clinical content by itself.
- const structured=['patientProfile','patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','clinicalRecord','medicalRecord','patientScenario','clinicalScenario','scenario','stimulus','passage','context','caseStudyText'];
+ const structured=['patientProfile','patientInfo','patientInformation','patient_information','ehr','caseStudy','case_study','clinicalRecord','medicalRecord','patientScenario','clinicalScenario','scenario','stimulus','passage','context','caseStudyText','rows','trendData','highlightSegments','dropdowns','bowtieData','availableItems','correctOrder','numericAnswer','correctNumericAnswer','numericRange'];
  if(structured.some(key=>hasValue(q[key]))||hasTabDetails(q.tabs))return true;
  const context=q.caseStudyContext;
  if(context&&['summary','description','narrative','scenario','patientInformation','clinicalScenario'].some(key=>hasValue(context[key])))return true;
