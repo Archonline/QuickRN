@@ -287,13 +287,32 @@
   }
   return issues;
  }
+ function validateGroups(bank){
+  const groups=new Map(),issues=[];
+  arr(bank).forEach((q,index)=>{
+   const group=first(q?.caseGroupId,q?.caseStudyId,q?.stimulus?.caseGroupId);
+   if(!group)return;
+   if(!groups.has(String(group)))groups.set(String(group),[]);
+   groups.get(String(group)).push({q,index});
+  });
+  groups.forEach((items,groupId)=>{
+   const add=(code,message)=>issues.push({code,message,groupId,indices:items.map(x=>x.index)});
+   if(items.length!==6)add('V2_CASE_GROUP_LENGTH','Linked case '+groupId+' must contain exactly six questions; found '+items.length+'.');
+   const steps=items.map(x=>Number(first(x.q.caseQuestionNumber,x.q.caseQuestionIndex,x.q.questionSequence,x.q.sequenceNumber,x.q.caseStudySequence,x.q.caseStudyContext?.stepIndex)));
+   if(steps.some(n=>!Number.isInteger(n)||n<1)||new Set(steps).size!==items.length||steps.slice().sort((a,b)=>a-b).some((n,i)=>n!==i+1)){
+    add('V2_CASE_GROUP_SEQUENCE','Linked case '+groupId+' must have one unique, contiguous sequence numbered 1 through 6.');
+   }
+   if(items.some(x=>String(first(x.q.caseGroupId,x.q.caseStudyId,x.q.stimulus?.caseGroupId))!==groupId))add('V2_CASE_GROUP_ID_MISMATCH','Every linked question must use the same case group ID.');
+  });
+  return issues;
+ }
  function normalizeBank(bank){
   const records=arr(bank);records.forEach(normalize);
   const groups=new Map();records.forEach(q=>{const g=q&&(q.caseGroupId||q.caseStudyId||q.stimulus?.caseGroupId);if(g){if(!groups.has(g))groups.set(g,[]);groups.get(g).push(q);}});
   groups.forEach(items=>{const used=new Set(items.map(q=>Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence)).filter(n=>Number.isInteger(n)&&n>0));let next=1;items.forEach(q=>{if(!Number.isInteger(Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence))){while(used.has(next))next++;q.caseQuestionNumber=next;q.caseStudySequence=next;used.add(next++);}else{q.caseQuestionNumber=Number(q.caseQuestionNumber||q.sequenceNumber||q.caseStudySequence);q.caseStudySequence=q.caseQuestionNumber;}});});
   return {total:records.length,normalized:records.filter(q=>q&&q.schemaVersion===2).length};
  }
- const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate};
+ const api={version:2,CJMM,SCORING,FORMATS,detectFormat,normalize,normalizeBank,validate,validateGroups};
  root.QuickRNQuestionSchemaV2=api;
  const initialBank=Array.isArray(root.questions)?root.questions:(Array.isArray(root.embeddedQuestionsData)?root.embeddedQuestionsData:null);
  if(initialBank)normalizeBank(initialBank);
