@@ -97,11 +97,14 @@ api.fromDraft=(q,d)=>baseFromDraft(canon(q),d);
 api.grade=grade;api.hasAnswer=has;
 root.quickRNGrade=grade;root.quickRNHasAnswer=has;root.quickRNDetectItemFormat=api.detect;root.quickRNAnswerSummary=api.answerSummary;
 root.quickRNNormalizeDraft=(q,value)=>baseToDraft(canon(q),value);
-root.quickRNFromLegacyDraft=(q,value)=>baseToDraft(canon(q),value);
-root.quickRNToLegacyDraft=(q,draft)=>baseFromDraft(canon(q),draft);
+function compatToDraft(q,value){const x=canon(q);if(x.ngnType==='Select N')return {choices:Array.isArray(value)?value:(Array.isArray(value?.choices)?value.choices:[])};return baseToDraft(x,value);}
+function compatFromDraft(q,draft){const x=canon(q);if(x.ngnType==='Select N')return Array.isArray(draft?.choices)?draft.choices:[];return baseFromDraft(x,draft);}
+api.toDraft=compatToDraft;api.fromDraft=compatFromDraft;
+root.quickRNFromLegacyDraft=compatToDraft;
+root.quickRNToLegacyDraft=compatFromDraft;
 api.answerSummary=(q,d)=>{const x=canon(q);return x.ngnType==='Matrix Multiple'||x.ngnType==='Matrix Single'?JSON.stringify(d.matrix||{},null,2):baseSummary(x,d);};
 root.quickRNAnswerSummary=api.answerSummary;
-api.renderReact=function(q,legacy,onUpdate,submitted,responseOnly){const x=canon(q);root.quickRNCurrentQuestion=x;quickRNCurrentItemId=x.id||null;const d=baseToDraft(x,legacy);quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(baseFromDraft(x,next));};let html=submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);if(responseOnly){const start=html.indexOf('<div class="qr-response-area">'),end=html.indexOf('<div class="qr-report-row">',start);if(start>=0&&end>start)return html.slice(start,end);}return html;};
+api.renderReact=function(q,legacy,onUpdate,submitted,responseOnly){const x=canon(q);root.quickRNCurrentQuestion=x;quickRNCurrentItemId=x.id||null;const d=compatToDraft(x,legacy);quickRNDraft=d;root.quickRNOnDraftChange=function(next){if(typeof onUpdate==='function')onUpdate(compatFromDraft(x,next));};let html=submitted?'<div class="qr-submitted">'+render(x,d,true)+'</div>':render(x,d,false);if(responseOnly){const start=html.indexOf('<div class="qr-response-area">'),end=html.indexOf('<div class="qr-report-row">',start);if(start>=0&&end>start)return html.slice(start,end);}return html;};
 root.quickRNRenderClinicalItem=function(q,d,submitted){const item=canon(q);root.quickRNCurrentQuestion=item;quickRNCurrentItemId=item.id||null;quickRNDraft=d||{};return render(item,quickRNDraft,!!submitted);};
 root.quickRNSelectNAnswer=function(value){
  const q=root.quickRNCurrentQuestion||{},limit=Number(q.selectN||q.nRequired||q.numberToSelect||q.requiredSelections||q.selectCount||(Array.isArray(q.correctAnswers)?q.correctAnswers.length:Array.isArray(q.correctAnswer)?q.correctAnswer.length:0)),selected=Array.isArray(quickRNDraft?.choices)?[...quickRNDraft.choices]:[],at=selected.findIndex(v=>String(v)===String(value));
