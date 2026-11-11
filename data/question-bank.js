@@ -1224,31 +1224,11 @@
       "clinicalJudgmentTip": "Prioritize the current cues, compare them with baseline, and reassess the client's response after intervention."
     },
     "trendData": {
-      "headers": [
-        "Time",
-        "Temperature",
-        "Heart rate",
-        "Blood pressure"
-      ],
-      "rows": [
-        [
-          "0800",
-          "38.0°C",
-          "104/min",
-          "108/68 mm Hg"
-        ],
-        [
-          "1000",
-          "38.7°C",
-          "118/min",
-          "96/58 mm Hg"
-        ],
-        [
-          "1200",
-          "39.1°C",
-          "132/min",
-          "84/48 mm Hg"
-        ]
+      "title": "Serial vital-sign changes during treatment for infection",
+      "stages": [
+        {"time":"0800 — Initial assessment","situation":"The client has a temperature of 38.0°C, heart rate 104/min, and blood pressure 108/68 mm Hg.","vitalSigns":{"Temperature":"38.0°C","Heart rate":"104/min","Blood pressure":"108/68 mm Hg"},"question":"Which interpretation and nursing response are most appropriate at this time?","options":["The client is stable; continue focused assessment and trend vital signs.","The client is in irreversible shock and resuscitation is futile.","The client is ready for discharge.","The findings confirm treatment success; stop monitoring."],"correctAnswer":"The client is stable; continue focused assessment and trend vital signs."},
+        {"time":"1000 — Worsening findings","situation":"The temperature rises to 38.7°C, heart rate to 118/min, and blood pressure falls to 96/58 mm Hg.","vitalSigns":{"Temperature":"38.7°C","Heart rate":"118/min","Blood pressure":"96/58 mm Hg"},"question":"What should the nurse do in response to this change?","options":["Document the findings as expected and wait until the next routine round.","Promptly notify the provider or activate the facility escalation pathway and reassess perfusion.","Encourage ambulation to lower the heart rate.","Discontinue prescribed treatment because the fever is increasing."],"correctAnswer":"Promptly notify the provider or activate the facility escalation pathway and reassess perfusion."},
+        {"time":"1200 — Further deterioration","situation":"The temperature is 39.1°C, heart rate 132/min, and blood pressure 84/48 mm Hg.","vitalSigns":{"Temperature":"39.1°C","Heart rate":"132/min","Blood pressure":"84/48 mm Hg"},"question":"Which action is the priority now?","options":["Activate the rapid response or emergency escalation pathway and support immediate evaluation.","Recheck the vital signs in 4 hours.","Prepare the client for discharge.","Offer oral fluids and defer notification until the next shift."],"correctAnswer":"Activate the rapid response or emergency escalation pathway and support immediate evaluation."}
       ]
     }
   },
