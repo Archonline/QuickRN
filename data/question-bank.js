@@ -2299,6 +2299,1238 @@
       },
       "clinicalJudgmentTip": "Use the client's current symptoms and change from baseline to identify time-sensitive deterioration; escalate warning signs rather than delaying assessment."
     }
+  },
+  {
+    "id": "QR-100027",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Acute ischemic stroke: immediate nursing priorities",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Single Choice",
+    "question": "A client arrives 35 minutes after sudden onset of right-sided weakness and expressive aphasia. The airway is patent and oxygen saturation is 97% on room air. Which action should the nurse take next?",
+    "options": [
+      "Activate the facility's stroke response and facilitate immediate brain imaging.",
+      "Give aspirin before imaging to prevent clot extension.",
+      "Offer water to determine whether swallowing is intact.",
+      "Lower the blood pressure rapidly to the client's usual outpatient target."
+    ],
+    "correctAnswer": "Activate the facility's stroke response and facilitate immediate brain imaging.",
+    "rationale": "Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+    "optionRationales": {
+      "Activate the facility's stroke response and facilitate immediate brain imaging.": "Correct. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+      "Give aspirin before imaging to prevent clot extension.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+      "Offer water to determine whether swallowing is intact.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+      "Lower the blood pressure rapidly to the client's usual outpatient target.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened."
+    },
+    "clinicalJudgmentTip": "Record last-known-well time precisely and do not delay the stroke pathway for nonessential tasks.",
+    "sourceReferences": [
+      {
+        "title": "2024 Clinical Practice Guidelines on the Management of Acute Ischemic Stroke and Intracerebral Hemorrhage in the Philippines",
+        "publisher": "Philippine Heart Association / Philippine Neurological Association guideline authors",
+        "url": "https://pjc.philheart.org/elib/journal/identifier/2026-011/full",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Stroke and transient ischaemic attack in over 16s: diagnosis and initial management (NG128)",
+        "publisher": "National Institute for Health and Care Excellence",
+        "url": "https://www.nice.org.uk/guidance/ng128/chapter/recommendations",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Emergency Department Evaluation and Management of Patients with Transient Ischemic Attack and Acute Stroke",
+        "publisher": "Canadian Stroke Best Practices",
+        "url": "https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100027",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Single Choice",
+      "stem": "A client arrives 35 minutes after sudden onset of right-sided weakness and expressive aphasia. The airway is patent and oxygen saturation is 97% on room air. Which action should the nurse take next?",
+      "options": [
+        "Activate the facility's stroke response and facilitate immediate brain imaging.",
+        "Give aspirin before imaging to prevent clot extension.",
+        "Offer water to determine whether swallowing is intact.",
+        "Lower the blood pressure rapidly to the client's usual outpatient target."
+      ],
+      "answerKey": "Activate the facility's stroke response and facilitate immediate brain imaging.",
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+      "options": {
+        "Activate the facility's stroke response and facilitate immediate brain imaging.": "Correct. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+        "Give aspirin before imaging to prevent clot extension.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+        "Offer water to determine whether swallowing is intact.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened.",
+        "Lower the blood pressure rapidly to the client's usual outpatient target.": "This is not the best response. Suspected acute stroke is time-critical. Activate the stroke pathway, establish the last-known-well time, assess glucose and other immediate parameters, and expedite brain imaging. Antiplatelet treatment is not started before hemorrhage is excluded, and oral intake waits until swallowing is screened."
+      },
+      "clinicalJudgmentTip": "Record last-known-well time precisely and do not delay the stroke pathway for nonessential tasks."
+    }
+  },
+  {
+    "id": "QR-100028",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Sepsis recognition and escalation",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Multiple Response",
+    "question": "A client admitted with pyelonephritis becomes acutely confused. Temperature is 39.1°C (102.4°F), heart rate 132/min, blood pressure 84/48 mm Hg, and urine output has fallen. Which findings or actions support concern for sepsis with possible organ dysfunction? Select all that apply.",
+    "options": [
+      "New confusion compared with baseline.",
+      "Hypotension with tachycardia.",
+      "Decreased urine output.",
+      "Notify the responsible clinician immediately and follow the sepsis response pathway.",
+      "Wait for the culture result before escalating care."
+    ],
+    "correctAnswer": [
+      "New confusion compared with baseline.",
+      "Hypotension with tachycardia.",
+      "Decreased urine output.",
+      "Notify the responsible clinician immediately and follow the sepsis response pathway."
+    ],
+    "rationale": "The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+    "optionRationales": {
+      "New confusion compared with baseline.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+      "Hypotension with tachycardia.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+      "Decreased urine output.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+      "Notify the responsible clinician immediately and follow the sepsis response pathway.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+      "Wait for the culture result before escalating care.": "This is not the best response. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation."
+    },
+    "clinicalJudgmentTip": "Suspected sepsis is an emergency; respond to deterioration rather than waiting for confirmatory cultures.",
+    "sourceReferences": [
+      {
+        "title": "Caring for Patients with Sepsis",
+        "publisher": "Centers for Disease Control and Prevention",
+        "url": "https://www.cdc.gov/sepsis/hcp/clinical-care/",
+        "publishedAt": "2025-08-19",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100028",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Recognize Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Multiple Response",
+      "stem": "A client admitted with pyelonephritis becomes acutely confused. Temperature is 39.1°C (102.4°F), heart rate 132/min, blood pressure 84/48 mm Hg, and urine output has fallen. Which findings or actions support concern for sepsis with possible organ dysfunction? Select all that apply.",
+      "options": [
+        "New confusion compared with baseline.",
+        "Hypotension with tachycardia.",
+        "Decreased urine output.",
+        "Notify the responsible clinician immediately and follow the sepsis response pathway.",
+        "Wait for the culture result before escalating care."
+      ],
+      "answerKey": [
+        "New confusion compared with baseline.",
+        "Hypotension with tachycardia.",
+        "Decreased urine output.",
+        "Notify the responsible clinician immediately and follow the sepsis response pathway."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+      "options": {
+        "New confusion compared with baseline.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+        "Hypotension with tachycardia.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+        "Decreased urine output.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+        "Notify the responsible clinician immediately and follow the sepsis response pathway.": "Correct. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation.",
+        "Wait for the culture result before escalating care.": "This is not the best response. The client has suspected infection plus acute mental-status change, hypotension, tachycardia, and reduced urine output. These are concerning for impaired perfusion or organ dysfunction. CDC guidance emphasizes immediate evaluation, escalation, treatment, and frequent reassessment; culture results must not delay escalation."
+      },
+      "clinicalJudgmentTip": "Suspected sepsis is an emergency; respond to deterioration rather than waiting for confirmatory cultures."
+    }
+  },
+  {
+    "id": "QR-100029",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Treatment of conscious adult hypoglycemia",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Select N",
+    "question": "A client with diabetes is alert, can swallow safely, and has a capillary blood glucose of 58 mg/dL (3.2 mmol/L). Which TWO actions should the nurse take initially?",
+    "options": [
+      "Give 15 g of fast-acting glucose or carbohydrate.",
+      "Recheck the blood glucose in 15 minutes.",
+      "Give the scheduled rapid-acting insulin dose.",
+      "Give a high-fat snack as the initial treatment.",
+      "Encourage the client to walk to raise the glucose."
+    ],
+    "correctAnswer": [
+      "Give 15 g of fast-acting glucose or carbohydrate.",
+      "Recheck the blood glucose in 15 minutes."
+    ],
+    "rationale": "For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+    "optionRationales": {
+      "Give 15 g of fast-acting glucose or carbohydrate.": "Correct. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+      "Recheck the blood glucose in 15 minutes.": "Correct. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+      "Give the scheduled rapid-acting insulin dose.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+      "Give a high-fat snack as the initial treatment.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+      "Encourage the client to walk to raise the glucose.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction."
+    },
+    "clinicalJudgmentTip": "Use oral glucose only when the client is alert and can swallow; altered consciousness requires emergency treatment rather than oral intake.",
+    "sourceReferences": [
+      {
+        "title": "Glycemic Goals, Hypoglycemia, and Hyperglycemic Crises: Standards of Care in Diabetes—2026",
+        "publisher": "American Diabetes Association",
+        "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S132/163927/6-Glycemic-Goals-Hypoglycemia-and-Hyperglycemic",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100029",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Select N",
+      "stem": "A client with diabetes is alert, can swallow safely, and has a capillary blood glucose of 58 mg/dL (3.2 mmol/L). Which TWO actions should the nurse take initially?",
+      "options": [
+        "Give 15 g of fast-acting glucose or carbohydrate.",
+        "Recheck the blood glucose in 15 minutes.",
+        "Give the scheduled rapid-acting insulin dose.",
+        "Give a high-fat snack as the initial treatment.",
+        "Encourage the client to walk to raise the glucose."
+      ],
+      "answerKey": [
+        "Give 15 g of fast-acting glucose or carbohydrate.",
+        "Recheck the blood glucose in 15 minutes."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+      "options": {
+        "Give 15 g of fast-acting glucose or carbohydrate.": "Correct. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+        "Recheck the blood glucose in 15 minutes.": "Correct. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+        "Give the scheduled rapid-acting insulin dose.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+        "Give a high-fat snack as the initial treatment.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction.",
+        "Encourage the client to walk to raise the glucose.": "This is not the best response. For an alert person who can swallow, ADA guidance recommends fast-acting glucose/carbohydrate for hypoglycemia and a repeat glucose check after 15 minutes. If the level remains low, repeat treatment and continue reassessment. Insulin would worsen hypoglycemia; high-fat foods are not preferred for initial correction."
+      },
+      "clinicalJudgmentTip": "Use oral glucose only when the client is alert and can swallow; altered consciousness requires emergency treatment rather than oral intake."
+    },
+    "selectN": 2,
+    "numberToSelect": 2,
+    "requiredSelections": 2
+  },
+  {
+    "id": "QR-100030",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn",
+    "topic": "Postpartum assessment: warning signs",
+    "clientNeeds": "Health Promotion and Maintenance",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Matrix Single",
+    "question": "A nurse is triaging clients who recently gave birth. For each finding, identify whether it requires urgent clinical evaluation or can be an expected postpartum finding when not accompanied by other warning signs.",
+    "correctAnswer": {
+      "bleeding": "Urgent evaluation",
+      "headache": "Urgent evaluation",
+      "lochia": "Expected finding"
+    },
+    "rationale": "Heavy bleeding that soaks two pads per hour, a persistent severe headache or visual changes may indicate postpartum complications and require prompt evaluation. Lochia that gradually lightens over time is expected; assess the amount, trend, associated symptoms, and individual context.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Postpartum warning signs can occur after discharge; heavy bleeding, severe headache, visual symptoms, or dyspnea should not be normalized.",
+    "sourceReferences": [
+      {
+        "title": "3 Conditions to Watch for After Childbirth",
+        "publisher": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/womens-health/experts-and-stories/the-latest/3-conditions-to-watch-for-after-childbirth",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Postpartum Hemorrhage",
+        "publisher": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/10/postpartum-hemorrhage",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100030",
+      "category": "Maternal-Newborn",
+      "clientNeeds": "Health Promotion and Maintenance",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Matrix Single",
+      "stem": "A nurse is triaging clients who recently gave birth. For each finding, identify whether it requires urgent clinical evaluation or can be an expected postpartum finding when not accompanied by other warning signs.",
+      "answerKey": {
+        "bleeding": "Urgent evaluation",
+        "headache": "Urgent evaluation",
+        "lochia": "Expected finding"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Heavy bleeding that soaks two pads per hour, a persistent severe headache or visual changes may indicate postpartum complications and require prompt evaluation. Lochia that gradually lightens over time is expected; assess the amount, trend, associated symptoms, and individual context.",
+      "options": {},
+      "clinicalJudgmentTip": "Postpartum warning signs can occur after discharge; heavy bleeding, severe headache, visual symptoms, or dyspnea should not be normalized."
+    },
+    "rows": [
+      {
+        "id": "bleeding",
+        "text": "Soaking two pads per hour with dizziness",
+        "options": [
+          "Urgent evaluation",
+          "Expected finding"
+        ]
+      },
+      {
+        "id": "headache",
+        "text": "Severe persistent headache with visual spots",
+        "options": [
+          "Urgent evaluation",
+          "Expected finding"
+        ]
+      },
+      {
+        "id": "lochia",
+        "text": "Lochia gradually changing from red to pink/brown without heavy flow",
+        "options": [
+          "Urgent evaluation",
+          "Expected finding"
+        ]
+      }
+    ],
+    "columns": [
+      "Urgent evaluation",
+      "Expected finding"
+    ],
+    "correctAnswers": {
+      "bleeding": "Urgent evaluation",
+      "headache": "Urgent evaluation",
+      "lochia": "Expected finding"
+    }
+  },
+  {
+    "id": "QR-100031",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Insulin safety during diabetic ketoacidosis",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Matrix Multiple",
+    "question": "A client with diabetic ketoacidosis is receiving IV fluids and electrolyte replacement. Classify each finding by selecting all nursing concerns that apply to the finding.",
+    "correctAnswer": {
+      "potassium": [
+        "Insulin-related risk",
+        "Requires prompt follow-up"
+      ],
+      "glucose": [
+        "Requires ongoing monitoring"
+      ],
+      "mental": [
+        "Requires prompt follow-up",
+        "Possible clinical deterioration"
+      ]
+    },
+    "rationale": "Potassium can fall during DKA treatment as insulin and correction of acidosis shift potassium intracellularly. Potassium must be monitored and replaced according to the prescribed protocol; insulin timing depends on the potassium level. Glucose trends and mental status also require close monitoring during treatment.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "During DKA treatment, monitor potassium, glucose, acid-base status, hydration, and neurologic status; follow the institutional protocol for insulin and electrolyte replacement.",
+    "sourceReferences": [
+      {
+        "title": "Diabetes Care in the Hospital: Standards of Care in Diabetes—2026",
+        "publisher": "American Diabetes Association",
+        "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S339/163925/16-Diabetes-Care-in-the-Hospital-Standards-of-Care",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100031",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Matrix Multiple",
+      "stem": "A client with diabetic ketoacidosis is receiving IV fluids and electrolyte replacement. Classify each finding by selecting all nursing concerns that apply to the finding.",
+      "answerKey": {
+        "potassium": [
+          "Insulin-related risk",
+          "Requires prompt follow-up"
+        ],
+        "glucose": [
+          "Requires ongoing monitoring"
+        ],
+        "mental": [
+          "Requires prompt follow-up",
+          "Possible clinical deterioration"
+        ]
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Potassium can fall during DKA treatment as insulin and correction of acidosis shift potassium intracellularly. Potassium must be monitored and replaced according to the prescribed protocol; insulin timing depends on the potassium level. Glucose trends and mental status also require close monitoring during treatment.",
+      "options": {},
+      "clinicalJudgmentTip": "During DKA treatment, monitor potassium, glucose, acid-base status, hydration, and neurologic status; follow the institutional protocol for insulin and electrolyte replacement."
+    },
+    "rows": [
+      {
+        "id": "potassium",
+        "text": "Serum potassium 3.2 mmol/L before insulin infusion",
+        "options": [
+          "Insulin-related risk",
+          "Requires prompt follow-up",
+          "No additional concern"
+        ]
+      },
+      {
+        "id": "glucose",
+        "text": "Glucose decreases from 420 to 260 mg/dL during treatment",
+        "options": [
+          "Requires ongoing monitoring",
+          "Requires prompt follow-up",
+          "No additional concern"
+        ]
+      },
+      {
+        "id": "mental",
+        "text": "New lethargy and reduced responsiveness",
+        "options": [
+          "Requires prompt follow-up",
+          "Possible clinical deterioration",
+          "Expected treatment effect"
+        ]
+      }
+    ],
+    "columns": [
+      "Insulin-related risk",
+      "Requires prompt follow-up",
+      "Possible clinical deterioration",
+      "Requires ongoing monitoring",
+      "No additional concern"
+    ],
+    "correctAnswers": {
+      "potassium": [
+        "Insulin-related risk",
+        "Requires prompt follow-up"
+      ],
+      "glucose": [
+        "Requires ongoing monitoring"
+      ],
+      "mental": [
+        "Requires prompt follow-up",
+        "Possible clinical deterioration"
+      ]
+    }
+  },
+  {
+    "id": "QR-100032",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Hypoglycemia treatment rationale",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Cloze (Drop-down)",
+    "question": "A client with diabetes is awake, follows commands, and has a blood glucose of 64 mg/dL. Complete the statement: The nurse should first {{action}} because {{reason}}.",
+    "correctAnswer": {
+      "action": "give 15 g of fast-acting glucose",
+      "reason": "the client is alert and can safely swallow"
+    },
+    "rationale": "An alert client who can swallow should receive fast-acting glucose/carbohydrate for hypoglycemia, followed by a repeat glucose check in 15 minutes. Oral treatment is unsafe when the client cannot protect the airway or swallow.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Match the route of hypoglycemia treatment to the client's level of consciousness and ability to swallow.",
+    "sourceReferences": [
+      {
+        "title": "Glycemic Goals, Hypoglycemia, and Hyperglycemic Crises: Standards of Care in Diabetes—2026",
+        "publisher": "American Diabetes Association",
+        "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S132/163927/6-Glycemic-Goals-Hypoglycemia-and-Hyperglycemic",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100032",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Cloze (Drop-down)",
+      "stem": "A client with diabetes is awake, follows commands, and has a blood glucose of 64 mg/dL. Complete the statement: The nurse should first {{action}} because {{reason}}.",
+      "answerKey": {
+        "action": "give 15 g of fast-acting glucose",
+        "reason": "the client is alert and can safely swallow"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "An alert client who can swallow should receive fast-acting glucose/carbohydrate for hypoglycemia, followed by a repeat glucose check in 15 minutes. Oral treatment is unsafe when the client cannot protect the airway or swallow.",
+      "options": {},
+      "clinicalJudgmentTip": "Match the route of hypoglycemia treatment to the client's level of consciousness and ability to swallow."
+    },
+    "clozeTemplate": "The nurse should first {{action}} because {{reason}}.",
+    "dropdowns": [
+      {
+        "id": "action",
+        "options": [
+          "give 15 g of fast-acting glucose",
+          "administer the scheduled insulin",
+          "withhold all carbohydrate"
+        ],
+        "correct": "give 15 g of fast-acting glucose"
+      },
+      {
+        "id": "reason",
+        "options": [
+          "the client is alert and can safely swallow",
+          "oral glucose is contraindicated in all adults",
+          "insulin will immediately correct the low glucose"
+        ],
+        "correct": "the client is alert and can safely swallow"
+      }
+    ],
+    "correctAnswers": {
+      "action": "give 15 g of fast-acting glucose",
+      "reason": "the client is alert and can safely swallow"
+    }
+  },
+  {
+    "id": "QR-100033",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Digoxin adverse effects and toxicity cues",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Dropdown Rationale",
+    "question": "A client taking digoxin reports nausea, poor appetite, and yellow-tinted blurred vision. Complete the statement: These findings are concerning for {{interpretation}}; the nurse should {{response}}.",
+    "correctAnswer": {
+      "interpretation": "possible digoxin toxicity",
+      "response": "withhold the next dose and promptly notify the prescriber for assessment"
+    },
+    "rationale": "Nausea, vomiting, appetite loss, visual changes, and dysrhythmias can occur with digoxin toxicity or serious adverse effects. The nurse should promptly report the findings and follow medication-hold parameters and orders; do not independently diagnose toxicity or administer an antidote.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Recognize new gastrointestinal and visual symptoms in a client taking digoxin as possible serious adverse effects and escalate promptly.",
+    "sourceReferences": [
+      {
+        "title": "Digoxin: MedlinePlus Drug Information",
+        "publisher": "U.S. National Library of Medicine",
+        "url": "https://www.medlineplus.gov/druginfo/meds/a682301.html",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100033",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Dropdown Rationale",
+      "stem": "A client taking digoxin reports nausea, poor appetite, and yellow-tinted blurred vision. Complete the statement: These findings are concerning for {{interpretation}}; the nurse should {{response}}.",
+      "answerKey": {
+        "interpretation": "possible digoxin toxicity",
+        "response": "withhold the next dose and promptly notify the prescriber for assessment"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Nausea, vomiting, appetite loss, visual changes, and dysrhythmias can occur with digoxin toxicity or serious adverse effects. The nurse should promptly report the findings and follow medication-hold parameters and orders; do not independently diagnose toxicity or administer an antidote.",
+      "options": {},
+      "clinicalJudgmentTip": "Recognize new gastrointestinal and visual symptoms in a client taking digoxin as possible serious adverse effects and escalate promptly."
+    },
+    "clozeTemplate": "These findings are concerning for {{interpretation}}; the nurse should {{response}}.",
+    "dropdowns": [
+      {
+        "id": "interpretation",
+        "options": [
+          "possible digoxin toxicity",
+          "expected therapeutic response",
+          "acute hypoglycemia"
+        ],
+        "correct": "possible digoxin toxicity"
+      },
+      {
+        "id": "response",
+        "options": [
+          "withhold the next dose and promptly notify the prescriber for assessment",
+          "give an extra dose to restore the serum level",
+          "reassure the client and continue without reporting"
+        ],
+        "correct": "withhold the next dose and promptly notify the prescriber for assessment"
+      }
+    ],
+    "correctAnswers": {
+      "interpretation": "possible digoxin toxicity",
+      "response": "withhold the next dose and promptly notify the prescriber for assessment"
+    }
+  },
+  {
+    "id": "QR-100034",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn",
+    "topic": "Postpartum hemorrhage: uterine atony",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Generate Solutions",
+    "difficulty": 4,
+    "type": "Bowtie",
+    "question": "A client is 20 minutes postpartum after a vaginal birth. The nurse notes a boggy uterus, continuous heavy vaginal bleeding, heart rate 124/min, and blood pressure 88/54 mm Hg. Complete the bowtie by selecting the most likely condition, two priority actions, and two parameters to monitor.",
+    "correctAnswer": {
+      "condition": "Postpartum hemorrhage associated with uterine atony",
+      "actions": [
+        "Call for immediate assistance and activate the postpartum hemorrhage response.",
+        "Perform fundal massage while initiating the facility protocol."
+      ],
+      "monitoring": [
+        "Quantified blood loss and uterine tone.",
+        "Heart rate, blood pressure, and perfusion."
+      ]
+    },
+    "rationale": "A boggy uterus with heavy bleeding is consistent with uterine atony, a common cause of postpartum hemorrhage. This client also has signs of hemodynamic compromise. Immediate team activation, uterine massage, protocol-based uterotonic management, and close monitoring are priorities; follow the local hemorrhage bundle.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Treat heavy postpartum bleeding with a boggy uterus as an emergency; activate the hemorrhage response and reassess uterine tone and maternal perfusion.",
+    "sourceReferences": [
+      {
+        "title": "Postpartum Hemorrhage",
+        "publisher": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/10/postpartum-hemorrhage",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "3 Conditions to Watch for After Childbirth",
+        "publisher": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/womens-health/experts-and-stories/the-latest/3-conditions-to-watch-for-after-childbirth",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100034",
+      "category": "Maternal-Newborn",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Generate Solutions",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Bowtie",
+      "stem": "A client is 20 minutes postpartum after a vaginal birth. The nurse notes a boggy uterus, continuous heavy vaginal bleeding, heart rate 124/min, and blood pressure 88/54 mm Hg. Complete the bowtie by selecting the most likely condition, two priority actions, and two parameters to monitor.",
+      "answerKey": {
+        "condition": "Postpartum hemorrhage associated with uterine atony",
+        "actions": [
+          "Call for immediate assistance and activate the postpartum hemorrhage response.",
+          "Perform fundal massage while initiating the facility protocol."
+        ],
+        "monitoring": [
+          "Quantified blood loss and uterine tone.",
+          "Heart rate, blood pressure, and perfusion."
+        ]
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "A boggy uterus with heavy bleeding is consistent with uterine atony, a common cause of postpartum hemorrhage. This client also has signs of hemodynamic compromise. Immediate team activation, uterine massage, protocol-based uterotonic management, and close monitoring are priorities; follow the local hemorrhage bundle.",
+      "options": {},
+      "clinicalJudgmentTip": "Treat heavy postpartum bleeding with a boggy uterus as an emergency; activate the hemorrhage response and reassess uterine tone and maternal perfusion."
+    },
+    "bowtieData": {
+      "conditions": [
+        "Postpartum hemorrhage associated with uterine atony",
+        "Normal postpartum lochia",
+        "Retained urine without hemorrhage"
+      ],
+      "actions": [
+        "Call for immediate assistance and activate the postpartum hemorrhage response.",
+        "Perform fundal massage while initiating the facility protocol.",
+        "Delay action until the next scheduled assessment."
+      ],
+      "monitoring": [
+        "Quantified blood loss and uterine tone.",
+        "Heart rate, blood pressure, and perfusion.",
+        "Visual acuity only."
+      ]
+    },
+    "correctAnswers": {
+      "condition": "Postpartum hemorrhage associated with uterine atony",
+      "actions": [
+        "Call for immediate assistance and activate the postpartum hemorrhage response.",
+        "Perform fundal massage while initiating the facility protocol."
+      ],
+      "monitoring": [
+        "Quantified blood loss and uterine tone.",
+        "Heart rate, blood pressure, and perfusion."
+      ]
+    }
+  },
+  {
+    "id": "QR-100035",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Acute stroke response sequence",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Extended Drag and Drop",
+    "question": "A client develops sudden facial droop and unilateral arm weakness in the emergency department. Place the nursing workflow steps in a safe sequence consistent with the facility's stroke pathway.",
+    "correctAnswer": [
+      "Activate the stroke response and obtain the exact last-known-well time.",
+      "Complete rapid ABC and neurologic assessment; check point-of-care glucose.",
+      "Facilitate urgent noncontrast brain imaging.",
+      "Continue monitoring and communicate findings and medication history to the stroke team."
+    ],
+    "rationale": "Rapid stroke activation, last-known-well documentation, immediate assessment including glucose, urgent imaging, and ongoing communication/monitoring support time-critical evaluation. The exact workflow is governed by the facility's stroke protocol and should not delay imaging.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Use the local stroke pathway; determine last-known-well time, check glucose, and expedite brain imaging without avoidable delay.",
+    "sourceReferences": [
+      {
+        "title": "2024 Clinical Practice Guidelines on the Management of Acute Ischemic Stroke and Intracerebral Hemorrhage in the Philippines",
+        "publisher": "Philippine Heart Association / Philippine Neurological Association guideline authors",
+        "url": "https://pjc.philheart.org/elib/journal/identifier/2026-011/full",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Stroke and transient ischaemic attack in over 16s: diagnosis and initial management (NG128)",
+        "publisher": "National Institute for Health and Care Excellence",
+        "url": "https://www.nice.org.uk/guidance/ng128/chapter/recommendations",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Emergency Department Evaluation and Management of Patients with Transient Ischemic Attack and Acute Stroke",
+        "publisher": "Canadian Stroke Best Practices",
+        "url": "https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100035",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Extended Drag and Drop",
+      "stem": "A client develops sudden facial droop and unilateral arm weakness in the emergency department. Place the nursing workflow steps in a safe sequence consistent with the facility's stroke pathway.",
+      "answerKey": [
+        "Activate the stroke response and obtain the exact last-known-well time.",
+        "Complete rapid ABC and neurologic assessment; check point-of-care glucose.",
+        "Facilitate urgent noncontrast brain imaging.",
+        "Continue monitoring and communicate findings and medication history to the stroke team."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Rapid stroke activation, last-known-well documentation, immediate assessment including glucose, urgent imaging, and ongoing communication/monitoring support time-critical evaluation. The exact workflow is governed by the facility's stroke protocol and should not delay imaging.",
+      "options": {},
+      "clinicalJudgmentTip": "Use the local stroke pathway; determine last-known-well time, check glucose, and expedite brain imaging without avoidable delay."
+    },
+    "availableItems": [
+      "Activate the stroke response and obtain the exact last-known-well time.",
+      "Complete rapid ABC and neurologic assessment; check point-of-care glucose.",
+      "Facilitate urgent noncontrast brain imaging.",
+      "Continue monitoring and communicate findings and medication history to the stroke team."
+    ],
+    "correctOrder": [
+      "Activate the stroke response and obtain the exact last-known-well time.",
+      "Complete rapid ABC and neurologic assessment; check point-of-care glucose.",
+      "Facilitate urgent noncontrast brain imaging.",
+      "Continue monitoring and communicate findings and medication history to the stroke team."
+    ]
+  },
+  {
+    "id": "QR-100036",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "DKA clinical recognition",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Extended Multiple Response",
+    "question": "A client with type 1 diabetes has nausea, abdominal pain, deep rapid respirations, and increasing fatigue after missing insulin doses. Which findings support concern for diabetic ketoacidosis? Select all that apply.",
+    "options": [
+      "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).",
+      "Blood beta-hydroxybutyrate 3.6 mmol/L.",
+      "Venous pH 7.25 and bicarbonate 15 mmol/L.",
+      "Serum ketones negative with normal bicarbonate and pH.",
+      "A single normal temperature."
+    ],
+    "correctAnswer": [
+      "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).",
+      "Blood beta-hydroxybutyrate 3.6 mmol/L.",
+      "Venous pH 7.25 and bicarbonate 15 mmol/L."
+    ],
+    "rationale": "DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+    "optionRationales": {
+      "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+      "Blood beta-hydroxybutyrate 3.6 mmol/L.": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+      "Venous pH 7.25 and bicarbonate 15 mmol/L.": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+      "Serum ketones negative with normal bicarbonate and pH.": "This is not the best response. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+      "A single normal temperature.": "This is not the best response. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required."
+    },
+    "clinicalJudgmentTip": "Do not rule out DKA from glucose alone; interpret hyperglycemia or known diabetes together with ketones and acidosis.",
+    "sourceReferences": [
+      {
+        "title": "Diabetes Care in the Hospital: Standards of Care in Diabetes—2026",
+        "publisher": "American Diabetes Association",
+        "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S339/163925/16-Diabetes-Care-in-the-Hospital-Standards-of-Care",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100036",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Recognize Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Extended Multiple Response",
+      "stem": "A client with type 1 diabetes has nausea, abdominal pain, deep rapid respirations, and increasing fatigue after missing insulin doses. Which findings support concern for diabetic ketoacidosis? Select all that apply.",
+      "options": [
+        "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).",
+        "Blood beta-hydroxybutyrate 3.6 mmol/L.",
+        "Venous pH 7.25 and bicarbonate 15 mmol/L.",
+        "Serum ketones negative with normal bicarbonate and pH.",
+        "A single normal temperature."
+      ],
+      "answerKey": [
+        "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).",
+        "Blood beta-hydroxybutyrate 3.6 mmol/L.",
+        "Venous pH 7.25 and bicarbonate 15 mmol/L."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+      "options": {
+        "Known diabetes with glucose 248 mg/dL (13.8 mmol/L).": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+        "Blood beta-hydroxybutyrate 3.6 mmol/L.": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+        "Venous pH 7.25 and bicarbonate 15 mmol/L.": "Correct. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+        "Serum ketones negative with normal bicarbonate and pH.": "This is not the best response. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required.",
+        "A single normal temperature.": "This is not the best response. DKA is characterized by diabetes or hyperglycemia, significant ketosis, and metabolic acidosis. The 2026 ADA hospital standards summarize criteria including glucose at least 200 mg/dL or prior diabetes, beta-hydroxybutyrate at least 3.0 mmol/L (or urine ketones 2+), and pH below 7.3 and/or bicarbonate below 18 mmol/L. The full clinical picture and laboratory assessment are required."
+      },
+      "clinicalJudgmentTip": "Do not rule out DKA from glucose alone; interpret hyperglycemia or known diabetes together with ketones and acidosis."
+    }
+  },
+  {
+    "id": "QR-100037",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn",
+    "topic": "Postpartum preeclampsia warning signs",
+    "clientNeeds": "Health Promotion and Maintenance",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Highlight",
+    "question": "A client calls the postpartum unit 5 days after discharge. Highlight the reported findings that require immediate clinical evaluation for a possible postpartum hypertensive complication.",
+    "correctAnswer": [
+      "A severe headache that does not improve.",
+      "Seeing spots and blurred vision.",
+      "Shortness of breath when resting.",
+      "Mild lochia that is gradually decreasing."
+    ],
+    "rationale": "A persistent severe headache, visual changes, and shortness of breath are postpartum warning signs that require immediate assessment. Mild lochia that gradually decreases can be expected when not accompanied by heavy bleeding or other concerning symptoms.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Postpartum preeclampsia can occur after birth; persistent headache, visual changes, dyspnea, and upper abdominal pain warrant urgent evaluation.",
+    "sourceReferences": [
+      {
+        "title": "3 Conditions to Watch for After Childbirth",
+        "publisher": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/womens-health/experts-and-stories/the-latest/3-conditions-to-watch-for-after-childbirth",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100037",
+      "category": "Maternal-Newborn",
+      "clientNeeds": "Health Promotion and Maintenance",
+      "cjmmStep": "Recognize Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Highlight",
+      "stem": "A client calls the postpartum unit 5 days after discharge. Highlight the reported findings that require immediate clinical evaluation for a possible postpartum hypertensive complication.",
+      "answerKey": [
+        "A severe headache that does not improve.",
+        "Seeing spots and blurred vision.",
+        "Shortness of breath when resting.",
+        "Mild lochia that is gradually decreasing."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "A persistent severe headache, visual changes, and shortness of breath are postpartum warning signs that require immediate assessment. Mild lochia that gradually decreases can be expected when not accompanied by heavy bleeding or other concerning symptoms.",
+      "options": {},
+      "clinicalJudgmentTip": "Postpartum preeclampsia can occur after birth; persistent headache, visual changes, dyspnea, and upper abdominal pain warrant urgent evaluation."
+    },
+    "highlightSegments": [
+      {
+        "id": "h1",
+        "text": "A severe headache that does not improve."
+      },
+      {
+        "id": "h2",
+        "text": "Seeing spots and blurred vision."
+      },
+      {
+        "id": "h3",
+        "text": "Shortness of breath when resting."
+      },
+      {
+        "id": "h4",
+        "text": "Mild lochia that is gradually decreasing."
+      }
+    ],
+    "correctHighlights": [
+      "h1",
+      "h2",
+      "h3"
+    ]
+  },
+  {
+    "id": "QR-100038",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Recurrent hypoglycemia trend evaluation",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Evaluate Outcomes",
+    "difficulty": 4,
+    "type": "Trend",
+    "question": "A client with diabetes is alert and receives 15 g of oral glucose for hypoglycemia. Review the glucose trend and identify the interpretation that best guides the next action.",
+    "options": [
+      "Hypoglycemia has resolved and no further assessment is needed.",
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment."
+    ],
+    "correctAnswer": "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
+    "rationale": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+    "optionRationales": {
+      "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+    },
+    "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation.",
+    "sourceReferences": [
+      {
+        "title": "Glycemic Goals, Hypoglycemia, and Hyperglycemic Crises: Standards of Care in Diabetes—2026",
+        "publisher": "American Diabetes Association",
+        "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S132/163927/6-Glycemic-Goals-Hypoglycemia-and-Hyperglycemic",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100038",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Evaluate Outcomes",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Trend",
+      "stem": "A client with diabetes is alert and receives 15 g of oral glucose for hypoglycemia. Review the glucose trend and identify the interpretation that best guides the next action.",
+      "options": [
+        "Hypoglycemia has resolved and no further assessment is needed.",
+        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment."
+      ],
+      "answerKey": "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.",
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+      "options": {
+        "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
+        "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol."
+      },
+      "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation."
+    },
+    "trendData": {
+      "columns": [
+        "Time",
+        "Capillary blood glucose"
+      ],
+      "rows": [
+        [
+          "0715",
+          "58 mg/dL"
+        ],
+        [
+          "0730",
+          "82 mg/dL after 15 g glucose"
+        ],
+        [
+          "0745",
+          "65 mg/dL"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "QR-100039",
+    "schemaVersion": 2,
+    "category": "Pharmacology",
+    "topic": "Oral medication dose calculation",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Numeric Entry",
+    "question": "The prescription is for 250 mg of an oral medication. The available suspension contains 125 mg per 5 mL. How many milliliters should the nurse administer for one dose? Enter a whole number in mL.",
+    "correctAnswer": 10,
+    "rationale": "The concentration is 125 mg per 5 mL. A 250 mg dose is twice that amount, so the required volume is 10 mL. Verify the medication, concentration, dose, route, and measuring device before administration.",
+    "optionRationales": {
+      "Accepted numeric response": "Correct. 250 mg ÷ 125 mg × 5 mL = 10 mL.",
+      "Response outside accepted tolerance": "Recalculate using the supplied concentration and keep the final unit in mL."
+    },
+    "clinicalJudgmentTip": "Use dimensional analysis and verify the final unit; independently check high-alert medication calculations per facility policy.",
+    "sourceReferences": [
+      {
+        "title": "Medication dosage calculation and safe administration",
+        "publisher": "Institute for Safe Medication Practices",
+        "url": "https://www.ismp.org/resources",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100039",
+      "category": "Pharmacology",
+      "clientNeeds": "Pharmacological and Parenteral Therapies",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Numeric Entry",
+      "stem": "The prescription is for 250 mg of an oral medication. The available suspension contains 125 mg per 5 mL. How many milliliters should the nurse administer for one dose? Enter a whole number in mL.",
+      "answerKey": 10,
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "The concentration is 125 mg per 5 mL. A 250 mg dose is twice that amount, so the required volume is 10 mL. Verify the medication, concentration, dose, route, and measuring device before administration.",
+      "options": {
+        "Accepted numeric response": "Correct. 250 mg ÷ 125 mg × 5 mL = 10 mL.",
+        "Response outside accepted tolerance": "Recalculate using the supplied concentration and keep the final unit in mL."
+      },
+      "clinicalJudgmentTip": "Use dimensional analysis and verify the final unit; independently check high-alert medication calculations per facility policy."
+    },
+    "numericAnswer": 10,
+    "correctNumericAnswer": 10,
+    "unit": "mL",
+    "numericRange": {
+      "min": 10,
+      "max": 10,
+      "tolerance": 0
+    }
+  },
+  {
+    "id": "QR-100040",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Acute stroke dysphagia safety",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Single Choice",
+    "question": "A client admitted with a suspected acute stroke asks for water. A validated swallowing screen has not yet been completed. What is the nurse's best response?",
+    "options": [
+      "Keep the client NPO, explain the reason, and arrange the required swallowing screen.",
+      "Give a small sip of water to see whether the client coughs.",
+      "Offer thickened liquids without a swallowing assessment.",
+      "Crush oral medications in applesauce and administer them now."
+    ],
+    "correctAnswer": "Keep the client NPO, explain the reason, and arrange the required swallowing screen.",
+    "rationale": "Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+    "optionRationales": {
+      "Keep the client NPO, explain the reason, and arrange the required swallowing screen.": "Correct. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+      "Give a small sip of water to see whether the client coughs.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+      "Offer thickened liquids without a swallowing assessment.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+      "Crush oral medications in applesauce and administer them now.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment."
+    },
+    "clinicalJudgmentTip": "Prevent aspiration by maintaining NPO status until a validated swallowing screen is passed.",
+    "sourceReferences": [
+      {
+        "title": "Stroke and transient ischaemic attack in over 16s: diagnosis and initial management (NG128)",
+        "publisher": "National Institute for Health and Care Excellence",
+        "url": "https://www.nice.org.uk/guidance/ng128/chapter/recommendations",
+        "accessedAt": "2026-11-11"
+      },
+      {
+        "title": "Emergency Department Evaluation and Management of Patients with Transient Ischemic Attack and Acute Stroke",
+        "publisher": "Canadian Stroke Best Practices",
+        "url": "https://www.strokebestpractices.ca/recommendations/acute-stroke-management/emergency-department-evaluation-and-management",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100040",
+      "category": "Adult Health",
+      "clientNeeds": "Safety and Infection Control",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Single Choice",
+      "stem": "A client admitted with a suspected acute stroke asks for water. A validated swallowing screen has not yet been completed. What is the nurse's best response?",
+      "options": [
+        "Keep the client NPO, explain the reason, and arrange the required swallowing screen.",
+        "Give a small sip of water to see whether the client coughs.",
+        "Offer thickened liquids without a swallowing assessment.",
+        "Crush oral medications in applesauce and administer them now."
+      ],
+      "answerKey": "Keep the client NPO, explain the reason, and arrange the required swallowing screen.",
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+      "options": {
+        "Keep the client NPO, explain the reason, and arrange the required swallowing screen.": "Correct. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+        "Give a small sip of water to see whether the client coughs.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+        "Offer thickened liquids without a swallowing assessment.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment.",
+        "Crush oral medications in applesauce and administer them now.": "This is not the best response. Clients with acute stroke should not receive oral food, fluids, or medication until swallowing safety has been assessed by a trained professional using a validated screen. A bedside sip or empiric thickening does not replace the required assessment."
+      },
+      "clinicalJudgmentTip": "Prevent aspiration by maintaining NPO status until a validated swallowing screen is passed."
+    }
+  },
+  {
+    "id": "QR-100041",
+    "schemaVersion": 2,
+    "category": "Fundamentals",
+    "topic": "Standard precautions during routine care",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Generate Solutions",
+    "difficulty": 4,
+    "type": "Multiple Response",
+    "question": "A nurse is preparing to provide routine care to a client whose infection status is not known. Which actions are consistent with standard precautions? Select all that apply.",
+    "options": [
+      "Perform hand hygiene before patient contact.",
+      "Select personal protective equipment based on anticipated exposure.",
+      "Perform hand hygiene after glove removal.",
+      "Reuse the same gloves when moving from a contaminated task to a clean task.",
+      "Clean and disinfect shared reusable equipment between clients."
+    ],
+    "correctAnswer": [
+      "Perform hand hygiene before patient contact.",
+      "Select personal protective equipment based on anticipated exposure.",
+      "Perform hand hygiene after glove removal.",
+      "Clean and disinfect shared reusable equipment between clients."
+    ],
+    "rationale": "Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+    "optionRationales": {
+      "Perform hand hygiene before patient contact.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+      "Select personal protective equipment based on anticipated exposure.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+      "Perform hand hygiene after glove removal.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+      "Reuse the same gloves when moving from a contaminated task to a clean task.": "This is not the best response. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+      "Clean and disinfect shared reusable equipment between clients.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene."
+    },
+    "clinicalJudgmentTip": "Apply standard precautions to every patient, regardless of known infection status.",
+    "sourceReferences": [
+      {
+        "title": "Core Infection Prevention and Control Practices for Safe Healthcare Delivery in All Settings",
+        "publisher": "Centers for Disease Control and Prevention",
+        "url": "https://www.cdc.gov/infection-control/hcp/core-practices/",
+        "accessedAt": "2026-11-11"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100041",
+      "category": "Fundamentals",
+      "clientNeeds": "Safety and Infection Control",
+      "cjmmStep": "Generate Solutions",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Multiple Response",
+      "stem": "A nurse is preparing to provide routine care to a client whose infection status is not known. Which actions are consistent with standard precautions? Select all that apply.",
+      "options": [
+        "Perform hand hygiene before patient contact.",
+        "Select personal protective equipment based on anticipated exposure.",
+        "Perform hand hygiene after glove removal.",
+        "Reuse the same gloves when moving from a contaminated task to a clean task.",
+        "Clean and disinfect shared reusable equipment between clients."
+      ],
+      "answerKey": [
+        "Perform hand hygiene before patient contact.",
+        "Select personal protective equipment based on anticipated exposure.",
+        "Perform hand hygiene after glove removal.",
+        "Clean and disinfect shared reusable equipment between clients."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+      "options": {
+        "Perform hand hygiene before patient contact.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+        "Select personal protective equipment based on anticipated exposure.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+        "Perform hand hygiene after glove removal.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+        "Reuse the same gloves when moving from a contaminated task to a clean task.": "This is not the best response. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene.",
+        "Clean and disinfect shared reusable equipment between clients.": "Correct. Standard precautions apply to every patient and include hand hygiene, risk-based PPE, and appropriate cleaning and disinfection of reusable equipment. Gloves must be changed between contaminated and clean tasks and do not replace hand hygiene."
+      },
+      "clinicalJudgmentTip": "Apply standard precautions to every patient, regardless of known infection status."
+    }
   }
 ];
  Object.defineProperty(root,'questions',{configurable:false,enumerable:true,get:()=>bank});
