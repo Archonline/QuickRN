@@ -158,7 +158,7 @@ assert.ok(orderedHtml.includes('Sequence review'),'submitted drag-and-drop displ
 assert.ok(orderedHtml.includes('Correct sequence'),'submitted drag-and-drop displays the answer sequence');
 assert.ok(orderedHtml.includes('#fee2e2')&&orderedHtml.includes('#dcfce7'),'sequence feedback uses distinct incorrect and correct highlight colors');
 const highlightParagraph={id:'HIGHLIGHT-PARAGRAPH',type:'Highlight',nursingNotes:'Nursing note: The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightText:'The client is newly confused and has cool, clammy skin. Blood pressure is 82/46 mm Hg. The client reports mild thirst.',highlightSegments:[{id:'confusion',text:'newly confused'},{id:'bp',text:'Blood pressure is 82/46 mm Hg'}],correctHighlights:['confusion','bp']};
-const highlightParagraphHtml=api.renderReact(highlightParagraph,{highlights:['confusion']},()=>{},false);
+const highlightParagraphHtml=api.renderReact(highlightParagraph,['confusion'],()=>{},false);
 assert.ok(highlightParagraphHtml.includes('Nurses’ Notes'),'highlight nursing note is in the left pane');
 assert.ok(highlightParagraphHtml.includes('cool, clammy skin.'),'highlight passage preserves the complete paragraph');
 assert.ok(highlightParagraphHtml.includes('#fef08a'),'highlight selections use yellow');
