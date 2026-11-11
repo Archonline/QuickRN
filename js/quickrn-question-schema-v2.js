@@ -262,7 +262,7 @@
     const options=Array.isArray(stage.options)?stage.options:(Array.isArray(stage.distractors)?stage.distractors:[]);
     if(options.length<4)issue('V2_TREND_OPTIONS_TOO_FEW','Trend time point '+(i+1)+' requires at least four clinically plausible response options.');
     if(!stage.time&&!stage.timestamp&&!stage.interval)issue('V2_TREND_TIME_MISSING','Each trend time point requires a time or interval label.');
-    if(!stage.situation&&!stage.patientStatus&&!stage.update&&!stage.vitalSigns&&!stage.vitals&&!stage.observations&&!stage.data)issue('V2_TREND_FINDINGS_MISSING','Each trend time point requires updated patient findings.');
+    if(!stage.situation&&!stage.clinicalSituation&&!stage.patientStatus&&!stage.update)issue('V2_TREND_FINDINGS_MISSING','Each trend time point requires a visible clinical situation in complete text, not only a data table.');
     if(!stage.question)issue('V2_TREND_TASK_MISSING','Each trend time point requires a stage-specific clinical judgment question.');
     if(stage.correctAnswer===undefined&&stage.answerKey===undefined)issue('V2_TREND_ANSWER_MISSING','Each trend time point requires its own answer key.');
    });
