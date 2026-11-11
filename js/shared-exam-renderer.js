@@ -707,8 +707,8 @@ function quickRNContractRender(q,draft,submitted=false){
   return html.replace('</div></section></div>',follow+'</div></section></div>');
  }
  if(f==='Cloze (Drop-down)'){
-  const template=String(q.clozeTemplate||q.template||'').trim(),title=quickRNContractText(q.cleanTitle||q.title||q.questionText||q.question||'');
-  if(template&&title&&template.toLowerCase().includes(title.toLowerCase())){
+  const template=String(q.clozeTemplate||q.template||'').trim(),title=quickRNContractText(q.cleanTitle||q.title||q.questionText||q.question||''),titleLead=(title.match(/^[^.!?]+[.!?]?/)||[''])[0].trim();
+  if(template&&title&&((title&&template.toLowerCase().includes(title.toLowerCase()))||(titleLead.length>12&&template.toLowerCase().startsWith(titleLead.toLowerCase())))){
    const task=quickRNContractText(q.instruction||q.cleanInstruction||'Complete the sentence by selecting the best response for each blank.');
    q={...q,title:task,cleanTitle:task,question:task,questionText:task,stem:task};
   }
