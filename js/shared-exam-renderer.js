@@ -625,3 +625,101 @@ window.QuickRNSharedRenderer={
  grade:quickRNGrade,
  answerSummary:quickRNAnswerSummary
 };
+
+
+/* Rebuilt NGN presentation contracts: shared by Self-Study, Timed, Predictor and CAT. */
+const quickRNContractBaseRender=quickRNRenderClinicalItem;
+function quickRNContractText(v){return quickRNPlainClinicalText(v==null?'':v);}
+function quickRNContractEsc(v){return quickRNEscape(v==null?'':v);}
+function quickRNContractRecord(q,notes){
+ const safe=quickRNContractText(notes);
+ if(!safe)return '';
+ const title=quickRNContractEsc(q.patientInfo?.name||q.patientInfo?.patientName||'Patient');
+ return '<aside class="qr-ehr has-record"><div class="qr-ehr-head"><strong>Clinical Record</strong><span>'+title+'</span></div><div class="qr-ehr-body"><section class="qr-ehr-section"><h4>Nurses’ Notes</h4><div>'+quickRNContractEsc(safe).replace(/\n/g,'<br>')+'</div></section></div></aside>';
+}
+function quickRNContractReplaceResponse(html,content){
+ const start=html.indexOf('<div class="qr-response-area">'),end=html.lastIndexOf('</div></section></div>');
+ if(start<0||end<start)return html;
+ return html.slice(0,start)+'<div class="qr-response-area">'+content+html.slice(end);
+}
+function quickRNContractMoveFollowUp(from,to,index){
+ const q=window.quickRNCurrentQuestion||{},draft=quickRNDraft||{},sets={...(draft.followUps||{})},arr=Array.isArray(sets[index])?[...sets[index]]:[];
+ if(from<0||to<0||from>=arr.length||to>=arr.length)return;
+ const [item]=arr.splice(from,1);arr.splice(to,0,item);sets[index]=arr;quickRNSetDraft('followUps',sets);
+}
+function quickRNContractToggleFollowUp(index,item){
+ const q=window.quickRNCurrentQuestion||{},sets={...(quickRNDraft.followUps||{})},arr=Array.isArray(sets[index])?[...sets[index]]:[];
+ sets[index]=arr.includes(item)?arr.filter(x=>x!==item):[...arr,item];quickRNSetDraft('followUps',sets);
+}
+function quickRNContractRender(q,draft,submitted=false){
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Matrix / Grid' && /matrix single/i.test(String(q.type||q.ngnType||q.format||''))){
+  const left=quickRNContractText(q.matrixLeftPane||q.leftPaneText||q.clinicalFinding||q.situation||q.scenario||q.nursingNotes||q.ehr?.nursesNotes);
+  const task=quickRNContractText(q.matrixTask||q.task||q.instruction||q.matrixInstruction||q.question);
+  const transformed={...q,question:task||q.question,stem:task||q.stem,title:task||q.title,ehr:{...(q.ehr||{}),nursesNotes:left||q.ehr?.nursesNotes}};
+  return quickRNContractBaseRender(transformed,draft,submitted);
+ }
+ if(f==='Extended Drag and Drop'){
+  const html=quickRNContractBaseRender(q,draft,submitted);
+  if(!submitted)return html;
+  const correct=Array.isArray(q.correctOrder)?q.correctOrder:[];
+  const placed=Array.isArray(draft.order)?draft.order:[];
+  const rows=placed.map((item,i)=>{const ok=String(item)===String(correct[i]);return '<li style="padding:9px 12px;margin:5px 0;border-radius:7px;border:1px solid '+(ok?'#86efac':'#fca5a5')+';background:'+(ok?'#dcfce7':'#fee2e2')+';color:'+(ok?'#166534':'#991b1b')+'"><strong>'+(i+1)+'. '+(ok?'Correct position':'Incorrect position')+'</strong> — '+quickRNContractEsc(item)+'</li>';}).join('');
+  const key=correct.map((item,i)=>'<li style="padding:7px 10px">'+(i+1)+'. '+quickRNContractEsc(item)+'</li>').join('');
+  const feedback='<section class="qr-sequence-feedback"><h3>Sequence review</h3><p>Green indicates the item is in its correct position; red indicates an item that is out of sequence.</p><ol style="list-style:none;padding:0">'+rows+'</ol><h4>Correct sequence</h4><ol>'+key+'</ol></section>';
+  return html.replace('</div></section></div>',feedback+'</div></section></div>');
+ }
+ if(f==='Highlight'){
+  const notes=q.nursingNotes||q.ehr?.nursesNotes||q.ehr?.tabs?.nursesNotes||q.leftPane?.nursesNotes;
+  const segments=Array.isArray(q.highlightSegments)?q.highlightSegments:(Array.isArray(q.segments)?q.segments:[]);
+  const source=quickRNContractText(q.highlightText||q.passage||q.situation||q.scenario||q.questionText||q.question||'');
+  const cues=segments.length?segments.map((x,i)=>({id:String(x.id??i),text:quickRNContractText(x.text??x.label??x)})):(source?[{id:'paragraph',text:source}]:[]);
+  const selected=Array.isArray(draft.highlights)?draft.highlights:[];
+  const correctRaw=q.correctHighlights||q.correctAnswers?.highlights||q.correctAnswers?.correctHighlights||[];
+  const correct=Array.isArray(correctRaw)?correctRaw:[correctRaw];
+  const textBody=cues.map((cue,i)=>{const on=selected.includes(cue.id)||selected.includes(cue.text),isKey=correct.some(x=>String(x)===cue.id||String(x)===cue.text),color=submitted?(isKey?'#fef08a':(on?'#fecaca':'transparent')):(on?'#fef08a':'transparent');return '<mark role="button" tabindex="'+(submitted?'-1':'0')+'" aria-pressed="'+on+'" onclick="quickRNToggleDraft(\'highlights\','+JSON.stringify(cue.id)+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();quickRNToggleDraft(\'highlights\','+JSON.stringify(cue.id)+')}" style="background:'+color+';color:#1f2937;border-radius:3px;padding:1px 2px;cursor:'+(submitted?'default':'pointer')+'">'+quickRNContractEsc(cue.text)+'</mark>'+(i<cues.length-1?' ':'');}).join('');
+  const left=quickRNContractRecord(q,notes);
+  const prompt=quickRNContractEsc(q.highlightInstruction||q.instruction||'Highlight the cues and symptoms that are clinically significant.');
+  const response='<div class="qr-highlight-instructions">'+prompt+'</div><p class="qr-help">Select words or phrases in the nursing note. Selected cues are highlighted yellow.</p><div class="qr-highlight-paragraph" style="font-size:1rem;line-height:2;white-space:normal;padding:14px;border:1px solid #dbe3ee;border-radius:10px;background:#fff">'+(textBody||quickRNContractEsc(source))+'</div>'+(submitted?'<div class="qr-highlight-key"><strong>Correct cues</strong><p>'+correct.map(x=>quickRNContractEsc(cues.find(c=>c.id===String(x)||c.text===String(x))?.text||x)).join('; ')+'</p></div>':'');
+  return '<div class="qr-clinical-layout '+(left?'has-record':'question-only')+'">'+left+'<section class="qr-question-panel"><div class="qr-question-head"><h2>'+quickRNContractEsc(q.highlightTitle||'Clinical cues')+'</h2></div><div class="qr-response-area">'+response+'</div></section></div>';
+ }
+ if(f==='Trend' && Array.isArray(q.trendData?.stages) && q.trendData.stages.length){
+  const stages=q.trendData.stages,answers=draft.stageAnswers||{},optsFor=stage=>stage.options||[];
+  const response=stages.map((stage,i)=>{const selected=answers[i]??'',correct=stage.correctAnswer??stage.answerKey,opts=optsFor(stage);const buttons=opts.map((opt,j)=>{const value=typeof opt==='object'?(opt.value??opt.text??opt.label):opt,label=typeof opt==='object'?(opt.text??opt.label??opt.value):opt,on=String(selected)===String(value),isKey=String(correct)===String(value)||String(correct)===String(label),style=submitted?(isKey?'background:#dcfce7;border-color:#16a34a;color:#166534':(on?'background:#fee2e2;border-color:#dc2626;color:#991b1b':'')):'';return '<button type="button" class="qr-choice '+(on?'selected':'')+'" style="'+style+'" '+(submitted?'disabled':'')+' onclick="quickRNSetTrendStage('+i+','+JSON.stringify(String(value))+')"><span class="qr-choice-mark is-radio">'+String.fromCharCode(65+j)+'.</span><span>'+quickRNContractEsc(label)+'</span>'+(submitted&&isKey?' <b>✓ Correct</b>':(submitted&&on?' <b>✕ Incorrect</b>':''))+'</button>';}).join('');return '<section class="qr-trend-stage"><h3>Stage '+(i+1)+(stage.time?' · '+quickRNContractEsc(stage.time):'')+'</h3><p>'+quickRNContractEsc(stage.situation||stage.patientStatus||stage.update||'')+'</p>'+(stage.data?'<pre>'+quickRNContractEsc(typeof stage.data==='string'?stage.data:JSON.stringify(stage.data,null,2))+'</pre>':'')+'<p class="qr-trend-question">'+quickRNContractEsc(stage.question||'What should the nurse do next?')+'</p>'+buttons+'</section>';}).join('');
+  const left=quickRNContractRecord(q,q.nursingNotes||q.ehr?.nursesNotes||q.ehr?.tabs?.nursesNotes);
+  return '<div class="qr-clinical-layout '+(left?'has-record':'question-only')+'">'+left+'<section class="qr-question-panel"><div class="qr-question-head"><h2>'+quickRNContractEsc(q.trendTitle||q.topic||'Patient trend')+'</h2></div><div class="qr-response-area">'+response+'</div></section></div>';
+ }
+ if(f==='Bowtie' && Array.isArray(q.bowtieData?.followUpQuestions)&&q.bowtieData.followUpQuestions.length){
+  let html=quickRNContractBaseRender(q,draft,submitted);
+  const follow=q.bowtieData.followUpQuestions.map((item,i)=>{const options=item.items||item.availableItems||item.options||[],placed=(draft.followUps||{})[i]||options,correct=item.correctOrder||[],rows=placed.map((v,j)=>{const ok=String(v)===String(correct[j]);return '<div class="qr-sort-item" style="'+(submitted?'background:'+(ok?'#dcfce7':'#fee2e2')+';border-color:'+(ok?'#16a34a':'#dc2626'):'')+'"><span class="qr-sort-text">'+quickRNContractEsc(v)+'</span><span class="qr-sort-actions"><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j-1)+','+i+')">↑</button><button type="button" '+(submitted?'disabled':'')+' onclick="quickRNContractMoveFollowUp('+j+','+(j+1)+','+i+')">↓</button></span></div>';}).join('');return '<section class="qr-bowtie-followup"><h3>'+quickRNContractEsc(item.question||('Follow-up '+(i+1)))+'</h3><p>Arrange the nursing actions in the correct sequence.</p><div class="qr-sort-list">'+rows+'</div>'+(submitted?'<p><strong>Correct sequence:</strong> '+correct.map(quickRNContractEsc).join(' → ')+'</p>':'')+'</section>';}).join('');
+  return html.replace('</div></section></div>',follow+'</div></section></div>');
+ }
+ if(f==='Cloze (Drop-down)'){
+  const template=String(q.clozeTemplate||q.template||'').trim(),title=quickRNContractText(q.cleanTitle||q.title||q.questionText||q.question||'');
+  if(template&&title&&template.toLowerCase().includes(title.toLowerCase())){
+   const task=quickRNContractText(q.instruction||q.cleanInstruction||'Complete the sentence by selecting the best response for each blank.');
+   q={...q,title:task,cleanTitle:task,question:task,questionText:task,stem:task};
+  }
+ }
+ return quickRNContractBaseRender(q,draft,submitted);
+}
+function quickRNSetTrendStage(index,value){const answers={...(quickRNDraft.stageAnswers||{})};answers[index]=value;quickRNSetDraft('stageAnswers',answers);}
+const quickRNContractHasAnswer=quickRNHasAnswer;
+quickRNHasAnswer=function(q,d){
+ if(quickRNDetectItemFormat(q)==='Trend'&&Array.isArray(q.trendData?.stages))return q.trendData.stages.every((s,i)=>d?.stageAnswers?.[i]!==undefined&&String(d.stageAnswers[i]).trim()!=='');
+ if(quickRNDetectItemFormat(q)==='Bowtie'&&Array.isArray(q.bowtieData?.followUpQuestions)&&q.bowtieData.followUpQuestions.length)return quickRNContractHasAnswer(q,d)&&q.bowtieData.followUpQuestions.every((x,i)=>Array.isArray(d?.followUps?.[i])&&d.followUps[i].length>0);
+ return quickRNContractHasAnswer(q,d);
+};
+const quickRNContractGrade=quickRNGrade;
+quickRNGrade=function(q,d){
+ const f=quickRNDetectItemFormat(q);
+ if(f==='Trend'&&Array.isArray(q.trendData?.stages))return q.trendData.stages.every((s,i)=>String(d?.stageAnswers?.[i]??'')===String(s.correctAnswer??s.answerKey??''));
+ if(f==='Bowtie'&&Array.isArray(q.bowtieData?.followUpQuestions)){
+  const base=quickRNContractGrade(q,d);return base&&q.bowtieData.followUpQuestions.every((x,i)=>{const actual=d?.followUps?.[i]||[],correct=x.correctOrder||[];return actual.length===correct.length&&actual.every((v,j)=>String(v)===String(correct[j]));});
+ }
+ return quickRNContractGrade(q,d);
+};
+quickRNRenderClinicalItem=quickRNContractRender;
+window.quickRNContractMoveFollowUp=quickRNContractMoveFollowUp;
+window.quickRNSetTrendStage=quickRNSetTrendStage;
+if(window.QuickRNSharedRenderer){window.QuickRNSharedRenderer.renderReact=function(q,legacyDraft,onUpdateDraft,submitted){window.quickRNCurrentQuestion=q;window.quickRNOnDraftChange=function(d){if(typeof onUpdateDraft==='function')onUpdateDraft(quickRNToLegacyDraft(q,d));};quickRNCurrentItemId=q.id||null;quickRNDraft=quickRNFromLegacyDraft(q,legacyDraft);return submitted?'<div class="qr-submitted">'+quickRNRenderClinicalItem(q,quickRNDraft,submitted)+'</div>':quickRNRenderClinicalItem(q,quickRNDraft,submitted);};window.QuickRNSharedRenderer.hasAnswer=quickRNHasAnswer;window.QuickRNSharedRenderer.grade=quickRNGrade;}
