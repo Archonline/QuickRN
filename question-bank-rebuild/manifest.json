@@ -1,5 +1,7 @@
 {
-  "project": "QuickRN 2,000 clinically verified question-bank rebuild",
+  "project": "Historical QuickRN question-bank rebuild manifest (archived snapshot)",
+  "status": "historical_archive_not_current_runtime_inventory",
+  "archiveNotice": "This manifest records an earlier draft/rebuild effort. Its target counts, batch numbering, and validation labels are historical and must not be interpreted as current active-bank counts or clinical verification. Current runtime sources are documented in README.md and loaded by the exam pages.",
   "targetQuestions": 2000,
   "batchSize": 500,
   "totalBatches": 2,
