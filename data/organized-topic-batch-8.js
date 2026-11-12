@@ -550,7 +550,47 @@
     },
     "interaction": {
       "type": "Trend",
-      "stages": [],
+      "stages": [
+        {
+          "time": "Arrival",
+          "situation": "The client is dehydrated, nauseated, and breathing deeply. Glucose is 520 mg/dL, potassium 5.4 mEq/L, bicarbonate 10 mEq/L, and blood pressure 92/58 mm Hg.",
+          "question": "Which initial intervention is generally prioritized while the team evaluates the client?",
+          "options": [
+            "Begin prescribed isotonic IV fluid resuscitation",
+            "Administer long-acting subcutaneous insulin and discharge",
+            "Restrict all fluids",
+            "Give potassium immediately without reviewing renal function or ECG"
+          ],
+          "correctAnswer": "Begin prescribed isotonic IV fluid resuscitation",
+          "rationale": "Initial fluid resuscitation supports circulation and perfusion. Insulin and potassium decisions follow assessment of potassium, renal function, and the treatment protocol."
+        },
+        {
+          "time": "2 hours after treatment begins",
+          "situation": "After IV fluids, blood pressure is 108/66 mm Hg. The insulin infusion is prescribed. Potassium is now 3.2 mEq/L.",
+          "question": "Which action should the nurse anticipate before continuing insulin therapy?",
+          "options": [
+            "Hold insulin temporarily and notify the provider for potassium replacement per protocol",
+            "Increase the insulin infusion to normalize glucose faster",
+            "Administer sodium bicarbonate routinely",
+            "Stop cardiac monitoring"
+          ],
+          "correctAnswer": "Hold insulin temporarily and notify the provider for potassium replacement per protocol",
+          "rationale": "Insulin drives potassium into cells and can worsen hypokalemia. With potassium below the usual safe threshold for insulin initiation, replace potassium and follow protocol before insulin proceeds."
+        },
+        {
+          "time": "Later during treatment",
+          "situation": "Glucose has fallen to 230 mg/dL, but bicarbonate remains 14 mEq/L and the anion gap remains elevated. The client is more alert.",
+          "question": "Which interpretation should guide ongoing care?",
+          "options": [
+            "Continue DKA treatment and add dextrose as prescribed while monitoring closure of the anion gap",
+            "Stop insulin because glucose is below 250 mg/dL",
+            "Declare DKA resolved based on glucose alone",
+            "Give an oral carbohydrate meal and discontinue IV therapy"
+          ],
+          "correctAnswer": "Continue DKA treatment and add dextrose as prescribed while monitoring closure of the anion gap",
+          "rationale": "Glucose may improve before ketoacidosis resolves. Insulin is continued with dextrose as needed to clear ketones and close the anion gap, guided by serial labs and protocol."
+        }
+      ],
       "answerKey": [
         "Begin prescribed isotonic IV fluid resuscitation",
         "Hold insulin temporarily and notify the provider for potassium replacement per protocol",
