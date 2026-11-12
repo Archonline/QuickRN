@@ -78,7 +78,13 @@
       "rr"
     ],
     "rationale": "The combination of new confusion and restlessness, blood pressure 86/48 mmhg, respiratory rate 30/min supports recognition of Septic shock with suspected infection-related organ dysfunction.",
-    "optionRationales": {},
+    "optionRationales": {
+      "confusion": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "bp": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "rr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "urine": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "fever": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100621",
       "category": "Adult Health",
@@ -101,7 +107,13 @@
     },
     "rationales": {
       "overall": "The combination of new confusion and restlessness, blood pressure 86/48 mmhg, respiratory rate 30/min supports recognition of Septic shock with suspected infection-related organ dysfunction.",
-      "options": {},
+      "options": {
+        "confusion": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "bp": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "rr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "urine": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "fever": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "New confusion and restlessness. Blood pressure 86/48 mmHg. Respiratory rate 30/min. Declining urine output. Temperature 38.7°C. An 82-year-old admitted with pneumonia develops new confusion, tachypnea, hypotension, and declining urine output.",
@@ -993,7 +1005,13 @@
       "air"
     ],
     "rationale": "The combination of speaks only one or two words at a time, intercostal retractions, markedly reduced air movement supports recognition of Severe asthma exacerbation with impending respiratory failure.",
-    "optionRationales": {},
+    "optionRationales": {
+      "speech": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "retractions": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "air": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "sat": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "fatigue": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100627",
       "category": "Pediatric Nursing",
@@ -1016,7 +1034,13 @@
     },
     "rationales": {
       "overall": "The combination of speaks only one or two words at a time, intercostal retractions, markedly reduced air movement supports recognition of Severe asthma exacerbation with impending respiratory failure.",
-      "options": {},
+      "options": {
+        "speech": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "retractions": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "air": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "sat": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "fatigue": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Speaks only one or two words at a time. Intercostal retractions. Markedly reduced air movement. SpO₂ 88% despite initial oxygen. Increasing fatigue. A 9-year-old with asthma has worsening respiratory distress despite repeated prescribed rescue therapy.",
@@ -1908,7 +1932,13 @@
       "face"
     ],
     "rationale": "The combination of sudden aphasia, right arm weakness, right facial droop supports recognition of Acute ischemic stroke requiring time-sensitive evaluation.",
-    "optionRationales": {},
+    "optionRationales": {
+      "aphasia": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "weakness": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "face": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "time": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "glucose": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100633",
       "category": "Adult Health",
@@ -1931,7 +1961,13 @@
     },
     "rationales": {
       "overall": "The combination of sudden aphasia, right arm weakness, right facial droop supports recognition of Acute ischemic stroke requiring time-sensitive evaluation.",
-      "options": {},
+      "options": {
+        "aphasia": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "weakness": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "face": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "time": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "glucose": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Sudden aphasia. Right arm weakness. Right facial droop. Last known well at 07:20. Point-of-care glucose 112 mg/dL. A 68-year-old develops sudden aphasia and right-sided weakness while at home; neurologic findings change during emergency evaluation.",
@@ -2813,7 +2849,13 @@
       "hr"
     ],
     "rationale": "The combination of boggy uterine fundus, heavy ongoing vaginal bleeding, heart rate 132/min supports recognition of Postpartum hemorrhage from uterine atony with hypovolemia.",
-    "optionRationales": {},
+    "optionRationales": {
+      "boggy": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "bleeding": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "hr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "bp": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "dizzy": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100639",
       "category": "Maternal Newborn",
@@ -2836,7 +2878,13 @@
     },
     "rationales": {
       "overall": "The combination of boggy uterine fundus, heavy ongoing vaginal bleeding, heart rate 132/min supports recognition of Postpartum hemorrhage from uterine atony with hypovolemia.",
-      "options": {},
+      "options": {
+        "boggy": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "bleeding": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "hr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "bp": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "dizzy": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Boggy uterine fundus. Heavy ongoing vaginal bleeding. Heart rate 132/min. Blood pressure 88/52 mmHg. Reports dizziness. A client 30 minutes after vaginal birth has heavy vaginal bleeding, a boggy uterus, and progressive tachycardia.",
@@ -3728,7 +3776,13 @@
       "bicarb"
     ],
     "rationale": "The combination of glucose 486 mg/dl, ph 7.18, bicarbonate 10 meq/l supports recognition of Diabetic ketoacidosis with significant volume depletion.",
-    "optionRationales": {},
+    "optionRationales": {
+      "glucose": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "ph": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "bicarb": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "ketones": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "dehydration": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100645",
       "category": "Adult Health",
@@ -3751,7 +3805,13 @@
     },
     "rationales": {
       "overall": "The combination of glucose 486 mg/dl, ph 7.18, bicarbonate 10 meq/l supports recognition of Diabetic ketoacidosis with significant volume depletion.",
-      "options": {},
+      "options": {
+        "glucose": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "ph": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "bicarb": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "ketones": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "dehydration": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Glucose 486 mg/dL. pH 7.18. Bicarbonate 10 mEq/L. Positive serum ketones. Dry mucous membranes and hypotension. A 22-year-old with type 1 diabetes presents with vomiting, abdominal pain, dehydration, and deep rapid respirations.",
@@ -4638,7 +4698,13 @@
       "ecg"
     ],
     "rationale": "The combination of crushing substernal pressure radiating to the jaw, diaphoresis and nausea, st-segment elevation in contiguous leads supports recognition of Acute myocardial infarction with risk for life-threatening dysrhythmia.",
-    "optionRationales": {},
+    "optionRationales": {
+      "pain": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "sweat": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "ecg": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "troponin": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "ectopy": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100651",
       "category": "Adult Health",
@@ -4661,7 +4727,13 @@
     },
     "rationales": {
       "overall": "The combination of crushing substernal pressure radiating to the jaw, diaphoresis and nausea, st-segment elevation in contiguous leads supports recognition of Acute myocardial infarction with risk for life-threatening dysrhythmia.",
-      "options": {},
+      "options": {
+        "pain": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "sweat": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "ecg": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "troponin": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "ectopy": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Crushing substernal pressure radiating to the jaw. Diaphoresis and nausea. ST-segment elevation in contiguous leads. Elevated troponin. New ventricular ectopy. A 61-year-old with chest pressure, diaphoresis, and nausea develops ischemic ECG changes and ventricular ectopy.",
@@ -5553,7 +5625,13 @@
       "speech"
     ],
     "rationale": "The combination of worsening difficulty swallowing, weak cough, nasal speech supports recognition of Myasthenic crisis with risk of ventilatory failure and aspiration.",
-    "optionRationales": {},
+    "optionRationales": {
+      "dysphagia": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "cough": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "speech": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "head": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "fvc": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100657",
       "category": "Adult Health",
@@ -5576,7 +5654,13 @@
     },
     "rationales": {
       "overall": "The combination of worsening difficulty swallowing, weak cough, nasal speech supports recognition of Myasthenic crisis with risk of ventilatory failure and aspiration.",
-      "options": {},
+      "options": {
+        "dysphagia": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "cough": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "speech": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "head": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "fvc": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Worsening difficulty swallowing. Weak cough. Nasal speech. Difficulty holding the head upright. Declining forced vital capacity. A client with myasthenia gravis develops worsening dysphagia, weak cough, and declining respiratory muscle strength after an infection.",
@@ -6468,7 +6552,13 @@
       "ecg"
     ],
     "rationale": "The combination of urine output 15 ml/hr, potassium 6.7 meq/l, new peaked t waves supports recognition of Acute kidney injury complicated by life-threatening hyperkalemia.",
-    "optionRationales": {},
+    "optionRationales": {
+      "urine": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "k": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "ecg": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "creatinine": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "weak": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100663",
       "category": "Adult Health",
@@ -6491,7 +6581,13 @@
     },
     "rationales": {
       "overall": "The combination of urine output 15 ml/hr, potassium 6.7 meq/l, new peaked t waves supports recognition of Acute kidney injury complicated by life-threatening hyperkalemia.",
-      "options": {},
+      "options": {
+        "urine": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "k": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "ecg": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "creatinine": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "weak": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Urine output 15 mL/hr. Potassium 6.7 mEq/L. New peaked T waves. Creatinine 3.2 mg/dL. Reports generalized weakness. A hospitalized client with acute kidney injury develops oliguria, rising creatinine, and hyperkalemia with ECG changes.",
@@ -7383,7 +7479,13 @@
       "hr"
     ],
     "rationale": "The combination of vomiting bright red blood, black tarry stool, heart rate 128/min supports recognition of Acute variceal hemorrhage with hypovolemic shock risk.",
-    "optionRationales": {},
+    "optionRationales": {
+      "hematemesis": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "melena": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "hr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "bp": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "hgb": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100669",
       "category": "Adult Health",
@@ -7406,7 +7508,13 @@
     },
     "rationales": {
       "overall": "The combination of vomiting bright red blood, black tarry stool, heart rate 128/min supports recognition of Acute variceal hemorrhage with hypovolemic shock risk.",
-      "options": {},
+      "options": {
+        "hematemesis": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "melena": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "hr": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "bp": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "hgb": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "Vomiting bright red blood. Black tarry stool. Heart rate 128/min. Blood pressure 88/54 mmHg. Hemoglobin 7.4 g/dL. A client with cirrhosis presents with hematemesis, melena, tachycardia, and hypotension.",
@@ -8298,7 +8406,13 @@
       "access"
     ],
     "rationale": "The combination of states a specific plan to end their life tonight, identifies a method, reports access to the means supports recognition of Imminent suicide risk requiring immediate safety intervention.",
-    "optionRationales": {},
+    "optionRationales": {
+      "plan": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "method": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "access": "This cue contributes to recognition of the immediate clinical threat in this client.",
+      "withdrawal": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+      "intent": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+    },
     "metadata": {
       "id": "QR-100675",
       "category": "Mental Health",
@@ -8321,7 +8435,13 @@
     },
     "rationales": {
       "overall": "The combination of states a specific plan to end their life tonight, identifies a method, reports access to the means supports recognition of Imminent suicide risk requiring immediate safety intervention.",
-      "options": {},
+      "options": {
+        "plan": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "method": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "access": "This cue contributes to recognition of the immediate clinical threat in this client.",
+        "withdrawal": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues.",
+        "intent": "This finding is relevant context but is less specific to the immediate clinical threat than the keyed cues."
+      },
       "clinicalJudgmentTip": "Use the evolving clinical cues to recognize deterioration, prioritize immediate threats, take safe action, and evaluate the response."
     },
     "highlightText": "States a specific plan to end their life tonight. Identifies a method. Reports access to the means. Withdrawn and stopped responding to family. Expresses current intent. A client admitted for depression tells the nurse about a specific suicide plan and access to the identified means.",
