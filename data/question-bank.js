@@ -4247,7 +4247,7 @@
         "The headache is most consistent with expected sleep deprivation.",
         "Encourage oral fluids and reassess at the next scheduled visit."
       ],
-      "answerKey": "The client may have postpartum preeclampsia with severe features and needs emergency evaluation.",
+      "answerKey": "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
       "scoring": {
         "method": "0/1"
       }
