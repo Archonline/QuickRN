@@ -88,6 +88,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -252,6 +258,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -424,6 +436,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -546,6 +564,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -705,6 +729,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -815,6 +845,12 @@
         ],
         "providerOrders": [
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -961,6 +997,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1125,6 +1167,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1297,6 +1345,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1419,6 +1473,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1578,6 +1638,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1688,6 +1754,12 @@
         ],
         "providerOrders": [
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1834,6 +1906,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -1998,6 +2076,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2170,6 +2254,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2292,6 +2382,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2451,6 +2547,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2561,6 +2663,12 @@
         ],
         "providerOrders": [
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2707,6 +2815,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -2871,6 +2985,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3043,6 +3163,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3165,6 +3291,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3324,6 +3456,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3434,6 +3572,12 @@
         ],
         "providerOrders": [
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3580,6 +3724,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3744,6 +3894,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -3916,6 +4072,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4038,6 +4200,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4197,6 +4365,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4307,6 +4481,12 @@
         ],
         "providerOrders": [
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4453,6 +4633,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4617,6 +4803,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4789,6 +4981,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -4911,6 +5109,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5070,6 +5274,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5180,6 +5390,12 @@
         ],
         "providerOrders": [
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5326,6 +5542,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5490,6 +5712,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5662,6 +5890,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5784,6 +6018,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -5943,6 +6183,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6053,6 +6299,12 @@
         ],
         "providerOrders": [
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6199,6 +6451,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6363,6 +6621,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6535,6 +6799,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6657,6 +6927,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6816,6 +7092,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -6926,6 +7208,12 @@
         ],
         "providerOrders": [
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7072,6 +7360,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7236,6 +7530,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7408,6 +7708,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7530,6 +7836,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7689,6 +8001,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7799,6 +8117,12 @@
         ],
         "providerOrders": [
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -7945,6 +8269,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -8109,6 +8439,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -8281,6 +8617,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -8403,6 +8745,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -8562,6 +8910,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
@@ -8672,6 +9026,12 @@
         ],
         "providerOrders": [
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
+        ],
+        "vitalSigns": [
+          "Evolving vital signs are displayed at each step of this linked case."
+        ],
+        "labResults": [
+          "See the evolving diagnostic results and assessment findings in the case."
         ]
       }
     },
