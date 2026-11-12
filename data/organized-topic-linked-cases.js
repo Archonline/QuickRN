@@ -9258,4 +9258,4 @@
       ]
     }
   }
-];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedLinkedCases={groups:10,items:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
+];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedLinkedCases={groups:10,items:items.length,firstId:items[0].id,lastId:items[items.length-1].id};root.QuickRNLinkedCaseStudies={groups:30,items:180,firstId:'QR-100042',lastId:'QR-100680'};})(typeof window!=='undefined'?window:globalThis);
