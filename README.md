@@ -138,3 +138,7 @@ The active question bank is being rebuilt as a single canonical file at `data/qu
 The schema-v2 validator runs before exam delivery. If the schema is missing or any active item fails validation, the exam app blocks question delivery. See [the rebuild architecture](docs/question-bank-rebuild-architecture.md) for the release gates and 13 supported QuickRN formats.
 
 **Important:** this is a draft rebuild. Until clinically reviewed items are re-authored and approved, the exam modes will report that no questions are available. No production deployment or merge has occurred.
+
+## Organized NCLEX topic expansion (in progress)
+
+The `feature/500-organized-topic-questions` branch tracks a 500-item expansion based on the 417 topics in the QuickRN learning-library workbook. The current branch contains 60 original standalone questions (IDs `QR-100181`–`QR-100240`) and 10 linked six-question NGN case studies (60 questions, IDs `QR-100621`–`QR-100680`), for 120 new items. The standalone batches and linked cases are loaded in Self-Study, Timed Practice, Predictor, and CAT. Remaining topics and standalone objectives are still being authored; the 500-item target is not yet complete. Automated checks do not constitute clinical educator approval.
