@@ -150,7 +150,7 @@
         "Anticipate prescribed therapy to shift potassium into cells"
       ],
       "scoring": {
-        "method": "exact-match"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -237,7 +237,7 @@
         "Initiate continuous fetal monitoring and notify the obstetric team"
       ],
       "scoring": {
-        "method": "exact-match"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -380,7 +380,7 @@
         "Possible systemic response to illness"
       ],
       "scoring": {
-        "method": "row-level"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -655,8 +655,22 @@
         "Continue DKA treatment and add dextrose as prescribed while monitoring closure of the anion gap"
       ],
       "scoring": {
-        "method": "stage-level"
-      }
+        "method": "plus_minus"
+      },
+      "options": [
+        "Begin prescribed isotonic IV fluid resuscitation",
+        "Administer long-acting subcutaneous insulin and discharge",
+        "Restrict all fluids",
+        "Give potassium immediately without reviewing renal function or ECG",
+        "Hold insulin temporarily and notify the provider for potassium replacement per protocol",
+        "Increase the insulin infusion to normalize glucose faster",
+        "Administer sodium bicarbonate routinely",
+        "Stop cardiac monitoring",
+        "Continue DKA treatment and add dextrose as prescribed while monitoring closure of the anion gap",
+        "Stop insulin because glucose is below 250 mg/dL",
+        "Declare DKA resolved based on glucose alone",
+        "Give an oral carbohydrate meal and discontinue IV therapy"
+      ]
     },
     "stimulus": {
       "clinicalContext": "Three chronological DKA reassessments with glucose, potassium, bicarbonate, perfusion, and treatment response."
@@ -665,7 +679,21 @@
       "overall": "DKA treatment must address volume depletion and ketosis while preventing insulin-associated hypokalemia.",
       "options": {},
       "clinicalJudgmentTip": "Do not stop insulin solely because glucose has improved; monitor the anion gap and acid-base status."
-    }
+    },
+    "options": [
+      "Begin prescribed isotonic IV fluid resuscitation",
+      "Administer long-acting subcutaneous insulin and discharge",
+      "Restrict all fluids",
+      "Give potassium immediately without reviewing renal function or ECG",
+      "Hold insulin temporarily and notify the provider for potassium replacement per protocol",
+      "Increase the insulin infusion to normalize glucose faster",
+      "Administer sodium bicarbonate routinely",
+      "Stop cardiac monitoring",
+      "Continue DKA treatment and add dextrose as prescribed while monitoring closure of the anion gap",
+      "Stop insulin because glucose is below 250 mg/dL",
+      "Declare DKA resolved based on glucose alone",
+      "Give an oral carbohydrate meal and discontinue IV therapy"
+    ]
   },
   {
     "id": "QR-100327",
@@ -762,7 +790,7 @@
         "Urine output and evidence of hemoglobinuria"
       ],
       "scoring": {
-        "method": "partial-credit"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -829,7 +857,7 @@
       "unit": "mL",
       "answerKey": 8400,
       "scoring": {
-        "method": "numeric-tolerance"
+        "method": "0/1"
       }
     },
     "stimulus": {
