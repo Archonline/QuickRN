@@ -3135,15 +3135,15 @@
   ],
   "progress": {
     "status": "in_progress",
-    "completedStandaloneQuestions": 80,
+    "completedStandaloneQuestions": 100,
     "completedLinkedCaseQuestions": 60,
-    "completedTotal": 140,
-    "remaining": 360,
-    "topicCoverage": "Learning Library topics 1–80 of 417 authored as standalone items",
+    "completedTotal": 160,
+    "remaining": 340,
+    "topicCoverage": "Learning Library topics 1–100 of 417 authored as standalone items",
     "linkedCaseGroupsCompleted": 10,
     "linkedCaseGroupsPlanned": 10,
     "completedQuestionIds": [
-      "QR-100181–QR-100260",
+      "QR-100181–QR-100280",
       "QR-100621–QR-100680"
     ],
     "note": "The 500-question blueprint is a target, not a claim that all 500 are complete. Completed batches are loaded into all four exam modes."
