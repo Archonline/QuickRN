@@ -1,3 +1,5 @@
+> **Historical audit snapshot — November 5, 2026.** The counts and findings below describe the repository at that date, not the current active question bank. For current runtime files and inventory, see `README.md` and `docs/question-bank-rebuild-architecture.md`. Do not use this report as a current release-status or active-question count.
+
 # Question Schema v2 migration status — 2026-11-05
 
 ## Scope
