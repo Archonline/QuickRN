@@ -390,6 +390,64 @@
       "overall": "The combination suggests acute organ dysfunction and impaired perfusion requiring immediate escalation.",
       "options": {},
       "clinicalJudgmentTip": "Use the entire trend and clinical picture; do not wait for fever or a single laboratory result."
+    },
+    "rows": [
+      {
+        "id": "0",
+        "text": "New confusion",
+        "options": [
+          "Possible organ dysfunction",
+          "Expected recovery finding",
+          "Medication allergy only"
+        ]
+      },
+      {
+        "id": "1",
+        "text": "Blood pressure 86/50 mm Hg",
+        "options": [
+          "Possible circulatory compromise",
+          "Normal adult finding",
+          "Isolated pain response"
+        ]
+      },
+      {
+        "id": "2",
+        "text": "Urine output 15 mL/hr",
+        "options": [
+          "Possible impaired renal perfusion",
+          "Adequate renal output",
+          "Expected after oral fluids"
+        ]
+      },
+      {
+        "id": "3",
+        "text": "Heart rate 124/min",
+        "options": [
+          "Possible systemic response to illness",
+          "Normal resting rate",
+          "Definitive evidence of fluid overload"
+        ]
+      }
+    ],
+    "columns": [
+      "Possible organ dysfunction",
+      "Expected recovery finding",
+      "Medication allergy only",
+      "Possible circulatory compromise",
+      "Normal adult finding",
+      "Isolated pain response",
+      "Possible impaired renal perfusion",
+      "Adequate renal output",
+      "Expected after oral fluids",
+      "Possible systemic response to illness",
+      "Normal resting rate",
+      "Definitive evidence of fluid overload"
+    ],
+    "correctAnswers": {
+      "0": "Possible organ dysfunction",
+      "1": "Possible circulatory compromise",
+      "2": "Possible impaired renal perfusion",
+      "3": "Possible systemic response to illness"
     }
   },
   {
@@ -620,31 +678,22 @@
     "type": "Bowtie",
     "question": "Ten minutes after a packed red blood cell transfusion begins, a client develops chills, flank pain, dyspnea, and hypotension. Complete the bowtie by selecting the likely complication, two priority actions, and two parameters to monitor.",
     "bowtieData": {
-      "conditionOptions": [
+      "conditions": [
         "Acute hemolytic transfusion reaction",
         "Mild expected temperature variation",
         "Iron-deficiency anemia"
       ],
-      "conditionAnswer": "Acute hemolytic transfusion reaction",
-      "actionOptions": [
+      "actions": [
         "Stop the transfusion immediately",
         "Maintain IV access with normal saline using new tubing per policy",
         "Increase the transfusion rate",
         "Discard the blood bag before notifying the blood bank"
       ],
-      "actionAnswers": [
-        "Stop the transfusion immediately",
-        "Maintain IV access with normal saline using new tubing per policy"
-      ],
-      "monitorOptions": [
+      "monitoring": [
         "Vital signs and respiratory status",
         "Urine output and evidence of hemoglobinuria",
         "Daily weight only",
         "Visual acuity"
-      ],
-      "monitorAnswers": [
-        "Vital signs and respiratory status",
-        "Urine output and evidence of hemoglobinuria"
       ]
     },
     "correctAnswer": {
@@ -790,6 +839,11 @@
       "overall": "4 × 70 × 30 = 8,400 mL for the first 24 hours. This is an estimate that requires titration.",
       "options": {},
       "clinicalJudgmentTip": "Calculate from the time of injury and reassess perfusion frequently."
+    },
+    "correctNumericAnswer": 8400,
+    "numericRange": {
+      "min": 8400,
+      "max": 8400
     }
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch8={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
