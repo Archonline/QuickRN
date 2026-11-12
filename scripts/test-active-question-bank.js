@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const context={window:{},console};
-for(const file of ['js/quickrn-question-schema-v2.js','data/question-bank.js','data/linked-case-studies.js','data/linked-case-studies-batch-2.js','js/shared-exam-renderer.js','js/quickrn-bank-startup-validator.js']){
+for(const file of ['js/quickrn-question-schema-v2.js','data/question-bank.js','data/linked-case-studies.js','data/linked-case-studies-batch-2.js','data/organized-topic-batch-1.js','data/organized-topic-batch-2.js','data/organized-topic-batch-3.js','data/organized-topic-linked-cases.js','js/shared-exam-renderer.js','js/quickrn-bank-startup-validator.js']){
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 }
 const bank=context.window.QuickRNQuestionBank?.items;
