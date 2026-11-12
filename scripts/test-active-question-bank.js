@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'use strict';
+// Regression coverage includes the latest organized-topic batch.
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
