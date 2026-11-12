@@ -3132,5 +3132,20 @@
     "All 13 QuickRN formats validated against schema and renderer.",
     "Ten linked case studies contain exactly six questions in CJMM order and are shuffled only as complete groups.",
     "Structural checks do not constitute clinical educator approval."
-  ]
+  ],
+  "progress": {
+    "status": "in_progress",
+    "completedStandaloneQuestions": 60,
+    "completedLinkedCaseQuestions": 60,
+    "completedTotal": 120,
+    "remaining": 380,
+    "topicCoverage": "Learning Library topics 1–60 of 417 authored as standalone items",
+    "linkedCaseGroupsCompleted": 10,
+    "linkedCaseGroupsPlanned": 10,
+    "completedQuestionIds": [
+      "QR-100181–QR-100240",
+      "QR-100621–QR-100680"
+    ],
+    "note": "The 500-question blueprint is a target, not a claim that all 500 are complete. Completed batches are loaded into all four exam modes on the feature branch."
+  }
 }
