@@ -249,7 +249,6 @@
       },
       "clinicalJudgmentTip": "Prioritize the current cues, compare them with baseline, and reassess the client's response after intervention."
     },
-    "selectN": 2,
     "numberToSelect": 2
   },
   {
@@ -1228,9 +1227,57 @@
     "trendData": {
       "title": "Serial vital-sign changes during treatment for infection",
       "stages": [
-        {"time":"0800 — Initial assessment","situation":"The client has a temperature of 38.0°C, heart rate 104/min, and blood pressure 108/68 mm Hg.","vitalSigns":{"Temperature":"38.0°C","Heart rate":"104/min","Blood pressure":"108/68 mm Hg"},"question":"Which interpretation and nursing response are most appropriate at this time?","options":["The client is stable; continue focused assessment and trend vital signs.","The client is in irreversible shock and resuscitation is futile.","The client is ready for discharge.","The findings confirm treatment success; stop monitoring."],"correctAnswer":"The client is stable; continue focused assessment and trend vital signs."},
-        {"time":"1000 — Worsening findings","situation":"The temperature rises to 38.7°C, heart rate to 118/min, and blood pressure falls to 96/58 mm Hg.","vitalSigns":{"Temperature":"38.7°C","Heart rate":"118/min","Blood pressure":"96/58 mm Hg"},"question":"What should the nurse do in response to this change?","options":["Document the findings as expected and wait until the next routine round.","Promptly notify the provider or activate the facility escalation pathway and reassess perfusion.","Encourage ambulation to lower the heart rate.","Discontinue prescribed treatment because the fever is increasing."],"correctAnswer":"Promptly notify the provider or activate the facility escalation pathway and reassess perfusion."},
-        {"time":"1200 — Further deterioration","situation":"The temperature is 39.1°C, heart rate 132/min, and blood pressure 84/48 mm Hg.","vitalSigns":{"Temperature":"39.1°C","Heart rate":"132/min","Blood pressure":"84/48 mm Hg"},"question":"Which action is the priority now?","options":["Activate the rapid response or emergency escalation pathway and support immediate evaluation.","Recheck the vital signs in 4 hours.","Prepare the client for discharge.","Offer oral fluids and defer notification until the next shift."],"correctAnswer":"Activate the rapid response or emergency escalation pathway and support immediate evaluation."}
+        {
+          "time": "0800 — Initial assessment",
+          "situation": "The client has a temperature of 38.0°C, heart rate 104/min, and blood pressure 108/68 mm Hg.",
+          "vitalSigns": {
+            "Temperature": "38.0°C",
+            "Heart rate": "104/min",
+            "Blood pressure": "108/68 mm Hg"
+          },
+          "question": "Which interpretation and nursing response are most appropriate at this time?",
+          "options": [
+            "The client is stable; continue focused assessment and trend vital signs.",
+            "The client is in irreversible shock and resuscitation is futile.",
+            "The client is ready for discharge.",
+            "The findings confirm treatment success; stop monitoring."
+          ],
+          "correctAnswer": "The client is stable; continue focused assessment and trend vital signs."
+        },
+        {
+          "time": "1000 — Worsening findings",
+          "situation": "The temperature rises to 38.7°C, heart rate to 118/min, and blood pressure falls to 96/58 mm Hg.",
+          "vitalSigns": {
+            "Temperature": "38.7°C",
+            "Heart rate": "118/min",
+            "Blood pressure": "96/58 mm Hg"
+          },
+          "question": "What should the nurse do in response to this change?",
+          "options": [
+            "Document the findings as expected and wait until the next routine round.",
+            "Promptly notify the provider or activate the facility escalation pathway and reassess perfusion.",
+            "Encourage ambulation to lower the heart rate.",
+            "Discontinue prescribed treatment because the fever is increasing."
+          ],
+          "correctAnswer": "Promptly notify the provider or activate the facility escalation pathway and reassess perfusion."
+        },
+        {
+          "time": "1200 — Further deterioration",
+          "situation": "The temperature is 39.1°C, heart rate 132/min, and blood pressure 84/48 mm Hg.",
+          "vitalSigns": {
+            "Temperature": "39.1°C",
+            "Heart rate": "132/min",
+            "Blood pressure": "84/48 mm Hg"
+          },
+          "question": "Which action is the priority now?",
+          "options": [
+            "Activate the rapid response or emergency escalation pathway and support immediate evaluation.",
+            "Recheck the vital signs in 4 hours.",
+            "Prepare the client for discharge.",
+            "Offer oral fluids and defer notification until the next shift."
+          ],
+          "correctAnswer": "Activate the rapid response or emergency escalation pathway and support immediate evaluation."
+        }
       ]
     }
   },
@@ -2528,7 +2575,6 @@
       },
       "clinicalJudgmentTip": "Use oral glucose only when the client is alert and can swallow; altered consciousness requires emergency treatment rather than oral intake."
     },
-    "selectN": 2,
     "numberToSelect": 2,
     "requiredSelections": 2
   },
@@ -3291,8 +3337,8 @@
       "options": {
         "Hypoglycemia has resolved and no further assessment is needed.": "This is not the best response. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
         "Hypoglycemia persists or has recurred and requires repeat treatment and reassessment.": "Correct. The glucose rises from 58 to 82 mg/dL, then falls again to 65 mg/dL. The client remains below the 70 mg/dL alert threshold. Repeat fast-acting carbohydrate, recheck in 15 minutes, and evaluate for ongoing insulin or medication effect; follow the treatment protocol.",
-      "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
-      "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
+        "Administer the scheduled insulin dose now to prevent rebound hyperglycemia.": "Incorrect. Additional insulin can worsen the recurrent hypoglycemia; treat the low glucose and reassess according to protocol.",
+        "Wait 60 minutes before checking the glucose again.": "Incorrect. The client remains hypoglycemic; repeat treatment and recheck in 15 minutes rather than delaying reassessment."
       },
       "clinicalJudgmentTip": "Evaluate the entire trend, not one improved value; recurrent hypoglycemia requires additional treatment and investigation."
     },
@@ -3302,7 +3348,10 @@
         {
           "time": "0715 — Initial assessment",
           "situation": "The client is alert, reports shakiness and diaphoresis, and has a capillary blood glucose of 58 mg/dL.",
-          "vitalSigns": {"Capillary blood glucose": "58 mg/dL", "Neurologic status": "Alert and able to swallow"},
+          "vitalSigns": {
+            "Capillary blood glucose": "58 mg/dL",
+            "Neurologic status": "Alert and able to swallow"
+          },
           "question": "Which action should the nurse take first?",
           "options": [
             "Give 15 g of fast-acting oral carbohydrate and recheck glucose in 15 minutes.",
@@ -3315,7 +3364,10 @@
         {
           "time": "0730 — First reassessment",
           "situation": "Fifteen minutes after oral glucose, the client feels less shaky and the capillary blood glucose is 82 mg/dL.",
-          "vitalSigns": {"Capillary blood glucose": "82 mg/dL", "Symptoms": "Improving"},
+          "vitalSigns": {
+            "Capillary blood glucose": "82 mg/dL",
+            "Symptoms": "Improving"
+          },
           "question": "How should the nurse interpret this response and proceed?",
           "options": [
             "The initial treatment has improved the glucose; continue monitoring and provide a snack or meal when appropriate.",
@@ -3328,7 +3380,10 @@
         {
           "time": "0745 — Recurrent low glucose",
           "situation": "At the next 15-minute check, the glucose has fallen again to 65 mg/dL. The client is still alert and able to swallow.",
-          "vitalSigns": {"Capillary blood glucose": "65 mg/dL", "Symptoms": "Recurrent shakiness"},
+          "vitalSigns": {
+            "Capillary blood glucose": "65 mg/dL",
+            "Symptoms": "Recurrent shakiness"
+          },
           "question": "Which action is the priority now?",
           "options": [
             "Document the earlier improvement and stop glucose monitoring.",
@@ -3553,6 +3608,965 @@
       },
       "clinicalJudgmentTip": "Apply standard precautions to every patient, regardless of known infection status."
     }
+  },
+  {
+    "id": "QR-100102",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Respiratory diphtheria: immediate precautions and treatment",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Single Choice",
+    "question": "A client arrives with fever, sore throat, cervical swelling, and a firmly adherent gray pharyngeal membrane. Respiratory diphtheria is suspected. Which action should the nurse prioritize?",
+    "options": [
+      "Place the client on droplet precautions and immediately notify the provider and public health authority.",
+      "Obtain a throat culture and wait for confirmation before initiating treatment.",
+      "Use contact precautions only and arrange routine outpatient follow-up.",
+      "Attempt to remove the membrane to improve airway patency."
+    ],
+    "correctAnswer": "Place the client on droplet precautions and immediately notify the provider and public health authority.",
+    "rationale": "Suspected respiratory diphtheria is a clinical emergency. Droplet precautions limit transmission; public health notification and prompt presumptive treatment with diphtheria antitoxin plus an appropriate antibiotic should not wait for laboratory confirmation. Airway support may be required.",
+    "optionRationales": {
+      "Place the client on droplet precautions and immediately notify the provider and public health authority.": "Correct. Respiratory diphtheria requires droplet precautions, urgent clinical coordination, and public health notification.",
+      "Obtain a throat culture and wait for confirmation before initiating treatment.": "Collect specimens before treatment when feasible, but do not delay presumptive treatment for confirmation.",
+      "Use contact precautions only and arrange routine outpatient follow-up.": "Contact precautions alone are not the recommended approach for respiratory diphtheria, and outpatient follow-up is unsafe.",
+      "Attempt to remove the membrane to improve airway patency.": "Do not attempt to remove the adherent membrane; manipulation can cause bleeding and compromise the airway."
+    },
+    "clinicalJudgmentTip": "For suspected toxin-mediated respiratory infection, isolate, escalate, and anticipate treatment without waiting for confirmatory results.",
+    "sourceReferences": [
+      {
+        "title": "Clinical Guidance for Diphtheria",
+        "publisher": "CDC",
+        "url": "https://www.cdc.gov/diphtheria/hcp/clinical-guidance/index.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "Chapter 7: Diphtheria",
+        "publisher": "CDC",
+        "url": "https://www.cdc.gov/pinkbook/hcp/table-of-contents/chapter-7-diphtheria.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100102",
+      "category": "Adult Health",
+      "clientNeeds": "Safety and Infection Control",
+      "cjmmStep": "Take Action",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Single Choice",
+      "stem": "A client arrives with fever, sore throat, cervical swelling, and a firmly adherent gray pharyngeal membrane. Respiratory diphtheria is suspected. Which action should the nurse prioritize?",
+      "options": [
+        "Place the client on droplet precautions and immediately notify the provider and public health authority.",
+        "Obtain a throat culture and wait for confirmation before initiating treatment.",
+        "Use contact precautions only and arrange routine outpatient follow-up.",
+        "Attempt to remove the membrane to improve airway patency."
+      ],
+      "answerKey": "Place the client on droplet precautions and immediately notify the provider and public health authority.",
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Suspected respiratory diphtheria is a clinical emergency. Droplet precautions limit transmission; public health notification and prompt presumptive treatment with diphtheria antitoxin plus an appropriate antibiotic should not wait for laboratory confirmation. Airway support may be required.",
+      "options": {
+        "Place the client on droplet precautions and immediately notify the provider and public health authority.": "Correct. Respiratory diphtheria requires droplet precautions, urgent clinical coordination, and public health notification.",
+        "Obtain a throat culture and wait for confirmation before initiating treatment.": "Collect specimens before treatment when feasible, but do not delay presumptive treatment for confirmation.",
+        "Use contact precautions only and arrange routine outpatient follow-up.": "Contact precautions alone are not the recommended approach for respiratory diphtheria, and outpatient follow-up is unsafe.",
+        "Attempt to remove the membrane to improve airway patency.": "Do not attempt to remove the adherent membrane; manipulation can cause bleeding and compromise the airway."
+      },
+      "clinicalJudgmentTip": "For suspected toxin-mediated respiratory infection, isolate, escalate, and anticipate treatment without waiting for confirmatory results."
+    }
+  },
+  {
+    "id": "QR-100103",
+    "schemaVersion": 2,
+    "category": "Pediatric Nursing",
+    "topic": "Pertussis: infection prevention and treatment",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Generate Solutions",
+    "difficulty": 3,
+    "type": "Multiple Response",
+    "question": "A 7-week-old infant is admitted with coughing episodes followed by apnea and cyanosis. Pertussis is suspected. Which nursing and team actions are appropriate? Select all that apply.",
+    "options": [
+      "Initiate droplet precautions.",
+      "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.",
+      "Monitor respiratory status closely, including episodes of apnea and oxygenation.",
+      "Place the infant in a shared room with other infants if afebrile.",
+      "Delay precautions until the cough has lasted at least 2 weeks."
+    ],
+    "correctAnswer": [
+      "Initiate droplet precautions.",
+      "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.",
+      "Monitor respiratory status closely, including episodes of apnea and oxygenation."
+    ],
+    "rationale": "Young infants are at increased risk for severe pertussis and may present with apnea rather than a classic prolonged cough. Droplet precautions, prompt clinical evaluation and treatment, and close respiratory monitoring are appropriate.",
+    "optionRationales": {
+      "Initiate droplet precautions.": "Correct. CDC recommends droplet precautions for patients with known or suspected pertussis.",
+      "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.": "Correct. Early treatment is particularly important for infants and may begin before test results when suspicion is strong.",
+      "Monitor respiratory status closely, including episodes of apnea and oxygenation.": "Correct. Apnea and cyanosis are high-risk manifestations in young infants.",
+      "Place the infant in a shared room with other infants if afebrile.": "Incorrect. The infant may transmit pertussis; afebrile status does not remove the need for precautions.",
+      "Delay precautions until the cough has lasted at least 2 weeks.": "Incorrect. Precautions should begin when pertussis is suspected."
+    },
+    "clinicalJudgmentTip": "In young infants, apnea may be a key manifestation; protect others and prioritize respiratory surveillance.",
+    "sourceReferences": [
+      {
+        "title": "Treatment of Pertussis",
+        "publisher": "CDC",
+        "url": "https://www.cdc.gov/pertussis/hcp/clinical-care/index.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "Pertussis: Infection Control in Healthcare Personnel",
+        "publisher": "CDC",
+        "url": "https://www.cdc.gov/infection-control/hcp/healthcare-personnel-epidemiology-control/pertussis.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100103",
+      "category": "Pediatric Nursing",
+      "clientNeeds": "Safety and Infection Control",
+      "cjmmStep": "Generate Solutions",
+      "difficulty": 3
+    },
+    "interaction": {
+      "type": "Multiple Response",
+      "stem": "A 7-week-old infant is admitted with coughing episodes followed by apnea and cyanosis. Pertussis is suspected. Which nursing and team actions are appropriate? Select all that apply.",
+      "options": [
+        "Initiate droplet precautions.",
+        "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.",
+        "Monitor respiratory status closely, including episodes of apnea and oxygenation.",
+        "Place the infant in a shared room with other infants if afebrile.",
+        "Delay precautions until the cough has lasted at least 2 weeks."
+      ],
+      "answerKey": [
+        "Initiate droplet precautions.",
+        "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.",
+        "Monitor respiratory status closely, including episodes of apnea and oxygenation."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Young infants are at increased risk for severe pertussis and may present with apnea rather than a classic prolonged cough. Droplet precautions, prompt clinical evaluation and treatment, and close respiratory monitoring are appropriate.",
+      "options": {
+        "Initiate droplet precautions.": "Correct. CDC recommends droplet precautions for patients with known or suspected pertussis.",
+        "Notify the responsible clinician promptly and anticipate appropriate antimicrobial treatment.": "Correct. Early treatment is particularly important for infants and may begin before test results when suspicion is strong.",
+        "Monitor respiratory status closely, including episodes of apnea and oxygenation.": "Correct. Apnea and cyanosis are high-risk manifestations in young infants.",
+        "Place the infant in a shared room with other infants if afebrile.": "Incorrect. The infant may transmit pertussis; afebrile status does not remove the need for precautions.",
+        "Delay precautions until the cough has lasted at least 2 weeks.": "Incorrect. Precautions should begin when pertussis is suspected."
+      },
+      "clinicalJudgmentTip": "In young infants, apnea may be a key manifestation; protect others and prioritize respiratory surveillance."
+    }
+  },
+  {
+    "id": "QR-100104",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Addison disease: recognizing adrenal crisis",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Select N",
+    "question": "A client with known primary adrenal insufficiency reports 2 days of vomiting and diarrhea and now has marked weakness and confusion. Which THREE findings most strongly support an evolving adrenal crisis?",
+    "options": [
+      "Blood pressure 78/44 mm Hg",
+      "Serum sodium 126 mEq/L",
+      "Serum potassium 6.0 mEq/L",
+      "Blood glucose 168 mg/dL",
+      "New dependent edema with hypertension"
+    ],
+    "correctAnswer": [
+      "Blood pressure 78/44 mm Hg",
+      "Serum sodium 126 mEq/L",
+      "Serum potassium 6.0 mEq/L"
+    ],
+    "rationale": "Adrenal crisis can cause life-threatening hypotension, hyponatremia, hyperkalemia, and hypoglycemia. Gastrointestinal illness increases physiologic stress and may precipitate crisis in a person with adrenal insufficiency.",
+    "optionRationales": {
+      "Blood pressure 78/44 mm Hg": "Correct. Severe hypotension is a critical manifestation of adrenal crisis.",
+      "Serum sodium 126 mEq/L": "Correct. Aldosterone deficiency can contribute to hyponatremia.",
+      "Serum potassium 6.0 mEq/L": "Correct. Reduced aldosterone can cause hyperkalemia and dangerous dysrhythmias.",
+      "Blood glucose 168 mg/dL": "Incorrect. Adrenal crisis is associated with risk of low blood glucose.",
+      "New dependent edema with hypertension": "Incorrect. This does not fit the typical salt-wasting, volume-depleted presentation."
+    },
+    "clinicalJudgmentTip": "Connect acute gastrointestinal fluid loss and physiologic stress with hypotension and electrolyte abnormalities in adrenal insufficiency.",
+    "sourceReferences": [
+      {
+        "title": "Definition & Facts of Adrenal Insufficiency & Addison's Disease",
+        "publisher": "NIDDK",
+        "url": "https://www.niddk.nih.gov/health-information/endocrine-diseases/adrenal-insufficiency-addisons-disease/definition-facts",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "Treatment for Adrenal Insufficiency & Addison's Disease",
+        "publisher": "NIDDK",
+        "url": "https://www.niddk.nih.gov/health-information/endocrine-diseases/adrenal-insufficiency-addisons-disease/treatment",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100104",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Recognize Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Select N",
+      "stem": "A client with known primary adrenal insufficiency reports 2 days of vomiting and diarrhea and now has marked weakness and confusion. Which THREE findings most strongly support an evolving adrenal crisis?",
+      "options": [
+        "Blood pressure 78/44 mm Hg",
+        "Serum sodium 126 mEq/L",
+        "Serum potassium 6.0 mEq/L",
+        "Blood glucose 168 mg/dL",
+        "New dependent edema with hypertension"
+      ],
+      "answerKey": [
+        "Blood pressure 78/44 mm Hg",
+        "Serum sodium 126 mEq/L",
+        "Serum potassium 6.0 mEq/L"
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      },
+      "selectN": 3
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Adrenal crisis can cause life-threatening hypotension, hyponatremia, hyperkalemia, and hypoglycemia. Gastrointestinal illness increases physiologic stress and may precipitate crisis in a person with adrenal insufficiency.",
+      "options": {
+        "Blood pressure 78/44 mm Hg": "Correct. Severe hypotension is a critical manifestation of adrenal crisis.",
+        "Serum sodium 126 mEq/L": "Correct. Aldosterone deficiency can contribute to hyponatremia.",
+        "Serum potassium 6.0 mEq/L": "Correct. Reduced aldosterone can cause hyperkalemia and dangerous dysrhythmias.",
+        "Blood glucose 168 mg/dL": "Incorrect. Adrenal crisis is associated with risk of low blood glucose.",
+        "New dependent edema with hypertension": "Incorrect. This does not fit the typical salt-wasting, volume-depleted presentation."
+      },
+      "clinicalJudgmentTip": "Connect acute gastrointestinal fluid loss and physiologic stress with hypotension and electrolyte abnormalities in adrenal insufficiency."
+    },
+    "selectN": 3
+  },
+  {
+    "id": "QR-100105",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Cushing syndrome: identifying characteristic manifestations",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 3,
+    "type": "Matrix Single",
+    "question": "A client is being evaluated for prolonged excess cortisol exposure. For each assessment finding, classify whether it is characteristic of Cushing syndrome.",
+    "options": [],
+    "correctAnswer": {
+      "Rounded face": "Characteristic",
+      "Thin arms and legs despite central weight gain": "Characteristic",
+      "Easy bruising and wide purple abdominal striae": "Characteristic",
+      "Unintentional weight loss with generalized muscle gain": "Not characteristic"
+    },
+    "rationale": "Chronic cortisol excess commonly causes central weight gain, a rounded face, thin extremities, easy bruising, purple striae, and muscle weakness.",
+    "optionRationales": {
+      "Rounded face — Characteristic": "A rounded face is a recognized manifestation of prolonged cortisol excess.",
+      "Thin arms and legs despite central weight gain — Characteristic": "Cushing syndrome can cause central weight gain with relatively thin extremities and muscle wasting.",
+      "Easy bruising and wide purple abdominal striae — Characteristic": "Skin fragility, easy bruising, and wide purple striae are characteristic findings.",
+      "Unintentional weight loss with generalized muscle gain — Not characteristic": "This pattern does not match the usual phenotype of Cushing syndrome."
+    },
+    "clinicalJudgmentTip": "Cluster the body-habitus and skin changes associated with cortisol excess rather than relying on weight alone.",
+    "sourceReferences": [
+      {
+        "title": "Cushing's Syndrome",
+        "publisher": "NIDDK",
+        "url": "https://www.niddk.nih.gov/health-information/endocrine-diseases/cushings-syndrome",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100105",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 3
+    },
+    "interaction": {
+      "type": "Matrix Single",
+      "stem": "A client is being evaluated for prolonged excess cortisol exposure. For each assessment finding, classify whether it is characteristic of Cushing syndrome.",
+      "options": {
+        "face": [
+          "Characteristic",
+          "Not characteristic"
+        ],
+        "extremities": [
+          "Characteristic",
+          "Not characteristic"
+        ],
+        "skin": [
+          "Characteristic",
+          "Not characteristic"
+        ],
+        "weight": [
+          "Characteristic",
+          "Not characteristic"
+        ]
+      },
+      "answerKey": {
+        "Rounded face": "Characteristic",
+        "Thin arms and legs despite central weight gain": "Characteristic",
+        "Easy bruising and wide purple abdominal striae": "Characteristic",
+        "Unintentional weight loss with generalized muscle gain": "Not characteristic"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Chronic cortisol excess commonly causes central weight gain, a rounded face, thin extremities, easy bruising, purple striae, and muscle weakness.",
+      "options": {
+        "Rounded face — Characteristic": "A rounded face is a recognized manifestation of prolonged cortisol excess.",
+        "Thin arms and legs despite central weight gain — Characteristic": "Cushing syndrome can cause central weight gain with relatively thin extremities and muscle wasting.",
+        "Easy bruising and wide purple abdominal striae — Characteristic": "Skin fragility, easy bruising, and wide purple striae are characteristic findings.",
+        "Unintentional weight loss with generalized muscle gain — Not characteristic": "This pattern does not match the usual phenotype of Cushing syndrome."
+      },
+      "clinicalJudgmentTip": "Cluster the body-habitus and skin changes associated with cortisol excess rather than relying on weight alone."
+    },
+    "matrixLeftPane": "Long-term cortisol excess: rounded face, central weight gain, thin extremities, fragile skin.",
+    "matrixTask": "Classify each finding as characteristic or not characteristic of Cushing syndrome.",
+    "rows": [
+      {
+        "id": "face",
+        "text": "Rounded face"
+      },
+      {
+        "id": "extremities",
+        "text": "Thin arms and legs despite central weight gain"
+      },
+      {
+        "id": "skin",
+        "text": "Easy bruising and wide purple abdominal striae"
+      },
+      {
+        "id": "weight",
+        "text": "Unintentional weight loss with generalized muscle gain"
+      }
+    ],
+    "columns": [
+      "Characteristic",
+      "Not characteristic"
+    ],
+    "correctAnswers": {
+      "Rounded face": "Characteristic",
+      "Thin arms and legs despite central weight gain": "Characteristic",
+      "Easy bruising and wide purple abdominal striae": "Characteristic",
+      "Unintentional weight loss with generalized muscle gain": "Not characteristic"
+    }
+  },
+  {
+    "id": "QR-100106",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Umbilical cord prolapse: immediate nursing response sequence",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Take Action",
+    "difficulty": 5,
+    "type": "Extended Drag and Drop",
+    "question": "Immediately after spontaneous rupture of membranes, the fetal heart rate falls to 70/min and a pulsating cord is felt below the presenting part. Place the immediate response actions in a safe sequence while the team prepares for birth.",
+    "options": [],
+    "correctAnswer": [
+      "Call for obstetric and neonatal help and activate the emergency response.",
+      "Use a gloved hand to elevate the presenting part and relieve pressure on the cord.",
+      "Position the client knee-chest or in an exaggerated left lateral/head-down position.",
+      "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed."
+    ],
+    "rationale": "Umbilical cord prolapse is an obstetric emergency because compression can impair fetal oxygenation. Call for help, relieve pressure on the cord by elevating the presenting part, use a pressure-relieving position, monitor the fetal heart rate, and expedite birth.",
+    "optionRationales": {
+      "Call for obstetric and neonatal help and activate the emergency response.": "Summon the obstetric, anesthesia, and neonatal teams immediately.",
+      "Use a gloved hand to elevate the presenting part and relieve pressure on the cord.": "Elevating the presenting part reduces mechanical compression; avoid manipulating the cord itself.",
+      "Position the client knee-chest or in an exaggerated left lateral/head-down position.": "Positioning can further reduce cord compression while the team prepares for birth.",
+      "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed.": "Continuous monitoring guides urgency while definitive birth is arranged."
+    },
+    "clinicalJudgmentTip": "Treat cord prolapse as a time-critical fetal emergency: summon help and relieve compression while arranging expedited birth.",
+    "sourceReferences": [
+      {
+        "title": "Umbilical Cord Prolapse (Green-top Guideline No. 50)",
+        "publisher": "RCOG",
+        "url": "https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/umbilical-cord-prolapse-green-top-guideline-no-50/",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "Labor and Delivery Unit Safety: Umbilical Cord Prolapse",
+        "publisher": "AHRQ",
+        "url": "https://www.ahrq.gov/patient-safety/settings/labor-delivery/perinatal-care/modules/strategies/labor-delivery-unit/tool-cord-prolapse.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100106",
+      "category": "Maternal-Newborn Nursing",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Take Action",
+      "difficulty": 5
+    },
+    "interaction": {
+      "type": "Extended Drag and Drop",
+      "stem": "Immediately after spontaneous rupture of membranes, the fetal heart rate falls to 70/min and a pulsating cord is felt below the presenting part. Place the immediate response actions in a safe sequence while the team prepares for birth.",
+      "options": [
+        "Position the client knee-chest or in an exaggerated left lateral/head-down position.",
+        "Call for obstetric and neonatal help and activate the emergency response.",
+        "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed.",
+        "Use a gloved hand to elevate the presenting part and relieve pressure on the cord."
+      ],
+      "answerKey": [
+        "Call for obstetric and neonatal help and activate the emergency response.",
+        "Use a gloved hand to elevate the presenting part and relieve pressure on the cord.",
+        "Position the client knee-chest or in an exaggerated left lateral/head-down position.",
+        "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Umbilical cord prolapse is an obstetric emergency because compression can impair fetal oxygenation. Call for help, relieve pressure on the cord by elevating the presenting part, use a pressure-relieving position, monitor the fetal heart rate, and expedite birth.",
+      "options": {
+        "Call for obstetric and neonatal help and activate the emergency response.": "Summon the obstetric, anesthesia, and neonatal teams immediately.",
+        "Use a gloved hand to elevate the presenting part and relieve pressure on the cord.": "Elevating the presenting part reduces mechanical compression; avoid manipulating the cord itself.",
+        "Position the client knee-chest or in an exaggerated left lateral/head-down position.": "Positioning can further reduce cord compression while the team prepares for birth.",
+        "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed.": "Continuous monitoring guides urgency while definitive birth is arranged."
+      },
+      "clinicalJudgmentTip": "Treat cord prolapse as a time-critical fetal emergency: summon help and relieve compression while arranging expedited birth."
+    },
+    "availableItems": [
+      "Position the client knee-chest or in an exaggerated left lateral/head-down position.",
+      "Call for obstetric and neonatal help and activate the emergency response.",
+      "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed.",
+      "Use a gloved hand to elevate the presenting part and relieve pressure on the cord."
+    ],
+    "correctOrder": [
+      "Call for obstetric and neonatal help and activate the emergency response.",
+      "Use a gloved hand to elevate the presenting part and relieve pressure on the cord.",
+      "Position the client knee-chest or in an exaggerated left lateral/head-down position.",
+      "Maintain continuous fetal heart-rate monitoring while preparations for expedited birth proceed."
+    ]
+  },
+  {
+    "id": "QR-100107",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Placental abruption: recognizing concealed hemorrhage",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Highlight",
+    "question": "Review the triage nursing note. Highlight the findings that support suspected placental abruption and maternal-fetal compromise.",
+    "options": [],
+    "correctAnswer": [
+      "pain",
+      "uterus",
+      "bleeding",
+      "fhr"
+    ],
+    "rationale": "Placental abruption may present with vaginal bleeding, constant abdominal pain, uterine tenderness or hypertonicity, and fetal compromise. Bleeding can be concealed, so visible vaginal blood may underestimate maternal blood loss.",
+    "optionRationales": {
+      "Severe constant abdominal pain": "Persistent abdominal pain is a common feature of placental abruption.",
+      "Rigid, tender uterus": "Uterine tenderness and increased tone are concerning findings.",
+      "Dark vaginal bleeding": "Vaginal bleeding may be present, although bleeding can also be concealed.",
+      "Fetal heart rate 90/min": "Fetal bradycardia suggests fetal compromise and requires urgent escalation."
+    },
+    "clinicalJudgmentTip": "Do not use visible vaginal bleeding alone to estimate severity; concealed blood loss can cause shock.",
+    "sourceReferences": [
+      {
+        "title": "Antepartum Haemorrhage Guideline",
+        "publisher": "RCOG",
+        "url": "https://www.judiciary.uk/wp-content/uploads/2024/07/Revised-Antepartum-Haemorrhage-Guideline-pp.pdf",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100107",
+      "category": "Maternal-Newborn Nursing",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Recognize Cues",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Highlight",
+      "stem": "Review the triage nursing note. Highlight the findings that support suspected placental abruption and maternal-fetal compromise.",
+      "options": [],
+      "answerKey": [
+        "pain",
+        "uterus",
+        "bleeding",
+        "fhr"
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Placental abruption may present with vaginal bleeding, constant abdominal pain, uterine tenderness or hypertonicity, and fetal compromise. Bleeding can be concealed, so visible vaginal blood may underestimate maternal blood loss.",
+      "options": {
+        "Severe constant abdominal pain": "Persistent abdominal pain is a common feature of placental abruption.",
+        "Rigid, tender uterus": "Uterine tenderness and increased tone are concerning findings.",
+        "Dark vaginal bleeding": "Vaginal bleeding may be present, although bleeding can also be concealed.",
+        "Fetal heart rate 90/min": "Fetal bradycardia suggests fetal compromise and requires urgent escalation."
+      },
+      "clinicalJudgmentTip": "Do not use visible vaginal bleeding alone to estimate severity; concealed blood loss can cause shock."
+    },
+    "highlightText": "At 34 weeks' gestation, the client reports sudden severe constant abdominal pain. The uterus is rigid and tender between contractions. A small amount of dark vaginal bleeding is visible. The fetal heart rate is 90/min. The client says fetal movement was present earlier this morning.",
+    "nursingNotes": "Triage note: 34-week pregnancy; abrupt onset of constant abdominal pain; uterine rigidity and tenderness; limited visible bleeding; fetal bradycardia. Notify the obstetric team and initiate emergency maternal-fetal assessment.",
+    "highlightSegments": [
+      {
+        "id": "pain",
+        "text": "sudden severe constant abdominal pain"
+      },
+      {
+        "id": "uterus",
+        "text": "The uterus is rigid and tender between contractions"
+      },
+      {
+        "id": "bleeding",
+        "text": "A small amount of dark vaginal bleeding is visible"
+      },
+      {
+        "id": "fhr",
+        "text": "The fetal heart rate is 90/min"
+      },
+      {
+        "id": "movement",
+        "text": "fetal movement was present earlier this morning"
+      }
+    ],
+    "correctHighlights": [
+      "pain",
+      "uterus",
+      "bleeding",
+      "fhr"
+    ]
+  },
+  {
+    "id": "QR-100108",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Postpartum preeclampsia: evolving warning signs",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Evaluate Outcomes",
+    "difficulty": 4,
+    "type": "Trend",
+    "question": "A client is 5 days postpartum and reports a persistent headache. Review the evolving assessment findings and select the most appropriate interpretation at each time point.",
+    "options": [
+      "The findings are reassuring and can be reviewed at the routine postpartum visit.",
+      "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
+      "The headache is most consistent with expected sleep deprivation.",
+      "Encourage oral fluids and reassess at the next scheduled visit."
+    ],
+    "correctAnswer": "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
+    "rationale": "Persistent headache, severe-range blood pressure, and visual symptoms are concerning for postpartum preeclampsia and possible neurologic complications. The client requires urgent evaluation; hypertensive disease can present after delivery.",
+    "optionRationales": {
+      "The findings are reassuring and can be reviewed at the routine postpartum visit.": "Persistent headache with worsening blood pressure and visual symptoms is a warning pattern.",
+      "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.": "Correct. These findings require urgent assessment and treatment to reduce maternal risk.",
+      "The headache is most consistent with expected sleep deprivation.": "The accompanying blood pressure and visual symptoms make a benign explanation unsafe.",
+      "Encourage oral fluids and reassess at the next scheduled visit.": "Delaying evaluation could allow progression to severe complications."
+    },
+    "clinicalJudgmentTip": "Persistent postpartum headache, visual changes, and elevated blood pressure should never be dismissed as routine recovery.",
+    "sourceReferences": [
+      {
+        "title": "3 Conditions to Watch for After Childbirth",
+        "publisher": "ACOG",
+        "url": "https://www.acog.org/womens-health/experts-and-stories/the-latest/3-conditions-to-watch-for-after-childbirth",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100108",
+      "category": "Maternal-Newborn Nursing",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Evaluate Outcomes",
+      "difficulty": 4
+    },
+    "interaction": {
+      "type": "Trend",
+      "stem": "A client is 5 days postpartum and reports a persistent headache. Review the evolving assessment findings and select the most appropriate interpretation at each time point.",
+      "options": [
+        "The findings are reassuring and can be reviewed at the routine postpartum visit.",
+        "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
+        "The headache is most consistent with expected sleep deprivation.",
+        "Encourage oral fluids and reassess at the next scheduled visit."
+      ],
+      "answerKey": "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Persistent headache, severe-range blood pressure, and visual symptoms are concerning for postpartum preeclampsia and possible neurologic complications. The client requires urgent evaluation; hypertensive disease can present after delivery.",
+      "options": {
+        "The findings are reassuring and can be reviewed at the routine postpartum visit.": "Persistent headache with worsening blood pressure and visual symptoms is a warning pattern.",
+        "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.": "Correct. These findings require urgent assessment and treatment to reduce maternal risk.",
+        "The headache is most consistent with expected sleep deprivation.": "The accompanying blood pressure and visual symptoms make a benign explanation unsafe.",
+        "Encourage oral fluids and reassess at the next scheduled visit.": "Delaying evaluation could allow progression to severe complications."
+      },
+      "clinicalJudgmentTip": "Persistent postpartum headache, visual changes, and elevated blood pressure should never be dismissed as routine recovery."
+    },
+    "trendData": {
+      "title": "Postpartum assessment over time",
+      "stages": [
+        {
+          "time": "0900 — Initial call",
+          "situation": "Five days after delivery, the client reports a persistent headache that has not improved with rest. Home blood pressure is 150/96 mm Hg.",
+          "question": "What is the most appropriate nursing response now?",
+          "options": [
+            "Reassure the client that headaches are expected after delivery.",
+            "Arrange prompt obstetric assessment and ask about visual symptoms and upper abdominal pain.",
+            "Recommend checking blood pressure in 1 week.",
+            "Advise the client to stop all prescribed medications."
+          ],
+          "correctAnswer": "Arrange prompt obstetric assessment and ask about visual symptoms and upper abdominal pain."
+        },
+        {
+          "time": "1030 — Reassessment",
+          "situation": "In the assessment area, blood pressure is 166/112 mm Hg on repeat measurement. The client reports seeing flashing lights.",
+          "question": "How should the nurse interpret this change?",
+          "options": [
+            "The symptoms indicate improvement.",
+            "The client may have postpartum preeclampsia with severe features and needs emergency evaluation.",
+            "The client has uncomplicated postpartum fatigue.",
+            "The blood pressure is expected during breastfeeding."
+          ],
+          "correctAnswer": "The client may have postpartum preeclampsia with severe features and needs emergency evaluation."
+        },
+        {
+          "time": "After escalation",
+          "situation": "The obstetric team is at the bedside. The client continues to report headache and visual disturbance while the team evaluates and initiates treatment.",
+          "question": "Which nursing priority remains essential?",
+          "options": [
+            "Continue frequent blood-pressure and neurologic assessment and implement prescribed emergency management.",
+            "Allow the client to ambulate unassisted to reduce anxiety.",
+            "Delay reassessment until the headache resolves spontaneously.",
+            "Discharge the client if vaginal bleeding is absent."
+          ],
+          "correctAnswer": "Continue frequent blood-pressure and neurologic assessment and implement prescribed emergency management."
+        }
+      ]
+    }
+  },
+  {
+    "id": "QR-100109",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Cor pulmonale: recognizing right-sided heart failure",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 3,
+    "type": "Extended Multiple Response",
+    "question": "A client with advanced COPD reports increasing abdominal fullness and fatigue. Assessment reveals jugular venous distention, bilateral pitting ankle edema, and an enlarged liver. Which interpretations are supported? Select all that apply.",
+    "options": [
+      "The findings are consistent with systemic venous congestion from right ventricular dysfunction.",
+      "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.",
+      "The edema and jugular venous distention should prompt assessment for right-sided heart failure.",
+      "The findings establish isolated left ventricular failure as the only possible cause.",
+      "Peripheral edema in this setting rules out cor pulmonale."
+    ],
+    "correctAnswer": [
+      "The findings are consistent with systemic venous congestion from right ventricular dysfunction.",
+      "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.",
+      "The edema and jugular venous distention should prompt assessment for right-sided heart failure."
+    ],
+    "rationale": "Cor pulmonale is right ventricular enlargement and eventual failure secondary to a lung disorder that causes pulmonary hypertension. Systemic venous congestion may produce jugular venous distention, peripheral edema, hepatomegaly, and abdominal fullness.",
+    "optionRationales": {
+      "The findings are consistent with systemic venous congestion from right ventricular dysfunction.": "JVD, peripheral edema, and hepatomegaly are classic signs of right-sided congestion.",
+      "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.": "COPD is a common cause of chronic cor pulmonale.",
+      "The edema and jugular venous distention should prompt assessment for right-sided heart failure.": "These signs require further evaluation for right-sided failure.",
+      "The findings establish isolated left ventricular failure as the only possible cause.": "The findings do not establish an exclusive cause; chronic lung disease can cause right ventricular failure.",
+      "Peripheral edema in this setting rules out cor pulmonale.": "Peripheral edema is a recognized manifestation of right-sided failure and cor pulmonale."
+    },
+    "clinicalJudgmentTip": "Pair signs of systemic venous congestion with right ventricular dysfunction and the underlying pulmonary disorder.",
+    "sourceReferences": [
+      {
+        "title": "Right Heart Failure and Cor Pulmonale",
+        "publisher": "Merck Manual Professional Edition",
+        "url": "https://www.merckmanuals.com/professional/cardiovascular-disorders/heart-failure/right-heart-failure-and-cor-pulmonale",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "Chronic Obstructive Pulmonary Disease",
+        "publisher": "Merck Manual Professional Edition",
+        "url": "https://www.merckmanuals.com/professional/pulmonary-disorders/chronic-obstructive-pulmonary-disease-and-related-disorders/chronic-obstructive-pulmonary-disease-copd",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100109",
+      "category": "Adult Health",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Analyze Cues",
+      "difficulty": 3
+    },
+    "interaction": {
+      "type": "Extended Multiple Response",
+      "stem": "A client with advanced COPD reports increasing abdominal fullness and fatigue. Assessment reveals jugular venous distention, bilateral pitting ankle edema, and an enlarged liver. Which interpretations are supported? Select all that apply.",
+      "options": [
+        "The findings are consistent with systemic venous congestion from right ventricular dysfunction.",
+        "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.",
+        "The edema and jugular venous distention should prompt assessment for right-sided heart failure.",
+        "The findings establish isolated left ventricular failure as the only possible cause.",
+        "Peripheral edema in this setting rules out cor pulmonale."
+      ],
+      "answerKey": [
+        "The findings are consistent with systemic venous congestion from right ventricular dysfunction.",
+        "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.",
+        "The edema and jugular venous distention should prompt assessment for right-sided heart failure."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "Cor pulmonale is right ventricular enlargement and eventual failure secondary to a lung disorder that causes pulmonary hypertension. Systemic venous congestion may produce jugular venous distention, peripheral edema, hepatomegaly, and abdominal fullness.",
+      "options": {
+        "The findings are consistent with systemic venous congestion from right ventricular dysfunction.": "JVD, peripheral edema, and hepatomegaly are classic signs of right-sided congestion.",
+        "Chronic lung disease can contribute to pulmonary hypertension and cor pulmonale.": "COPD is a common cause of chronic cor pulmonale.",
+        "The edema and jugular venous distention should prompt assessment for right-sided heart failure.": "These signs require further evaluation for right-sided failure.",
+        "The findings establish isolated left ventricular failure as the only possible cause.": "The findings do not establish an exclusive cause; chronic lung disease can cause right ventricular failure.",
+        "Peripheral edema in this setting rules out cor pulmonale.": "Peripheral edema is a recognized manifestation of right-sided failure and cor pulmonale."
+      },
+      "clinicalJudgmentTip": "Pair signs of systemic venous congestion with right ventricular dysfunction and the underlying pulmonary disorder."
+    }
+  },
+  {
+    "id": "QR-100110",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Smoking cessation during pregnancy: evidence-based counseling",
+    "clientNeeds": "Health Promotion and Maintenance",
+    "cjmmStep": "Generate Solutions",
+    "difficulty": 2,
+    "type": "Cloze (Drop-down)",
+    "question": "Complete the nurse's counseling plan for a pregnant client who currently smokes.",
+    "options": [],
+    "correctAnswer": {
+      "step1": "Ask",
+      "step2": "Advise",
+      "step3": "Assess",
+      "step4": "Assist",
+      "step5": "Arrange"
+    },
+    "rationale": "The 5 A's framework supports individualized tobacco cessation counseling during pregnancy: Ask about use, Advise cessation, Assess readiness, Assist with resources and a quit plan, and Arrange follow-up. Cessation benefits the pregnant client and fetus at any point in pregnancy.",
+    "optionRationales": {
+      "step1": "Ask identifies all tobacco and nicotine use.",
+      "step2": "Advise cessation and explain pregnancy-related risks without judgment.",
+      "step3": "Assess readiness to make a quit attempt.",
+      "step4": "Assist with counseling, self-help materials, and referral to a quitline.",
+      "step5": "Arrange follow-up and continued support."
+    },
+    "clinicalJudgmentTip": "Use a supportive, nonjudgmental approach and build a follow-up plan rather than relying on a single brief warning.",
+    "sourceReferences": [
+      {
+        "title": "Tobacco and Nicotine Cessation During Pregnancy",
+        "publisher": "ACOG",
+        "url": "https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2020/05/tobacco-and-nicotine-cessation-during-pregnancy",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [],
+    "metadata": {
+      "id": "QR-100110",
+      "category": "Maternal-Newborn Nursing",
+      "clientNeeds": "Health Promotion and Maintenance",
+      "cjmmStep": "Generate Solutions",
+      "difficulty": 2
+    },
+    "interaction": {
+      "type": "Cloze (Drop-down)",
+      "stem": "Complete the nurse's counseling plan for a pregnant client who currently smokes.",
+      "options": [
+        {
+          "id": "step1",
+          "options": [
+            "Ask",
+            "Arrange",
+            "Assist"
+          ],
+          "correct": "Ask"
+        },
+        {
+          "id": "step2",
+          "options": [
+            "Advise",
+            "Assess",
+            "Arrange"
+          ],
+          "correct": "Advise"
+        },
+        {
+          "id": "step3",
+          "options": [
+            "Assess",
+            "Ask",
+            "Assist"
+          ],
+          "correct": "Assess"
+        },
+        {
+          "id": "step4",
+          "options": [
+            "Assist",
+            "Advise",
+            "Arrange"
+          ],
+          "correct": "Assist"
+        },
+        {
+          "id": "step5",
+          "options": [
+            "Arrange",
+            "Ask",
+            "Assess"
+          ],
+          "correct": "Arrange"
+        }
+      ],
+      "answerKey": {
+        "step1": "Ask",
+        "step2": "Advise",
+        "step3": "Assess",
+        "step4": "Assist",
+        "step5": "Arrange"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {},
+    "rationales": {
+      "overall": "The 5 A's framework supports individualized tobacco cessation counseling during pregnancy: Ask about use, Advise cessation, Assess readiness, Assist with resources and a quit plan, and Arrange follow-up. Cessation benefits the pregnant client and fetus at any point in pregnancy.",
+      "options": {
+        "step1": "Ask identifies all tobacco and nicotine use.",
+        "step2": "Advise cessation and explain pregnancy-related risks without judgment.",
+        "step3": "Assess readiness to make a quit attempt.",
+        "step4": "Assist with counseling, self-help materials, and referral to a quitline.",
+        "step5": "Arrange follow-up and continued support."
+      },
+      "clinicalJudgmentTip": "Use a supportive, nonjudgmental approach and build a follow-up plan rather than relying on a single brief warning."
+    },
+    "clozeTemplate": "The nurse first {{step1}} about all tobacco and nicotine use, then {{step2}} cessation, {{step3}} readiness to quit, {{step4}} with a quit plan and resources, and {{step5}} follow-up.",
+    "instruction": "Select the correct 5 A's action for each blank in the counseling sequence.",
+    "dropdowns": [
+      {
+        "id": "step1",
+        "options": [
+          "Ask",
+          "Arrange",
+          "Assist"
+        ],
+        "correct": "Ask"
+      },
+      {
+        "id": "step2",
+        "options": [
+          "Advise",
+          "Assess",
+          "Arrange"
+        ],
+        "correct": "Advise"
+      },
+      {
+        "id": "step3",
+        "options": [
+          "Assess",
+          "Ask",
+          "Assist"
+        ],
+        "correct": "Assess"
+      },
+      {
+        "id": "step4",
+        "options": [
+          "Assist",
+          "Advise",
+          "Arrange"
+        ],
+        "correct": "Assist"
+      },
+      {
+        "id": "step5",
+        "options": [
+          "Arrange",
+          "Ask",
+          "Assess"
+        ],
+        "correct": "Arrange"
+      }
+    ]
   }
 ];
  Object.defineProperty(root,'questions',{configurable:false,enumerable:true,get:()=>bank});
