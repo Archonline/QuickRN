@@ -4205,8 +4205,6 @@
       "The findings are reassuring and can be reviewed at the routine postpartum visit.",
       "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
       "The headache is most consistent with expected sleep deprivation.",
-      "Encourage oral fluids and reassess at the next scheduled visit.",
-      "The headache is most consistent with expected sleep deprivation.",
       "Encourage oral fluids and reassess at the next scheduled visit."
     ],
     "correctAnswer": "The client requires urgent obstetric evaluation for possible postpartum preeclampsia.",
