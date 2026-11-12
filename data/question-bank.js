@@ -5164,7 +5164,12 @@
     "optionRationales": {},
     "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
     "sourceReferences": [
-      null,
+      {
+        "title": "Disseminated Intravascular Coagulation",
+        "publisher": "Merck Manual Professional Edition",
+        "url": "https://www.merckmanuals.com/professional/hematology-and-oncology/coagulation-disorders/disseminated-intravascular-coagulation-dic",
+        "accessedAt": "2026-11-12"
+      },
       {
         "title": "2026 NCLEX-RN Test Plan",
         "publisher": "NCSBN",
@@ -5254,7 +5259,12 @@
     "optionRationales": {},
     "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
     "sourceReferences": [
-      null,
+      {
+        "title": "Digoxin",
+        "publisher": "MedlinePlus",
+        "url": "https://medlineplus.gov/druginfo/meds/a682301.html",
+        "accessedAt": "2026-11-12"
+      },
       {
         "title": "2026 NCLEX-RN Test Plan",
         "publisher": "NCSBN",
