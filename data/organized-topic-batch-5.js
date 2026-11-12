@@ -506,25 +506,57 @@
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Burns and fluid resuscitation",
-    "clientNeeds": "Burn-related hypovolemic shock",
-    "cjmmStep": "Physiological Adaptation",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Prioritize Hypotheses",
     "difficulty": 4,
-    "type": "Prioritize Hypotheses",
+    "type": "Bowtie",
     "question": "A client with extensive burns is hypotensive and has decreasing urine output. Complete the bowtie: identify the most likely problem, two priority actions, and two parameters to monitor.",
-    "options": [
-      "Burn-related hypovolemic shock"
-    ],
-    "correctAnswer": "Begin prescribed isotonic fluid resuscitation|Assess airway and prepare for early airway support|Restrict IV fluids|Urine output and hemodynamic response|Serum potassium and cardiac rhythm",
+    "options": {
+      "conditions": [
+        "Burn-related hypovolemic shock",
+        "Isolated contact dermatitis",
+        "Uncomplicated muscle strain"
+      ],
+      "actions": [
+        "Begin prescribed isotonic fluid resuscitation",
+        "Assess airway and prepare for early airway support",
+        "Restrict IV fluids",
+        "Delay assessment until blisters resolve"
+      ],
+      "monitoring": [
+        "Urine output and hemodynamic response",
+        "Serum potassium and cardiac rhythm"
+      ]
+    },
+    "correctAnswer": {
+      "condition": "Burn-related hypovolemic shock",
+      "actions": [
+        "Begin prescribed isotonic fluid resuscitation",
+        "Assess airway and prepare for early airway support"
+      ],
+      "monitoring": [
+        "Urine output and hemodynamic response",
+        "Serum potassium and cardiac rhythm"
+      ]
+    },
     "rationale": "The client's findings and clinical context support the keyed response. Use the assessment data to identify the immediate safety risk and follow current evidence-based protocols.",
     "optionRationales": {
-      "Burn-related hypovolemic shock": "This response is evaluated against the client's current clinical cues and safety priorities."
+      "Burn-related hypovolemic shock": "This option is evaluated against the priority risks in major burn injury.",
+      "Isolated contact dermatitis": "This option is evaluated against the priority risks in major burn injury.",
+      "Uncomplicated muscle strain": "This option is evaluated against the priority risks in major burn injury.",
+      "Begin prescribed isotonic fluid resuscitation": "This option is evaluated against the priority risks in major burn injury.",
+      "Assess airway and prepare for early airway support": "This option is evaluated against the priority risks in major burn injury.",
+      "Restrict IV fluids": "This option is evaluated against the priority risks in major burn injury.",
+      "Delay assessment until blisters resolve": "This option is evaluated against the priority risks in major burn injury.",
+      "Urine output and hemodynamic response": "This option is evaluated against the priority risks in major burn injury.",
+      "Serum potassium and cardiac rhythm": "This option is evaluated against the priority risks in major burn injury."
     },
     "clinicalJudgmentTip": "Recognize time-sensitive deterioration, prioritize safety, and reassess the response to interventions.",
     "sourceReferences": [
       {
         "title": "Public clinical guidance for Burns and fluid resuscitation",
         "publisher": "Relevant government health agency or professional organization",
-        "url": "Bowtie",
+        "url": "https://www.ameriburn.org/resources/burnreferral",
         "accessedAt": "2026-11-12"
       },
       {
@@ -540,19 +572,43 @@
     "metadata": {
       "id": "QR-100267",
       "category": "Adult Health",
-      "clientNeeds": "Burn-related hypovolemic shock",
-      "cjmmStep": "Physiological Adaptation",
+      "clientNeeds": "Physiological Adaptation",
+      "cjmmStep": "Prioritize Hypotheses",
       "difficulty": 4
     },
     "interaction": {
-      "type": "Prioritize Hypotheses",
+      "type": "Bowtie",
       "stem": "A client with extensive burns is hypotensive and has decreasing urine output. Complete the bowtie: identify the most likely problem, two priority actions, and two parameters to monitor.",
-      "options": [
-        "Burn-related hypovolemic shock"
-      ],
-      "answerKey": "Begin prescribed isotonic fluid resuscitation|Assess airway and prepare for early airway support|Restrict IV fluids|Urine output and hemodynamic response|Serum potassium and cardiac rhythm",
+      "options": {
+        "conditions": [
+          "Burn-related hypovolemic shock",
+          "Isolated contact dermatitis",
+          "Uncomplicated muscle strain"
+        ],
+        "actions": [
+          "Begin prescribed isotonic fluid resuscitation",
+          "Assess airway and prepare for early airway support",
+          "Restrict IV fluids",
+          "Delay assessment until blisters resolve"
+        ],
+        "monitoring": [
+          "Urine output and hemodynamic response",
+          "Serum potassium and cardiac rhythm"
+        ]
+      },
+      "answerKey": {
+        "condition": "Burn-related hypovolemic shock",
+        "actions": [
+          "Begin prescribed isotonic fluid resuscitation",
+          "Assess airway and prepare for early airway support"
+        ],
+        "monitoring": [
+          "Urine output and hemodynamic response",
+          "Serum potassium and cardiac rhythm"
+        ]
+      },
       "scoring": {
-        "method": "0/1"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -561,9 +617,45 @@
     "rationales": {
       "overall": "The client's findings and clinical context support the keyed response. Use the assessment data to identify the immediate safety risk and follow current evidence-based protocols.",
       "options": {
-        "Burn-related hypovolemic shock": "This response is evaluated against the client's current clinical cues and safety priorities."
+        "Burn-related hypovolemic shock": "This option is evaluated against the priority risks in major burn injury.",
+        "Isolated contact dermatitis": "This option is evaluated against the priority risks in major burn injury.",
+        "Uncomplicated muscle strain": "This option is evaluated against the priority risks in major burn injury.",
+        "Begin prescribed isotonic fluid resuscitation": "This option is evaluated against the priority risks in major burn injury.",
+        "Assess airway and prepare for early airway support": "This option is evaluated against the priority risks in major burn injury.",
+        "Restrict IV fluids": "This option is evaluated against the priority risks in major burn injury.",
+        "Delay assessment until blisters resolve": "This option is evaluated against the priority risks in major burn injury.",
+        "Urine output and hemodynamic response": "This option is evaluated against the priority risks in major burn injury.",
+        "Serum potassium and cardiac rhythm": "This option is evaluated against the priority risks in major burn injury."
       },
       "clinicalJudgmentTip": "Recognize time-sensitive deterioration, prioritize safety, and reassess the response to interventions."
+    },
+    "bowtieData": {
+      "conditions": [
+        "Burn-related hypovolemic shock",
+        "Isolated contact dermatitis",
+        "Uncomplicated muscle strain"
+      ],
+      "actions": [
+        "Begin prescribed isotonic fluid resuscitation",
+        "Assess airway and prepare for early airway support",
+        "Restrict IV fluids",
+        "Delay assessment until blisters resolve"
+      ],
+      "monitoring": [
+        "Urine output and hemodynamic response",
+        "Serum potassium and cardiac rhythm"
+      ]
+    },
+    "correctAnswers": {
+      "condition": "Burn-related hypovolemic shock",
+      "actions": [
+        "Begin prescribed isotonic fluid resuscitation",
+        "Assess airway and prepare for early airway support"
+      ],
+      "monitoring": [
+        "Urine output and hemodynamic response",
+        "Serum potassium and cardiac rhythm"
+      ]
     }
   },
   {
