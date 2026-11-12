@@ -1,27 +1,9 @@
-/* QuickRN complete compiled question bank
- * Generated from the canonical bank, all linked NGN case-study files,
- * and organized-topic batches 1–9 on main.
- *
- * Load this ONE file instead of the individual data/*.js question-bank scripts.
- * Keep the exam renderer/schema scripts separate; this file only supplies questions.
- * Linked six-question case-study sequences remain grouped and ordered within each case.
- *
- * Source files, in execution order:
- * - data/question-bank.js
- * - data/linked-case-studies.js
- * - data/linked-case-studies-batch-2.js
- * - data/organized-topic-linked-cases.js
- * - data/organized-topic-batch-1.js
- * - data/organized-topic-batch-2.js
- * - data/organized-topic-batch-3.js
- * - data/organized-topic-batch-4.js
- * - data/organized-topic-batch-5.js
- * - data/organized-topic-batch-6.js
- * - data/organized-topic-batch-7.js
- * - data/organized-topic-batch-8.js
- * - data/organized-topic-batch-9.js
+/* QuickRN complete question bank bundle.
+ * Generated from the canonical question-bank and all linked/organized topic batches.
+ * Load this file instead of the individual data/*.js bank files.
+ * Keep js/quickrn-question-schema-v2.js and js/shared-exam-renderer.js loaded separately.
+ * Linked case-study questions remain in their authored six-question sequence.
  */
-
 
 /* ===== BEGIN data/question-bank.js ===== */
 /* QuickRN canonical question bank — generated high-yield batch 2026-11-12.
@@ -34,91 +16,139 @@
  'use strict';
  const bank=[
   {
+    "id": "QR-100111",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Acute ischemic stroke: last-known-well and escalation",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Single Choice",
+    "question": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?",
+    "options": [
+      "Activate the facility stroke response and document the exact last-known-well time.",
+      "Give oral aspirin immediately before imaging.",
+      "Lower the blood pressure rapidly without a prescription.",
+      "Wait 30 minutes to see whether the symptoms resolve."
+    ],
+    "correctAnswer": "Activate the facility stroke response and document the exact last-known-well time.",
+    "rationale": "Acute focal neurologic deficits require immediate stroke-system activation. The exact last-known-well time is essential for treatment eligibility decisions. Do not give oral medication before swallowing assessment or delay imaging and evaluation.",
+    "optionRationales": {
+      "Activate the facility stroke response and document the exact last-known-well time.": "Correct. Sudden focal deficits require immediate stroke activation; last-known-well time determines eligibility for time-sensitive imaging and reperfusion decisions.",
+      "Give oral aspirin immediately before imaging.": "Incorrect. Intracranial hemorrhage must be excluded before antiplatelet therapy, and swallowing safety has not been established.",
+      "Lower the blood pressure rapidly without a prescription.": "Incorrect. Unprescribed rapid blood-pressure reduction can compromise cerebral perfusion; management depends on stroke type and treatment eligibility.",
+      "Wait 30 minutes to see whether the symptoms resolve.": "Incorrect. Delay can forfeit time-dependent treatment options."
+    },
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke",
+        "publisher": "AHA/ASA",
+        "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100111",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Acute ischemic stroke: last-known-well and escalation",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Recognize Cues",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Single Choice",
-      "question": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?",
+      "stem": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?",
       "options": [
         "Activate the facility stroke response and document the exact last-known-well time.",
         "Give oral aspirin immediately before imaging.",
         "Lower the blood pressure rapidly without a prescription.",
         "Wait 30 minutes to see whether the symptoms resolve."
       ],
-      "correctAnswer": "Activate the facility stroke response and document the exact last-known-well time.",
-      "rationale": "Acute focal neurologic deficits require immediate stroke-system activation. The exact last-known-well time is essential for treatment eligibility decisions. Do not give oral medication before swallowing assessment or delay imaging and evaluation.",
-      "optionRationales": {
+      "answerKey": "Activate the facility stroke response and document the exact last-known-well time.",
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?"
+    },
+    "rationales": {
+      "overall": "Acute focal neurologic deficits require immediate stroke-system activation. The exact last-known-well time is essential for treatment eligibility decisions. Do not give oral medication before swallowing assessment or delay imaging and evaluation.",
+      "options": {
         "Activate the facility stroke response and document the exact last-known-well time.": "Correct. This is the priority response.",
         "Give oral aspirin immediately before imaging.": "Incorrect. This action is unsafe or delays appropriate care.",
         "Lower the blood pressure rapidly without a prescription.": "Incorrect. This action is unsafe or delays appropriate care.",
         "Wait 30 minutes to see whether the symptoms resolve.": "Incorrect. This action is unsafe or delays appropriate care."
       },
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "2026 Guideline for the Early Management of Patients With Acute Ischemic Stroke",
-          "publisher": "AHA/ASA",
-          "url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000513"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100111",
-        "category": "Adult Health",
-        "clientNeeds": "Physiological Adaptation",
-        "cjmmStep": "Recognize Cues",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Single Choice",
-        "stem": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?",
-        "options": [
-          "Activate the facility stroke response and document the exact last-known-well time.",
-          "Give oral aspirin immediately before imaging.",
-          "Lower the blood pressure rapidly without a prescription.",
-          "Wait 30 minutes to see whether the symptoms resolve."
-        ],
-        "answerKey": "Activate the facility stroke response and document the exact last-known-well time.",
-        "scoring": {
-          "method": "0/1"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client suddenly develops right facial droop, right arm weakness, and difficulty speaking. The spouse reports the client was speaking normally 35 minutes ago. What should the nurse do first?"
-      },
-      "rationales": {
-        "overall": "Acute focal neurologic deficits require immediate stroke-system activation. The exact last-known-well time is essential for treatment eligibility decisions. Do not give oral medication before swallowing assessment or delay imaging and evaluation.",
-        "options": {
-          "Activate the facility stroke response and document the exact last-known-well time.": "Correct. This is the priority response.",
-          "Give oral aspirin immediately before imaging.": "Incorrect. This action is unsafe or delays appropriate care.",
-          "Lower the blood pressure rapidly without a prescription.": "Incorrect. This action is unsafe or delays appropriate care.",
-          "Wait 30 minutes to see whether the symptoms resolve.": "Incorrect. This action is unsafe or delays appropriate care."
-        },
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      }
-    },
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    }
+  },
   {
+    "id": "QR-100112",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Acute transfusion reaction: stop the transfusion",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Multiple Response",
+    "question": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply.",
+    "options": [
+      "Stop the transfusion immediately.",
+      "Maintain IV access with new tubing and normal saline according to policy.",
+      "Notify the provider and blood bank promptly.",
+      "Restart the same blood unit when the chills subside.",
+      "Send the blood product and required specimens to the blood bank per protocol."
+    ],
+    "correctAnswer": [
+      "Stop the transfusion immediately.",
+      "Maintain IV access with new tubing and normal saline according to policy.",
+      "Notify the provider and blood bank promptly.",
+      "Send the blood product and required specimens to the blood bank per protocol."
+    ],
+    "rationale": "Suspected acute transfusion reaction requires immediate cessation of the product, maintenance of IV access with compatible fluid using new tubing, prompt notification, and investigation according to facility protocol. Never restart the implicated unit.",
+    "optionRationales": {
+      "Stop the transfusion immediately.": "Correct. Stop the suspected causative blood product at once to prevent further exposure.",
+      "Maintain IV access with new tubing and normal saline according to policy.": "Correct. Maintain access with new tubing and compatible saline per protocol; do not flush residual blood from original tubing into the client.",
+      "Notify the provider and blood bank promptly.": "Correct. Prompt notification enables urgent assessment, reaction investigation, and required reporting.",
+      "Restart the same blood unit when the chills subside.": "Incorrect. Never restart a unit associated with a suspected acute transfusion reaction.",
+      "Send the blood product and required specimens to the blood bank per protocol.": "Correct. Return the product and send required specimens so the reaction can be investigated."
+    },
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Clinical Practice Guidelines for Blood Transfusion",
+        "publisher": "AABB",
+        "url": "https://www.aabb.org/clinical-resources/guidelines"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100112",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Acute transfusion reaction: stop the transfusion",
       "clientNeeds": "Safety and Infection Control",
       "cjmmStep": "Take Action",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Multiple Response",
-      "question": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply.",
+      "stem": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply.",
       "options": [
         "Stop the transfusion immediately.",
         "Maintain IV access with new tubing and normal saline according to policy.",
@@ -126,89 +156,87 @@
         "Restart the same blood unit when the chills subside.",
         "Send the blood product and required specimens to the blood bank per protocol."
       ],
-      "correctAnswer": [
+      "answerKey": [
         "Stop the transfusion immediately.",
         "Maintain IV access with new tubing and normal saline according to policy.",
         "Notify the provider and blood bank promptly.",
         "Send the blood product and required specimens to the blood bank per protocol."
       ],
-      "rationale": "Suspected acute transfusion reaction requires immediate cessation of the product, maintenance of IV access with compatible fluid using new tubing, prompt notification, and investigation according to facility protocol. Never restart the implicated unit.",
-      "optionRationales": {
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply."
+    },
+    "rationales": {
+      "overall": "Suspected acute transfusion reaction requires immediate cessation of the product, maintenance of IV access with compatible fluid using new tubing, prompt notification, and investigation according to facility protocol. Never restart the implicated unit.",
+      "options": {
         "Stop the transfusion immediately.": "Correct. Stop the transfusion immediately. is an appropriate response based on the clinical presentation.",
         "Maintain IV access with new tubing and normal saline according to policy.": "Correct. Maintain IV access with new tubing and normal saline according to policy. is an appropriate response based on the clinical presentation.",
         "Notify the provider and blood bank promptly.": "Correct. Notify the provider and blood bank promptly. is an appropriate response based on the clinical presentation.",
         "Restart the same blood unit when the chills subside.": "Incorrect. Restart the same blood unit when the chills subside. is not the appropriate response in this situation.",
         "Send the blood product and required specimens to the blood bank per protocol.": "Correct. Send the blood product and required specimens to the blood bank per protocol. is an appropriate response based on the clinical presentation."
       },
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Clinical Practice Guidelines for Blood Transfusion",
-          "publisher": "AABB",
-          "url": "https://www.aabb.org/clinical-resources/guidelines"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100112",
-        "category": "Adult Health",
-        "clientNeeds": "Safety and Infection Control",
-        "cjmmStep": "Take Action",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Multiple Response",
-        "stem": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply.",
-        "options": [
-          "Stop the transfusion immediately.",
-          "Maintain IV access with new tubing and normal saline according to policy.",
-          "Notify the provider and blood bank promptly.",
-          "Restart the same blood unit when the chills subside.",
-          "Send the blood product and required specimens to the blood bank per protocol."
-        ],
-        "answerKey": [
-          "Stop the transfusion immediately.",
-          "Maintain IV access with new tubing and normal saline according to policy.",
-          "Notify the provider and blood bank promptly.",
-          "Send the blood product and required specimens to the blood bank per protocol."
-        ],
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "Fifteen minutes after a packed red blood cell transfusion begins, the client develops chills, flank pain, dyspnea, and hypotension. Which actions should the nurse take? Select all that apply."
-      },
-      "rationales": {
-        "overall": "Suspected acute transfusion reaction requires immediate cessation of the product, maintenance of IV access with compatible fluid using new tubing, prompt notification, and investigation according to facility protocol. Never restart the implicated unit.",
-        "options": {
-          "Stop the transfusion immediately.": "Correct. Stop the transfusion immediately. is an appropriate response based on the clinical presentation.",
-          "Maintain IV access with new tubing and normal saline according to policy.": "Correct. Maintain IV access with new tubing and normal saline according to policy. is an appropriate response based on the clinical presentation.",
-          "Notify the provider and blood bank promptly.": "Correct. Notify the provider and blood bank promptly. is an appropriate response based on the clinical presentation.",
-          "Restart the same blood unit when the chills subside.": "Incorrect. Restart the same blood unit when the chills subside. is not the appropriate response in this situation.",
-          "Send the blood product and required specimens to the blood bank per protocol.": "Correct. Send the blood product and required specimens to the blood bank per protocol. is an appropriate response based on the clinical presentation."
-        },
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      }
-    },
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    }
+  },
   {
+    "id": "QR-100113",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Neutropenic fever: priority response",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Prioritize Hypotheses",
+    "difficulty": 4,
+    "type": "Select N",
+    "question": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?",
+    "options": [
+      "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
+      "Obtain ordered blood cultures promptly, including central-line cultures when indicated.",
+      "Administer a rectal suppository for fever.",
+      "Use a rectal thermometer to confirm the temperature before notifying the provider.",
+      "Delay evaluation until the next scheduled complete blood count."
+    ],
+    "correctAnswer": [
+      "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
+      "Obtain ordered blood cultures promptly, including central-line cultures when indicated."
+    ],
+    "rationale": "Fever with severe neutropenia is an oncologic emergency. Prompt assessment, cultures, and empiric antimicrobial therapy according to protocol are time-sensitive. Avoid rectal procedures and potential sources of infection.",
+    "optionRationales": {
+      "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.": "Correct. Fever with an ANC of 300/mm³ is a time-critical emergency requiring immediate assessment and empiric antimicrobial treatment according to protocol.",
+      "Obtain ordered blood cultures promptly, including central-line cultures when indicated.": "Correct. Obtain cultures promptly before antibiotics when this does not delay time-critical antimicrobial therapy.",
+      "Administer a rectal suppository for fever.": "Incorrect. Rectal procedures can injure mucosa and introduce infection in severe neutropenia.",
+      "Use a rectal thermometer to confirm the temperature before notifying the provider.": "Incorrect. Avoid rectal instrumentation in severe neutropenia; the documented oral fever already warrants immediate escalation.",
+      "Delay evaluation until the next scheduled complete blood count.": "Incorrect. Febrile neutropenia requires immediate assessment and treatment, not watchful waiting."
+    },
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer",
+        "publisher": "IDSA",
+        "url": "https://www.idsociety.org/practice-guideline/neutropenic-patients-with-cancer/"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100113",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Neutropenic fever: priority response",
       "clientNeeds": "Safety and Infection Control",
       "cjmmStep": "Prioritize Hypotheses",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Select N",
-      "question": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?",
+      "stem": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?",
       "options": [
         "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
         "Obtain ordered blood cultures promptly, including central-line cultures when indicated.",
@@ -216,579 +244,495 @@
         "Place fresh flowers in the room to improve mood.",
         "Delay evaluation until the next scheduled complete blood count."
       ],
-      "correctAnswer": [
+      "answerKey": [
         "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
         "Obtain ordered blood cultures promptly, including central-line cultures when indicated."
       ],
-      "rationale": "Fever with severe neutropenia is an oncologic emergency. Prompt assessment, cultures, and empiric antimicrobial therapy according to protocol are time-sensitive. Avoid rectal procedures and potential sources of infection.",
-      "optionRationales": {
+      "scoring": {
+        "method": "plus_minus"
+      },
+      "selectN": 2
+    },
+    "stimulus": {
+      "clinicalContext": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?"
+    },
+    "rationales": {
+      "overall": "Fever with severe neutropenia is an oncologic emergency. Prompt assessment, cultures, and empiric antimicrobial therapy according to protocol are time-sensitive. Avoid rectal procedures and potential sources of infection.",
+      "options": {
         "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.": "Correct. Notify the oncology team immediately and initiate the febrile-neutropenia pathway. is an appropriate response based on the clinical presentation.",
         "Obtain ordered blood cultures promptly, including central-line cultures when indicated.": "Correct. Obtain ordered blood cultures promptly, including central-line cultures when indicated. is an appropriate response based on the clinical presentation.",
         "Administer a rectal suppository for fever.": "Incorrect. Administer a rectal suppository for fever. is not the appropriate response in this situation.",
         "Place fresh flowers in the room to improve mood.": "Incorrect. Place fresh flowers in the room to improve mood. is not the appropriate response in this situation.",
         "Delay evaluation until the next scheduled complete blood count.": "Incorrect. Delay evaluation until the next scheduled complete blood count. is not the appropriate response in this situation."
       },
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Clinical Practice Guideline for the Use of Antimicrobial Agents in Neutropenic Patients with Cancer",
-          "publisher": "IDSA",
-          "url": "https://www.idsociety.org/practice-guideline/neutropenic-patients-with-cancer/"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100113",
-        "category": "Adult Health",
-        "clientNeeds": "Safety and Infection Control",
-        "cjmmStep": "Prioritize Hypotheses",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Select N",
-        "stem": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?",
-        "options": [
-          "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
-          "Obtain ordered blood cultures promptly, including central-line cultures when indicated.",
-          "Administer a rectal suppository for fever.",
-          "Place fresh flowers in the room to improve mood.",
-          "Delay evaluation until the next scheduled complete blood count."
-        ],
-        "answerKey": [
-          "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
-          "Obtain ordered blood cultures promptly, including central-line cultures when indicated."
-        ],
-        "scoring": {
-          "method": "plus_minus"
-        },
-        "selectN": 2
-      },
-      "stimulus": {
-        "clinicalContext": "A client receiving chemotherapy has an absolute neutrophil count of 300/mm³ and an oral temperature of 38.4°C (101.1°F). Which TWO actions are priorities?"
-      },
-      "rationales": {
-        "overall": "Fever with severe neutropenia is an oncologic emergency. Prompt assessment, cultures, and empiric antimicrobial therapy according to protocol are time-sensitive. Avoid rectal procedures and potential sources of infection.",
-        "options": {
-          "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.": "Correct. Notify the oncology team immediately and initiate the febrile-neutropenia pathway. is an appropriate response based on the clinical presentation.",
-          "Obtain ordered blood cultures promptly, including central-line cultures when indicated.": "Correct. Obtain ordered blood cultures promptly, including central-line cultures when indicated. is an appropriate response based on the clinical presentation.",
-          "Administer a rectal suppository for fever.": "Incorrect. Administer a rectal suppository for fever. is not the appropriate response in this situation.",
-          "Place fresh flowers in the room to improve mood.": "Incorrect. Place fresh flowers in the room to improve mood. is not the appropriate response in this situation.",
-          "Delay evaluation until the next scheduled complete blood count.": "Incorrect. Delay evaluation until the next scheduled complete blood count. is not the appropriate response in this situation."
-        },
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "selectN": 2,
-      "numberToSelect": 2
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
     },
+    "selectN": 2,
+    "numberToSelect": 2
+  },
   {
+    "id": "QR-100114",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Bacterial meningitis: transmission precautions",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Generate Solutions",
+    "difficulty": 4,
+    "type": "Matrix Single",
+    "question": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action.",
+    "options": [],
+    "correctAnswer": {
+      "Place the client on droplet precautions": "Indicated",
+      "Use standard precautions for every client contact": "Indicated",
+      "Discontinue droplet precautions immediately after the first antibiotic dose": "Not indicated",
+      "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy": "Indicated"
+    },
+    "rationale": "Suspected meningococcal meningitis requires immediate droplet precautions and urgent treatment. Precaution duration should follow current infection-control guidance and facility policy; one antibiotic dose does not automatically mean precautions can be stopped.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Clinical Guidance for Bacterial Meningitis",
+        "publisher": "CDC",
+        "url": "https://www.cdc.gov/meningitis/hcp/clinical-guidance/index.html"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100114",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Bacterial meningitis: transmission precautions",
       "clientNeeds": "Safety and Infection Control",
       "cjmmStep": "Generate Solutions",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Matrix Single",
-      "question": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action.",
-      "options": [],
-      "correctAnswer": {
+      "stem": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action.",
+      "options": {
+        "m0": [
+          "Indicated",
+          "Not indicated"
+        ],
+        "m1": [
+          "Indicated",
+          "Not indicated"
+        ],
+        "m2": [
+          "Indicated",
+          "Not indicated"
+        ],
+        "m3": [
+          "Indicated",
+          "Not indicated"
+        ]
+      },
+      "answerKey": {
         "Place the client on droplet precautions": "Indicated",
         "Use standard precautions for every client contact": "Indicated",
         "Discontinue droplet precautions immediately after the first antibiotic dose": "Not indicated",
         "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy": "Indicated"
       },
-      "rationale": "Suspected meningococcal meningitis requires immediate droplet precautions and urgent treatment. Precaution duration should follow current infection-control guidance and facility policy; one antibiotic dose does not automatically mean precautions can be stopped.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Clinical Guidance for Bacterial Meningitis",
-          "publisher": "CDC",
-          "url": "https://www.cdc.gov/meningitis/hcp/clinical-guidance/index.html"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100114",
-        "category": "Adult Health",
-        "clientNeeds": "Safety and Infection Control",
-        "cjmmStep": "Generate Solutions",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Matrix Single",
-        "stem": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action.",
-        "options": {
-          "m0": [
-            "Indicated",
-            "Not indicated"
-          ],
-          "m1": [
-            "Indicated",
-            "Not indicated"
-          ],
-          "m2": [
-            "Indicated",
-            "Not indicated"
-          ],
-          "m3": [
-            "Indicated",
-            "Not indicated"
-          ]
-        },
-        "answerKey": {
-          "Place the client on droplet precautions": "Indicated",
-          "Use standard precautions for every client contact": "Indicated",
-          "Discontinue droplet precautions immediately after the first antibiotic dose": "Not indicated",
-          "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy": "Indicated"
-        },
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action."
-      },
-      "rationales": {
-        "overall": "Suspected meningococcal meningitis requires immediate droplet precautions and urgent treatment. Precaution duration should follow current infection-control guidance and facility policy; one antibiotic dose does not automatically mean precautions can be stopped.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "matrixLeftPane": "Suspected meningococcal meningitis: fever, severe headache, and neck stiffness.",
-      "matrixTask": "Classify each nursing action.",
-      "rows": [
-        {
-          "id": "m0",
-          "text": "Place the client on droplet precautions"
-        },
-        {
-          "id": "m1",
-          "text": "Use standard precautions for every client contact"
-        },
-        {
-          "id": "m2",
-          "text": "Discontinue droplet precautions immediately after the first antibiotic dose"
-        },
-        {
-          "id": "m3",
-          "text": "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy"
-        }
-      ],
-      "columns": [
-        "Indicated",
-        "Not indicated"
-      ],
-      "correctAnswers": {
-        "Place the client on droplet precautions": "Indicated",
-        "Use standard precautions for every client contact": "Indicated",
-        "Discontinue droplet precautions immediately after the first antibiotic dose": "Not indicated",
-        "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy": "Indicated"
+      "scoring": {
+        "method": "plus_minus"
       }
     },
+    "stimulus": {
+      "clinicalContext": "A client is admitted with fever, severe headache, neck stiffness, and suspected meningococcal meningitis. Classify each nursing action."
+    },
+    "rationales": {
+      "overall": "Suspected meningococcal meningitis requires immediate droplet precautions and urgent treatment. Precaution duration should follow current infection-control guidance and facility policy; one antibiotic dose does not automatically mean precautions can be stopped.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "matrixLeftPane": "Suspected meningococcal meningitis: fever, severe headache, and neck stiffness.",
+    "matrixTask": "Classify each nursing action.",
+    "rows": [
+      {
+        "id": "m0",
+        "text": "Place the client on droplet precautions"
+      },
+      {
+        "id": "m1",
+        "text": "Use standard precautions for every client contact"
+      },
+      {
+        "id": "m2",
+        "text": "Discontinue droplet precautions immediately after the first antibiotic dose"
+      },
+      {
+        "id": "m3",
+        "text": "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy"
+      }
+    ],
+    "columns": [
+      "Indicated",
+      "Not indicated"
+    ],
+    "correctAnswers": {
+      "Place the client on droplet precautions": "Indicated",
+      "Use standard precautions for every client contact": "Indicated",
+      "Discontinue droplet precautions immediately after the first antibiotic dose": "Not indicated",
+      "Notify the team and prepare for prompt diagnostic evaluation and antimicrobial therapy": "Indicated"
+    }
+  },
   {
+    "id": "QR-100115",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Preterm labor: identifying concerning symptoms",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Recognize Cues",
+    "difficulty": 4,
+    "type": "Matrix Multiple",
+    "question": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor.",
+    "options": [],
+    "correctAnswer": {
+      "Regular uterine tightening every 8 minutes": "Concerning",
+      "New pelvic pressure": "Concerning",
+      "Persistent dull low-backache": "Concerning",
+      "Increased watery vaginal discharge": "Concerning",
+      "One brief fetal movement after lunch": "Not by itself diagnostic"
+    },
+    "rationale": "Regular contractions, pelvic pressure, persistent low-backache, and a change in vaginal discharge can be symptoms of preterm labor and warrant prompt assessment. A single episode of fetal movement is not a defining sign of labor.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Preterm Labor and Birth",
+        "publisher": "ACOG",
+        "url": "https://www.acog.org/womens-health/faqs/preterm-labor-and-birth"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100115",
-      "schemaVersion": 2,
       "category": "Maternal-Newborn Nursing",
-      "topic": "Preterm labor: identifying concerning symptoms",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Recognize Cues",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Matrix Multiple",
-      "question": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor.",
-      "options": [],
-      "correctAnswer": {
+      "stem": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor.",
+      "options": {
+        "p0": [
+          "Concerning",
+          "Not by itself diagnostic"
+        ],
+        "p1": [
+          "Concerning",
+          "Not by itself diagnostic"
+        ],
+        "p2": [
+          "Concerning",
+          "Not by itself diagnostic"
+        ],
+        "p3": [
+          "Concerning",
+          "Not by itself diagnostic"
+        ],
+        "p4": [
+          "Concerning",
+          "Not by itself diagnostic"
+        ]
+      },
+      "answerKey": {
         "Regular uterine tightening every 8 minutes": "Concerning",
         "New pelvic pressure": "Concerning",
         "Persistent dull low-backache": "Concerning",
         "Increased watery vaginal discharge": "Concerning",
         "One brief fetal movement after lunch": "Not by itself diagnostic"
       },
-      "rationale": "Regular contractions, pelvic pressure, persistent low-backache, and a change in vaginal discharge can be symptoms of preterm labor and warrant prompt assessment. A single episode of fetal movement is not a defining sign of labor.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Preterm Labor and Birth",
-          "publisher": "ACOG",
-          "url": "https://www.acog.org/womens-health/faqs/preterm-labor-and-birth"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100115",
-        "category": "Maternal-Newborn Nursing",
-        "clientNeeds": "Physiological Adaptation",
-        "cjmmStep": "Recognize Cues",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Matrix Multiple",
-        "stem": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor.",
-        "options": {
-          "p0": [
-            "Concerning",
-            "Not by itself diagnostic"
-          ],
-          "p1": [
-            "Concerning",
-            "Not by itself diagnostic"
-          ],
-          "p2": [
-            "Concerning",
-            "Not by itself diagnostic"
-          ],
-          "p3": [
-            "Concerning",
-            "Not by itself diagnostic"
-          ],
-          "p4": [
-            "Concerning",
-            "Not by itself diagnostic"
-          ]
-        },
-        "answerKey": {
-          "Regular uterine tightening every 8 minutes": "Concerning",
-          "New pelvic pressure": "Concerning",
-          "Persistent dull low-backache": "Concerning",
-          "Increased watery vaginal discharge": "Concerning",
-          "One brief fetal movement after lunch": "Not by itself diagnostic"
-        },
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor."
-      },
-      "rationales": {
-        "overall": "Regular contractions, pelvic pressure, persistent low-backache, and a change in vaginal discharge can be symptoms of preterm labor and warrant prompt assessment. A single episode of fetal movement is not a defining sign of labor.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "matrixLeftPane": "30-week pregnancy: possible signs of preterm labor.",
-      "matrixTask": "Classify each symptom.",
-      "rows": [
-        {
-          "id": "p0",
-          "text": "Regular uterine tightening every 8 minutes"
-        },
-        {
-          "id": "p1",
-          "text": "New pelvic pressure"
-        },
-        {
-          "id": "p2",
-          "text": "Persistent dull low-backache"
-        },
-        {
-          "id": "p3",
-          "text": "Increased watery vaginal discharge"
-        },
-        {
-          "id": "p4",
-          "text": "One brief fetal movement after lunch"
-        }
-      ],
-      "columns": [
-        "Concerning",
-        "Not by itself diagnostic"
-      ],
-      "correctAnswers": {
-        "Regular uterine tightening every 8 minutes": "Concerning",
-        "New pelvic pressure": "Concerning",
-        "Persistent dull low-backache": "Concerning",
-        "Increased watery vaginal discharge": "Concerning",
-        "One brief fetal movement after lunch": "Not by itself diagnostic"
+      "scoring": {
+        "method": "plus_minus"
       }
     },
+    "stimulus": {
+      "clinicalContext": "A client at 30 weeks' gestation calls the clinic. Select all findings that require prompt evaluation for possible preterm labor."
+    },
+    "rationales": {
+      "overall": "Regular contractions, pelvic pressure, persistent low-backache, and a change in vaginal discharge can be symptoms of preterm labor and warrant prompt assessment. A single episode of fetal movement is not a defining sign of labor.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "matrixLeftPane": "30-week pregnancy: possible signs of preterm labor.",
+    "matrixTask": "Classify each symptom.",
+    "rows": [
+      {
+        "id": "p0",
+        "text": "Regular uterine tightening every 8 minutes"
+      },
+      {
+        "id": "p1",
+        "text": "New pelvic pressure"
+      },
+      {
+        "id": "p2",
+        "text": "Persistent dull low-backache"
+      },
+      {
+        "id": "p3",
+        "text": "Increased watery vaginal discharge"
+      },
+      {
+        "id": "p4",
+        "text": "One brief fetal movement after lunch"
+      }
+    ],
+    "columns": [
+      "Concerning",
+      "Not by itself diagnostic"
+    ],
+    "correctAnswers": {
+      "Regular uterine tightening every 8 minutes": "Concerning",
+      "New pelvic pressure": "Concerning",
+      "Persistent dull low-backache": "Concerning",
+      "Increased watery vaginal discharge": "Concerning",
+      "One brief fetal movement after lunch": "Not by itself diagnostic"
+    }
+  },
   {
+    "id": "QR-100116",
+    "schemaVersion": 2,
+    "category": "Maternal-Newborn Nursing",
+    "topic": "Shoulder dystocia: immediate team response",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Extended Drag and Drop",
+    "question": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence.",
+    "options": [],
+    "correctAnswer": [
+      "Call for help and announce shoulder dystocia.",
+      "Assist with the McRoberts maneuver as directed by the obstetric team.",
+      "Apply suprapubic pressure as directed; do not apply fundal pressure.",
+      "Prepare for additional maneuvers and neonatal assessment."
+    ],
+    "rationale": "Shoulder dystocia is an obstetric emergency. Call for help, use first-line maneuvers such as McRoberts and suprapubic pressure under the clinician's direction, and avoid fundal pressure because it can worsen impaction.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Shoulder Dystocia",
+        "publisher": "ACOG",
+        "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/02/shoulder-dystocia"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100116",
-      "schemaVersion": 2,
       "category": "Maternal-Newborn Nursing",
-      "topic": "Shoulder dystocia: immediate team response",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Take Action",
-      "difficulty": 4,
-      "type": "Extended Drag and Drop",
-      "question": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence.",
-      "options": [],
-      "correctAnswer": [
-        "Call for help and announce shoulder dystocia.",
-        "Assist with the McRoberts maneuver as directed by the obstetric team.",
-        "Apply suprapubic pressure as directed; do not apply fundal pressure.",
-        "Prepare for additional maneuvers and neonatal assessment."
-      ],
-      "rationale": "Shoulder dystocia is an obstetric emergency. Call for help, use first-line maneuvers such as McRoberts and suprapubic pressure under the clinician's direction, and avoid fundal pressure because it can worsen impaction.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Shoulder Dystocia",
-          "publisher": "ACOG",
-          "url": "https://www.acog.org/clinical/clinical-guidance/practice-bulletin/articles/2017/02/shoulder-dystocia"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100116",
-        "category": "Maternal-Newborn Nursing",
-        "clientNeeds": "Physiological Adaptation",
-        "cjmmStep": "Take Action",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Extended Drag and Drop",
-        "stem": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence.",
-        "options": [
-          "Call for help and announce shoulder dystocia.",
-          "Assist with the McRoberts maneuver as directed by the obstetric team.",
-          "Apply suprapubic pressure as directed; do not apply fundal pressure.",
-          "Prepare for additional maneuvers and neonatal assessment."
-        ],
-        "answerKey": [
-          "Call for help and announce shoulder dystocia.",
-          "Assist with the McRoberts maneuver as directed by the obstetric team.",
-          "Apply suprapubic pressure as directed; do not apply fundal pressure.",
-          "Prepare for additional maneuvers and neonatal assessment."
-        ],
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence."
-      },
-      "rationales": {
-        "overall": "Shoulder dystocia is an obstetric emergency. Call for help, use first-line maneuvers such as McRoberts and suprapubic pressure under the clinician's direction, and avoid fundal pressure because it can worsen impaction.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "availableItems": [
-        "Call for help and announce shoulder dystocia.",
-        "Assist with the McRoberts maneuver as directed by the obstetric team.",
-        "Apply suprapubic pressure as directed; do not apply fundal pressure.",
-        "Prepare for additional maneuvers and neonatal assessment."
-      ],
-      "correctOrder": [
-        "Call for help and announce shoulder dystocia.",
-        "Assist with the McRoberts maneuver as directed by the obstetric team.",
-        "Apply suprapubic pressure as directed; do not apply fundal pressure.",
-        "Prepare for additional maneuvers and neonatal assessment."
-      ]
+      "difficulty": 4
     },
+    "interaction": {
+      "type": "Extended Drag and Drop",
+      "stem": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence.",
+      "options": [
+        "Call for help and announce shoulder dystocia.",
+        "Assist with the McRoberts maneuver as directed by the obstetric team.",
+        "Apply suprapubic pressure as directed; do not apply fundal pressure.",
+        "Prepare for additional maneuvers and neonatal assessment."
+      ],
+      "answerKey": [
+        "Call for help and announce shoulder dystocia.",
+        "Assist with the McRoberts maneuver as directed by the obstetric team.",
+        "Apply suprapubic pressure as directed; do not apply fundal pressure.",
+        "Prepare for additional maneuvers and neonatal assessment."
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "After delivery of the fetal head, the shoulders do not deliver with the next contraction and the head retracts against the perineum. Arrange the immediate team response sequence."
+    },
+    "rationales": {
+      "overall": "Shoulder dystocia is an obstetric emergency. Call for help, use first-line maneuvers such as McRoberts and suprapubic pressure under the clinician's direction, and avoid fundal pressure because it can worsen impaction.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "availableItems": [
+      "Call for help and announce shoulder dystocia.",
+      "Assist with the McRoberts maneuver as directed by the obstetric team.",
+      "Apply suprapubic pressure as directed; do not apply fundal pressure.",
+      "Prepare for additional maneuvers and neonatal assessment."
+    ],
+    "correctOrder": [
+      "Call for help and announce shoulder dystocia.",
+      "Assist with the McRoberts maneuver as directed by the obstetric team.",
+      "Apply suprapubic pressure as directed; do not apply fundal pressure.",
+      "Prepare for additional maneuvers and neonatal assessment."
+    ]
+  },
   {
+    "id": "QR-100117",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Disseminated intravascular coagulation: recognizing the pattern",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Highlight",
+    "question": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation.",
+    "options": [],
+    "correctAnswer": [
+      "ooze",
+      "platelet",
+      "pt",
+      "ddimer"
+    ],
+    "rationale": "DIC involves systemic activation of coagulation with consumption of platelets and clotting factors, resulting in both microvascular thrombosis and bleeding. Oozing, thrombocytopenia, prolonged clotting times, and elevated fibrin degradation markers support the concern.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Disseminated Intravascular Coagulation",
+        "publisher": "Merck Manual Professional Edition",
+        "url": "https://www.merckmanuals.com/professional/hematology-and-oncology/coagulation-disorders/disseminated-intravascular-coagulation-dic",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100117",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Disseminated intravascular coagulation: recognizing the pattern",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Analyze Cues",
-      "difficulty": 4,
-      "type": "Highlight",
-      "question": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation.",
-      "options": [],
-      "correctAnswer": [
-        "ooze",
-        "platelet",
-        "pt",
-        "ddimer"
-      ],
-      "rationale": "DIC involves systemic activation of coagulation with consumption of platelets and clotting factors, resulting in both microvascular thrombosis and bleeding. Oozing, thrombocytopenia, prolonged clotting times, and elevated fibrin degradation markers support the concern.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Disseminated Intravascular Coagulation",
-          "publisher": "Merck Manual Professional Edition",
-          "url": "https://www.merckmanuals.com/professional/hematology-and-oncology/coagulation-disorders/disseminated-intravascular-coagulation-dic",
-          "accessedAt": "2026-11-12"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100117",
-        "category": "Adult Health",
-        "clientNeeds": "Physiological Adaptation",
-        "cjmmStep": "Analyze Cues",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Highlight",
-        "stem": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation.",
-        "options": [],
-        "answerKey": [
-          "ooze",
-          "platelet",
-          "pt",
-          "ddimer"
-        ],
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation."
-      },
-      "rationales": {
-        "overall": "DIC involves systemic activation of coagulation with consumption of platelets and clotting factors, resulting in both microvascular thrombosis and bleeding. Oozing, thrombocytopenia, prolonged clotting times, and elevated fibrin degradation markers support the concern.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "highlightText": "Client with septic shock: oozing at IV sites, new bruising, platelet count 48,000/mm³, prolonged PT and aPTT, elevated D-dimer, and stable hemoglobin without bleeding.",
-      "nursingNotes": "Client with septic shock: oozing at IV sites, new bruising, platelet count 48,000/mm³, prolonged PT and aPTT, elevated D-dimer, and stable hemoglobin without bleeding.",
-      "highlightSegments": [
-        {
-          "id": "ooze",
-          "text": "oozing at IV sites"
-        },
-        {
-          "id": "platelet",
-          "text": "platelet count 48,000/mm³"
-        },
-        {
-          "id": "pt",
-          "text": "prolonged PT and aPTT"
-        },
-        {
-          "id": "ddimer",
-          "text": "elevated D-dimer"
-        },
-        {
-          "id": "stable",
-          "text": "stable hemoglobin and no bleeding"
-        }
-      ],
-      "correctHighlights": [
-        "ooze",
-        "platelet",
-        "pt",
-        "ddimer"
-      ]
+      "difficulty": 4
     },
+    "interaction": {
+      "type": "Highlight",
+      "stem": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation.",
+      "options": [],
+      "answerKey": [
+        "ooze",
+        "platelet",
+        "pt",
+        "ddimer"
+      ],
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "A client with septic shock develops oozing at IV sites and new bruising. Highlight the laboratory and assessment findings that support possible disseminated intravascular coagulation."
+    },
+    "rationales": {
+      "overall": "DIC involves systemic activation of coagulation with consumption of platelets and clotting factors, resulting in both microvascular thrombosis and bleeding. Oozing, thrombocytopenia, prolonged clotting times, and elevated fibrin degradation markers support the concern.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "highlightText": "Client with septic shock: oozing at IV sites, new bruising, platelet count 48,000/mm³, prolonged PT and aPTT, elevated D-dimer, and stable hemoglobin without bleeding.",
+    "nursingNotes": "Client with septic shock: oozing at IV sites, new bruising, platelet count 48,000/mm³, prolonged PT and aPTT, elevated D-dimer, and stable hemoglobin without bleeding.",
+    "highlightSegments": [
+      {
+        "id": "ooze",
+        "text": "oozing at IV sites"
+      },
+      {
+        "id": "platelet",
+        "text": "platelet count 48,000/mm³"
+      },
+      {
+        "id": "pt",
+        "text": "prolonged PT and aPTT"
+      },
+      {
+        "id": "ddimer",
+        "text": "elevated D-dimer"
+      },
+      {
+        "id": "stable",
+        "text": "stable hemoglobin without bleeding"
+      }
+    ],
+    "correctHighlights": [
+      "ooze",
+      "platelet",
+      "pt",
+      "ddimer"
+    ]
+  },
   {
+    "id": "QR-100118",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Digoxin toxicity: interpreting clinical cues",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Analyze Cues",
+    "difficulty": 4,
+    "type": "Cloze (Drop-down)",
+    "question": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos.",
+    "options": [],
+    "correctAnswer": {
+      "finding": "possible digoxin toxicity",
+      "priority": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
+    },
+    "rationale": "Nausea and visual disturbances can occur with digoxin toxicity. The nurse should assess the apical pulse and rhythm, review renal function and electrolytes, and notify the prescriber; hold a dose when toxicity is suspected according to orders and policy.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Digoxin",
+        "publisher": "MedlinePlus",
+        "url": "https://medlineplus.gov/druginfo/meds/a682301.html",
+        "accessedAt": "2026-11-12"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100118",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Digoxin toxicity: interpreting clinical cues",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Analyze Cues",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Cloze (Drop-down)",
-      "question": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos.",
-      "options": [],
-      "correctAnswer": {
-        "finding": "possible digoxin toxicity",
-        "priority": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
-      },
-      "rationale": "Nausea and visual disturbances can occur with digoxin toxicity. The nurse should assess the apical pulse and rhythm, review renal function and electrolytes, and notify the prescriber; hold a dose when toxicity is suspected according to orders and policy.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Digoxin",
-          "publisher": "MedlinePlus",
-          "url": "https://medlineplus.gov/druginfo/meds/a682301.html",
-          "accessedAt": "2026-11-12"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100118",
-        "category": "Adult Health",
-        "clientNeeds": "Pharmacological and Parenteral Therapies",
-        "cjmmStep": "Analyze Cues",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Cloze (Drop-down)",
-        "stem": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos.",
-        "options": [
-          {
-            "id": "finding",
-            "options": [
-              "possible digoxin toxicity",
-              "expected therapeutic effect",
-              "hypoglycemia"
-            ],
-            "correct": "possible digoxin toxicity"
-          },
-          {
-            "id": "priority",
-            "options": [
-              "withhold the next dose and promptly notify the prescriber for assessment and ordered testing",
-              "double the next dose",
-              "reassure the client without assessment"
-            ],
-            "correct": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
-          }
-        ],
-        "answerKey": {
-          "finding": "possible digoxin toxicity",
-          "priority": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
-        },
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos."
-      },
-      "rationales": {
-        "overall": "Nausea and visual disturbances can occur with digoxin toxicity. The nurse should assess the apical pulse and rhythm, review renal function and electrolytes, and notify the prescriber; hold a dose when toxicity is suspected according to orders and policy.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "clozeTemplate": "The nurse suspects {{finding}} and should {{priority}}.",
-      "instruction": "Complete the clinical interpretation.",
-      "dropdowns": [
+      "stem": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos.",
+      "options": [
         {
           "id": "finding",
           "options": [
@@ -807,99 +751,98 @@
           ],
           "correct": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
         }
+      ],
+      "answerKey": {
+        "finding": "possible digoxin toxicity",
+        "priority": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
+      },
+      "scoring": {
+        "method": "plus_minus"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "Complete the nursing interpretation for a client taking digoxin who reports nausea and yellow-green visual halos."
+    },
+    "rationales": {
+      "overall": "Nausea and visual disturbances can occur with digoxin toxicity. The nurse should assess the apical pulse and rhythm, review renal function and electrolytes, and notify the prescriber; hold a dose when toxicity is suspected according to orders and policy.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "clozeTemplate": "The nurse suspects {{finding}} and should {{priority}}.",
+    "instruction": "Complete the clinical interpretation.",
+    "dropdowns": [
+      {
+        "id": "finding",
+        "options": [
+          "possible digoxin toxicity",
+          "expected therapeutic effect",
+          "hypoglycemia"
+        ],
+        "correct": "possible digoxin toxicity"
+      },
+      {
+        "id": "priority",
+        "options": [
+          "withhold the next dose and promptly notify the prescriber for assessment and ordered testing",
+          "double the next dose",
+          "reassure the client without assessment"
+        ],
+        "correct": "withhold the next dose and promptly notify the prescriber for assessment and ordered testing"
+      }
+    ]
+  },
+  {
+    "id": "QR-100119",
+    "schemaVersion": 2,
+    "category": "Mental Health",
+    "topic": "Lithium toxicity: early recognition",
+    "clientNeeds": "Pharmacological and Parenteral Therapies",
+    "cjmmStep": "Prioritize Hypotheses",
+    "difficulty": 4,
+    "type": "Bowtie",
+    "question": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie.",
+    "options": [],
+    "correctAnswer": {
+      "condition": "possible lithium toxicity",
+      "actions": [
+        "Hold lithium and notify the prescriber promptly.",
+        "Assess neurologic status, hydration, renal function, and serum lithium level as ordered."
+      ],
+      "monitoring": [
+        "Serum lithium concentration and renal function",
+        "Neurologic status, fluid balance, and electrolytes"
       ]
     },
-  {
+    "rationale": "Gastrointestinal fluid loss can increase lithium toxicity risk. Coarse tremor and ataxia are concerning neurologic findings. Hold further doses pending urgent prescriber assessment and monitor lithium concentration, renal function, hydration, and neurologic status.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Lithium",
+        "publisher": "MedlinePlus",
+        "url": "https://medlineplus.gov/druginfo/meds/a681039.html"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100119",
-      "schemaVersion": 2,
       "category": "Mental Health",
-      "topic": "Lithium toxicity: early recognition",
       "clientNeeds": "Pharmacological and Parenteral Therapies",
       "cjmmStep": "Prioritize Hypotheses",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Bowtie",
-      "question": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie.",
-      "options": [],
-      "correctAnswer": {
-        "condition": "possible lithium toxicity",
-        "actions": [
-          "Hold lithium and notify the prescriber promptly.",
-          "Assess neurologic status, hydration, renal function, and serum lithium level as ordered."
-        ],
-        "monitoring": [
-          "Serum lithium concentration and renal function",
-          "Neurologic status, fluid balance, and electrolytes"
-        ]
-      },
-      "rationale": "Gastrointestinal fluid loss can increase lithium toxicity risk. Coarse tremor and ataxia are concerning neurologic findings. Hold further doses pending urgent prescriber assessment and monitor lithium concentration, renal function, hydration, and neurologic status.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Lithium",
-          "publisher": "MedlinePlus",
-          "url": "https://medlineplus.gov/druginfo/meds/a681039.html"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100119",
-        "category": "Mental Health",
-        "clientNeeds": "Pharmacological and Parenteral Therapies",
-        "cjmmStep": "Prioritize Hypotheses",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Bowtie",
-        "stem": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie.",
-        "options": {
-          "conditions": [
-            "possible lithium toxicity",
-            "acute mania without adverse effects",
-            "hypocalcemia"
-          ],
-          "actions": [
-            "Hold lithium and notify the prescriber promptly.",
-            "Assess neurologic status, hydration, renal function, and serum lithium level as ordered.",
-            "Increase the lithium dose to prevent relapse."
-          ],
-          "monitoring": [
-            "Serum lithium concentration and renal function",
-            "Neurologic status, fluid balance, and electrolytes"
-          ]
-        },
-        "answerKey": {
-          "condition": "possible lithium toxicity",
-          "actions": [
-            "Hold lithium and notify the prescriber promptly.",
-            "Assess neurologic status, hydration, renal function, and serum lithium level as ordered."
-          ],
-          "monitoring": [
-            "Serum lithium concentration and renal function",
-            "Neurologic status, fluid balance, and electrolytes"
-          ]
-        },
-        "scoring": {
-          "method": "plus_minus"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie."
-      },
-      "rationales": {
-        "overall": "Gastrointestinal fluid loss can increase lithium toxicity risk. Coarse tremor and ataxia are concerning neurologic findings. Hold further doses pending urgent prescriber assessment and monitor lithium concentration, renal function, hydration, and neurologic status.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "bowtieData": {
+      "stem": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie.",
+      "options": {
         "conditions": [
           "possible lithium toxicity",
           "acute mania without adverse effects",
@@ -915,7 +858,7 @@
           "Neurologic status, fluid balance, and electrolytes"
         ]
       },
-      "correctAnswers": {
+      "answerKey": {
         "condition": "possible lithium toxicity",
         "actions": [
           "Hold lithium and notify the prescriber promptly.",
@@ -925,68 +868,108 @@
           "Serum lithium concentration and renal function",
           "Neurologic status, fluid balance, and electrolytes"
         ]
+      },
+      "scoring": {
+        "method": "plus_minus"
       }
     },
+    "stimulus": {
+      "clinicalContext": "A client taking lithium for bipolar disorder has had vomiting and diarrhea for 2 days and now has coarse hand tremors and an unsteady gait. Complete the bowtie."
+    },
+    "rationales": {
+      "overall": "Gastrointestinal fluid loss can increase lithium toxicity risk. Coarse tremor and ataxia are concerning neurologic findings. Hold further doses pending urgent prescriber assessment and monitor lithium concentration, renal function, hydration, and neurologic status.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "bowtieData": {
+      "conditions": [
+        "possible lithium toxicity",
+        "acute mania without adverse effects",
+        "hypocalcemia"
+      ],
+      "actions": [
+        "Hold lithium and notify the prescriber promptly.",
+        "Assess neurologic status, hydration, renal function, and serum lithium level as ordered.",
+        "Increase the lithium dose to prevent relapse."
+      ],
+      "monitoring": [
+        "Serum lithium concentration and renal function",
+        "Neurologic status, fluid balance, and electrolytes"
+      ]
+    },
+    "correctAnswers": {
+      "condition": "possible lithium toxicity",
+      "actions": [
+        "Hold lithium and notify the prescriber promptly.",
+        "Assess neurologic status, hydration, renal function, and serum lithium level as ordered."
+      ],
+      "monitoring": [
+        "Serum lithium concentration and renal function",
+        "Neurologic status, fluid balance, and electrolytes"
+      ]
+    }
+  },
   {
+    "id": "QR-100120",
+    "schemaVersion": 2,
+    "category": "Adult Health",
+    "topic": "Hyperkalemia: identifying ECG emergency",
+    "clientNeeds": "Physiological Adaptation",
+    "cjmmStep": "Take Action",
+    "difficulty": 4,
+    "type": "Numeric Entry",
+    "question": "A child weighing 18 kg is being treated for diabetic ketoacidosis. The prescription is regular insulin 0.1 unit/kg/hr IV. The prepared infusion contains 1 unit/mL. At what rate should the nurse set the infusion pump in mL/hr? Enter a number rounded to the nearest tenth.",
+    "options": [],
+    "correctAnswer": 1.8,
+    "rationale": "Calculate the hourly dose: 18 kg × 0.1 unit/kg/hr = 1.8 units/hr. At 1 unit/mL, the pump rate is 1.8 mL/hr. Verify the independent double-check and institution-specific insulin-infusion protocol.",
+    "optionRationales": {},
+    "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
+    "sourceReferences": [
+      {
+        "title": "Hyperkalemia",
+        "publisher": "Merck Manual Professional",
+        "url": "https://www.merckmanuals.com/professional/endocrine-and-metabolic-disorders/electrolyte-disorders/hyperkalemia"
+      },
+      {
+        "title": "2026 NCLEX-RN Test Plan",
+        "publisher": "NCSBN",
+        "url": "https://www.nclex.com/test-plans.page",
+        "accessedAt": "2026-11-12"
+      }
+    ],
+    "evidenceLimitations": [
+      "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
+    ],
+    "metadata": {
       "id": "QR-100120",
-      "schemaVersion": 2,
       "category": "Adult Health",
-      "topic": "Hyperkalemia: identifying ECG emergency",
       "clientNeeds": "Physiological Adaptation",
       "cjmmStep": "Take Action",
-      "difficulty": 4,
+      "difficulty": 4
+    },
+    "interaction": {
       "type": "Numeric Entry",
-      "question": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported.",
+      "stem": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported.",
       "options": [],
-      "correctAnswer": 6.8,
-      "rationale": "A potassium level of 6.8 mEq/L with ECG changes is a life-threatening hyperkalemic emergency requiring immediate treatment and cardiac monitoring. The item asks the learner to identify the reported critical value.",
-      "optionRationales": {},
-      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response.",
-      "sourceReferences": [
-        {
-          "title": "Hyperkalemia",
-          "publisher": "Merck Manual Professional",
-          "url": "https://www.merckmanuals.com/professional/endocrine-and-metabolic-disorders/electrolyte-disorders/hyperkalemia"
-        },
-        {
-          "title": "2026 NCLEX-RN Test Plan",
-          "publisher": "NCSBN",
-          "url": "https://www.nclex.com/test-plans.page",
-          "accessedAt": "2026-11-12"
-        }
-      ],
-      "evidenceLimitations": [
-        "Original educational practice item; confirm clinical decisions against current local protocols and patient-specific orders."
-      ],
-      "metadata": {
-        "id": "QR-100120",
-        "category": "Adult Health",
-        "clientNeeds": "Physiological Adaptation",
-        "cjmmStep": "Take Action",
-        "difficulty": 4
-      },
-      "interaction": {
-        "type": "Numeric Entry",
-        "stem": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported.",
-        "options": [],
-        "answerKey": 6.8,
-        "scoring": {
-          "method": "0/1"
-        }
-      },
-      "stimulus": {
-        "clinicalContext": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported."
-      },
-      "rationales": {
-        "overall": "A potassium level of 6.8 mEq/L with ECG changes is a life-threatening hyperkalemic emergency requiring immediate treatment and cardiac monitoring. The item asks the learner to identify the reported critical value.",
-        "options": {},
-        "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
-      },
-      "correctNumericAnswer": 6.8,
-      "numericAnswer": 6.8,
-      "unit": "mEq/L"
-    }
- ];
+      "answerKey": 6.8,
+      "scoring": {
+        "method": "0/1"
+      }
+    },
+    "stimulus": {
+      "clinicalContext": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported."
+    },
+    "rationales": {
+      "overall": "A potassium level of 6.8 mEq/L with ECG changes is a life-threatening hyperkalemic emergency requiring immediate treatment and cardiac monitoring. The item asks the learner to identify the reported critical value.",
+      "options": {},
+      "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
+    },
+    "correctNumericAnswer": 1.8,
+    "numericAnswer": 1.8,
+    "unit": "mL/hr"
+  }
+];
+
  Object.defineProperty(root,'questions',{configurable:false,enumerable:true,get:()=>bank});
  root.QuickRNQuestionBank={version:2,items:bank};
 })(typeof window!=='undefined'?window:globalThis);
@@ -1232,7 +1215,7 @@
       "id": "QR-CS-011",
       "title": "Acute Pulmonary Embolism With Hemodynamic Instability",
       "summary": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -1249,7 +1232,7 @@
       "hr",
       "surgery"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. Priority cues: SpO₂ 86%; Heart rate 128/min; Recent major orthopedic surgery. Together they identify the key clinical threat.",
     "optionRationales": {
       "sat": "This cue contributes to recognition of the immediate clinical threat.",
       "hr": "This cue contributes to recognition of the immediate clinical threat.",
@@ -1285,8 +1268,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain. SpO₂ 86%. Heart rate 128/min. Recent major orthopedic surgery. Afebrile.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain. SpO₂ 86%. Heart rate 128/min. Recent major orthopedic surgery. Afebrile.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:10: Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air.",
+    "diagnosticResults": "Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air. Clinical interpretation: Acute cardiopulmonary emergency; escalate immediately.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -1303,10 +1286,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:10: Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air. Clinical interpretation: Acute cardiopulmonary emergency; escalate immediately."
         ]
       }
     },
@@ -1332,38 +1315,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "sat",
-        "text": "SpO₂ 86%"
-      },
-      {
-        "id": "hr",
-        "text": "Heart rate 128/min"
-      },
-      {
-        "id": "surgery",
-        "text": "Recent major orthopedic surgery"
-      },
-      {
-        "id": "temp",
-        "text": "Afebrile"
-      }
-    ],
-    "columns": [
-      "Immediate respiratory concern",
-      "Acute cardiopulmonary compromise",
-      "Thromboembolic risk factor",
-      "Does not exclude pulmonary embolism"
-    ],
-    "correctAnswers": {
-      "sat": "Immediate respiratory concern",
-      "hr": "Acute cardiopulmonary compromise",
-      "surgery": "Thromboembolic risk factor",
-      "temp": "Does not exclude pulmonary embolism"
     },
     "highlightText": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain. SpO₂ 86%. Heart rate 128/min. Recent major orthopedic surgery. Afebrile.",
     "highlightSegments": [
@@ -1419,7 +1370,7 @@
       "surgery": "Thromboembolic risk factor",
       "temp": "Does not exclude pulmonary embolism"
     },
-    "rationale": "This item assesses analyze cues in the context of Pulmonary embolism.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. Apply the classification to each finding: sat — Immediate respiratory concern; hr — Acute cardiopulmonary compromise; surgery — Thromboembolic risk factor; temp — Does not exclude pulmonary embolism.",
     "optionRationales": {
       "sat": "Immediate respiratory concern",
       "hr": "Acute cardiopulmonary compromise",
@@ -1455,8 +1406,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:10: Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air.",
+    "diagnosticResults": "Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air. Clinical interpretation: Acute cardiopulmonary emergency; escalate immediately.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -1473,10 +1424,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:10: Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air. Clinical interpretation: Acute cardiopulmonary emergency; escalate immediately."
         ]
       }
     },
@@ -1596,7 +1547,7 @@
       "Maintain cardiac monitoring and prepare urgent evaluation.",
       "Assess for hemodynamic instability."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Pulmonary embolism.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. Appropriate responses: Activate rapid response and support oxygenation.; Maintain cardiac monitoring and prepare urgent evaluation.; Assess for hemodynamic instability.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Activate rapid response and support oxygenation.": "Correct priority for the current clinical threat.",
       "Maintain cardiac monitoring and prepare urgent evaluation.": "Correct priority for the current clinical threat.",
@@ -1633,8 +1584,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:25: BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen.",
+    "diagnosticResults": "BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen. Clinical interpretation: Possible hemodynamic compromise; urgent stabilization and reperfusion evaluation.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -1651,10 +1602,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:25: BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen. Clinical interpretation: Possible hemodynamic compromise; urgent stabilization and reperfusion evaluation."
         ]
       }
     },
@@ -1726,7 +1677,7 @@
         "Bleeding and clinical response after anticoagulation"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Pulmonary embolism.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. The likely condition is Acute pulmonary embolism with hypoxemia and possible right-heart strain. Priority actions: Provide oxygen and escalate respiratory/hemodynamic instability.; Prepare prescribed anticoagulation or reperfusion therapy after urgent evaluation.. Monitor: Oxygen saturation, respiratory effort, blood pressure, and heart rhythm; Bleeding and clinical response after anticoagulation.",
     "optionRationales": {
       "condition": "Acute pulmonary embolism with hypoxemia and possible right-heart strain",
       "actions": "These actions address the immediate threat.",
@@ -1761,8 +1712,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:25: BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen.",
+    "diagnosticResults": "BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen. Clinical interpretation: Possible hemodynamic compromise; urgent stabilization and reperfusion evaluation.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -1779,10 +1730,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:25: BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen. Clinical interpretation: Possible hemodynamic compromise; urgent stabilization and reperfusion evaluation."
         ]
       }
     },
@@ -1890,7 +1841,7 @@
       "Maintain oxygen and continuous cardiopulmonary monitoring.",
       "Prepare ordered diagnostic studies and prescribed treatment."
     ],
-    "rationale": "This item assesses take action in the context of Pulmonary embolism.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. Appropriate responses: Activate emergency response for worsening hypoxemia or hypotension.; Maintain oxygen and continuous cardiopulmonary monitoring.; Prepare ordered diagnostic studies and prescribed treatment.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Activate emergency response for worsening hypoxemia or hypotension.": "Correct. This supports immediate safety and treatment.",
       "Maintain oxygen and continuous cardiopulmonary monitoring.": "Correct. This supports immediate safety and treatment.",
@@ -1926,8 +1877,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support.",
+    "diagnosticResults": "BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support. Clinical interpretation: Improving perfusion and oxygenation; continue monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -1944,10 +1895,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support. Clinical interpretation: Improving perfusion and oxygenation; continue monitoring."
         ]
       }
     },
@@ -2009,9 +1960,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Acute cardiopulmonary emergency; escalate immediately.",
-    "rationale": "This item assesses evaluate outcomes in the context of Pulmonary embolism.",
+    "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Acute cardiopulmonary emergency; escalate immediately.": "Correct. Sudden dyspnea, pleuritic pain, HR 128/min, SpO₂ 86% room air. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Possible hemodynamic compromise; urgent stabilization and reperfusion evaluation.": "Correct. BP falls to 84/50 mmHg, HR 136/min, client restless despite oxygen. This interpretation matches the clinical progression.",
+      "Improving perfusion and oxygenation; continue monitoring.": "Correct. BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -2042,8 +1998,8 @@
     "providerOrders": "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy.",
     "nursingNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
     "nursesNotes": "58-year-old client, postoperative day 4 after total knee arthroplasty, develops sudden dyspnea and pleuritic chest pain.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support.",
+    "diagnosticResults": "BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support. Clinical interpretation: Improving perfusion and oxygenation; continue monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-011",
       "patientProfile": {
@@ -2060,10 +2016,10 @@
           "Activate rapid response; continuous cardiac and oxygen monitoring; urgent diagnostic evaluation; oxygen and prescribed anticoagulation or reperfusion therapy."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 108/68 mmHg, HR 98/min, SpO₂ 95% with lower oxygen support. Clinical interpretation: Improving perfusion and oxygenation; continue monitoring."
         ]
       }
     },
@@ -2141,7 +2097,7 @@
       "id": "QR-CS-012",
       "title": "Sickle Cell Crisis Complicated by Acute Chest Syndrome",
       "summary": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -2158,7 +2114,7 @@
       "infiltrate",
       "sat"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. Priority cues: New fever; New pulmonary infiltrate; SpO₂ 89%. Together they identify the key clinical threat.",
     "optionRationales": {
       "fever": "This cue contributes to recognition of the immediate clinical threat.",
       "infiltrate": "This cue contributes to recognition of the immediate clinical threat.",
@@ -2194,8 +2150,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia. New fever. New pulmonary infiltrate. SpO₂ 89%. Baseline leg pain unchanged.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia. New fever. New pulmonary infiltrate. SpO₂ 89%. Baseline leg pain unchanged.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "10:00: Pain crisis; SpO₂ 97% room air; no cough or fever.",
+    "diagnosticResults": "Pain crisis; SpO₂ 97% room air; no cough or fever. Clinical interpretation: Continue pain management and surveillance.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2212,10 +2168,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "10:00: Pain crisis; SpO₂ 97% room air; no cough or fever."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Pain crisis; SpO₂ 97% room air; no cough or fever. Clinical interpretation: Continue pain management and surveillance."
         ]
       }
     },
@@ -2241,38 +2197,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "fever",
-        "text": "New fever"
-      },
-      {
-        "id": "infiltrate",
-        "text": "New pulmonary infiltrate"
-      },
-      {
-        "id": "sat",
-        "text": "SpO₂ 89%"
-      },
-      {
-        "id": "pain",
-        "text": "Baseline leg pain unchanged"
-      }
-    ],
-    "columns": [
-      "Possible infection or acute chest syndrome",
-      "Supports acute chest syndrome",
-      "Hypoxemia requiring intervention",
-      "Not sufficient alone to diagnose acute chest syndrome"
-    ],
-    "correctAnswers": {
-      "fever": "Possible infection or acute chest syndrome",
-      "infiltrate": "Supports acute chest syndrome",
-      "sat": "Hypoxemia requiring intervention",
-      "pain": "Not sufficient alone to diagnose acute chest syndrome"
     },
     "highlightText": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia. New fever. New pulmonary infiltrate. SpO₂ 89%. Baseline leg pain unchanged.",
     "highlightSegments": [
@@ -2328,7 +2252,7 @@
       "sat": "Hypoxemia requiring intervention",
       "pain": "Not sufficient alone to diagnose acute chest syndrome"
     },
-    "rationale": "This item assesses analyze cues in the context of Sickle cell disease and acute chest syndrome.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. Apply the classification to each finding: fever — Possible infection or acute chest syndrome; infiltrate — Supports acute chest syndrome; sat — Hypoxemia requiring intervention; pain — Not sufficient alone to diagnose acute chest syndrome.",
     "optionRationales": {
       "fever": "Possible infection or acute chest syndrome",
       "infiltrate": "Supports acute chest syndrome",
@@ -2364,8 +2288,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "10:00: Pain crisis; SpO₂ 97% room air; no cough or fever.",
+    "diagnosticResults": "Pain crisis; SpO₂ 97% room air; no cough or fever. Clinical interpretation: Continue pain management and surveillance.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2382,10 +2306,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "10:00: Pain crisis; SpO₂ 97% room air; no cough or fever."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Pain crisis; SpO₂ 97% room air; no cough or fever. Clinical interpretation: Continue pain management and surveillance."
         ]
       }
     },
@@ -2505,7 +2429,7 @@
       "Assess oxygenation and respiratory effort.",
       "Prepare prescribed oxygen, antimicrobial therapy, and escalation."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Sickle cell disease and acute chest syndrome.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. Appropriate responses: Recognize acute chest syndrome and notify the provider urgently.; Assess oxygenation and respiratory effort.; Prepare prescribed oxygen, antimicrobial therapy, and escalation.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Recognize acute chest syndrome and notify the provider urgently.": "Correct priority for the current clinical threat.",
       "Assess oxygenation and respiratory effort.": "Correct priority for the current clinical threat.",
@@ -2542,8 +2466,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "14:00: Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate.",
+    "diagnosticResults": "Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate. Clinical interpretation: Acute chest syndrome; urgent treatment and respiratory monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2560,10 +2484,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "14:00: Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate. Clinical interpretation: Acute chest syndrome; urgent treatment and respiratory monitoring."
         ]
       }
     },
@@ -2635,7 +2559,7 @@
         "Temperature, hemoglobin, and response to treatment"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Sickle cell disease and acute chest syndrome.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. The likely condition is Acute chest syndrome in a client with sickle cell disease. Priority actions: Support oxygenation and escalate respiratory deterioration.; Administer prescribed analgesia and treatment for suspected infection.. Monitor: Oxygen saturation, respiratory effort, and chest findings; Temperature, hemoglobin, and response to treatment.",
     "optionRationales": {
       "condition": "Acute chest syndrome in a client with sickle cell disease",
       "actions": "These actions address the immediate threat.",
@@ -2670,8 +2594,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "14:00: Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate.",
+    "diagnosticResults": "Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate. Clinical interpretation: Acute chest syndrome; urgent treatment and respiratory monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2688,10 +2612,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "14:00: Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate. Clinical interpretation: Acute chest syndrome; urgent treatment and respiratory monitoring."
         ]
       }
     },
@@ -2799,7 +2723,7 @@
       "Notify the team and prepare ordered chest evaluation and treatment.",
       "Provide prescribed pain management while monitoring respiration."
     ],
-    "rationale": "This item assesses take action in the context of Sickle cell disease and acute chest syndrome.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. Appropriate responses: Apply oxygen as prescribed and reassess saturation.; Notify the team and prepare ordered chest evaluation and treatment.; Provide prescribed pain management while monitoring respiration.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Apply oxygen as prescribed and reassess saturation.": "Correct. This supports immediate safety and treatment.",
       "Notify the team and prepare ordered chest evaluation and treatment.": "Correct. This supports immediate safety and treatment.",
@@ -2835,8 +2759,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved.",
+    "diagnosticResults": "Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved. Clinical interpretation: Clinical improvement; continue treatment and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2853,10 +2777,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved. Clinical interpretation: Clinical improvement; continue treatment and monitor."
         ]
       }
     },
@@ -2918,9 +2842,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Continue pain management and surveillance.",
-    "rationale": "This item assesses evaluate outcomes in the context of Sickle cell disease and acute chest syndrome.",
+    "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Continue pain management and surveillance.": "Correct. Pain crisis; SpO₂ 97% room air; no cough or fever. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Acute chest syndrome; urgent treatment and respiratory monitoring.": "Correct. Fever 38.5°C, cough, chest pain, SpO₂ 89%, new infiltrate. This interpretation matches the clinical progression.",
+      "Clinical improvement; continue treatment and monitor.": "Correct. Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -2951,8 +2880,8 @@
     "providerOrders": "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation.",
     "nursingNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
     "nursesNotes": "24-year-old with HbSS admitted for severe back and leg pain, later develops fever, cough, chest pain, and hypoxemia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved.",
+    "diagnosticResults": "Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved. Clinical interpretation: Clinical improvement; continue treatment and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-012",
       "patientProfile": {
@@ -2969,10 +2898,10 @@
           "Assess pain and respiratory status; prescribed analgesia and fluids; chest imaging and cultures as ordered; oxygen for hypoxemia; hematology consultation."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Afebrile, SpO₂ 95% on lower oxygen support, work of breathing improved. Clinical interpretation: Clinical improvement; continue treatment and monitor."
         ]
       }
     },
@@ -3050,7 +2979,7 @@
       "id": "QR-CS-013",
       "title": "Upper Gastrointestinal Variceal Hemorrhage in Cirrhosis",
       "summary": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -3067,7 +2996,7 @@
       "hr",
       "blood"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. Priority cues: BP 82/48 mmHg; HR 132/min; Active hematemesis. Together they identify the key clinical threat.",
     "optionRationales": {
       "bp": "This cue contributes to recognition of the immediate clinical threat.",
       "hr": "This cue contributes to recognition of the immediate clinical threat.",
@@ -3103,8 +3032,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension. BP 82/48 mmHg. HR 132/min. Active hematemesis. Chronic jaundice unchanged.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension. BP 82/48 mmHg. HR 132/min. Active hematemesis. Chronic jaundice unchanged.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "07:30: Melena and dizziness; BP 98/60 mmHg; HR 112/min.",
+    "diagnosticResults": "Melena and dizziness; BP 98/60 mmHg; HR 112/min. Clinical interpretation: Suspect active GI blood loss; urgent evaluation.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3121,10 +3050,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "07:30: Melena and dizziness; BP 98/60 mmHg; HR 112/min."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Melena and dizziness; BP 98/60 mmHg; HR 112/min. Clinical interpretation: Suspect active GI blood loss; urgent evaluation."
         ]
       }
     },
@@ -3150,38 +3079,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "bp",
-        "text": "BP 82/48 mmHg"
-      },
-      {
-        "id": "hr",
-        "text": "HR 132/min"
-      },
-      {
-        "id": "blood",
-        "text": "Active hematemesis"
-      },
-      {
-        "id": "jaundice",
-        "text": "Chronic jaundice unchanged"
-      }
-    ],
-    "columns": [
-      "Hemodynamic instability",
-      "Compensatory tachycardia",
-      "Ongoing upper GI hemorrhage",
-      "Not an acute bleeding severity marker"
-    ],
-    "correctAnswers": {
-      "bp": "Hemodynamic instability",
-      "hr": "Compensatory tachycardia",
-      "blood": "Ongoing upper GI hemorrhage",
-      "jaundice": "Not an acute bleeding severity marker"
     },
     "highlightText": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension. BP 82/48 mmHg. HR 132/min. Active hematemesis. Chronic jaundice unchanged.",
     "highlightSegments": [
@@ -3237,7 +3134,7 @@
       "blood": "Ongoing upper GI hemorrhage",
       "jaundice": "Not an acute bleeding severity marker"
     },
-    "rationale": "This item assesses analyze cues in the context of Cirrhosis and acute variceal bleeding.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. Apply the classification to each finding: bp — Hemodynamic instability; hr — Compensatory tachycardia; blood — Ongoing upper GI hemorrhage; jaundice — Not an acute bleeding severity marker.",
     "optionRationales": {
       "bp": "Hemodynamic instability",
       "hr": "Compensatory tachycardia",
@@ -3273,8 +3170,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "07:30: Melena and dizziness; BP 98/60 mmHg; HR 112/min.",
+    "diagnosticResults": "Melena and dizziness; BP 98/60 mmHg; HR 112/min. Clinical interpretation: Suspect active GI blood loss; urgent evaluation.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3291,10 +3188,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "07:30: Melena and dizziness; BP 98/60 mmHg; HR 112/min."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Melena and dizziness; BP 98/60 mmHg; HR 112/min. Clinical interpretation: Suspect active GI blood loss; urgent evaluation."
         ]
       }
     },
@@ -3414,7 +3311,7 @@
       "Establish large-bore IV access and prepare resuscitation.",
       "Prepare urgent endoscopic management."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Cirrhosis and acute variceal bleeding.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. Appropriate responses: Stabilize airway and circulation and activate emergency response.; Establish large-bore IV access and prepare resuscitation.; Prepare urgent endoscopic management.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Stabilize airway and circulation and activate emergency response.": "Correct priority for the current clinical threat.",
       "Establish large-bore IV access and prepare resuscitation.": "Correct priority for the current clinical threat.",
@@ -3451,8 +3348,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:00: Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin.",
+    "diagnosticResults": "Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin. Clinical interpretation: Hemorrhagic shock; activate emergency resuscitation.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3469,10 +3366,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:00: Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin. Clinical interpretation: Hemorrhagic shock; activate emergency resuscitation."
         ]
       }
     },
@@ -3544,7 +3441,7 @@
         "Hemoglobin, coagulation, renal function, and response to resuscitation"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Cirrhosis and acute variceal bleeding.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. The likely condition is Acute upper gastrointestinal hemorrhage, likely variceal, with hypovolemic shock. Priority actions: Support airway and circulation; prepare blood products as prescribed.; Prepare urgent endoscopy and prescribed vasoactive/antibiotic therapy.. Monitor: Blood pressure, heart rate, mental status, and ongoing blood loss; Hemoglobin, coagulation, renal function, and response to resuscitation.",
     "optionRationales": {
       "condition": "Acute upper gastrointestinal hemorrhage, likely variceal, with hypovolemic shock",
       "actions": "These actions address the immediate threat.",
@@ -3579,8 +3476,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:00: Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin.",
+    "diagnosticResults": "Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin. Clinical interpretation: Hemorrhagic shock; activate emergency resuscitation.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3597,10 +3494,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:00: Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin. Clinical interpretation: Hemorrhagic shock; activate emergency resuscitation."
         ]
       }
     },
@@ -3708,7 +3605,7 @@
       "Maintain IV access and administer prescribed resuscitation.",
       "Monitor for recurrent hematemesis and worsening shock."
     ],
-    "rationale": "This item assesses take action in the context of Cirrhosis and acute variceal bleeding.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. Appropriate responses: Keep NPO and prepare urgent endoscopic intervention.; Maintain IV access and administer prescribed resuscitation.; Monitor for recurrent hematemesis and worsening shock.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Keep NPO and prepare urgent endoscopic intervention.": "Correct. This supports immediate safety and treatment.",
       "Maintain IV access and administer prescribed resuscitation.": "Correct. This supports immediate safety and treatment.",
@@ -3744,8 +3641,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After intervention: No further hematemesis; BP 108/66 mmHg; HR 94/min.",
+    "diagnosticResults": "No further hematemesis; BP 108/66 mmHg; HR 94/min. Clinical interpretation: Improving hemodynamics; monitor for rebleeding.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3762,10 +3659,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After intervention: No further hematemesis; BP 108/66 mmHg; HR 94/min."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "No further hematemesis; BP 108/66 mmHg; HR 94/min. Clinical interpretation: Improving hemodynamics; monitor for rebleeding."
         ]
       }
     },
@@ -3827,9 +3724,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Suspect active GI blood loss; urgent evaluation.",
-    "rationale": "This item assesses evaluate outcomes in the context of Cirrhosis and acute variceal bleeding.",
+    "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Suspect active GI blood loss; urgent evaluation.": "Correct. Melena and dizziness; BP 98/60 mmHg; HR 112/min. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Hemorrhagic shock; activate emergency resuscitation.": "Correct. Large hematemesis; BP 82/48 mmHg; HR 132/min; cool clammy skin. This interpretation matches the clinical progression.",
+      "Improving hemodynamics; monitor for rebleeding.": "Correct. No further hematemesis; BP 108/66 mmHg; HR 94/min. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -3860,8 +3762,8 @@
     "providerOrders": "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring.",
     "nursingNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
     "nursesNotes": "61-year-old with cirrhosis presents with large-volume hematemesis, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After intervention: No further hematemesis; BP 108/66 mmHg; HR 94/min.",
+    "diagnosticResults": "No further hematemesis; BP 108/66 mmHg; HR 94/min. Clinical interpretation: Improving hemodynamics; monitor for rebleeding.",
     "stimulus": {
       "caseGroupId": "QR-CS-013",
       "patientProfile": {
@@ -3878,10 +3780,10 @@
           "Emergency response; large-bore IV access; blood products and urgent endoscopy; prescribed vasoactive and antibiotic therapy; hemodynamic monitoring."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After intervention: No further hematemesis; BP 108/66 mmHg; HR 94/min."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "No further hematemesis; BP 108/66 mmHg; HR 94/min. Clinical interpretation: Improving hemodynamics; monitor for rebleeding."
         ]
       }
     },
@@ -3959,7 +3861,7 @@
       "id": "QR-CS-014",
       "title": "Thyroid Storm Triggered by Infection",
       "summary": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -3976,7 +3878,7 @@
       "hr",
       "mental"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. Priority cues: Temperature 40.1°C; HR 156/min with atrial fibrillation; Agitation and confusion. Together they identify the key clinical threat.",
     "optionRationales": {
       "temp": "This cue contributes to recognition of the immediate clinical threat.",
       "hr": "This cue contributes to recognition of the immediate clinical threat.",
@@ -4012,8 +3914,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting. Temperature 40.1°C. HR 156/min with atrial fibrillation. Agitation and confusion. Suppressed TSH.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting. Temperature 40.1°C. HR 156/min with atrial fibrillation. Agitation and confusion. Suppressed TSH.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "11:00: Fever 38.2°C, tremor, HR 118/min, alert.",
+    "diagnosticResults": "Fever 38.2°C, tremor, HR 118/min, alert. Clinical interpretation: Assess progression and report suspected thyrotoxicosis.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4030,10 +3932,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "11:00: Fever 38.2°C, tremor, HR 118/min, alert."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Fever 38.2°C, tremor, HR 118/min, alert. Clinical interpretation: Assess progression and report suspected thyrotoxicosis."
         ]
       }
     },
@@ -4059,38 +3961,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "temp",
-        "text": "Temperature 40.1°C"
-      },
-      {
-        "id": "hr",
-        "text": "HR 156/min with atrial fibrillation"
-      },
-      {
-        "id": "mental",
-        "text": "Agitation and confusion"
-      },
-      {
-        "id": "tsh",
-        "text": "Suppressed TSH"
-      }
-    ],
-    "columns": [
-      "Severe hyperthermia",
-      "Cardiovascular instability",
-      "Acute neurologic dysfunction",
-      "Supports thyrotoxicosis but does not alone grade severity"
-    ],
-    "correctAnswers": {
-      "temp": "Severe hyperthermia",
-      "hr": "Cardiovascular instability",
-      "mental": "Acute neurologic dysfunction",
-      "tsh": "Supports thyrotoxicosis but does not alone grade severity"
     },
     "highlightText": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting. Temperature 40.1°C. HR 156/min with atrial fibrillation. Agitation and confusion. Suppressed TSH.",
     "highlightSegments": [
@@ -4146,7 +4016,7 @@
       "mental": "Acute neurologic dysfunction",
       "tsh": "Supports thyrotoxicosis but does not alone grade severity"
     },
-    "rationale": "This item assesses analyze cues in the context of Thyroid storm.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. Apply the classification to each finding: temp — Severe hyperthermia; hr — Cardiovascular instability; mental — Acute neurologic dysfunction; tsh — Supports thyrotoxicosis but does not alone grade severity.",
     "optionRationales": {
       "temp": "Severe hyperthermia",
       "hr": "Cardiovascular instability",
@@ -4182,8 +4052,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "11:00: Fever 38.2°C, tremor, HR 118/min, alert.",
+    "diagnosticResults": "Fever 38.2°C, tremor, HR 118/min, alert. Clinical interpretation: Assess progression and report suspected thyrotoxicosis.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4200,10 +4070,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "11:00: Fever 38.2°C, tremor, HR 118/min, alert."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Fever 38.2°C, tremor, HR 118/min, alert. Clinical interpretation: Assess progression and report suspected thyrotoxicosis."
         ]
       }
     },
@@ -4323,7 +4193,7 @@
       "Initiate continuous cardiac and temperature monitoring.",
       "Prepare prescribed multimodal treatment and treatment of the trigger."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Thyroid storm.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. Appropriate responses: Recognize thyroid storm and urgently escalate.; Initiate continuous cardiac and temperature monitoring.; Prepare prescribed multimodal treatment and treatment of the trigger.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Recognize thyroid storm and urgently escalate.": "Correct priority for the current clinical threat.",
       "Initiate continuous cardiac and temperature monitoring.": "Correct priority for the current clinical threat.",
@@ -4360,8 +4230,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "12:00: Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion.",
+    "diagnosticResults": "Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion. Clinical interpretation: Thyroid storm; emergency stabilization and multimodal therapy.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4378,10 +4248,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "12:00: Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion. Clinical interpretation: Thyroid storm; emergency stabilization and multimodal therapy."
         ]
       }
     },
@@ -4453,7 +4323,7 @@
         "Mental status, fluid balance, and response to therapy"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Thyroid storm.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. The likely condition is Thyroid storm with hyperthermia and cardiovascular instability. Priority actions: Prepare antithyroid therapy followed by iodine at the directed interval.; Support cooling and administer prescribed beta blockade and corticosteroid.. Monitor: Heart rhythm, heart rate, blood pressure, and temperature; Mental status, fluid balance, and response to therapy.",
     "optionRationales": {
       "condition": "Thyroid storm with hyperthermia and cardiovascular instability",
       "actions": "These actions address the immediate threat.",
@@ -4488,8 +4358,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "12:00: Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion.",
+    "diagnosticResults": "Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion. Clinical interpretation: Thyroid storm; emergency stabilization and multimodal therapy.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4506,10 +4376,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "12:00: Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion. Clinical interpretation: Thyroid storm; emergency stabilization and multimodal therapy."
         ]
       }
     },
@@ -4617,7 +4487,7 @@
       "Implement prescribed cooling and fluid management.",
       "Administer medications in prescribed sequence and monitor response."
     ],
-    "rationale": "This item assesses take action in the context of Thyroid storm.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. Appropriate responses: Initiate continuous cardiac monitoring and urgent escalation.; Implement prescribed cooling and fluid management.; Administer medications in prescribed sequence and monitor response.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Initiate continuous cardiac monitoring and urgent escalation.": "Correct. This supports immediate safety and treatment.",
       "Implement prescribed cooling and fluid management.": "Correct. This supports immediate safety and treatment.",
@@ -4653,8 +4523,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Temperature 38.0°C, HR 104/min, improved orientation.",
+    "diagnosticResults": "Temperature 38.0°C, HR 104/min, improved orientation. Clinical interpretation: Response to treatment; continue close monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4671,10 +4541,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Temperature 38.0°C, HR 104/min, improved orientation."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 38.0°C, HR 104/min, improved orientation. Clinical interpretation: Response to treatment; continue close monitoring."
         ]
       }
     },
@@ -4736,9 +4606,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Assess progression and report suspected thyrotoxicosis.",
-    "rationale": "This item assesses evaluate outcomes in the context of Thyroid storm.",
+    "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Assess progression and report suspected thyrotoxicosis.": "Correct. Fever 38.2°C, tremor, HR 118/min, alert. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Thyroid storm; emergency stabilization and multimodal therapy.": "Correct. Temperature 40.1°C, HR 156/min, atrial fibrillation, confusion. This interpretation matches the clinical progression.",
+      "Response to treatment; continue close monitoring.": "Correct. Temperature 38.0°C, HR 104/min, improved orientation. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -4769,8 +4644,8 @@
     "providerOrders": "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment.",
     "nursingNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
     "nursesNotes": "39-year-old with poorly controlled Graves disease presents with fever, agitation, severe tachycardia, and vomiting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Temperature 38.0°C, HR 104/min, improved orientation.",
+    "diagnosticResults": "Temperature 38.0°C, HR 104/min, improved orientation. Clinical interpretation: Response to treatment; continue close monitoring.",
     "stimulus": {
       "caseGroupId": "QR-CS-014",
       "patientProfile": {
@@ -4787,10 +4662,10 @@
           "Continuous cardiac monitoring; urgent evaluation; prescribed beta blocker, antithyroid medication, iodine after antithyroid drug, corticosteroid, cooling, and trigger treatment."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Temperature 38.0°C, HR 104/min, improved orientation."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 38.0°C, HR 104/min, improved orientation. Clinical interpretation: Response to treatment; continue close monitoring."
         ]
       }
     },
@@ -4868,7 +4743,7 @@
       "id": "QR-CS-015",
       "title": "Myasthenic Crisis With Impending Respiratory Failure",
       "summary": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -4885,7 +4760,7 @@
       "cough",
       "fvc"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. Priority cues: Difficulty swallowing saliva; Weak cough; Declining forced vital capacity. Together they identify the key clinical threat.",
     "optionRationales": {
       "swallow": "This cue contributes to recognition of the immediate clinical threat.",
       "cough": "This cue contributes to recognition of the immediate clinical threat.",
@@ -4921,8 +4796,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection. Difficulty swallowing saliva. Weak cough. Declining forced vital capacity. Mild localized itching.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection. Difficulty swallowing saliva. Weak cough. Declining forced vital capacity. Mild localized itching.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:00: Mild ptosis and fatigable speech; respiratory mechanics near baseline.",
+    "diagnosticResults": "Mild ptosis and fatigable speech; respiratory mechanics near baseline. Clinical interpretation: Monitor closely and assess triggers.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -4939,10 +4814,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:00: Mild ptosis and fatigable speech; respiratory mechanics near baseline."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Mild ptosis and fatigable speech; respiratory mechanics near baseline. Clinical interpretation: Monitor closely and assess triggers."
         ]
       }
     },
@@ -4968,38 +4843,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "swallow",
-        "text": "Difficulty swallowing saliva"
-      },
-      {
-        "id": "cough",
-        "text": "Weak cough"
-      },
-      {
-        "id": "fvc",
-        "text": "Declining forced vital capacity"
-      },
-      {
-        "id": "itch",
-        "text": "Mild localized itching"
-      }
-    ],
-    "columns": [
-      "Bulbar weakness and aspiration risk",
-      "Impaired airway clearance",
-      "Worsening respiratory muscle weakness",
-      "Not a sign of respiratory crisis"
-    ],
-    "correctAnswers": {
-      "swallow": "Bulbar weakness and aspiration risk",
-      "cough": "Impaired airway clearance",
-      "fvc": "Worsening respiratory muscle weakness",
-      "itch": "Not a sign of respiratory crisis"
     },
     "highlightText": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection. Difficulty swallowing saliva. Weak cough. Declining forced vital capacity. Mild localized itching.",
     "highlightSegments": [
@@ -5055,7 +4898,7 @@
       "fvc": "Worsening respiratory muscle weakness",
       "itch": "Not a sign of respiratory crisis"
     },
-    "rationale": "This item assesses analyze cues in the context of Myasthenia gravis and myasthenic crisis.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. Apply the classification to each finding: swallow — Bulbar weakness and aspiration risk; cough — Impaired airway clearance; fvc — Worsening respiratory muscle weakness; itch — Not a sign of respiratory crisis.",
     "optionRationales": {
       "swallow": "Bulbar weakness and aspiration risk",
       "cough": "Impaired airway clearance",
@@ -5091,8 +4934,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:00: Mild ptosis and fatigable speech; respiratory mechanics near baseline.",
+    "diagnosticResults": "Mild ptosis and fatigable speech; respiratory mechanics near baseline. Clinical interpretation: Monitor closely and assess triggers.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -5109,10 +4952,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:00: Mild ptosis and fatigable speech; respiratory mechanics near baseline."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Mild ptosis and fatigable speech; respiratory mechanics near baseline. Clinical interpretation: Monitor closely and assess triggers."
         ]
       }
     },
@@ -5232,7 +5075,7 @@
       "Assess airway protection and respiratory mechanics.",
       "Keep NPO pending swallowing and airway assessment."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Myasthenia gravis and myasthenic crisis.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. Appropriate responses: Escalate immediately for possible myasthenic crisis.; Assess airway protection and respiratory mechanics.; Keep NPO pending swallowing and airway assessment.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Escalate immediately for possible myasthenic crisis.": "Correct priority for the current clinical threat.",
       "Assess airway protection and respiratory mechanics.": "Correct priority for the current clinical threat.",
@@ -5269,8 +5112,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "11:00: Dysphagia, weak cough, pooling secretions, declining respiratory mechanics.",
+    "diagnosticResults": "Dysphagia, weak cough, pooling secretions, declining respiratory mechanics. Clinical interpretation: Impending respiratory failure; urgent airway and critical-care escalation.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -5287,10 +5130,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "11:00: Dysphagia, weak cough, pooling secretions, declining respiratory mechanics."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Dysphagia, weak cough, pooling secretions, declining respiratory mechanics. Clinical interpretation: Impending respiratory failure; urgent airway and critical-care escalation."
         ]
       }
     },
@@ -5362,7 +5205,7 @@
         "Swallowing, speech, and progression of weakness"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Myasthenia gravis and myasthenic crisis.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. The likely condition is Myasthenic crisis with bulbar and respiratory muscle weakness. Priority actions: Prepare ICU-level monitoring and possible ventilatory support.; Maintain aspiration precautions and airway-protection plan.. Monitor: Respiratory mechanics, oxygenation, cough strength, and secretion handling; Swallowing, speech, and progression of weakness.",
     "optionRationales": {
       "condition": "Myasthenic crisis with bulbar and respiratory muscle weakness",
       "actions": "These actions address the immediate threat.",
@@ -5397,8 +5240,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "11:00: Dysphagia, weak cough, pooling secretions, declining respiratory mechanics.",
+    "diagnosticResults": "Dysphagia, weak cough, pooling secretions, declining respiratory mechanics. Clinical interpretation: Impending respiratory failure; urgent airway and critical-care escalation.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -5415,10 +5258,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "11:00: Dysphagia, weak cough, pooling secretions, declining respiratory mechanics."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Dysphagia, weak cough, pooling secretions, declining respiratory mechanics. Clinical interpretation: Impending respiratory failure; urgent airway and critical-care escalation."
         ]
       }
     },
@@ -5526,7 +5369,7 @@
       "Notify critical care and prepare airway equipment.",
       "Trend respiratory mechanics and ability to clear secretions."
     ],
-    "rationale": "This item assesses take action in the context of Myasthenia gravis and myasthenic crisis.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. Appropriate responses: Keep NPO and institute aspiration precautions pending evaluation.; Notify critical care and prepare airway equipment.; Trend respiratory mechanics and ability to clear secretions.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Keep NPO and institute aspiration precautions pending evaluation.": "Correct. This supports immediate safety and treatment.",
       "Notify critical care and prepare airway equipment.": "Correct. This supports immediate safety and treatment.",
@@ -5562,8 +5405,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Secretions controlled, cough stronger, respiratory mechanics improving.",
+    "diagnosticResults": "Secretions controlled, cough stronger, respiratory mechanics improving. Clinical interpretation: Improving function; continue monitoring and precautions.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -5580,10 +5423,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Secretions controlled, cough stronger, respiratory mechanics improving."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Secretions controlled, cough stronger, respiratory mechanics improving. Clinical interpretation: Improving function; continue monitoring and precautions."
         ]
       }
     },
@@ -5645,9 +5488,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Monitor closely and assess triggers.",
-    "rationale": "This item assesses evaluate outcomes in the context of Myasthenia gravis and myasthenic crisis.",
+    "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Monitor closely and assess triggers.": "Correct. Mild ptosis and fatigable speech; respiratory mechanics near baseline. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Impending respiratory failure; urgent airway and critical-care escalation.": "Correct. Dysphagia, weak cough, pooling secretions, declining respiratory mechanics. This interpretation matches the clinical progression.",
+      "Improving function; continue monitoring and precautions.": "Correct. Secretions controlled, cough stronger, respiratory mechanics improving. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -5678,8 +5526,8 @@
     "providerOrders": "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection.",
     "nursingNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
     "nursesNotes": "47-year-old with myasthenia gravis develops dysphagia, weak cough, nasal speech, and declining respiratory mechanics after respiratory infection.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Secretions controlled, cough stronger, respiratory mechanics improving.",
+    "diagnosticResults": "Secretions controlled, cough stronger, respiratory mechanics improving. Clinical interpretation: Improving function; continue monitoring and precautions.",
     "stimulus": {
       "caseGroupId": "QR-CS-015",
       "patientProfile": {
@@ -5696,10 +5544,10 @@
           "Urgent critical-care evaluation; serial respiratory mechanics; aspiration precautions; prepare airway support; review medications and treat infection."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Secretions controlled, cough stronger, respiratory mechanics improving."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Secretions controlled, cough stronger, respiratory mechanics improving. Clinical interpretation: Improving function; continue monitoring and precautions."
         ]
       }
     },
@@ -5777,7 +5625,7 @@
       "id": "QR-CS-016",
       "title": "Pediatric Gastroenteritis With Severe Dehydration",
       "summary": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -5794,7 +5642,7 @@
       "urine",
       "mental"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. Priority cues: Capillary refill 5 seconds; No wet diaper for 10 hours; Lethargy. Together they identify the key clinical threat.",
     "optionRationales": {
       "refill": "This cue contributes to recognition of the immediate clinical threat.",
       "urine": "This cue contributes to recognition of the immediate clinical threat.",
@@ -5830,8 +5678,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output. Capillary refill 5 seconds. No wet diaper for 10 hours. Lethargy. Tears present with crying.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output. Capillary refill 5 seconds. No wet diaper for 10 hours. Lethargy. Tears present with crying.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "14:00: Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert.",
+    "diagnosticResults": "Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert. Clinical interpretation: Assess hydration and initiate appropriate rehydration.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -5848,10 +5696,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "14:00: Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert. Clinical interpretation: Assess hydration and initiate appropriate rehydration."
         ]
       }
     },
@@ -5877,38 +5725,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "refill",
-        "text": "Capillary refill 5 seconds"
-      },
-      {
-        "id": "urine",
-        "text": "No wet diaper for 10 hours"
-      },
-      {
-        "id": "mental",
-        "text": "Lethargy"
-      },
-      {
-        "id": "tears",
-        "text": "Tears present with crying"
-      }
-    ],
-    "columns": [
-      "Poor peripheral perfusion",
-      "Significant fluid deficit",
-      "Possible severe dehydration or shock",
-      "Does not exclude severe dehydration"
-    ],
-    "correctAnswers": {
-      "refill": "Poor peripheral perfusion",
-      "urine": "Significant fluid deficit",
-      "mental": "Possible severe dehydration or shock",
-      "tears": "Does not exclude severe dehydration"
     },
     "highlightText": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output. Capillary refill 5 seconds. No wet diaper for 10 hours. Lethargy. Tears present with crying.",
     "highlightSegments": [
@@ -5964,7 +5780,7 @@
       "mental": "Possible severe dehydration or shock",
       "tears": "Does not exclude severe dehydration"
     },
-    "rationale": "This item assesses analyze cues in the context of Pediatric dehydration and fluid resuscitation.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. Apply the classification to each finding: refill — Poor peripheral perfusion; urine — Significant fluid deficit; mental — Possible severe dehydration or shock; tears — Does not exclude severe dehydration.",
     "optionRationales": {
       "refill": "Poor peripheral perfusion",
       "urine": "Significant fluid deficit",
@@ -6000,8 +5816,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "14:00: Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert.",
+    "diagnosticResults": "Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert. Clinical interpretation: Assess hydration and initiate appropriate rehydration.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -6018,10 +5834,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "14:00: Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert. Clinical interpretation: Assess hydration and initiate appropriate rehydration."
         ]
       }
     },
@@ -6141,7 +5957,7 @@
       "Assess airway, breathing, circulation, mental status, and weight.",
       "Prepare prescribed isotonic IV fluid resuscitation."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Pediatric dehydration and fluid resuscitation.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. Appropriate responses: Recognize possible hypovolemic shock and escalate.; Assess airway, breathing, circulation, mental status, and weight.; Prepare prescribed isotonic IV fluid resuscitation.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Recognize possible hypovolemic shock and escalate.": "Correct priority for the current clinical threat.",
       "Assess airway, breathing, circulation, mental status, and weight.": "Correct priority for the current clinical threat.",
@@ -6178,8 +5994,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "15:00: Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours.",
+    "diagnosticResults": "Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours. Clinical interpretation: Severe dehydration with poor perfusion; urgent IV resuscitation.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -6196,10 +6012,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "15:00: Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours. Clinical interpretation: Severe dehydration with poor perfusion; urgent IV resuscitation."
         ]
       }
     },
@@ -6271,7 +6087,7 @@
         "Glucose, electrolytes, weight, and fluid response"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Pediatric dehydration and fluid resuscitation.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. The likely condition is Severe dehydration with impaired perfusion from gastroenteritis. Priority actions: Administer prescribed isotonic IV fluid and reassess perfusion.; Monitor glucose, electrolytes, urine output, and weight.. Monitor: Mental status, heart rate, capillary refill, blood pressure, and urine output; Glucose, electrolytes, weight, and fluid response.",
     "optionRationales": {
       "condition": "Severe dehydration with impaired perfusion from gastroenteritis",
       "actions": "These actions address the immediate threat.",
@@ -6306,8 +6122,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "15:00: Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours.",
+    "diagnosticResults": "Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours. Clinical interpretation: Severe dehydration with poor perfusion; urgent IV resuscitation.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -6324,10 +6140,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "15:00: Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours. Clinical interpretation: Severe dehydration with poor perfusion; urgent IV resuscitation."
         ]
       }
     },
@@ -6435,7 +6251,7 @@
       "Monitor urine output and electrolytes.",
       "Start oral rehydration when alert and able to tolerate it."
     ],
-    "rationale": "This item assesses take action in the context of Pediatric dehydration and fluid resuscitation.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. Appropriate responses: Initiate prescribed isotonic fluid resuscitation and reassess.; Monitor urine output and electrolytes.; Start oral rehydration when alert and able to tolerate it.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Initiate prescribed isotonic fluid resuscitation and reassess.": "Correct. This supports immediate safety and treatment.",
       "Monitor urine output and electrolytes.": "Correct. This supports immediate safety and treatment.",
@@ -6471,8 +6287,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After resuscitation: Alert, capillary refill 2 seconds, urine output resumes.",
+    "diagnosticResults": "Alert, capillary refill 2 seconds, urine output resumes. Clinical interpretation: Perfusion improving; continue replacement and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -6489,10 +6305,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After resuscitation: Alert, capillary refill 2 seconds, urine output resumes."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Alert, capillary refill 2 seconds, urine output resumes. Clinical interpretation: Perfusion improving; continue replacement and monitor."
         ]
       }
     },
@@ -6554,9 +6370,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Assess hydration and initiate appropriate rehydration.",
-    "rationale": "This item assesses evaluate outcomes in the context of Pediatric dehydration and fluid resuscitation.",
+    "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Assess hydration and initiate appropriate rehydration.": "Correct. Vomiting and diarrhea; dry mouth; capillary refill 3 seconds; alert. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Severe dehydration with poor perfusion; urgent IV resuscitation.": "Correct. Lethargic, capillary refill 5 seconds, tachycardia, no urine for 10 hours. This interpretation matches the clinical progression.",
+      "Perfusion improving; continue replacement and monitor.": "Correct. Alert, capillary refill 2 seconds, urine output resumes. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -6587,8 +6408,8 @@
     "providerOrders": "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate.",
     "nursingNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
     "nursesNotes": "18-month-old with vomiting and diarrhea is lethargic, has dry mucosa, delayed capillary refill, and reduced urine output.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After resuscitation: Alert, capillary refill 2 seconds, urine output resumes.",
+    "diagnosticResults": "Alert, capillary refill 2 seconds, urine output resumes. Clinical interpretation: Perfusion improving; continue replacement and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-016",
       "patientProfile": {
@@ -6605,10 +6426,10 @@
           "Assess perfusion and weight; prescribed isotonic IV fluid for shock; monitor glucose and electrolytes; reassess frequently; oral rehydration when appropriate."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After resuscitation: Alert, capillary refill 2 seconds, urine output resumes."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Alert, capillary refill 2 seconds, urine output resumes. Clinical interpretation: Perfusion improving; continue replacement and monitor."
         ]
       }
     },
@@ -6686,7 +6507,7 @@
       "id": "QR-CS-017",
       "title": "Newborn Hypoglycemia in an At-Risk Infant",
       "summary": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -6703,7 +6524,7 @@
       "jitter",
       "feed"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. Priority cues: Bedside glucose 28 mg/dL; Jitteriness; Poor feeding and weak suck. Together they identify the key clinical threat.",
     "optionRationales": {
       "glucose": "This cue contributes to recognition of the immediate clinical threat.",
       "jitter": "This cue contributes to recognition of the immediate clinical threat.",
@@ -6739,8 +6560,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring. Bedside glucose 28 mg/dL. Jitteriness. Poor feeding and weak suck. Strong cry when stimulated.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring. Bedside glucose 28 mg/dL. Jitteriness. Poor feeding and weak suck. Strong cry when stimulated.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "02:00: At-risk infant; screening glucose 42 mg/dL; asymptomatic.",
+    "diagnosticResults": "At-risk infant; screening glucose 42 mg/dL; asymptomatic. Clinical interpretation: Follow screening and feeding protocol with reassessment.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -6757,10 +6578,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "02:00: At-risk infant; screening glucose 42 mg/dL; asymptomatic."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "At-risk infant; screening glucose 42 mg/dL; asymptomatic. Clinical interpretation: Follow screening and feeding protocol with reassessment."
         ]
       }
     },
@@ -6786,38 +6607,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "glucose",
-        "text": "Bedside glucose 28 mg/dL"
-      },
-      {
-        "id": "jitter",
-        "text": "Jitteriness"
-      },
-      {
-        "id": "feed",
-        "text": "Poor feeding and weak suck"
-      },
-      {
-        "id": "cry",
-        "text": "Strong cry when stimulated"
-      }
-    ],
-    "columns": [
-      "Low glucose requiring immediate protocol-based response",
-      "Possible symptomatic hypoglycemia",
-      "May impair safe oral intake",
-      "Does not rule out hypoglycemia"
-    ],
-    "correctAnswers": {
-      "glucose": "Low glucose requiring immediate protocol-based response",
-      "jitter": "Possible symptomatic hypoglycemia",
-      "feed": "May impair safe oral intake",
-      "cry": "Does not rule out hypoglycemia"
     },
     "highlightText": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring. Bedside glucose 28 mg/dL. Jitteriness. Poor feeding and weak suck. Strong cry when stimulated.",
     "highlightSegments": [
@@ -6873,7 +6662,7 @@
       "feed": "May impair safe oral intake",
       "cry": "Does not rule out hypoglycemia"
     },
-    "rationale": "This item assesses analyze cues in the context of Neonatal hypoglycemia.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. Apply the classification to each finding: glucose — Low glucose requiring immediate protocol-based response; jitter — Possible symptomatic hypoglycemia; feed — May impair safe oral intake; cry — Does not rule out hypoglycemia.",
     "optionRationales": {
       "glucose": "Low glucose requiring immediate protocol-based response",
       "jitter": "Possible symptomatic hypoglycemia",
@@ -6909,8 +6698,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "02:00: At-risk infant; screening glucose 42 mg/dL; asymptomatic.",
+    "diagnosticResults": "At-risk infant; screening glucose 42 mg/dL; asymptomatic. Clinical interpretation: Follow screening and feeding protocol with reassessment.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -6927,10 +6716,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "02:00: At-risk infant; screening glucose 42 mg/dL; asymptomatic."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "At-risk infant; screening glucose 42 mg/dL; asymptomatic. Clinical interpretation: Follow screening and feeding protocol with reassessment."
         ]
       }
     },
@@ -7050,7 +6839,7 @@
       "Assess symptoms and ability to feed safely.",
       "Prepare treatment based on symptoms and protocol."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Neonatal hypoglycemia.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. Appropriate responses: Initiate neonatal hypoglycemia protocol and notify clinician.; Assess symptoms and ability to feed safely.; Prepare treatment based on symptoms and protocol.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Initiate neonatal hypoglycemia protocol and notify clinician.": "Correct priority for the current clinical threat.",
       "Assess symptoms and ability to feed safely.": "Correct priority for the current clinical threat.",
@@ -7087,8 +6876,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "03:00: Jittery, weak suck, bedside glucose 28 mg/dL.",
+    "diagnosticResults": "Jittery, weak suck, bedside glucose 28 mg/dL. Clinical interpretation: Symptomatic hypoglycemia; immediate protocol-based treatment.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -7105,10 +6894,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "03:00: Jittery, weak suck, bedside glucose 28 mg/dL."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Jittery, weak suck, bedside glucose 28 mg/dL. Clinical interpretation: Symptomatic hypoglycemia; immediate protocol-based treatment."
         ]
       }
     },
@@ -7180,7 +6969,7 @@
         "Feeding tolerance, temperature, and response to treatment"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Neonatal hypoglycemia.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. The likely condition is Symptomatic neonatal hypoglycemia in an infant of a diabetic mother. Priority actions: Provide protocol-directed glucose treatment; IV dextrose when indicated.; Recheck glucose at protocol-defined interval and assess neurologic status.. Monitor: Repeat glucose and neurologic symptoms; Feeding tolerance, temperature, and response to treatment.",
     "optionRationales": {
       "condition": "Symptomatic neonatal hypoglycemia in an infant of a diabetic mother",
       "actions": "These actions address the immediate threat.",
@@ -7215,8 +7004,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "03:00: Jittery, weak suck, bedside glucose 28 mg/dL.",
+    "diagnosticResults": "Jittery, weak suck, bedside glucose 28 mg/dL. Clinical interpretation: Symptomatic hypoglycemia; immediate protocol-based treatment.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -7233,10 +7022,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "03:00: Jittery, weak suck, bedside glucose 28 mg/dL."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Jittery, weak suck, bedside glucose 28 mg/dL. Clinical interpretation: Symptomatic hypoglycemia; immediate protocol-based treatment."
         ]
       }
     },
@@ -7344,7 +7133,7 @@
       "Treat promptly according to symptoms and protocol.",
       "Recheck glucose and document response."
     ],
-    "rationale": "This item assesses take action in the context of Neonatal hypoglycemia.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. Appropriate responses: Notify neonatal clinician and implement protocol.; Treat promptly according to symptoms and protocol.; Recheck glucose and document response.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Notify neonatal clinician and implement protocol.": "Correct. This supports immediate safety and treatment.",
       "Treat promptly according to symptoms and protocol.": "Correct. This supports immediate safety and treatment.",
@@ -7380,8 +7169,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Glucose 55 mg/dL and jitteriness resolves.",
+    "diagnosticResults": "Glucose 55 mg/dL and jitteriness resolves. Clinical interpretation: Initial response reassuring; continue repeat checks and feeding support.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -7398,10 +7187,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Glucose 55 mg/dL and jitteriness resolves."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Glucose 55 mg/dL and jitteriness resolves. Clinical interpretation: Initial response reassuring; continue repeat checks and feeding support."
         ]
       }
     },
@@ -7463,9 +7252,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Follow screening and feeding protocol with reassessment.",
-    "rationale": "This item assesses evaluate outcomes in the context of Neonatal hypoglycemia.",
+    "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Follow screening and feeding protocol with reassessment.": "Correct. At-risk infant; screening glucose 42 mg/dL; asymptomatic. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Symptomatic hypoglycemia; immediate protocol-based treatment.": "Correct. Jittery, weak suck, bedside glucose 28 mg/dL. This interpretation matches the clinical progression.",
+      "Initial response reassuring; continue repeat checks and feeding support.": "Correct. Glucose 55 mg/dL and jitteriness resolves. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -7496,8 +7290,8 @@
     "providerOrders": "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose.",
     "nursingNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
     "nursesNotes": "Large-for-gestational-age newborn of a diabetic mother becomes jittery and has low bedside glucose during early monitoring.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: Glucose 55 mg/dL and jitteriness resolves.",
+    "diagnosticResults": "Glucose 55 mg/dL and jitteriness resolves. Clinical interpretation: Initial response reassuring; continue repeat checks and feeding support.",
     "stimulus": {
       "caseGroupId": "QR-CS-017",
       "patientProfile": {
@@ -7514,10 +7308,10 @@
           "Follow neonatal hypoglycemia protocol; confirm bedside result per policy without delaying symptomatic treatment; feed, dextrose gel, or IV dextrose per symptoms and protocol; recheck glucose."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: Glucose 55 mg/dL and jitteriness resolves."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Glucose 55 mg/dL and jitteriness resolves. Clinical interpretation: Initial response reassuring; continue repeat checks and feeding support."
         ]
       }
     },
@@ -7595,7 +7389,7 @@
       "id": "QR-CS-018",
       "title": "Ruptured Ectopic Pregnancy With Hemorrhagic Shock",
       "summary": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -7612,7 +7406,7 @@
       "shoulder",
       "bp"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. Priority cues: Sudden unilateral pelvic pain; Shoulder-tip pain; BP 80/46 mmHg. Together they identify the key clinical threat.",
     "optionRationales": {
       "pain": "This cue contributes to recognition of the immediate clinical threat.",
       "shoulder": "This cue contributes to recognition of the immediate clinical threat.",
@@ -7648,8 +7442,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension. Sudden unilateral pelvic pain. Shoulder-tip pain. BP 80/46 mmHg. Scant vaginal spotting.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension. Sudden unilateral pelvic pain. Shoulder-tip pain. BP 80/46 mmHg. Scant vaginal spotting.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:00: Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg.",
+    "diagnosticResults": "Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg. Clinical interpretation: Urgent evaluation for ectopic pregnancy.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -7666,10 +7460,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:00: Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg. Clinical interpretation: Urgent evaluation for ectopic pregnancy."
         ]
       }
     },
@@ -7695,38 +7489,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "pain",
-        "text": "Sudden unilateral pelvic pain"
-      },
-      {
-        "id": "shoulder",
-        "text": "Shoulder-tip pain"
-      },
-      {
-        "id": "bp",
-        "text": "BP 80/46 mmHg"
-      },
-      {
-        "id": "spot",
-        "text": "Scant vaginal spotting"
-      }
-    ],
-    "columns": [
-      "Possible ectopic pregnancy complication",
-      "Possible diaphragmatic irritation from intraperitoneal blood",
-      "Hemodynamic instability",
-      "Visible blood may underestimate internal hemorrhage"
-    ],
-    "correctAnswers": {
-      "pain": "Possible ectopic pregnancy complication",
-      "shoulder": "Possible diaphragmatic irritation from intraperitoneal blood",
-      "bp": "Hemodynamic instability",
-      "spot": "Visible blood may underestimate internal hemorrhage"
     },
     "highlightText": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension. Sudden unilateral pelvic pain. Shoulder-tip pain. BP 80/46 mmHg. Scant vaginal spotting.",
     "highlightSegments": [
@@ -7782,7 +7544,7 @@
       "bp": "Hemodynamic instability",
       "spot": "Visible blood may underestimate internal hemorrhage"
     },
-    "rationale": "This item assesses analyze cues in the context of Ectopic pregnancy.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. Apply the classification to each finding: pain — Possible ectopic pregnancy complication; shoulder — Possible diaphragmatic irritation from intraperitoneal blood; bp — Hemodynamic instability; spot — Visible blood may underestimate internal hemorrhage.",
     "optionRationales": {
       "pain": "Possible ectopic pregnancy complication",
       "shoulder": "Possible diaphragmatic irritation from intraperitoneal blood",
@@ -7818,8 +7580,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:00: Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg.",
+    "diagnosticResults": "Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg. Clinical interpretation: Urgent evaluation for ectopic pregnancy.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -7836,10 +7598,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:00: Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg. Clinical interpretation: Urgent evaluation for ectopic pregnancy."
         ]
       }
     },
@@ -7959,7 +7721,7 @@
       "Support circulation and prepare urgent surgical management.",
       "Keep NPO and establish IV access."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Ectopic pregnancy.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. Appropriate responses: Recognize possible rupture and hemorrhagic shock; activate response.; Support circulation and prepare urgent surgical management.; Keep NPO and establish IV access.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Recognize possible rupture and hemorrhagic shock; activate response.": "Correct priority for the current clinical threat.",
       "Support circulation and prepare urgent surgical management.": "Correct priority for the current clinical threat.",
@@ -7996,8 +7758,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:30: Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg.",
+    "diagnosticResults": "Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg. Clinical interpretation: Suspect rupture with internal hemorrhage; emergency response.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -8014,10 +7776,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:30: Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg. Clinical interpretation: Suspect rupture with internal hemorrhage; emergency response."
         ]
       }
     },
@@ -8089,7 +7851,7 @@
         "Hemoglobin, type and crossmatch, and resuscitation response"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Ectopic pregnancy.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. The likely condition is Ruptured ectopic pregnancy with suspected intra-abdominal hemorrhage. Priority actions: Prepare urgent surgery and blood-product resuscitation as prescribed.; Support circulation, IV access, and hemodynamic monitoring.. Monitor: Blood pressure, heart rate, mental status, and ongoing hemorrhage; Hemoglobin, type and crossmatch, and resuscitation response.",
     "optionRationales": {
       "condition": "Ruptured ectopic pregnancy with suspected intra-abdominal hemorrhage",
       "actions": "These actions address the immediate threat.",
@@ -8124,8 +7886,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "09:30: Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg.",
+    "diagnosticResults": "Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg. Clinical interpretation: Suspect rupture with internal hemorrhage; emergency response.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -8142,10 +7904,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "09:30: Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg. Clinical interpretation: Suspect rupture with internal hemorrhage; emergency response."
         ]
       }
     },
@@ -8253,7 +8015,7 @@
       "Maintain NPO and establish IV access.",
       "Prepare urgent operative management and blood products."
     ],
-    "rationale": "This item assesses take action in the context of Ectopic pregnancy.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. Appropriate responses: Activate emergency obstetric and surgical response.; Maintain NPO and establish IV access.; Prepare urgent operative management and blood products.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Activate emergency obstetric and surgical response.": "Correct. This supports immediate safety and treatment.",
       "Maintain NPO and establish IV access.": "Correct. This supports immediate safety and treatment.",
@@ -8289,8 +8051,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After surgery: BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation.",
+    "diagnosticResults": "BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation. Clinical interpretation: Hemodynamic stabilization; continue postoperative surveillance.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -8307,10 +8069,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After surgery: BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation. Clinical interpretation: Hemodynamic stabilization; continue postoperative surveillance."
         ]
       }
     },
@@ -8372,9 +8134,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Urgent evaluation for ectopic pregnancy.",
-    "rationale": "This item assesses evaluate outcomes in the context of Ectopic pregnancy.",
+    "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Urgent evaluation for ectopic pregnancy.": "Correct. Positive pregnancy test, unilateral pain, scant spotting, BP 108/68 mmHg. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Suspect rupture with internal hemorrhage; emergency response.": "Correct. Shoulder-tip pain, pallor, near-syncope, BP 80/46 mmHg. This interpretation matches the clinical progression.",
+      "Hemodynamic stabilization; continue postoperative surveillance.": "Correct. BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -8405,8 +8172,8 @@
     "providerOrders": "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO.",
     "nursingNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
     "nursesNotes": "29-year-old with 7 weeks amenorrhea presents with unilateral pelvic pain, shoulder-tip pain, dizziness, and hypotension.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After surgery: BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation.",
+    "diagnosticResults": "BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation. Clinical interpretation: Hemodynamic stabilization; continue postoperative surveillance.",
     "stimulus": {
       "caseGroupId": "QR-CS-018",
       "patientProfile": {
@@ -8423,10 +8190,10 @@
           "Emergency obstetric response; IV access; blood products and urgent surgical evaluation; hemodynamic monitoring; NPO."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After surgery: BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 110/70 mmHg, alert, pain reduced after surgery and resuscitation. Clinical interpretation: Hemodynamic stabilization; continue postoperative surveillance."
         ]
       }
     },
@@ -8504,7 +8271,7 @@
       "id": "QR-CS-019",
       "title": "Postpartum Endometritis Progressing to Sepsis",
       "summary": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -8521,7 +8288,7 @@
       "uterus",
       "lochia"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. Priority cues: Temperature 39.2°C; Fundal tenderness; Foul-smelling lochia. Together they identify the key clinical threat.",
     "optionRationales": {
       "fever": "This cue contributes to recognition of the immediate clinical threat.",
       "uterus": "This cue contributes to recognition of the immediate clinical threat.",
@@ -8557,8 +8324,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia. Temperature 39.2°C. Fundal tenderness. Foul-smelling lochia. Breast fullness without erythema.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia. Temperature 39.2°C. Fundal tenderness. Foul-smelling lochia. Breast fullness without erythema.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "07:00: Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia.",
+    "diagnosticResults": "Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia. Clinical interpretation: Suspect endometritis; promptly notify provider.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -8575,10 +8342,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "07:00: Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia. Clinical interpretation: Suspect endometritis; promptly notify provider."
         ]
       }
     },
@@ -8604,38 +8371,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "fever",
-        "text": "Temperature 39.2°C"
-      },
-      {
-        "id": "uterus",
-        "text": "Fundal tenderness"
-      },
-      {
-        "id": "lochia",
-        "text": "Foul-smelling lochia"
-      },
-      {
-        "id": "milk",
-        "text": "Breast fullness without erythema"
-      }
-    ],
-    "columns": [
-      "Systemic infection cue",
-      "Supports uterine infection",
-      "Supports postpartum endometritis",
-      "Not the leading source suggested by this pattern"
-    ],
-    "correctAnswers": {
-      "fever": "Systemic infection cue",
-      "uterus": "Supports uterine infection",
-      "lochia": "Supports postpartum endometritis",
-      "milk": "Not the leading source suggested by this pattern"
     },
     "highlightText": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia. Temperature 39.2°C. Fundal tenderness. Foul-smelling lochia. Breast fullness without erythema.",
     "highlightSegments": [
@@ -8691,7 +8426,7 @@
       "lochia": "Supports postpartum endometritis",
       "milk": "Not the leading source suggested by this pattern"
     },
-    "rationale": "This item assesses analyze cues in the context of Postpartum endometritis and sepsis.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. Apply the classification to each finding: fever — Systemic infection cue; uterus — Supports uterine infection; lochia — Supports postpartum endometritis; milk — Not the leading source suggested by this pattern.",
     "optionRationales": {
       "fever": "Systemic infection cue",
       "uterus": "Supports uterine infection",
@@ -8727,8 +8462,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "07:00: Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia.",
+    "diagnosticResults": "Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia. Clinical interpretation: Suspect endometritis; promptly notify provider.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -8745,10 +8480,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "07:00: Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia. Clinical interpretation: Suspect endometritis; promptly notify provider."
         ]
       }
     },
@@ -8868,7 +8603,7 @@
       "Notify obstetric team and obtain ordered cultures promptly.",
       "Prepare prescribed IV antibiotics and fluid resuscitation."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Postpartum endometritis and sepsis.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. Appropriate responses: Recognize postpartum uterine infection and possible systemic progression.; Notify obstetric team and obtain ordered cultures promptly.; Prepare prescribed IV antibiotics and fluid resuscitation.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Recognize postpartum uterine infection and possible systemic progression.": "Correct priority for the current clinical threat.",
       "Notify obstetric team and obtain ordered cultures promptly.": "Correct priority for the current clinical threat.",
@@ -8905,8 +8640,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:00: Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L.",
+    "diagnosticResults": "Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L. Clinical interpretation: Possible sepsis with impaired perfusion; urgent escalation.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -8923,10 +8658,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:00: Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L. Clinical interpretation: Possible sepsis with impaired perfusion; urgent escalation."
         ]
       }
     },
@@ -8998,7 +8733,7 @@
         "Uterine tenderness, lochia, and antibiotic response"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Postpartum endometritis and sepsis.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. The likely condition is Postpartum endometritis with possible sepsis. Priority actions: Obtain ordered cultures promptly without delaying time-critical antibiotics.; Administer prescribed IV broad-spectrum antibiotics and fluids.. Monitor: Temperature, heart rate, blood pressure, lactate, and urine output; Uterine tenderness, lochia, and antibiotic response.",
     "optionRationales": {
       "condition": "Postpartum endometritis with possible sepsis",
       "actions": "These actions address the immediate threat.",
@@ -9033,8 +8768,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "08:00: Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L.",
+    "diagnosticResults": "Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L. Clinical interpretation: Possible sepsis with impaired perfusion; urgent escalation.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -9051,10 +8786,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "08:00: Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L. Clinical interpretation: Possible sepsis with impaired perfusion; urgent escalation."
         ]
       }
     },
@@ -9162,7 +8897,7 @@
       "Obtain ordered cultures and lactate promptly.",
       "Administer prescribed IV antibiotics and fluids."
     ],
-    "rationale": "This item assesses take action in the context of Postpartum endometritis and sepsis.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. Appropriate responses: Notify obstetric team and activate sepsis pathway if indicated.; Obtain ordered cultures and lactate promptly.; Administer prescribed IV antibiotics and fluids.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Notify obstetric team and activate sepsis pathway if indicated.": "Correct. This supports immediate safety and treatment.",
       "Obtain ordered cultures and lactate promptly.": "Correct. This supports immediate safety and treatment.",
@@ -9198,8 +8933,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving.",
+    "diagnosticResults": "BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving. Clinical interpretation: Improving response; continue antibiotics and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -9216,10 +8951,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving. Clinical interpretation: Improving response; continue antibiotics and monitor."
         ]
       }
     },
@@ -9281,9 +9016,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Suspect endometritis; promptly notify provider.",
-    "rationale": "This item assesses evaluate outcomes in the context of Postpartum endometritis and sepsis.",
+    "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Suspect endometritis; promptly notify provider.": "Correct. Postpartum day 3; temperature 38.1°C, uterine tenderness, malodorous lochia. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Possible sepsis with impaired perfusion; urgent escalation.": "Correct. Temperature 39.2°C, HR 126/min, BP 90/54 mmHg, lactate 3.5 mmol/L. This interpretation matches the clinical progression.",
+      "Improving response; continue antibiotics and monitor.": "Correct. BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -9314,8 +9054,8 @@
     "providerOrders": "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics.",
     "nursingNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
     "nursesNotes": "32-year-old on postpartum day 3 after cesarean birth develops fever, uterine tenderness, foul lochia, and tachycardia.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After treatment: BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving.",
+    "diagnosticResults": "BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving. Clinical interpretation: Improving response; continue antibiotics and monitor.",
     "stimulus": {
       "caseGroupId": "QR-CS-019",
       "patientProfile": {
@@ -9332,10 +9072,10 @@
           "Notify obstetric team; obtain ordered cultures and lactate; prescribed broad-spectrum IV antibiotics and fluids; monitor urine output and hemodynamics."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After treatment: BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "BP 112/68 mmHg, HR 96/min, temperature decreasing, urine output improving. Clinical interpretation: Improving response; continue antibiotics and monitor."
         ]
       }
     },
@@ -9413,7 +9153,7 @@
       "id": "QR-CS-020",
       "title": "Suicide Risk Assessment and Immediate Safety Planning",
       "summary": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-      "stepIndex": 2,
+      "stepIndex": 1,
       "stepCount": 6
     },
     "isNGN": true,
@@ -9430,7 +9170,7 @@
       "means",
       "withdraw"
     ],
-    "rationale": "Select the assessment findings that support recognition of the immediate clinical threat.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. Priority cues: Current suicidal thoughts with a specific plan; Access to means identified in plan; Marked social withdrawal. Together they identify the key clinical threat.",
     "optionRationales": {
       "plan": "This cue contributes to recognition of the immediate clinical threat.",
       "means": "This cue contributes to recognition of the immediate clinical threat.",
@@ -9466,8 +9206,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live. Current suicidal thoughts with a specific plan. Access to means identified in plan. Marked social withdrawal. Identifies trusted support.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live. Current suicidal thoughts with a specific plan. Access to means identified in plan. Marked social withdrawal. Identifies trusted support.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "13:00: Client expresses hopelessness but has not answered direct questions about intent or plan.",
+    "diagnosticResults": "Client expresses hopelessness but has not answered direct questions about intent or plan. Clinical interpretation: Ask directly and compassionately about thoughts, intent, plan, and access to means.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -9484,10 +9224,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "13:00: Client expresses hopelessness but has not answered direct questions about intent or plan."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client expresses hopelessness but has not answered direct questions about intent or plan. Clinical interpretation: Ask directly and compassionately about thoughts, intent, plan, and access to means."
         ]
       }
     },
@@ -9513,38 +9253,6 @@
       "scoring": {
         "method": "plus_minus"
       }
-    },
-    "matrixLeftPane": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "matrixTask": "Classify each clinical finding.",
-    "rows": [
-      {
-        "id": "plan",
-        "text": "Current suicidal thoughts with a specific plan"
-      },
-      {
-        "id": "means",
-        "text": "Access to means identified in plan"
-      },
-      {
-        "id": "withdraw",
-        "text": "Marked social withdrawal"
-      },
-      {
-        "id": "support",
-        "text": "Identifies trusted support"
-      }
-    ],
-    "columns": [
-      "High-acuity risk cue requiring immediate assessment",
-      "Increases immediate safety concern",
-      "Relevant risk cue",
-      "Potential protective factor, not a reason to dismiss risk"
-    ],
-    "correctAnswers": {
-      "plan": "High-acuity risk cue requiring immediate assessment",
-      "means": "Increases immediate safety concern",
-      "withdraw": "Relevant risk cue",
-      "support": "Potential protective factor, not a reason to dismiss risk"
     },
     "highlightText": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live. Current suicidal thoughts with a specific plan. Access to means identified in plan. Marked social withdrawal. Identifies trusted support.",
     "highlightSegments": [
@@ -9600,7 +9308,7 @@
       "withdraw": "Relevant risk cue",
       "support": "Potential protective factor, not a reason to dismiss risk"
     },
-    "rationale": "This item assesses analyze cues in the context of Suicide risk and therapeutic safety.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. Apply the classification to each finding: plan — High-acuity risk cue requiring immediate assessment; means — Increases immediate safety concern; withdraw — Relevant risk cue; support — Potential protective factor, not a reason to dismiss risk.",
     "optionRationales": {
       "plan": "High-acuity risk cue requiring immediate assessment",
       "means": "Increases immediate safety concern",
@@ -9636,8 +9344,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "13:00: Client expresses hopelessness but has not answered direct questions about intent or plan.",
+    "diagnosticResults": "Client expresses hopelessness but has not answered direct questions about intent or plan. Clinical interpretation: Ask directly and compassionately about thoughts, intent, plan, and access to means.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -9654,10 +9362,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "13:00: Client expresses hopelessness but has not answered direct questions about intent or plan."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client expresses hopelessness but has not answered direct questions about intent or plan. Clinical interpretation: Ask directly and compassionately about thoughts, intent, plan, and access to means."
         ]
       }
     },
@@ -9777,7 +9485,7 @@
       "Ask directly about thoughts, plan, intent, and access to means.",
       "Arrange urgent behavioral health evaluation and collaborative safety planning."
     ],
-    "rationale": "This item assesses prioritize hypotheses in the context of Suicide risk and therapeutic safety.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. Appropriate responses: Maintain immediate safety and observation based on risk and policy.; Ask directly about thoughts, plan, intent, and access to means.; Arrange urgent behavioral health evaluation and collaborative safety planning.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Maintain immediate safety and observation based on risk and policy.": "Correct priority for the current clinical threat.",
       "Ask directly about thoughts, plan, intent, and access to means.": "Correct priority for the current clinical threat.",
@@ -9814,8 +9522,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "13:20: Client confirms current suicidal thoughts, a specific plan, and access to means.",
+    "diagnosticResults": "Client confirms current suicidal thoughts, a specific plan, and access to means. Clinical interpretation: Acute safety emergency; initiate observation and urgent behavioral health response.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -9832,10 +9540,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "13:20: Client confirms current suicidal thoughts, a specific plan, and access to means."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client confirms current suicidal thoughts, a specific plan, and access to means. Clinical interpretation: Acute safety emergency; initiate observation and urgent behavioral health response."
         ]
       }
     },
@@ -9907,7 +9615,7 @@
         "Engagement, observation needs, and safe disposition"
       ]
     },
-    "rationale": "This item assesses generate solutions in the context of Suicide risk and therapeutic safety.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. The likely condition is Acute suicide risk requiring immediate safety assessment and protective interventions. Priority actions: Maintain safe environment and observation based on assessed risk.; Complete direct, nonjudgmental assessment and urgent behavioral health referral.. Monitor: Current suicidal thoughts, intent, plan, access to means, and behavior; Engagement, observation needs, and safe disposition.",
     "optionRationales": {
       "condition": "Acute suicide risk requiring immediate safety assessment and protective interventions",
       "actions": "These actions address the immediate threat.",
@@ -9942,8 +9650,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "13:20: Client confirms current suicidal thoughts, a specific plan, and access to means.",
+    "diagnosticResults": "Client confirms current suicidal thoughts, a specific plan, and access to means. Clinical interpretation: Acute safety emergency; initiate observation and urgent behavioral health response.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -9960,10 +9668,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "13:20: Client confirms current suicidal thoughts, a specific plan, and access to means."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client confirms current suicidal thoughts, a specific plan, and access to means. Clinical interpretation: Acute safety emergency; initiate observation and urgent behavioral health response."
         ]
       }
     },
@@ -10071,7 +9779,7 @@
       "Secure hazards according to facility protocol and assessed risk.",
       "Notify behavioral health team and document direct assessment."
     ],
-    "rationale": "This item assesses take action in the context of Suicide risk and therapeutic safety.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. Appropriate responses: Ensure required observation level and immediate safety.; Secure hazards according to facility protocol and assessed risk.; Notify behavioral health team and document direct assessment.. These address the immediate threat without delaying care.",
     "optionRationales": {
       "Ensure required observation level and immediate safety.": "Correct. This supports immediate safety and treatment.",
       "Secure hazards according to facility protocol and assessed risk.": "Correct. This supports immediate safety and treatment.",
@@ -10107,8 +9815,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After evaluation: Client is in a protected setting, engaged with team, and safety/disposition planning is underway.",
+    "diagnosticResults": "Client is in a protected setting, engaged with team, and safety/disposition planning is underway. Clinical interpretation: Maintain safety measures and reassess; do not rely on a verbal promise.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -10125,10 +9833,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After evaluation: Client is in a protected setting, engaged with team, and safety/disposition planning is underway."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client is in a protected setting, engaged with team, and safety/disposition planning is underway. Clinical interpretation: Maintain safety measures and reassess; do not rely on a verbal promise."
         ]
       }
     },
@@ -10190,9 +9898,14 @@
       "Delay action until all pending tests are finalized."
     ],
     "correctAnswer": "Ask directly and compassionately about thoughts, intent, plan, and access to means.",
-    "rationale": "This item assesses evaluate outcomes in the context of Suicide risk and therapeutic safety.",
+    "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment.",
     "optionRationales": {
-      "undefined": "Correct interpretation of the patient's status at this time point."
+      "Ask directly and compassionately about thoughts, intent, plan, and access to means.": "Correct. Client expresses hopelessness but has not answered direct questions about intent or plan. This interpretation matches the clinical progression.",
+      "The findings are expected and require no further assessment.": "Incorrect. The evolving abnormal findings are not expected and require reassessment.",
+      "The client is stable and can be discharged without reassessment.": "Incorrect. The client has not demonstrated sustained stability or completed treatment and reassessment.",
+      "Delay action until all pending tests are finalized.": "Incorrect. Delaying action during deterioration can cause preventable harm.",
+      "Acute safety emergency; initiate observation and urgent behavioral health response.": "Correct. Client confirms current suicidal thoughts, a specific plan, and access to means. This interpretation matches the clinical progression.",
+      "Maintain safety measures and reassess; do not rely on a verbal promise.": "Correct. Client is in a protected setting, engaged with team, and safety/disposition planning is underway. This interpretation matches the clinical progression."
     },
     "clinicalJudgmentTip": "Compare chronological findings to determine whether the patient is improving or deteriorating.",
     "sourceReferences": [
@@ -10223,8 +9936,8 @@
     "providerOrders": "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition.",
     "nursingNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
     "nursesNotes": "19-year-old presents with severe depression, hopelessness, and a recent statement about not wanting to live.",
-    "vitalSigns": "Evolving vital signs are displayed at each step of this linked case.",
-    "diagnosticResults": "See the evolving diagnostic results and assessment findings in the case.",
+    "vitalSigns": "After evaluation: Client is in a protected setting, engaged with team, and safety/disposition planning is underway.",
+    "diagnosticResults": "Client is in a protected setting, engaged with team, and safety/disposition planning is underway. Clinical interpretation: Maintain safety measures and reassess; do not rely on a verbal promise.",
     "stimulus": {
       "caseGroupId": "QR-CS-020",
       "patientProfile": {
@@ -10241,10 +9954,10 @@
           "Complete direct suicide risk assessment; observation based on risk and policy; remove hazards per protocol; involve behavioral health team; collaborative safety planning and disposition."
         ],
         "vitalSigns": [
-          "Evolving vital signs are displayed at each step of this linked case."
+          "After evaluation: Client is in a protected setting, engaged with team, and safety/disposition planning is underway."
         ],
         "labResults": [
-          "See the evolving diagnostic results and assessment findings in the case."
+          "Client is in a protected setting, engaged with team, and safety/disposition planning is underway. Clinical interpretation: Maintain safety measures and reassess; do not rely on a verbal promise."
         ]
       }
     },
@@ -10312,6 +10025,7 @@
     }
   }
 ];
+
  bank.push(...cases);
  root.QuickRNLinkedCaseStudies={groups:20,items:120,firstId:'QR-100042',lastId:'QR-100180'};
 })(typeof window!=='undefined'?window:globalThis);
