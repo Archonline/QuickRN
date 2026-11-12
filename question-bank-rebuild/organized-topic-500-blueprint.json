@@ -1,0 +1,3136 @@
+{
+  "title": "QuickRN organized NCLEX topic expansion — 500 original questions",
+  "sourceWorkbook": "QuickRN_YouTube_ID_Mapping.xlsx / Learning Library tab",
+  "topicCount": 417,
+  "topicCoverageRule": "One original standalone question for every Learning Library topic.",
+  "additionalStandaloneCount": 23,
+  "additionalStandaloneTopics": [
+    {
+      "topic": "Asthma and status asthmaticus",
+      "questionId": "QR-100598",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Sepsis and septic shock",
+      "questionId": "QR-100599",
+      "format": "Multiple Response",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Acute coronary syndrome and myocardial infarction",
+      "questionId": "QR-100600",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "COPD exacerbation",
+      "questionId": "QR-100601",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Pulmonary embolism",
+      "questionId": "QR-100602",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Stroke and thrombolytic care",
+      "questionId": "QR-100603",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Diabetic ketoacidosis",
+      "questionId": "QR-100604",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Thyroid storm and myxedema",
+      "questionId": "QR-100605",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Adrenal crisis",
+      "questionId": "QR-100606",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Acute kidney injury",
+      "questionId": "QR-100607",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Electrolyte imbalances",
+      "questionId": "QR-100608",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "GI bleeding",
+      "questionId": "QR-100609",
+      "format": "Numeric Entry",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Pancreatitis",
+      "questionId": "QR-100610",
+      "format": "Extended Multiple Response",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Fractures and compartment syndrome",
+      "questionId": "QR-100611",
+      "format": "Bowtie",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Anemia and transfusion reactions",
+      "questionId": "QR-100612",
+      "format": "Matrix Single",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Neutropenic fever and oncologic emergencies",
+      "questionId": "QR-100613",
+      "format": "Numeric Entry",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Anaphylaxis and angioedema",
+      "questionId": "QR-100614",
+      "format": "Bowtie",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Opioid safety and respiratory depression",
+      "questionId": "QR-100615",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Preeclampsia and eclampsia",
+      "questionId": "QR-100616",
+      "format": "Cloze (Drop-down)",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Placenta previa vs placental abruption",
+      "questionId": "QR-100617",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Postpartum hemorrhage",
+      "questionId": "QR-100618",
+      "format": "Matrix Multiple",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Ectopic pregnancy",
+      "questionId": "QR-100619",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    },
+    {
+      "topic": "Suicide risk assessment and safety",
+      "questionId": "QR-100620",
+      "format": "Single Choice",
+      "learningObjective": "A distinct clinical decision, complication, teaching, or medication-safety angle"
+    }
+  ],
+  "linkedCaseStudyCount": 10,
+  "linkedCaseQuestionCount": 60,
+  "linkedCases": [
+    {
+      "caseGroupId": "QR-CS-021",
+      "title": "Older adult with evolving sepsis and organ dysfunction",
+      "questionIds": [
+        "QR-100621",
+        "QR-100622",
+        "QR-100623",
+        "QR-100624",
+        "QR-100625",
+        "QR-100626"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-022",
+      "title": "Pediatric status asthmaticus with escalating respiratory failure",
+      "questionIds": [
+        "QR-100627",
+        "QR-100628",
+        "QR-100629",
+        "QR-100630",
+        "QR-100631",
+        "QR-100632"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-023",
+      "title": "Acute ischemic stroke with changing neurologic findings",
+      "questionIds": [
+        "QR-100633",
+        "QR-100634",
+        "QR-100635",
+        "QR-100636",
+        "QR-100637",
+        "QR-100638"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-024",
+      "title": "Postpartum hemorrhage with evolving hemodynamic instability",
+      "questionIds": [
+        "QR-100639",
+        "QR-100640",
+        "QR-100641",
+        "QR-100642",
+        "QR-100643",
+        "QR-100644"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-025",
+      "title": "Diabetic ketoacidosis with potassium and fluid shifts",
+      "questionIds": [
+        "QR-100645",
+        "QR-100646",
+        "QR-100647",
+        "QR-100648",
+        "QR-100649",
+        "QR-100650"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-026",
+      "title": "Acute coronary syndrome with dysrhythmia risk",
+      "questionIds": [
+        "QR-100651",
+        "QR-100652",
+        "QR-100653",
+        "QR-100654",
+        "QR-100655",
+        "QR-100656"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-027",
+      "title": "Myasthenic crisis with impending ventilatory failure",
+      "questionIds": [
+        "QR-100657",
+        "QR-100658",
+        "QR-100659",
+        "QR-100660",
+        "QR-100661",
+        "QR-100662"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-028",
+      "title": "Acute kidney injury with dangerous electrolyte changes",
+      "questionIds": [
+        "QR-100663",
+        "QR-100664",
+        "QR-100665",
+        "QR-100666",
+        "QR-100667",
+        "QR-100668"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-029",
+      "title": "Cirrhosis with acute variceal hemorrhage",
+      "questionIds": [
+        "QR-100669",
+        "QR-100670",
+        "QR-100671",
+        "QR-100672",
+        "QR-100673",
+        "QR-100674"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    },
+    {
+      "caseGroupId": "QR-CS-030",
+      "title": "Suicide risk assessment and immediate behavioral-health safety",
+      "questionIds": [
+        "QR-100675",
+        "QR-100676",
+        "QR-100677",
+        "QR-100678",
+        "QR-100679",
+        "QR-100680"
+      ],
+      "sequence": [
+        {
+          "number": 1,
+          "cjmmStep": "Recognize Cues",
+          "format": "Highlight"
+        },
+        {
+          "number": 2,
+          "cjmmStep": "Analyze Cues",
+          "format": "Matrix Single"
+        },
+        {
+          "number": 3,
+          "cjmmStep": "Prioritize Hypotheses",
+          "format": "Bowtie"
+        },
+        {
+          "number": 4,
+          "cjmmStep": "Generate Solutions",
+          "format": "Select N"
+        },
+        {
+          "number": 5,
+          "cjmmStep": "Take Action",
+          "format": "Extended Drag and Drop"
+        },
+        {
+          "number": 6,
+          "cjmmStep": "Evaluate Outcomes",
+          "format": "Trend"
+        }
+      ]
+    }
+  ],
+  "totalQuestions": 500,
+  "idRange": {
+    "first": "QR-100181",
+    "last": "QR-100680"
+  },
+  "formatTargets": {
+    "Single Choice": 250,
+    "Multiple Response": 70,
+    "Select N": 25,
+    "Matrix Single": 25,
+    "Matrix Multiple": 20,
+    "Cloze (Drop-down)": 20,
+    "Dropdown Rationale": 10,
+    "Bowtie": 20,
+    "Extended Drag and Drop": 15,
+    "Extended Multiple Response": 10,
+    "Highlight": 10,
+    "Trend": 10,
+    "Numeric Entry": 15
+  },
+  "standaloneFormatCounts": {
+    "Single Choice": 250,
+    "Multiple Response": 70,
+    "Select N": 15,
+    "Matrix Single": 15,
+    "Matrix Multiple": 20,
+    "Cloze (Drop-down)": 20,
+    "Dropdown Rationale": 10,
+    "Bowtie": 10,
+    "Extended Drag and Drop": 5,
+    "Extended Multiple Response": 10,
+    "Numeric Entry": 15
+  },
+  "topics": [
+    {
+      "topicIndex": 0,
+      "topic": "Developmental milestones by age",
+      "questionId": "QR-100181",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 1,
+      "topic": "Pediatric vital signs and assessment",
+      "questionId": "QR-100182",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 2,
+      "topic": "Piaget Erikson and Kohlberg",
+      "questionId": "QR-100183",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 3,
+      "topic": "Immunization schedule and safety",
+      "questionId": "QR-100184",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 4,
+      "topic": "Asthma and status asthmaticus",
+      "questionId": "QR-100185",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 5,
+      "topic": "Croup vs epiglottitis",
+      "questionId": "QR-100186",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 6,
+      "topic": "Bronchiolitis and RSV",
+      "questionId": "QR-100187",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 7,
+      "topic": "Cystic fibrosis nursing care",
+      "questionId": "QR-100188",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 8,
+      "topic": "Congenital heart defects",
+      "questionId": "QR-100189",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 9,
+      "topic": "Kawasaki disease",
+      "questionId": "QR-100190",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 10,
+      "topic": "Pediatric heart failure",
+      "questionId": "QR-100191",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 11,
+      "topic": "Tetralogy of Fallot",
+      "questionId": "QR-100192",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 12,
+      "topic": "Febrile seizures",
+      "questionId": "QR-100193",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 13,
+      "topic": "Meningitis in children",
+      "questionId": "QR-100194",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 14,
+      "topic": "Increased intracranial pressure",
+      "questionId": "QR-100195",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 15,
+      "topic": "Pediatric cerebral palsy",
+      "questionId": "QR-100196",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 16,
+      "topic": "Pyloric stenosis",
+      "questionId": "QR-100197",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 17,
+      "topic": "Intussusception",
+      "questionId": "QR-100198",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 18,
+      "topic": "Cleft lip and palate",
+      "questionId": "QR-100199",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 19,
+      "topic": "Pediatric dehydration",
+      "questionId": "QR-100200",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 20,
+      "topic": "Nephrotic syndrome",
+      "questionId": "QR-100201",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 21,
+      "topic": "Post-streptococcal glomerulonephritis",
+      "questionId": "QR-100202",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 22,
+      "topic": "Wilms tumor",
+      "questionId": "QR-100203",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 23,
+      "topic": "Urinary tract infection in children",
+      "questionId": "QR-100204",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 24,
+      "topic": "Type 1 diabetes in children",
+      "questionId": "QR-100205",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 25,
+      "topic": "Diabetic ketoacidosis",
+      "questionId": "QR-100206",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 26,
+      "topic": "Congenital hypothyroidism",
+      "questionId": "QR-100207",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 27,
+      "topic": "Phenylketonuria",
+      "questionId": "QR-100208",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 28,
+      "topic": "Sickle cell crisis",
+      "questionId": "QR-100209",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 29,
+      "topic": "Hemophilia",
+      "questionId": "QR-100210",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 30,
+      "topic": "Leukemia in children",
+      "questionId": "QR-100211",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 31,
+      "topic": "Iron deficiency anemia",
+      "questionId": "QR-100212",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 32,
+      "topic": "Pediatric medication dosage",
+      "questionId": "QR-100213",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 33,
+      "topic": "Child abuse recognition and reporting",
+      "questionId": "QR-100214",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 34,
+      "topic": "Poisoning and ingestion",
+      "questionId": "QR-100215",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 35,
+      "topic": "Pediatric shock",
+      "questionId": "QR-100216",
+      "format": "Extended Drag and Drop"
+    },
+    {
+      "topicIndex": 36,
+      "topic": "Pediatric respiratory distress and failure",
+      "questionId": "QR-100217",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 37,
+      "topic": "Pediatric dehydration and fluid resuscitation",
+      "questionId": "QR-100218",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 38,
+      "topic": "Pediatric sepsis recognition",
+      "questionId": "QR-100219",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 39,
+      "topic": "Pediatric burns and injury prevention",
+      "questionId": "QR-100220",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 40,
+      "topic": "Autism spectrum disorder",
+      "questionId": "QR-100221",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 41,
+      "topic": "Attention-deficit/hyperactivity disorder",
+      "questionId": "QR-100222",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 42,
+      "topic": "Down syndrome nursing considerations",
+      "questionId": "QR-100223",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 43,
+      "topic": "Childhood developmental and learning disorders",
+      "questionId": "QR-100224",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 44,
+      "topic": "Pediatric dysrhythmias",
+      "questionId": "QR-100225",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 45,
+      "topic": "Rheumatic fever and rheumatic heart disease",
+      "questionId": "QR-100226",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 46,
+      "topic": "Thalassemia in children",
+      "questionId": "QR-100227",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 47,
+      "topic": "Aplastic anemia in children",
+      "questionId": "QR-100228",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 48,
+      "topic": "Hypospadias and epispadias",
+      "questionId": "QR-100229",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 49,
+      "topic": "Hydrocephalus and shunt complications",
+      "questionId": "QR-100230",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 50,
+      "topic": "Type 1 diabetes sick-day management",
+      "questionId": "QR-100231",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 51,
+      "topic": "Adolescent eating and growth concerns",
+      "questionId": "QR-100232",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 52,
+      "topic": "Heart failure",
+      "questionId": "QR-100233",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 53,
+      "topic": "Acute coronary syndrome and myocardial infarction",
+      "questionId": "QR-100234",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 54,
+      "topic": "Dysrhythmias and ECG interpretation",
+      "questionId": "QR-100235",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 55,
+      "topic": "Hypertension and hypertensive crisis",
+      "questionId": "QR-100236",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 56,
+      "topic": "COPD exacerbation",
+      "questionId": "QR-100237",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 57,
+      "topic": "Asthma management",
+      "questionId": "QR-100238",
+      "format": "Extended Drag and Drop"
+    },
+    {
+      "topicIndex": 58,
+      "topic": "Pneumonia and respiratory failure",
+      "questionId": "QR-100239",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 59,
+      "topic": "Pulmonary embolism",
+      "questionId": "QR-100240",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 60,
+      "topic": "Stroke and thrombolytic care",
+      "questionId": "QR-100241",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 61,
+      "topic": "Seizures and status epilepticus",
+      "questionId": "QR-100242",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 62,
+      "topic": "Parkinson disease",
+      "questionId": "QR-100243",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 63,
+      "topic": "Increased intracranial pressure",
+      "questionId": "QR-100244",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 64,
+      "topic": "Diabetes mellitus and insulin",
+      "questionId": "QR-100245",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 65,
+      "topic": "DKA vs HHS",
+      "questionId": "QR-100246",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 66,
+      "topic": "Thyroid storm and myxedema",
+      "questionId": "QR-100247",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 67,
+      "topic": "Adrenal insufficiency and Cushing syndrome",
+      "questionId": "QR-100248",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 68,
+      "topic": "Acute kidney injury",
+      "questionId": "QR-100249",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 69,
+      "topic": "Chronic kidney disease",
+      "questionId": "QR-100250",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 70,
+      "topic": "Hemodialysis and peritoneal dialysis",
+      "questionId": "QR-100251",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 71,
+      "topic": "Electrolyte imbalances",
+      "questionId": "QR-100252",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 72,
+      "topic": "GI bleeding",
+      "questionId": "QR-100253",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 73,
+      "topic": "Cirrhosis and hepatic encephalopathy",
+      "questionId": "QR-100254",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 74,
+      "topic": "Pancreatitis",
+      "questionId": "QR-100255",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 75,
+      "topic": "Inflammatory bowel disease",
+      "questionId": "QR-100256",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 76,
+      "topic": "Fractures and compartment syndrome",
+      "questionId": "QR-100257",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 77,
+      "topic": "Hip replacement precautions",
+      "questionId": "QR-100258",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 78,
+      "topic": "Osteoporosis",
+      "questionId": "QR-100259",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 79,
+      "topic": "Rheumatoid arthritis",
+      "questionId": "QR-100260",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 80,
+      "topic": "Anemia and transfusion reactions",
+      "questionId": "QR-100261",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 81,
+      "topic": "Neutropenia precautions",
+      "questionId": "QR-100262",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 82,
+      "topic": "Cancer complications",
+      "questionId": "QR-100263",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 83,
+      "topic": "DVT and pulmonary embolism",
+      "questionId": "QR-100264",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 84,
+      "topic": "Sepsis and septic shock",
+      "questionId": "QR-100265",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 85,
+      "topic": "HIV and opportunistic infection",
+      "questionId": "QR-100266",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 86,
+      "topic": "Burns and fluid resuscitation",
+      "questionId": "QR-100267",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 87,
+      "topic": "Pressure injury prevention",
+      "questionId": "QR-100268",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 88,
+      "topic": "Valvular heart disease",
+      "questionId": "QR-100269",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 89,
+      "topic": "Infective endocarditis",
+      "questionId": "QR-100270",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 90,
+      "topic": "Pericarditis and cardiac tamponade",
+      "questionId": "QR-100271",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 91,
+      "topic": "Peripheral arterial disease and chronic venous insufficiency",
+      "questionId": "QR-100272",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 92,
+      "topic": "Aortic aneurysm and dissection",
+      "questionId": "QR-100273",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 93,
+      "topic": "Cardiogenic shock and intra-aortic balloon pump basics",
+      "questionId": "QR-100274",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 94,
+      "topic": "Acute respiratory distress syndrome",
+      "questionId": "QR-100275",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 95,
+      "topic": "Mechanical ventilation and alarm priorities",
+      "questionId": "QR-100276",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 96,
+      "topic": "Tracheostomy care and complications",
+      "questionId": "QR-100277",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 97,
+      "topic": "Chest trauma and flail chest",
+      "questionId": "QR-100278",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 98,
+      "topic": "Tuberculosis nursing care",
+      "questionId": "QR-100279",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 99,
+      "topic": "Pleural effusion and pneumothorax",
+      "questionId": "QR-100280",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 100,
+      "topic": "Guillain-Barré syndrome",
+      "questionId": "QR-100281",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 101,
+      "topic": "Myasthenia gravis and myasthenic crisis",
+      "questionId": "QR-100282",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 102,
+      "topic": "Multiple sclerosis",
+      "questionId": "QR-100283",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 103,
+      "topic": "Spinal cord injury and neurogenic shock",
+      "questionId": "QR-100284",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 104,
+      "topic": "Meningitis and encephalitis in adults",
+      "questionId": "QR-100285",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 105,
+      "topic": "Delirium versus dementia",
+      "questionId": "QR-100286",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 106,
+      "topic": "Appendicitis and peritonitis",
+      "questionId": "QR-100287",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 107,
+      "topic": "Bowel obstruction and ileus",
+      "questionId": "QR-100288",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 108,
+      "topic": "Cholecystitis and cholelithiasis",
+      "questionId": "QR-100289",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 109,
+      "topic": "Diverticulitis and diverticular disease",
+      "questionId": "QR-100290",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 110,
+      "topic": "Ostomy complications and care",
+      "questionId": "QR-100291",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 111,
+      "topic": "Hepatitis and acute liver failure",
+      "questionId": "QR-100292",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 112,
+      "topic": "Nephrotic and nephritic syndromes",
+      "questionId": "QR-100293",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 113,
+      "topic": "Renal calculi and urinary obstruction",
+      "questionId": "QR-100294",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 114,
+      "topic": "Dialysis access complications",
+      "questionId": "QR-100295",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 115,
+      "topic": "Peritoneal dialysis peritonitis",
+      "questionId": "QR-100296",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 116,
+      "topic": "Chronic kidney disease mineral-bone disorder",
+      "questionId": "QR-100297",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 117,
+      "topic": "Urinary retention and bladder irrigation",
+      "questionId": "QR-100298",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 118,
+      "topic": "SIADH and diabetes insipidus",
+      "questionId": "QR-100299",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 119,
+      "topic": "Adrenal crisis",
+      "questionId": "QR-100300",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 120,
+      "topic": "Pheochromocytoma",
+      "questionId": "QR-100301",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 121,
+      "topic": "Hyperparathyroidism and hypoparathyroidism",
+      "questionId": "QR-100302",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 122,
+      "topic": "Thyroidectomy complications",
+      "questionId": "QR-100303",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 123,
+      "topic": "Metabolic syndrome and obesity care",
+      "questionId": "QR-100304",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 124,
+      "topic": "Disseminated intravascular coagulation",
+      "questionId": "QR-100305",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 125,
+      "topic": "Thrombocytopenia and bleeding precautions",
+      "questionId": "QR-100306",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 126,
+      "topic": "Aplastic anemia and pancytopenia",
+      "questionId": "QR-100307",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 127,
+      "topic": "Polycythemia vera",
+      "questionId": "QR-100308",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 128,
+      "topic": "Sickle cell disease complications",
+      "questionId": "QR-100309",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 129,
+      "topic": "Blood component administration and massive transfusion",
+      "questionId": "QR-100310",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 130,
+      "topic": "Tumor lysis syndrome",
+      "questionId": "QR-100311",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 131,
+      "topic": "Superior vena cava syndrome",
+      "questionId": "QR-100312",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 132,
+      "topic": "Spinal cord compression in cancer",
+      "questionId": "QR-100313",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 133,
+      "topic": "Chemotherapy precautions and extravasation",
+      "questionId": "QR-100314",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 134,
+      "topic": "Radiation therapy safety",
+      "questionId": "QR-100315",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 135,
+      "topic": "Neutropenic fever and oncologic emergencies",
+      "questionId": "QR-100316",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 136,
+      "topic": "Systemic lupus erythematosus",
+      "questionId": "QR-100317",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 137,
+      "topic": "Rheumatoid arthritis complications",
+      "questionId": "QR-100318",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 138,
+      "topic": "Anaphylaxis and angioedema",
+      "questionId": "QR-100319",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 139,
+      "topic": "Organ transplant rejection",
+      "questionId": "QR-100320",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 140,
+      "topic": "Immunosuppressant monitoring",
+      "questionId": "QR-100321",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 141,
+      "topic": "HIV antiretroviral therapy and opportunistic infections",
+      "questionId": "QR-100322",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 142,
+      "topic": "Medication administration rights",
+      "questionId": "QR-100323",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 143,
+      "topic": "Dosage calculations and dimensional analysis",
+      "questionId": "QR-100324",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 144,
+      "topic": "High-alert medications",
+      "questionId": "QR-100325",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 145,
+      "topic": "Medication reconciliation",
+      "questionId": "QR-100326",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 146,
+      "topic": "ACE inhibitors and ARBs",
+      "questionId": "QR-100327",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 147,
+      "topic": "Beta blockers",
+      "questionId": "QR-100328",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 148,
+      "topic": "Calcium channel blockers",
+      "questionId": "QR-100329",
+      "format": "Extended Drag and Drop"
+    },
+    {
+      "topicIndex": 149,
+      "topic": "Digoxin and toxicity",
+      "questionId": "QR-100330",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 150,
+      "topic": "Heparin and aPTT monitoring",
+      "questionId": "QR-100331",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 151,
+      "topic": "Warfarin and INR",
+      "questionId": "QR-100332",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 152,
+      "topic": "DOACs and bleeding precautions",
+      "questionId": "QR-100333",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 153,
+      "topic": "Thrombolytics",
+      "questionId": "QR-100334",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 154,
+      "topic": "Insulin types and timing",
+      "questionId": "QR-100335",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 155,
+      "topic": "Oral diabetes medications",
+      "questionId": "QR-100336",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 156,
+      "topic": "Corticosteroids",
+      "questionId": "QR-100337",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 157,
+      "topic": "Thyroid medications",
+      "questionId": "QR-100338",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 158,
+      "topic": "Penicillins and cephalosporins",
+      "questionId": "QR-100339",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 159,
+      "topic": "Vancomycin and trough monitoring",
+      "questionId": "QR-100340",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 160,
+      "topic": "Aminoglycosides",
+      "questionId": "QR-100341",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 161,
+      "topic": "Antitubercular medications",
+      "questionId": "QR-100342",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 162,
+      "topic": "Bronchodilators",
+      "questionId": "QR-100343",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 163,
+      "topic": "Inhaled corticosteroids",
+      "questionId": "QR-100344",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 164,
+      "topic": "Antiepileptic medications",
+      "questionId": "QR-100345",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 165,
+      "topic": "Opioids and reversal agents",
+      "questionId": "QR-100346",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 166,
+      "topic": "SSRIs and serotonin syndrome",
+      "questionId": "QR-100347",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 167,
+      "topic": "Lithium and toxicity",
+      "questionId": "QR-100348",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 168,
+      "topic": "Antipsychotics and NMS",
+      "questionId": "QR-100349",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 169,
+      "topic": "Benzodiazepines",
+      "questionId": "QR-100350",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 170,
+      "topic": "Epinephrine",
+      "questionId": "QR-100351",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 171,
+      "topic": "Amiodarone",
+      "questionId": "QR-100352",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 172,
+      "topic": "Vasopressors",
+      "questionId": "QR-100353",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 173,
+      "topic": "Naloxone and antidotes",
+      "questionId": "QR-100354",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 174,
+      "topic": "Antiplatelets and stroke medications",
+      "questionId": "QR-100355",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 175,
+      "topic": "Antiparkinsonian medications",
+      "questionId": "QR-100356",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 176,
+      "topic": "Anticonvulsants and therapeutic monitoring",
+      "questionId": "QR-100357",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 177,
+      "topic": "Sedatives and neuromuscular blockers",
+      "questionId": "QR-100358",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 178,
+      "topic": "Oxytocin and uterotonic medications",
+      "questionId": "QR-100359",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 179,
+      "topic": "Magnesium sulfate monitoring",
+      "questionId": "QR-100360",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 180,
+      "topic": "Newborn vitamin K and prophylaxis",
+      "questionId": "QR-100361",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 181,
+      "topic": "Weight-based pediatric medication safety",
+      "questionId": "QR-100362",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 182,
+      "topic": "Chemotherapy safety and hazardous drug handling",
+      "questionId": "QR-100363",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 183,
+      "topic": "Immunosuppressants and transplant medications",
+      "questionId": "QR-100364",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 184,
+      "topic": "Biologic agents and immunomodulators",
+      "questionId": "QR-100365",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 185,
+      "topic": "Colony-stimulating factors",
+      "questionId": "QR-100366",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 186,
+      "topic": "Nonopioid analgesics and NSAIDs",
+      "questionId": "QR-100367",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 187,
+      "topic": "Opioid safety and respiratory depression",
+      "questionId": "QR-100368",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 188,
+      "topic": "Local anesthetics and toxicity",
+      "questionId": "QR-100369",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 189,
+      "topic": "Reversal agents and antidote principles",
+      "questionId": "QR-100370",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 190,
+      "topic": "MAOIs and food interactions",
+      "questionId": "QR-100371",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 191,
+      "topic": "Antidepressant discontinuation and monitoring",
+      "questionId": "QR-100372",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 192,
+      "topic": "Antipsychotic metabolic monitoring",
+      "questionId": "QR-100373",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 193,
+      "topic": "Anticoagulant reversal and bleeding response",
+      "questionId": "QR-100374",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 194,
+      "topic": "Standard precautions and hand hygiene",
+      "questionId": "QR-100375",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 195,
+      "topic": "Contact droplet and airborne precautions",
+      "questionId": "QR-100376",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 196,
+      "topic": "Sterile technique and surgical asepsis",
+      "questionId": "QR-100377",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 197,
+      "topic": "Fall prevention and restraint safety",
+      "questionId": "QR-100378",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 198,
+      "topic": "Head-to-toe nursing assessment",
+      "questionId": "QR-100379",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 199,
+      "topic": "Pain assessment and reassessment",
+      "questionId": "QR-100380",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 200,
+      "topic": "Adult vital signs and early warning signs",
+      "questionId": "QR-100381",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 201,
+      "topic": "Focused respiratory and cardiovascular assessment",
+      "questionId": "QR-100382",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 202,
+      "topic": "Fluid volume deficit vs excess",
+      "questionId": "QR-100383",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 203,
+      "topic": "Sodium imbalances",
+      "questionId": "QR-100384",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 204,
+      "topic": "Potassium imbalances",
+      "questionId": "QR-100385",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 205,
+      "topic": "Calcium and magnesium imbalances",
+      "questionId": "QR-100386",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 206,
+      "topic": "ABG interpretation and ROME",
+      "questionId": "QR-100387",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 207,
+      "topic": "Common NCLEX laboratory values",
+      "questionId": "QR-100388",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 208,
+      "topic": "CBC interpretation",
+      "questionId": "QR-100389",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 209,
+      "topic": "Renal and liver function tests",
+      "questionId": "QR-100390",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 210,
+      "topic": "Safe patient transfer and body mechanics",
+      "questionId": "QR-100391",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 211,
+      "topic": "Range of motion and immobility complications",
+      "questionId": "QR-100392",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 212,
+      "topic": "Traction and cast care",
+      "questionId": "QR-100393",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 213,
+      "topic": "Pressure injury prevention and staging",
+      "questionId": "QR-100394",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 214,
+      "topic": "Enteral feeding and aspiration precautions",
+      "questionId": "QR-100395",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 215,
+      "topic": "Parenteral nutrition and central-line safety",
+      "questionId": "QR-100396",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 216,
+      "topic": "Urinary catheter care and CAUTI prevention",
+      "questionId": "QR-100397",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 217,
+      "topic": "Bowel elimination and ostomy care",
+      "questionId": "QR-100398",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 218,
+      "topic": "Preoperative checklist and informed consent",
+      "questionId": "QR-100399",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 219,
+      "topic": "Postoperative complications and priorities",
+      "questionId": "QR-100400",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 220,
+      "topic": "Wound healing and dressing changes",
+      "questionId": "QR-100401",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 221,
+      "topic": "Drains and surgical tubes",
+      "questionId": "QR-100402",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 222,
+      "topic": "Oxygen delivery devices",
+      "questionId": "QR-100403",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 223,
+      "topic": "Suctioning and airway management",
+      "questionId": "QR-100404",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 224,
+      "topic": "Chest tube nursing care",
+      "questionId": "QR-100405",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 225,
+      "topic": "Basic life support and rapid response",
+      "questionId": "QR-100406",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 226,
+      "topic": "Shock types and hemodynamic monitoring",
+      "questionId": "QR-100407",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 227,
+      "topic": "Rapid response and code blue roles",
+      "questionId": "QR-100408",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 228,
+      "topic": "Ventilator-associated event prevention",
+      "questionId": "QR-100409",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 229,
+      "topic": "Acute respiratory failure priorities",
+      "questionId": "QR-100410",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 230,
+      "topic": "Surgical time-out and site verification",
+      "questionId": "QR-100411",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 231,
+      "topic": "Anesthesia complications and malignant hyperthermia",
+      "questionId": "QR-100412",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 232,
+      "topic": "Post-anesthesia care and airway priorities",
+      "questionId": "QR-100413",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 233,
+      "topic": "Procedural sedation monitoring",
+      "questionId": "QR-100414",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 234,
+      "topic": "12-lead ECG and telemetry priorities",
+      "questionId": "QR-100415",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 235,
+      "topic": "Cardiac catheterization nursing care",
+      "questionId": "QR-100416",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 236,
+      "topic": "Lumbar puncture and post-procedure care",
+      "questionId": "QR-100417",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 237,
+      "topic": "Endoscopy and colonoscopy preparation",
+      "questionId": "QR-100418",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 238,
+      "topic": "Central venous catheter care",
+      "questionId": "QR-100419",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 239,
+      "topic": "PICC line complications",
+      "questionId": "QR-100420",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 240,
+      "topic": "Blood transfusion verification and reactions",
+      "questionId": "QR-100421",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 241,
+      "topic": "Extravasation and infiltration management",
+      "questionId": "QR-100422",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 242,
+      "topic": "Acute and chronic pain management",
+      "questionId": "QR-100423",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 243,
+      "topic": "Palliative care and hospice principles",
+      "questionId": "QR-100424",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 244,
+      "topic": "Rehabilitation and assistive devices",
+      "questionId": "QR-100425",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 245,
+      "topic": "End-of-life signs and family support",
+      "questionId": "QR-100426",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 246,
+      "topic": "Dysphagia screening and aspiration prevention",
+      "questionId": "QR-100427",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 247,
+      "topic": "Malnutrition and refeeding syndrome",
+      "questionId": "QR-100428",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 248,
+      "topic": "Parenteral nutrition complications",
+      "questionId": "QR-100429",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 249,
+      "topic": "Obesity and bariatric surgery nursing care",
+      "questionId": "QR-100430",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 250,
+      "topic": "Prenatal assessment and routine tests",
+      "questionId": "QR-100431",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 251,
+      "topic": "Preeclampsia and eclampsia",
+      "questionId": "QR-100432",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 252,
+      "topic": "Gestational diabetes",
+      "questionId": "QR-100433",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 253,
+      "topic": "Placenta previa vs placental abruption",
+      "questionId": "QR-100434",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 254,
+      "topic": "Stages of labor",
+      "questionId": "QR-100435",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 255,
+      "topic": "Fetal heart rate monitoring",
+      "questionId": "QR-100436",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 256,
+      "topic": "Labor pain management",
+      "questionId": "QR-100437",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 257,
+      "topic": "Preterm labor and rupture of membranes",
+      "questionId": "QR-100438",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 258,
+      "topic": "Postpartum assessment and fundal checks",
+      "questionId": "QR-100439",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 259,
+      "topic": "Postpartum hemorrhage",
+      "questionId": "QR-100440",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 260,
+      "topic": "Postpartum infection and endometritis",
+      "questionId": "QR-100441",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 261,
+      "topic": "Postpartum mood disorders",
+      "questionId": "QR-100442",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 262,
+      "topic": "APGAR and immediate newborn care",
+      "questionId": "QR-100443",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 263,
+      "topic": "Newborn thermoregulation",
+      "questionId": "QR-100444",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 264,
+      "topic": "Newborn reflexes and assessment",
+      "questionId": "QR-100445",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 265,
+      "topic": "Newborn feeding and jaundice",
+      "questionId": "QR-100446",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 266,
+      "topic": "Ectopic pregnancy",
+      "questionId": "QR-100447",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 267,
+      "topic": "Hyperemesis gravidarum",
+      "questionId": "QR-100448",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 268,
+      "topic": "Rh incompatibility and Rho(D) immune globulin",
+      "questionId": "QR-100449",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 269,
+      "topic": "Amniotic fluid embolism",
+      "questionId": "QR-100450",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 270,
+      "topic": "Contraception and family planning",
+      "questionId": "QR-100451",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 271,
+      "topic": "STI assessment and treatment teaching",
+      "questionId": "QR-100452",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 272,
+      "topic": "Menstrual disorders and endometriosis",
+      "questionId": "QR-100453",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 273,
+      "topic": "Infertility and reproductive procedures",
+      "questionId": "QR-100454",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 274,
+      "topic": "Multiple gestation",
+      "questionId": "QR-100455",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 275,
+      "topic": "Gestational hypertension",
+      "questionId": "QR-100456",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 276,
+      "topic": "HELLP syndrome",
+      "questionId": "QR-100457",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 277,
+      "topic": "Intrauterine growth restriction",
+      "questionId": "QR-100458",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 278,
+      "topic": "Oligohydramnios and polyhydramnios",
+      "questionId": "QR-100459",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 279,
+      "topic": "Shoulder dystocia",
+      "questionId": "QR-100460",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 280,
+      "topic": "Umbilical cord prolapse",
+      "questionId": "QR-100461",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 281,
+      "topic": "Uterine rupture",
+      "questionId": "QR-100462",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 282,
+      "topic": "Uterine tachysystole",
+      "questionId": "QR-100463",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 283,
+      "topic": "Trial of labor after cesarean considerations",
+      "questionId": "QR-100464",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 284,
+      "topic": "Neonatal hypoglycemia",
+      "questionId": "QR-100465",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 285,
+      "topic": "Neonatal respiratory distress syndrome",
+      "questionId": "QR-100466",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 286,
+      "topic": "Neonatal abstinence syndrome",
+      "questionId": "QR-100467",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 287,
+      "topic": "Neonatal sepsis",
+      "questionId": "QR-100468",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 288,
+      "topic": "Hyperbilirubinemia and phototherapy",
+      "questionId": "QR-100469",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 289,
+      "topic": "Polycystic ovary syndrome",
+      "questionId": "QR-100470",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 290,
+      "topic": "Cervical and breast cancer screening",
+      "questionId": "QR-100471",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 291,
+      "topic": "Menopause and hormone therapy teaching",
+      "questionId": "QR-100472",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 292,
+      "topic": "Genetic screening and prenatal testing",
+      "questionId": "QR-100473",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 293,
+      "topic": "Therapeutic communication techniques",
+      "questionId": "QR-100474",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 294,
+      "topic": "Suicide risk assessment and safety",
+      "questionId": "QR-100475",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 295,
+      "topic": "Crisis intervention",
+      "questionId": "QR-100476",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 296,
+      "topic": "Defense mechanisms and coping",
+      "questionId": "QR-100477",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 297,
+      "topic": "Major depressive disorder",
+      "questionId": "QR-100478",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 298,
+      "topic": "Bipolar disorder and mania",
+      "questionId": "QR-100479",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 299,
+      "topic": "Lithium monitoring and toxicity",
+      "questionId": "QR-100480",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 300,
+      "topic": "Electroconvulsive therapy nursing care",
+      "questionId": "QR-100481",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 301,
+      "topic": "Schizophrenia and positive vs negative symptoms",
+      "questionId": "QR-100482",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 302,
+      "topic": "Antipsychotic adverse effects",
+      "questionId": "QR-100483",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 303,
+      "topic": "Neuroleptic malignant syndrome",
+      "questionId": "QR-100484",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 304,
+      "topic": "Delusions and hallucinations nursing responses",
+      "questionId": "QR-100485",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 305,
+      "topic": "Panic disorder and anxiety levels",
+      "questionId": "QR-100486",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 306,
+      "topic": "PTSD and trauma-informed care",
+      "questionId": "QR-100487",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 307,
+      "topic": "Obsessive-compulsive disorder",
+      "questionId": "QR-100488",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 308,
+      "topic": "Phobias and exposure therapy",
+      "questionId": "QR-100489",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 309,
+      "topic": "Alcohol withdrawal and CIWA",
+      "questionId": "QR-100490",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 310,
+      "topic": "Opioid use and withdrawal",
+      "questionId": "QR-100491",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 311,
+      "topic": "Anorexia and bulimia nursing care",
+      "questionId": "QR-100492",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 312,
+      "topic": "Intoxication and overdose priorities",
+      "questionId": "QR-100493",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 313,
+      "topic": "Delirium assessment and prevention",
+      "questionId": "QR-100494",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 314,
+      "topic": "Alzheimer disease and dementia care",
+      "questionId": "QR-100495",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 315,
+      "topic": "Personality disorders",
+      "questionId": "QR-100496",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 316,
+      "topic": "Somatic symptom and dissociative disorders",
+      "questionId": "QR-100497",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 317,
+      "topic": "Eating disorders in adolescents",
+      "questionId": "QR-100498",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 318,
+      "topic": "ADHD and behavioral disorders",
+      "questionId": "QR-100499",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 319,
+      "topic": "Autism and therapeutic approaches",
+      "questionId": "QR-100500",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 320,
+      "topic": "Self-harm and suicide prevention in adolescents",
+      "questionId": "QR-100501",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 321,
+      "topic": "Acute agitation and de-escalation",
+      "questionId": "QR-100502",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 322,
+      "topic": "Violence risk assessment",
+      "questionId": "QR-100503",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 323,
+      "topic": "Seclusion and restraint safety",
+      "questionId": "QR-100504",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 324,
+      "topic": "Grief, loss and end-of-life distress",
+      "questionId": "QR-100505",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 325,
+      "topic": "RN LPN and UAP scope of practice",
+      "questionId": "QR-100506",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 326,
+      "topic": "Five rights of delegation",
+      "questionId": "QR-100507",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 327,
+      "topic": "Assignment and supervision",
+      "questionId": "QR-100508",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 328,
+      "topic": "When to intervene and reassess delegated care",
+      "questionId": "QR-100509",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 329,
+      "topic": "ABCs and unstable vs stable clients",
+      "questionId": "QR-100510",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 330,
+      "topic": "Acute vs chronic and new vs expected findings",
+      "questionId": "QR-100511",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 331,
+      "topic": "Mass casualty triage",
+      "questionId": "QR-100512",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 332,
+      "topic": "Who to see first NCLEX strategy",
+      "questionId": "QR-100513",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 333,
+      "topic": "Informed consent and refusal",
+      "questionId": "QR-100514",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 334,
+      "topic": "Confidentiality and HIPAA principles",
+      "questionId": "QR-100515",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 335,
+      "topic": "Advance directives and client advocacy",
+      "questionId": "QR-100516",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 336,
+      "topic": "Negligence malpractice and documentation",
+      "questionId": "QR-100517",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 337,
+      "topic": "Incident reports and error disclosure",
+      "questionId": "QR-100518",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 338,
+      "topic": "Root cause analysis and just culture",
+      "questionId": "QR-100519",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 339,
+      "topic": "Evidence-based practice and quality indicators",
+      "questionId": "QR-100520",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 340,
+      "topic": "Safe handoff and SBAR communication",
+      "questionId": "QR-100521",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 341,
+      "topic": "Discharge planning and readmission prevention",
+      "questionId": "QR-100522",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 342,
+      "topic": "Interprofessional collaboration and referrals",
+      "questionId": "QR-100523",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 343,
+      "topic": "Continuity of care and transfer safety",
+      "questionId": "QR-100524",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 344,
+      "topic": "Case management and resource allocation",
+      "questionId": "QR-100525",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 345,
+      "topic": "Capacity and surrogate decision-making",
+      "questionId": "QR-100526",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 346,
+      "topic": "Mandatory reporting and duty to protect",
+      "questionId": "QR-100527",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 347,
+      "topic": "Cultural humility and interpreter use",
+      "questionId": "QR-100528",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 348,
+      "topic": "Spiritual care and ethical conflict",
+      "questionId": "QR-100529",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 349,
+      "topic": "Levels of prevention",
+      "questionId": "QR-100530",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 350,
+      "topic": "Community assessment and health planning",
+      "questionId": "QR-100531",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 351,
+      "topic": "Social determinants of health",
+      "questionId": "QR-100532",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 352,
+      "topic": "Home health and vulnerable populations",
+      "questionId": "QR-100533",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 353,
+      "topic": "Chain of infection and disease transmission",
+      "questionId": "QR-100534",
+      "format": "Extended Drag and Drop"
+    },
+    {
+      "topicIndex": 354,
+      "topic": "Outbreak investigation basics",
+      "questionId": "QR-100535",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 355,
+      "topic": "Immunization and vaccine principles",
+      "questionId": "QR-100536",
+      "format": "Bowtie"
+    },
+    {
+      "topicIndex": 356,
+      "topic": "Tuberculosis and communicable disease control",
+      "questionId": "QR-100537",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 357,
+      "topic": "Disaster triage and START",
+      "questionId": "QR-100538",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 358,
+      "topic": "Bioterrorism and isolation response",
+      "questionId": "QR-100539",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 359,
+      "topic": "Disaster phases and emergency planning",
+      "questionId": "QR-100540",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 360,
+      "topic": "Community emergency shelter and continuity of care",
+      "questionId": "QR-100541",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 361,
+      "topic": "Occupational exposure and needlestick response",
+      "questionId": "QR-100542",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 362,
+      "topic": "Environmental health and disaster-related illness",
+      "questionId": "QR-100543",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 363,
+      "topic": "School nursing and population screening",
+      "questionId": "QR-100544",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 364,
+      "topic": "Maternal-child community health programs",
+      "questionId": "QR-100545",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 365,
+      "topic": "Home safety and medication reconciliation",
+      "questionId": "QR-100546",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 366,
+      "topic": "Hospice eligibility concepts and symptom support",
+      "questionId": "QR-100547",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 367,
+      "topic": "Care of older adults in the community",
+      "questionId": "QR-100548",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 368,
+      "topic": "Housing insecurity, food insecurity and access to care",
+      "questionId": "QR-100549",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 369,
+      "topic": "Age-related physiologic changes",
+      "questionId": "QR-100550",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 370,
+      "topic": "Polypharmacy and potentially inappropriate medications",
+      "questionId": "QR-100551",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 371,
+      "topic": "Falls, frailty and functional assessment",
+      "questionId": "QR-100552",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 372,
+      "topic": "Pressure injury and skin integrity in older adults",
+      "questionId": "QR-100553",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 373,
+      "topic": "Primary and secondary trauma survey",
+      "questionId": "QR-100554",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 374,
+      "topic": "Head injury and intracranial trauma",
+      "questionId": "QR-100555",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 375,
+      "topic": "Spinal trauma and spinal precautions",
+      "questionId": "QR-100556",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 376,
+      "topic": "Hemorrhage control and hypovolemic shock",
+      "questionId": "QR-100557",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 377,
+      "topic": "Hemodynamic monitoring and shock",
+      "questionId": "QR-100558",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 378,
+      "topic": "Acute coronary and respiratory deterioration",
+      "questionId": "QR-100559",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 379,
+      "topic": "Multiorgan dysfunction syndrome",
+      "questionId": "QR-100560",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 380,
+      "topic": "Sedation, delirium and ICU mobility",
+      "questionId": "QR-100561",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 381,
+      "topic": "Preoperative risk assessment",
+      "questionId": "QR-100562",
+      "format": "Extended Drag and Drop"
+    },
+    {
+      "topicIndex": 382,
+      "topic": "Intraoperative positioning and surgical safety",
+      "questionId": "QR-100563",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 383,
+      "topic": "Postoperative airway and circulation priorities",
+      "questionId": "QR-100564",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 384,
+      "topic": "Postoperative infection and venous thromboembolism prevention",
+      "questionId": "QR-100565",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 385,
+      "topic": "Cancer staging and treatment goals",
+      "questionId": "QR-100566",
+      "format": "Cloze (Drop-down)"
+    },
+    {
+      "topicIndex": 386,
+      "topic": "Safe handling of antineoplastic agents",
+      "questionId": "QR-100567",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 387,
+      "topic": "Neutropenic and thrombocytopenic precautions",
+      "questionId": "QR-100568",
+      "format": "Matrix Multiple"
+    },
+    {
+      "topicIndex": 388,
+      "topic": "Oncologic emergencies and symptom management",
+      "questionId": "QR-100569",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 389,
+      "topic": "Transmission-based precautions by organism",
+      "questionId": "QR-100570",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 390,
+      "topic": "Healthcare-associated infection prevention",
+      "questionId": "QR-100571",
+      "format": "Dropdown Rationale"
+    },
+    {
+      "topicIndex": 391,
+      "topic": "C. difficile and multidrug-resistant organisms",
+      "questionId": "QR-100572",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 392,
+      "topic": "Needlestick exposure and postexposure response",
+      "questionId": "QR-100573",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 393,
+      "topic": "Solid-organ transplant assessment",
+      "questionId": "QR-100574",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 394,
+      "topic": "Acute and chronic rejection",
+      "questionId": "QR-100575",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 395,
+      "topic": "Graft-versus-host disease",
+      "questionId": "QR-100576",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 396,
+      "topic": "Immunosuppression and infection prevention",
+      "questionId": "QR-100577",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 397,
+      "topic": "Stroke rehabilitation and functional recovery",
+      "questionId": "QR-100578",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 398,
+      "topic": "Spinal cord injury rehabilitation",
+      "questionId": "QR-100579",
+      "format": "Matrix Single"
+    },
+    {
+      "topicIndex": 399,
+      "topic": "Dysphagia and communication support",
+      "questionId": "QR-100580",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 400,
+      "topic": "Mobility aids and activities of daily living",
+      "questionId": "QR-100581",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 401,
+      "topic": "Goals-of-care conversations",
+      "questionId": "QR-100582",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 402,
+      "topic": "Symptom management near end of life",
+      "questionId": "QR-100583",
+      "format": "Select N"
+    },
+    {
+      "topicIndex": 403,
+      "topic": "Advance care planning",
+      "questionId": "QR-100584",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 404,
+      "topic": "Grief support and postmortem care",
+      "questionId": "QR-100585",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 405,
+      "topic": "Critical laboratory values and escalation",
+      "questionId": "QR-100586",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 406,
+      "topic": "Diagnostic imaging contrast precautions",
+      "questionId": "QR-100587",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 407,
+      "topic": "Specimen collection and handling",
+      "questionId": "QR-100588",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 408,
+      "topic": "Point-of-care testing and quality control",
+      "questionId": "QR-100589",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 409,
+      "topic": "Enteral access devices and tube complications",
+      "questionId": "QR-100590",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 410,
+      "topic": "Parenteral nutrition monitoring",
+      "questionId": "QR-100591",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 411,
+      "topic": "Electrolyte replacement safety",
+      "questionId": "QR-100592",
+      "format": "Numeric Entry"
+    },
+    {
+      "topicIndex": 412,
+      "topic": "Refeeding syndrome recognition",
+      "questionId": "QR-100593",
+      "format": "Multiple Response"
+    },
+    {
+      "topicIndex": 413,
+      "topic": "Informed consent and decision-making capacity",
+      "questionId": "QR-100594",
+      "format": "Extended Multiple Response"
+    },
+    {
+      "topicIndex": 414,
+      "topic": "Interpreter use and communication access",
+      "questionId": "QR-100595",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 415,
+      "topic": "Religious and spiritual preferences in care",
+      "questionId": "QR-100596",
+      "format": "Single Choice"
+    },
+    {
+      "topicIndex": 416,
+      "topic": "Moral distress and ethical consultation",
+      "questionId": "QR-100597",
+      "format": "Select N"
+    }
+  ],
+  "qualityGates": [
+    "All items independently authored; no copied commercial or secure NCLEX items.",
+    "Every item includes answer key, clinical rationale, option/response-specific rationales, clinical judgment tip, and public authoritative source references.",
+    "Every topic appears at least once; the 23 additional standalone items test distinct high-priority objectives.",
+    "All 13 QuickRN formats validated against schema and renderer.",
+    "Ten linked case studies contain exactly six questions in CJMM order and are shuffled only as complete groups.",
+    "Structural checks do not constitute clinical educator approval."
+  ]
+}
