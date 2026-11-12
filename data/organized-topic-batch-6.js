@@ -11,21 +11,34 @@
     "clientNeeds": "Physiological Adaptation",
     "cjmmStep": "Prioritize Hypotheses",
     "difficulty": 4,
-    "type": "Single Choice",
-    "question": "A client with Guillain-Barré syndrome has ascending weakness and reports new difficulty swallowing. Which complication is the priority concern?",
+    "type": "Matrix Multiple",
+    "question": "For each finding in a client with Guillain-Barré syndrome, select whether it indicates a need for immediate escalation.",
     "options": [
-      "Respiratory muscle failure and aspiration",
-      "Chronic hypertension",
-      "Hyperglycemia",
-      "Peripheral edema"
+      "New difficulty swallowing",
+      "Weak cough",
+      "Declining vital capacity",
+      "Stable oxygen saturation"
     ],
-    "correctAnswer": "Respiratory muscle failure and aspiration",
+    "correctAnswer": {
+      "dysphagia": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "weakCough": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "fvc": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "stable": [
+        "Continue routine monitoring"
+      ]
+    },
     "rationale": "The clinical cues support the keyed response. The nurse should interpret the findings in context, prioritize immediate safety, and follow current evidence-based protocols.",
     "optionRationales": {
-      "Respiratory muscle failure and aspiration": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-      "Chronic hypertension": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-      "Hyperglycemia": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-      "Peripheral edema": "This response should be evaluated against the client's clinical cues and immediate safety priorities."
+      "dysphagia": "Bulbar weakness increases aspiration risk.",
+      "weakCough": "A weak cough impairs airway clearance.",
+      "fvc": "A declining vital capacity signals respiratory muscle weakness.",
+      "stable": "Stable oxygen saturation alone does not remove the risk of rapid respiratory decline."
     },
     "clinicalJudgmentTip": "Use the evolving assessment data to identify deterioration, prioritize the safest response, and reassess the outcome.",
     "sourceReferences": [
@@ -53,17 +66,42 @@
       "difficulty": 4
     },
     "interaction": {
-      "type": "Single Choice",
-      "stem": "A client with Guillain-Barré syndrome has ascending weakness and reports new difficulty swallowing. Which complication is the priority concern?",
-      "options": [
-        "Respiratory muscle failure and aspiration",
-        "Chronic hypertension",
-        "Hyperglycemia",
-        "Peripheral edema"
-      ],
-      "answerKey": "Respiratory muscle failure and aspiration",
+      "type": "Matrix Multiple",
+      "stem": "For each finding in a client with Guillain-Barré syndrome, select whether it indicates a need for immediate escalation.",
+      "options": {
+        "dysphagia": [
+          "Immediate airway or ventilatory concern",
+          "Continue routine monitoring"
+        ],
+        "weakCough": [
+          "Immediate airway or ventilatory concern",
+          "Continue routine monitoring"
+        ],
+        "fvc": [
+          "Immediate airway or ventilatory concern",
+          "Continue routine monitoring"
+        ],
+        "stable": [
+          "Immediate airway or ventilatory concern",
+          "Continue routine monitoring"
+        ]
+      },
+      "answerKey": {
+        "dysphagia": [
+          "Immediate airway or ventilatory concern"
+        ],
+        "weakCough": [
+          "Immediate airway or ventilatory concern"
+        ],
+        "fvc": [
+          "Immediate airway or ventilatory concern"
+        ],
+        "stable": [
+          "Continue routine monitoring"
+        ]
+      },
       "scoring": {
-        "method": "0/1"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -72,12 +110,50 @@
     "rationales": {
       "overall": "The clinical cues support the keyed response. The nurse should interpret the findings in context, prioritize immediate safety, and follow current evidence-based protocols.",
       "options": {
-        "Respiratory muscle failure and aspiration": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-        "Chronic hypertension": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-        "Hyperglycemia": "This response should be evaluated against the client's clinical cues and immediate safety priorities.",
-        "Peripheral edema": "This response should be evaluated against the client's clinical cues and immediate safety priorities."
+        "dysphagia": "Bulbar weakness increases aspiration risk.",
+        "weakCough": "A weak cough impairs airway clearance.",
+        "fvc": "A declining vital capacity signals respiratory muscle weakness.",
+        "stable": "Stable oxygen saturation alone does not remove the risk of rapid respiratory decline."
       },
       "clinicalJudgmentTip": "Use the evolving assessment data to identify deterioration, prioritize the safest response, and reassess the outcome."
+    },
+    "matrixLeftPane": "The client has ascending weakness and reports new difficulty swallowing.",
+    "matrixTask": "Select all interpretations that apply to each finding.",
+    "rows": [
+      {
+        "id": "dysphagia",
+        "label": "New difficulty swallowing"
+      },
+      {
+        "id": "weakCough",
+        "label": "Weak cough"
+      },
+      {
+        "id": "fvc",
+        "label": "Declining vital capacity"
+      },
+      {
+        "id": "stable",
+        "label": "Stable oxygen saturation"
+      }
+    ],
+    "columns": [
+      "Immediate airway or ventilatory concern",
+      "Continue routine monitoring"
+    ],
+    "correctAnswers": {
+      "dysphagia": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "weakCough": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "fvc": [
+        "Immediate airway or ventilatory concern"
+      ],
+      "stable": [
+        "Continue routine monitoring"
+      ]
     }
   },
   {
