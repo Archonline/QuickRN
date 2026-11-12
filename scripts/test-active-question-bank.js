@@ -4,18 +4,19 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
 const context={window:{},console};
-for(const file of ['js/quickrn-question-schema-v2.js','data/question-bank.js','data/linked-case-studies.js','data/linked-case-studies-batch-2.js','data/organized-topic-batch-1.js','data/organized-topic-batch-2.js','data/organized-topic-batch-3.js','data/organized-topic-batch-4.js','data/organized-topic-batch-5.js','data/organized-topic-linked-cases.js','js/shared-exam-renderer.js','js/quickrn-bank-startup-validator.js']){
+for(const file of ['js/quickrn-question-schema-v2.js','data/question-bank.js','data/linked-case-studies.js','data/linked-case-studies-batch-2.js','data/organized-topic-batch-1.js','data/organized-topic-batch-2.js','data/organized-topic-batch-3.js','data/organized-topic-batch-4.js','data/organized-topic-batch-5.js','data/organized-topic-batch-6.js','data/organized-topic-linked-cases.js','js/shared-exam-renderer.js','js/quickrn-bank-startup-validator.js']){
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 }
 const bank=context.window.QuickRNQuestionBank?.items;
 const schema=context.window.QuickRNQuestionSchemaV2;
 assert.ok(Array.isArray(bank),'canonical bank must load as an array');
-assert.equal(bank.length,290,'active bank must contain 110 standalone items and 180 linked case-study items; legacy standalone items must be excluded');
+assert.equal(bank.length,310,'active bank must contain 130 standalone items and 180 linked case-study items; legacy standalone items must be excluded');
 assert.equal(context.window.QuickRNOrganizedTopicBatch1?.count,20,'first organized-topic batch must load');
 assert.equal(context.window.QuickRNOrganizedTopicBatch2?.count,20,'second organized-topic batch must load');
 assert.equal(context.window.QuickRNOrganizedTopicBatch3?.count,20,'third organized-topic batch must load');
 assert.equal(context.window.QuickRNOrganizedTopicBatch4?.count,20,'fourth organized-topic batch must load');
 assert.equal(context.window.QuickRNOrganizedTopicBatch5?.count,20,'fifth organized-topic batch must load');
+assert.equal(context.window.QuickRNOrganizedTopicBatch6?.count,20,'sixth organized-topic batch must load');
 assert.equal(context.window.QuickRNOrganizedLinkedCases?.groups,10,'ten new linked case studies must load');
 assert.equal(context.window.QuickRNOrganizedLinkedCases?.items,60,'sixty new linked case questions must load');
 assert.equal(context.window.QuickRNLinkedCaseStudies?.groups,30,'thirty linked case-study groups must load');
@@ -40,4 +41,4 @@ const groups=new Map();bank.filter(q=>q.caseGroupId).forEach(q=>{if(!groups.has(
 assert.equal(groups.size,30,'exactly thirty linked case-study groups must be present');
 for(const [group,items] of groups){assert.equal(items.length,6,group+' must contain six questions');assert.equal(items.map(q=>q.caseQuestionNumber).sort((a,b)=>a-b).join(','),'1,2,3,4,5,6',group+' must have contiguous six-step sequence');}
 assert.equal(schema.validateGroups(bank).length,0,'linked case-study groups must pass sequence validation');
-console.log('PASS: '+bank.length+' active items (110 standalone + 180 linked); 30 complete six-question case studies; all 13 formats represented; IDs, source references, schema validation, and renderer output passed.');
+console.log('PASS: '+bank.length+' active items (130 standalone + 180 linked); 30 complete six-question case studies; all 13 formats represented; IDs, source references, schema validation, and renderer output passed.');
