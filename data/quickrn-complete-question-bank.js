@@ -241,7 +241,7 @@
         "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.",
         "Obtain ordered blood cultures promptly, including central-line cultures when indicated.",
         "Administer a rectal suppository for fever.",
-        "Place fresh flowers in the room to improve mood.",
+        "Use a rectal thermometer to confirm the temperature before notifying the provider.",
         "Delay evaluation until the next scheduled complete blood count."
       ],
       "answerKey": [
@@ -259,11 +259,11 @@
     "rationales": {
       "overall": "Fever with severe neutropenia is an oncologic emergency. Prompt assessment, cultures, and empiric antimicrobial therapy according to protocol are time-sensitive. Avoid rectal procedures and potential sources of infection.",
       "options": {
-        "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.": "Correct. Notify the oncology team immediately and initiate the febrile-neutropenia pathway. is an appropriate response based on the clinical presentation.",
-        "Obtain ordered blood cultures promptly, including central-line cultures when indicated.": "Correct. Obtain ordered blood cultures promptly, including central-line cultures when indicated. is an appropriate response based on the clinical presentation.",
-        "Administer a rectal suppository for fever.": "Incorrect. Administer a rectal suppository for fever. is not the appropriate response in this situation.",
-        "Place fresh flowers in the room to improve mood.": "Incorrect. Place fresh flowers in the room to improve mood. is not the appropriate response in this situation.",
-        "Delay evaluation until the next scheduled complete blood count.": "Incorrect. Delay evaluation until the next scheduled complete blood count. is not the appropriate response in this situation."
+        "Notify the oncology team immediately and initiate the febrile-neutropenia pathway.": "Correct. Fever with an ANC of 300/mm³ is a time-critical emergency requiring immediate assessment and empiric antimicrobial treatment according to protocol.",
+        "Obtain ordered blood cultures promptly, including central-line cultures when indicated.": "Correct. Obtain cultures promptly before antibiotics when this does not delay time-critical antimicrobial therapy.",
+        "Administer a rectal suppository for fever.": "Incorrect. Rectal procedures can injure mucosa and introduce infection in severe neutropenia.",
+        "Use a rectal thermometer to confirm the temperature before notifying the provider.": "Incorrect. Avoid rectal instrumentation in severe neutropenia; the documented oral fever already warrants immediate escalation.",
+        "Delay evaluation until the next scheduled complete blood count.": "Incorrect. Febrile neutropenia requires immediate assessment and treatment, not watchful waiting."
       },
       "clinicalJudgmentTip": "Identify the immediate safety threat, act promptly, and reassess the client's response."
     },
@@ -949,9 +949,9 @@
     },
     "interaction": {
       "type": "Numeric Entry",
-      "stem": "A client with acute kidney injury has a serum potassium of 6.8 mEq/L and peaked T waves. The prescribed emergency treatment is initiated. Enter the potassium level in mEq/L that was reported.",
+      "stem": "A child weighing 18 kg is being treated for diabetic ketoacidosis. The prescription is regular insulin 0.1 unit/kg/hr IV. The prepared infusion contains 1 unit/mL. At what rate should the nurse set the infusion pump in mL/hr? Enter a number rounded to the nearest tenth.",
       "options": [],
-      "answerKey": 6.8,
+      "answerKey": 1.8,
       "scoring": {
         "method": "0/1"
       }
