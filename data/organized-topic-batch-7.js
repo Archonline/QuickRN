@@ -1219,25 +1219,55 @@
     "schemaVersion": 2,
     "category": "Adult Health",
     "topic": "Neutropenic fever and oncologic emergencies",
-    "clientNeeds": "Febrile neutropenia with possible sepsis",
-    "cjmmStep": "Safety and Infection Control",
+    "clientNeeds": "Safety and Infection Control",
+    "cjmmStep": "Prioritize Hypotheses",
     "difficulty": 4,
-    "type": "Prioritize Hypotheses",
+    "type": "Bowtie",
     "question": "A client receiving chemotherapy has fever 38.5°C, ANC 300/mm³, and hypotension. Complete the bowtie by identifying the priority condition, two actions, and two monitoring parameters.",
-    "options": [
-      "Febrile neutropenia with possible sepsis"
-    ],
-    "correctAnswer": "Activate the emergency febrile-neutropenia pathway|Obtain ordered cultures and administer empiric antimicrobials promptly|Delay treatment until cultures are final|Blood pressure and perfusion|Temperature and clinical response",
+    "options": {
+      "conditions": [
+        "Febrile neutropenia with possible sepsis",
+        "Uncomplicated viral infection",
+        "Stable chemotherapy-related fatigue"
+      ],
+      "actions": [
+        "Activate the emergency febrile-neutropenia pathway",
+        "Obtain ordered cultures and administer empiric antimicrobials promptly",
+        "Delay treatment until cultures are final"
+      ],
+      "monitoring": [
+        "Blood pressure and perfusion",
+        "Temperature and clinical response"
+      ]
+    },
+    "correctAnswer": {
+      "condition": "Febrile neutropenia with possible sepsis",
+      "actions": [
+        "Activate the emergency febrile-neutropenia pathway",
+        "Obtain ordered cultures and administer empiric antimicrobials promptly"
+      ],
+      "monitoring": [
+        "Blood pressure and perfusion",
+        "Temperature and clinical response"
+      ]
+    },
     "rationale": "The client's findings and clinical context support the keyed response. Prioritize immediate threats, follow current evidence-based protocols, and reassess for complications.",
     "optionRationales": {
-      "Febrile neutropenia with possible sepsis": "This option should be evaluated against the client's current assessment and safety priorities."
+      "Febrile neutropenia with possible sepsis": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Uncomplicated viral infection": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Stable chemotherapy-related fatigue": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Activate the emergency febrile-neutropenia pathway": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Obtain ordered cultures and administer empiric antimicrobials promptly": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Delay treatment until cultures are final": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Blood pressure and perfusion": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+      "Temperature and clinical response": "This option is assessed against the immediate risk of febrile neutropenia and sepsis."
     },
     "clinicalJudgmentTip": "Connect the clinical cues to the highest-risk complication and take timely, protocol-based action.",
     "sourceReferences": [
       {
         "title": "Public clinical reference for Neutropenic fever and oncologic emergencies",
         "publisher": "Relevant government health agency or professional organization",
-        "url": "Bowtie",
+        "url": "https://www.cancer.gov/about-cancer/treatment/side-effects/infection",
         "accessedAt": "2026-11-12"
       },
       {
@@ -1253,19 +1283,42 @@
     "metadata": {
       "id": "QR-100316",
       "category": "Adult Health",
-      "clientNeeds": "Febrile neutropenia with possible sepsis",
-      "cjmmStep": "Safety and Infection Control",
+      "clientNeeds": "Safety and Infection Control",
+      "cjmmStep": "Prioritize Hypotheses",
       "difficulty": 4
     },
     "interaction": {
-      "type": "Prioritize Hypotheses",
+      "type": "Bowtie",
       "stem": "A client receiving chemotherapy has fever 38.5°C, ANC 300/mm³, and hypotension. Complete the bowtie by identifying the priority condition, two actions, and two monitoring parameters.",
-      "options": [
-        "Febrile neutropenia with possible sepsis"
-      ],
-      "answerKey": "Activate the emergency febrile-neutropenia pathway|Obtain ordered cultures and administer empiric antimicrobials promptly|Delay treatment until cultures are final|Blood pressure and perfusion|Temperature and clinical response",
+      "options": {
+        "conditions": [
+          "Febrile neutropenia with possible sepsis",
+          "Uncomplicated viral infection",
+          "Stable chemotherapy-related fatigue"
+        ],
+        "actions": [
+          "Activate the emergency febrile-neutropenia pathway",
+          "Obtain ordered cultures and administer empiric antimicrobials promptly",
+          "Delay treatment until cultures are final"
+        ],
+        "monitoring": [
+          "Blood pressure and perfusion",
+          "Temperature and clinical response"
+        ]
+      },
+      "answerKey": {
+        "condition": "Febrile neutropenia with possible sepsis",
+        "actions": [
+          "Activate the emergency febrile-neutropenia pathway",
+          "Obtain ordered cultures and administer empiric antimicrobials promptly"
+        ],
+        "monitoring": [
+          "Blood pressure and perfusion",
+          "Temperature and clinical response"
+        ]
+      },
       "scoring": {
-        "method": "0/1"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -1274,9 +1327,43 @@
     "rationales": {
       "overall": "The client's findings and clinical context support the keyed response. Prioritize immediate threats, follow current evidence-based protocols, and reassess for complications.",
       "options": {
-        "Febrile neutropenia with possible sepsis": "This option should be evaluated against the client's current assessment and safety priorities."
+        "Febrile neutropenia with possible sepsis": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Uncomplicated viral infection": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Stable chemotherapy-related fatigue": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Activate the emergency febrile-neutropenia pathway": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Obtain ordered cultures and administer empiric antimicrobials promptly": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Delay treatment until cultures are final": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Blood pressure and perfusion": "This option is assessed against the immediate risk of febrile neutropenia and sepsis.",
+        "Temperature and clinical response": "This option is assessed against the immediate risk of febrile neutropenia and sepsis."
       },
       "clinicalJudgmentTip": "Connect the clinical cues to the highest-risk complication and take timely, protocol-based action."
+    },
+    "bowtieData": {
+      "conditions": [
+        "Febrile neutropenia with possible sepsis",
+        "Uncomplicated viral infection",
+        "Stable chemotherapy-related fatigue"
+      ],
+      "actions": [
+        "Activate the emergency febrile-neutropenia pathway",
+        "Obtain ordered cultures and administer empiric antimicrobials promptly",
+        "Delay treatment until cultures are final"
+      ],
+      "monitoring": [
+        "Blood pressure and perfusion",
+        "Temperature and clinical response"
+      ]
+    },
+    "correctAnswers": {
+      "condition": "Febrile neutropenia with possible sepsis",
+      "actions": [
+        "Activate the emergency febrile-neutropenia pathway",
+        "Obtain ordered cultures and administer empiric antimicrobials promptly"
+      ],
+      "monitoring": [
+        "Blood pressure and perfusion",
+        "Temperature and clinical response"
+      ]
     }
   },
   {
