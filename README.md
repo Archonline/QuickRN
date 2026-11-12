@@ -142,3 +142,7 @@ The schema-v2 validator runs before exam delivery. If the schema is missing or a
 ## Organized NCLEX topic expansion (in progress)
 
 The `feature/500-organized-topic-questions` branch tracks a 500-item expansion based on the 417 topics in the QuickRN learning-library workbook. The current branch contains 60 original standalone questions (IDs `QR-100181`–`QR-100240`) and 10 linked six-question NGN case studies (60 questions, IDs `QR-100621`–`QR-100680`), for 120 new items. The standalone batches and linked cases are loaded in Self-Study, Timed Practice, Predictor, and CAT. Remaining topics and standalone objectives are still being authored; the 500-item target is not yet complete. Automated checks do not constitute clinical educator approval.
+
+## Organized NCLEX topic expansion progress
+
+The active 500-item expansion currently includes 80 original standalone topic questions (IDs `QR-100181`–`QR-100260`) and 10 linked six-question NGN case studies (60 questions, IDs `QR-100621`–`QR-100680`), for 140 new items in total. The standalone items cover the first 80 of 417 learning-library topics. All additions are loaded in Self-Study, Timed Practice, Predictor, and CAT. The remaining 360 planned items are not yet complete. Automated checks do not constitute clinical educator approval.
