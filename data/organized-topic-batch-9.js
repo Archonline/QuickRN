@@ -224,7 +224,7 @@
         "Delayed wound healing"
       ],
       "scoring": {
-        "method": "exact-match"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -456,7 +456,7 @@
         "Obtain appropriate cultures without delaying urgent treatment"
       ],
       "scoring": {
-        "method": "exact-match"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
@@ -616,7 +616,7 @@
         "Encourage the client to use support services such as a quitline or counseling program"
       ],
       "scoring": {
-        "method": "exact-match"
+        "method": "plus_minus"
       }
     },
     "stimulus": {
