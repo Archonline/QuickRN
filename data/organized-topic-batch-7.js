@@ -461,7 +461,7 @@
     },
     "interaction": {
       "type": "Cloze (Drop-down)",
-      "stem": "Complete the statement: For a client with severe thrombocytopenia, avoid {{1}} procedures and use a soft toothbrush to reduce mucosal trauma.",
+      "stem": "Complete the bleeding-precaution instruction.",
       "options": [
         {
           "id": "1",
