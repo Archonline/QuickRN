@@ -1,5 +1,7 @@
 {
-  "project": "QuickRN question-bank expansion",
+  "project": "Historical QuickRN question-bank expansion progress snapshot",
+  "status": "historical_archive_not_current_runtime_inventory",
+  "archiveNotice": "This file is a dated November 4, 2026 snapshot. Its counts, draft filenames, and runtime-loading statements are not current. Do not use it to determine the active question bank; consult README.md and the current exam-page script references.",
   "targetQuestions": 2000,
   "previousCanonicalIds": "Legacy numeric ID range noted by prior tracker; not a verified count.",
   "newDraftBatch": {
