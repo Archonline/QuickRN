@@ -1,11 +1,4 @@
-/* QuickRN complete question bank bundle.
- * Generated from the canonical question-bank and all linked/organized topic batches.
- * Load this file instead of the individual data/*.js bank files.
- * Keep js/quickrn-question-schema-v2.js and js/shared-exam-renderer.js loaded separately.
- * Linked case-study questions remain in their authored six-question sequence.
- */
-
-/* ===== BEGIN data/question-bank.js ===== */
+/* Source module: data/question-bank.js */
 /* QuickRN canonical question bank — generated high-yield batch 2026-11-12.
  * Contains only the 10 newly generated standalone items QR-100111–QR-100120.
  * Linked six-question NGN case studies are loaded from linked-case-studies.js
@@ -974,10 +967,8 @@
  root.QuickRNQuestionBank={version:2,items:bank};
 })(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/question-bank.js ===== */
 
-
-/* ===== BEGIN data/linked-case-studies.js ===== */
+/* Source module: data/linked-case-studies.js */
 /* Ten original, source-grounded six-question NGN case studies.
  * Each case is a single ordered unit: questions 1–6 are never independently shuffled.
  * Automated schema checks do not replace qualified clinical review.
@@ -1190,10 +1181,8 @@
  root.QuickRNLinkedCaseStudies={groups:cases.length,items:built.length,firstId:built[0].id,lastId:built[built.length-1].id};
 })(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/linked-case-studies.js ===== */
 
-
-/* ===== BEGIN data/linked-case-studies-batch-2.js ===== */
+/* Source module: data/linked-case-studies-batch-2.js */
 /* Ten additional original six-question linked NGN case studies (groups 011–020).
  * Questions within each group are sequenced 1–6 and must never be shuffled independently.
  * Structural validation does not replace qualified clinical review.
@@ -1843,10 +1832,10 @@
     ],
     "rationale": "Acute pulmonary embolism after major orthopedic surgery impairs pulmonary perfusion. Hypoxemia and tachycardia are early warning cues; falling blood pressure and persistent tachycardia suggest right-ventricular strain and obstructive shock. Improved hemodynamics and oxygenation after treatment indicate response, but continued monitoring is essential. Appropriate responses: Activate emergency response for worsening hypoxemia or hypotension.; Maintain oxygen and continuous cardiopulmonary monitoring.; Prepare ordered diagnostic studies and prescribed treatment.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Activate emergency response for worsening hypoxemia or hypotension.": "Correct. This supports immediate safety and treatment.",
-      "Maintain oxygen and continuous cardiopulmonary monitoring.": "Correct. This supports immediate safety and treatment.",
-      "Prepare ordered diagnostic studies and prescribed treatment.": "Correct. This supports immediate safety and treatment.",
-      "Massage the affected leg vigorously.": "Incorrect. This is unsafe or delays appropriate care."
+      "Activate emergency response for worsening hypoxemia or hypotension.": "Correct. Worsening oxygenation or hemodynamic instability may indicate a high-risk pulmonary embolism and requires immediate escalation.",
+      "Maintain oxygen and continuous cardiopulmonary monitoring.": "Correct. Oxygen support and continuous monitoring help detect worsening hypoxemia, tachycardia, dysrhythmias, or shock.",
+      "Prepare ordered diagnostic studies and prescribed treatment.": "Correct. Timely preparation supports confirmation and treatment, such as imaging and anticoagulation or reperfusion therapy as prescribed.",
+      "Massage the affected leg vigorously.": "Incorrect. Vigorous leg massage is inappropriate when deep-vein thrombosis is suspected because it may dislodge thrombus; avoid manipulating the affected extremity."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -1905,10 +1894,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Pulmonary embolism.",
       "options": {
-        "Activate emergency response for worsening hypoxemia or hypotension.": "Correct. This supports immediate safety and treatment.",
-        "Maintain oxygen and continuous cardiopulmonary monitoring.": "Correct. This supports immediate safety and treatment.",
-        "Prepare ordered diagnostic studies and prescribed treatment.": "Correct. This supports immediate safety and treatment.",
-        "Massage the affected leg vigorously.": "Incorrect. This is unsafe or delays appropriate care."
+        "Activate emergency response for worsening hypoxemia or hypotension.": "Correct. Worsening oxygenation or hemodynamic instability may indicate a high-risk pulmonary embolism and requires immediate escalation.",
+        "Maintain oxygen and continuous cardiopulmonary monitoring.": "Correct. Oxygen support and continuous monitoring help detect worsening hypoxemia, tachycardia, dysrhythmias, or shock.",
+        "Prepare ordered diagnostic studies and prescribed treatment.": "Correct. Timely preparation supports confirmation and treatment, such as imaging and anticoagulation or reperfusion therapy as prescribed.",
+        "Massage the affected leg vigorously.": "Incorrect. Vigorous leg massage is inappropriate when deep-vein thrombosis is suspected because it may dislodge thrombus; avoid manipulating the affected extremity."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -2725,10 +2714,10 @@
     ],
     "rationale": "New fever, cough, chest pain, hypoxemia, and a pulmonary infiltrate in sickle cell disease indicate acute chest syndrome, a life-threatening pulmonary complication. Improved oxygenation after treatment indicates response, not resolution of the need for monitoring. Appropriate responses: Apply oxygen as prescribed and reassess saturation.; Notify the team and prepare ordered chest evaluation and treatment.; Provide prescribed pain management while monitoring respiration.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Apply oxygen as prescribed and reassess saturation.": "Correct. This supports immediate safety and treatment.",
-      "Notify the team and prepare ordered chest evaluation and treatment.": "Correct. This supports immediate safety and treatment.",
-      "Provide prescribed pain management while monitoring respiration.": "Correct. This supports immediate safety and treatment.",
-      "Delay escalation until analgesia wears off.": "Incorrect. This is unsafe or delays appropriate care."
+      "Apply oxygen as prescribed and reassess saturation.": "Correct. Acute chest syndrome can impair gas exchange; prescribed oxygen and reassessment address hypoxemia and identify deterioration.",
+      "Notify the team and prepare ordered chest evaluation and treatment.": "Correct. Prompt evaluation and treatment are needed because acute chest syndrome can progress to respiratory failure.",
+      "Provide prescribed pain management while monitoring respiration.": "Correct. Adequate analgesia supports ventilation and coughing; monitor sedation and respiratory status, especially with opioids.",
+      "Delay escalation until analgesia wears off.": "Incorrect. New respiratory symptoms in sickle cell disease may signal acute chest syndrome; delaying evaluation risks rapid deterioration."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -2787,10 +2776,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Sickle cell disease and acute chest syndrome.",
       "options": {
-        "Apply oxygen as prescribed and reassess saturation.": "Correct. This supports immediate safety and treatment.",
-        "Notify the team and prepare ordered chest evaluation and treatment.": "Correct. This supports immediate safety and treatment.",
-        "Provide prescribed pain management while monitoring respiration.": "Correct. This supports immediate safety and treatment.",
-        "Delay escalation until analgesia wears off.": "Incorrect. This is unsafe or delays appropriate care."
+        "Apply oxygen as prescribed and reassess saturation.": "Correct. Acute chest syndrome can impair gas exchange; prescribed oxygen and reassessment address hypoxemia and identify deterioration.",
+        "Notify the team and prepare ordered chest evaluation and treatment.": "Correct. Prompt evaluation and treatment are needed because acute chest syndrome can progress to respiratory failure.",
+        "Provide prescribed pain management while monitoring respiration.": "Correct. Adequate analgesia supports ventilation and coughing; monitor sedation and respiratory status, especially with opioids.",
+        "Delay escalation until analgesia wears off.": "Incorrect. New respiratory symptoms in sickle cell disease may signal acute chest syndrome; delaying evaluation risks rapid deterioration."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -3607,10 +3596,10 @@
     ],
     "rationale": "Melena and dizziness suggest GI blood loss. Large-volume hematemesis with hypotension and tachycardia indicates hemorrhagic shock, likely from variceal bleeding. Improved hemodynamics after resuscitation are reassuring, but recurrent bleeding and perfusion must be monitored. Appropriate responses: Keep NPO and prepare urgent endoscopic intervention.; Maintain IV access and administer prescribed resuscitation.; Monitor for recurrent hematemesis and worsening shock.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Keep NPO and prepare urgent endoscopic intervention.": "Correct. This supports immediate safety and treatment.",
-      "Maintain IV access and administer prescribed resuscitation.": "Correct. This supports immediate safety and treatment.",
-      "Monitor for recurrent hematemesis and worsening shock.": "Correct. This supports immediate safety and treatment.",
-      "Encourage independent ambulation.": "Incorrect. This is unsafe or delays appropriate care."
+      "Keep NPO and prepare urgent endoscopic intervention.": "Correct. Suspected variceal hemorrhage requires urgent endoscopic assessment and treatment; NPO status reduces aspiration risk during the procedure.",
+      "Maintain IV access and administer prescribed resuscitation.": "Correct. Large-bore IV access and prescribed volume/blood-product resuscitation support circulation during active hemorrhage.",
+      "Monitor for recurrent hematemesis and worsening shock.": "Correct. Recurrent bleeding, tachycardia, hypotension, and altered mentation can indicate ongoing blood loss and require rapid escalation.",
+      "Encourage independent ambulation.": "Incorrect. Active or suspected major GI bleeding can cause hemodynamic instability; ambulation increases fall risk and does not address hemorrhage."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -3669,10 +3658,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Cirrhosis and acute variceal bleeding.",
       "options": {
-        "Keep NPO and prepare urgent endoscopic intervention.": "Correct. This supports immediate safety and treatment.",
-        "Maintain IV access and administer prescribed resuscitation.": "Correct. This supports immediate safety and treatment.",
-        "Monitor for recurrent hematemesis and worsening shock.": "Correct. This supports immediate safety and treatment.",
-        "Encourage independent ambulation.": "Incorrect. This is unsafe or delays appropriate care."
+        "Keep NPO and prepare urgent endoscopic intervention.": "Correct. Suspected variceal hemorrhage requires urgent endoscopic assessment and treatment; NPO status reduces aspiration risk during the procedure.",
+        "Maintain IV access and administer prescribed resuscitation.": "Correct. Large-bore IV access and prescribed volume/blood-product resuscitation support circulation during active hemorrhage.",
+        "Monitor for recurrent hematemesis and worsening shock.": "Correct. Recurrent bleeding, tachycardia, hypotension, and altered mentation can indicate ongoing blood loss and require rapid escalation.",
+        "Encourage independent ambulation.": "Incorrect. Active or suspected major GI bleeding can cause hemodynamic instability; ambulation increases fall risk and does not address hemorrhage."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -4489,10 +4478,10 @@
     ],
     "rationale": "Extreme hyperthermia, severe tachycardia, atrial fibrillation, and altered mental status in Graves disease indicate thyroid storm. Excess thyroid hormone drives hypermetabolism and cardiovascular instability; urgent multimodal therapy and treatment of the trigger are required. Appropriate responses: Initiate continuous cardiac monitoring and urgent escalation.; Implement prescribed cooling and fluid management.; Administer medications in prescribed sequence and monitor response.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Initiate continuous cardiac monitoring and urgent escalation.": "Correct. This supports immediate safety and treatment.",
-      "Implement prescribed cooling and fluid management.": "Correct. This supports immediate safety and treatment.",
-      "Administer medications in prescribed sequence and monitor response.": "Correct. This supports immediate safety and treatment.",
-      "Wait for thyroid hormone results before treatment.": "Incorrect. This is unsafe or delays appropriate care."
+      "Initiate continuous cardiac monitoring and urgent escalation.": "Correct. Thyroid storm can cause severe tachycardia, dysrhythmias, and cardiovascular collapse; continuous monitoring and urgent escalation are essential.",
+      "Implement prescribed cooling and fluid management.": "Correct. Hyperthermia and fluid losses require controlled cooling and replacement while monitoring for heart failure and other complications.",
+      "Administer medications in prescribed sequence and monitor response.": "Correct. Antithyroid medication, iodine, beta blockade, and glucocorticoids may be ordered in a specific sequence; follow the prescribed protocol and monitor effects.",
+      "Wait for thyroid hormone results before treatment.": "Incorrect. Thyroid storm is a clinical emergency; treatment should not be delayed for confirmatory laboratory results when the presentation strongly supports the diagnosis."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -4551,10 +4540,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Thyroid storm.",
       "options": {
-        "Initiate continuous cardiac monitoring and urgent escalation.": "Correct. This supports immediate safety and treatment.",
-        "Implement prescribed cooling and fluid management.": "Correct. This supports immediate safety and treatment.",
-        "Administer medications in prescribed sequence and monitor response.": "Correct. This supports immediate safety and treatment.",
-        "Wait for thyroid hormone results before treatment.": "Incorrect. This is unsafe or delays appropriate care."
+        "Initiate continuous cardiac monitoring and urgent escalation.": "Correct. Thyroid storm can cause severe tachycardia, dysrhythmias, and cardiovascular collapse; continuous monitoring and urgent escalation are essential.",
+        "Implement prescribed cooling and fluid management.": "Correct. Hyperthermia and fluid losses require controlled cooling and replacement while monitoring for heart failure and other complications.",
+        "Administer medications in prescribed sequence and monitor response.": "Correct. Antithyroid medication, iodine, beta blockade, and glucocorticoids may be ordered in a specific sequence; follow the prescribed protocol and monitor effects.",
+        "Wait for thyroid hormone results before treatment.": "Incorrect. Thyroid storm is a clinical emergency; treatment should not be delayed for confirmatory laboratory results when the presentation strongly supports the diagnosis."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -5371,10 +5360,10 @@
     ],
     "rationale": "Dysphagia, weak cough, pooled secretions, and declining forced vital capacity indicate bulbar and respiratory muscle weakness with impending ventilatory failure in myasthenia gravis. Improved cough and respiratory mechanics indicate response, but airway protection still requires close observation. Appropriate responses: Keep NPO and institute aspiration precautions pending evaluation.; Notify critical care and prepare airway equipment.; Trend respiratory mechanics and ability to clear secretions.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Keep NPO and institute aspiration precautions pending evaluation.": "Correct. This supports immediate safety and treatment.",
-      "Notify critical care and prepare airway equipment.": "Correct. This supports immediate safety and treatment.",
-      "Trend respiratory mechanics and ability to clear secretions.": "Correct. This supports immediate safety and treatment.",
-      "Give oral fluids despite unsafe swallowing.": "Incorrect. This is unsafe or delays appropriate care."
+      "Keep NPO and institute aspiration precautions pending evaluation.": "Correct. Bulbar weakness and dysphagia in myasthenic crisis increase aspiration risk; withhold oral intake until swallowing safety is assessed.",
+      "Notify critical care and prepare airway equipment.": "Correct. Respiratory muscle weakness can progress to ventilatory failure; early critical-care involvement and airway readiness are priorities.",
+      "Trend respiratory mechanics and ability to clear secretions.": "Correct. Serial respiratory measurements and cough/ secretion assessment help identify declining ventilatory capacity before overt failure.",
+      "Give oral fluids despite unsafe swallowing.": "Incorrect. Oral fluids can enter the airway when bulbar function is impaired, causing aspiration and respiratory complications."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -5433,10 +5422,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Myasthenia gravis and myasthenic crisis.",
       "options": {
-        "Keep NPO and institute aspiration precautions pending evaluation.": "Correct. This supports immediate safety and treatment.",
-        "Notify critical care and prepare airway equipment.": "Correct. This supports immediate safety and treatment.",
-        "Trend respiratory mechanics and ability to clear secretions.": "Correct. This supports immediate safety and treatment.",
-        "Give oral fluids despite unsafe swallowing.": "Incorrect. This is unsafe or delays appropriate care."
+        "Keep NPO and institute aspiration precautions pending evaluation.": "Correct. Bulbar weakness and dysphagia in myasthenic crisis increase aspiration risk; withhold oral intake until swallowing safety is assessed.",
+        "Notify critical care and prepare airway equipment.": "Correct. Respiratory muscle weakness can progress to ventilatory failure; early critical-care involvement and airway readiness are priorities.",
+        "Trend respiratory mechanics and ability to clear secretions.": "Correct. Serial respiratory measurements and cough/ secretion assessment help identify declining ventilatory capacity before overt failure.",
+        "Give oral fluids despite unsafe swallowing.": "Incorrect. Oral fluids can enter the airway when bulbar function is impaired, causing aspiration and respiratory complications."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -6253,10 +6242,10 @@
     ],
     "rationale": "Vomiting and diarrhea cause fluid loss. Delayed capillary refill, tachycardia, oliguria, and lethargy indicate worsening intravascular depletion and poor tissue perfusion; urgent isotonic fluid resuscitation and reassessment are required. Appropriate responses: Initiate prescribed isotonic fluid resuscitation and reassess.; Monitor urine output and electrolytes.; Start oral rehydration when alert and able to tolerate it.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Initiate prescribed isotonic fluid resuscitation and reassess.": "Correct. This supports immediate safety and treatment.",
-      "Monitor urine output and electrolytes.": "Correct. This supports immediate safety and treatment.",
-      "Start oral rehydration when alert and able to tolerate it.": "Correct. This supports immediate safety and treatment.",
-      "Give antidiarrheal medication without an order.": "Incorrect. This is unsafe or delays appropriate care."
+      "Initiate prescribed isotonic fluid resuscitation and reassess.": "Correct. Severe pediatric dehydration with impaired perfusion requires prompt isotonic fluid replacement and frequent reassessment of circulation and response.",
+      "Monitor urine output and electrolytes.": "Correct. Urine output and electrolyte trends help evaluate renal perfusion, fluid deficit, and complications during rehydration.",
+      "Start oral rehydration when alert and able to tolerate it.": "Correct. Oral rehydration is appropriate when the child is alert, perfusion is restored or stable, and there is no contraindication to oral intake.",
+      "Give antidiarrheal medication without an order.": "Incorrect. Unprescribed antidiarrheals may be unsafe in children and do not correct the underlying fluid and electrolyte deficit."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -6315,10 +6304,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Pediatric dehydration and fluid resuscitation.",
       "options": {
-        "Initiate prescribed isotonic fluid resuscitation and reassess.": "Correct. This supports immediate safety and treatment.",
-        "Monitor urine output and electrolytes.": "Correct. This supports immediate safety and treatment.",
-        "Start oral rehydration when alert and able to tolerate it.": "Correct. This supports immediate safety and treatment.",
-        "Give antidiarrheal medication without an order.": "Incorrect. This is unsafe or delays appropriate care."
+        "Initiate prescribed isotonic fluid resuscitation and reassess.": "Correct. Severe pediatric dehydration with impaired perfusion requires prompt isotonic fluid replacement and frequent reassessment of circulation and response.",
+        "Monitor urine output and electrolytes.": "Correct. Urine output and electrolyte trends help evaluate renal perfusion, fluid deficit, and complications during rehydration.",
+        "Start oral rehydration when alert and able to tolerate it.": "Correct. Oral rehydration is appropriate when the child is alert, perfusion is restored or stable, and there is no contraindication to oral intake.",
+        "Give antidiarrheal medication without an order.": "Incorrect. Unprescribed antidiarrheals may be unsafe in children and do not correct the underlying fluid and electrolyte deficit."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -7135,10 +7124,10 @@
     ],
     "rationale": "Infants of mothers with diabetes are at risk for neonatal hypoglycemia because fetal hyperinsulinemia persists after placental glucose delivery stops. Jitteriness, poor feeding, and glucose 28 mg/dL indicate symptomatic hypoglycemia requiring immediate protocol-based treatment and repeat checks. Appropriate responses: Notify neonatal clinician and implement protocol.; Treat promptly according to symptoms and protocol.; Recheck glucose and document response.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Notify neonatal clinician and implement protocol.": "Correct. This supports immediate safety and treatment.",
-      "Treat promptly according to symptoms and protocol.": "Correct. This supports immediate safety and treatment.",
-      "Recheck glucose and document response.": "Correct. This supports immediate safety and treatment.",
-      "Discharge after one normal reading.": "Incorrect. This is unsafe or delays appropriate care."
+      "Notify neonatal clinician and implement protocol.": "Correct. Neonatal hypoglycemia can cause neurologic injury; prompt notification and protocol-based management are required.",
+      "Treat promptly according to symptoms and protocol.": "Correct. Treatment depends on the glucose level, symptoms, gestational age, and local neonatal protocol; symptomatic infants need urgent treatment.",
+      "Recheck glucose and document response.": "Correct. Repeat glucose measurement confirms response and identifies recurrent hypoglycemia before discharge decisions.",
+      "Discharge after one normal reading.": "Incorrect. A single normal value does not establish sustained glucose stability; serial measurements and feeding/clinical assessment are needed per protocol."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -7197,10 +7186,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Neonatal hypoglycemia.",
       "options": {
-        "Notify neonatal clinician and implement protocol.": "Correct. This supports immediate safety and treatment.",
-        "Treat promptly according to symptoms and protocol.": "Correct. This supports immediate safety and treatment.",
-        "Recheck glucose and document response.": "Correct. This supports immediate safety and treatment.",
-        "Discharge after one normal reading.": "Incorrect. This is unsafe or delays appropriate care."
+        "Notify neonatal clinician and implement protocol.": "Correct. Neonatal hypoglycemia can cause neurologic injury; prompt notification and protocol-based management are required.",
+        "Treat promptly according to symptoms and protocol.": "Correct. Treatment depends on the glucose level, symptoms, gestational age, and local neonatal protocol; symptomatic infants need urgent treatment.",
+        "Recheck glucose and document response.": "Correct. Repeat glucose measurement confirms response and identifies recurrent hypoglycemia before discharge decisions.",
+        "Discharge after one normal reading.": "Incorrect. A single normal value does not establish sustained glucose stability; serial measurements and feeding/clinical assessment are needed per protocol."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -8017,10 +8006,10 @@
     ],
     "rationale": "Unilateral pelvic pain and spotting in early pregnancy require evaluation for ectopic pregnancy. Shoulder-tip pain, pallor, near-syncope, and hypotension suggest rupture with intraperitoneal bleeding. Surgery and resuscitation may restore stability, but postoperative perfusion and bleeding require surveillance. Appropriate responses: Activate emergency obstetric and surgical response.; Maintain NPO and establish IV access.; Prepare urgent operative management and blood products.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Activate emergency obstetric and surgical response.": "Correct. This supports immediate safety and treatment.",
-      "Maintain NPO and establish IV access.": "Correct. This supports immediate safety and treatment.",
-      "Prepare urgent operative management and blood products.": "Correct. This supports immediate safety and treatment.",
-      "Delay escalation because vaginal bleeding is scant.": "Incorrect. This is unsafe or delays appropriate care."
+      "Activate emergency obstetric and surgical response.": "Correct. Suspected ruptured ectopic pregnancy with instability is life-threatening and requires immediate emergency escalation.",
+      "Maintain NPO and establish IV access.": "Correct. NPO status prepares for urgent intervention, while IV access supports resuscitation, medication, and blood-product administration.",
+      "Prepare urgent operative management and blood products.": "Correct. Hemorrhage from a ruptured ectopic pregnancy may require surgery and transfusion; prepare without delaying escalation.",
+      "Delay escalation because vaginal bleeding is scant.": "Incorrect. In ectopic pregnancy, substantial intraperitoneal hemorrhage can occur despite scant vaginal bleeding; assess for shock and escalate immediately."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -8079,10 +8068,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Ectopic pregnancy.",
       "options": {
-        "Activate emergency obstetric and surgical response.": "Correct. This supports immediate safety and treatment.",
-        "Maintain NPO and establish IV access.": "Correct. This supports immediate safety and treatment.",
-        "Prepare urgent operative management and blood products.": "Correct. This supports immediate safety and treatment.",
-        "Delay escalation because vaginal bleeding is scant.": "Incorrect. This is unsafe or delays appropriate care."
+        "Activate emergency obstetric and surgical response.": "Correct. Suspected ruptured ectopic pregnancy with instability is life-threatening and requires immediate emergency escalation.",
+        "Maintain NPO and establish IV access.": "Correct. NPO status prepares for urgent intervention, while IV access supports resuscitation, medication, and blood-product administration.",
+        "Prepare urgent operative management and blood products.": "Correct. Hemorrhage from a ruptured ectopic pregnancy may require surgery and transfusion; prepare without delaying escalation.",
+        "Delay escalation because vaginal bleeding is scant.": "Incorrect. In ectopic pregnancy, substantial intraperitoneal hemorrhage can occur despite scant vaginal bleeding; assess for shock and escalate immediately."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -8899,10 +8888,10 @@
     ],
     "rationale": "Postpartum fever, uterine tenderness, and foul lochia suggest endometritis. Worsening fever, tachycardia, hypotension, and elevated lactate suggest progression to sepsis with impaired perfusion. Improvement in hemodynamics and urine output indicates response to treatment. Appropriate responses: Notify obstetric team and activate sepsis pathway if indicated.; Obtain ordered cultures and lactate promptly.; Administer prescribed IV antibiotics and fluids.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Notify obstetric team and activate sepsis pathway if indicated.": "Correct. This supports immediate safety and treatment.",
-      "Obtain ordered cultures and lactate promptly.": "Correct. This supports immediate safety and treatment.",
-      "Administer prescribed IV antibiotics and fluids.": "Correct. This supports immediate safety and treatment.",
-      "Discharge because postpartum fever is expected.": "Incorrect. This is unsafe or delays appropriate care."
+      "Notify obstetric team and activate sepsis pathway if indicated.": "Correct. Postpartum fever with uterine tenderness or systemic deterioration may indicate endometritis and sepsis, requiring prompt obstetric review and escalation.",
+      "Obtain ordered cultures and lactate promptly.": "Correct. Timely cultures and lactate help evaluate infection and perfusion; obtain them promptly without delaying antibiotics in an unstable client.",
+      "Administer prescribed IV antibiotics and fluids.": "Correct. Prompt broad-spectrum IV antibiotics and appropriate fluid resuscitation are central to treating postpartum sepsis.",
+      "Discharge because postpartum fever is expected.": "Incorrect. Fever is not an expected finding to dismiss in a postpartum client; it may indicate uterine infection or sepsis and requires assessment."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -8961,10 +8950,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Postpartum endometritis and sepsis.",
       "options": {
-        "Notify obstetric team and activate sepsis pathway if indicated.": "Correct. This supports immediate safety and treatment.",
-        "Obtain ordered cultures and lactate promptly.": "Correct. This supports immediate safety and treatment.",
-        "Administer prescribed IV antibiotics and fluids.": "Correct. This supports immediate safety and treatment.",
-        "Discharge because postpartum fever is expected.": "Incorrect. This is unsafe or delays appropriate care."
+        "Notify obstetric team and activate sepsis pathway if indicated.": "Correct. Postpartum fever with uterine tenderness or systemic deterioration may indicate endometritis and sepsis, requiring prompt obstetric review and escalation.",
+        "Obtain ordered cultures and lactate promptly.": "Correct. Timely cultures and lactate help evaluate infection and perfusion; obtain them promptly without delaying antibiotics in an unstable client.",
+        "Administer prescribed IV antibiotics and fluids.": "Correct. Prompt broad-spectrum IV antibiotics and appropriate fluid resuscitation are central to treating postpartum sepsis.",
+        "Discharge because postpartum fever is expected.": "Incorrect. Fever is not an expected finding to dismiss in a postpartum client; it may indicate uterine infection or sepsis and requires assessment."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -9781,10 +9770,10 @@
     ],
     "rationale": "Suicide risk must be assessed directly. Current suicidal thoughts with a specific plan and access to means indicate an acute safety emergency requiring a protected setting, observation, and urgent behavioral-health evaluation. Safety planning does not eliminate risk or replace reassessment. Appropriate responses: Ensure required observation level and immediate safety.; Secure hazards according to facility protocol and assessed risk.; Notify behavioral health team and document direct assessment.. These address the immediate threat without delaying care.",
     "optionRationales": {
-      "Ensure required observation level and immediate safety.": "Correct. This supports immediate safety and treatment.",
-      "Secure hazards according to facility protocol and assessed risk.": "Correct. This supports immediate safety and treatment.",
-      "Notify behavioral health team and document direct assessment.": "Correct. This supports immediate safety and treatment.",
-      "Dismiss statement as attention-seeking.": "Incorrect. This is unsafe or delays appropriate care."
+      "Ensure required observation level and immediate safety.": "Correct. A direct suicidal statement requires immediate risk assessment and observation matched to the assessed risk and facility policy.",
+      "Secure hazards according to facility protocol and assessed risk.": "Correct. Removing or securing potential means of self-harm reduces access to hazards while maintaining a therapeutic, least-restrictive approach.",
+      "Notify behavioral health team and document direct assessment.": "Correct. Prompt team communication and clear documentation support coordinated safety planning and ongoing reassessment.",
+      "Dismiss statement as attention-seeking.": "Incorrect. Suicidal statements must be taken seriously and assessed directly; dismissing them can miss imminent risk and delay protective intervention."
     },
     "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess.",
     "sourceReferences": [
@@ -9843,10 +9832,10 @@
     "rationales": {
       "overall": "This item assesses take action in the context of Suicide risk and therapeutic safety.",
       "options": {
-        "Ensure required observation level and immediate safety.": "Correct. This supports immediate safety and treatment.",
-        "Secure hazards according to facility protocol and assessed risk.": "Correct. This supports immediate safety and treatment.",
-        "Notify behavioral health team and document direct assessment.": "Correct. This supports immediate safety and treatment.",
-        "Dismiss statement as attention-seeking.": "Incorrect. This is unsafe or delays appropriate care."
+        "Ensure required observation level and immediate safety.": "Correct. A direct suicidal statement requires immediate risk assessment and observation matched to the assessed risk and facility policy.",
+        "Secure hazards according to facility protocol and assessed risk.": "Correct. Removing or securing potential means of self-harm reduces access to hazards while maintaining a therapeutic, least-restrictive approach.",
+        "Notify behavioral health team and document direct assessment.": "Correct. Prompt team communication and clear documentation support coordinated safety planning and ongoing reassessment.",
+        "Dismiss statement as attention-seeking.": "Incorrect. Suicidal statements must be taken seriously and assessed directly; dismissing them can miss imminent risk and delay protective intervention."
       },
       "clinicalJudgmentTip": "Carry out time-sensitive interventions, communicate deterioration, and reassess."
     },
@@ -10024,16 +10013,14 @@
       ]
     }
   }
-];
+]
 
  bank.push(...cases);
  root.QuickRNLinkedCaseStudies={groups:20,items:120,firstId:'QR-100042',lastId:'QR-100180'};
 })(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/linked-case-studies-batch-2.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-linked-cases.js ===== */
+/* Source module: data/organized-topic-linked-cases.js */
 /* Ten complete six-question linked NGN case studies (groups 021–030).
  * Within each group the CJMM sequence is fixed; only whole case groups may be shuffled.
  * Automated validation is structural, not clinical certification.
@@ -19296,10 +19283,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedLinkedCases={groups:10,items:items.length,firstId:items[0].id,lastId:items[items.length-1].id};root.QuickRNLinkedCaseStudies={groups:30,items:180,firstId:'QR-100042',lastId:'QR-100680'};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-linked-cases.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-1.js ===== */
+/* Source module: data/organized-topic-batch-1.js */
 /* Organized NCLEX topic batch 1: 20 original pediatric nursing items.
  * Source-grounded educational practice content; automated checks are not clinical certification.
  */
@@ -20846,10 +20831,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch1={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-1.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-2.js ===== */
+/* Source module: data/organized-topic-batch-2.js */
 /* Organized NCLEX topic batch 2: 20 original pediatric nursing items.
  * Source-grounded educational practice content; automated checks are not clinical certification.
  */
@@ -22396,10 +22379,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch2={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-2.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-3.js ===== */
+/* Source module: data/organized-topic-batch-3.js */
 /* Organized NCLEX topic batch 3: 20 original pediatric and adult-health items.
  * Includes single-choice and multiple-response formats. Automated checks are not clinical certification.
  */
@@ -23982,10 +23963,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch3={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-3.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-4.js ===== */
+/* Source module: data/organized-topic-batch-4.js */
 /* Organized NCLEX topic batch 4: 20 original adult-health questions.
  * Includes multiple-response, matrix-single, extended multiple-response, and numeric-entry items.
  * Automated checks do not certify clinical accuracy.
@@ -25638,10 +25617,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch4={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-4.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-5.js ===== */
+/* Source module: data/organized-topic-batch-5.js */
 /* Organized NCLEX topic batch 5: 20 original adult-health questions.
  * Includes Select N, Cloze, Bowtie, multiple-response, extended multiple-response, and numeric entry.
  * Automated checks do not certify clinical accuracy.
@@ -27335,10 +27312,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch5={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-5.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-6.js ===== */
+/* Source module: data/organized-topic-batch-6.js */
 /* Organized NCLEX topic batch 6: 20 original adult-health questions.
  * Includes matrix-multiple, extended multiple-response, numeric-entry, dropdown-rationale, Select N, and single-choice items.
  * Automated checks do not certify clinical accuracy.
@@ -29014,10 +28989,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch6={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-6.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-7.js ===== */
+/* Source module: data/organized-topic-batch-7.js */
 /* Organized NCLEX topic batch 7: 20 original adult-health/oncology questions.
  * Includes multiple-response, cloze, bowtie, and single-choice items.
  * Automated checks do not certify clinical accuracy.
@@ -30696,10 +30669,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch7={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-7.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-8.js ===== */
+/* Source module: data/organized-topic-batch-8.js */
 /* Organized NCLEX topic batch 8: 8 original, source-referenced questions.
  * Automated structural checks do not establish clinical approval.
  */
@@ -31578,10 +31549,8 @@
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch8={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
 
-/* ===== END data/organized-topic-batch-8.js ===== */
 
-
-/* ===== BEGIN data/organized-topic-batch-9.js ===== */
+/* Source module: data/organized-topic-batch-9.js */
 /* Organized NCLEX topic batch 9: 8 original, source-referenced questions.
  * Topics: cor pulmonale, adrenal crisis, Cushing syndrome, cord prolapse,
  * VEAL CHOP, diphtheria, pertussis, and smoking cessation.
@@ -32213,5 +32182,3 @@
     }
   }
 ];for(const q of items){if(ids.has(q.id))throw new Error('Duplicate question ID '+q.id);ids.add(q.id);}bank.push(...items);root.QuickRNOrganizedTopicBatch9={count:items.length,firstId:items[0].id,lastId:items[items.length-1].id};})(typeof window!=='undefined'?window:globalThis);
-
-/* ===== END data/organized-topic-batch-9.js ===== */
