@@ -8829,7 +8829,6 @@
     }
   }
 ]
-];
 
  bank.push(...cases);
  root.QuickRNLinkedCaseStudies={groups:20,items:120,firstId:'QR-100042',lastId:'QR-100180'};
